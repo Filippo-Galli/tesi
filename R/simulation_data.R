@@ -36,4 +36,5 @@ ggplot(plot_data, aes(x = x, y = y, color = cluster)) +
 
 # Load the C++ code
 sourceCpp("src/launcher.cpp")
-mcmc(dist_matrix)
+param <- new(Params)
+mcmc(dist_matrix, param, first_allocation = "sequential")
