@@ -28,15 +28,28 @@ void mcmc (const Eigen::MatrixXd& distances, const Params& param, const std::str
     Data data(distances, first_allocation);
     Likelihood likelihood(data, param);
 
-    data.set_allocation(2, 5);
-    data.set_allocation(3, 2);
+    // test likelihood
+    double lk = likelihood.cluster_loglikelihood(0);
+    std::cout << "Likelihood cluster 0: " << lk << std::endl;
 
-    auto temp = data.get_cluster_assignments(2);
+    data.set_allocation(5, 1);
+    data.set_allocation(4, 1);
 
-    // print the assignments for cluster 5
-    Rcpp::Rcout << "Assignments for cluster 2: ";
-    for (int i = 0; i < temp.size(); ++i) 
-        Rcpp::Rcout << temp(i) << " ";
+    lk = likelihood.cluster_loglikelihood(0);
+    std::cout << "Likelihood cluster 0: " << lk << std::endl;
+
+    data.set_allocation(0, 0);
+    data.set_allocation(1, 0);
+    data.set_allocation(2, 1);
+    data.set_allocation(3, 1);
+    data.set_allocation(4, 2);
+    data.set_allocation(5, 2);
+
+
+    lk = likelihood.cluster_loglikelihood(0);
+    std::cout << "Likelihood cluster 0: " << lk << std::endl;
+    
+
 
 
 }

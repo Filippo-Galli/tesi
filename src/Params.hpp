@@ -19,8 +19,8 @@ struct Params {
     double sigma; // second parameter of the NGGP
     double tau; // third parameter of the NGGP
 
-    Params(double delta1 = 1.0, double alpha = 1.0, double beta = 1.0,
-           double delta2 = 1.0, double gamma = 1.0, double zeta = 1.0,
+    Params(double delta1 = 0.5, double alpha = 2, double beta = 2,
+           double delta2 = 2, double gamma = 2, double zeta = 2,
            int BI = 1000, int NI = 10000, double a = 1.0, double sigma = 1.0, double tau = 1.0)
         : delta1(delta1), alpha(alpha), beta(beta),
           delta2(delta2), gamma(gamma), zeta(zeta),

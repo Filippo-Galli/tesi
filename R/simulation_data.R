@@ -27,14 +27,14 @@ plot_data <- data.frame(
 )
 
 # Plot the clusters
-ggplot(plot_data, aes(x = x, y = y, color = cluster)) +
-  geom_point(size = 3) +
-  labs(title = "Three Gaussian Clusters",
-       x = "X coordinate",
-       y = "Y coordinate") +
-  theme_minimal()
+# ggplot(plot_data, aes(x = x, y = y, color = cluster)) +
+#   geom_point(size = 3) +
+#   labs(title = "Three Gaussian Clusters",
+#        x = "X coordinate",
+#        y = "Y coordinate") +
+#   theme_minimal()
 
 # Load the C++ code
 sourceCpp("src/launcher.cpp")
 param <- new(Params)
-mcmc(dist_matrix, param, first_allocation = "sequential")
+mcmc(dist_matrix, param, first_allocation = "all-in-one")

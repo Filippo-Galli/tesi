@@ -45,6 +45,15 @@ void Data::update_cluster_sizes() {
     }
 }
 
+void Data::update_cluster_sizes(unsigned cluster){
+    double count = 0;
+    for (int i = 0; i < n; ++i) {
+        if(allocations(i) == cluster)
+            count++;
+    }
+    cluster_sizes(cluster) = count;
+}
+
 double Data::get_distance(int i, int j) const {
     /**
     * @brief Gets the distance between two points.
@@ -73,7 +82,7 @@ Eigen::VectorXi Data::get_cluster_assignments(int cluster) const {
         throw std::out_of_range("Cluster index out of bounds");
     }
 
-    Eigen::VectorXi assignments = Eigen::VectorXi::Zero(get_cluster_size(cluster));
+    Eigen::VectorXi assignments = Eigen::VectorXi::Zero(cluster_sizes(cluster));
     int count = 0;
 
     for (int i = 0; i < n; ++i) {

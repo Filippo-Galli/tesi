@@ -15,8 +15,8 @@ class Likelihood {
         double total_likelihood() const;
 
         // Calculate the likelihood of a specific cluster
-        double cluster_likelihood(int cluster_index) const;
+        double cluster_loglikelihood(int cluster_index) const;
 
         // Calculate the likelihood of a specific point
-        double point_likelihood(int point_index) const;
+        double point_loglikelihood(int point_index) const;
 };
