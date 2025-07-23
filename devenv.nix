@@ -24,6 +24,8 @@
     pkgs.rPackages.renv            # Package management
  
     pkgs.rPackages.ggplot2         # Data visualization
+    pkgs.rPackages.dplyr           # Data manipulation
+    pkgs.rPackages.tidyr           # Data tidying
     
     # C++ development tools
     pkgs.gcc

@@ -3,6 +3,8 @@
 #include "Data.hpp"
 #include "Params.hpp"
 #include "Likelihood.hpp"
+#include "DP_neal2.hpp"
+#include "Rcpp/vector/instantiation.h"
 
 // Expose Params class to R using Rcpp modules
 RCPP_MODULE(params_module) {
@@ -24,32 +26,33 @@ RCPP_MODULE(params_module) {
 }
 
 // [[Rcpp::export]]
-void mcmc (const Eigen::MatrixXd& distances, const Params& param, const std::string& first_allocation = "all-in-one") {
+Rcpp::List mcmc (const Eigen::MatrixXd& distances, Params& param, const std::string& first_allocation = "all-in-one") {
     Data data(distances, first_allocation);
     Likelihood likelihood(data, param);
+    DPNeal2 sampler(data, param, likelihood);
 
-    // test likelihood
-    double lk = likelihood.cluster_loglikelihood(0);
-    std::cout << "Likelihood cluster 0: " << lk << std::endl;
+    Rcpp::List results = Rcpp::List::create(
+        Rcpp::Named("allocations") = Rcpp::List(param.NI),
+        Rcpp::Named("K") = Rcpp::List(param.NI)
+    );
 
-    data.set_allocation(5, 1);
-    data.set_allocation(4, 1);
+    for (int i = 0; i < param.NI; ++i) {
+        for (int j = 0; j < data.get_n(); ++j) {
+            sampler.step(j);
+        }
 
-    lk = likelihood.cluster_loglikelihood(0);
-    std::cout << "Likelihood cluster 0: " << lk << std::endl;
+        // Save intermediate results
+        if (i >= param.BI) {
+            Rcpp::as<Rcpp::List>(results["allocations"])[i - param.BI] = Rcpp::wrap(data.get_allocations());
+            Rcpp::as<Rcpp::List>(results["K"])[i - param.BI] = data.get_K();
+        }
 
-    data.set_allocation(0, 0);
-    data.set_allocation(1, 0);
-    data.set_allocation(2, 1);
-    data.set_allocation(3, 1);
-    data.set_allocation(4, 2);
-    data.set_allocation(5, 2);
+        // print intermediate results
+        if (i % 100 == 0){
+            std::cout << "Iteration " << i << ": ";
+            std::cout << "Number of clusters: " << data.get_K() << std::endl;
+        }
+    }
 
-
-    lk = likelihood.cluster_loglikelihood(0);
-    std::cout << "Likelihood cluster 0: " << lk << std::endl;
-    
-
-
-
+    return results;
 }

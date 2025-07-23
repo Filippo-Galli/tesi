@@ -11,12 +11,10 @@ class Likelihood {
     public:
         Likelihood(const Data& data, const Params& param) : data(data), params(param) {}
 
-        // Calculate the likelihood of the current allocations
-        double total_likelihood() const;
 
         // Calculate the likelihood of a specific cluster
         double cluster_loglikelihood(int cluster_index) const;
 
-        // Calculate the likelihood of a specific point
-        double point_loglikelihood(int point_index) const;
+        // Calculate the conditional likelihood of a specific point
+        double point_loglikelihood_cond(int point_index, int cluster_index) const;
 };

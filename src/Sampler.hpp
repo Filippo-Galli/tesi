@@ -2,13 +2,13 @@
 
 #include "Data.hpp"
 #include "Params.hpp"
+#include "Likelihood.hpp"
 
 class Sampler {
-    private: 
+    protected: 
         Data& data;
         Params& params;
+        Likelihood& likelihood;
     public:
-        Sampler(Data& d, Params& p) : data(d), params(p) {}
-
-        virtual void step() = 0;
+        Sampler(Data& d, Params& p, Likelihood& l) : data(d), params(p), likelihood(l) {}
 };
