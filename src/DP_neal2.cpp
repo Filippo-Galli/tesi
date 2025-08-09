@@ -26,6 +26,13 @@ void DPNeal2::step(int index) {
     }
     log_likelihoods[data.get_K()] += log(params.a);
 
+    // DEBUG: Print the log likelihoods for each cluster
+    // std::cout << "[DEBUG] Log likelihoods for each cluster: ";
+    // for (const auto& log_likelihood : log_likelihoods) {
+    //     std::cout << log_likelihood << " ";
+    // }
+    // std::cout << std::endl;
+
     // Normalize the log likelihoods
     double max_loglik = *std::max_element(log_likelihoods.begin(), log_likelihoods.end());
     std::vector<double> probs(log_likelihoods);
@@ -46,7 +53,6 @@ void DPNeal2::step(int index) {
     // std::cout << std::endl;
 
     // Sample a cluster based on the probabilities
-    std::random_device rd;
     std::mt19937 gen(rd());
     std::discrete_distribution<int> dist(probs.begin(), probs.end());
     int sampled_cluster = dist(gen);
