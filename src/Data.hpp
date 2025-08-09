@@ -15,7 +15,8 @@ class Data {
         Eigen::VectorXi cluster_sizes; // sizes of each cluster
 
     public: 
-        Data(const Eigen::MatrixXd& distances, const std::string & first_allocation = "all-in-one");
+        Data(const Eigen::MatrixXd& distances,
+             const Eigen::VectorXi& initial_allocations = Eigen::VectorXi());
 
         // Getters
         double get_distance(int i, int j) const;

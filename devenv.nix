@@ -26,6 +26,14 @@
     pkgs.rPackages.ggplot2         # Data visualization
     pkgs.rPackages.dplyr           # Data manipulation
     pkgs.rPackages.tidyr           # Data tidying
+
+    # MCMC tools
+    pkgs.rPackages.spam
+    pkgs.rPackages.fields
+    pkgs.rPackages.viridisLite
+    pkgs.rPackages.RColorBrewer
+    pkgs.rPackages.pheatmap
+    pkgs.rPackages.mcclust
     
     # C++ development tools
     pkgs.gcc
