@@ -364,6 +364,9 @@ plot_mcmc_results <- function(results, true_labels) {
   } else {
     cat("Warning: No loglikelihood data available for autocorrelation plot\n")
   }
+
+  acf(results$loglikelihood, main = "Autocorrelation of Log-Likelihood")
+
 }
 
 # Generate data from 3 Gaussian distributions
@@ -412,7 +415,7 @@ ggplot(plot_data, aes(x = x, y = y, color = cluster)) +
 sourceCpp("src/launcher.cpp")
 
 # Set hyperparameters using the new method
-plot_k_means(dist_matrix, max_k = 10)
+plot_k_means(dist_matrix, max_k = 6)
 hyperparams <- set_hyperparameters(dist_matrix, k_elbow = 3)
 
 # Create parameter object with computed hyperparameters
@@ -420,7 +423,7 @@ param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  1000, 2000, 3, 1.0, 1.0
+  0, 1000, 10, 1.0, 1.0
 ) # BI, NI, a, sigma, tau
 
 cat("\nFinal hyperparameters:\n")
@@ -431,8 +434,21 @@ cat("delta2 =", param$delta2, "\n")
 cat("gamma =", param$gamma, "\n")
 cat("zeta =", param$zeta, "\n")
 
+# Initialize allocations
+
+## All-in-one allocation
+#initial_allocations <- rep(0, nrow(dist_matrix)) # All points in one cluster
+
+## Sequential allocation
+#initial_allocations <- seq(0, nrow(dist_matrix) - 1)
+
+## k-means allocation
+initial_allocations <- kmeans(all_data,
+                              centers = 2,
+                              nstart = 25)$cluster - 1
+
 # Run MCMC with computed hyperparameters
-results <- mcmc(dist_matrix, param, first_allocation = "sequential")
+results <- mcmc(dist_matrix, param, initial_allocations)
 
 ## Check results
 plot_mcmc_results(results, ground_truth)
