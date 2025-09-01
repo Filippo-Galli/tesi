@@ -8,7 +8,6 @@ library(fields) # For minVI
 library(viridisLite) # For color scales
 library(RColorBrewer) # For color palettes
 library(pheatmap) # For heatmaps
-library(mcclust.ext) # For MCMC clustering functions
 
 
 # Function to set hyperparameters based on elbow method and k-means
@@ -98,7 +97,23 @@ set_hyperparameters <- function(dist_matrix, k_elbow, plot_clustering = FALSE) {
       # Fit gamma distribution using MLE with error handling
       tryCatch(
         {
-          gamma_fit_A <- fitdistr(A, "gamma")
+          # Add small epsilon to avoid zero values that cause issues
+          A_safe <- pmax(A, 1e-10)
+
+          # Try method of moments first for better initial estimates
+          mean_A <- mean(A_safe)
+          var_A <- var(A_safe)
+
+          # Method of moments estimates
+          shape_est <- mean_A^2 / var_A
+          rate_est <- mean_A / var_A
+
+          # Use these as starting values for MLE
+          gamma_fit_A <- fitdistr(A_safe, "gamma",
+            start = list(shape = shape_est, rate = rate_est),
+            lower = c(0.01, 0.01)
+          )
+
           delta1 <- gamma_fit_A$estimate["shape"]
 
           # delta_1 should be less than 1 for shape parameter
@@ -147,7 +162,23 @@ set_hyperparameters <- function(dist_matrix, k_elbow, plot_clustering = FALSE) {
       # Fit gamma distribution using MLE with error handling
       tryCatch(
         {
-          gamma_fit_B <- fitdistr(B, "gamma")
+          # Add small epsilon to avoid zero values that cause issues
+          B_safe <- pmax(B, 1e-10)
+
+          # Try method of moments first for better initial estimates
+          mean_B <- mean(B_safe)
+          var_B <- var(B_safe)
+
+          # Method of moments estimates
+          shape_est <- mean_B^2 / var_B
+          rate_est <- mean_B / var_B
+
+          # Use these as starting values for MLE
+          gamma_fit_B <- fitdistr(B_safe, "gamma",
+            start = list(shape = shape_est, rate = rate_est),
+            lower = c(0.01, 0.01)
+          )
+
           delta2 <- gamma_fit_B$estimate["shape"]
 
           # delta_2 should be greater than 1 for shape parameter
@@ -201,188 +232,22 @@ set_hyperparameters <- function(dist_matrix, k_elbow, plot_clustering = FALSE) {
   ))
 }
 
-# Function to plot MCMC analysis results
-plot_mcmc_results <- function(results, true_labels) {
-  ### First plot - Posterior distribution of the number of clusters
-  post_k <- table(unlist(results$K)) / length(unlist(results$K))
-  df <- data.frame(
-    cluster_found = as.numeric(names(post_k)),
-    rel_freq = as.numeric(post_k)
-  )
-
-  p1 <- ggplot(data = df, aes(x = factor(cluster_found), y = rel_freq)) +
-    geom_col() +
-    labs(
-      x = "Cluster Found",
-      y = "Relative Frequency",
-    ) +
-    theme(
-      axis.text.x = element_text(size = 15),
-      axis.text.y = element_text(size = 15),
-      text = element_text(size = 15),
-      panel.background = element_blank(),
-      panel.grid.major = element_line(color = "grey95"),
-      panel.grid.minor = element_line(color = "grey95")
-    ) +
-    scale_x_discrete(drop = FALSE) # Ensures all cluster_found values are shown
-  print(p1)
-
-  ### Second plot - Trace of number of clusters
-  # Ensure K values exist and handle any missing values
-  k_values <- unlist(results$K)
-  # Remove any NULL or NA values and create corresponding iteration indices
-  valid_indices <- which(!is.null(results$K) & !is.na(unlist(results$K)))
-  k_values <- k_values[!is.na(k_values)]
-
-  k_df <- data.frame(
-    Iteration = valid_indices[seq_along(k_values)],
-    NumClusters = k_values
-  )
-
-  k_df_long <- k_df %>%
-    pivot_longer(
-      cols = starts_with("NumClusters"),
-      names_to = "variable",
-      values_to = "value"
-    )
-
-  p2 <- ggplot(k_df_long, aes(x = Iteration, y = value)) +
-    geom_line() +
-    labs(
-      x = "Iteration",
-      y = "Number of clusters",
-    ) +
-    theme(
-      axis.text.x = element_text(size = 15),
-      axis.text.y = element_text(size = 15),
-      text = element_text(size = 15),
-      panel.background = element_blank(),
-      panel.grid.major = element_line(color = "grey95"),
-      panel.grid.minor = element_line(color = "grey95")
-    )
-  print(p2)
-
-  ### Third plot - Posterior Similarity Matrix
-  # Compute posterior similarity matrix
-  n <- nrow(dist_matrix)
-  similarity_matrix <- matrix(0, nrow = n, ncol = n)
-
-  # For each MCMC iteration, add to similarity matrix
-  for (iter in seq_along(results$allocations)) {
-    allocation <- results$allocations[[iter]]
-    for (i in 1:(n - 1)) {
-      for (j in (i + 1):n) {
-        if (allocation[i] == allocation[j]) {
-          similarity_matrix[i, j] <- similarity_matrix[i, j] + 1
-          similarity_matrix[j, i] <- similarity_matrix[j, i] + 1
-        }
-      }
-    }
-  }
-
-  # Normalize by number of iterations
-  similarity_matrix <- similarity_matrix / length(results$allocations)
-
-  # Set diagonal to 1 (each point is always similar to itself)
-  diag(similarity_matrix) <- 1
-
-  # Create heatmap of posterior similarity matrix
-  similarity_df <- expand.grid(i = 1:n, j = 1:n)
-  similarity_df$similarity <- as.vector(similarity_matrix)
-
-  p3 <- ggplot(similarity_df, aes(x = i, y = j, fill = similarity)) +
-    geom_tile() +
-    scale_fill_gradient(low = "white", high = "darkblue") +
-    labs(
-      x = "Data Point Index",
-      y = "Data Point Index",
-      fill = "Posterior\nSimilarity",
-      title = "Posterior Similarity Matrix"
-    ) +
-    theme(
-      axis.text.x = element_text(size = 12),
-      axis.text.y = element_text(size = 12),
-      text = element_text(size = 12),
-      panel.background = element_blank()
-    ) +
-    coord_fixed()
-  print(p3)
-
-  ### Fourth plot - Posterior similarity matrix
-  # Check if allocations exist, otherwise skip this plot
-  if (!is.null(results$allocations) && length(results$allocations) > 0) {
-    C <- matrix(unlist(lapply(results$allocations, function(x) x + 1)),
-      nrow = length(results$allocations),
-      ncol = length(true_labels),
-      byrow = TRUE
-    )
-
-    required_packages <- c("spam", "fields", "viridisLite", "RColorBrewer", "pheatmap", "mcclust")
-    for (pkg in required_packages) {
-      if (!require(pkg, character.only = TRUE)) {
-        install.packages(pkg)
-        library(pkg, character.only = TRUE)
-      }
-    }
-
-    psm <- comp.psm(C)
-    VI <- minVI(psm)
-
-    cat("Cluster Sizes:\n")
-    print(table(VI$cl))
-    cat("\nAdjusted Rand Index:", arandi(VI$cl, true_labels), "\n")
-
-  } else {
-    cat("Warning: No allocation data found, skipping posterior similarity matrix plot\n")
-  }
-
-  ### Fifth plot - Auto-correlation plot
-  # Check if loglikelihood data exists and is valid
-  if (!is.null(results$loglikelihood) && length(results$loglikelihood) > 0) {
-    # Remove any NA or infinite values
-    logl_clean <- results$loglikelihood[is.finite(results$loglikelihood)]
-    k_clean <- unlist(results$K)[is.finite(unlist(results$K))]
-
-    if (length(logl_clean) > 1 && length(k_clean) > 1) {
-      # Ensure both vectors have the same length
-      min_length <- min(length(logl_clean), length(k_clean))
-      mcmc_list <- list(
-        ncls = k_clean[1:min_length],
-        logl = logl_clean[1:min_length]
-      )
-      mcmc_matrix <- do.call(cbind, mcmc_list)
-
-      # Only plot if we have valid data
-      if (all(is.finite(mcmc_matrix))) {
-        acf(mcmc_matrix, main = "Autocorrelation of MCMC chains")
-      } else {
-        cat("Warning: Skipping autocorrelation plot due to invalid data\n")
-      }
-    } else {
-      cat("Warning: Not enough valid data for autocorrelation plot\n")
-    }
-  } else {
-    cat("Warning: No loglikelihood data available for autocorrelation plot\n")
-  }
-
-  acf(results$loglikelihood, main = "Autocorrelation of Log-Likelihood")
-
-}
-
-# Generate data from 3 Gaussian distributions
-set.seed(123)
-n_points <- 100
+# Generate data from 3 Gaussian distributions -> around 300 points
+set.seed(42)
+n_points <- 30
 data1 <- matrix(rnorm(n_points * 2, mean = c(10, 10), sd = 1), ncol = 2)
-data2 <- matrix(rnorm(n_points * 2, mean = c(1, 1), sd = 1), ncol = 2)
-data3 <- matrix(rnorm(n_points * 2, mean = c(5, 5), sd = 2), ncol = 2)
+data2 <- matrix(rnorm(n_points * 2, mean = c(3, 3), sd = 1), ncol = 2)
+data3 <- matrix(rnorm(n_points * 2, mean = c(1, 1), sd = 1), ncol = 2)
+data4 <- matrix(rnorm(n_points * 2, mean = c(6, 6), sd = 1), ncol = 2)
 
 # Combine all data points + labels
 ground_truth <- c(
   rep(0, n_points),
   rep(1, n_points),
-  rep(2, n_points)
+  rep(2, n_points),
+  rep(3, n_points)
 )
-all_data <- rbind(data1, data2, data3)
+all_data <- rbind(data1, data2, data3, data4)
 
 # Create distance matrix (n x n)
 dist_matrix <- as.matrix(dist(all_data))
@@ -391,7 +256,8 @@ dist_matrix <- as.matrix(dist(all_data))
 cluster_labels <- c(
   rep("Cluster 1", n_points),
   rep("Cluster 2", n_points),
-  rep("Cluster 3", n_points)
+  rep("Cluster 3", n_points), 
+  rep("Cluster 4", n_points)
 )
 
 # Create data frame for plotting
@@ -416,14 +282,14 @@ sourceCpp("src/launcher.cpp")
 
 # Set hyperparameters using the new method
 plot_k_means(dist_matrix, max_k = 6)
-hyperparams <- set_hyperparameters(dist_matrix, k_elbow = 3)
+hyperparams <- set_hyperparameters(dist_matrix, k_elbow = 4)
 
 # Create parameter object with computed hyperparameters
 param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  0, 1000, 10, 1.0, 1.0
+  500, 1000, 4, 1.0, 1.0
 ) # BI, NI, a, sigma, tau
 
 cat("\nFinal hyperparameters:\n")
@@ -437,18 +303,36 @@ cat("zeta =", param$zeta, "\n")
 # Initialize allocations
 
 ## All-in-one allocation
-#initial_allocations <- rep(0, nrow(dist_matrix)) # All points in one cluster
+# initial_allocations <- rep(0, nrow(dist_matrix)) # All points in one cluster
 
 ## Sequential allocation
-#initial_allocations <- seq(0, nrow(dist_matrix) - 1)
+# initial_allocations <- seq(0, nrow(dist_matrix) - 1)
 
 ## k-means allocation
 initial_allocations <- kmeans(all_data,
-                              centers = 2,
-                              nstart = 25)$cluster - 1
+  centers = 6,
+  nstart = 25
+)$cluster - 1
+
+print(table(initial_allocations))
 
 # Run MCMC with computed hyperparameters
 results <- mcmc(dist_matrix, param, initial_allocations)
 
-## Check results
-plot_mcmc_results(results, ground_truth)
+## Save the results and ground truth for later analysis
+folder <- "results/test1/"
+if (!dir.exists(folder)) {
+  dir.create(folder, recursive = TRUE)
+}
+
+filename_results <- "simulation_results.rds"
+filename_gt <- "simulation_ground_truth.rds"
+filename_dist <- "simulation_distance_matrix.rds"
+
+filename_results <- paste0(folder, filename_results)
+filename_gt <- paste0(folder, filename_gt)
+filename_dist <- paste0(folder, filename_dist)
+
+saveRDS(results, file = filename_results)
+saveRDS(ground_truth, file = filename_gt)
+saveRDS(dist_matrix, file = filename_dist)

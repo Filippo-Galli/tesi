@@ -67,5 +67,7 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
     }
   }
 
+  std::cout << "MCMC completed." << std::endl;
+
   return results;
 }
