@@ -53,7 +53,6 @@ void DPNeal2::step(int index) {
     // std::cout << std::endl;
 
     // Sample a cluster based on the probabilities
-    std::mt19937 gen(rd());
     std::discrete_distribution<int> dist(probs.begin(), probs.end());
     int sampled_cluster = dist(gen);
 

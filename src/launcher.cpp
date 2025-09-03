@@ -61,8 +61,8 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
     }
 
     // print intermediate results
-    if (i % 100 == 0) {
-      std::cout << "Iteration " << i << ": ";
+    if ((i + 1) % 100 == 0) {
+      std::cout << "Iteration " << i + 1 << ": ";
       std::cout << "Number of clusters: " << data.get_K() << std::endl;
     }
   }
