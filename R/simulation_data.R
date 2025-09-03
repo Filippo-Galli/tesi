@@ -9,7 +9,6 @@ library(viridisLite) # For color scales
 library(RColorBrewer) # For color palettes
 library(pheatmap) # For heatmaps
 
-
 # Function to set hyperparameters based on elbow method and k-means
 plot_k_means <- function(dist_matrix, max_k = 10) {
   # Step 1: Compute elbow method for K selection
@@ -232,6 +231,40 @@ set_hyperparameters <- function(dist_matrix, k_elbow, plot_clustering = FALSE) {
   ))
 }
 
+save_with_name <- function(folder, params, initialization) {
+  ## Name creation
+  folder <- "results/"
+  # Nomenclature: initialization + BI + NI + a + sigma + tau
+  subfolder <- paste(initialization, "_BI", params$BI, "_NI", params$NI,
+    "_a", params$a, "_sigma", params$sigma,
+    "_tau", params$tau, "/",
+    sep = ""
+  )
+  folder <- paste0(folder, subfolder)
+
+  if (!dir.exists(folder)) {
+    dir.create(folder, recursive = TRUE)
+  }
+
+  filename_results <- "simulation_results.rds"
+  filename_gt <- "simulation_ground_truth.rds"
+  filename_data <- "simulation_data.rds"
+  filename_dist <- "simulation_distance_matrix.rds"
+  filename_initial_params <- "simulation_initial_params.rds"
+
+  filename_results <- paste0(folder, filename_results)
+  filename_gt <- paste0(folder, filename_gt)
+  filename_data <- paste0(folder, filename_data)
+  filename_dist <- paste0(folder, filename_dist)
+  filename_initial_params <- paste0(folder, filename_initial_params)
+
+  saveRDS(results, file = filename_results)
+  saveRDS(ground_truth, file = filename_gt)
+  saveRDS(all_data, file = filename_data)
+  saveRDS(dist_matrix, file = filename_dist)
+  saveRDS(hyperparams, file = filename_initial_params)
+}
+
 # Generate data from 3 Gaussian distributions -> around 300 points
 set.seed(42)
 n_points <- 30
@@ -256,83 +289,54 @@ dist_matrix <- as.matrix(dist(all_data))
 cluster_labels <- c(
   rep("Cluster 1", n_points),
   rep("Cluster 2", n_points),
-  rep("Cluster 3", n_points), 
+  rep("Cluster 3", n_points),
   rep("Cluster 4", n_points)
 )
-
-# Create data frame for plotting
-plot_data <- data.frame(
-  x = all_data[, 1],
-  y = all_data[, 2],
-  cluster = cluster_labels
-)
-
-# Plot the clusters
-ggplot(plot_data, aes(x = x, y = y, color = cluster)) +
-  geom_point(size = 3) +
-  labs(
-    title = "Three Gaussian Clusters",
-    x = "X coordinate",
-    y = "Y coordinate"
-  ) +
-  theme_minimal()
 
 # Load the C++ code
 sourceCpp("src/launcher.cpp")
 
-# Set hyperparameters using the new method
-plot_k_means(dist_matrix, max_k = 6)
+# Set hyperparameters using the NORMALIZED distances
+#plot_k_means(dist_matrix, max_k = 8)
 hyperparams <- set_hyperparameters(dist_matrix, k_elbow = 4)
+
+cat("Final hyperparameters:\n")
+cat("delta1:", hyperparams$delta1, "\n")
+cat("alpha:", hyperparams$alpha, "\n")
+cat("beta:", hyperparams$beta, "\n")
+cat("delta2:", hyperparams$delta2, "\n")
+cat("zeta:", hyperparams$zeta, "\n")
+cat("gamma:", hyperparams$gamma, "\n")
 
 # Create parameter object with computed hyperparameters
 param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  500, 1000, 4, 1.0, 1.0
+  200, 1000, 4, 1.0, 1.0 # Increased a from 4 to 20
 ) # BI, NI, a, sigma, tau
-
-cat("\nFinal hyperparameters:\n")
-cat("delta1 =", param$delta1, "\n")
-cat("alpha =", param$alpha, "\n")
-cat("beta =", param$beta, "\n")
-cat("delta2 =", param$delta2, "\n")
-cat("gamma =", param$gamma, "\n")
-cat("zeta =", param$zeta, "\n")
 
 # Initialize allocations
 
 ## All-in-one allocation
-# initial_allocations <- rep(0, nrow(dist_matrix)) # All points in one cluster
+#hyperparams$initial_clusters <- rep(0, nrow(dist_matrix)) # All points in one cluster
 
 ## Sequential allocation
-# initial_allocations <- seq(0, nrow(dist_matrix) - 1)
+hyperparams$initial_clusters <- seq(0, nrow(dist_matrix) - 1)
 
-## k-means allocation
-initial_allocations <- kmeans(all_data,
-  centers = 6,
-  nstart = 25
-)$cluster - 1
+## k-means allocation different from the one used for hyperparameters
+# hyperparams$initial_clusters <- kmeans(all_data,
+#   centers = 4,
+#   nstart = 25
+# )$cluster - 1
 
-print(table(initial_allocations))
+## k-means allocation used for hyperparameters
+# hyperparams$initial_clusters <- hyperparams$initial_clusters - 1
+
+print(table(hyperparams$initial_clusters))
 
 # Run MCMC with computed hyperparameters
-results <- mcmc(dist_matrix, param, initial_allocations)
+results <- mcmc(dist_matrix, param, hyperparams$initial_clusters)
 
-## Save the results and ground truth for later analysis
-folder <- "results/test1/"
-if (!dir.exists(folder)) {
-  dir.create(folder, recursive = TRUE)
-}
-
-filename_results <- "simulation_results.rds"
-filename_gt <- "simulation_ground_truth.rds"
-filename_dist <- "simulation_distance_matrix.rds"
-
-filename_results <- paste0(folder, filename_results)
-filename_gt <- paste0(folder, filename_gt)
-filename_dist <- paste0(folder, filename_dist)
-
-saveRDS(results, file = filename_results)
-saveRDS(ground_truth, file = filename_gt)
-saveRDS(dist_matrix, file = filename_dist)
+## Save into files
+# save_with_name(folder, param, "allInOne")
