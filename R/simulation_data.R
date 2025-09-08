@@ -258,7 +258,7 @@ save_with_name <- function(folder, params, initialization) {
   filename_dist <- paste0(folder, filename_dist)
   filename_initial_params <- paste0(folder, filename_initial_params)
 
-  saveRDS(results, file = filename_results)
+  saveRDS(mcmc_result, file = filename_results)
   saveRDS(ground_truth, file = filename_gt)
   saveRDS(all_data, file = filename_data)
   saveRDS(dist_matrix, file = filename_dist)
@@ -296,7 +296,7 @@ cluster_labels <- c(
 # Load the C++ code
 sourceCpp("src/launcher.cpp")
 
-# Set hyperparameters using the NORMALIZED distances
+# Set hyperparameters
 #plot_k_means(dist_matrix, max_k = 8)
 hyperparams <- set_hyperparameters(dist_matrix, k_elbow = 4)
 
@@ -326,17 +326,26 @@ hyperparams$initial_clusters <- seq(0, nrow(dist_matrix) - 1)
 
 ## k-means allocation different from the one used for hyperparameters
 # hyperparams$initial_clusters <- kmeans(all_data,
-#   centers = 4,
+#   centers = 2,
 #   nstart = 25
 # )$cluster - 1
 
 ## k-means allocation used for hyperparameters
-# hyperparams$initial_clusters <- hyperparams$initial_clusters - 1
+#hyperparams$initial_clusters <- hyperparams$initial_clusters - 1
 
+print("Initial cluster allocation:")
 print(table(hyperparams$initial_clusters))
 
 # Run MCMC with computed hyperparameters
-results <- mcmc(dist_matrix, param, hyperparams$initial_clusters)
+log_file <- "mcmc_log.txt"
+if (file.exists(log_file)) {
+  file.remove(log_file) # remove previous log file
+}
 
-## Save into files
-# save_with_name(folder, param, "allInOne")
+# Option 1: Try capturing regular output (most common)
+results <- capture.output({
+  mcmc_result <- mcmc(dist_matrix, param, hyperparams$initial_clusters)
+}, file = log_file)
+
+## Save into files - initialization name
+save_with_name(folder, param, "OneInOne")

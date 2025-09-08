@@ -16,3 +16,6 @@ devenv.local.nix
 
 # .clangd
 .clangd
+
+# Results folder
+results/

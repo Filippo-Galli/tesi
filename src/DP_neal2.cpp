@@ -1,6 +1,8 @@
 #include "DP_neal2.hpp"
 #include <algorithm>
 #include <random>
+#include <Rcpp.h>
+using namespace Rcpp;
 
 void DPNeal2::step(int index) {
     /**
@@ -27,11 +29,11 @@ void DPNeal2::step(int index) {
     log_likelihoods[data.get_K()] += log(params.a);
 
     // DEBUG: Print the log likelihoods for each cluster
-    // std::cout << "[DEBUG] Log likelihoods for each cluster: ";
-    // for (const auto& log_likelihood : log_likelihoods) {
-    //     std::cout << log_likelihood << " ";
-    // }
-    // std::cout << std::endl;
+    Rcout << "[DEBUG] Log likelihoods for each cluster: ";
+    for (const auto& log_likelihood : log_likelihoods) {
+        Rcout << log_likelihood << " ";
+    }
+    Rcout << std::endl;
 
     // Normalize the log likelihoods
     double max_loglik = *std::max_element(log_likelihoods.begin(), log_likelihoods.end());
