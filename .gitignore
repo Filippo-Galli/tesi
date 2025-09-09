@@ -19,3 +19,6 @@ devenv.local.nix
 
 # Results folder
 results/
+
+# mcmc log files
+*.txt

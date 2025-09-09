@@ -257,7 +257,7 @@ plot_mcmc_results <- function(results, true_labels) {
 list.files("results/")
 
 # Load the results and ground truth for later analysis
-folder <- "results/OneInOne_BI200_NI1000_a4_sigma1_tau1/"
+folder <- "results/kmeans6_BI1000_NI5000_a4_sigma1_tau1/"
 filename_results <- "simulation_results.rds"
 filename_gt <- "simulation_ground_truth.rds"
 filename_dist <- "simulation_distance_matrix.rds"
@@ -279,6 +279,8 @@ param <- readRDS(file = filename_initial_params)
 #################################################################
 ############################## Plot Data ########################
 #################################################################
+
+ground_truth <- as.factor(ground_truth)
 
 # Create data frame for plotting
 plot_data <- data.frame(
