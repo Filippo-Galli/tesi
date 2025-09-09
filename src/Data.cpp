@@ -98,6 +98,11 @@ Eigen::VectorXi Data::get_cluster_assignments(int cluster) const {
    * @throws std::out_of_range if the cluster index is out of bounds.
    */
 
+  // Handle the case where cluster >= K (new cluster with no assignments yet)
+  if (cluster >= K) {
+    return Eigen::VectorXi::Zero(0); // Return empty vector for new clusters
+  }
+
   Eigen::VectorXi assignments = Eigen::VectorXi::Zero(cluster_sizes(cluster));
   int count = 0;
 

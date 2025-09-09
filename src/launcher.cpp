@@ -44,6 +44,9 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
       Rcpp::Named("K") = Rcpp::List(param.NI),
       Rcpp::Named("loglikelihood") = Rcpp::NumericVector(param.NI, 0.0));
 
+  std::cout << "Starting MCMC with " << param.NI << " iterations after "
+            << param.BI << " burn-in iterations." << std::endl;
+
   for (int i = 0; i < param.NI + param.BI; ++i) {
     for (int j = 0; j < data.get_n(); ++j) {
       sampler.step(j);
@@ -54,10 +57,14 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
       Rcpp::as<Rcpp::List>(results["allocations"])[i - param.BI] =
           Rcpp::wrap(data.get_allocations());
       Rcpp::as<Rcpp::List>(results["K"])[i - param.BI] = data.get_K();
+
+      // Calculate total loglikelihood with bounds checking
+      double total_loglik = 0.0;
       for (int k = 0; k < data.get_K(); ++k) {
-        Rcpp::as<Rcpp::NumericVector>(results["loglikelihood"])[i - param.BI] +=
-            likelihood.cluster_loglikelihood(k);
+        total_loglik += likelihood.cluster_loglikelihood(k);
       }
+      Rcpp::as<Rcpp::NumericVector>(results["loglikelihood"])[i - param.BI] =
+          total_loglik;
     }
 
     // print intermediate results

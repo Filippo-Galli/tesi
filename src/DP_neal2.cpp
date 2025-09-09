@@ -47,13 +47,6 @@ void DPNeal2::step(int index) {
         prob /= sum_probs;
     }
 
-    // DEBUG: Print the probabilities for each cluster
-    // std::cout << "[DEBUG]Probabilities for each cluster: ";
-    // for (const auto& prob : probs) {
-    //     std::cout << prob << " ";
-    // }
-    // std::cout << std::endl;
-
     // Sample a cluster based on the probabilities
     std::discrete_distribution<int> dist(probs.begin(), probs.end());
     int sampled_cluster = dist(gen);
