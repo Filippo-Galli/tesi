@@ -168,7 +168,7 @@ set_hyperparameters <- function(data_coords, dist_matrix, k_elbow, ground_truth 
 
           delta1 <- gamma_fit_A$estimate["shape"]
 
-          delta_1 should be less than 1 for cohesion
+          # delta_1 should be less than 1 for cohesion
           if (delta1 > 1) {
             delta1 <- 0.99 # Adjust shape parameter if needed
           }
@@ -233,7 +233,7 @@ set_hyperparameters <- function(data_coords, dist_matrix, k_elbow, ground_truth 
 
           delta2 <- gamma_fit_B$estimate["shape"]
 
-          delta_2 should be greater than 1 for repulsion
+          # delta_2 should be greater than 1 for repulsion
           if (delta2 < 1) {
             delta2 <- 1.01 # Adjust shape parameter if needed
           }
@@ -351,6 +351,12 @@ data1 <- matrix(rnorm(n_points * 2, mean = c(10, 10), sd = 1), ncol = 2)
 data2 <- matrix(rnorm(n_points * 2, mean = c(3, 3), sd = 1), ncol = 2)
 data3 <- matrix(rnorm(n_points * 2, mean = c(1, 1), sd = 1), ncol = 2)
 data4 <- matrix(rnorm(n_points * 2, mean = c(6, 6), sd = 1), ncol = 2)
+
+# # Gamma Generated data
+# data1 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) + 8, ncol = 2)
+# data2 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) + 1, ncol = 2)  
+# data3 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) - 1, ncol = 2)
+# data4 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) + 4, ncol = 2)
 
 # Combine all data points + labels
 ground_truth <- c(
