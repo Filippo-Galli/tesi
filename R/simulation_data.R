@@ -347,11 +347,18 @@ if (plot_distribution == TRUE) {
 # Generate data from 4 Gaussian distributions
 set.seed(42)
 n_points <- 30
-data1 <- matrix(rnorm(n_points * 2, mean = c(10, 10), sd = 1), ncol = 2)
-data2 <- matrix(rnorm(n_points * 2, mean = c(3, 3), sd = 1), ncol = 2)
-data3 <- matrix(rnorm(n_points * 2, mean = c(1, 1), sd = 1), ncol = 2)
-data4 <- matrix(rnorm(n_points * 2, mean = c(6, 6), sd = 1), ncol = 2)
+centers <- list(
+  c(5, 5),  # Cluster 1: top-right
+  c(5, 0),  # Cluster 2: bottom-right  
+  c(0, 0),  # Cluster 3: bottom-left
+  c(0, 5)   # Cluster 4: top-left
+)
 
+# Generate data for each cluster
+data1 <- mvrnorm(n_points, mu = centers[[1]], Sigma = diag(2))
+data2 <- mvrnorm(n_points, mu = centers[[2]], Sigma = diag(2))  
+data3 <- mvrnorm(n_points, mu = centers[[3]], Sigma = diag(2))
+data4 <- mvrnorm(n_points, mu = centers[[4]], Sigma = diag(2))
 # # Gamma Generated data
 # data1 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) + 8, ncol = 2)
 # data2 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) + 1, ncol = 2)  
@@ -377,6 +384,25 @@ cluster_labels <- c(
   rep("Cluster 3", n_points),
   rep("Cluster 4", n_points)
 )
+
+ground_truth <- as.factor(cluster_labels)
+
+# Create data frame for plotting
+plot_data <- data.frame(
+  x = all_data[, 1],
+  y = all_data[, 2],
+  cluster = ground_truth
+)
+
+# Plot the clusters
+ggplot(plot_data, aes(x = x, y = y, color = cluster)) +
+  geom_point(size = 3) +
+  labs(
+    title = "Clusters",
+    x = "X coordinate",
+    y = "Y coordinate"
+  ) +
+  theme_minimal()
 
 # Load the C++ code
 sourceCpp("src/launcher.cpp")
@@ -408,7 +434,7 @@ param <- new(
 #hyperparams$initial_clusters <- rep(0, nrow(dist_matrix)) # All points in one cluster
 
 ## Sequential allocation
-#hyperparams$initial_clusters <- seq(0, nrow(dist_matrix) - 1)
+hyperparams$initial_clusters <- seq(0, nrow(dist_matrix) - 1)
 
 ## k-means allocation different from the one used for hyperparameters
 # hyperparams$initial_clusters <- kmeans(all_data,
@@ -417,7 +443,7 @@ param <- new(
 # )$cluster - 1
 
 ## k-means allocation used for hyperparameters
-hyperparams$initial_clusters <- hyperparams$initial_clusters - 1
+#hyperparams$initial_clusters <- hyperparams$initial_clusters - 1
 
 print("Initial cluster allocation:")
 print(table(hyperparams$initial_clusters))
@@ -433,4 +459,4 @@ results <- capture.output({
 }, file = log_file)
 
 ## Save into files - initialization name
-save_with_name(folder, param, "test")
+save_with_name(folder, param, "OneInOne_2D")

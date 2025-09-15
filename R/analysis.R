@@ -74,6 +74,8 @@ plot_mcmc_results <- function(results, true_labels) {
     scale_x_discrete(drop = FALSE) # Ensures all cluster_found values are shown
   print(p1)
 
+  ggsave(filename = paste0(folder, "posterior_num_clusters.png"), plot = p1, width = 8, height = 6)
+
   ### Second plot - Trace of number of clusters
   # Ensure K values exist and handle any missing values
   if (is.null(results$K) || length(k_values) == 0) {
@@ -110,6 +112,8 @@ plot_mcmc_results <- function(results, true_labels) {
           panel.grid.minor = element_line(color = "grey95")
         )
       print(p2)
+
+      ggsave(filename = paste0(folder, "traceplot.png"), plot = p2, width = 8, height = 6)
     } else {
       cat("Warning: No valid K values for trace plot after cleaning\n")
     }
@@ -166,6 +170,7 @@ plot_mcmc_results <- function(results, true_labels) {
       ) +
       coord_fixed()
     print(p3)
+    ggsave(filename = paste0(folder, "similarity_matrix.png"), plot = p3, width = 8, height = 6)
   }
 
   ### Fourth plot - Posterior similarity matrix
@@ -257,7 +262,7 @@ plot_mcmc_results <- function(results, true_labels) {
 list.files("results/")
 
 # Load the results and ground truth for later analysis
-folder <- "results/kmeans6_BI1000_NI5000_a4_sigma1_tau1/"
+folder <- "results/OneInOne_2D_BI1000_NI5000_a4_sigma1_tau1/"
 filename_results <- "simulation_results.rds"
 filename_gt <- "simulation_ground_truth.rds"
 filename_dist <- "simulation_distance_matrix.rds"
@@ -276,6 +281,12 @@ dist_matrix <- readRDS(file = filename_dist)
 all_data <- readRDS(file = filename_data)
 param <- readRDS(file = filename_initial_params)
 
+# Create plot directory if it doesn't exist
+folder <- paste0(folder, "plots/")
+if (!dir.exists(folder)) {
+  dir.create(folder, recursive = TRUE)
+}
+
 #################################################################
 ############################## Plot Data ########################
 #################################################################
@@ -293,11 +304,14 @@ plot_data <- data.frame(
 ggplot(plot_data, aes(x = x, y = y, color = cluster)) +
   geom_point(size = 3) +
   labs(
-    title = "Three Gaussian Clusters",
+    title = "Clusters",
     x = "X coordinate",
     y = "Y coordinate"
   ) +
   theme_minimal()
+
+# Save the plot
+ggsave(filename = paste0(folder, "data_clusters.png"), width = 8, height = 6)
 
 #################################################################
 ################ Plot Simulation Results ########################
