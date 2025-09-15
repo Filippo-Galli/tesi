@@ -70,7 +70,7 @@ save_with_name <- function(folder, params, initialization) {
 }
 
 # Function to set hyperparameters using elbow method and k-means clustering
-set_hyperparameters <- function(data_coords, dist_matrix, k_elbow, ground_truth = NULL, plot_clustering = FALSE) {
+set_hyperparameters <- function(data_coords, dist_matrix, k_elbow, ground_truth = NULL, plot_clustering = FALSE, plot_distribution = TRUE) {
 
   coords <- data_coords
   
@@ -168,7 +168,7 @@ set_hyperparameters <- function(data_coords, dist_matrix, k_elbow, ground_truth 
 
           delta1 <- gamma_fit_A$estimate["shape"]
 
-          # delta_1 should be less than 1 for cohesion
+          delta_1 should be less than 1 for cohesion
           if (delta1 > 1) {
             delta1 <- 0.99 # Adjust shape parameter if needed
           }
@@ -233,7 +233,7 @@ set_hyperparameters <- function(data_coords, dist_matrix, k_elbow, ground_truth 
 
           delta2 <- gamma_fit_B$estimate["shape"]
 
-          # delta_2 should be greater than 1 for repulsion
+          delta_2 should be greater than 1 for repulsion
           if (delta2 < 1) {
             delta2 <- 1.01 # Adjust shape parameter if needed
           }
@@ -269,6 +269,65 @@ set_hyperparameters <- function(data_coords, dist_matrix, k_elbow, ground_truth 
     zeta <- 2
     gamma_param <- 2
     cat("Warning: No inter-cluster distances found, using default values\n")
+  }
+
+if (plot_distribution == TRUE) {
+    # First plot: Within-cluster distances with algorithm's gamma parameters
+    if (exists("A") && length(A) > 1) {
+      A_df <- data.frame(Distance = A)
+      
+      # Use the algorithm's parameters: delta1, alpha, beta
+      # Convert from alpha, beta to shape, rate parameterization
+      # Your algorithm uses: alpha = delta1 * n_A, beta = sum(A)
+      # For plotting, we need the rate parameter that corresponds to these
+      
+      # The relationship is: alpha = shape * rate, beta = sum(data)
+      # So: rate = alpha / delta1 = n_A (when alpha = delta1 * n_A)
+      # But we want E[X] = shape/rate to match the empirical mean
+      # Better approach: use delta1 as shape, and derive rate from the mean
+      
+      algorithm_shape_A <- delta1
+      # For gamma distribution: mean = shape/rate, so rate = shape/mean
+      empirical_mean_A <- mean(A)
+      algorithm_rate_A <- algorithm_shape_A / empirical_mean_A
+      
+      p1 <- ggplot(A_df, aes(x = Distance)) +
+        geom_histogram(aes(y = after_stat(density)), bins = 30, fill = "lightblue", 
+                      color = "black", alpha = 0.7) +
+        stat_function(fun = dgamma, 
+                     args = list(shape = algorithm_shape_A, rate = algorithm_rate_A), 
+                     color = "red", linewidth = 1) +
+        labs(title = paste("Within-Cluster Distances with Algorithm's Gamma\n",
+                          "δ₁ (shape) =", round(algorithm_shape_A, 3), 
+                          ", α =", round(alpha, 3), ", β =", round(beta, 3)),
+             x = "Distance", y = "Density") +
+        theme_minimal()
+      print(p1)
+    }
+
+    # Second plot: Inter-cluster distances with algorithm's gamma parameters  
+    if (exists("B") && length(B) > 1) {
+      B_df <- data.frame(Distance = B)
+      
+      # Use the algorithm's parameters: delta2, zeta, gamma_param
+      algorithm_shape_B <- delta2
+      # For gamma distribution: mean = shape/rate, so rate = shape/mean
+      empirical_mean_B <- mean(B)
+      algorithm_rate_B <- algorithm_shape_B / empirical_mean_B
+      
+      p2 <- ggplot(B_df, aes(x = Distance)) +
+        geom_histogram(aes(y = after_stat(density)), bins = 30, fill = "lightgreen", 
+                      color = "black", alpha = 0.7) +
+        stat_function(fun = dgamma, 
+                     args = list(shape = algorithm_shape_B, rate = algorithm_rate_B), 
+                     color = "blue", linewidth = 1) +
+        labs(title = paste("Inter-Cluster Distances with Algorithm's Gamma\n",
+                          "δ₂ (shape) =", round(algorithm_shape_B, 3), 
+                          ", ζ =", round(zeta, 3), ", γ =", round(gamma_param, 3)),
+             x = "Distance", y = "Density") +
+        theme_minimal()
+      print(p2)
+    }
   }
 
   # Return the computed hyperparameters
@@ -318,7 +377,7 @@ sourceCpp("src/launcher.cpp")
 
 # Set hyperparameters with ground truth and plotting
 hyperparams <- set_hyperparameters(all_data, dist_matrix, k_elbow = 4, 
-                                 ground_truth = ground_truth, plot_clustering = FALSE)
+                                 ground_truth = ground_truth, plot_clustering = FALSE, plot_distribution = TRUE)
 
 cat("Final hyperparameters:\n")
 cat("delta1:", hyperparams$delta1, "\n")
@@ -346,13 +405,13 @@ param <- new(
 #hyperparams$initial_clusters <- seq(0, nrow(dist_matrix) - 1)
 
 ## k-means allocation different from the one used for hyperparameters
-hyperparams$initial_clusters <- kmeans(all_data,
-  centers = 2,
-  nstart = 25
-)$cluster - 1
+# hyperparams$initial_clusters <- kmeans(all_data,
+#   centers = 2,
+#   nstart = 25
+# )$cluster - 1
 
 ## k-means allocation used for hyperparameters
-#hyperparams$initial_clusters <- hyperparams$initial_clusters - 1
+hyperparams$initial_clusters <- hyperparams$initial_clusters - 1
 
 print("Initial cluster allocation:")
 print(table(hyperparams$initial_clusters))
@@ -367,6 +426,5 @@ results <- capture.output({
   mcmc_result <- mcmc(dist_matrix, param, hyperparams$initial_clusters)
 }, file = log_file)
 
-table(results$allocations[-1])
 ## Save into files - initialization name
-#save_with_name(folder, param, "kmeans2star")
+save_with_name(folder, param, "test")
