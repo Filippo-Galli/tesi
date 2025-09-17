@@ -5,12 +5,14 @@
 #include <random>
 
 class DPNeal2 : public MarginalSampler {
-private:
-  mutable std::mt19937 gen;
+  private:
+    mutable std::mt19937 gen;
 
-public:
-  DPNeal2(Data &d, Params &p, Likelihood &l)
-      : MarginalSampler(d, p, l), gen(rd()){};
+    void step_1_observation(int index);
 
-  void step(int index) override;
+  public:
+    DPNeal2(Data &d, Params &p, Likelihood &l)
+        : MarginalSampler(d, p, l), gen(rd()){};
+
+    void step() override;
 };

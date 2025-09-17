@@ -3,7 +3,7 @@ source("R/utils.R")
 list.files("results/")
 
 # Load the results and ground truth for later analysis
-folder <- "results/OneInOne_2D_BI1000_NI5000_a4_sigma1_tau1/"
+folder <- "results/AllInOne_2D_BI100_NI20000_a4_sigma1_tau1/"
 filename_results <- "simulation_results.rds"
 filename_gt <- "simulation_ground_truth.rds"
 filename_dist <- "simulation_distance_matrix.rds"
@@ -47,4 +47,4 @@ cat("gamma =", param$gamma, "\n")
 cat("zeta =", param$zeta, "\n")
 cat("Initial clusters =", param$initial_cluster, "\n")
 
-plot_mcmc_results(results, ground_truth)
+plot_mcmc_results(results, ground_truth, save = TRUE, folder = folder)

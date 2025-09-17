@@ -48,9 +48,8 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
             << param.BI << " burn-in iterations." << std::endl;
 
   for (int i = 0; i < param.NI + param.BI; ++i) {
-    for (int j = 0; j < data.get_n(); ++j) {
-      sampler.step(j);
-    }
+    
+    sampler.step();
 
     // Save intermediate results
     if (i >= param.BI) {

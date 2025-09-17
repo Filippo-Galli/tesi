@@ -4,7 +4,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-void DPNeal2::step(int index) {
+void DPNeal2::step_1_observation(int index) {
     /**
      * @brief Performs a step in the DPNeal2 sampling process.
      * @details This method is responsible for updating the allocations of the data points based on the current state of the model.
@@ -53,4 +53,14 @@ void DPNeal2::step(int index) {
 
     // Set the allocation for the data point
     data.set_allocation(index, sampled_cluster);
+}
+
+void DPNeal2::step() {
+    /**
+     * @brief Performs a single step of the DP Neal 2 algorithm for all the dataset.
+    */
+
+    for (int j = 0; j < data.get_n(); ++j) {
+        step_1_observation(j);
+    }
 }

@@ -56,16 +56,16 @@ param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  100, 1000, 4, 1.0, 1.0 
+  100, 2000, 4, 1.0, 1.0 
 ) # BI, NI, a, sigma, tau
 
 # Initialize allocations
 
 ## All-in-one allocation
-#hyperparams$initial_clusters <- rep(0, nrow(dist_matrix)) # All points in one cluster
+hyperparams$initial_clusters <- rep(0, nrow(dist_matrix)) # All points in one cluster
 
 ## Sequential allocation
-hyperparams$initial_clusters <- seq(0, nrow(dist_matrix) - 1)
+#hyperparams$initial_clusters <- seq(0, nrow(dist_matrix) - 1)
 
 ## k-means allocation different from the one used for hyperparameters
 # hyperparams$initial_clusters <- kmeans(all_data,
@@ -90,6 +90,6 @@ results <- capture.output({
 }, file = log_file)
 
 ## Save into files - initialization name
-#save_with_name(folder, param, "OneInOne_2D")
+#save_with_name(folder, param, "AllInOne_2D")
 
 plot_mcmc_results(mcmc_result, as.factor(ground_truth))
