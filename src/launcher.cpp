@@ -1,6 +1,7 @@
 // [[Rcpp::depends(RcppEigen)]]
 
 #include "DP_neal2.hpp"
+#include "DP_splitmerge.hpp"
 #include "Data.hpp"
 #include "Likelihood.hpp"
 #include "Params.hpp"
@@ -38,6 +39,7 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   Data data(distances, initial_allocations);
   Likelihood likelihood(data, param);
   DPNeal2 sampler(data, param, likelihood);
+  //DPSplitMerge sampler(data, param, likelihood);
 
   Rcpp::List results = Rcpp::List::create(
       Rcpp::Named("allocations") = Rcpp::List(param.NI),

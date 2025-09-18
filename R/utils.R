@@ -404,7 +404,7 @@ set_hyperparameters <- function(data_coords, dist_matrix, k_elbow, ground_truth 
 
           # delta_1 should be less than 1 for cohesion
           if (delta1 > 1) {
-            delta1 <- 0.99 # Adjust shape parameter if needed
+            delta1 <- 0.5 # Adjust shape parameter if needed
           }
 
           # Step 5: Set alpha and beta

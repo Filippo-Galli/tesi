@@ -5,10 +5,10 @@ source("R/utils.R")
 set.seed(42)
 n_points <- 30
 centers <- list(
-  c(5, 5),  # Cluster 1: top-right
-  c(5, 0),  # Cluster 2: bottom-right
+  c(10, 10),  # Cluster 1: top-right
+  c(6, 6),  # Cluster 2: bottom-right
   c(0, 0),  # Cluster 3: bottom-left
-  c(0, 5)   # Cluster 4: top-left
+  c(3, 3)   # Cluster 4: top-left
 )
 
 # Generate data for each cluster
@@ -49,14 +49,14 @@ sourceCpp("src/launcher.cpp")
 
 # Set hyperparameters with ground truth and plotting
 hyperparams <- set_hyperparameters(all_data, dist_matrix, k_elbow = 4, 
-                                 ground_truth = ground_truth, plot_clustering = FALSE, plot_distribution = TRUE)
+                                 ground_truth = ground_truth, plot_clustering = FALSE, plot_distribution = FALSE)
 
 # Create parameter object with computed hyperparameters
 param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  100, 2000, 4, 1.0, 1.0 
+  0, 1000, 10, 1.0, 1.0 
 ) # BI, NI, a, sigma, tau
 
 # Initialize allocations
@@ -78,6 +78,8 @@ hyperparams$initial_clusters <- rep(0, nrow(dist_matrix)) # All points in one cl
 
 print("Initial cluster allocation:")
 print(table(hyperparams$initial_clusters))
+
+sourceCpp("src/launcher.cpp")
 
 # Run MCMC with computed hyperparameters
 log_file <- "mcmc_log.txt"

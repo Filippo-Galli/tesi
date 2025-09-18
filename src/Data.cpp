@@ -220,3 +220,26 @@ void Data::print() const {
   std::cout << "Number of clusters: " << K << std::endl;
   std::cout << "Cluster Sizes:\n" << cluster_sizes.transpose() << std::endl;
 }
+
+void Data::set_allocations(const Eigen::VectorXi &new_allocations) {
+  /**
+   * @brief Sets the allocations vector to a new vector and updates cluster
+   * sizes.
+   * @details It checks if the new allocations vector is of the correct size
+   * and updates the allocations and cluster sizes accordingly.
+   * @param new_allocations The new allocations vector to set.
+   * @throws std::invalid_argument if the new allocations vector is not of the
+   * correct size.
+   */
+
+  if (new_allocations.size() != n) {
+    throw std::invalid_argument("New allocations vector must be of size n");
+  }
+
+  allocations = new_allocations;
+
+  // Update K based on the new allocations
+  K = allocations.maxCoeff() + 1;
+
+  update_cluster_sizes(); // Update cluster sizes based on new allocations
+}

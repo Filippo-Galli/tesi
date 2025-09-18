@@ -23,6 +23,7 @@ class Data {
         int get_n() const { return n; }
         int get_K() const { return K; }
         const Eigen::VectorXi& get_allocations() const { return allocations; }
+        Eigen::VectorXi copy_allocations() const { return allocations; }
         double get_cluster_size(unsigned cluster_index) const {
             return cluster_index < K ? cluster_sizes(cluster_index) : 0;
         }
@@ -32,6 +33,7 @@ class Data {
         
         // Setters
         void set_allocation(int index, int cluster);
+        void set_allocations(const Eigen::VectorXi& new_allocations);
 
         void update_cluster_sizes();
         void update_cluster_sizes(unsigned cluster);

@@ -13,4 +13,6 @@ class Sampler {
         std::random_device rd;
     public:
         Sampler(Data& d, Params& p, Likelihood& l) : data(d), params(p), likelihood(l) {};
+
+        void virtual step() = 0;
 };

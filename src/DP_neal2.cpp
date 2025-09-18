@@ -29,16 +29,11 @@ void DPNeal2::step_1_observation(int index) {
     log_likelihoods[data.get_K()] += log(params.a);
 
     // DEBUG: Print the log likelihoods for each cluster
-    Rcout << "[DEBUG] Log likelihoods for each cluster: ";
-    for (const auto& log_likelihood : log_likelihoods) {
-        Rcout << log_likelihood << " ";
-    }
-    Rcout << std::endl;
-
+    
     // Normalize the log likelihoods
     double max_loglik = *std::max_element(log_likelihoods.begin(), log_likelihoods.end());
     std::vector<double> probs(log_likelihoods);
-
+    
     for (double& prob : probs) {
         prob = exp(prob - max_loglik);
     }
@@ -46,6 +41,13 @@ void DPNeal2::step_1_observation(int index) {
     for (double& prob : probs) {
         prob /= sum_probs;
     }
+    Rcout << "[DEBUG] probs for each cluster: ";
+    for (const auto& prob : probs) {
+        Rcout << prob << " ";
+    }
+    Rcout << std::endl;
+
+    //Rcpp::Rcout << "[DEBUG] Probabilities for each cluster: " << Eigen::Map<Eigen::VectorXd>(probs.data(), probs.size()).transpose() << std::endl;
 
     // Sample a cluster based on the probabilities
     std::discrete_distribution<int> dist(probs.begin(), probs.end());
@@ -53,6 +55,8 @@ void DPNeal2::step_1_observation(int index) {
 
     // Set the allocation for the data point
     data.set_allocation(index, sampled_cluster);
+
+    Rcpp::Rcout << "[DEBUG] Data point " << index << " assigned to cluster " << sampled_cluster << std::endl << std::endl;
 }
 
 void DPNeal2::step() {

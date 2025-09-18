@@ -1,10 +1,10 @@
 #pragma once
 
 #include "Likelihood.hpp"
-#include "Marginal_sampler.hpp"
+#include "Sampler.hpp"
 #include <random>
 
-class DPNeal2 : public MarginalSampler {
+class DPNeal2 : public Sampler {
   private:
     mutable std::mt19937 gen;
 
@@ -12,7 +12,7 @@ class DPNeal2 : public MarginalSampler {
 
   public:
     DPNeal2(Data &d, Params &p, Likelihood &l)
-        : MarginalSampler(d, p, l), gen(rd()){};
+        : Sampler(d, p, l), gen(rd()){};
 
     void step() override;
 };

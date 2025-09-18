@@ -2,6 +2,7 @@
 
 #include "Data.hpp"
 #include "Params.hpp"
+#include <optional>
 
 class Likelihood {
     private:
@@ -10,7 +11,7 @@ class Likelihood {
 
         // Useful fixed values
         const double lgamma_delta1 = lgamma(params.delta1);
-        const double log_gamma_alpha = log(params.beta) * params.alpha - lgamma(params.alpha);
+        const double log_beta_alpha = log(params.beta) * params.alpha - lgamma(params.alpha);
         const double lgamma_delta2 = lgamma(params.delta2);
         const double log_gamma_zeta = log(params.gamma) * params.zeta - lgamma(params.zeta);
 
@@ -22,7 +23,10 @@ class Likelihood {
 
         // Calculate the likelihood of a specific cluster
         double cluster_loglikelihood(int cluster_index) const;
+        double cluster_loglikelihood(int cluster_index, const Eigen::VectorXi& cls_ass_k) const;
 
         // Calculate the conditional likelihood of a specific point
         double point_loglikelihood_cond(int point_index, int cluster_index) const;
+        double point_loglikelihood_cond(int point_index, int cluster_index, const Eigen::VectorXi& cls_ass_k) const;
+
 };
