@@ -41,11 +41,11 @@ void DPNeal2::step_1_observation(int index) {
     for (double& prob : probs) {
         prob /= sum_probs;
     }
-    Rcout << "[DEBUG] probs for each cluster: ";
-    for (const auto& prob : probs) {
-        Rcout << prob << " ";
-    }
-    Rcout << std::endl;
+    // Rcout << "[DEBUG] probs for each cluster: ";
+    // for (const auto& prob : probs) {
+    //     Rcout << prob << " ";
+    // }
+    // Rcout << std::endl;
 
     //Rcpp::Rcout << "[DEBUG] Probabilities for each cluster: " << Eigen::Map<Eigen::VectorXd>(probs.data(), probs.size()).transpose() << std::endl;
 
@@ -56,7 +56,7 @@ void DPNeal2::step_1_observation(int index) {
     // Set the allocation for the data point
     data.set_allocation(index, sampled_cluster);
 
-    Rcpp::Rcout << "[DEBUG] Data point " << index << " assigned to cluster " << sampled_cluster << std::endl << std::endl;
+    //Rcpp::Rcout << "[DEBUG] Data point " << index << " assigned to cluster " << sampled_cluster << std::endl << std::endl;
 }
 
 void DPNeal2::step() {

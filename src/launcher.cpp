@@ -1,11 +1,12 @@
 // [[Rcpp::depends(RcppEigen)]]
 
 #include "DP_neal2.hpp"
-#include "DP_splitmerge.hpp"
+//#include "DP_splitmerge.hpp"
 #include "Data.hpp"
 #include "Likelihood.hpp"
 #include "Params.hpp"
 #include "Rcpp/vector/instantiation.h"
+#include <chrono>
 
 // Expose Params class to R using Rcpp modules
 RCPP_MODULE(params_module) {
@@ -42,40 +43,44 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   //DPSplitMerge sampler(data, param, likelihood);
 
   Rcpp::List results = Rcpp::List::create(
-      Rcpp::Named("allocations") = Rcpp::List(param.NI),
-      Rcpp::Named("K") = Rcpp::List(param.NI),
-      Rcpp::Named("loglikelihood") = Rcpp::NumericVector(param.NI, 0.0));
+      Rcpp::Named("allocations") = Rcpp::List(param.NI + param.BI),
+      Rcpp::Named("K") = Rcpp::List(param.NI + param.BI),
+      Rcpp::Named("loglikelihood") = Rcpp::NumericVector(param.NI + param.BI, 0.0));
 
   std::cout << "Starting MCMC with " << param.NI << " iterations after "
             << param.BI << " burn-in iterations." << std::endl;
+
+  std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+  std::chrono::steady_clock::time_point step = std::chrono::steady_clock::now();
 
   for (int i = 0; i < param.NI + param.BI; ++i) {
     
     sampler.step();
 
     // Save intermediate results
-    if (i >= param.BI) {
-      Rcpp::as<Rcpp::List>(results["allocations"])[i - param.BI] =
-          Rcpp::wrap(data.get_allocations());
-      Rcpp::as<Rcpp::List>(results["K"])[i - param.BI] = data.get_K();
+    Rcpp::as<Rcpp::List>(results["allocations"])[i] =
+        Rcpp::wrap(data.get_allocations());
+    Rcpp::as<Rcpp::List>(results["K"])[i] = data.get_K();
 
-      // Calculate total loglikelihood with bounds checking
-      double total_loglik = 0.0;
-      for (int k = 0; k < data.get_K(); ++k) {
-        total_loglik += likelihood.cluster_loglikelihood(k);
-      }
-      Rcpp::as<Rcpp::NumericVector>(results["loglikelihood"])[i - param.BI] =
-          total_loglik;
+    // Calculate total loglikelihood with bounds checking
+    double total_loglik = 0.0;
+    for (int k = 0; k < data.get_K(); ++k) {
+      total_loglik += likelihood.cluster_loglikelihood(k);
     }
+    Rcpp::as<Rcpp::NumericVector>(results["loglikelihood"])[i] =
+        total_loglik;
+    
 
     // print intermediate results
     if ((i + 1) % 100 == 0) {
       std::cout << "Iteration " << i + 1 << ": ";
-      std::cout << "Number of clusters: " << data.get_K() << std::endl;
+      step = std::chrono::steady_clock::now();
+      std::cout << "Number of clusters: " << data.get_K() << " iter/s: " << i/ std::chrono::duration_cast<std::chrono::seconds>(step - begin).count()  << std::endl;
     }
   }
 
-  std::cout << "MCMC completed." << std::endl;
+  std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+  std::cout << "MCMC completed in : " << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() << " seconds." << std::endl;
 
   return results;
 }
