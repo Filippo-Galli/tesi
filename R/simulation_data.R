@@ -2,61 +2,76 @@
 source("R/utils.R")
 
 # Generate data from 4 Gaussian distributions
-set.seed(42)
-n_points <- 30
-centers <- list(
-  c(10, 10),  # Cluster 1: top-right
-  c(6, 6),  # Cluster 2: bottom-right
-  c(0, 0),  # Cluster 3: bottom-left
-  c(3, 3)   # Cluster 4: top-left
-)
+set.seed(44)
 
-# Generate data for each cluster
-data1 <- mvrnorm(n_points, mu = centers[[1]], Sigma = diag(2))
-data2 <- mvrnorm(n_points, mu = centers[[2]], Sigma = diag(2))  
-data3 <- mvrnorm(n_points, mu = centers[[3]], Sigma = diag(2))
-data4 <- mvrnorm(n_points, mu = centers[[4]], Sigma = diag(2))
+### ----------------------- Natarajan Data Generation ----------------- ###
+data_generation <- generate_mixture_data(N = 100, sigma = 0.25, d = 10)
+
+all_data <- data_generation$points
+ground_truth <- data_generation$clusts
+
+# Distance plot
+distance_plot(all_data, ground_truth)
+
+### ----------------------- Gaussian Data Generation ----------------- ###
+
+#n_points <- 30
+# centers <- list(
+#   c(10, 10),  # Cluster 1: top-right
+#   c(6, 6),  # Cluster 2: bottom-right
+#   c(0, 0),  # Cluster 3: bottom-left
+#   c(3, 3)   # Cluster 4: top-left
+# )
+
+# # Generate data for each cluster
+# data1 <- mvrnorm(n_points, mu = centers[[1]], Sigma = diag(2))
+# data2 <- mvrnorm(n_points, mu = centers[[2]], Sigma = diag(2))  
+# data3 <- mvrnorm(n_points, mu = centers[[3]], Sigma = diag(2))
+# data4 <- mvrnorm(n_points, mu = centers[[4]], Sigma = diag(2))
+
+# # Combine all data points + labels
+# ground_truth <- c(
+#   rep(0, n_points),
+#   rep(1, n_points),
+#   rep(2, n_points),
+#   rep(3, n_points)
+# )
+# all_data <- rbind(data1, data2, data3, data4)
+
+### ----------------------- Gamma Data Generation ----------------- ###
+# n_points <- 30
 # # Gamma Generated data
 # data1 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) + 8, ncol = 2)
 # data2 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) + 1, ncol = 2)  
 # data3 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) - 1, ncol = 2)
 # data4 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) + 4, ncol = 2)
 
-# Combine all data points + labels
-ground_truth <- c(
-  rep(0, n_points),
-  rep(1, n_points),
-  rep(2, n_points),
-  rep(3, n_points)
-)
-all_data <- rbind(data1, data2, data3, data4)
+# # Combine all data points + labels
+# ground_truth <- c(
+#   rep(0, n_points),
+#   rep(1, n_points),
+#   rep(2, n_points),
+#   rep(3, n_points)
+# )
+# all_data <- rbind(data1, data2, data3, data4)
 
 # Create distance matrix (n x n)
 dist_matrix <- as.matrix(dist(all_data))
-
-# Create cluster labels for plotting
-cluster_labels <- c(
-  rep("Cluster 1", n_points),
-  rep("Cluster 2", n_points),
-  rep("Cluster 3", n_points),
-  rep("Cluster 4", n_points)
-)
-
-plot_data(all_data, ground_truth)
 
 # Load the C++ code
 sourceCpp("src/launcher.cpp")
 
 # Set hyperparameters with ground truth and plotting
+plot_k_means(dist_matrix, max_k = 15)
 hyperparams <- set_hyperparameters(all_data, dist_matrix, k_elbow = 4, 
-                                 ground_truth = ground_truth, plot_clustering = FALSE, plot_distribution = FALSE)
+                                 ground_truth = ground_truth, plot_clustering = FALSE, plot_distribution = TRUE)
 
 # Create parameter object with computed hyperparameters
 param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  0, 1000, 10, 1.0, 1.0 
+  500, 2000, 1, 1.0, 1.0 
 ) # BI, NI, a, sigma, tau
 
 # Initialize allocations
@@ -92,6 +107,6 @@ results <- capture.output({
 }, file = log_file)
 
 ## Save into files - initialization name
-#save_with_name(folder, param, "AllInOne_2D")
+#save_with_name(folder, param, "OneInOne_Natarajan")
 
-plot_mcmc_results(mcmc_result, as.factor(ground_truth))
+plot_mcmc_results(mcmc_result, as.factor(ground_truth), BI = param$BI)

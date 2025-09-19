@@ -3,7 +3,7 @@ source("R/utils.R")
 list.files("results/")
 
 # Load the results and ground truth for later analysis
-folder <- "results/AllInOne_2D_BI100_NI20000_a4_sigma1_tau1/"
+folder <- "results/AllInOne_Natarajan_BI2000_NI10000_a1_sigma1_tau1/"
 filename_results <- "simulation_results.rds"
 filename_gt <- "simulation_ground_truth.rds"
 filename_dist <- "simulation_distance_matrix.rds"
@@ -32,7 +32,8 @@ if (!dir.exists(folder)) {
 ############################## Plot Data ########################
 #################################################################
 
-plot_data(all_data, ground_truth, save = TRUE, folder)
+#plot_data(all_data, ground_truth, save = TRUE, folder)
+distance_plot(all_data, ground_truth, save = TRUE, folder)
 
 #################################################################
 ################ Plot Simulation Results ########################
@@ -47,4 +48,4 @@ cat("gamma =", param$gamma, "\n")
 cat("zeta =", param$zeta, "\n")
 cat("Initial clusters =", param$initial_cluster, "\n")
 
-plot_mcmc_results(results, ground_truth, save = TRUE, folder = folder)
+plot_mcmc_results(results, ground_truth, BI = 2000, save = TRUE, folder = folder)

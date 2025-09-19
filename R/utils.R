@@ -9,29 +9,141 @@ library(viridisLite) # For color scales
 library(RColorBrewer) # For color palettes
 library(pheatmap) # For heatmaps
 library(mcclust.ext) # For MCMC clustering functions
+library(mvtnorm)
+library(gtools)
+
+
+generate_mixture_data <- function(N = 100, K = 10, alpha = 10, dim = K, radius = 1, sigma = 0.1, ordered = TRUE) {
+  # Input validation
+  if (N < 1) stop("N must be greater than 1")
+  if (K < 1 || K > N) stop("K must satisfy 1 ≤ K ≤ N")
+  if (alpha <= 0) stop("alpha must be positive")
+  if (dim < K) stop("dim must be ≥ K")
+  if (radius <= 0) stop("radius must be positive")
+  if (sigma <= 0) stop("sigma must be positive")
+  
+  # Generate cluster weights from Dirichlet prior
+  probs <- as.numeric(rdirichlet(1, rep(alpha, K)))
+  
+  # Generate cluster assignments
+  clusts <- sample(1:K, N, replace = TRUE, prob = probs)
+  
+  # Generate cluster centres as vertices of dim-dimensional simplex
+  # Center i has radius at position i, zeros elsewhere
+  clust_centres <- matrix(0, K, dim)
+  for (i in 1:K) {
+    clust_centres[i, i] <- radius
+  }
+  
+  # Covariance matrix: sigma^2 * I_dim
+  Sigma <- diag(sigma^2, dim)
+  
+  # Generate points
+  points <- matrix(0, N, dim)
+  for (i in 1:N) {
+    cluster <- clusts[i]
+    points[i, ] <- rmvnorm(1, mean = clust_centres[cluster, ], sigma = Sigma)
+  }
+  
+  # Optional: Order data by cluster assignments
+  if (ordered) {
+    # Sort by cluster assignment
+    order_idx <- order(clusts)
+    points <- points[order_idx, ]
+    clusts <- clusts[order_idx]
+    
+    # Also return the ordering for reference
+    return(list(
+      points = points,
+      clusts = clusts,
+      clust_centres = clust_centres,
+      probs = probs,
+      original_order = order_idx  # In case you need to map back
+    ))
+  } else {
+    return(list(
+      points = points,
+      clusts = clusts,
+      clust_centres = clust_centres,
+      probs = probs
+    ))
+  }
+}
+
+distance_plot <- function(all_data, clusts, save = FALSE, folder = "results/plots/") {
+  # Calculate distance matrix
+  dist_matrix <- as.matrix(dist(all_data))
+
+  # Get upper triangular indices to avoid duplicates
+  upper_tri_indices <- which(upper.tri(dist_matrix), arr.ind = TRUE)
+
+  # Extract distances and determine if they are intra or inter-cluster
+  distances <- dist_matrix[upper_tri_indices]
+  cluster_pairs <- cbind(clusts[upper_tri_indices[,1]], clusts[upper_tri_indices[,2]])
+
+  # Classify distances as intra-cluster (same cluster) or inter-cluster (different clusters)
+  intra_cluster <- distances[cluster_pairs[,1] == cluster_pairs[,2]]
+  inter_cluster <- distances[cluster_pairs[,1] != cluster_pairs[,2]]
+
+  # Create histogram with overlaid distributions
+  hist(inter_cluster, breaks = 30, col = rgb(0, 0, 1, 0.7), # Orange with transparency
+      main = "Histogram of Pairwise Distances", 
+      xlab = "Distance", 
+      ylab = "Frequency",
+      xlim = range(c(intra_cluster, inter_cluster)))
+
+  # Add intra-cluster distances on top
+  hist(intra_cluster, breaks = 30, col = rgb(1, 0.5, 0, 0.7), # Orange with transparency 
+      add = TRUE)
+
+  # Add legend
+  legend("topright", 
+        legend = c("Intra-cluster", "Inter-cluster"), 
+        fill = c(rgb(1, 0.5, 0, 0.7), rgb(0, 0, 1, 0.7)),
+        bty = "n")
+
+  # Save plot if needed
+  if(save){
+    if (!dir.exists(folder)) {
+      dir.create(folder, recursive = TRUE)
+    }
+    dev.copy(png, filename = paste0(folder, "distance_histogram.png"))
+    dev.off()
+  }
+}
 
 # Function to plot MCMC analysis results - Similarity matrix, trace plots, autocorrelation, posterior distribution
-plot_mcmc_results <- function(results, true_labels, save = FALSE, folder = "results/plots/") {
+plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "results/plots/") {
   # Clean previous plots
   graphics.off()
 
-  ### First plot - Posterior distribution of the number of clusters
+  # Apply burn-in to all data
   k_values <- unlist(results$K)
-
+  
   # Check if K values exist and are valid
   if (is.null(k_values) || length(k_values) == 0) {
     cat("Warning: No valid K values found, skipping cluster distribution plot\n")
     return(NULL)
   }
 
+  # Apply burn-in period
+  if (BI > 0 && length(k_values) > BI) {
+    k_values <- k_values[(BI + 1):length(k_values)]
+    cat("Applied burn-in: Using", length(k_values), "samples after discarding first", BI, "iterations\n")
+  } else if (BI > 0) {
+    cat("Warning: Burn-in period (", BI, ") is greater than or equal to total iterations (", length(k_values), ")\n")
+    cat("Using all available data\n")
+  }
+
   # Remove any NA values
   k_values <- k_values[!is.na(k_values)]
 
   if (length(k_values) == 0) {
-    cat("Warning: All K values are NA, skipping cluster distribution plot\n")
+    cat("Warning: All K values are NA after burn-in, skipping cluster distribution plot\n")
     return(NULL)
   }
 
+  ### First plot - Posterior distribution of the number of clusters (after burn-in)
   post_k <- table(k_values) / length(k_values)
   df <- data.frame(
     cluster_found = as.numeric(names(post_k)),
@@ -43,6 +155,7 @@ plot_mcmc_results <- function(results, true_labels, save = FALSE, folder = "resu
     labs(
       x = "Cluster Found",
       y = "Relative Frequency",
+      title = paste("Posterior Distribution of Clusters (After Burn-in:", BI, ")")
     ) +
     theme(
       axis.text.x = element_text(size = 15),
@@ -59,31 +172,22 @@ plot_mcmc_results <- function(results, true_labels, save = FALSE, folder = "resu
     ggsave(filename = paste0(folder, "posterior_num_clusters.png"), plot = p1, width = 8, height = 6)
 
   ### Second plot - Trace of number of clusters
-  # Ensure K values exist and handle any missing values
-  if (is.null(results$K) || length(k_values) == 0) {
+  if (is.null(results$K)) {
     cat("Warning: No valid K values for trace plot\n")
-  } else {
-    # Remove any NULL or NA values and create corresponding iteration indices
-    valid_k <- k_values[!is.na(k_values)]
-
-    if (length(valid_k) > 0) {
+  } 
+  else {  
+    if (length(k_values) > 0) {
       k_df <- data.frame(
-        Iteration = seq_along(valid_k),
-        NumClusters = valid_k
+        Iteration = seq_along(k_values),
+        NumClusters = k_values
       )
 
-      k_df_long <- k_df %>%
-        pivot_longer(
-          cols = starts_with("NumClusters"),
-          names_to = "variable",
-          values_to = "value"
-        )
-
-      p2 <- ggplot(k_df_long, aes(x = Iteration, y = value)) +
+      p2 <- ggplot(k_df, aes(x = Iteration, y = NumClusters)) +
         geom_line() +
         labs(
           x = "Iteration",
           y = "Number of clusters",
+          title = paste("Trace Plot (Burn-in:", BI, "iterations)")
         ) +
         theme(
           axis.text.x = element_text(size = 15),
@@ -91,8 +195,10 @@ plot_mcmc_results <- function(results, true_labels, save = FALSE, folder = "resu
           text = element_text(size = 15),
           panel.background = element_blank(),
           panel.grid.major = element_line(color = "grey95"),
-          panel.grid.minor = element_line(color = "grey95")
+          panel.grid.minor = element_line(color = "grey95"),
+          legend.position = "top"
         )
+      
       print(p2)
       if (save)
         ggsave(filename = paste0(folder, "traceplot.png"), plot = p2, width = 8, height = 6)
@@ -101,97 +207,138 @@ plot_mcmc_results <- function(results, true_labels, save = FALSE, folder = "resu
     }
   }
 
-  ### Third plot - Posterior Similarity Matrix
+  ### Third plot - Posterior Similarity Matrix (using post burn-in data only)
   # Check if allocations exist
   if (is.null(results$allocations) || length(results$allocations) == 0) {
     cat("Warning: No allocation data found, skipping similarity matrix plot\n")
   } else {
-    # Compute posterior similarity matrix
-    n <- nrow(dist_matrix)
-    similarity_matrix <- matrix(0, nrow = n, ncol = n)
+    # Apply burn-in to allocations
+    allocations_post_burnin <- results$allocations
+    if (BI > 0 && length(allocations_post_burnin) > BI) {
+      allocations_post_burnin <- allocations_post_burnin[(BI + 1):length(allocations_post_burnin)]
+      cat("Using", length(allocations_post_burnin), "allocation samples after burn-in\n")
+    }
+    
+    if (length(allocations_post_burnin) == 0) {
+      cat("Warning: No allocations remaining after burn-in\n")
+    } else {
+      # Compute posterior similarity matrix
+      n <- nrow(dist_matrix)
+      similarity_matrix <- matrix(0, nrow = n, ncol = n)
 
-    # For each MCMC iteration, add to similarity matrix
-    for (iter in seq_along(results$allocations)) {
-      allocation <- results$allocations[[iter]]
-      if (!is.null(allocation) && length(allocation) == n) {
-        for (i in 1:(n - 1)) {
-          for (j in (i + 1):n) {
-            if (allocation[i] == allocation[j]) {
-              similarity_matrix[i, j] <- similarity_matrix[i, j] + 1
-              similarity_matrix[j, i] <- similarity_matrix[j, i] + 1
+      # For each MCMC iteration (post burn-in), add to similarity matrix
+      for (iter in seq_along(allocations_post_burnin)) {
+        allocation <- allocations_post_burnin[[iter]]
+        if (!is.null(allocation) && length(allocation) == n) {
+          for (i in 1:(n - 1)) {
+            for (j in (i + 1):n) {
+              if (allocation[i] == allocation[j]) {
+                similarity_matrix[i, j] <- similarity_matrix[i, j] + 1
+                similarity_matrix[j, i] <- similarity_matrix[j, i] + 1
+              }
             }
           }
         }
       }
+
+      # Normalize by number of post burn-in iterations
+      similarity_matrix <- similarity_matrix / length(allocations_post_burnin)
+
+      # Set diagonal to 1 (each point is always similar to itself)
+      diag(similarity_matrix) <- 1
+
+      # Create heatmap of posterior similarity matrix
+      similarity_df <- expand.grid(i = 1:n, j = 1:n)
+      similarity_df$similarity <- as.vector(similarity_matrix)
+
+      p3 <- ggplot(similarity_df, aes(x = i, y = j, fill = similarity)) +
+        geom_tile() +
+        scale_fill_gradient(low = "white", high = "darkblue") +
+        labs(
+          x = "Data Point Index",
+          y = "Data Point Index",
+          fill = "Posterior\nSimilarity",
+          title = paste("Posterior Similarity Matrix (After Burn-in:", BI, ")")
+        ) +
+        theme(
+          axis.text.x = element_text(size = 12),
+          axis.text.y = element_text(size = 12),
+          text = element_text(size = 12),
+          panel.background = element_blank()
+        ) +
+        coord_fixed()
+      print(p3)
+      if (save)
+        ggsave(filename = paste0(folder, "similarity_matrix.png"), plot = p3, width = 8, height = 6)
     }
-
-    # Normalize by number of iterations
-    similarity_matrix <- similarity_matrix / length(results$allocations)
-
-    # Set diagonal to 1 (each point is always similar to itself)
-    diag(similarity_matrix) <- 1
-
-    # Create heatmap of posterior similarity matrix
-    similarity_df <- expand.grid(i = 1:n, j = 1:n)
-    similarity_df$similarity <- as.vector(similarity_matrix)
-
-    p3 <- ggplot(similarity_df, aes(x = i, y = j, fill = similarity)) +
-      geom_tile() +
-      scale_fill_gradient(low = "white", high = "darkblue") +
-      labs(
-        x = "Data Point Index",
-        y = "Data Point Index",
-        fill = "Posterior\nSimilarity",
-        title = "Posterior Similarity Matrix"
-      ) +
-      theme(
-        axis.text.x = element_text(size = 12),
-        axis.text.y = element_text(size = 12),
-        text = element_text(size = 12),
-        panel.background = element_blank()
-      ) +
-      coord_fixed()
-    print(p3)
-    if (save)
-      ggsave(filename = paste0(folder, "similarity_matrix.png"), plot = p3, width = 8, height = 6)
   }
 
-  ### Fourth plot - Posterior similarity matrix
+  ### Fourth plot - Posterior similarity matrix analysis (using post burn-in data)
   # Check if allocations exist, otherwise skip this plot
   if (!is.null(results$allocations) && length(results$allocations) > 0) {
-    C <- matrix(unlist(lapply(results$allocations, function(x) x + 1)),
-      nrow = length(results$allocations),
-      ncol = length(true_labels),
-      byrow = TRUE
-    )
-
-    required_packages <- c("spam", "fields", "viridisLite", "RColorBrewer", "pheatmap", "mcclust")
-    for (pkg in required_packages) {
-      if (!require(pkg, character.only = TRUE)) {
-        install.packages(pkg)
-        library(pkg, character.only = TRUE)
-      }
+    # Apply burn-in to allocations
+    allocations_post_burnin <- results$allocations
+    if (BI > 0 && length(allocations_post_burnin) > BI) {
+      allocations_post_burnin <- allocations_post_burnin[(BI + 1):length(allocations_post_burnin)]
     }
+    
+    if (length(allocations_post_burnin) > 0) {
+      C <- matrix(unlist(lapply(allocations_post_burnin, function(x) x + 1)),
+        nrow = length(allocations_post_burnin),
+        ncol = length(true_labels),
+        byrow = TRUE
+      )
 
-    psm <- comp.psm(C)
-    VI <- minVI(psm)
+      required_packages <- c("spam", "fields", "viridisLite", "RColorBrewer", "pheatmap", "mcclust")
+      for (pkg in required_packages) {
+        if (!require(pkg, character.only = TRUE)) {
+          install.packages(pkg)
+          library(pkg, character.only = TRUE)
+        }
+      }
 
-    cat("Cluster Sizes:\n")
-    print(table(VI$cl))
-    cat("\nAdjusted Rand Index:", arandi(VI$cl, true_labels), "\n")
+      psm <- comp.psm(C)
+      VI <- minVI(psm)
+
+      # # Reorder based on cluster assignments
+      # cluster_order <- order(VI$cl)
+      # psm_reordered <- psm[cluster_order, cluster_order]
+      # true_labels_reordered <- true_labels[cluster_order]
+
+      # # Plot the reordered matrix
+      # pheatmap(psm_reordered, 
+      #         cluster_rows = FALSE, 
+      #         cluster_cols = FALSE,
+      #         main = "Posterior Similarity Matrix (Reordered)")
+
+      cat("Cluster Sizes (Post Burn-in):\n")
+      print(table(VI$cl))
+      cat("\nAdjusted Rand Index (Post Burn-in):", arandi(VI$cl, true_labels), "\n")
+    } else {
+      cat("Warning: No allocation data remaining after burn-in\n")
+    }
   } else {
-    cat("Warning: No allocation data found, skipping posterior similarity matrix plot\n")
+    cat("Warning: No allocation data found, skipping posterior similarity matrix analysis\n")
   }
 
-  ### Fifth plot - Auto-correlation plot
+  ### Fifth plot - Auto-correlation plot (using post burn-in data)
   # Check if loglikelihood data exists and is valid
   if (!is.null(results$loglikelihood) && length(results$loglikelihood) > 0) {
+    # Apply burn-in to loglikelihood
+    logl_original <- results$loglikelihood
+    logl_post_burnin <- logl_original
+    k_post_burnin <- k_values  # k_values already has burn-in applied
+    
+    if (BI > 0 && length(logl_original) > BI) {
+      logl_post_burnin <- logl_original[(BI + 1):length(logl_original)]
+    }
+    
     # Remove any NA or infinite values
-    logl_clean <- results$loglikelihood[is.finite(results$loglikelihood)]
-    k_clean <- k_values[is.finite(k_values)]
+    logl_clean <- logl_post_burnin[is.finite(logl_post_burnin)]
+    k_clean <- k_post_burnin[is.finite(k_post_burnin)]
 
-    cat("Debug autocorr: logl_clean length =", length(logl_clean), "\n")
-    cat("Debug autocorr: k_clean length =", length(k_clean), "\n")
+    cat("Debug autocorr (post burn-in): logl_clean length =", length(logl_clean), "\n")
+    cat("Debug autocorr (post burn-in): k_clean length =", length(k_clean), "\n")
 
     if (length(logl_clean) > 1 && length(k_clean) > 1) {
       # Ensure both vectors have the same length
@@ -208,34 +355,34 @@ plot_mcmc_results <- function(results, true_labels, save = FALSE, folder = "resu
         if (any(apply(mcmc_matrix, 2, var, na.rm = TRUE) > 0)) {
           tryCatch(
             {
-              acf(mcmc_matrix, main = "Autocorrelation of MCMC chains")
+              acf(mcmc_matrix, main = paste("Autocorrelation of MCMC chains (Post Burn-in:", BI, ")"))
             },
             error = function(e) {
               cat("Error in MCMC chains autocorrelation:", e$message, "\n")
             }
           )
         } else {
-          cat("Warning: No variance in MCMC data for autocorrelation\n")
+          cat("Warning: No variance in post burn-in MCMC data for autocorrelation\n")
         }
       } else {
-        cat("Warning: Skipping autocorrelation plot due to invalid data\n")
+        cat("Warning: Skipping autocorrelation plot due to invalid post burn-in data\n")
       }
     } else {
-      cat("Warning: Not enough valid data for autocorrelation plot\n")
+      cat("Warning: Not enough valid post burn-in data for autocorrelation plot\n")
     }
 
-    # Plot loglikelihood autocorrelation separately
+    # Plot loglikelihood autocorrelation separately (post burn-in)
     if (length(logl_clean) > 1 && var(logl_clean, na.rm = TRUE) > 0) {
       tryCatch(
         {
-          acf(logl_clean, main = "Autocorrelation of Log-Likelihood")
+          acf(logl_clean, main = paste("Autocorrelation of Log-Likelihood (Post Burn-in:", BI, ")"))
         },
         error = function(e) {
           cat("Error in loglikelihood autocorrelation:", e$message, "\n")
         }
       )
     } else {
-      cat("Warning: Not enough loglikelihood data or no variance for autocorrelation\n")
+      cat("Warning: Not enough post burn-in loglikelihood data or no variance for autocorrelation\n")
     }
   } else {
     cat("Warning: No loglikelihood data available for autocorrelation plot\n")
@@ -404,6 +551,7 @@ set_hyperparameters <- function(data_coords, dist_matrix, k_elbow, ground_truth 
 
           # delta_1 should be less than 1 for cohesion
           if (delta1 > 1) {
+            print(paste("Warning: Fitted delta1 > 1, adjusting to 0.5 for cohesion. Old value: ", delta1))
             delta1 <- 0.5 # Adjust shape parameter if needed
           }
 
@@ -469,7 +617,8 @@ set_hyperparameters <- function(data_coords, dist_matrix, k_elbow, ground_truth 
 
           # delta_2 should be greater than 1 for repulsion
           if (delta2 < 1) {
-            delta2 <- 1.01 # Adjust shape parameter if needed
+            print(paste("Warning: Fitted delta2 < 1, adjusting to 1.5 for repulsion. Old value: ", delta2))
+            delta2 <- 1.5 # Adjust shape parameter if needed
           }
 
           # Set zeta and gamma (note: gamma is a parameter name, using different variable)
