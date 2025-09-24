@@ -5,6 +5,7 @@
 #include <cmath>
 #include <iostream>
 #include <math.h>
+#include <omp.h>
 
 double Likelihood::cluster_loglikelihood(int cluster_index) const {
 
@@ -13,8 +14,7 @@ double Likelihood::cluster_loglikelihood(int cluster_index) const {
   return cluster_loglikelihood(cluster_index, cls_ass_k);
 }
 
-double
-Likelihood::cluster_loglikelihood(int cluster_index,
+double Likelihood::cluster_loglikelihood(int cluster_index,
                                   const Eigen::VectorXi &cls_ass_k) const {
 
   int K = data.get_K(); // number of cluster
@@ -28,8 +28,7 @@ Likelihood::cluster_loglikelihood(int cluster_index,
   double sum = 0;
 
   if (n_k == 0) {
-    std::cerr << "[ERROR] Cluster " << cluster_index << " is empty."
-              << std::endl;
+    // Silently handle empty cluster case during MCMC sampling
     return 0; // Handle empty cluster case
   }
   if (n_k != 1) {
@@ -62,12 +61,11 @@ Likelihood::cluster_loglikelihood(int cluster_index,
     rep += log_gamma_zeta;
 
     rep += lgamma(n_k * n_t * params.delta2 + params.zeta);
-    rep -=
-        log(params.gamma + sum) * (n_k * n_t * params.delta2 + params.zeta);
+    rep -= log(params.gamma + sum) * (n_k * n_t * params.delta2 + params.zeta);
   }
 
-  Rcpp::Rcout << "[DEBUG] repulsive part: " << rep << std::endl;
-  
+  // Rcpp::Rcout << "[DEBUG] repulsive part: " << rep << std::endl;
+
   /* -------------------- cohesion part -------------------------- */
 
   if (!cohesion_part)
@@ -94,9 +92,8 @@ Likelihood::cluster_loglikelihood(int cluster_index,
 
   // Third fraction
   coh += lgamma(pairs * params.delta1 + params.alpha);
-  coh -=
-      log(params.beta + sum) * (pairs * params.delta1 + params.alpha);
-  Rcpp::Rcout << "[DEBUG] cohesion part: " << coh << std::endl;
+  coh -= log(params.beta + sum) * (pairs * params.delta1 + params.alpha);
+  // Rcpp::Rcout << "[DEBUG] cohesion part: " << coh << std::endl;
 
   return rep + coh;
 }
@@ -105,19 +102,19 @@ double Likelihood::point_loglikelihood_cond(int point_index,
                                             int cluster_index) const {
   // Cluster assignment of the cluster_index
   const auto cls_ass_k = data.get_cluster_assignments(cluster_index);
+
   // Check if the actual cluster is a new one or not
   int n_k = (cluster_index != data.get_K())
                 ? data.get_cluster_size(cluster_index)
                 : 0;
+
   /* -------------------- cohesion part -------------------------- */
-  //double coeh = 0;
   double coeh = compute_cohesion(point_index, cluster_index, cls_ass_k, n_k);
 
   /* -------------------- repulsion part -------------------------- */
-  //double rep = 0;
   double rep = compute_repulsion(point_index, cluster_index, cls_ass_k, n_k);
 
-  Rcpp::Rcout << "\t [DEBUG] cluster: " << cluster_index << " point_index: " << point_index << " coeh: " << coeh << " rep: " << rep << std::endl;
+  // Rcpp::Rcout << "\t [DEBUG] cluster: " << cluster_index << " point_index: " << point_index << " coeh: " << coeh << " rep: " << rep << std::endl;
 
   return coeh + rep;
 }
@@ -130,7 +127,8 @@ double Likelihood::compute_cohesion(int point_index, int cluster_index,
 
   // Early return for empty clusters
   if (n_k == 0) {
-    // Rcpp::Rcout << "[WARNING - cohesion] cluster " << cluster_index << " is empty" << std::endl;
+    // Rcpp::Rcout << "[WARNING - cohesion] cluster " << cluster_index << " is
+    // empty" << std::endl;
     return 0.0;
   }
 
@@ -139,17 +137,23 @@ double Likelihood::compute_cohesion(int point_index, int cluster_index,
   // Compute existing cluster sum and prod
   for (int i = 0; i < n_k; ++i) {
     double dist = data.get_distance(point_index, cls_ass_k(i));
-    sum_i += dist; // distance of point_index from any other observation in the clsuter
+    sum_i += dist; // distance of point_index from any other observation in the
+                   // clsuter
     log_prod_i += log(dist + 1e-10);
   }
 
-  // Cohesion likelihood computation
-  loglik += (-n_k) * lgamma_delta1;
-  loglik += (params.delta1 - 1) * log_prod_i;
-  loglik += log_beta_alpha;
-  loglik += lgamma(n_k * params.delta1 + params.alpha);
-  loglik -= (n_k * params.delta1 + params.alpha) * log(params.beta + sum_i);
+  // Useful precomputed terms
+  double alpha_mh = params.alpha + params.delta1 * n_k;
+  double beta_mh = params.beta + sum_i;
 
+  // Cohesion likelihood computation
+  loglik += (-n_k) * lgamma(params.delta1);   // Product term
+  loglik += (params.delta1 - 1) * log_prod_i; // Distance product term
+
+  // Normalization constant term
+  loglik += lgamma(alpha_mh);        // Γ(α_mh)
+  loglik += log_beta_alpha;          // β^α / Γ(α)
+  loglik -= alpha_mh * log(beta_mh); // β_mh^α_mh
   return loglik;
 }
 
@@ -159,6 +163,7 @@ double Likelihood::compute_repulsion(int point_index, int cluster_index,
 
   double loglik = 0;
 
+  #pragma omp parallel for reduction(+:loglik)
   for (int t = 0; t < data.get_K(); ++t) {
     if (t == cluster_index)
       continue;
@@ -175,17 +180,27 @@ double Likelihood::compute_repulsion(int point_index, int cluster_index,
     double sum_i = 0, log_point_prod = 0;
 
     for (int j = 0; j < n_t; ++j) {
-      double point_dist = data.get_distance(point_index, cls_ass_t(j));   // distance of i from j-element of cluster t
-      sum_i += point_dist; // sum_i = sum of distances of i from all points in cluster t
-      
-      log_point_prod += log(point_dist + 1e-10); // Add small epsilon to prevent log(0) = -inf
+      double point_dist = data.get_distance(
+          point_index,
+          cls_ass_t(j));   // distance of i from j-element of cluster t
+      sum_i += point_dist; // sum_i = sum of distances of i from all points in
+                           // cluster t
+      log_point_prod +=
+          log(point_dist + 1e-10); // Add small epsilon to prevent log(0) = -inf
     }
 
-    loglik += (-n_t) * lgamma_delta2;
-    loglik += (params.delta2 - 1) * log_point_prod;
-    loglik += log_gamma_zeta;
-    loglik += lgamma(n_t*params.delta2 + params.zeta);
-    loglik -= (n_t*params.delta2 + params.zeta) * log(params.gamma + sum_i);
+    // Useful precomputed terms
+    double zeta_mt = params.zeta + params.delta2 * n_t;
+    double gamma_mt = params.gamma + sum_i;
+
+    // Repulsion likelihood computation - corrected formula
+    loglik -= n_t * lgamma_delta2;                  // Product term
+    loglik += (params.delta2 - 1) * log_point_prod; // Distance product term
+
+    // Normalization constant term
+    loglik += lgamma(zeta_mt);         // Γ(ζ_mt)
+    loglik += log_gamma_zeta;          // γ^ζ / Γ(ζ)
+    loglik -= zeta_mt * log(gamma_mt); // γ_mt^ζ_mt
   }
 
   return loglik;
