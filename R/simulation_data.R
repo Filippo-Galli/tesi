@@ -5,17 +5,19 @@ source("R/utils.R")
 set.seed(44)
 
 ### ----------------------- Natarajan Data Generation ----------------- ###
-data_generation <- generate_mixture_data(N = 100, sigma = 0.25, d = 10)
+#data_generation <- generate_mixture_data(N = 100, sigma = 0.25, d = 10)
+data_generation <- generate_mixture_data(N = 100, sigma = 0.2, d = 50)
+#data_generation <- generate_mixture_data(N = 100, sigma = 0.18, d = 10)
 
 all_data <- data_generation$points
 ground_truth <- data_generation$clusts
 
 # Distance plot
-distance_plot(all_data, ground_truth)
+#distance_plot(all_data, ground_truth)
 
 ### ----------------------- Gaussian Data Generation ----------------- ###
 
-#n_points <- 30
+# n_points <- 30
 # centers <- list(
 #   c(10, 10),  # Cluster 1: top-right
 #   c(6, 6),  # Cluster 2: bottom-right
@@ -24,10 +26,10 @@ distance_plot(all_data, ground_truth)
 # )
 
 # # Generate data for each cluster
-# data1 <- mvrnorm(n_points, mu = centers[[1]], Sigma = diag(2))
-# data2 <- mvrnorm(n_points, mu = centers[[2]], Sigma = diag(2))  
-# data3 <- mvrnorm(n_points, mu = centers[[3]], Sigma = diag(2))
-# data4 <- mvrnorm(n_points, mu = centers[[4]], Sigma = diag(2))
+# data1 <- mvrnorm(n_points, mu = centers[[1]], Sigma = 3*diag(2))
+# data2 <- mvrnorm(n_points, mu = centers[[2]], Sigma = 3*diag(2))
+# data3 <- mvrnorm(n_points, mu = centers[[3]], Sigma = 3*diag(2))
+# data4 <- mvrnorm(n_points, mu = centers[[4]], Sigma = 3*diag(2))
 
 # # Combine all data points + labels
 # ground_truth <- c(
@@ -63,21 +65,21 @@ sourceCpp("src/launcher.cpp")
 
 # Set hyperparameters with ground truth and plotting
 plot_k_means(dist_matrix, max_k = 15)
-hyperparams <- set_hyperparameters(all_data, dist_matrix, k_elbow = 4, 
-                                 ground_truth = ground_truth, plot_clustering = FALSE, plot_distribution = TRUE)
+hyperparams <- set_hyperparameters(all_data, dist_matrix, k_elbow = 3,
+                                 ground_truth = ground_truth, plot_clustering = FALSE, plot_distribution = FALSE)
 
 # Create parameter object with computed hyperparameters
 param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  500, 2000, 1, 1.0, 1.0 
+  2000, 10000, 1, 1.0, 1.0 
 ) # BI, NI, a, sigma, tau
 
 # Initialize allocations
 
 ## All-in-one allocation
-hyperparams$initial_clusters <- rep(0, nrow(dist_matrix)) # All points in one cluster
+#hyperparams$initial_clusters <- rep(0, nrow(dist_matrix)) # All points in one cluster
 
 ## Sequential allocation
 #hyperparams$initial_clusters <- seq(0, nrow(dist_matrix) - 1)
@@ -89,12 +91,10 @@ hyperparams$initial_clusters <- rep(0, nrow(dist_matrix)) # All points in one cl
 # )$cluster - 1
 
 ## k-means allocation used for hyperparameters
-#hyperparams$initial_clusters <- hyperparams$initial_clusters - 1
+hyperparams$initial_clusters <- hyperparams$initial_clusters - 1
 
 print("Initial cluster allocation:")
 print(table(hyperparams$initial_clusters))
-
-sourceCpp("src/launcher.cpp")
 
 # Run MCMC with computed hyperparameters
 log_file <- "mcmc_log.txt"
@@ -107,6 +107,6 @@ results <- capture.output({
 }, file = log_file)
 
 ## Save into files - initialization name
-#save_with_name(folder, param, "OneInOne_Natarajan")
+save_with_name(folder, param, "kmeans_Natarajan_02-50")
 
-plot_mcmc_results(mcmc_result, as.factor(ground_truth), BI = param$BI)
+#plot_mcmc_results(mcmc_result, as.factor(ground_truth), BI = param$BI)

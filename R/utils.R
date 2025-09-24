@@ -11,6 +11,7 @@ library(pheatmap) # For heatmaps
 library(mcclust.ext) # For MCMC clustering functions
 library(mvtnorm)
 library(gtools)
+library(salso)
 
 
 generate_mixture_data <- function(N = 100, K = 10, alpha = 10, dim = K, radius = 1, sigma = 0.1, ordered = TRUE) {
@@ -273,7 +274,7 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
     }
   }
 
-  ### Fourth plot - Posterior similarity matrix analysis (using post burn-in data)
+  ### Fourth plot - Posterior similarity matrix analysis (using SALSO)
   # Check if allocations exist, otherwise skip this plot
   if (!is.null(results$allocations) && length(results$allocations) > 0) {
     # Apply burn-in to allocations
@@ -283,13 +284,14 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
     }
     
     if (length(allocations_post_burnin) > 0) {
+      # Convert allocations to matrix format for SALSO
       C <- matrix(unlist(lapply(allocations_post_burnin, function(x) x + 1)),
         nrow = length(allocations_post_burnin),
         ncol = length(true_labels),
         byrow = TRUE
       )
 
-      required_packages <- c("spam", "fields", "viridisLite", "RColorBrewer", "pheatmap", "mcclust")
+      required_packages <- c("salso", "fields", "viridisLite", "RColorBrewer", "pheatmap")
       for (pkg in required_packages) {
         if (!require(pkg, character.only = TRUE)) {
           install.packages(pkg)
@@ -297,23 +299,37 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
         }
       }
 
-      psm <- comp.psm(C)
-      VI <- minVI(psm)
-
-      # # Reorder based on cluster assignments
-      # cluster_order <- order(VI$cl)
+      # Compute posterior similarity matrix using SALSO
+      psm <- salso::psm(C)
+      
+      # Get point estimate using Variation of Information (VI) loss
+      point_estimate <- salso::salso(C, loss = "VI")
+      
+      # # Reorder based on cluster assignments for better visualization
+      # cluster_order <- order(point_estimate)
       # psm_reordered <- psm[cluster_order, cluster_order]
       # true_labels_reordered <- true_labels[cluster_order]
-
-      # # Plot the reordered matrix
-      # pheatmap(psm_reordered, 
-      #         cluster_rows = FALSE, 
+      # point_estimate_reordered <- point_estimate[cluster_order]
+      
+      # # Plot the reordered similarity matrix
+      # pheatmap(psm_reordered,
+      #         cluster_rows = FALSE,
       #         cluster_cols = FALSE,
-      #         main = "Posterior Similarity Matrix (Reordered)")
-
-      cat("Cluster Sizes (Post Burn-in):\n")
-      print(table(VI$cl))
-      cat("\nAdjusted Rand Index (Post Burn-in):", arandi(VI$cl, true_labels), "\n")
+      #         color = colorRampPalette(c("white", "blue"))(100),
+      #         main = "Posterior Similarity Matrix (SALSO - Reordered)",
+      #         show_rownames = FALSE,
+      #         show_colnames = FALSE,
+      #         border_color = NA,              # No grid
+      # )
+      
+      # Print results
+      cat("=== SALSO Clustering Results (Post Burn-in) ===\n")
+      cat("Cluster Sizes:\n")
+      print(table(point_estimate))
+      
+      cat("\nAdjusted Rand Index:", arandi(point_estimate, true_labels), "\n")
+      cat("Number of post burn-in samples:", nrow(C), "\n")
+      
     } else {
       cat("Warning: No allocation data remaining after burn-in\n")
     }
