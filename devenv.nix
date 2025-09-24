@@ -7,6 +7,9 @@
   # Set R environment variables for better C++ integration
   env.R_LIBS_USER = "${config.env.DEVENV_STATE}/R";
   env.PKG_CONFIG_PATH = "${pkgs.pkg-config}/lib/pkgconfig";
+  
+  # Ensure R can find Nix-installed packages
+  env.R_LIBS_SITE = "${pkgs.R}/library";
 
   # https://devenv.sh/packages/
   packages = [ 
@@ -17,23 +20,26 @@
     pkgs.rPackages.Rcpp
     pkgs.rPackages.RcppEigen
     
-    # VS Code R integration packages
+    # VS Code R integration packages (remove duplicates)
     pkgs.rPackages.httpgd          # Plot viewer for VS Code
-    pkgs.rPackages.languageserver  # R Language Server Protocol
+    pkgs.rPackages.languageserver  # R Language Server Protocol (keep only once)
     pkgs.rPackages.jsonlite        # JSON support for LSP
     pkgs.rPackages.renv            # Package management
  
+    # Data analysis packages
     pkgs.rPackages.ggplot2         # Data visualization
     pkgs.rPackages.dplyr           # Data manipulation
     pkgs.rPackages.tidyr           # Data tidying
 
-    # MCMC tools
+    # MCMC and clustering tools
     pkgs.rPackages.spam
     pkgs.rPackages.fields
     pkgs.rPackages.viridisLite
     pkgs.rPackages.RColorBrewer
     pkgs.rPackages.pheatmap
     pkgs.rPackages.mcclust
+    pkgs.rPackages.salso           # SALSO clustering
+    pkgs.rPackages.mclust          # For ARI calculation
     
     # C++ development tools
     pkgs.gcc
@@ -42,13 +48,12 @@
     pkgs.cmake
     pkgs.clang-tools_16
     
-    
     # Linear algebra libraries (for RcppEigen)
     pkgs.eigen
     pkgs.blas
     pkgs.lapack
     
-    # Additional R packages commonly used with Rcpp
+    # Additional R development packages
     pkgs.rPackages.devtools
     pkgs.rPackages.testthat
     pkgs.rPackages.roxygen2
@@ -64,13 +69,16 @@
     echo "Setting up R environment..."
     mkdir -p $R_LIBS_USER
     echo "R library path: $R_LIBS_USER"
-    echo "You can now use R with Rcpp and RcppEigen support!"
+    echo "R site library: $R_LIBS_SITE"
+    echo "You can now use R with Rcpp, RcppEigen, and SALSO support!"
   '';
 
   scripts.test-rcpp.exec = ''
-    echo "Testing Rcpp installation..."
+    echo "Testing R package installations..."
     R --slave -e "library(Rcpp); cat('Rcpp version:', as.character(packageVersion('Rcpp')), '\n')"
     R --slave -e "library(RcppEigen); cat('RcppEigen version:', as.character(packageVersion('RcppEigen')), '\n')"
+    R --slave -e "library(salso); cat('SALSO version:', as.character(packageVersion('salso')), '\n')"
+    R --slave -e "library(languageserver); cat('languageserver version:', as.character(packageVersion('languageserver')), '\n')"
   '';
 
   scripts.setup-clangd.exec = ''
@@ -97,6 +105,20 @@ EOF
     cat .clangd
   '';
 
+  scripts.check-r-packages.exec = ''
+    echo "Checking all required R packages..."
+    R --slave -e "
+      required_packages <- c('salso', 'pheatmap', 'mclust', 'mcclust', 'languageserver', 'httpgd')
+      for (pkg in required_packages) {
+        if (requireNamespace(pkg, quietly = TRUE)) {
+          cat('✅', pkg, 'version:', as.character(packageVersion(pkg)), '\n')
+        } else {
+          cat('❌', pkg, 'not found\n')
+        }
+      }
+    "
+  '';
+
 enterShell = ''
   hello
   git --version
@@ -105,15 +127,17 @@ enterShell = ''
   echo "R version: $(R --version | head -n1)"
   test-rcpp
   setup-clangd
+  check-r-packages
   
   echo ""
   echo "🚀 R + C++ development environment is ready for VS Code!"
   echo "   - httpgd: Plot viewing"
   echo "   - languageserver: IntelliSense and code completion"
+  echo "   - salso: Modern clustering analysis"
   echo "   - renv: Package management"
   echo "   - clangd: C++ LSP with correct R/Rcpp paths"
   echo ""
-  echo "💡 If you still have issues, try running 'setup-clangd' manually"
+  echo "💡 If VS Code asks to install languageserver, click 'No' - it's already available via Nix"
   echo "   or restart your VS Code language server"
   echo ""
 '';

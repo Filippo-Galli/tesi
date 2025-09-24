@@ -2,7 +2,6 @@
 
 #include "Data.hpp"
 #include "Params.hpp"
-#include <optional>
 
 class Likelihood {
     private:

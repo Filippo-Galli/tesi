@@ -53,6 +53,8 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
   std::chrono::steady_clock::time_point step = std::chrono::steady_clock::now();
 
+  int printing_interval = int((param.NI + param.BI)*0.05);
+
   for (int i = 0; i < param.NI + param.BI; ++i) {
     
     sampler.step();
@@ -61,21 +63,12 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
     Rcpp::as<Rcpp::List>(results["allocations"])[i] =
         Rcpp::wrap(data.get_allocations());
     Rcpp::as<Rcpp::List>(results["K"])[i] = data.get_K();
-
-    // Calculate total loglikelihood with bounds checking
-    double total_loglik = 0.0;
-    for (int k = 0; k < data.get_K(); ++k) {
-      total_loglik += likelihood.cluster_loglikelihood(k);
-    }
-    Rcpp::as<Rcpp::NumericVector>(results["loglikelihood"])[i] =
-        total_loglik;
     
 
     // print intermediate results
-    if ((i + 1) % 100 == 0) {
+    if ((i + 1) % printing_interval == 0) {
       std::cout << "Iteration " << i + 1 << ": ";
-      step = std::chrono::steady_clock::now();
-      std::cout << "Number of clusters: " << data.get_K() << " iter/s: " << i/ std::chrono::duration_cast<std::chrono::seconds>(step - begin).count()  << std::endl;
+      std::cout << "Number of clusters: " << data.get_K() << std::endl;
     }
   }
 
