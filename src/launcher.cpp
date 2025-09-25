@@ -1,7 +1,7 @@
 // [[Rcpp::depends(RcppEigen)]]
 
 #include "DP_neal2.hpp"
-//#include "DP_splitmerge.hpp"
+#include "DP_neal2_W.hpp"
 #include "Data.hpp"
 #include "Likelihood.hpp"
 #include "Params.hpp"
@@ -12,7 +12,7 @@
 RCPP_MODULE(params_module) {
   Rcpp::class_<Params>("Params")
       .constructor<double, double, double, double, double, double, int, int,
-                   double, double, double>("Constructor with all parameters")
+                   double, double, double, double, Eigen::MatrixXi>("Constructor with W matrix")
       .constructor("Default constructor")
       .field("delta1", &Params::delta1, "Parameter for the first gamma")
       .field("alpha", &Params::alpha, "Parameter for the lambda_k gamma")
@@ -24,7 +24,9 @@ RCPP_MODULE(params_module) {
       .field("NI", &Params::NI, "Number of iterations after burn-in")
       .field("a", &Params::a, "Total mass")
       .field("sigma", &Params::sigma, "Second parameter of the NGGP")
-      .field("tau", &Params::tau, "Third parameter of the NGGP");
+      .field("tau", &Params::tau, "Third parameter of the NGGP")
+      .field("coefficient", &Params::coefficient, "Coefficient for the spatial dependency")
+      .field("W", &Params::W, "Adjacency matrix for the points");
 }
 
 // [[Rcpp::export]]
@@ -39,8 +41,8 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
 
   Data data(distances, initial_allocations);
   Likelihood likelihood(data, param);
-  DPNeal2 sampler(data, param, likelihood);
-  //DPSplitMerge sampler(data, param, likelihood);
+  // DPNeal2 sampler(data, param, likelihood);
+  DPNeal2W sampler(data, param, likelihood);
 
   Rcpp::List results = Rcpp::List::create(
       Rcpp::Named("allocations") = Rcpp::List(param.NI + param.BI),
