@@ -21,6 +21,7 @@ Data::Data(const Eigen::MatrixXd &distances,
    * the first_allocation is invalid.
    */
 
+
   if (distances.rows() != distances.cols()) {
     throw std::invalid_argument("Distance matrix must be square");
   }
@@ -34,42 +35,18 @@ Data::Data(const Eigen::MatrixXd &distances,
               << std::endl;
     // If no initial allocations provided, start with all points in one cluster
     allocations = Eigen::VectorXi::Zero(n);
-    K = 1;
-  } else {
-    // Find the maximum cluster index to determine K
-    K = allocations.maxCoeff() + 1;
   }
 
-  update_cluster_sizes(); // initialize cluster sizes
-}
+  // Find the maximum cluster index to determine K
+  K = allocations.maxCoeff() + 1;
 
-void Data::update_cluster_sizes() {
-  /**
-   * @brief Updates the sizes of each cluster based on the current allocations.
-   * @details It counts the number of points in each cluster and updates the
-   * cluster_sizes vector.
-   */
-  cluster_sizes = Eigen::VectorXi::Zero(K);
+  // Allocate cluster mapping
   for (int i = 0; i < n; ++i) {
-    cluster_sizes(allocations(i))++;
+    int cluster_id = allocations(i);
+    if (cluster_id >= 0) {
+      cluster_members[cluster_id].push_back(i);
+    }
   }
-}
-
-void Data::update_cluster_sizes(unsigned cluster) {
-  /**
-   * @brief Updates the size of a specific cluster.
-   * @details It counts the number of points in the specified cluster and
-   * updates the cluster_sizes
-   * @param cluster The index of the cluster to update (0 to K-1).
-   * @throws std::out_of_range if the cluster index is out of bounds.
-   */
-
-  double count = 0;
-  for (int i = 0; i < n; ++i) {
-    if (allocations(i) == cluster)
-      count++;
-  }
-  cluster_sizes(cluster) = count;
 }
 
 double Data::get_distance(int i, int j) const {
@@ -82,9 +59,13 @@ double Data::get_distance(int i, int j) const {
    * @return The distance between the two points.
    * @throws std::out_of_range if the indices are out of bounds.
    */
+
+  #if VERBOSITY_LEVEL >= 1
   if (i < 0 || i >= D.rows() || j < 0 || j >= D.cols()) {
-    throw std::out_of_range("Index out of bounds");
+    throw std::out_of_range("Index out of bounds in get_distance");
   }
+  #endif
+
   return D(i, j);
 }
 
@@ -98,21 +79,44 @@ Eigen::VectorXi Data::get_cluster_assignments(int cluster) const {
    * @throws std::out_of_range if the cluster index is out of bounds.
    */
 
-  // Handle the case where cluster >= K (new cluster with no assignments yet)
-  if (cluster >= K) {
-    return Eigen::VectorXi::Zero(0); // Return empty vector for new clusters
+  #if VERBOSITY_LEVEL >= 1
+  if (cluster > K || cluster < 0) {
+    throw std::out_of_range("Index out of bounds in get_cluster_assignments");
+  }
+  #endif
+
+  // Check if the cluster exists in the map before accessing it
+  if (cluster_members.find(cluster) == cluster_members.end()) {
+    return Eigen::VectorXi::Zero( 0); // Return empty vector for non-existent clusters
   }
 
-  Eigen::VectorXi assignments = Eigen::VectorXi::Zero(cluster_sizes(cluster));
-  int count = 0;
+  return Eigen::Map<const Eigen::VectorXi>(cluster_members.at(cluster).data(),
+                                           cluster_members.at(cluster).size());
+}
 
+void Data::compact_cluster(int old_cluster) {
+  /**
+   * @brief Compacts the clusters by removing an empty cluster and shifting
+   * allocations.
+   * @details It removes the specified old_cluster and shifts allocations of
+   * points in the last cluster to the old_cluster. It also updates the number
+   * of clusters K.
+   * @param old_cluster The index of the cluster to be removed (0 to K-1).
+   * @throws std::out_of_range if the old_cluster index is out of bounds.
+   */
+
+  // Shift allocations of the last cluster to the old cluster
   for (int i = 0; i < n; ++i) {
-    if (allocations(i) == cluster) {
-      assignments(count++) = i;
+    if (allocations(i) == K - 1) {
+      allocations(i) = old_cluster;
     }
   }
 
-  return assignments;
+  // Move members of the last cluster to the old cluster
+  cluster_members.at(old_cluster) = std::move(cluster_members[K - 1]);
+
+  cluster_members.erase(K - 1);
+  K--; // Decrease the number of clusters
 }
 
 void Data::set_allocation(int index, int cluster) {
@@ -125,30 +129,38 @@ void Data::set_allocation(int index, int cluster) {
    * to K-1 for existing, K for new).
    */
 
-  int old_cluster = allocations(index);
+  // Bounds checking for index
+  #if VERBOSITY_LEVEL >= 1
+  if (index < 0 || index >= n) {
+    throw std::out_of_range("Index out of bounds in set_allocation");
+  }
+  #endif
 
+  int old_cluster = allocations(index);
   int final_cluster;
 
-  // Invalidating the index : -1
+  // Invalidating index: cluster = -1
   if (cluster == -1) {
     final_cluster = -1; // Mark as unallocated
-    cluster_sizes(old_cluster)--;
-
-    // If the old cluster becomes empty, we need to remove it
-    if (cluster_sizes(old_cluster) == 0) {
-      // Shift allocations of the last cluster to the old cluster
-      for (int i = 0; i < n; ++i) {
-        if (allocations(i) == K - 1) {
-          allocations(i) = old_cluster;
-        }
-      }
-
-      cluster_sizes(old_cluster) =
-          cluster_sizes(K - 1);            // Update the size of the old cluster
-      K--;                                 // Decrease the number of clusters
-      cluster_sizes.conservativeResize(K); // Resize the cluster sizes vector
-    }
     allocations(index) = final_cluster;
+
+    // Remove index from old cluster members (check if old_cluster exists)
+    if (old_cluster != -1 &&
+        cluster_members.find(old_cluster) != cluster_members.end()) {
+      // Remove index from old cluster members
+      cluster_members[old_cluster].erase(
+          std::remove(cluster_members[old_cluster].begin(),
+                      cluster_members[old_cluster].end(), index),
+          cluster_members[old_cluster].end());
+
+      // If the old cluster becomes empty, we need to remove it
+      if (cluster_members.find(old_cluster) != cluster_members.end() && cluster_members.at(old_cluster).size() == 0)
+        compact_cluster(old_cluster);
+      else if (cluster_members.find(old_cluster) == cluster_members.end())
+        throw std::runtime_error("Inconsistent state: old_cluster not found in "
+                                 "cluster_members during deallocation");
+    }
+
     return;
   }
 
@@ -159,66 +171,53 @@ void Data::set_allocation(int index, int cluster) {
     if (cluster >= 0 && cluster < K) {
       final_cluster = cluster;
       allocations(index) = final_cluster;
-      cluster_sizes(final_cluster)++;
+      // Add index to new cluster members
+      cluster_members[final_cluster].push_back(index);
     }
     // Setting to a new cluster
     else if (cluster == K) {
       final_cluster = K;
-      allocations(index) = final_cluster;  // Assign to new cluster
-      K++;                                 // Increase the number of clusters
-      cluster_sizes.conservativeResize(K); // Resize the cluster sizes vector
-      cluster_sizes(final_cluster) = 1;    // Initialize size of new cluster
+      allocations(index) = final_cluster; // Assign to new cluster
+      K++;                                // Increase the number of clusters
+      // Add index to new cluster members
+      cluster_members[final_cluster].push_back(index);
     } else {
-      throw std::out_of_range("Invalid cluster index");
+      throw std::out_of_range( "Invalid cluster index in set_allocation for unallocated point");
     }
     return;
+  }
+
+  // Remove index from old cluster members (check if old_cluster exists)
+  if (old_cluster != -1 &&
+      cluster_members.find(old_cluster) != cluster_members.end()) {
+    // Remove index from old cluster members
+    cluster_members[old_cluster].erase(
+        std::remove(cluster_members[old_cluster].begin(),
+                    cluster_members[old_cluster].end(), index),
+        cluster_members[old_cluster].end());
   }
 
   // If the point is already allocated to a cluster
   if (cluster < K) {
     final_cluster = cluster;
     allocations(index) = final_cluster; // Update allocation
-    cluster_sizes(old_cluster)--;       // Decrease size of old cluster
-    cluster_sizes(final_cluster)++;     // Increase size of new cluster
+    cluster_members[final_cluster].push_back(index);
 
     // If the old cluster becomes empty, we need to remove it
-    if (cluster_sizes(old_cluster) == 0) {
-      // Shift allocations of the last cluster to the old cluster
-      for (int i = 0; i < n; ++i) {
-        if (allocations(i) == K - 1) {
-          allocations(i) = old_cluster;
-        }
-      }
-      cluster_sizes(old_cluster) =
-          cluster_sizes(K - 1);            // Update the size of the old cluster
-      K--;                                 // Decrease the number of clusters
-      cluster_sizes.conservativeResize(K); // Resize the cluster sizes vector
-    }
+    if (old_cluster != -1 &&
+        cluster_members.find(old_cluster) != cluster_members.end() &&
+        cluster_members.at(old_cluster).size() == 0)
+      compact_cluster(old_cluster);
+
   } else if (cluster == K) {
     final_cluster = K;
-    allocations(index) = final_cluster;  // Assign to new cluster
-    K++;                                 // Increase the number of clusters
-    cluster_sizes.conservativeResize(K); // Resize the cluster sizes vector
-    cluster_sizes(final_cluster) = 1;    // Initialize size of new cluster
+    allocations(index) = final_cluster; // Assign to new cluster
+    K++;                                // Increase the number of clusters
+    cluster_members[final_cluster].push_back(index);
   } else {
-    throw std::out_of_range("Invalid cluster index");
+    throw std::out_of_range(
+        "Invalid cluster index in set_allocation for allocated point");
   }
-}
-
-void Data::print() const {
-  /**
-   * @brief Prints the contents of the Data object.
-   * @details It prints the distances matrix, number of points, allocations
-   * vector, and number of clusters.
-   */
-
-  // std::cout << "Distances Matrix:\n" << D << std::endl;
-  // std::cout << "Number of points: " << n << std::endl;
-
-  std::cout << std::endl;
-  std::cout << "Allocations:\n" << allocations.transpose() << std::endl;
-  std::cout << "Number of clusters: " << K << std::endl;
-  std::cout << "Cluster Sizes:\n" << cluster_sizes.transpose() << std::endl;
 }
 
 void Data::set_allocations(const Eigen::VectorXi &new_allocations) {
@@ -232,14 +231,20 @@ void Data::set_allocations(const Eigen::VectorXi &new_allocations) {
    * correct size.
    */
 
+  #if VERBOSITY_LEVEL >= 1
   if (new_allocations.size() != n) {
-    throw std::invalid_argument("New allocations vector must be of size n");
+    throw std::invalid_argument(
+        "New allocations vector must be of size n, set_allocations failed");
   }
+  #endif
 
   allocations = new_allocations;
 
+  // Update cluster members mapping
+  cluster_members.clear();
+  for (int i = 0; i < n; ++i)
+    cluster_members[allocations(i)].push_back(i);
+
   // Update K based on the new allocations
   K = allocations.maxCoeff() + 1;
-
-  update_cluster_sizes(); // Update cluster sizes based on new allocations
 }

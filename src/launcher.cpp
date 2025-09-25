@@ -51,9 +51,9 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
             << param.BI << " burn-in iterations." << std::endl;
 
   std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-  std::chrono::steady_clock::time_point step = std::chrono::steady_clock::now();
 
   int printing_interval = int((param.NI + param.BI)*0.05);
+  double iter_s = 0.0;
 
   for (int i = 0; i < param.NI + param.BI; ++i) {
     
@@ -68,7 +68,13 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
     // print intermediate results
     if ((i + 1) % printing_interval == 0) {
       std::cout << "Iteration " << i + 1 << ": ";
-      std::cout << "Number of clusters: " << data.get_K() << std::endl;
+      auto elapsed_seconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - begin).count() / 1000.0;
+      if (elapsed_seconds > 0) {
+        iter_s = static_cast<double>(i + 1) / elapsed_seconds;
+      } else {
+        iter_s = 0.0;
+      }
+      std::cout << "Number of clusters: " << data.get_K() << " iter/s: " << iter_s << std::endl;
     }
   }
 
