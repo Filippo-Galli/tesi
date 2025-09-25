@@ -5,15 +5,15 @@ source("R/utils.R")
 set.seed(44)
 
 ### ----------------------- Natarajan Data Generation ----------------- ###
-#data_generation <- generate_mixture_data(N = 100, sigma = 0.25, d = 10)
-data_generation <- generate_mixture_data(N = 100, sigma = 0.2, d = 50)
-#data_generation <- generate_mixture_data(N = 100, sigma = 0.18, d = 10)
+# data_generation <- generate_mixture_data(N = 100, sigma = 0.25, d = 10)
+# data_generation <- generate_mixture_data(N = 100, sigma = 0.2, d = 50)
+data_generation <- generate_mixture_data(N = 100, sigma = 0.18, d = 10)
 
 all_data <- data_generation$points
 ground_truth <- data_generation$clusts
 
 # Distance plot
-#distance_plot(all_data, ground_truth)
+# distance_plot(all_data, ground_truth)
 
 ### ----------------------- Gaussian Data Generation ----------------- ###
 
@@ -44,7 +44,7 @@ ground_truth <- data_generation$clusts
 # n_points <- 30
 # # Gamma Generated data
 # data1 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) + 8, ncol = 2)
-# data2 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) + 1, ncol = 2)  
+# data2 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) + 1, ncol = 2)
 # data3 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) - 1, ncol = 2)
 # data4 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) + 4, ncol = 2)
 
@@ -59,30 +59,37 @@ ground_truth <- data_generation$clusts
 
 # Create distance matrix (n x n)
 dist_matrix <- as.matrix(dist(all_data))
+# Normalize distance to be between 2 and 4
+lower_bound <- 0
+upper_bound <- 10000
+# dist_matrix <- lower_bound + (upper_bound - lower_bound)*(dist_matrix - min(dist_matrix)) / (max(dist_matrix) - min(dist_matrix))
+W <- retrieve_W(dist_matrix)
 
 # Load the C++ code
 sourceCpp("src/launcher.cpp")
 
 # Set hyperparameters with ground truth and plotting
-plot_k_means(dist_matrix, max_k = 15)
-hyperparams <- set_hyperparameters(all_data, dist_matrix, k_elbow = 3,
-                                 ground_truth = ground_truth, plot_clustering = FALSE, plot_distribution = FALSE)
+# plot_k_means(dist_matrix, max_k = 15)
+hyperparams <- set_hyperparameters(all_data, dist_matrix,
+  k_elbow = 3,
+  ground_truth = ground_truth, plot_clustering = FALSE, plot_distribution = FALSE
+)
 
 # Create parameter object with computed hyperparameters
 param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  2000, 10000, 1, 1.0, 1.0 
-) # BI, NI, a, sigma, tau
+  1000, 5000, 1, 1.0, 1.0, 1, W
+) # BI, NI, a, sigma, tau, coeff spatial dep, W
 
 # Initialize allocations
 
 ## All-in-one allocation
-#hyperparams$initial_clusters <- rep(0, nrow(dist_matrix)) # All points in one cluster
+# hyperparams$initial_clusters <- rep(0, nrow(dist_matrix)) # All points in one cluster
 
 ## Sequential allocation
-#hyperparams$initial_clusters <- seq(0, nrow(dist_matrix) - 1)
+# hyperparams$initial_clusters <- seq(0, nrow(dist_matrix) - 1)
 
 ## k-means allocation different from the one used for hyperparameters
 # hyperparams$initial_clusters <- kmeans(all_data,
@@ -102,11 +109,14 @@ if (file.exists(log_file)) {
   file.remove(log_file) # remove previous log file
 }
 
-results <- capture.output({
-  mcmc_result <- mcmc(dist_matrix, param, hyperparams$initial_clusters)
-}, file = log_file)
+results <- capture.output(
+  {
+    mcmc_result <- mcmc(dist_matrix, param, hyperparams$initial_clusters)
+  },
+  file = log_file
+)
 
 ## Save into files - initialization name
-save_with_name(folder, param, "kmeans_Natarajan_02-50")
+# save_with_name(folder, param, "kmeans_Natarajan_02-50")
 
-#plot_mcmc_results(mcmc_result, as.factor(ground_truth), BI = param$BI)
+plot_mcmc_results(mcmc_result, as.factor(ground_truth), BI = param$BI)

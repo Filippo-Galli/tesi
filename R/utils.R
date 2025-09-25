@@ -14,6 +14,18 @@ library(gtools)
 library(salso)
 
 
+retrieve_W <- function(distance_matrix, neighbours = 8) {
+  # For each element find the nearest neighbours
+  n <- nrow(distance_matrix)
+  W <- matrix(0, n, n) # Adjacency matrix
+  for (i in 1:n) {
+    # Get indices of the nearest neighbours (excluding self)
+    nn_indices <- order(distance_matrix[i, ])[2:(neighbours + 1)]
+    W[i, nn_indices] <- 1
+  }
+  return(W)
+}
+
 generate_mixture_data <- function(N = 100, K = 10, alpha = 10, dim = K, radius = 1, sigma = 0.1, ordered = TRUE) {
   # Input validation
   if (N < 1) stop("N must be greater than 1")
