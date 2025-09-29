@@ -34,8 +34,6 @@ class DPSplitMerge : public Sampler {
     void merge_move();
     double compute_acceptance_ratio_merge(double likelihood_old_ci, double likelihood_old_cj);
 
-    void utils_S_filtering(Eigen::VectorXi &S_allocations, int cluster) const;
-
   public:
     DPSplitMerge(Data &d, Params &p, Likelihood &l)
         : Sampler(d, p, l), gen(rd()){};

@@ -3,6 +3,11 @@
 #include "Rcpp/iostream/Rstreambuf.h"
 
 void DPSplitMerge::choose_indeces() {
+    /**
+    * @brief Randomly choose two distinct indices i and j from the data points.
+    *        Identify their clusters ci and cj.
+    *        Prepare the launch_state and S vectors for the split-merge operation.
+    */
     
     std::uniform_int_distribution<> dis(0, data.get_n() - 1);
     
@@ -39,41 +44,21 @@ void DPSplitMerge::choose_indeces() {
             s_idx++;
         }
     }
-
-    Rcpp::Rcout << "[DEBUG] Chosen points for split-merge: " << i << " and " << j << std::endl;
-    Rcpp::Rcout << "[DEBUG] Launch state initialized with size " << launch_state_size << ": " << launch_state.transpose() << std::endl;
-    Rcpp::Rcout << "[DEBUG] S initialized with indices: " << S.transpose() << std::endl;
     
     // Ensure we collected the expected number of points
+    #if VERBOSITY_LEVEL >= 1
     if (s_idx != launch_state_size) { // since s_idx is zero-based
-        Rcpp::Rcout << "[ERROR] s_idx = " << s_idx << ", launch_state_size = " << launch_state_size << std::endl;
+        //Rcpp::Rcout << "[ERROR] s_idx = " << s_idx << ", launch_state_size = " << launch_state_size << std::endl;
         throw std::runtime_error("Mismatch in expected cluster sizes during split-merge initialization");
     }
-}
-
-void DPSplitMerge::utils_S_filtering(Eigen::VectorXi &S_allocations, int cluster) const {
-
-    // Count points in the specified cluster
-    int count = 0;
-    for (int i = 0; i < launch_state.size(); ++i) {
-        if (launch_state(i) == cluster) {
-            count++;
-        }
-    }
-    
-    // Resize and fill the output vector
-    S_allocations.resize(count);
-    int j = 0;
-    for (int i = 0; i < launch_state.size(); ++i) {
-        if (launch_state(i) == cluster) {
-            S_allocations(j++) = S(i);
-        }
-    }
+    #endif
 }
 
 void DPSplitMerge::restricted_gibbs(int iterations, bool only_probabilities){
     /**
     * @brief Perform restricted Gibbs sampling on the points in S to propose new allocations for iter iterations.
+    * @param iterations Number of Gibbs sampling iterations to perform.
+    * @param only_probabilities If true, only compute the probabilities without changing allocations (used in merge move).
     */
 
     for(int i = 0; i < iterations; ++i){
@@ -121,6 +106,12 @@ void DPSplitMerge::restricted_gibbs(int iterations, bool only_probabilities){
 }
 
 double DPSplitMerge::compute_acceptance_ratio_merge(double likelihood_old_ci, double likelihood_old_cj) {
+    /**
+    * @brief Compute the log acceptance ratio for a merge move.
+    * @param likelihood_old_ci The log likelihood of cluster ci before the merge.
+    * @param likelihood_old_cj The log likelihood of cluster cj before the merge.
+    * @return The log acceptance ratio for the merge move.
+    */
     
     // Prior ratio
     int size_old_ci = (launch_state.array() == ci).count();
@@ -129,30 +120,30 @@ double DPSplitMerge::compute_acceptance_ratio_merge(double likelihood_old_ci, do
     log_acceptance_ratio += (S.size() != 0) ? lgamma(S.size()) : 0;
     log_acceptance_ratio -= (size_old_ci != 0) ? lgamma(size_old_ci) : 0;
     log_acceptance_ratio -= (size_old_ci != 0) ? lgamma(size_old_ci) : 0;
-    Rcpp::Rcout << "\t[DEBUG] Prior ratio step = " << log_acceptance_ratio << std::endl;
 
     // Likelihood ratio
     log_acceptance_ratio += likelihood.cluster_loglikelihood(ci);
-    Rcpp::Rcout << "\t[DEBUG] Likelihood ratio step merged cluster = " << log_acceptance_ratio << std::endl;
     log_acceptance_ratio -= likelihood_old_ci;
     log_acceptance_ratio -= likelihood_old_cj;
-    Rcpp::Rcout << "\t[DEBUG] Likelihood step minus old separated clusters = " << log_acceptance_ratio << std::endl;
 
     // Proposal ratio
     restricted_gibbs(1, true); // only compute probabilities
     log_acceptance_ratio += log_merge_gibbs_prob;
 
-    Rcpp::Rcout << "\t [DEBUG] Merge move: acceptance_ratio = " << log_acceptance_ratio << std::endl;
     return log_acceptance_ratio;
 }
 
 void DPSplitMerge::merge_move() {
+    /**
+    * @brief Propose a merge move by combining clusters ci and cj.
+    *        Compute the acceptance ratio and decide whether to accept or reject the move.
+    */
+
     // Reset log probabilities
     log_merge_gibbs_prob = 0;
 
     double likelihood_old_ci = likelihood.cluster_loglikelihood(ci); 
     double likelihood_old_cj = likelihood.cluster_loglikelihood(cj);
-    Rcpp::Rcout << "\t [DEBUG] Old likelihoods: ci = " << likelihood_old_ci << ", cj = " << likelihood_old_cj << std::endl;
     
     data.set_allocation(j, ci); // Temporarily assign j to ci for likelihood computation
 
@@ -168,92 +159,79 @@ void DPSplitMerge::merge_move() {
 
     // Accept or reject the move
     std::uniform_real_distribution<> dis(0.0, 1.0);
-    if (log(dis(gen)) > acceptance_ratio) { // move not accepted
-        Rcpp::Rcout << "\t [DEBUG] Merge move not accepted." << std::endl;
-        Rcpp::Rcout << "\t [DEBUG] Restoring previous allocations, launch state: " << launch_state.transpose() << std::endl;
+    if (log(dis(gen)) > acceptance_ratio)  // move not accepted
         data.set_allocations(original_allocations);
-    }
-    else
-        Rcpp::Rcout << "\t [DEBUG] Merge move accepted." << std::endl;
+    
 }
 
 void DPSplitMerge::split_move() {
+    /**
+    * @brief Propose a split move by dividing cluster ci into two clusters.
+    *        Compute the acceptance ratio and decide whether to accept or reject the move.
+    */
 
     double likelihood_old_cluster = likelihood.cluster_loglikelihood(ci); // likelihood of the merged cluster old configuration
-    Rcpp::Rcout << "\t [DEBUG] Old likelihood of cluster " << ci << " = " << likelihood_old_cluster << std::endl;
-
+    
     log_split_gibbs_prob = 0; // reset the log probability of the split move
 
     data.set_allocation(j, data.get_K()); // Create a new cluster for point j if they are in the same cluster
     cj = data.get_cluster_assignment(j); // Update cj to the new cluster index
-    Rcpp::Rcout << "\t [DEBUG] number of clusters after adding new cluster: " << data.get_K() << std::endl;
-
+    
     // Allocate randomly points in S to either ci or cj
     std::uniform_int_distribution<> dis(0, 1);
     for (int idx = 0; idx < launch_state.size(); ++idx) {
         int new_cluster = (dis(gen) == 0) ? ci : cj;
         data.set_allocation(S(idx), new_cluster);
     }
+    
     // Perform restricted Gibbs sampling to refine the allocations
     restricted_gibbs(30); 
-    Rcpp::Rcout << "\t [DEBUG] New allocations after split: " << data.get_allocations().transpose() << std::endl;
-
+    
     // Compute acceptance ratio
     double acceptance_ratio = compute_acceptance_ratio_split(likelihood_old_cluster);
 
     // Accept or reject the move
     std::uniform_real_distribution<> dis2(0.0, 1.0);
-    if (log(dis2(gen)) > acceptance_ratio) { // move not accepted
-        Rcpp::Rcout << "\t [DEBUG] Split move not accepted." << std::endl;
+    if (log(dis2(gen)) > acceptance_ratio) // move not accepted
         data.set_allocations(original_allocations);
-    }
-    else
-        Rcpp::Rcout << "\t [DEBUG] Split move accepted." << std::endl;
+
 }
 
 double DPSplitMerge::compute_acceptance_ratio_split(double likelihood_old_cluster) {
+    /**
+    * @brief Compute the log acceptance ratio for a split move.
+    * @param likelihood_old_cluster The log likelihood of the original cluster before the split.
+    * @return The log acceptance ratio for the split move.
+    */
     
     // Prior ratio
     double log_acceptance_ratio = log(params.alpha);
     log_acceptance_ratio -= (S.size() != 0) ? lgamma(S.size()) : 0;
     log_acceptance_ratio += (data.get_cluster_size(ci) != 0) ? lgamma(data.get_cluster_size(ci)) : 0;
     log_acceptance_ratio += (data.get_cluster_size(cj) != 0) ? lgamma(data.get_cluster_size(cj)) : 0;
-    Rcpp::Rcout << "\t[DEBUG] Prior ratio step = " << log_acceptance_ratio << std::endl;
     
     // Likelihood ratio
     log_acceptance_ratio += likelihood.cluster_loglikelihood(ci);
     log_acceptance_ratio += likelihood.cluster_loglikelihood(cj);
-    Rcpp::Rcout << "\t[DEBUG] Likelihood ratio step split clusters = " << log_acceptance_ratio << std::endl;
     log_acceptance_ratio -= likelihood_old_cluster;
-    Rcpp::Rcout << "\t[DEBUG] Likelihood step minus old merged cluster = " << log_acceptance_ratio << std::endl;
-
+    
     // Proposal ratio
     log_acceptance_ratio -= log_split_gibbs_prob;
-    Rcpp::Rcout << "\t[DEBUG] Split move: acceptance_ratio = " << log_acceptance_ratio << std::endl;
-
+    
     return log_acceptance_ratio;
 }
 
 void DPSplitMerge::step(){
+    /**
+    * @brief Perform a single split-merge MCMC step.
+    *        Randomly choose two indices and decide whether to propose a split or merge move.
+    */
 
-    // Choose two distinct indices i and j
     choose_indeces();
 
-    Rcpp::Rcout << "[DEBUG] Chosen indices: i = " << i << ", j = " << j << " (clusters: " << ci << ", " << cj << ")" << std::endl;
-    
     if (ci == cj) {
-        Rcpp::Rcout << "[DEBUG] Performing split move." << std::endl;
-        // Perform a split move
         split_move();
-        Rcpp::Rcout << "[DEBUG] Step completed. Current number of clusters: " << data.get_K()<<std::endl;
     } else {
-        Rcpp::Rcout << "[DEBUG] Performing merge move." << std::endl;
-        // Perform a merge move
         merge_move();
-        Rcpp::Rcout << "[DEBUG] Step completed. Current number of clusters: " << data.get_K()<<std::endl;
     }
-
-    Rcpp::Rcout << "[DEBUG] Allocations: \n " << data.get_allocations().transpose() << std::endl;
-    Rcpp::Rcout << "----------------------------------------" << std::endl << std::endl;
-
 }
