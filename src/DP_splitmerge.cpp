@@ -119,7 +119,7 @@ double DPSplitMerge::compute_acceptance_ratio_merge(double likelihood_old_ci, do
     double log_acceptance_ratio = -log(params.alpha);
     log_acceptance_ratio += (S.size() != 0) ? lgamma(S.size()) : 0;
     log_acceptance_ratio -= (size_old_ci != 0) ? lgamma(size_old_ci) : 0;
-    log_acceptance_ratio -= (size_old_ci != 0) ? lgamma(size_old_ci) : 0;
+    log_acceptance_ratio -= (size_old_cj != 0) ? lgamma(size_old_cj) : 0;
 
     // Likelihood ratio
     log_acceptance_ratio += likelihood.cluster_loglikelihood(ci);
