@@ -7,6 +7,7 @@
 
 #include "NGGP_neal2.hpp"
 #include "NGGP_neal2_W.hpp"
+#include "NGGP_splitmerge.hpp"
 
 #include "Data.hpp"
 #include "Likelihood.hpp"
@@ -50,10 +51,12 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   //DPNeal2 sampler(data, param, likelihood);
   //DPNeal2W sampler(data, param, likelihood);
   //DPSplitMerge sampler(data, param, likelihood);
-  NGGPNeal2 sampler(data, param, likelihood);
+  //DPSplitMergeW sampler(data, param, likelihood);
+  
+  //NGGPNeal2 sampler(data, param, likelihood);
   //NGGPNeal2W sampler(data, param, likelihood);
+  NGGPSplitMerge sampler(data, param, likelihood);
 
-  //DPSplitMergeW sm(data, param, likelihood);
 
   Rcpp::List results = Rcpp::List::create(
       Rcpp::Named("allocations") = Rcpp::List(param.NI + param.BI),
@@ -71,7 +74,6 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   for (int i = 0; i < param.NI + param.BI; ++i) {
     
     sampler.step();
-    //sm.step();
 
     // Save intermediate results
     Rcpp::as<Rcpp::List>(results["allocations"])[i] =
