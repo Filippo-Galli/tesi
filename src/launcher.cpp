@@ -4,7 +4,10 @@
 #include "DP_neal2_W.hpp"
 #include "DP_splitmerge.hpp"
 #include "DP_splitmerge_W.hpp"
+
 #include "NGGP_neal2.hpp"
+#include "NGGP_neal2_W.hpp"
+
 #include "Data.hpp"
 #include "Likelihood.hpp"
 #include "Params.hpp"
@@ -48,6 +51,7 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   //DPNeal2W sampler(data, param, likelihood);
   //DPSplitMerge sampler(data, param, likelihood);
   NGGPNeal2 sampler(data, param, likelihood);
+  //NGGPNeal2W sampler(data, param, likelihood);
 
   //DPSplitMergeW sm(data, param, likelihood);
 
