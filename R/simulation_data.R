@@ -1,68 +1,16 @@
 # Import utils.R for additional functions
 source("R/utils.R")
 
-# Generate data from 4 Gaussian distributions
 set.seed(44)
 
-### ----------------------- Natarajan Data Generation ----------------- ###
-# data_generation <- generate_mixture_data(N = 100, sigma = 0.25, d = 10)
-# data_generation <- generate_mixture_data(N = 100, sigma = 0.2, d = 50)
-data_generation <- generate_mixture_data(N = 100, sigma = 0.18, d = 10)
+# Read simulated data
+folder <- "simulation_data/Natarajan_0.2sigma_50d"
 
-all_data <- data_generation$points
-ground_truth <- data_generation$clusts
+all_data <- readRDS(file = paste0(folder, "/all_data.rds"))
+ground_truth <- readRDS(file = paste0(folder, "/ground_truth.rds"))
+dist_matrix <- readRDS(file = paste0(folder, "/dist_matrix.rds"))
 
-# Distance plot
-# distance_plot(all_data, ground_truth)
-
-### ----------------------- Gaussian Data Generation ----------------- ###
-
-# n_points <- 30
-# centers <- list(
-#   c(10, 10),  # Cluster 1: top-right
-#   c(6, 6),  # Cluster 2: bottom-right
-#   c(0, 0),  # Cluster 3: bottom-left
-#   c(3, 3)   # Cluster 4: top-left
-# )
-
-# # Generate data for each cluster
-# data1 <- mvrnorm(n_points, mu = centers[[1]], Sigma = 3*diag(2))
-# data2 <- mvrnorm(n_points, mu = centers[[2]], Sigma = 3*diag(2))
-# data3 <- mvrnorm(n_points, mu = centers[[3]], Sigma = 3*diag(2))
-# data4 <- mvrnorm(n_points, mu = centers[[4]], Sigma = 3*diag(2))
-
-# # Combine all data points + labels
-# ground_truth <- c(
-#   rep(0, n_points),
-#   rep(1, n_points),
-#   rep(2, n_points),
-#   rep(3, n_points)
-# )
-# all_data <- rbind(data1, data2, data3, data4)
-
-### ----------------------- Gamma Data Generation ----------------- ###
-# n_points <- 30
-# # Gamma Generated data
-# data1 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) + 8, ncol = 2)
-# data2 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) + 1, ncol = 2)
-# data3 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) - 1, ncol = 2)
-# data4 <- matrix(rgamma(n_points * 2, shape = 0.5, rate = 1) + 4, ncol = 2)
-
-# # Combine all data points + labels
-# ground_truth <- c(
-#   rep(0, n_points),
-#   rep(1, n_points),
-#   rep(2, n_points),
-#   rep(3, n_points)
-# )
-# all_data <- rbind(data1, data2, data3, data4)
-
-# Create distance matrix (n x n)
-dist_matrix <- as.matrix(dist(all_data))
-# Normalize distance to be between 2 and 4
-lower_bound <- 0
-upper_bound <- 10000
-# dist_matrix <- lower_bound + (upper_bound - lower_bound)*(dist_matrix - min(dist_matrix)) / (max(dist_matrix) - min(dist_matrix))
+# Retrieve adjacency matrix W from distance matrix
 W <- retrieve_W(dist_matrix)
 
 # Load the C++ code
@@ -80,13 +28,13 @@ param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  1000, 5000, 1, 1.0, 1.0, 1, W
+  2000, 10000, 1, 0.5, 1.0, 1, W
 ) # BI, NI, a, sigma, tau, coeff spatial dep, W
 
 # Initialize allocations
 
 ## All-in-one allocation
-# hyperparams$initial_clusters <- rep(0, nrow(dist_matrix)) # All points in one cluster
+#hyperparams$initial_clusters <- rep(0, nrow(dist_matrix)) # All points in one cluster
 
 ## Sequential allocation
 # hyperparams$initial_clusters <- seq(0, nrow(dist_matrix) - 1)
@@ -117,6 +65,6 @@ results <- capture.output(
 )
 
 ## Save into files - initialization name
-# save_with_name(folder, param, "kmeans_Natarajan_02-50")
+#save_with_name(folder, param, "DP_Neal2W1_SMW1_kmeans_025_10")
 
 plot_mcmc_results(mcmc_result, as.factor(ground_truth), BI = param$BI)
