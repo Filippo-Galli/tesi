@@ -9,7 +9,7 @@ class NGGPNeal2 : public Sampler {
     mutable std::mt19937 gen;
 
     double U = 1;
-    double tau = 1;
+    double tau = params.tau;
 
     // Hyperparameters for tau - set to 0.1 both to have a vague prior
     double alpha_tau = 0.1;
