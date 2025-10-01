@@ -73,8 +73,10 @@ void DPSplitMerge::restricted_gibbs(int iterations, bool only_probabilities){
             Eigen::Vector2d log_probs;
             int c_i_size_minus_idx = data.get_cluster_size(ci);
             int c_j_size_minus_idx = data.get_cluster_size(cj);
-            log_probs(0) = log(c_i_size_minus_idx) + likelihood.point_loglikelihood_cond(point_idx, ci);
+            log_probs(0) = likelihood.point_loglikelihood_cond(point_idx, ci);
             log_probs(1) = log(c_j_size_minus_idx) + likelihood.point_loglikelihood_cond(point_idx, cj);
+            log_probs(0) += (c_i_size_minus_idx > 0) ? log(c_i_size_minus_idx) : -std::numeric_limits<double>::infinity(); 
+            log_probs(1) += (c_j_size_minus_idx > 0) ? log(c_j_size_minus_idx) : -std::numeric_limits<double>::infinity();
 
             // Normalize to get probabilities
             double max_log_prob = log_probs.maxCoeff();
@@ -117,9 +119,9 @@ double DPSplitMerge::compute_acceptance_ratio_merge(double likelihood_old_ci, do
     int size_old_ci = (launch_state.array() == ci).count();
     int size_old_cj = (launch_state.array() == cj).count();
     double log_acceptance_ratio = -log(params.alpha);
-    log_acceptance_ratio += (S.size() != 0) ? lgamma(S.size()) : 0;
-    log_acceptance_ratio -= (size_old_ci != 0) ? lgamma(size_old_ci) : 0;
-    log_acceptance_ratio -= (size_old_cj != 0) ? lgamma(size_old_cj) : 0;
+    log_acceptance_ratio += (S.size() > 0) ? lgamma(S.size()) : 0;
+    log_acceptance_ratio -= (size_old_ci > 0) ? lgamma(size_old_ci) : 0;
+    log_acceptance_ratio -= (size_old_cj > 0) ? lgamma(size_old_cj) : 0;
 
     // Likelihood ratio
     log_acceptance_ratio += likelihood.cluster_loglikelihood(ci);
@@ -206,9 +208,9 @@ double DPSplitMerge::compute_acceptance_ratio_split(double likelihood_old_cluste
     
     // Prior ratio
     double log_acceptance_ratio = log(params.alpha);
-    log_acceptance_ratio -= (S.size() != 0) ? lgamma(S.size()) : 0;
-    log_acceptance_ratio += (data.get_cluster_size(ci) != 0) ? lgamma(data.get_cluster_size(ci)) : 0;
-    log_acceptance_ratio += (data.get_cluster_size(cj) != 0) ? lgamma(data.get_cluster_size(cj)) : 0;
+    log_acceptance_ratio -= (S.size() > 0) ? lgamma(S.size()) : 0;
+    log_acceptance_ratio += (data.get_cluster_size(ci) > 0) ? lgamma(data.get_cluster_size(ci)) : 0;
+    log_acceptance_ratio += (data.get_cluster_size(cj) > 0) ? lgamma(data.get_cluster_size(cj)) : 0;
     
     // Likelihood ratio
     log_acceptance_ratio += likelihood.cluster_loglikelihood(ci);

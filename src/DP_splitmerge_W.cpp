@@ -27,15 +27,11 @@ void DPSplitMergeW::choose_indeces() {
 
   // Initialize launch_state with current allocations of points in clusters ci
   // and cj while S with their indices
-  size_t launch_state_size =
-      ci == cj ? size_ci - 2
-               : size_ci + size_cj -
-                     2; // Exclude points i and j from the launch state
+  size_t launch_state_size = ci == cj ? size_ci - 2 : size_ci + size_cj - 2; // Exclude points i and j from the launch state
 
   launch_state.resize(launch_state_size);
   S.resize(launch_state_size);
-  original_allocations =
-      data.get_allocations(); // Store original allocations in case of rejection
+  original_allocations = data.get_allocations(); // Store original allocations in case of rejection
 
   // Properly collect all points from clusters ci and cj
   int s_idx = 0;
@@ -103,8 +99,10 @@ void DPSplitMergeW::restricted_gibbs(int iterations, bool only_probabilities) {
       int c_j_size_minus_idx = data.get_cluster_size(cj);
 
       // "DP prior" term: cluster size (excluding the current point)
-      log_probs(0) = log(c_i_size_minus_idx) + likelihood.point_loglikelihood_cond(point_idx, ci);
-      log_probs(1) = log(c_j_size_minus_idx) + likelihood.point_loglikelihood_cond(point_idx, cj);
+      log_probs(0) = likelihood.point_loglikelihood_cond(point_idx, ci);
+      log_probs(1) =likelihood.point_loglikelihood_cond(point_idx, cj);
+      log_probs(0) += (c_i_size_minus_idx > 0) ? log(c_i_size_minus_idx) : -std::numeric_limits<double>::infinity();
+      log_probs(1) += (c_j_size_minus_idx > 0) ? log(c_j_size_minus_idx) : -std::numeric_limits<double>::infinity();
 
       // "W" term: adjacency information
       int neighbors_in_ci = (params.W.row(point_idx).array() * (data.get_allocations().array() == ci).cast<int>().array()).sum();
@@ -131,7 +129,8 @@ void DPSplitMergeW::restricted_gibbs(int iterations, bool only_probabilities) {
         // if last iteration, accumulate the log probability of the move
         if (i == iterations - 1)
           log_split_gibbs_prob += log(probs(new_cluster_idx));
-      } else {
+      } 
+      else {
         // Just restore the previous allocation
         data.set_allocation(point_idx, current_cluster);
 
@@ -159,9 +158,9 @@ double DPSplitMergeW::compute_acceptance_ratio_merge(double likelihood_old_ci,
   int size_old_ci = (launch_state.array() == ci).count();
   int size_old_cj = (launch_state.array() == cj).count();
   double log_acceptance_ratio = -log(params.alpha);
-  log_acceptance_ratio += (S.size() != 0) ? lgamma(S.size()) : 0;
-  log_acceptance_ratio -= (size_old_ci != 0) ? lgamma(size_old_ci) : 0;
-  log_acceptance_ratio -= (size_old_cj != 0) ? lgamma(size_old_cj) : 0;
+  log_acceptance_ratio += (S.size() > 0) ? lgamma(S.size()) : 0;
+  log_acceptance_ratio -= (size_old_ci > 0) ? lgamma(size_old_ci) : 0;
+  log_acceptance_ratio -= (size_old_cj > 0) ? lgamma(size_old_cj) : 0;
 
   // Add W term to the prior ratio
   int new_cluster_neighbors = cluster_neighbors(ci);
@@ -249,8 +248,7 @@ void DPSplitMergeW::split_move() {
     data.set_allocations(original_allocations);
 }
 
-double
-DPSplitMergeW::compute_acceptance_ratio_split(double likelihood_old_cluster, 
+double DPSplitMergeW::compute_acceptance_ratio_split(double likelihood_old_cluster, 
                                               int old_cluster_neighbors) {
   /**
    * @brief Compute the log acceptance ratio for a split move.
@@ -261,9 +259,9 @@ DPSplitMergeW::compute_acceptance_ratio_split(double likelihood_old_cluster,
 
   // Prior ratio
   double log_acceptance_ratio = log(params.alpha);
-  log_acceptance_ratio += (data.get_cluster_size(cj) != 0) ? lgamma(data.get_cluster_size(cj)) : 0;
-  log_acceptance_ratio += (data.get_cluster_size(ci) != 0) ? lgamma(data.get_cluster_size(ci)) : 0;
-  log_acceptance_ratio -= (S.size() != 0) ? lgamma(S.size()) : 0;
+  log_acceptance_ratio += (data.get_cluster_size(cj) > 0) ? lgamma(data.get_cluster_size(cj)) : 0;
+  log_acceptance_ratio += (data.get_cluster_size(ci) > 0) ? lgamma(data.get_cluster_size(ci)) : 0;
+  log_acceptance_ratio -= (S.size() > 0) ? lgamma(S.size()) : 0;
   
   // Add W term to the prior ratio
   int new_ci_neighbors = cluster_neighbors(ci);
