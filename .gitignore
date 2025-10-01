@@ -22,3 +22,6 @@ results/
 
 # mcmc log files
 *.txt
+
+# Simulation data folder
+simulation_data/
