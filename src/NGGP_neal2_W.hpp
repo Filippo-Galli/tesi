@@ -13,8 +13,8 @@ class NGGPNeal2W : public Sampler {
     double tau = params.tau;
 
     // Hyperparameters for tau - set to 0.1 both to have a vague prior
-    double alpha_tau = 0.1;
-    double beta_tau = 0.1;
+    double alpha_tau = 1;
+    double beta_tau = 1;
 
     void step_1_observation(int index);
 

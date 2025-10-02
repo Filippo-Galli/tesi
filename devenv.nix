@@ -119,26 +119,27 @@ EOF
     "
   '';
 
+  scripts.clean_o_files.exec = ''
+    echo "Cleaning up .o files..."
+    find . -name "*.o" -type f -delete
+    echo "✅ Removed all .o files"
+  '';
+
+
 enterShell = ''
-  hello
-  git --version
-  r-setup
-  echo "C++ compiler: $(gcc --version | head -n1)"
-  echo "R version: $(R --version | head -n1)"
-  test-rcpp
   setup-clangd
-  check-r-packages
   
   echo ""
   echo "🚀 R + C++ development environment is ready for VS Code!"
   echo "   - httpgd: Plot viewing"
   echo "   - languageserver: IntelliSense and code completion"
   echo "   - salso: Modern clustering analysis"
-  echo "   - renv: Package management"
   echo "   - clangd: C++ LSP with correct R/Rcpp paths"
   echo ""
   echo "💡 If VS Code asks to install languageserver, click 'No' - it's already available via Nix"
   echo "   or restart your VS Code language server"
+  echo "💡 If you see 'RcppEigen not found', run 'devenv r-setup' to set up the environment"
+  echo "💡 to clean C++ objects file .o type clean_o_files"
   echo ""
 '';
 

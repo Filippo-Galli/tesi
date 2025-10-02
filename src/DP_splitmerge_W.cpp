@@ -164,9 +164,9 @@ double DPSplitMergeW::compute_acceptance_ratio_merge(double likelihood_old_ci,
 
   // Add W term to the prior ratio
   int new_cluster_neighbors = cluster_neighbors(ci);
-  log_acceptance_ratio += new_cluster_neighbors;
-  log_acceptance_ratio -= old_ci_neighbors;
-  log_acceptance_ratio -= old_cj_neighbors;
+  log_acceptance_ratio += params.coefficient*new_cluster_neighbors;
+  log_acceptance_ratio -= params.coefficient*old_ci_neighbors;
+  log_acceptance_ratio -= params.coefficient*old_cj_neighbors;
 
   // Likelihood ratio
   log_acceptance_ratio += likelihood.cluster_loglikelihood(ci);
@@ -266,9 +266,9 @@ double DPSplitMergeW::compute_acceptance_ratio_split(double likelihood_old_clust
   // Add W term to the prior ratio
   int new_ci_neighbors = cluster_neighbors(ci);
   int new_cj_neighbors = cluster_neighbors(cj);
-  log_acceptance_ratio += new_ci_neighbors; 
-  log_acceptance_ratio += new_cj_neighbors;
-  log_acceptance_ratio -= old_cluster_neighbors; 
+  log_acceptance_ratio += params.coefficient*new_ci_neighbors; 
+  log_acceptance_ratio += params.coefficient*new_cj_neighbors;
+  log_acceptance_ratio -= params.coefficient*old_cluster_neighbors; 
 
   // Likelihood ratio
   log_acceptance_ratio += likelihood.cluster_loglikelihood(ci);
