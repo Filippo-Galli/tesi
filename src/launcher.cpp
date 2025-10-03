@@ -55,7 +55,7 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   //DPSplitMergeW sm(data, param, likelihood);
   
   //NGGPNeal2 sampler(data, param, likelihood);
-  //NGGPNeal2W sampler(data, param, likelihood);
+  NGGPNeal2W gibbs(data, param, likelihood);
   //NGGPSplitMerge sampler(data, param, likelihood);
   NGGPSplitMergeW sampler(data, param, likelihood);
 
@@ -75,7 +75,9 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   for (int i = 0; i < param.NI + param.BI; ++i) {
     
     sampler.step();
-    //sm.step();
+
+    if(i % 20 == 0)
+      gibbs.step();
 
     // Save intermediate results
     Rcpp::as<Rcpp::List>(results["allocations"])[i] =

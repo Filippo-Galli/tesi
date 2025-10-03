@@ -357,5 +357,7 @@ void NGGPSplitMerge::step(){
     }
 
     update_U();
-    update_tau();
+    
+    if(update_tau_hyper)
+        update_tau();
 }

@@ -12,8 +12,9 @@ class NGGPNeal2 : public Sampler {
     double tau = params.tau;
 
     // Hyperparameters for tau - set to 0.1 both to have a vague prior
-    double alpha_tau = 0.1;
-    double beta_tau = 0.1;
+    double alpha_tau;
+    double beta_tau;
+    bool update_tau_hyper = false;
 
     void step_1_observation(int index);
 
@@ -25,8 +26,9 @@ class NGGPNeal2 : public Sampler {
 
 
   public:
-    NGGPNeal2(Data &d, Params &p, Likelihood &l)
-        : Sampler(d, p, l), gen(rd()){};
+    NGGPNeal2(Data &d, Params &p, Likelihood &l, bool update_tau = false, double alpha = 0.1, double beta = 0.1)
+        : Sampler(d, p, l), gen(rd()), update_tau_hyper(update_tau),
+        alpha_tau(alpha), beta_tau(beta){};
 
     void step() override;
 };
