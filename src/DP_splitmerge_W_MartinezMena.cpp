@@ -312,7 +312,7 @@ void DPSplitMergeWMartinezMena::shuffle(){
   // Create S and launch_state for points in clusters ci and cj
   int size_ci = data.get_cluster_size(ci);
   int size_cj = data.get_cluster_size(cj);
-  int launch_state_size = size_ci + size_cj;
+  int launch_state_size = size_ci + size_cj - 2; // Exclude points i and j from the launch state
   launch_state.resize(launch_state_size);
   S.resize(launch_state_size);
   original_allocations = data.get_allocations(); // Store original allocations in case of rejection
@@ -320,6 +320,9 @@ void DPSplitMergeWMartinezMena::shuffle(){
   // Create S and launch_state
   int s_idx = 0;
   for (int idx = 0; idx < data.get_n(); ++idx) {
+    if (idx == idx_i || idx == idx_j)
+      continue; // Skip points i and j
+
     int temp_cluster = data.get_cluster_assignment(idx);
     if (temp_cluster == ci || temp_cluster == cj) {
       S(s_idx) = idx;
@@ -336,7 +339,7 @@ void DPSplitMergeWMartinezMena::shuffle(){
 
   // Accept or reject the move
   std::uniform_real_distribution<> acceptance_ratio_dis(0.0, 1.0);
-  if (log(dis(gen)) > log_acceptance_ratio) // move not accepted
+  if (log(acceptance_ratio_dis(gen)) > log_acceptance_ratio) // move not accepted
     data.set_allocations(original_allocations);
 }
 

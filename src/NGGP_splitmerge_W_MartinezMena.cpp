@@ -73,9 +73,18 @@ int NGGPSplitMergeWMartinezMena::cluster_neighbors(int cluster) {
   int count = 0;
 
   auto cluster_allocations = data.get_cluster_assignments(cluster);
+  
+  // Safety check: if cluster is empty, return 0
+  if (cluster_allocations.size() == 0) {
+    return 0;
+  }
 
   for(auto && idx : cluster_allocations) {
-    count += (params.W.row(idx).array() * (data.get_allocations().array() != cluster).cast<int>().array()).sum();
+    // Additional safety: check idx is valid
+    if (idx >= 0 && idx < params.W.rows()) {
+      count += (params.W.row(idx).array() * 
+                (data.get_allocations().array() != cluster).cast<int>().array()).sum();
+    }
   }
   return count;
 }
@@ -435,7 +444,7 @@ void NGGPSplitMergeWMartinezMena::shuffle(){
   // Create S and launch_state for points in clusters ci and cj
   int size_ci = data.get_cluster_size(ci);
   int size_cj = data.get_cluster_size(cj);
-  int launch_state_size = size_ci + size_cj;
+  int launch_state_size = size_ci + size_cj - 2; // Exclude points i and j from the launch state
   launch_state.resize(launch_state_size);
   S.resize(launch_state_size);
   original_allocations = data.get_allocations(); // Store original allocations in case of rejection
@@ -443,6 +452,9 @@ void NGGPSplitMergeWMartinezMena::shuffle(){
   // Create S and launch_state
   int s_idx = 0;
   for (int idx = 0; idx < data.get_n(); ++idx) {
+    if(idx == i || idx == j)
+      continue; // Skip points i and j
+
     int temp_cluster = data.get_cluster_assignment(idx);
     if (temp_cluster == ci || temp_cluster == cj) {
       S(s_idx) = idx;
@@ -459,7 +471,7 @@ void NGGPSplitMergeWMartinezMena::shuffle(){
 
   // Accept or reject the move
   std::uniform_real_distribution<> acceptance_ratio_dis(0.0, 1.0);
-  if (log(dis(gen)) > log_acceptance_ratio) // move not accepted
+  if (log(acceptance_ratio_dis(gen)) > log_acceptance_ratio) // move not accepted
     data.set_allocations(original_allocations);
 }
 
