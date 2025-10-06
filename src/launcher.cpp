@@ -11,7 +11,8 @@
 #include "NGGP_splitmerge.hpp"
 #include "NGGP_splitmerge_W.hpp"
 #include "NGGP_splitmerge_W_MartinezMena.hpp"
-
+#include "NGGP_splitmerge_W_SAMS.hpp"
+#include "NGGP_splitmerge_W_SAMS_MartinezMena.hpp"
 
 #include "Data.hpp"
 #include "Likelihood.hpp"
@@ -59,10 +60,12 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   //DPSplitMergeWMartinezMena sampler(data, param, likelihood);
   
   //NGGPNeal2 sampler(data, param, likelihood);
-  NGGPNeal2W sampler(data, param, likelihood);
+  NGGPNeal2W gibbs(data, param, likelihood);
   //NGGPSplitMerge sampler(data, param, likelihood);
   //NGGPSplitMergeW sampler(data, param, likelihood);
   //NGGPSplitMergeWMartinezMena sampler(data, param, likelihood);
+  //NGGPSplitMergeWSAMS sampler(data, param, likelihood);
+  NGGPSplitMergeWSAMSMartinezMena sampler(data, param, likelihood);
 
   Rcpp::List results = Rcpp::List::create(
       Rcpp::Named("allocations") = Rcpp::List(param.NI + param.BI),
@@ -81,8 +84,8 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
     
     sampler.step();
 
-    // if(i % 50 == 0)
-    //   gibbs.step();
+    if(i % 50 == 0)
+      gibbs.step();
 
     // Save intermediate results
     Rcpp::as<Rcpp::List>(results["allocations"])[i] =
