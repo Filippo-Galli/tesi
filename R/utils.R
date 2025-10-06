@@ -341,6 +341,11 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
       
       cat("\nAdjusted Rand Index:", arandi(point_estimate, true_labels), "\n")
       cat("Number of post burn-in samples:", nrow(C), "\n")
+
+      if(save){
+        ari_file <- paste0(folder, "salso_ari.txt")
+        write(paste("Adjusted Rand Index:", arandi(point_estimate, true_labels)), file = ari_file)
+      }
       
     } else {
       cat("Warning: No allocation data remaining after burn-in\n")
