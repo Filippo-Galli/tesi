@@ -35,8 +35,10 @@ double DPW::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) {
      * @return The log prior probability of assigning the data point to its current cluster.
     */
 
-    int cluster_size = data.get_cluster_size(cls_idx);   
-    return log(cluster_size) + params.coefficient * get_neighbors_obs(obs_idx, cls_idx);
+    int cluster_size = data.get_cluster_size(cls_idx);
+    double prior = params.coefficient * get_neighbors_obs(obs_idx, cls_idx);
+    prior = cluster_size > 0 ? prior + log(cluster_size) : std::numeric_limits<double>::lowest();
+    return prior;
 }
 
 double DPW::gibbs_prior_new_cluster() {

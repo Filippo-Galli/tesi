@@ -8,7 +8,7 @@ double DP::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) {
     */
 
     int cluster_size = data.get_cluster_size(cls_idx);   
-    return log(cluster_size);
+    return (cluster_size > 0) ? log(cluster_size) : std::numeric_limits<double>::lowest();
 }
 
 double DP::gibbs_prior_new_cluster() {

@@ -28,7 +28,7 @@ param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  2000, 25000, 1, 0.4, 1.0, 0.5, W
+  2000, 25000, 1, 0.4, 1.0, 1, W
 ) # BI, NI, a, sigma, tau, coeff spatial dep, W
 
 # Initialize allocations
