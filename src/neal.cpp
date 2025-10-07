@@ -57,4 +57,6 @@ void Neal3::step() {
     for (int j = 0; j < data.get_n(); ++j) {
         step_1_observation(j);
     }
+
+    process.update_params();
 }

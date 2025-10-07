@@ -333,4 +333,6 @@ void SplitMerge_SAMS::step(){
 
     if(shuffle_bool)
         shuffle();
+
+    process.update_params();
 }

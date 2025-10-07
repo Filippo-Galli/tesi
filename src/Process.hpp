@@ -29,7 +29,10 @@ class Process {
     
     void set_idx_i(int i) { idx_i = i; };
     void set_idx_j(int j) { idx_j = j; };
+
+    // function to update parameters if needed
+    virtual void update_params() = 0;
     
-    virtual ~Process() {}
+    virtual ~Process() {};
 
 };

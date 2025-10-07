@@ -9,7 +9,16 @@ int DPW::get_neighbors_obs(int obs_idx, int cls_idx) const {
      * @return The number of neighbors for the observation.
     */
     
-    int neighbors = (params.W.row(obs_idx).array() * (data.get_allocations().array() == cls_idx).cast<int>().array()).sum();
+    //int neighbors = (params.W.row(obs_idx).array() * (data.get_allocations().array() == cls_idx).cast<int>().array()).sum();
+    int neighbors = 0;
+    Eigen::RowVectorXi row = params.W.row(obs_idx);
+    for(int i = 0; i < row.size(); ++i) {
+        int cluster_i = data.get_cluster_assignment(i);
+        if (row(i) == 1 && cluster_i != -1 && cluster_i == cls_idx) {
+            neighbors += 1;
+        }
+    }
+
     return neighbors;
 }
 

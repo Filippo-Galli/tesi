@@ -16,4 +16,9 @@ class DP : public Process {
     double prior_ratio_merge(int size_old_ci, int size_old_cj) override;
     double prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci, int cj) override;
 
+    // Null update_param
+    void update_params() override {
+      return;
+    };
+
 };

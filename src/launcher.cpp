@@ -48,8 +48,8 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   Data data(distances, initial_allocations);
   Likelihood likelihood(data, param);
   
-  DP process(data, param);
-  //DPW process(data, param); // [TODO] controllare perchè non funziona correttamente
+  //DP process(data, param);
+  DPW process(data, param); 
 
   Neal3 gibbs(data, param, likelihood, process);
   //SplitMerge sampler(data, param, likelihood, process, true);
@@ -61,7 +61,6 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
       Rcpp::Named("loglikelihood") = Rcpp::NumericVector(param.NI + param.BI, 0.0),
       Rcpp::Named("U") = Rcpp::NumericVector(param.NI + param.BI, 0.0)
     );
-
 
   std::cout << "Starting MCMC with " << param.NI << " iterations after "
             << param.BI << " burn-in iterations." << std::endl;
@@ -75,7 +74,7 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
     
     sampler.step();
 
-    if(i % 100 == 0)
+    if(i % 20 == 0)
       gibbs.step();
 
     // Save intermediate results

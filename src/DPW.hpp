@@ -21,4 +21,9 @@ class DPW : public Process {
     int get_neighbors_obs(int obs_idx, int cls_idx) const;
     int get_neighbors_cls(int cls_idx, bool old_allo = false) const;
 
+    // Null update_param
+    void update_params() override {
+      return;
+    };
+
 };
