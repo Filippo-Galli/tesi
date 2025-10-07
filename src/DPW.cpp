@@ -79,16 +79,18 @@ double DPW::prior_ratio_merge(int size_old_ci, int size_old_cj) {
      * @return The log prior ratio for the merge operation.
     */
 
+    // DP prior part
     double log_acceptance_ratio = -log(params.a);
     int size_merge = size_old_ci + size_old_cj;
     log_acceptance_ratio += (size_merge > 0) ? lgamma(size_merge) : 0;
     log_acceptance_ratio -= (size_old_ci > 0) ? lgamma(size_old_ci) : 0;
     log_acceptance_ratio -= (size_old_cj > 0) ? lgamma(size_old_cj) : 0;
 
+    // Spatial part
     int old_ci = old_allocations[idx_i];
     int old_cj = old_allocations[idx_j];
     log_acceptance_ratio -= params.coefficient*get_neighbors_cls(old_ci, true);
-    log_acceptance_ratio -= params.coefficient*get_neighbors_cls(old_ci,true);
+    log_acceptance_ratio -= params.coefficient*get_neighbors_cls(old_cj,true);
     
     int new_ci = data.get_allocations()[idx_i]; 
     log_acceptance_ratio += params.coefficient*get_neighbors_cls(new_ci);
@@ -109,12 +111,14 @@ double DPW::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci, int cj
     int n_ci = data.get_cluster_size(ci);
     int n_cj = data.get_cluster_size(cj);
 
+
     double log_acceptance_ratio = 0.0;
     log_acceptance_ratio += (n_ci > 0) ? lgamma(n_ci) : 0;
     log_acceptance_ratio += (n_cj > 0) ? lgamma(n_cj) : 0;
     log_acceptance_ratio -= (size_old_ci > 0) ? lgamma(size_old_ci) : 0;
     log_acceptance_ratio -= (size_old_cj > 0) ? lgamma(size_old_cj) : 0;
 
+    // Spatial part
     log_acceptance_ratio += params.coefficient*get_neighbors_cls(ci);
     log_acceptance_ratio += params.coefficient*get_neighbors_cls(cj);
     log_acceptance_ratio -= params.coefficient*get_neighbors_cls(ci, true);

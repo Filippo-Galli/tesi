@@ -224,37 +224,45 @@ void SplitMerge::shuffle(){
    *        This move helps to improve mixing by allowing points to switch
    * clusters.
    */
-
-  log_split_gibbs_prob = 0; // reset the log probability of the split move - use it to store the proposal prob
-
-  if(data.get_K() < 2)
-    return; // No point in shuffling if there's only one cluster
+   
+   log_split_gibbs_prob = 0; // reset the log probability of the split move - use it to store the proposal prob
+   log_merge_gibbs_prob = 0;
+   
+   if(data.get_K() < 2)
+   return; // No point in shuffling if there's only one cluster
 
   // Choose random two distinct clusters 
   std::uniform_int_distribution<> dis(0, data.get_K() - 1);
   ci = dis(gen);
   do{
-    cj = dis(gen);
+      cj = dis(gen);
   } while(cj == ci);
-  idx_i = data.get_cluster_assignments(ci)[0]; // pick a random point from cluster ci
-  idx_j = data.get_cluster_assignments(cj)[0]; // pick a random point 
-
-  process.set_old_allocations(data.get_allocations()); // Update old allocations in the process
+  
+  std::uniform_int_distribution<> dis_idx_i(0, data.get_cluster_size(ci) - 1);
+  idx_i = data.get_cluster_assignments(ci)[dis_idx_i(gen)]; // pick a random point from cluster ci
+  std::uniform_int_distribution<> dis_idx_j(0, data.get_cluster_size(cj) - 1);
+  idx_j = data.get_cluster_assignments(cj)[dis_idx_j(gen)]; // pick a random point 
+  
+  // Store original allocations in case of rejection
+  original_allocations = data.get_allocations(); 
+  
+  // save old allocations and indices in the process
+  process.set_old_allocations(data.get_allocations());
   process.set_idx_i(idx_i);
   process.set_idx_j(idx_j);
-
+  
+  // Compute old likelihoods and sizes
   double likelihood_old_ci = likelihood.cluster_loglikelihood(ci);
   double likelihood_old_cj = likelihood.cluster_loglikelihood(cj);
   int old_ci_size = data.get_cluster_size(ci);
   int old_cj_size = data.get_cluster_size(cj);
 
-  // Create S and launch_state for points in clusters ci and cj
+  // Pre-allocate launch_state and S
   int size_ci = data.get_cluster_size(ci);
   int size_cj = data.get_cluster_size(cj);
   int launch_state_size = size_ci + size_cj - 2; // Exclude points i and j from the launch state
   launch_state.resize(launch_state_size);
   S.resize(launch_state_size);
-  original_allocations = data.get_allocations(); // Store original allocations in case of rejection
 
   // Create S and launch_state
   int s_idx = 0;
@@ -300,9 +308,9 @@ double SplitMerge::compute_acceptance_ratio_shuffle(double likelihood_old_ci, do
   log_acceptance_ratio -= likelihood_old_cj; 
 
   // Proposal ratio
-  log_acceptance_ratio += log_split_gibbs_prob;
+  log_acceptance_ratio -= log_split_gibbs_prob;
   restricted_gibbs(1, true); // only compute probabilities
-  log_acceptance_ratio -= log_merge_gibbs_prob;
+  log_acceptance_ratio += log_merge_gibbs_prob;
 
   return log_acceptance_ratio;
 }

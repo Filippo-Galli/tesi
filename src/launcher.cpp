@@ -51,9 +51,9 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   DP process(data, param);
   //DPW process(data, param); // [TODO] controllare perchè non funziona correttamente
 
-  //Neal3 sampler(data, param, likelihood, process);
-  //SplitMerge sampler(data, param, likelihood, process, false);
-  SplitMerge_SAMS sampler(data, param, likelihood, process, true);
+  //Neal3 gibbs(data, param, likelihood, process);
+  //SplitMerge sampler(data, param, likelihood, process, true);
+  SplitMerge_SAMS sampler(data, param, likelihood, process, false);
 
   Rcpp::List results = Rcpp::List::create(
       Rcpp::Named("allocations") = Rcpp::List(param.NI + param.BI),
@@ -75,7 +75,7 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
     
     sampler.step();
 
-    // if(i % 20 == 0)
+    // if(i % 50 == 0)
     //   gibbs.step();
 
     // Save intermediate results
