@@ -1,7 +1,10 @@
 // [[Rcpp::depends(RcppEigen)]]
 
 #include "neal.hpp"
+#include "splitmerge.hpp"
+#include "splitmerge_SAMS.hpp"
 
+#include "DPW.hpp"
 #include "DP.hpp"
 
 #include "Data.hpp"
@@ -46,8 +49,11 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   Likelihood likelihood(data, param);
   
   DP process(data, param);
+  //DPW process(data, param); // [TODO] controllare perchè non funziona correttamente
 
-  Neal3 sampler(data, param, likelihood, process);
+  //Neal3 sampler(data, param, likelihood, process);
+  //SplitMerge sampler(data, param, likelihood, process, false);
+  SplitMerge_SAMS sampler(data, param, likelihood, process, true);
 
   Rcpp::List results = Rcpp::List::create(
       Rcpp::Named("allocations") = Rcpp::List(param.NI + param.BI),

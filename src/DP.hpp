@@ -8,7 +8,7 @@ class DP : public Process {
     DP(Data &d, Params &p) : Process(d, p){};
 
     // Gibbs sampling methods
-    double gibbs_prior_existing_cluster(int index, int obs_idx = 0) override;
+    double gibbs_prior_existing_cluster(int cls_idx, int obs_idx = 0) override;
     double gibbs_prior_new_cluster() override;
 
     // Useful for split-merge algorithms

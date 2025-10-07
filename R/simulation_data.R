@@ -20,7 +20,7 @@ sourceCpp("src/launcher.cpp")
 # plot_k_means(dist_matrix, max_k = 15)
 hyperparams <- set_hyperparameters(all_data, dist_matrix,
   k_elbow = 3,
-  ground_truth = ground_truth, plot_clustering = FALSE, plot_distribution = TRUE
+  ground_truth = ground_truth, plot_clustering = FALSE, plot_distribution = FALSE
 )
 
 # Create parameter object with computed hyperparameters
@@ -28,7 +28,7 @@ param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  2000, 10000, 1, 0.4, 1.0, 0.5, W
+  2000, 25000, 1, 0.4, 1.0, 0.5, W
 ) # BI, NI, a, sigma, tau, coeff spatial dep, W
 
 # Initialize allocations

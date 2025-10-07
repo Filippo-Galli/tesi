@@ -25,7 +25,7 @@ void Neal3::step_1_observation(int index) {
     
     // multiply by the prior probability of the cluster
     for (int k = 0; k < data.get_K(); ++k) {
-        log_likelihoods[k] += process.gibbs_prior_existing_cluster(k);
+        log_likelihoods[k] += process.gibbs_prior_existing_cluster(k, index);
     }
     log_likelihoods[data.get_K()] += process.gibbs_prior_new_cluster();
     
