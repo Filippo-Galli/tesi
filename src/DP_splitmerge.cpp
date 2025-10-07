@@ -118,7 +118,7 @@ double DPSplitMerge::compute_acceptance_ratio_merge(double likelihood_old_ci, do
     // Prior ratio
     int size_old_ci = (launch_state.array() == ci).count();
     int size_old_cj = (launch_state.array() == cj).count();
-    double log_acceptance_ratio = -log(params.alpha);
+    double log_acceptance_ratio = -log(params.a);
     log_acceptance_ratio += (S.size() > 0) ? lgamma(S.size()) : 0;
     log_acceptance_ratio -= (size_old_ci > 0) ? lgamma(size_old_ci) : 0;
     log_acceptance_ratio -= (size_old_cj > 0) ? lgamma(size_old_cj) : 0;
@@ -207,7 +207,7 @@ double DPSplitMerge::compute_acceptance_ratio_split(double likelihood_old_cluste
     */
     
     // Prior ratio
-    double log_acceptance_ratio = log(params.alpha);
+    double log_acceptance_ratio = log(params.a);
     log_acceptance_ratio -= (S.size() > 0) ? lgamma(S.size()) : 0;
     log_acceptance_ratio += (data.get_cluster_size(ci) > 0) ? lgamma(data.get_cluster_size(ci)) : 0;
     log_acceptance_ratio += (data.get_cluster_size(cj) > 0) ? lgamma(data.get_cluster_size(cj)) : 0;

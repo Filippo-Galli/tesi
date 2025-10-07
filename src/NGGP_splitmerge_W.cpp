@@ -168,7 +168,7 @@ double NGGPSplitMergeW::compute_acceptance_ratio_merge(double likelihood_old_ci,
     
     int size_merged = size_old_ci + size_old_cj;
     
-    double log_acceptance_ratio = -log(params.alpha);
+    double log_acceptance_ratio = -log(params.a);
     log_acceptance_ratio += (size_merged - params.sigma > 0) ? lgamma(size_merged - params.sigma) : 0;  // Merged cluster
     log_acceptance_ratio -= (size_old_ci - params.sigma > 0) ? lgamma(size_old_ci - params.sigma) : 0;  // Old cluster ci
     log_acceptance_ratio -= (size_old_cj - params.sigma > 0) ? lgamma(size_old_cj - params.sigma) : 0;  // Old cluster cj
@@ -388,7 +388,7 @@ NGGPSplitMergeW::compute_acceptance_ratio_split(double likelihood_old_cluster,
    */
 
   // Prior ratio
-  double log_acceptance_ratio = log(params.alpha);
+  double log_acceptance_ratio = log(params.a);
   int n_ci = data.get_cluster_size(ci); 
   int n_cj = data.get_cluster_size(cj);
   log_acceptance_ratio -= (n_ci + n_cj - params.sigma > 0) ? lgamma(n_ci + n_cj  - params.sigma) : 0;
