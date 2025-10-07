@@ -1,22 +1,13 @@
 // [[Rcpp::depends(RcppEigen)]]
 
-#include "DP_neal2.hpp"
-#include "DP_neal2_W.hpp"
-#include "DP_splitmerge.hpp"
-#include "DP_splitmerge_W.hpp"
-#include "DP_splitmerge_W_MartinezMena.hpp"
+#include "neal.hpp"
 
-#include "NGGP_neal2.hpp"
-#include "NGGP_neal2_W.hpp"
-#include "NGGP_splitmerge.hpp"
-#include "NGGP_splitmerge_W.hpp"
-#include "NGGP_splitmerge_W_MartinezMena.hpp"
-#include "NGGP_splitmerge_W_SAMS.hpp"
-#include "NGGP_splitmerge_W_SAMS_MartinezMena.hpp"
+#include "DP.hpp"
 
 #include "Data.hpp"
 #include "Likelihood.hpp"
 #include "Params.hpp"
+#include "Process.hpp"
 #include "Rcpp/vector/instantiation.h"
 #include <chrono>
 
@@ -53,19 +44,10 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
 
   Data data(distances, initial_allocations);
   Likelihood likelihood(data, param);
-  //DPNeal2 sampler(data, param, likelihood);
-  //DPNeal2W gibbs(data, param, likelihood);
-  //DPSplitMerge sampler(data, param, likelihood);
-  //DPSplitMergeW sampler(data, param, likelihood);
-  //DPSplitMergeWMartinezMena sampler(data, param, likelihood);
   
-  //NGGPNeal2 sampler(data, param, likelihood);
-  NGGPNeal2W gibbs(data, param, likelihood);
-  //NGGPSplitMerge sampler(data, param, likelihood);
-  //NGGPSplitMergeW sampler(data, param, likelihood);
-  //NGGPSplitMergeWMartinezMena sampler(data, param, likelihood);
-  //NGGPSplitMergeWSAMS sampler(data, param, likelihood);
-  NGGPSplitMergeWSAMSMartinezMena sampler(data, param, likelihood);
+  DP process(data, param);
+
+  Neal3 sampler(data, param, likelihood, process);
 
   Rcpp::List results = Rcpp::List::create(
       Rcpp::Named("allocations") = Rcpp::List(param.NI + param.BI),
@@ -87,14 +69,14 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
     
     sampler.step();
 
-    if(i % 20 == 0)
-      gibbs.step();
+    // if(i % 20 == 0)
+    //   gibbs.step();
 
     // Save intermediate results
     Rcpp::as<Rcpp::List>(results["allocations"])[i] =
         Rcpp::wrap(data.get_allocations());
     Rcpp::as<Rcpp::List>(results["K"])[i] = data.get_K();
-    Rcpp::as<Rcpp::NumericVector>(results["U"])[i] = sampler.get_U();
+    //Rcpp::as<Rcpp::NumericVector>(results["U"])[i] = sampler.get_U();
 
     // print intermediate results
     if ((i + 1) % printing_interval == 0) {

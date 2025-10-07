@@ -1,10 +1,11 @@
-#include "DP_neal2.hpp"
+#include "neal.hpp"
+#include "Process.hpp"
 #include <algorithm>
 #include <random>
 #include <Rcpp.h>
 using namespace Rcpp;
 
-void DPNeal2::step_1_observation(int index) {
+void Neal3::step_1_observation(int index) {
     /**
      * @brief Performs a step in the DPNeal2 sampling process.
      * @details This method is responsible for updating the allocations of the data points based on the current state of the model.
@@ -24,11 +25,9 @@ void DPNeal2::step_1_observation(int index) {
     
     // multiply by the prior probability of the cluster
     for (int k = 0; k < data.get_K(); ++k) {
-        log_likelihoods[k] += log(data.get_cluster_size(k));
+        log_likelihoods[k] += process.gibbs_prior_existing_cluster(k);
     }
-    log_likelihoods[data.get_K()] += log(params.a);
-
-    // DEBUG: Print the log likelihoods for each cluster
+    log_likelihoods[data.get_K()] += process.gibbs_prior_new_cluster();
     
     // Normalize the log likelihoods
     double max_loglik = *std::max_element(log_likelihoods.begin(), log_likelihoods.end());
@@ -41,13 +40,6 @@ void DPNeal2::step_1_observation(int index) {
     for (double& prob : probs) {
         prob /= sum_probs;
     }
-    // Rcout << "[DEBUG] probs for each cluster: ";
-    // for (const auto& prob : probs) {
-    //     Rcout << prob << " ";
-    // }
-    // Rcout << std::endl;
-
-    //Rcpp::Rcout << "[DEBUG] Probabilities for each cluster: " << Eigen::Map<Eigen::VectorXd>(probs.data(), probs.size()).transpose() << std::endl;
 
     // Sample a cluster based on the probabilities
     std::discrete_distribution<int> dist(probs.begin(), probs.end());
@@ -55,11 +47,9 @@ void DPNeal2::step_1_observation(int index) {
 
     // Set the allocation for the data point
     data.set_allocation(index, sampled_cluster);
-
-    //Rcpp::Rcout << "[DEBUG] Data point " << index << " assigned to cluster " << sampled_cluster << std::endl << std::endl;
 }
 
-void DPNeal2::step() {
+void Neal3::step() {
     /**
      * @brief Performs a single step of the DP Neal 2 algorithm for all the dataset.
     */
