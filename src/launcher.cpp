@@ -4,8 +4,9 @@
 #include "splitmerge.hpp"
 #include "splitmerge_SAMS.hpp"
 
-#include "DPW.hpp"
 #include "DP.hpp"
+#include "DPW.hpp"
+#include "NGGP.hpp"
 
 #include "Data.hpp"
 #include "Likelihood.hpp"
@@ -49,11 +50,12 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   Likelihood likelihood(data, param);
   
   //DP process(data, param);
-  DPW process(data, param); 
+  //DPW process(data, param); 
+  NGGP process(data, param);
 
-  Neal3 gibbs(data, param, likelihood, process);
+  Neal3 sampler(data, param, likelihood, process);
   //SplitMerge sampler(data, param, likelihood, process, true);
-  SplitMerge_SAMS sampler(data, param, likelihood, process, true);
+  //SplitMerge_SAMS sampler(data, param, likelihood, process, true);
 
   Rcpp::List results = Rcpp::List::create(
       Rcpp::Named("allocations") = Rcpp::List(param.NI + param.BI),
@@ -74,14 +76,14 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
     
     sampler.step();
 
-    if(i % 20 == 0)
-      gibbs.step();
+    // if(i % 20 == 0)
+    //   gibbs.step();
 
     // Save intermediate results
     Rcpp::as<Rcpp::List>(results["allocations"])[i] =
         Rcpp::wrap(data.get_allocations());
     Rcpp::as<Rcpp::List>(results["K"])[i] = data.get_K();
-    //Rcpp::as<Rcpp::NumericVector>(results["U"])[i] = sampler.get_U();
+    Rcpp::as<Rcpp::NumericVector>(results["U"])[i] = process.get_U();
 
     // print intermediate results
     if ((i + 1) % printing_interval == 0) {

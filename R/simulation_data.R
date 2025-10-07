@@ -28,8 +28,10 @@ param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  2000, 25000, 1, 0.4, 1.0, 1, W
-) # BI, NI, a, sigma, tau, coeff spatial dep, W
+  2000, 10000, 1, # BI, NI, a,
+  0.00001, 1, 1, # sigma, tau, coeff spatial dep
+  W # Spatial adjacency matrix
+)
 
 # Initialize allocations
 
@@ -68,3 +70,8 @@ results <- capture.output(
 #save_with_name(folder, param, "DP_Neal2W1_SMW1_kmeans_025_10")
 
 plot_mcmc_results(mcmc_result, as.factor(ground_truth), BI = param$BI)
+
+# Plot U over iterations
+plot(mcmc_result$U, type = 'l', main = "U over iterations", ylab = "U", xlab = "Iteration")
+abline(h = mean(mcmc_result$U), col = "red", lty = 2)
+legend("topright", legend = paste("Mean U =", round(mean(mcmc_result$U), 3)), col = "red", lty = 2)
