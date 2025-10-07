@@ -159,13 +159,20 @@ double NGGPSplitMergeW::compute_acceptance_ratio_merge(double likelihood_old_ci,
    */
 
   // Prior ratio
-  int size_old_ci = (launch_state.array() == ci).count();
-  int size_old_cj = (launch_state.array() == cj).count();
-  double log_acceptance_ratio = -log(params.alpha);
-  log_acceptance_ratio += (S.size() - params.sigma > 0) ? lgamma(S.size() - params.sigma) : 0;
-  log_acceptance_ratio -= (size_old_ci - params.sigma > 0) ? lgamma(size_old_ci - params.sigma) : 0;
-  log_acceptance_ratio -= (size_old_cj  - params.sigma > 0) ? lgamma(size_old_cj - params.sigma) : 0;
-  log_acceptance_ratio -= params.sigma * log(U + tau);
+    int size_old_ci = (launch_state.array() == ci).count();
+    int size_old_cj = (launch_state.array() == cj).count();
+    
+    // Add back the points i and j that were excluded
+    size_old_ci += (original_allocations(i) == ci) ? 1 : 0;
+    size_old_cj += (original_allocations(j) == cj) ? 1 : 0;
+    
+    int size_merged = size_old_ci + size_old_cj;
+    
+    double log_acceptance_ratio = -log(params.alpha);
+    log_acceptance_ratio += (size_merged - params.sigma > 0) ? lgamma(size_merged - params.sigma) : 0;  // Merged cluster
+    log_acceptance_ratio -= (size_old_ci - params.sigma > 0) ? lgamma(size_old_ci - params.sigma) : 0;  // Old cluster ci
+    log_acceptance_ratio -= (size_old_cj - params.sigma > 0) ? lgamma(size_old_cj - params.sigma) : 0;  // Old cluster cj
+    log_acceptance_ratio -= params.sigma * log(U + tau);
 
   // Add W term to the prior ratio
   int new_cluster_neighbors = cluster_neighbors(ci);
@@ -382,9 +389,11 @@ NGGPSplitMergeW::compute_acceptance_ratio_split(double likelihood_old_cluster,
 
   // Prior ratio
   double log_acceptance_ratio = log(params.alpha);
-  log_acceptance_ratio -= (S.size() - params.sigma > 0) ? lgamma(S.size()  - params.sigma) : 0;
-  log_acceptance_ratio += (data.get_cluster_size(ci) - params.sigma > 0) ? lgamma(data.get_cluster_size(ci) - params.sigma) : 0;
-  log_acceptance_ratio += (data.get_cluster_size(cj) - params.sigma > 0) ? lgamma(data.get_cluster_size(cj) - params.sigma) : 0;
+  int n_ci = data.get_cluster_size(ci); 
+  int n_cj = data.get_cluster_size(cj);
+  log_acceptance_ratio -= (n_ci + n_cj - params.sigma > 0) ? lgamma(n_ci + n_cj  - params.sigma) : 0;
+  log_acceptance_ratio += (n_ci - params.sigma > 0) ? lgamma(n_ci - params.sigma) : 0;
+  log_acceptance_ratio += (n_cj - params.sigma > 0) ? lgamma(n_cj - params.sigma) : 0;
   log_acceptance_ratio += params.sigma * log(U + tau);
 
   // Add W term to the prior ratio

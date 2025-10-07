@@ -54,5 +54,7 @@ class NGGPSplitMerge : public Sampler {
         : Sampler(d, p, l), gen(rd()), update_tau_hyper(update_tau),
         alpha_tau(alpha), beta_tau(beta){};
 
+    double get_U() const { return U; }
+
     void step() override;
 };

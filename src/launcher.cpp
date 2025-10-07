@@ -70,7 +70,10 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   Rcpp::List results = Rcpp::List::create(
       Rcpp::Named("allocations") = Rcpp::List(param.NI + param.BI),
       Rcpp::Named("K") = Rcpp::List(param.NI + param.BI),
-      Rcpp::Named("loglikelihood") = Rcpp::NumericVector(param.NI + param.BI, 0.0));
+      Rcpp::Named("loglikelihood") = Rcpp::NumericVector(param.NI + param.BI, 0.0),
+      Rcpp::Named("U") = Rcpp::NumericVector(param.NI + param.BI, 0.0)
+    );
+
 
   std::cout << "Starting MCMC with " << param.NI << " iterations after "
             << param.BI << " burn-in iterations." << std::endl;
@@ -84,14 +87,14 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
     
     sampler.step();
 
-    if(i % 50 == 0)
+    if(i % 20 == 0)
       gibbs.step();
 
     // Save intermediate results
     Rcpp::as<Rcpp::List>(results["allocations"])[i] =
         Rcpp::wrap(data.get_allocations());
     Rcpp::as<Rcpp::List>(results["K"])[i] = data.get_K();
-    
+    Rcpp::as<Rcpp::NumericVector>(results["U"])[i] = sampler.get_U();
 
     // print intermediate results
     if ((i + 1) % printing_interval == 0) {
