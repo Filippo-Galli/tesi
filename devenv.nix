@@ -11,6 +11,11 @@
   # Ensure R can find Nix-installed packages
   env.R_LIBS_SITE = "${pkgs.R}/library";
 
+  # C++23 compiler flags for R package compilation
+  env.CXX_STD = "CXX23";
+  env.PKG_CXXFLAGS = "-std=c++23";
+  env.CXXFLAGS = "-std=c++23";
+
   # https://devenv.sh/packages/
   packages = [ 
     pkgs.git
@@ -42,11 +47,11 @@
     pkgs.rPackages.mclust          # For ARI calculation
     
     # C++ development tools
-    pkgs.gcc
+    pkgs.gcc13
     pkgs.gfortran
     pkgs.pkg-config
     pkgs.cmake
-    pkgs.clang-tools_16
+    pkgs.clang-tools_18
     
     # Linear algebra libraries (for RcppEigen)
     pkgs.eigen
