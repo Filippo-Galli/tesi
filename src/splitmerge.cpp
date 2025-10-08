@@ -55,7 +55,7 @@ void SplitMerge::choose_indeces() {
     #endif
 }
 
-void SplitMerge::restricted_gibbs(int iterations, bool only_probabilities){
+void SplitMerge::restricted_gibbs(int iterations, bool only_probabilities) {
     /**
     * @brief Perform restricted Gibbs sampling on the points in S to propose new allocations for iter iterations.
     * @param iterations Number of Gibbs sampling iterations to perform.
@@ -219,75 +219,35 @@ double SplitMerge::compute_acceptance_ratio_split(double likelihood_old_cluster)
 }
 
 void SplitMerge::shuffle(){
-  /**
-   * @brief Perform a shuffle move to refine the allocations of points in S.
-   *        This move helps to improve mixing by allowing points to switch
-   * clusters.
-   */
+    /**
+    * @brief Perform a shuffle move to refine the allocations of points in S.
+    *        This move helps to improve mixing by allowing points to switch
+    *        clusters.
+    */
    
-   log_split_gibbs_prob = 0; // reset the log probability of the split move - use it to store the proposal prob
-   log_merge_gibbs_prob = 0;
+    log_split_gibbs_prob = 0; // reset the log probability of the split move - use it to store the proposal prob
+    log_merge_gibbs_prob = 0;
    
-   if(data.get_K() < 2)
-   return; // No point in shuffling if there's only one cluster
-
-  // Choose random two distinct clusters 
-  std::uniform_int_distribution<> dis(0, data.get_K() - 1);
-  ci = dis(gen);
-  do{
-      cj = dis(gen);
-  } while(cj == ci);
-  
-  std::uniform_int_distribution<> dis_idx_i(0, data.get_cluster_size(ci) - 1);
-  idx_i = data.get_cluster_assignments(ci)[dis_idx_i(gen)]; // pick a random point from cluster ci
-  std::uniform_int_distribution<> dis_idx_j(0, data.get_cluster_size(cj) - 1);
-  idx_j = data.get_cluster_assignments(cj)[dis_idx_j(gen)]; // pick a random point 
-  
-  // Store original allocations in case of rejection
-  original_allocations = data.get_allocations(); 
-  
-  // save old allocations and indices in the process
-  process.set_old_allocations(data.get_allocations());
-  process.set_idx_i(idx_i);
-  process.set_idx_j(idx_j);
-  
-  // Compute old likelihoods and sizes
-  double likelihood_old_ci = likelihood.cluster_loglikelihood(ci);
-  double likelihood_old_cj = likelihood.cluster_loglikelihood(cj);
-  int old_ci_size = data.get_cluster_size(ci);
-  int old_cj_size = data.get_cluster_size(cj);
-
-  // Pre-allocate launch_state and S
-  int size_ci = data.get_cluster_size(ci);
-  int size_cj = data.get_cluster_size(cj);
-  int launch_state_size = size_ci + size_cj - 2; // Exclude points i and j from the launch state
-  launch_state.resize(launch_state_size);
-  S.resize(launch_state_size);
-
-  // Create S and launch_state
-  int s_idx = 0;
-  for (int idx = 0; idx < data.get_n(); ++idx) {
-    if (idx == idx_i || idx == idx_j)
-      continue; // Skip points i and j
-
-    int temp_cluster = data.get_cluster_assignment(idx);
-    if (temp_cluster == ci || temp_cluster == cj) {
-      S(s_idx) = idx;
-      launch_state(s_idx) = temp_cluster;
-      s_idx++;
+    if(data.get_K() < 2){
+        return; // No point in shuffling if there's only one cluster
     }
-  }
+  
+    // Compute old likelihoods and sizes
+    double likelihood_old_ci = likelihood.cluster_loglikelihood(ci);
+    double likelihood_old_cj = likelihood.cluster_loglikelihood(cj);
+    int old_ci_size = data.get_cluster_size(ci);
+    int old_cj_size = data.get_cluster_size(cj);
 
-  // Use restricted gibbs to refine the allocations
-  restricted_gibbs(10);
+    // Use restricted gibbs to refine the allocations
+    restricted_gibbs(10);
 
-  // Compute acceptance ratio
-  double log_acceptance_ratio = compute_acceptance_ratio_shuffle(likelihood_old_ci, likelihood_old_cj, 
+    // Compute acceptance ratio
+    double log_acceptance_ratio = compute_acceptance_ratio_shuffle(likelihood_old_ci, likelihood_old_cj, 
                                                                 old_ci_size, old_cj_size);
 
-  // Accept or reject the move
-  std::uniform_real_distribution<> acceptance_ratio_dis(0.0, 1.0);
-  if (log(acceptance_ratio_dis(gen)) > log_acceptance_ratio) // move not accepted
+    // Accept or reject the move
+    std::uniform_real_distribution<> acceptance_ratio_dis(0.0, 1.0);
+    if (log(acceptance_ratio_dis(gen)) > log_acceptance_ratio) // move not accepted
     data.set_allocations(original_allocations);
 }
 
@@ -315,6 +275,53 @@ double SplitMerge::compute_acceptance_ratio_shuffle(double likelihood_old_ci, do
   return log_acceptance_ratio;
 }
 
+void SplitMerge::choose_clusters_shuffle(){
+    /**
+    * @brief Randomly choose two distinct clusters ci and cj from the current allocations.
+    *        Update idx_i and idx_j to be random points from these clusters.
+    */
+    
+    if(data.get_K() < 2)
+        throw std::runtime_error("Not enough clusters to perform shuffle.");
+
+    std::uniform_int_distribution<> dis(0, data.get_K() - 1);
+    
+    ci = dis(gen);
+    do {
+        cj = dis(gen);
+    } while (cj == ci); // Ensure ci and cj are distinct
+
+    // Choose random points from clusters ci and cj
+    std::uniform_int_distribution<> dis_idx_i(0, data.get_cluster_size(ci) - 1);
+    idx_i = data.get_cluster_assignments(ci)[dis_idx_i(gen)];
+    
+    std::uniform_int_distribution<> dis_idx_j(0, data.get_cluster_size(cj) - 1);
+    idx_j = data.get_cluster_assignments(cj)[dis_idx_j(gen)];
+
+    // Store original allocations in case of rejection
+    original_allocations = data.get_allocations(); 
+
+    // Pre-allocate launch_state and S
+    const int size_ci = data.get_cluster_size(ci);
+    const int size_cj = data.get_cluster_size(cj);
+    const int launch_state_size = size_ci + size_cj - 2; // Exclude points i and j from the launch state
+    launch_state.resize(launch_state_size);
+    S.resize(launch_state_size);
+
+    // Create S and launch_state
+    int s_idx = 0;
+    for (int idx = 0; idx < data.get_n(); ++idx) {
+        if (idx == idx_i || idx == idx_j)
+            continue; // Skip points i and j
+
+        int temp_cluster = data.get_cluster_assignment(idx);
+        if (temp_cluster == ci || temp_cluster == cj) {
+        S(s_idx) = idx;
+        launch_state(s_idx) = temp_cluster;
+        s_idx++;
+        }
+    }
+}
 
 void SplitMerge::step(){
     /**
@@ -333,6 +340,11 @@ void SplitMerge::step(){
         merge_move();
     }
 
-    if(shuffle_bool)
+    if(shuffle_bool){
+        choose_clusters_shuffle();
+        process.set_old_allocations(data.get_allocations()); // Update old allocations in the process
+        process.set_idx_i(idx_i);
+        process.set_idx_j(idx_j);
         shuffle();
+    }
 }

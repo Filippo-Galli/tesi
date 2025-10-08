@@ -29,6 +29,8 @@ class SplitMerge : public Sampler {
     double log_merge_gibbs_prob = 0;
 
     void choose_indeces();
+    void choose_clusters_shuffle();
+
     void restricted_gibbs(int iterations, bool only_probabilities = false);
     
     void split_move();
