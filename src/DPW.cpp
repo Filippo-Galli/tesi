@@ -32,11 +32,11 @@ int DPW::get_neighbors_cls(int cls_idx, bool old_allo) const {
 
     Eigen::VectorXi allocations_to_use = old_allo ? old_allocations : data.get_allocations();
     Eigen::VectorXi obs_in_cluster = (allocations_to_use.array() == cls_idx).cast<int>();
-    int total_neighbors = (params.W * obs_in_cluster).sum();
+    const int total_neighbors = (params.W * obs_in_cluster).sum();
     return total_neighbors;
 }
 
-double DPW::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) {
+double DPW::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) const {
     /**
      * @brief Computes the log prior probability of assigning a data point to an existing cluster.
      * @param cls_idx The index of the cluster
@@ -44,21 +44,21 @@ double DPW::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) {
      * @return The log prior probability of assigning the data point to its current cluster.
     */
 
-    int cluster_size = data.get_cluster_size(cls_idx);
+    const int cluster_size = data.get_cluster_size(cls_idx);
     double prior = params.coefficient * get_neighbors_obs(obs_idx, cls_idx);
     prior = cluster_size > 0 ? prior + log(cluster_size) : std::numeric_limits<double>::lowest();
     return prior;
 }
 
-double DPW::gibbs_prior_new_cluster() {
+double DPW::gibbs_prior_new_cluster() const {
     /**
      * @brief Computes the log prior probability of assigning a data point to a new cluster.
      * @return The log prior probability of assigning the data point to a new cluster.
     */
-    return log(params.a);
+    return log_a;
 }
 
-double DPW::prior_ratio_split(int ci, int cj) {
+double DPW::prior_ratio_split(int ci, int cj) const {
     /**
      * @brief Computes the prior ratio for a split operation in a split-merge MCMC algorithm.
      * @param ci the first cluster index involved in the split.
@@ -66,10 +66,10 @@ double DPW::prior_ratio_split(int ci, int cj) {
      * @return The log prior ratio for the split operation.
     */
 
-    double log_acceptance_ratio = log(params.a);
+    double log_acceptance_ratio = log_a;
 
-    int n_ci = data.get_cluster_size(ci);
-    int n_cj = data.get_cluster_size(cj);
+    const int n_ci = data.get_cluster_size(ci);
+    const int n_cj = data.get_cluster_size(cj);
 
     log_acceptance_ratio += (n_ci > 0) ? lgamma(n_ci) : 0;
     log_acceptance_ratio += (n_cj > 0) ? lgamma(n_cj) : 0;
@@ -82,7 +82,7 @@ double DPW::prior_ratio_split(int ci, int cj) {
     return log_acceptance_ratio;
 }
 
-double DPW::prior_ratio_merge(int size_old_ci, int size_old_cj) {
+double DPW::prior_ratio_merge(int size_old_ci, int size_old_cj) const {
     /**
      * @brief Computes the prior ratio for a merge operation in a split-merge MCMC algorithm.
      * @param size_old_ci the size of the first cluster before the merge.
@@ -91,25 +91,25 @@ double DPW::prior_ratio_merge(int size_old_ci, int size_old_cj) {
     */
 
     // DP prior part
-    double log_acceptance_ratio = -log(params.a);
-    int size_merge = size_old_ci + size_old_cj;
+    double log_acceptance_ratio = -log_a;
+    const int size_merge = size_old_ci + size_old_cj;
     log_acceptance_ratio += (size_merge > 0) ? lgamma(size_merge) : 0;
     log_acceptance_ratio -= (size_old_ci > 0) ? lgamma(size_old_ci) : 0;
     log_acceptance_ratio -= (size_old_cj > 0) ? lgamma(size_old_cj) : 0;
 
     // Spatial part
-    int old_ci = old_allocations[idx_i];
-    int old_cj = old_allocations[idx_j];
+    const int old_ci = old_allocations[idx_i];
+    const int old_cj = old_allocations[idx_j];
     log_acceptance_ratio -= params.coefficient*get_neighbors_cls(old_ci, true);
     log_acceptance_ratio -= params.coefficient*get_neighbors_cls(old_cj,true);
     
-    int new_ci = data.get_allocations()[idx_i]; 
+    const int new_ci = data.get_allocations()[idx_i]; 
     log_acceptance_ratio += params.coefficient*get_neighbors_cls(new_ci);
 
     return log_acceptance_ratio;
 }
 
-double DPW::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci, int cj) {
+double DPW::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci, int cj) const {
     /**
      * @brief Computes the prior ratio for a shuffle operation in a split-merge MCMC algorithm.
      * @param size_old_ci the size of the first cluster before the shuffle.
@@ -119,9 +119,8 @@ double DPW::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci, int cj
      * @return The log prior ratio for the shuffle operation.
     */
 
-    int n_ci = data.get_cluster_size(ci);
-    int n_cj = data.get_cluster_size(cj);
-
+    const int n_ci = data.get_cluster_size(ci);
+    const int n_cj = data.get_cluster_size(cj);
 
     double log_acceptance_ratio = 0.0;
     log_acceptance_ratio += (n_ci > 0) ? lgamma(n_ci) : 0;

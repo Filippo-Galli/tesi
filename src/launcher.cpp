@@ -76,8 +76,10 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
     
     sampler.step();
 
-    // if(i % 20 == 0)
+    // if(i % 1000 == 0)
     //   gibbs.step();
+
+    process.update_params();
 
     // Save intermediate results
     Rcpp::as<Rcpp::List>(results["allocations"])[i] =
@@ -100,6 +102,6 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
 
   std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
   std::cout << "MCMC completed in : " << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() << " seconds." << std::endl;
-
+  std::cout << "Accepted U ratio: " << process.get_accepted_U()*100 / (param.NI + param.BI) << " %." << std::endl;
   return results;
 }

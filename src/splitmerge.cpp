@@ -335,6 +335,4 @@ void SplitMerge::step(){
 
     if(shuffle_bool)
         shuffle();
-
-    process.update_params();
 }

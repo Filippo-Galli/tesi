@@ -1,7 +1,7 @@
 #include "NGGP.hpp"
 #include <random>
 
-double NGGP::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) {
+double NGGP::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) const {
     /**
      * @brief Computes the log prior probability of assigning a data point to an existing cluster.
      * @param cls_idx The index of the cluster
@@ -12,15 +12,15 @@ double NGGP::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) {
     return (cluster_size - params.sigma > 0) ? log(cluster_size - params.sigma) : std::numeric_limits<double>::lowest();
 }
 
-double NGGP::gibbs_prior_new_cluster() {
+double NGGP::gibbs_prior_new_cluster() const {
     /**
      * @brief Computes the log prior probability of assigning a data point to a new cluster.
      * @return The log prior probability of assigning the data point to a new cluster.
     */
-    return log(params.a) + params.sigma * log(params.tau + U);
+    return log_a + params.sigma * log(params.tau + U);
 }
 
-double NGGP::prior_ratio_split(int ci, int cj) {
+double NGGP::prior_ratio_split(int ci, int cj) const {
     /**
      * @brief Computes the prior ratio for a split operation in a split-merge MCMC algorithm.
      * @param ci the first cluster index involved in the split.
@@ -28,11 +28,11 @@ double NGGP::prior_ratio_split(int ci, int cj) {
      * @return The log prior ratio for the split operation.
     */
 
-    int n_ci = data.get_cluster_size(ci);
-    int n_cj = data.get_cluster_size(cj);
+    const int n_ci = data.get_cluster_size(ci);
+    const int n_cj = data.get_cluster_size(cj);
 
     double log_acceptance_ratio = 0.0;
-    log_acceptance_ratio += log(params.a);
+    log_acceptance_ratio += log_a;
     log_acceptance_ratio += params.sigma * log(params.tau + U);
     log_acceptance_ratio -= lgamma(n_ci + n_cj - params.sigma);
     log_acceptance_ratio += lgamma(n_ci - params.sigma);
@@ -41,7 +41,7 @@ double NGGP::prior_ratio_split(int ci, int cj) {
     return log_acceptance_ratio;
 }
 
-double NGGP::prior_ratio_merge(int size_old_ci, int size_old_cj) {
+double NGGP::prior_ratio_merge(int size_old_ci, int size_old_cj) const {
     /**
      * @brief Computes the prior ratio for a merge operation in a split-merge MCMC algorithm.
      * @param size_old_ci the size of the first cluster before the merge.
@@ -49,9 +49,9 @@ double NGGP::prior_ratio_merge(int size_old_ci, int size_old_cj) {
      * @return The log prior ratio for the merge operation.
     */
 
-    int size_merge = size_old_ci + size_old_cj;
+    const int size_merge = size_old_ci + size_old_cj;
     
-    double log_acceptance_ratio = -log(params.a);
+    double log_acceptance_ratio = - log_a;
     log_acceptance_ratio -= params.sigma * log(params.tau + U);
     log_acceptance_ratio += lgamma(size_merge - params.sigma);
     log_acceptance_ratio -= lgamma(size_old_ci - params.sigma);
@@ -60,7 +60,7 @@ double NGGP::prior_ratio_merge(int size_old_ci, int size_old_cj) {
     return log_acceptance_ratio;
 }
 
-double NGGP::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci, int cj) {
+double NGGP::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci, int cj) const {
     /**
      * @brief Computes the prior ratio for a shuffle operation in a split-merge MCMC algorithm.
      * @param size_old_ci the size of the first cluster before the shuffle.
@@ -70,8 +70,8 @@ double NGGP::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci, int c
      * @return The log prior ratio for the shuffle operation.
     */
 
-    int n_ci = data.get_cluster_size(ci);
-    int n_cj = data.get_cluster_size(cj);
+    const int n_ci = data.get_cluster_size(ci);
+    const int n_cj = data.get_cluster_size(cj);
 
     double log_acceptance_ratio = 0.0;
     log_acceptance_ratio += lgamma(n_ci - params.sigma);
@@ -93,12 +93,12 @@ void NGGP::update_U() {
     double V_current = std::log(U);
     
     // Propose new V' from N(V, 1/4)
-    std::normal_distribution<double> proposal(V_current, 0.5); // std = sqrt(1/4) = 0.5
-    double V_proposed = proposal(gen);
+    std::normal_distribution<double> proposal(V_current, proposal_std); 
+    const double V_proposed = proposal(gen);
     
     // Compute log conditional densities (unnormalized)
-    double log_density_current = log_conditional_density_V(V_current);
-    double log_density_proposed = log_conditional_density_V(V_proposed);
+    const double log_density_current = log_conditional_density_V(V_current);
+    const double log_density_proposed = log_conditional_density_V(V_proposed);
     
     // Compute acceptance ratio (log scale)
     double log_acceptance_ratio = log_density_proposed - log_density_current;
@@ -107,6 +107,7 @@ void NGGP::update_U() {
     std::uniform_real_distribution<double> unif(0.0, 1.0);
     if (std::log(unif(gen)) < log_acceptance_ratio) { // Accept
         U = std::exp(V_proposed);
+        accepted_U++;
     }
 }
 
@@ -118,21 +119,19 @@ double NGGP::log_conditional_density_V(double v) const {
      * @return Log of the unnormalized conditional density
     */
     
-    double exp_v = std::exp(v);
-    int n = data.get_n();
-    int K = data.get_K();
-    double a = params.a;
-    double sigma = params.sigma;
+    const double exp_v = std::exp(v);
+    const int n = data.get_n();
+    const int K = data.get_K();
     
     // Compute log density components
     // log(e^{vn}) = vn
-    double term1 = v * n;
+    const double term1 = v * n;
     
     // log((e^v + τ)^{n-a|π|}) = (n - a*K) * log(e^v + τ)
-    double term2 = -(n - a * K) * std::log(exp_v + tau);
+    const double term2 = -(n - params.a * K) * std::log(exp_v + tau);
     
     // -(a/σ)((e^v+τ)^σ - τ^σ)
-    double term3 = -(a / sigma) * (std::pow(exp_v + tau, sigma) - std::pow(tau, sigma));
+    const double term3 = - a_over_sigma * (std::pow(exp_v + tau, params.sigma) - tau_power_sigma);
     
     return term1 + term2 + term3;
 }

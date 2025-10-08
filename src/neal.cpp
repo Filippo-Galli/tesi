@@ -41,6 +41,12 @@ void Neal3::step_1_observation(int index) {
         prob /= sum_probs;
     }
 
+    // DEBUG
+    // Rcpp::Rcout << "Log likelihoods and probabilities for data point " << index << ":" << std::endl;
+    // for (int i = 0; i < probs.size(); ++i) {
+    //     Rcpp::Rcout << "\tCluster " << i << ": l = " << log_likelihoods[i] << " p = "<< probs[i] << std::endl;
+    // }
+
     // Sample a cluster based on the probabilities
     std::discrete_distribution<int> dist(probs.begin(), probs.end());
     int sampled_cluster = dist(gen);
@@ -58,5 +64,9 @@ void Neal3::step() {
         step_1_observation(j);
     }
 
-    process.update_params();
+    // Rcpp::Rcout << std::endl << "Element per cluster: " << std::endl;
+    // for (int k = 0; k < data.get_K(); ++k) {
+    //     Rcpp::Rcout << "\tCluster " << k << ": " << data.get_cluster_size(k) << std::endl;
+    // }
+    // Rcpp::Rcout << "-----------------------------------------------------------------------------" << std::endl;
 }

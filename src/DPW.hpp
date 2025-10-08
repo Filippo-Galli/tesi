@@ -9,13 +9,13 @@ class DPW : public Process {
     DPW(Data &d, Params &p) : Process(d, p){};
 
     // Gibbs sampling methods
-    double gibbs_prior_existing_cluster(int cls_idx, int obs_idx) override;
-    double gibbs_prior_new_cluster() override;
+    [[nodiscard]] double gibbs_prior_existing_cluster(int cls_idx, int obs_idx) const  override;
+    [[nodiscard]] double gibbs_prior_new_cluster() const override;
 
     // Useful for split-merge algorithms
-    double prior_ratio_split(int ci, int cj) override;
-    double prior_ratio_merge(int size_old_ci, int size_old_cj) override;
-    double prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci, int cj) override;
+    [[nodiscard]] double prior_ratio_split(int ci, int cj) const override;
+    [[nodiscard]] double prior_ratio_merge(int size_old_ci, int size_old_cj) const override;
+    [[nodiscard]] double prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci, int cj) const override;
 
     // spatial methods
     int get_neighbors_obs(int obs_idx, int cls_idx) const;
