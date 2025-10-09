@@ -1,0 +1,26 @@
+/* Highlight parent menu item when submenu is expanded */
+#nav-tree .item.selected {
+    background-color: rgba(100, 100, 100, 0.3) !important;
+    border-radius: 4px;
+}
+
+/* Add left border and styling ONLY to expanded submenus */
+#nav-tree .item.selected + ul.children_ul[style*="display: block"] {
+    border-left: 2px solid rgba(61, 142, 206, 0.5);
+    margin-left: 10px;
+    padding-left: 5px;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: 4px;
+    padding: 5px 0 5px 5px;
+}
+
+/* Add indentation to submenu items only when visible */
+#nav-tree .item.selected + ul.children_ul[style*="display: block"] li {
+    padding-left: 10px;
+}
+
+/* For dark mode */
+html.dark-mode #nav-tree .item.selected + ul.children_ul[style*="display: block"] {
+    background-color: rgba(255, 255, 255, 0.02);
+    border-left-color: rgba(61, 142, 206, 0.6);
+}
