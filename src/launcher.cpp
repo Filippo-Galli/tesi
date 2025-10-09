@@ -3,10 +3,12 @@
 #include "neal.hpp"
 #include "splitmerge.hpp"
 #include "splitmerge_SAMS.hpp"
+#include "splitmerge_SDDS.hpp"
 
 #include "DP.hpp"
 #include "DPW.hpp"
 #include "NGGP.hpp"
+#include "NGGPW.hpp"
 
 #include "Data.hpp"
 #include "Likelihood.hpp"
@@ -51,11 +53,13 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   
   //DP process(data, param);
   //DPW process(data, param); 
-  NGGP process(data, param);
+  //NGGP process(data, param);
+  NGGPW process(data, param);
 
-  Neal3 sampler(data, param, likelihood, process);
-  //SplitMerge sampler(data, param, likelihood, process, true);
+  Neal3 gibbs(data, param, likelihood, process);
+  SplitMerge sampler(data, param, likelihood, process, true);
   //SplitMerge_SAMS sampler(data, param, likelihood, process, true);
+  //SplitMerge_SDDS sampler(data, param, likelihood, process, true);
 
   Rcpp::List results = Rcpp::List::create(
       Rcpp::Named("allocations") = Rcpp::List(param.NI + param.BI),
@@ -76,14 +80,13 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
     
     sampler.step();
 
-    // if(i % 1000 == 0)
+    // if(i % 50 == 0)
     //   gibbs.step();
 
     process.update_params();
 
     // Save intermediate results
-    Rcpp::as<Rcpp::List>(results["allocations"])[i] =
-        Rcpp::wrap(data.get_allocations());
+    Rcpp::as<Rcpp::List>(results["allocations"])[i] = Rcpp::wrap(data.get_allocations());
     Rcpp::as<Rcpp::List>(results["K"])[i] = data.get_K();
     Rcpp::as<Rcpp::NumericVector>(results["U"])[i] = process.get_U();
 
