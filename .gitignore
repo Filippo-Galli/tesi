@@ -2,6 +2,10 @@
 .devenv*
 devenv.local.nix
 
+# Doxygen
+html/
+latex/
+
 # direnv
 .direnv
 

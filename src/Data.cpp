@@ -1,3 +1,8 @@
+/**
+ * @file Data.cpp
+ * @brief Implementation of the Data class
+ */
+
 #include "Data.hpp"
 #include "Eigen/src/Core/Matrix.h"
 #include <iostream>
@@ -5,22 +10,6 @@
 Data::Data(const Eigen::MatrixXd &distances,
            const Eigen::VectorXi &initial_allocations)
     : D(distances), allocations(initial_allocations) {
-  /**
-   * @brief Constructor initializes the Data object with a distance matrix.
-   * @details It also initializes the allocations vector based on the
-   * first_allocation parameter.
-   * @details If first_allocation is "all-in-one", all points are allocated to a
-   * single cluster.
-   * @details If first_allocation is "sequential", each point is allocated to
-   * its own cluster.
-   * @details Otherwise, it throws an invalid_argument exception.
-   * @param distances The distance matrix to initialize the Data object.
-   * @param param The parameters for the model.
-   * @param first_allocation The initial allocation strategy for the clusters.
-   * @throws std::invalid_argument if the distance matrix is not square or if
-   * the first_allocation is invalid.
-   */
-
 
   if (distances.rows() != distances.cols()) {
     throw std::invalid_argument("Distance matrix must be square");
@@ -50,16 +39,6 @@ Data::Data(const Eigen::MatrixXd &distances,
 }
 
 double Data::get_distance(int i, int j) const {
-  /**
-   * @brief Gets the distance between two points.
-   * @details It checks if the indices are within bounds and returns the
-   * distance.
-   * @param i The index of the first point.
-   * @param j The index of the second point.
-   * @return The distance between the two points.
-   * @throws std::out_of_range if the indices are out of bounds.
-   */
-
   #if VERBOSITY_LEVEL >= 1
   if (i < 0 || i >= D.rows() || j < 0 || j >= D.cols()) {
     throw std::out_of_range("Index out of bounds in get_distance");
@@ -70,15 +49,6 @@ double Data::get_distance(int i, int j) const {
 }
 
 Eigen::VectorXi Data::get_cluster_assignments(int cluster) const {
-  /**
-   * @brief Gets the assignments of points to a specific cluster.
-   * @details It returns a vector containing the indices of points assigned to
-   * the specified cluster.
-   * @param cluster The index of the cluster (0 to K-1).
-   * @return A vector of indices of points assigned to the specified cluster.
-   * @throws std::out_of_range if the cluster index is out of bounds.
-   */
-
   #if VERBOSITY_LEVEL >= 1
   if (cluster > K || cluster < 0) {
     throw std::out_of_range("Index out of bounds in get_cluster_assignments");
@@ -87,7 +57,7 @@ Eigen::VectorXi Data::get_cluster_assignments(int cluster) const {
 
   // Check if the cluster exists in the map before accessing it
   if (cluster_members.find(cluster) == cluster_members.end()) {
-    return Eigen::VectorXi::Zero( 0); // Return empty vector for non-existent clusters
+    return Eigen::VectorXi::Zero(0); // Return empty vector for non-existent clusters
   }
 
   return Eigen::Map<const Eigen::VectorXi>(cluster_members.at(cluster).data(),
@@ -95,16 +65,6 @@ Eigen::VectorXi Data::get_cluster_assignments(int cluster) const {
 }
 
 void Data::compact_cluster(int old_cluster) {
-  /**
-   * @brief Compacts the clusters by removing an empty cluster and shifting
-   * allocations.
-   * @details It removes the specified old_cluster and shifts allocations of
-   * points in the last cluster to the old_cluster. It also updates the number
-   * of clusters K.
-   * @param old_cluster The index of the cluster to be removed (0 to K-1).
-   * @throws std::out_of_range if the old_cluster index is out of bounds.
-   */
-
   #if VERBOSITY_LEVEL >= 1
   if (old_cluster < 0 || old_cluster >= K) {
     throw std::out_of_range("old_cluster index out of bounds in compact_cluster");
@@ -141,15 +101,6 @@ void Data::compact_cluster(int old_cluster) {
 }
 
 void Data::set_allocation(int index, int cluster) {
-  /**
-   * @brief Sets the allocation of a point to a specific cluster.
-   * @details It updates the allocations vector and calls compact_cluster
-   * to remove empty clusters when necessary.
-   * @param index The index of the point to be allocated.
-   * @param cluster The cluster index to which the point should be allocated (0
-   * to K-1 for existing, K for new, -1 for unallocated).
-   */
-
   // Bounds checking for index
   #if VERBOSITY_LEVEL >= 1
   if (index < 0 || index >= n) {
@@ -227,16 +178,6 @@ void Data::set_allocation(int index, int cluster) {
 }
 
 void Data::set_allocations(const Eigen::VectorXi &new_allocations) {
-  /**
-   * @brief Sets the allocations vector to a new vector and updates cluster
-   * sizes.
-   * @details It checks if the new allocations vector is of the correct size
-   * and updates the allocations and cluster sizes accordingly.
-   * @param new_allocations The new allocations vector to set.
-   * @throws std::invalid_argument if the new allocations vector is not of the
-   * correct size.
-   */
-
   #if VERBOSITY_LEVEL >= 1
   if (new_allocations.size() != n) {
     throw std::invalid_argument(

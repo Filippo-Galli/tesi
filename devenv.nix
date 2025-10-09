@@ -63,6 +63,9 @@
     pkgs.rPackages.testthat
     pkgs.rPackages.roxygen2
     pkgs.rPackages.knitr
+
+    # Documentation
+    pkgs.doxygen
   ];
 
   # https://devenv.sh/scripts/
