@@ -2,7 +2,7 @@
 
 This project implements advanced Bayesian nonparametric clustering methods using state-of-the-art MCMC techniques. It provides a comprehensive framework for clustering analysis with Dirichlet Process (DP), Normalized Generalized Gamma Process (NGGP), and their weighted spatial variants, combining R for data analysis with high-performance C++ implementations.
 
-**📚 Documentation:** [Doxygen API Reference](file:///home/filippo/Documents/tesi/docs/index.html)  
+**📚 Documentation:** [Doxygen API Reference](https://filippo-galli.github.io/tesi/)  
 **🔬 Research Focus:** Bayesian nonparametric models with spatial dependencies  
 **⚡ Performance:** Optimized C++ backend with R interface
 ## ✨ Key Features
