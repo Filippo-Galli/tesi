@@ -108,68 +108,159 @@ $(function(){initNavTree('classProcess.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">Process Class Reference<span class="mlabels"><span class="mlabel abstract">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Abstract base class for Bayesian nonparametric processes.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Process_8hpp_source.html">Process.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Process:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="classProcess.png" usemap="#Process_map" alt=""/>
   <map id="Process_map" name="Process_map">
-<area href="classDP.html" alt="DP" shape="rect" coords="0,56,58,80"/>
-<area href="classDPW.html" alt="DPW" shape="rect" coords="68,56,126,80"/>
-<area href="classNGGP.html" alt="NGGP" shape="rect" coords="136,56,194,80"/>
-<area href="classNGGPW.html" alt="NGGPW" shape="rect" coords="204,56,262,80"/>
+<area href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering." alt="DP" shape="rect" coords="0,56,58,80"/>
+<area href="classDPW.html" title="Dirichlet Process with spatial Weights class for spatially-aware Bayesian nonparametric clustering." alt="DPW" shape="rect" coords="68,56,126,80"/>
+<area href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering." alt="NGGP" shape="rect" coords="136,56,194,80"/>
+<area href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam..." alt="NGGPW" shape="rect" coords="204,56,262,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a45c13512446ea3e7353ed88773d496a6" id="r_a45c13512446ea3e7353ed88773d496a6"><td class="memItemLeft" align="right" valign="top"><a id="a45c13512446ea3e7353ed88773d496a6" name="a45c13512446ea3e7353ed88773d496a6"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Process</b> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p)</td></tr>
+<tr class="memitem:a45c13512446ea3e7353ed88773d496a6" id="r_a45c13512446ea3e7353ed88773d496a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45c13512446ea3e7353ed88773d496a6">Process</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p)</td></tr>
+<tr class="memdesc:a45c13512446ea3e7353ed88773d496a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor initializing process with data and parameters.  <br /></td></tr>
 <tr class="separator:a45c13512446ea3e7353ed88773d496a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17d00dd1cdddc0c2c8b3d4155afcb54c" id="r_a17d00dd1cdddc0c2c8b3d4155afcb54c"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a17d00dd1cdddc0c2c8b3d4155afcb54c">gibbs_prior_existing_cluster</a> (int cls_idx, int obs_idx) const =0</td></tr>
+<tr class="memdesc:a17d00dd1cdddc0c2c8b3d4155afcb54c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute prior probability for assigning observation to existing cluster.  <br /></td></tr>
 <tr class="separator:a17d00dd1cdddc0c2c8b3d4155afcb54c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0620ca38fdd6c3fb09b6d008cfe728d" id="r_af0620ca38fdd6c3fb09b6d008cfe728d"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0620ca38fdd6c3fb09b6d008cfe728d">gibbs_prior_new_cluster</a> () const =0</td></tr>
+<tr class="memdesc:af0620ca38fdd6c3fb09b6d008cfe728d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute prior probability for creating a new cluster.  <br /></td></tr>
 <tr class="separator:af0620ca38fdd6c3fb09b6d008cfe728d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3077b5bf1703a691927ae3779900a734" id="r_a3077b5bf1703a691927ae3779900a734"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3077b5bf1703a691927ae3779900a734">prior_ratio_split</a> (int ci, int cj) const =0</td></tr>
+<tr class="memdesc:a3077b5bf1703a691927ae3779900a734"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute prior ratio for split move in split-merge algorithm.  <br /></td></tr>
 <tr class="separator:a3077b5bf1703a691927ae3779900a734"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f839a738e76fc3ab83d3a7bfc228984" id="r_a3f839a738e76fc3ab83d3a7bfc228984"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f839a738e76fc3ab83d3a7bfc228984">prior_ratio_merge</a> (int size_old_ci, int size_old_cj) const =0</td></tr>
+<tr class="memdesc:a3f839a738e76fc3ab83d3a7bfc228984"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute prior ratio for merge move in split-merge algorithm.  <br /></td></tr>
 <tr class="separator:a3f839a738e76fc3ab83d3a7bfc228984"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bd733b3232c8cf865bc0d6c1a07aea4" id="r_a3bd733b3232c8cf865bc0d6c1a07aea4"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3bd733b3232c8cf865bc0d6c1a07aea4">prior_ratio_shuffle</a> (int size_old_ci, int size_old_cj, int ci, int cj) const =0</td></tr>
+<tr class="memdesc:a3bd733b3232c8cf865bc0d6c1a07aea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute prior ratio for shuffle move in split-merge algorithm.  <br /></td></tr>
 <tr class="separator:a3bd733b3232c8cf865bc0d6c1a07aea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6174151176ec3d063ac441e5a80d0c44" id="r_a6174151176ec3d063ac441e5a80d0c44"><td class="memItemLeft" align="right" valign="top"><a id="a6174151176ec3d063ac441e5a80d0c44" name="a6174151176ec3d063ac441e5a80d0c44"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_old_allocations</b> (const Eigen::VectorXi &amp;new_allocations)</td></tr>
+<tr class="memitem:a6174151176ec3d063ac441e5a80d0c44" id="r_a6174151176ec3d063ac441e5a80d0c44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6174151176ec3d063ac441e5a80d0c44">set_old_allocations</a> (const Eigen::VectorXi &amp;new_allocations)</td></tr>
+<tr class="memdesc:a6174151176ec3d063ac441e5a80d0c44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store current allocations for potential rollback.  <br /></td></tr>
 <tr class="separator:a6174151176ec3d063ac441e5a80d0c44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ea0be22abcf92f98620c8b81690a76f" id="r_a7ea0be22abcf92f98620c8b81690a76f"><td class="memItemLeft" align="right" valign="top"><a id="a7ea0be22abcf92f98620c8b81690a76f" name="a7ea0be22abcf92f98620c8b81690a76f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_idx_i</b> (int i)</td></tr>
+<tr class="memitem:a7ea0be22abcf92f98620c8b81690a76f" id="r_a7ea0be22abcf92f98620c8b81690a76f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ea0be22abcf92f98620c8b81690a76f">set_idx_i</a> (int i)</td></tr>
+<tr class="memdesc:a7ea0be22abcf92f98620c8b81690a76f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set index of first observation in split-merge pair.  <br /></td></tr>
 <tr class="separator:a7ea0be22abcf92f98620c8b81690a76f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c638d305db4abae7c8fedca34e71794" id="r_a9c638d305db4abae7c8fedca34e71794"><td class="memItemLeft" align="right" valign="top"><a id="a9c638d305db4abae7c8fedca34e71794" name="a9c638d305db4abae7c8fedca34e71794"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set_idx_j</b> (int j)</td></tr>
+<tr class="memitem:a9c638d305db4abae7c8fedca34e71794" id="r_a9c638d305db4abae7c8fedca34e71794"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c638d305db4abae7c8fedca34e71794">set_idx_j</a> (int j)</td></tr>
+<tr class="memdesc:a9c638d305db4abae7c8fedca34e71794"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set index of second observation in split-merge pair.  <br /></td></tr>
 <tr class="separator:a9c638d305db4abae7c8fedca34e71794"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac610fb84ed64db2a74fa1447ce5a582e" id="r_ac610fb84ed64db2a74fa1447ce5a582e"><td class="memItemLeft" align="right" valign="top"><a id="ac610fb84ed64db2a74fa1447ce5a582e" name="ac610fb84ed64db2a74fa1447ce5a582e"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>update_params</b> ()=0</td></tr>
+<tr class="memitem:ac610fb84ed64db2a74fa1447ce5a582e" id="r_ac610fb84ed64db2a74fa1447ce5a582e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac610fb84ed64db2a74fa1447ce5a582e">update_params</a> ()=0</td></tr>
+<tr class="memdesc:ac610fb84ed64db2a74fa1447ce5a582e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update process parameters during MCMC sampling.  <br /></td></tr>
 <tr class="separator:ac610fb84ed64db2a74fa1447ce5a582e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ff358c1d3b155bc09e1271266cdce7d" id="r_a7ff358c1d3b155bc09e1271266cdce7d"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ff358c1d3b155bc09e1271266cdce7d">~Process</a> ()</td></tr>
+<tr class="memdesc:a7ff358c1d3b155bc09e1271266cdce7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor for proper cleanup of derived classes.  <br /></td></tr>
+<tr class="separator:a7ff358c1d3b155bc09e1271266cdce7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:af8d15d280b7b72defee3438abf1f9c8f" id="r_af8d15d280b7b72defee3438abf1f9c8f"><td class="memItemLeft" align="right" valign="top"><a id="af8d15d280b7b72defee3438abf1f9c8f" name="af8d15d280b7b72defee3438abf1f9c8f"></a>
-<a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>data</b></td></tr>
+<tr class="memitem:af8d15d280b7b72defee3438abf1f9c8f" id="r_af8d15d280b7b72defee3438abf1f9c8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8d15d280b7b72defee3438abf1f9c8f">data</a></td></tr>
+<tr class="memdesc:af8d15d280b7b72defee3438abf1f9c8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the data object containing observations and allocations.  <br /></td></tr>
 <tr class="separator:af8d15d280b7b72defee3438abf1f9c8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c3ef16d47835acfa8fbe86aefb8c6e8" id="r_a4c3ef16d47835acfa8fbe86aefb8c6e8"><td class="memItemLeft" align="right" valign="top"><a id="a4c3ef16d47835acfa8fbe86aefb8c6e8" name="a4c3ef16d47835acfa8fbe86aefb8c6e8"></a>
-<a class="el" href="structParams.html">Params</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>params</b></td></tr>
+<tr class="memitem:a4c3ef16d47835acfa8fbe86aefb8c6e8" id="r_a4c3ef16d47835acfa8fbe86aefb8c6e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structParams.html">Params</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c3ef16d47835acfa8fbe86aefb8c6e8">params</a></td></tr>
+<tr class="memdesc:a4c3ef16d47835acfa8fbe86aefb8c6e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the parameters object containing process hyperparameters.  <br /></td></tr>
 <tr class="separator:a4c3ef16d47835acfa8fbe86aefb8c6e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a837d783fac7c9f12243cd93b4534e3e4" id="r_a837d783fac7c9f12243cd93b4534e3e4"><td class="memItemLeft" align="right" valign="top"><a id="a837d783fac7c9f12243cd93b4534e3e4" name="a837d783fac7c9f12243cd93b4534e3e4"></a>
-Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><b>old_allocations</b></td></tr>
+<tr class="memitem:a837d783fac7c9f12243cd93b4534e3e4" id="r_a837d783fac7c9f12243cd93b4534e3e4"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a837d783fac7c9f12243cd93b4534e3e4">old_allocations</a></td></tr>
+<tr class="memdesc:a837d783fac7c9f12243cd93b4534e3e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage for previous allocations to enable rollback in case of rejection.  <br /></td></tr>
 <tr class="separator:a837d783fac7c9f12243cd93b4534e3e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86e6ee0bfe7bcbfc5da6e8e54dc827a9" id="r_a86e6ee0bfe7bcbfc5da6e8e54dc827a9"><td class="memItemLeft" align="right" valign="top"><a id="a86e6ee0bfe7bcbfc5da6e8e54dc827a9" name="a86e6ee0bfe7bcbfc5da6e8e54dc827a9"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>idx_i</b></td></tr>
+<tr class="memitem:a86e6ee0bfe7bcbfc5da6e8e54dc827a9" id="r_a86e6ee0bfe7bcbfc5da6e8e54dc827a9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a86e6ee0bfe7bcbfc5da6e8e54dc827a9">idx_i</a></td></tr>
+<tr class="memdesc:a86e6ee0bfe7bcbfc5da6e8e54dc827a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index of first observation involved in split-merge move.  <br /></td></tr>
 <tr class="separator:a86e6ee0bfe7bcbfc5da6e8e54dc827a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6268d4e1236ecc0a2a5a7af400c7868b" id="r_a6268d4e1236ecc0a2a5a7af400c7868b"><td class="memItemLeft" align="right" valign="top"><a id="a6268d4e1236ecc0a2a5a7af400c7868b" name="a6268d4e1236ecc0a2a5a7af400c7868b"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>idx_j</b></td></tr>
+<tr class="memitem:a6268d4e1236ecc0a2a5a7af400c7868b" id="r_a6268d4e1236ecc0a2a5a7af400c7868b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6268d4e1236ecc0a2a5a7af400c7868b">idx_j</a></td></tr>
+<tr class="memdesc:a6268d4e1236ecc0a2a5a7af400c7868b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index of second observation involved in split-merge move.  <br /></td></tr>
 <tr class="separator:a6268d4e1236ecc0a2a5a7af400c7868b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38b41ae4bad9a3a5f4b474f2f5a18561" id="r_a38b41ae4bad9a3a5f4b474f2f5a18561"><td class="memItemLeft" align="right" valign="top"><a id="a38b41ae4bad9a3a5f4b474f2f5a18561" name="a38b41ae4bad9a3a5f4b474f2f5a18561"></a>
-const double&#160;</td><td class="memItemRight" valign="bottom"><b>log_a</b> = log(params.a)</td></tr>
+<tr class="memitem:a38b41ae4bad9a3a5f4b474f2f5a18561" id="r_a38b41ae4bad9a3a5f4b474f2f5a18561"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38b41ae4bad9a3a5f4b474f2f5a18561">log_a</a> = log(params.a)</td></tr>
+<tr class="memdesc:a38b41ae4bad9a3a5f4b474f2f5a18561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precomputed logarithm of total mass parameter for efficiency.  <br /></td></tr>
 <tr class="separator:a38b41ae4bad9a3a5f4b474f2f5a18561"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Abstract base class for Bayesian nonparametric processes. </p>
+<p>This class provides the foundation for implementing different types of Bayesian nonparametric processes including Dirichlet <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> (<a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a>), Normalized Generalized Gamma <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> (<a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>), and their weighted variants (<a class="el" href="classDPW.html" title="Dirichlet Process with spatial Weights class for spatially-aware Bayesian nonparametric clustering.">DPW</a>, <a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a>). It defines the interface for prior computations needed in both Gibbs sampling and split-merge MCMC algorithms.</p>
+<p>The class handles:</p><ul>
+<li>Prior probability computations for existing and new clusters</li>
+<li>Prior ratio calculations for split-merge moves</li>
+<li>Parameter updates during MCMC sampling</li>
+<li>State management for split-merge algorithms</li>
+</ul>
+<p>Derived classes must implement the pure virtual methods to define their specific process characteristics (<a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a>, <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>, <a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a>, <a class="el" href="classDPW.html" title="Dirichlet Process with spatial Weights class for spatially-aware Bayesian nonparametric clustering.">DPW</a>).</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a>, <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>, <a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a>, <a class="el" href="classDPW.html" title="Dirichlet Process with spatial Weights class for spatially-aware Bayesian nonparametric clustering.">DPW</a> </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a45c13512446ea3e7353ed88773d496a6" name="a45c13512446ea3e7353ed88773d496a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45c13512446ea3e7353ed88773d496a6">&#9670;&#160;</a></span>Process()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Process::Process </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classData.html">Data</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>d</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structParams.html">Params</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor initializing process with data and parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">d</td><td>Reference to <a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a> object containing observations and current allocations </td></tr>
+    <tr><td class="paramname">p</td><td>Reference to <a class="el" href="structParams.html" title="Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...">Params</a> object containing process hyperparameters</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Initializes the process and stores a copy of current allocations for potential rollback operations during split-merge moves. </p>
+
+</div>
+</div>
+<a id="a7ff358c1d3b155bc09e1271266cdce7d" name="a7ff358c1d3b155bc09e1271266cdce7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ff358c1d3b155bc09e1271266cdce7d">&#9670;&#160;</a></span>~Process()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Process::~Process </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Virtual destructor for proper cleanup of derived classes. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a17d00dd1cdddc0c2c8b3d4155afcb54c" name="a17d00dd1cdddc0c2c8b3d4155afcb54c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a17d00dd1cdddc0c2c8b3d4155afcb54c">&#9670;&#160;</a></span>gibbs_prior_existing_cluster()</h2>
@@ -198,6 +289,17 @@ const double&#160;</td><td class="memItemRight" valign="bottom"><b>log_a</b> = l
 </table>
 </div><div class="memdoc">
 
+<p>Compute prior probability for assigning observation to existing cluster. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cls_idx</td><td>Index of the existing cluster </td></tr>
+    <tr><td class="paramname">obs_idx</td><td>Index of the observation to be assigned </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Log prior probability of assignment to existing cluster</dd></dl>
+<p>This method computes the prior component of the probability for assigning an observation to an existing cluster in Gibbs sampling. The exact computation depends on the specific process (<a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a>, <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>, etc.). </p>
+
 <p>Implemented in <a class="el" href="classDP.html#a784f82d4ce452c27f2257e36a551f3cd">DP</a>, <a class="el" href="classDPW.html#aeaf93fc39436113b77d0a47b4e8b44f6">DPW</a>, <a class="el" href="classNGGP.html#aa964c1c8065166bcdbeb030618094b42">NGGP</a>, and <a class="el" href="classNGGPW.html#ab426d4cd7024170228d9a1894219e6e5">NGGPW</a>.</p>
 
 </div>
@@ -224,6 +326,10 @@ const double&#160;</td><td class="memItemRight" valign="bottom"><b>log_a</b> = l
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Compute prior probability for creating a new cluster. </p>
+<dl class="section return"><dt>Returns</dt><dd>Log prior probability of creating a new cluster</dd></dl>
+<p>This method computes the prior probability of assigning an observation to a new cluster in Gibbs sampling. The computation is process-specific. </p>
 
 <p>Implemented in <a class="el" href="classDP.html#a9fe292894aa5c08db269e1398f21d9e9">DP</a>, <a class="el" href="classDPW.html#a45df971d1f01be2086ff0e0d570996fa">DPW</a>, <a class="el" href="classNGGP.html#a6657cd20138e193eaa7326d31617cb1c">NGGP</a>, and <a class="el" href="classNGGPW.html#a7ca86eefba6ef5c6b9505589aaff0a8a">NGGPW</a>.</p>
 
@@ -255,6 +361,17 @@ const double&#160;</td><td class="memItemRight" valign="bottom"><b>log_a</b> = l
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Compute prior ratio for merge move in split-merge algorithm. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size_old_ci</td><td>Size of first cluster before merge </td></tr>
+    <tr><td class="paramname">size_old_cj</td><td>Size of second cluster before merge </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Log prior ratio for the merge move</dd></dl>
+<p>Computes the ratio of prior probabilities when merging two clusters into one cluster. Used in the acceptance probability of merge moves. </p>
 
 <p>Implemented in <a class="el" href="classDP.html#a0e9b5eed61089876ad4fa25440e6fe0a">DP</a>, <a class="el" href="classDPW.html#a75b3b17a4f1353be261598f817dfc151">DPW</a>, <a class="el" href="classNGGP.html#a79e4070dff59378d106d56545ea66a84">NGGP</a>, and <a class="el" href="classNGGPW.html#a96acaa9d2dacbac024ffaba9d075249a">NGGPW</a>.</p>
 
@@ -297,6 +414,19 @@ const double&#160;</td><td class="memItemRight" valign="bottom"><b>log_a</b> = l
 </table>
 </div><div class="memdoc">
 
+<p>Compute prior ratio for shuffle move in split-merge algorithm. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size_old_ci</td><td>Size of first cluster before shuffle </td></tr>
+    <tr><td class="paramname">size_old_cj</td><td>Size of second cluster before shuffle </td></tr>
+    <tr><td class="paramname">ci</td><td>Index of first cluster after shuffle </td></tr>
+    <tr><td class="paramname">cj</td><td>Index of second cluster after shuffle </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Log prior ratio for the shuffle move</dd></dl>
+<p>Computes the ratio of prior probabilities when redistributing observations between two existing clusters. Used in restricted Gibbs sampling. </p>
+
 <p>Implemented in <a class="el" href="classDP.html#a124720c8dca0a4ebb401576f3f829624">DP</a>, <a class="el" href="classDPW.html#a657ee647610b79bda39db864bee2b6fa">DPW</a>, <a class="el" href="classNGGP.html#acd7a5bc6cbe029ec09d9a083c01277ff">NGGP</a>, and <a class="el" href="classNGGPW.html#a9bc80b5731581b00c33479fd3b16d55d">NGGPW</a>.</p>
 
 </div>
@@ -328,7 +458,293 @@ const double&#160;</td><td class="memItemRight" valign="bottom"><b>log_a</b> = l
 </table>
 </div><div class="memdoc">
 
+<p>Compute prior ratio for split move in split-merge algorithm. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ci</td><td>Index of first resulting cluster after split </td></tr>
+    <tr><td class="paramname">cj</td><td>Index of second resulting cluster after split </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Log prior ratio for the split move</dd></dl>
+<p>Computes the ratio of prior probabilities when splitting a cluster into two clusters. Used in the acceptance probability of split moves. </p>
+
 <p>Implemented in <a class="el" href="classDP.html#add6430ec2928d6260b9a4f78f6a2867a">DP</a>, <a class="el" href="classDPW.html#a9ae9225ada0d3d26b9f7e584783e117c">DPW</a>, <a class="el" href="classNGGP.html#a6488070ea12d0a9c9454d96e8b5cb719">NGGP</a>, and <a class="el" href="classNGGPW.html#a73053c1ef8025c03e60ef25f42509bf4">NGGPW</a>.</p>
+
+</div>
+</div>
+<a id="a7ea0be22abcf92f98620c8b81690a76f" name="a7ea0be22abcf92f98620c8b81690a76f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ea0be22abcf92f98620c8b81690a76f">&#9670;&#160;</a></span>set_idx_i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Process::set_idx_i </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>i</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set index of first observation in split-merge pair. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>Index of first observation </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9c638d305db4abae7c8fedca34e71794" name="a9c638d305db4abae7c8fedca34e71794"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c638d305db4abae7c8fedca34e71794">&#9670;&#160;</a></span>set_idx_j()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Process::set_idx_j </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>j</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set index of second observation in split-merge pair. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">j</td><td>Index of second observation </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6174151176ec3d063ac441e5a80d0c44" name="a6174151176ec3d063ac441e5a80d0c44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6174151176ec3d063ac441e5a80d0c44">&#9670;&#160;</a></span>set_old_allocations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Process::set_old_allocations </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::VectorXi &amp;</td>          <td class="paramname"><span class="paramname"><em>new_allocations</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store current allocations for potential rollback. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">new_allocations</td><td>Current allocation vector to store</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Saves the current state of cluster allocations before attempting a split-merge move, enabling rollback if the move is rejected. </p>
+
+</div>
+</div>
+<a id="ac610fb84ed64db2a74fa1447ce5a582e" name="ac610fb84ed64db2a74fa1447ce5a582e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac610fb84ed64db2a74fa1447ce5a582e">&#9670;&#160;</a></span>update_params()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Process::update_params </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update process parameters during MCMC sampling. </p>
+<p>This method allows derived classes to update their specific parameters during the MCMC chain. For example, some processes may need to sample hyperparameters or update auxiliary variables. Implementation is process-specific. </p>
+
+<p>Implemented in <a class="el" href="classDP.html#a577726382e64c057fcbc889325084ad1">DP</a>, <a class="el" href="classDPW.html#a16a239e120dad65bbe1b55a2771cde60">DPW</a>, <a class="el" href="classNGGP.html#a6c28f93e9b1a28edd8eef383c06447a1">NGGP</a>, and <a class="el" href="classNGGPW.html#a46cc6dfe0fa4e2b3a96745e77622a7e4">NGGPW</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="af8d15d280b7b72defee3438abf1f9c8f" name="af8d15d280b7b72defee3438abf1f9c8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8d15d280b7b72defee3438abf1f9c8f">&#9670;&#160;</a></span>data</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classData.html">Data</a>&amp; Process::data</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reference to the data object containing observations and allocations. </p>
+
+</div>
+</div>
+<a id="a86e6ee0bfe7bcbfc5da6e8e54dc827a9" name="a86e6ee0bfe7bcbfc5da6e8e54dc827a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86e6ee0bfe7bcbfc5da6e8e54dc827a9">&#9670;&#160;</a></span>idx_i</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Process::idx_i</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Index of first observation involved in split-merge move. </p>
+
+</div>
+</div>
+<a id="a6268d4e1236ecc0a2a5a7af400c7868b" name="a6268d4e1236ecc0a2a5a7af400c7868b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6268d4e1236ecc0a2a5a7af400c7868b">&#9670;&#160;</a></span>idx_j</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Process::idx_j</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Index of second observation involved in split-merge move. </p>
+
+</div>
+</div>
+<a id="a38b41ae4bad9a3a5f4b474f2f5a18561" name="a38b41ae4bad9a3a5f4b474f2f5a18561"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38b41ae4bad9a3a5f4b474f2f5a18561">&#9670;&#160;</a></span>log_a</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double Process::log_a = log(params.a)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Precomputed logarithm of total mass parameter for efficiency. </p>
+
+</div>
+</div>
+<a id="a837d783fac7c9f12243cd93b4534e3e4" name="a837d783fac7c9f12243cd93b4534e3e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a837d783fac7c9f12243cd93b4534e3e4">&#9670;&#160;</a></span>old_allocations</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXi Process::old_allocations</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Storage for previous allocations to enable rollback in case of rejection. </p>
+
+</div>
+</div>
+<a id="a4c3ef16d47835acfa8fbe86aefb8c6e8" name="a4c3ef16d47835acfa8fbe86aefb8c6e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c3ef16d47835acfa8fbe86aefb8c6e8">&#9670;&#160;</a></span>params</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structParams.html">Params</a>&amp; Process::params</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reference to the parameters object containing process hyperparameters. </p>
 
 </div>
 </div>

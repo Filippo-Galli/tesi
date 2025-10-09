@@ -7,9 +7,9 @@ var annotated_dup =
     [ "Neal3", "classNeal3.html", "classNeal3" ],
     [ "NGGP", "classNGGP.html", "classNGGP" ],
     [ "NGGPW", "classNGGPW.html", "classNGGPW" ],
-    [ "Params", "structParams.html", null ],
-    [ "Process", "classProcess.html", null ],
-    [ "Sampler", "classSampler.html", null ],
+    [ "Params", "structParams.html", "structParams" ],
+    [ "Process", "classProcess.html", "classProcess" ],
+    [ "Sampler", "classSampler.html", "classSampler" ],
     [ "SplitMerge", "classSplitMerge.html", "classSplitMerge" ],
     [ "SplitMerge_SAMS", "classSplitMerge__SAMS.html", "classSplitMerge__SAMS" ]
 ];

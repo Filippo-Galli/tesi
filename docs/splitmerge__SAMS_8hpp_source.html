@@ -104,71 +104,111 @@ $(function(){initNavTree('splitmerge__SAMS_8hpp_source.html',''); initResizable(
   <div class="headertitle"><div class="title">splitmerge_SAMS.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="Likelihood_8hpp.html">Likelihood.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;Sampler.hpp&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;random&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;Eigen/Dense&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="foldopen" id="foldopen00008" data-start="{" data-end="};">
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="classSplitMerge__SAMS.html">    8</a></span><span class="keyword">class </span>SplitMerge_SAMS : <span class="keyword">public</span> Sampler {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>  <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">mutable</span> std::mt19937 gen;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="comment">// Chosen indexes</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordtype">int</span> idx_i, idx_j;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="comment">// Clusters of the chosen indexes</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordtype">int</span> ci, cj;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="comment">// use or not shuffle from Mena and Martinez (2014)</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordtype">bool</span> shuffle_bool = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="comment">// Launch state</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    Eigen::VectorXi launch_state;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    Eigen::VectorXi S; <span class="comment">// Indexes of points in clusters ci and cj</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="comment">// Original allocations of points in clusters ci and cj</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    Eigen::VectorXi original_allocations;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="comment">// restricted gibbs sampling prob</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordtype">double</span> log_split_gibbs_prob = 0;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">double</span> log_merge_gibbs_prob = 0;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">void</span> choose_indeces();</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordtype">void</span> choose_clusters_shuffle();</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordtype">void</span> sequential_allocation(<span class="keywordtype">int</span> iterations, <span class="keywordtype">bool</span> only_probabilities = <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">void</span> split_move();</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">double</span> compute_acceptance_ratio_split(<span class="keywordtype">double</span> likelihood_old_cluster);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">void</span> merge_move();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">double</span> compute_acceptance_ratio_merge(<span class="keywordtype">double</span> likelihood_old_ci, <span class="keywordtype">double</span> likelihood_old_cj);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">void</span> shuffle();</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">double</span> compute_acceptance_ratio_shuffle(<span class="keywordtype">double</span> likelihood_old_ci, <span class="keywordtype">double</span> likelihood_old_cj, </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                                           <span class="keywordtype">int</span> old_ci_size, <span class="keywordtype">int</span> old_cj_size);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    SplitMerge_SAMS(<a class="code hl_class" href="classData.html">Data</a> &amp;d, <a class="code hl_struct" href="structParams.html">Params</a> &amp;p, <a class="code hl_class" href="classLikelihood.html">Likelihood</a> &amp;l, <a class="code hl_class" href="classProcess.html">Process</a> &amp;pr, <span class="keywordtype">bool</span> shuffle)</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>      : Sampler(d, p, l, pr), shuffle_bool(shuffle), gen(rd()){};</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classSplitMerge__SAMS.html#a198db7f37403e0f7093771f03ca961e6">step</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
+<a href="splitmerge__SAMS_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="Likelihood_8hpp.html">Likelihood.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="Sampler_8hpp.html">Sampler.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;Eigen/Dense&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;random&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span></div>
+<div class="foldopen" id="foldopen00049" data-start="{" data-end="};">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classSplitMerge__SAMS.html">   49</a></span><span class="keyword">class </span><a class="code hl_function" href="classSplitMerge__SAMS.html#af812bf4c32fef71ddae082bfa26d1465">SplitMerge_SAMS</a> : <span class="keyword">public</span> <a class="code hl_function" href="classSampler.html#a13b15d8c01c34c6d78d93a6ba091e6aa">Sampler</a> {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <span class="comment">// ========== Random Number Generation ==========</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  <span class="keyword">mutable</span> std::mt19937 gen;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  <span class="comment">// ========== Move Selection Variables ==========</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  <span class="keywordtype">int</span> idx_i;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="keywordtype">int</span> idx_j;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <span class="keywordtype">int</span> ci;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <span class="keywordtype">int</span> cj;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="comment">// ========== Algorithm Configuration ==========</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <span class="keywordtype">bool</span> shuffle_bool = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  <span class="comment">// ========== State Management ==========</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  Eigen::VectorXi launch_state;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  Eigen::VectorXi S;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>  Eigen::VectorXi original_allocations;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  <span class="comment">// ========== Proposal Probabilities ==========</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>  <span class="keywordtype">double</span> log_split_gibbs_prob = 0;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>  <span class="keywordtype">double</span> log_merge_gibbs_prob = 0;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  <span class="comment">// ========== Move Selection Methods ==========</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>  <span class="keywordtype">void</span> choose_indeces();</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>  <span class="keywordtype">void</span> choose_clusters_shuffle();</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>  <span class="comment">// ========== SAMS-Specific Proposal Generation ==========</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>  <span class="keywordtype">void</span> sequential_allocation(<span class="keywordtype">int</span> iterations, <span class="keywordtype">bool</span> only_probabilities = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>  <span class="comment">// ========== Split Move Implementation ==========</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>  <span class="keywordtype">void</span> split_move();</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>  <span class="keywordtype">double</span> compute_acceptance_ratio_split(<span class="keywordtype">double</span> likelihood_old_cluster);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>  <span class="comment">// ========== Merge Move Implementation ==========</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>  <span class="keywordtype">void</span> merge_move();</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>  <span class="keywordtype">double</span> compute_acceptance_ratio_merge(<span class="keywordtype">double</span> likelihood_old_ci,</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                                        <span class="keywordtype">double</span> likelihood_old_cj);</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>  <span class="comment">// ========== Shuffle Move Implementation ==========</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>  <span class="keywordtype">void</span> shuffle();</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>  <span class="keywordtype">double</span> compute_acceptance_ratio_shuffle(<span class="keywordtype">double</span> likelihood_old_ci,</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>                                          <span class="keywordtype">double</span> likelihood_old_cj,</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>                                          <span class="keywordtype">int</span> old_ci_size, <span class="keywordtype">int</span> old_cj_size);</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>  <span class="comment">// ========== Constructor ==========</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span></div>
+<div class="foldopen" id="foldopen00208" data-start="{" data-end="}">
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno"><a class="line" href="classSplitMerge__SAMS.html#af812bf4c32fef71ddae082bfa26d1465">  208</a></span>  <a class="code hl_function" href="classSplitMerge__SAMS.html#af812bf4c32fef71ddae082bfa26d1465">SplitMerge_SAMS</a>(<a class="code hl_class" href="classData.html">Data</a> &amp;d, <a class="code hl_struct" href="structParams.html">Params</a> &amp;p, <a class="code hl_class" href="classLikelihood.html">Likelihood</a> &amp;l, <a class="code hl_class" href="classProcess.html">Process</a> &amp;pr, <span class="keywordtype">bool</span> shuffle)</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>      : <a class="code hl_function" href="classSampler.html#a13b15d8c01c34c6d78d93a6ba091e6aa">Sampler</a>(d, p, l, pr), shuffle_bool(shuffle), gen(<a class="code hl_variable" href="classSampler.html#abec9d161c1e486904e6d2869890c4be3">rd</a>()) {};</div>
+</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>  <span class="comment">// ========== MCMC Interface ==========</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classSplitMerge__SAMS.html#a198db7f37403e0f7093771f03ca961e6">step</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>};</div>
 </div>
 <div class="ttc" id="aLikelihood_8hpp_html"><div class="ttname"><a href="Likelihood_8hpp.html">Likelihood.hpp</a></div><div class="ttdoc">Likelihood computation for clustering with cohesion and repulsion.</div></div>
+<div class="ttc" id="aSampler_8hpp_html"><div class="ttname"><a href="Sampler_8hpp.html">Sampler.hpp</a></div><div class="ttdoc">Abstract base class for MCMC sampling algorithms.</div></div>
 <div class="ttc" id="aclassData_html"><div class="ttname"><a href="classData.html">Data</a></div><div class="ttdoc">Manages distance matrices and cluster allocations for points.</div><div class="ttdef"><b>Definition</b> Data.hpp:26</div></div>
 <div class="ttc" id="aclassLikelihood_html"><div class="ttname"><a href="classLikelihood.html">Likelihood</a></div><div class="ttdoc">Computes log-likelihood for clusters based on distance-based cohesion and repulsion.</div><div class="ttdef"><b>Definition</b> Likelihood.hpp:19</div></div>
-<div class="ttc" id="aclassProcess_html"><div class="ttname"><a href="classProcess.html">Process</a></div><div class="ttdef"><b>Definition</b> Process.hpp:8</div></div>
-<div class="ttc" id="aclassSplitMerge__SAMS_html_a198db7f37403e0f7093771f03ca961e6"><div class="ttname"><a href="classSplitMerge__SAMS.html#a198db7f37403e0f7093771f03ca961e6">SplitMerge_SAMS::step</a></div><div class="ttdeci">void step() override</div><div class="ttdef"><b>Definition</b> splitmerge_SAMS.cpp:329</div></div>
-<div class="ttc" id="astructParams_html"><div class="ttname"><a href="structParams.html">Params</a></div><div class="ttdef"><b>Definition</b> Params.hpp:7</div></div>
+<div class="ttc" id="aclassProcess_html"><div class="ttname"><a href="classProcess.html">Process</a></div><div class="ttdoc">Abstract base class for Bayesian nonparametric processes.</div><div class="ttdef"><b>Definition</b> Process.hpp:41</div></div>
+<div class="ttc" id="aclassSampler_html_a13b15d8c01c34c6d78d93a6ba091e6aa"><div class="ttname"><a href="classSampler.html#a13b15d8c01c34c6d78d93a6ba091e6aa">Sampler::Sampler</a></div><div class="ttdeci">Sampler(Data &amp;d, Params &amp;p, Likelihood &amp;l, Process &amp;pr)</div><div class="ttdoc">Constructor initializing sampler with required components.</div><div class="ttdef"><b>Definition</b> Sampler.hpp:94</div></div>
+<div class="ttc" id="aclassSampler_html_abec9d161c1e486904e6d2869890c4be3"><div class="ttname"><a href="classSampler.html#abec9d161c1e486904e6d2869890c4be3">Sampler::rd</a></div><div class="ttdeci">std::random_device rd</div><div class="ttdoc">Random device for generating random numbers across sampling algorithms.</div><div class="ttdef"><b>Definition</b> Sampler.hpp:70</div></div>
+<div class="ttc" id="aclassSplitMerge__SAMS_html_a198db7f37403e0f7093771f03ca961e6"><div class="ttname"><a href="classSplitMerge__SAMS.html#a198db7f37403e0f7093771f03ca961e6">SplitMerge_SAMS::step</a></div><div class="ttdeci">void step() override</div><div class="ttdoc">Perform one iteration of the SAMS algorithm.</div><div class="ttdef"><b>Definition</b> splitmerge_SAMS.cpp:368</div></div>
+<div class="ttc" id="aclassSplitMerge__SAMS_html_af812bf4c32fef71ddae082bfa26d1465"><div class="ttname"><a href="classSplitMerge__SAMS.html#af812bf4c32fef71ddae082bfa26d1465">SplitMerge_SAMS::SplitMerge_SAMS</a></div><div class="ttdeci">SplitMerge_SAMS(Data &amp;d, Params &amp;p, Likelihood &amp;l, Process &amp;pr, bool shuffle)</div><div class="ttdoc">Constructor for SAMS (Sequential Allocation Merge-Split) sampler.</div><div class="ttdef"><b>Definition</b> splitmerge_SAMS.hpp:208</div></div>
+<div class="ttc" id="astructParams_html"><div class="ttname"><a href="structParams.html">Params</a></div><div class="ttdoc">Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...</div><div class="ttdef"><b>Definition</b> Params.hpp:35</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.13.2-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><b>splitmerge_SAMS.hpp</b></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="splitmerge__SAMS_8hpp.html">splitmerge_SAMS.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Thesis docs: Main Page</title>
+<title>Thesis docs: Bayesian Nonparametric Clustering with MCMC</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -100,10 +100,328 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">Thesis docs Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">Bayesian Nonparametric Clustering with MCMC </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md_README"></a></p>
+<p>This project implements advanced Bayesian nonparametric clustering methods using state-of-the-art MCMC techniques. It provides a comprehensive framework for clustering analysis with Dirichlet <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> (<a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a>), Normalized Generalized Gamma <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> (<a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>), and their weighted spatial variants, combining R for data analysis with high-performance C++ implementations.</p>
+<p><b>📚 Documentation:</b> <a href="file:///home/filippo/Documents/tesi/docs/index.html">Doxygen API Reference</a> <br  />
+ <b>🔬 Research Focus:</b> Bayesian nonparametric models with spatial dependencies <br  />
+ <b>⚡ Performance:</b> Optimized C++ backend with R interface </p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+✨ Key Features</h1>
+<h2><a class="anchor" id="autotoc_md2"></a>
+🎯 <b>Advanced Clustering Models</b></h2>
+<ul>
+<li><b>Dirichlet <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> (<a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a>)</b>: Classic nonparametric clustering with automatic cluster discovery</li>
+<li><b>Normalized Generalized Gamma <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> (<a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>)</b>: Enhanced flexibility and control over cluster structures <br  />
+</li>
+<li><b>Weighted Variants (<a class="el" href="classDPW.html" title="Dirichlet Process with spatial Weights class for spatially-aware Bayesian nonparametric clustering.">DPW</a>, <a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a>)</b>: Spatial dependency integration for geographic/network data</li>
+<li><b>Automatic Model Selection</b>: Data-driven hyperparameter estimation</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md3"></a>
+🔄 <b>State-of-the-Art MCMC Samplers</b></h2>
+<ul>
+<li><b>Neal's Algorithm 3</b>: Efficient collapsed Gibbs sampling for standard applications</li>
+<li><b>Split-Merge</b>: Advanced joint updates for improved mixing and faster convergence</li>
+<li><b>SAMS (Sequential Allocation)</b>: Optimized proposal generation for large-scale problems</li>
+<li><b>Hybrid Approaches</b>: Flexible combination of sampling strategies</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md4"></a>
+🌍 <b>Spatial Dependencies</b></h2>
+<ul>
+<li><b>Adjacency Matrix Support</b>: Incorporate spatial/network structure into clustering</li>
+<li><b>Geographic Clustering</b>: Specialized algorithms for spatial data analysis</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md5"></a>
+📊 <b>Comprehensive Analysis Suite</b></h2>
+<ul>
+<li><b>Real-time Monitoring</b>: Live convergence diagnostics and progress tracking</li>
+<li><b>Advanced Visualization</b>: Heatmaps, trace plots, and clustering evaluation</li>
+<li><b>Performance Metrics</b>: ARI, silhouette scores, and posterior analysis</li>
+<li><b>Reproducible Workflows</b>: Automated analysis pipelines with devenv integration</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md6"></a>
+📁 Project Architecture</h1>
+<div class="fragment"><div class="line">tesi/</div>
+<div class="line">├── 📂 R/                              # R Analysis &amp; Visualization Suite</div>
+<div class="line">│   ├── 🔬 sim_data_production.R          # Advanced data simulation (Natarajan method)</div>
+<div class="line">│   ├── 🚀 simulation_data.R              # Main MCMC workflow orchestration  </div>
+<div class="line">│   ├── 📊 analysis.R                     # Post-processing and visualization</div>
+<div class="line">│   └── 🛠️  utils.R                       # Utility functions and diagnostics</div>
+<div class="line">├── 📂 src/                            # High-Performance C++ Core</div>
+<div class="line">│   ├── 🎯 Core Framework</div>
+<div class="line">│   │   ├── Sampler.hpp                    # Abstract MCMC sampler base class</div>
+<div class="line">│   │   ├── Process.hpp                    # Bayesian nonparametric process interface  </div>
+<div class="line">│   │   ├── Data.hpp                       # Efficient cluster data management</div>
+<div class="line">│   │   ├── Likelihood.hpp                 # Optimized likelihood computations</div>
+<div class="line">│   │   └── Params.hpp                     # Comprehensive parameter management</div>
+<div class="line">│   ├── 🔄 MCMC Samplers  </div>
+<div class="line">│   │   ├── neal.hpp/.cpp                  # Neal&#39;s Algorithm 3 (Gibbs sampling)</div>
+<div class="line">│   │   ├── splitmerge.hpp/.cpp            # Split-Merge sampler  </div>
+<div class="line">│   │   └── splitmerge_SAMS.hpp/.cpp       # Sequential Allocation Merge-Split</div>
+<div class="line">│   ├── 📈 Process Implementations</div>
+<div class="line">│   │   ├── DP.hpp/.cpp                    # Dirichlet Process</div>
+<div class="line">│   │   ├── NGGP.hpp/.cpp                  # Normalized Generalized Gamma Process</div>
+<div class="line">│   │   ├── DPW.hpp/.cpp                   # Weighted Dirichlet Process (spatial)</div>
+<div class="line">│   │   └── NGGPW.hpp/.cpp                 # Weighted NGGP (spatial)</div>
+<div class="line">│   └── 🔗 launcher.cpp                   # R-C++ integration interface</div>
+<div class="line">├── 📂 docs/                           # Auto-Generated Documentation</div>
+<div class="line">│   ├── 📖 Doxygen HTML documentation      # Comprehensive API reference</div>
+<div class="line">│   └── 🎨 doxygen-theme/                 # Custom documentation styling</div>
+<div class="line">├── 📂 simulation_data/                # Simulated Datasets Repository</div>
+<div class="line">│   └── 📊 Natarajan_*sigma_*d/           # Organized by parameters (σ, dimensions)</div>
+<div class="line">├── 📂 results/                        # MCMC Analysis Outputs  </div>
+<div class="line">│   └── 📈 {algorithm}_{config}/          # Results organized by method and parameters</div>
+<div class="line">├── ⚙️  devenv.nix                      # Reproducible Development Environment</div>
+<div class="line">├── 🔧 devenv.yaml                     # Environment Configuration  </div>
+<div class="line">├── 🔒 devenv.lock                     # Locked Dependencies</div>
+<div class="line">└── 📝 README.MD                      # This comprehensive guide</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md7"></a>
+Installation and Setup</h1>
+<h2><a class="anchor" id="autotoc_md8"></a>
+Prerequisites</h2>
+<p>This project uses <a href="https://devenv.sh/">devenv</a> for reproducible development environments with Nix.</p>
+<ol type="1">
+<li><b>Install Nix</b> (if not already installed): <div class="fragment"><div class="line">curl --proto &#39;=https&#39; --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install</div>
+</div><!-- fragment --></li>
+<li><b>Install devenv</b>: <div class="fragment"><div class="line">nix profile install --accept-flake-config github:cachix/devenv/latest</div>
+</div><!-- fragment --></li>
+<li><b>Enter the development environment</b>: <div class="fragment"><div class="line">cd /path/to/tesi</div>
+<div class="line">devenv shell</div>
+</div><!-- fragment --></li>
+</ol>
+<p>This will automatically set up:</p><ul>
+<li>R with all required packages (Rcpp, RcppEigen, ggplot2, etc.)</li>
+<li>C++ compiler toolchain</li>
+<li>MCMC analysis libraries (salso, mcclust, etc.)</li>
+<li>VS Code integration (language server, plot viewer)</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md9"></a>
+Manual Installation (Alternative)</h2>
+<p>If not using devenv, install the following:</p>
+<p><b>R Packages:</b> </p><div class="fragment"><div class="line">install.packages(c(</div>
+<div class="line">  <span class="stringliteral">&quot;Rcpp&quot;</span>, <span class="stringliteral">&quot;RcppEigen&quot;</span>, <span class="stringliteral">&quot;ggplot2&quot;</span>, <span class="stringliteral">&quot;dplyr&quot;</span>, <span class="stringliteral">&quot;tidyr&quot;</span>,</div>
+<div class="line">  <span class="stringliteral">&quot;spam&quot;</span>, <span class="stringliteral">&quot;fields&quot;</span>, <span class="stringliteral">&quot;viridisLite&quot;</span>, <span class="stringliteral">&quot;RColorBrewer&quot;</span>, </div>
+<div class="line">  <span class="stringliteral">&quot;pheatmap&quot;</span>, <span class="stringliteral">&quot;mcclust.ext&quot;</span>, <span class="stringliteral">&quot;mvtnorm&quot;</span>, <span class="stringliteral">&quot;gtools&quot;</span>, </div>
+<div class="line">  <span class="stringliteral">&quot;salso&quot;</span>, <span class="stringliteral">&quot;MASS&quot;</span></div>
+<div class="line">))</div>
+</div><!-- fragment --><p><b>System Dependencies:</b></p><ul>
+<li>R (≥ 4.0)</li>
+<li>C++ compiler with C++23 support</li>
+<li>Eigen3 library</li>
+<li>BLAS/LAPACK libraries</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md10"></a>
+Usage Guide</h1>
+<h2><a class="anchor" id="autotoc_md11"></a>
+1. Data Simulation</h2>
+<p>First, generate simulated clustering data using the Natarajan method:</p>
+<div class="fragment"><div class="line">cd /path/to/tesi</div>
+<div class="line">Rscript R/sim_data_production.R</div>
+</div><!-- fragment --><p>This script:</p><ul>
+<li>Generates mixture data with configurable parameters (σ, dimensions)</li>
+<li>Creates distance matrices for spatial analysis</li>
+<li>Saves data to <code>simulation_data/</code> directory</li>
+<li>Supports different data generation methods (Gaussian, Gamma, Natarajan)</li>
+</ul>
+<p><b>Key Parameters:</b></p><ul>
+<li><code>sigma</code>: Controls cluster separation (0.18, 0.2, 0.25)</li>
+<li><code>d</code>: Dimensionality (10, 50)</li>
+<li><code>N</code>: Number of data points (default: 100)</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md12"></a>
+2. MCMC Analysis</h2>
+<p>Run the main clustering analysis:</p>
+<div class="fragment"><div class="line">Rscript R/simulation_data.R</div>
+</div><!-- fragment --><p>This script performs:</p><ul>
+<li><b><a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a> Loading</b>: Reads simulated data and distance matrices</li>
+<li><b>Hyperparameter Estimation</b>: Uses k-means and elbow method for initialization</li>
+<li><b>MCMC Sampling</b>: Runs Bayesian clustering with selected algorithm</li>
+<li><b>Real-time Monitoring</b>: Displays progress and convergence diagnostics</li>
+</ul>
+<p><b>Algorithm Configuration (in <code><a class="el" href="launcher_8cpp.html" title="Main launcher file for MCMC simulation with various Bayesian non-parametric processes.">src/launcher.cpp</a></code>):</b></p>
+<p>The framework provides multiple combinations of <b><a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> × <a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a> × Spatial</b> configurations:</p>
+<div class="fragment"><div class="line"><span class="comment">// 🎯 PROCESS SELECTION</span></div>
+<div class="line"><span class="comment">// DP              - Dirichlet Process (classic nonparametric prior)</span></div>
+<div class="line"><span class="comment">// NGGP            - Normalized Generalized Gamma Process (enhanced flexibility)</span></div>
+<div class="line"><span class="comment">// DPW/NGGPW       - Weighted variants with spatial dependencies</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// 🔄 SAMPLER SELECTION  </span></div>
+<div class="line"><span class="comment">// Neal3           - Collapsed Gibbs sampling (efficient, standard)</span></div>
+<div class="line"><span class="comment">// SplitMerge      - Joint updates (better mixing, complex structures)</span></div>
+<div class="line"><span class="comment">// SplitMerge_SAMS - Sequential allocation (optimized proposals)</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Example configurations:</span></div>
+<div class="line"><a class="code hl_class" href="classDP.html">DP</a> process(data, param); <span class="comment">// Basic DP process</span></div>
+<div class="line"><a class="code hl_class" href="classNeal3.html">Neal3</a> neal_sampler(data, params, likelihood, process); </div>
+<div class="ttc" id="aclassDP_html"><div class="ttname"><a href="classDP.html">DP</a></div><div class="ttdoc">Dirichlet Process class for Bayesian nonparametric clustering.</div><div class="ttdef"><b>Definition</b> DP.hpp:19</div></div>
+<div class="ttc" id="aclassNeal3_html"><div class="ttname"><a href="classNeal3.html">Neal3</a></div><div class="ttdoc">Implementation of Neal&#39;s Algorithm 3 for collapsed Gibbs sampling.</div><div class="ttdef"><b>Definition</b> neal.hpp:44</div></div>
+</div><!-- fragment --><p><b>MCMC Parameters:</b></p><ul>
+<li><code>BI</code>: Burn-in iterations (default: 2000)</li>
+<li><code>NI</code>: Sampling iterations (default: 10000)</li>
+<li><code>a</code>: Total mass parameter (default: 1)</li>
+<li><code>sigma</code>: <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> parameter (default: 0.5)</li>
+<li><code>tau</code>: <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> parameter (default: 1.0)</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md13"></a>
+3. Results Analysis</h2>
+<p>Analyze and visualize results:</p>
+<div class="fragment"><div class="line">Rscript R/analysis.R</div>
+</div><!-- fragment --><p>This generates:</p><ul>
+<li><b>Convergence Diagnostics</b>: Trace plots, autocorrelation analysis</li>
+<li><b>Clustering Results</b>: Posterior similarity matrices, cluster assignments</li>
+<li><b>Performance Metrics</b>: Adjusted Rand Index (ARI), cluster distribution</li>
+<li><b>Visualization</b>: Heatmaps, scatter plots, distance distributions</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md14"></a>
+Output Files</h1>
+<h2><a class="anchor" id="autotoc_md15"></a>
+Generated Data</h2>
+<ul>
+<li><code>simulation_data/Natarajan_{sigma}sigma_{d}d/</code><ul>
+<li><code>all_data.rds</code>: Raw data points</li>
+<li><code>ground_truth.rds</code>: True cluster labels</li>
+<li><code>dist_matrix.rds</code>: Distance matrix</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md16"></a>
+MCMC Results</h2>
+<ul>
+<li><code>results/{algorithm}_{initialization}_{parameters}/</code><ul>
+<li><code>simulation_results.rds</code>: MCMC output (allocations, K, log-likelihood)</li>
+<li><code>simulation_ground_truth.rds</code>: True labels</li>
+<li><code>simulation_data.rds</code>: Original data</li>
+<li><code>simulation_distance_matrix.rds</code>: Distance matrix</li>
+<li><code>plots/</code>: Generated visualizations</li>
+</ul>
+</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md17"></a>
+🔧 Core Components &amp; API</h1>
+<h2><a class="anchor" id="autotoc_md18"></a>
+📊 <b>Data Generation &amp; Simulation</b> (<code>utils.R</code>)</h2>
+<div class="fragment"><div class="line">generate_mixture_data(N, sigma, d)     <span class="comment"># Advanced Natarajan mixture simulation</span></div>
+<div class="line">distance_plot(data, labels)            <span class="comment"># Intra/inter-cluster distance analysis  </span></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md19"></a>
+⚙️ <b>Hyperparameter Optimization</b> (<code>utils.R</code>)</h2>
+<div class="fragment"><div class="line">set_hyperparameters(data, dist_matrix) <span class="comment"># Automatic parameter estimation via k-means</span></div>
+<div class="line">plot_k_means(data, max_k)              <span class="comment"># Elbow method for optimal cluster number</span></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md20"></a>
+🚀 <b>High-Performance MCMC Interface</b> (<code>launcher.cpp</code>)</h2>
+<div class="fragment"><div class="line"><span class="comment">// Core classes (fully documented with Doxygen)</span></div>
+<div class="line"><span class="keyword">class </span><a class="code hl_struct" href="structParams.html">Params</a>;           <span class="comment">// Parameter management with validation</span></div>
+<div class="line"><span class="keyword">class </span><a class="code hl_class" href="classData.html">Data</a>;             <span class="comment">// Cluster data structures  </span></div>
+<div class="line"><span class="keyword">class </span><a class="code hl_class" href="classLikelihood.html">Likelihood</a>;       <span class="comment">// Loglikelihood computations</span></div>
+<div class="line"><span class="keyword">class </span><a class="code hl_class" href="classProcess.html">Process</a>;          <span class="comment">// Abstract nonparametric process interface</span></div>
+<div class="line"><span class="keyword">class </span><a class="code hl_class" href="classSampler.html">Sampler</a>;          <span class="comment">// Abstract MCMC sampler base class</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Main interface</span></div>
+<div class="line">Rcpp::List <a class="code hl_function" href="launcher_8cpp.html#ac9dd2715233e95e771a0936ff5e8d090">mcmc</a>(matrix, <a class="code hl_variable" href="classSampler.html#a26e07fa20b8d68ca6f906b40e0f6a9d0">params</a>, initial_clusters); <span class="comment">// Primary MCMC function</span></div>
+<div class="ttc" id="aclassData_html"><div class="ttname"><a href="classData.html">Data</a></div><div class="ttdoc">Manages distance matrices and cluster allocations for points.</div><div class="ttdef"><b>Definition</b> Data.hpp:26</div></div>
+<div class="ttc" id="aclassLikelihood_html"><div class="ttname"><a href="classLikelihood.html">Likelihood</a></div><div class="ttdoc">Computes log-likelihood for clusters based on distance-based cohesion and repulsion.</div><div class="ttdef"><b>Definition</b> Likelihood.hpp:19</div></div>
+<div class="ttc" id="aclassProcess_html"><div class="ttname"><a href="classProcess.html">Process</a></div><div class="ttdoc">Abstract base class for Bayesian nonparametric processes.</div><div class="ttdef"><b>Definition</b> Process.hpp:41</div></div>
+<div class="ttc" id="aclassSampler_html"><div class="ttname"><a href="classSampler.html">Sampler</a></div><div class="ttdoc">Abstract base class for MCMC sampler implementations.</div><div class="ttdef"><b>Definition</b> Sampler.hpp:46</div></div>
+<div class="ttc" id="aclassSampler_html_a26e07fa20b8d68ca6f906b40e0f6a9d0"><div class="ttname"><a href="classSampler.html#a26e07fa20b8d68ca6f906b40e0f6a9d0">Sampler::params</a></div><div class="ttdeci">Params &amp; params</div><div class="ttdoc">Reference to the parameters object containing model hyperparameters and MCMC settings.</div><div class="ttdef"><b>Definition</b> Sampler.hpp:56</div></div>
+<div class="ttc" id="alauncher_8cpp_html_ac9dd2715233e95e771a0936ff5e8d090"><div class="ttname"><a href="launcher_8cpp.html#ac9dd2715233e95e771a0936ff5e8d090">mcmc</a></div><div class="ttdeci">Rcpp::List mcmc(const Eigen::MatrixXd &amp;distances, Params &amp;param, const Rcpp::IntegerVector &amp;initial_allocations_r=Rcpp::IntegerVector())</div><div class="ttdoc">Main MCMC function for Bayesian non-parametric clustering.</div><div class="ttdef"><b>Definition</b> launcher.cpp:89</div></div>
+<div class="ttc" id="astructParams_html"><div class="ttname"><a href="structParams.html">Params</a></div><div class="ttdoc">Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...</div><div class="ttdef"><b>Definition</b> Params.hpp:35</div></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md21"></a>
+📚 <b>Class Hierarchy</b> (See <a href="docs/index.html">Doxygen Docs</a>)</h2>
+<div class="fragment"><div class="line">Sampler (abstract base)</div>
+<div class="line">├── Neal3              # Algorithm 3 implementation</div>
+<div class="line">├── SplitMerge         # Standard split-merge sampler  </div>
+<div class="line">└── SplitMerge_SAMS    # Sequential allocation variant</div>
+<div class="line"> </div>
+<div class="line">Process (abstract base)  </div>
+<div class="line">├── DP                 # Dirichlet Process</div>
+<div class="line">├── DPW                # Weighted Dirichlet Process</div>
+<div class="line">├── NGGP               # Normalized Generalized Gamma Process</div>
+<div class="line">└── NGGPW              # Weighted NGGP</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md22"></a>
+Example Workflow</h1>
+<ol type="1">
+<li><b>Generate <a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a></b>: <div class="fragment"><div class="line"><span class="comment"># In R/sim_data_production.R</span></div>
+<div class="line">sigma &lt;- 0.25</div>
+<div class="line">d &lt;- 10</div>
+<div class="line">data_generation &lt;- generate_mixture_data(N = 100, sigma = sigma, d = d)</div>
+</div><!-- fragment --></li>
+<li><b>Run MCMC</b>: <div class="fragment"><div class="line"><span class="comment"># In R/simulation_data.R</span></div>
+<div class="line">sourceCpp(<span class="stringliteral">&quot;src/launcher.cpp&quot;</span>)</div>
+<div class="line">hyperparams &lt;- set_hyperparameters(all_data, dist_matrix, k_elbow = 3)</div>
+<div class="line">param &lt;- new(Params, hyperparams$delta1, hyperparams$alpha, ...)</div>
+<div class="line">mcmc_result &lt;- <a class="code hl_function" href="launcher_8cpp.html#ac9dd2715233e95e771a0936ff5e8d090">mcmc</a>(dist_matrix, param, hyperparams$initial_clusters)</div>
+</div><!-- fragment --></li>
+<li><b>Analyze Results</b>: <div class="fragment"><div class="line"><span class="comment"># Automatic analysis with burn-in</span></div>
+<div class="line">plot_mcmc_results(mcmc_result, ground_truth, BI = 2000)</div>
+</div><!-- fragment --></li>
+</ol>
+<h1><a class="anchor" id="autotoc_md23"></a>
+⚙️ Advanced Configuration</h1>
+<h2><a class="anchor" id="autotoc_md24"></a>
+🔧 <b>Compilation &amp; Build System</b></h2>
+<div class="fragment"><div class="line"><span class="comment"># Automatic compilation with dependency management</span></div>
+<div class="line">sourceCpp(<span class="stringliteral">&quot;src/launcher.cpp&quot;</span>)  <span class="comment"># Compiles entire C++ framework</span></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md25"></a>
+🌍 <b>Spatial Dependency Configuration</b></h2>
+<div class="fragment"><div class="line"><span class="comment">// In Params constructor</span></div>
+<div class="line"><a class="code hl_struct" href="structParams.html">Params</a> <a class="code hl_variable" href="classSampler.html#a26e07fa20b8d68ca6f906b40e0f6a9d0">params</a>(</div>
+<div class="line">    delta1, alpha, beta,           <span class="comment">// Process hyperparameters</span></div>
+<div class="line">    delta2, gamma, zeta,           <span class="comment">// Likelihood hyperparameters  </span></div>
+<div class="line">    BI, NI,                        <span class="comment">// MCMC iterations</span></div>
+<div class="line">    a, sigma, tau,                 <span class="comment">// Process parameters</span></div>
+<div class="line">    coefficient,                   <span class="comment">// Spatial weight (0 = no spatial, 1+ = strong spatial)</span></div>
+<div class="line">    W                             <span class="comment">// Adjacency matrix (k-NN or custom)</span></div>
+<div class="line">);</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md26"></a>
+📊 <b>Hyperparameter Tuning Guide</b></h2>
+<div class="fragment"><div class="line"><span class="comment"># Process parameters (control clustering behavior)</span></div>
+<div class="line">a      &lt;- 1.0      <span class="comment"># Total mass (higher = more clusters)</span></div>
+<div class="line">sigma  &lt;- 0.5      <span class="comment"># NGGP flexibility (0-1, higher = more flexible)  </span></div>
+<div class="line">tau    &lt;- 1.0      <span class="comment"># NGGP tail parameter</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment"># MCMC parameters (control sampling quality)</span></div>
+<div class="line">BI     &lt;- 2000     <span class="comment"># Burn-in (increase if slow convergence)</span></div>
+<div class="line">NI     &lt;- 10000    <span class="comment"># Iterations (increase for precision)</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment"># Spatial parameters  </span></div>
+<div class="line">coefficient &lt;- 0.5  <span class="comment"># Spatial strength (tune based on spatial structure)</span></div>
+<div class="line">k_neighbors &lt;- 5    <span class="comment"># Adjacency matrix connectivity</span></div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md27"></a>
+🛠️ Troubleshooting &amp; FAQ</h1>
+<h2><a class="anchor" id="autotoc_md28"></a>
+🔧 <b>Installation Issues</b></h2>
+<div class="fragment"><div class="line"># Missing dependencies  </div>
+<div class="line">sudo apt-get install r-base-dev libeigen3-dev liblapack-dev libblas-dev</div>
+<div class="line"> </div>
+<div class="line"># Rcpp compilation errors</div>
+<div class="line">R -e &quot;install.packages(&#39;Rcpp&#39;, type=&#39;source&#39;)&quot;</div>
+<div class="line"> </div>
+<div class="line"># devenv not working</div>
+<div class="line">nix --version  # Ensure Nix is installed</div>
+<div class="line">devenv --version  # Verify devenv installation</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md29"></a>
+📞 <b>Getting Help</b></h2>
+<ul>
+<li>📚 <b>Documentation</b>: <a href="docs/index.html">Doxygen API Reference</a></li>
+<li>🔍 <b>Code Examples</b>: See <code>R/simulation_data.R</code> for complete workflows <br  />
+</li>
+<li>🧪 <b>Test Cases</b>: Run <code>R/sim_data_production.R</code> for validation</li>
+<li>📖 <b>Theory</b>: References in code comments and Doxygen documentation</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md30"></a>
+📚 References &amp; Citations</h1>
+<ul>
+<li><b>Neal, R. M. (2000)</b>: "Markov Chain Sampling Methods for Dirichlet Process Mixture Models"</li>
+<li><b>Jain, S. &amp; Neal, R. M. (2004)</b>: "A Split-Merge Markov Chain Monte Carlo Procedure for the Dirichlet Process Mixture Model" <br  />
+</li>
+<li><b>Dahl, D. B. and Newcomb, S. (2022)</b>: "Sequentially allocated merge-split samplers for conjugate Bayesian nonparametric models"</li>
+<li><b>Favaro, S. &amp; Teh, Y. W. (2013)</b>: "MCMC for Normalized Random Measure Mixture Models"</li>
+<li><b>Martinez, A. F. and Mena, R. H. (2014)</b>: "On a Nonparametric Change Point Detection Model in Markovian Regimes"</li>
+<li><b>Natarajan, A. and De Iorio, M. (2023)</b>: "Cohesion and Repulsion in Bayesian Distance Clustering" </li>
+</ul>
+</div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,64 +1,158 @@
-# Import utils.R for additional functions
+##
+## @file simulation_data.R
+## @brief MCMC Clustering Analysis with Spatial Dependencies
+##
+## @details This script performs Bayesian clustering analysis using MCMC methods
+## with spatial dependencies. It loads simulated data, sets hyperparameters,
+## and runs the MCMC algorithm to identify clusters.
+##
+## @author Filippo Galli
+## @date 2025
+
+## Import utility functions
+## @details Sources additional helper functions from utils.R
 source("R/utils.R")
 
+## Set random seed for reproducibility
 set.seed(44)
 
-# Read simulated data
+# ==============================================================================
+# Data Loading
+# ==============================================================================
+
+## Path to simulation data folder
+## @details Contains simulated data with Natarajan model parameters
 folder <- "simulation_data/Natarajan_0.2sigma_50d"
 
+## Load simulated datasets
+## @param all_data Matrix of observed data points
+## @param ground_truth Vector of true cluster assignments
+## @param dist_matrix Distance matrix between observations
 all_data <- readRDS(file = paste0(folder, "/all_data.rds"))
 ground_truth <- readRDS(file = paste0(folder, "/ground_truth.rds"))
 dist_matrix <- readRDS(file = paste0(folder, "/dist_matrix.rds"))
 
-# Retrieve adjacency matrix W from distance matrix
+# ==============================================================================
+# Spatial Adjacency Matrix
+# ==============================================================================
+
+## Retrieve spatial adjacency matrix W from distance matrix
+## @details Computes binary adjacency matrix based on distance threshold
 W <- retrieve_W(dist_matrix)
 
-# Load the C++ code
+# ==============================================================================
+# C++ Integration
+# ==============================================================================
+
+## Load C++ implementation of MCMC algorithm
+## @details Sources compiled C++ code for efficient computation
 sourceCpp("src/launcher.cpp")
 
-# Set hyperparameters with ground truth and plotting
+# ==============================================================================
+# Hyperparameter Configuration
+# ==============================================================================
+
+## Set hyperparameters for the Dirichlet Process model
+##
+## @param all_data The complete dataset
+## @param dist_matrix Distance matrix between observations
+## @param k_elbow Number of clusters suggested by elbow method
+## @param ground_truth True cluster labels for validation
+## @param plot_clustering Whether to plot clustering results
+## @param plot_distribution Whether to plot parameter distributions
+## @return List containing hyperparameters and initial cluster assignments
+## @details Uncomment plot_k_means() to visualize elbow plot for cluster selection
 # plot_k_means(dist_matrix, max_k = 15)
 hyperparams <- set_hyperparameters(all_data, dist_matrix,
   k_elbow = 3,
   ground_truth = ground_truth, plot_clustering = FALSE, plot_distribution = FALSE
 )
 
-# Create parameter object with computed hyperparameters
+# ==============================================================================
+# Parameter Object Initialization
+# ==============================================================================
+
+## Create parameter object with Dirichlet Process hyperparameters
+##
+## @param delta1 Shape parameter for the cohesion term
+## @param alpha Shape parameter for lambdas of cohesion term
+## @param beta Rate parameter for lambdas of cohesion term
+## @param delta2 Shape parameter for the repulsion term
+## @param gamma Shape parameter for thetas of repulsion term
+## @param zeta Scale parameter for thetas of repulsion term
+## @param BI Burn-in iterations (2000)
+## @param NI Total number of iterations (10000)
+## @param a Total mass parameter (1)
+## @param sigma Parameter of NGGP prior (0.4)
+## @param tau Parameter of NGGP prior (1)
+## @param coeff Coefficient for spatial dependence (1)
+## @param W Spatial adjacency matrix
+## @return Params object containing all model parameters
 param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
   2000, 10000, 1, # BI, NI, a,
-  0.00001, 1, 1, # sigma, tau, coeff spatial dep
+  0.4, 1, 1, # sigma, tau, coeff spatial dep
   W # Spatial adjacency matrix
 )
 
-# Initialize allocations
+# ==============================================================================
+# Initial Cluster Allocation
+# ==============================================================================
 
-## All-in-one allocation
-#hyperparams$initial_clusters <- rep(0, nrow(dist_matrix)) # All points in one cluster
+## Initialize cluster allocations
+## @details Multiple initialization strategies available:
+## 
+## Option 1: All-in-one allocation (all points in single cluster)
+## @code
+## hyperparams$initial_clusters <- rep(0, nrow(dist_matrix))
+## @endcode
+#
+# hyperparams$initial_clusters <- rep(0, nrow(dist_matrix))
 
-## Sequential allocation
+## Option 2: Sequential allocation (each point in separate cluster)
+## @code
+## hyperparams$initial_clusters <- seq(0, nrow(dist_matrix) - 1)
+## @endcode
+#
 # hyperparams$initial_clusters <- seq(0, nrow(dist_matrix) - 1)
 
-## k-means allocation different from the one used for hyperparameters
+## Option 3: k-means allocation with different number of centers
+## @code
+## hyperparams$initial_clusters <- kmeans(all_data, centers = 2, nstart = 25)$cluster - 1
+## @endcode
+#
 # hyperparams$initial_clusters <- kmeans(all_data,
 #   centers = 2,
 #   nstart = 25
 # )$cluster - 1
 
-## k-means allocation used for hyperparameters
+## Option 4 (Selected): k-means allocation from hyperparameter computation
+## @note Cluster indices are converted to 0-based indexing for C++ compatibility
 hyperparams$initial_clusters <- hyperparams$initial_clusters - 1
 
+## Display initial cluster allocation summary
 print("Initial cluster allocation:")
 print(table(hyperparams$initial_clusters))
 
-# Run MCMC with computed hyperparameters
+# ==============================================================================
+# MCMC Execution
+# ==============================================================================
+
+## Run MCMC algorithm with spatial dependencies
+##
+## @param dist_matrix Distance matrix between observations
+## @param param Parameter object containing all hyperparameters
+## @param initial_clusters Initial cluster assignment vector
+## @return mcmc_result Object containing posterior samples and cluster assignments
+## @details Output is captured to log file for monitoring convergence
 log_file <- "mcmc_log.txt"
 if (file.exists(log_file)) {
-  file.remove(log_file) # remove previous log file
+  file.remove(log_file) # Remove previous log file
 }
 
+## Execute MCMC and capture console output
 results <- capture.output(
   {
     mcmc_result <- mcmc(dist_matrix, param, hyperparams$initial_clusters)
@@ -66,12 +160,26 @@ results <- capture.output(
   file = log_file
 )
 
-## Save into files - initialization name
-#save_with_name(folder, param, "DP_Neal2W1_SMW1_kmeans_025_10")
+# ==============================================================================
+# Save Results (Optional)
+# ==============================================================================
 
+## Save results with custom naming convention
+##
+## @param folder Output directory path
+## @param param Parameter object used in analysis
+## @param name Custom name for saved output files
+## @details Uncomment to save results with specific naming scheme
+# save_with_name(folder, param, "DP_Neal2W1_SMW1_kmeans_025_10")
+
+# ==============================================================================
+# Visualization
+# ==============================================================================
+
+## Plot MCMC results and compare with ground truth
+##
+## @param mcmc_result Results object from MCMC algorithm
+## @param ground_truth True cluster labels as factor
+## @param BI Number of burn-in iterations to exclude
+## @details Generates diagnostic plots for convergence and cluster assignments
 plot_mcmc_results(mcmc_result, as.factor(ground_truth), BI = param$BI)
-
-# Plot U over iterations
-plot(mcmc_result$U, type = 'l', main = "U over iterations", ylab = "U", xlab = "Iteration")
-abline(h = mean(mcmc_result$U), col = "red", lty = 2)
-legend("topright", legend = paste("Mean U =", round(mean(mcmc_result$U), 3)), col = "red", lty = 2)

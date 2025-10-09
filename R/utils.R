@@ -1,3 +1,8 @@
+## @file utils.R
+## @brief Utility functions for Bayesian clustering analysis and MCMC visualization
+## @author Filippo Galli
+## @date 2025
+
 library(Rcpp)
 library(ggplot2)
 library(MASS) # For fitdistr function
@@ -13,7 +18,21 @@ library(mvtnorm)
 library(gtools)
 library(salso)
 
-
+## @name retrieve_W
+## @brief Construct adjacency matrix from distance matrix using k-nearest neighbors
+##
+## Creates a binary adjacency matrix by finding the k nearest neighbors for each point
+## based on the provided distance matrix.
+##
+## @param distance_matrix Numeric matrix: Pairwise distances between data points
+## @param neighbours Integer: Number of nearest neighbors to consider (default: 8)
+## @return Binary matrix of size n x n representing adjacency relationships
+## @details The resulting matrix W has W[i,j] = 1 if j is among the k nearest neighbors of i
+## @example
+## # Create a simple distance matrix
+## coords <- matrix(rnorm(20), 10, 2)
+## dist_mat <- as.matrix(dist(coords))
+## W <- retrieve_W(dist_mat, neighbours = 3)
 retrieve_W <- function(distance_matrix, neighbours = 8) {
   # For each element find the nearest neighbours
   n <- nrow(distance_matrix)
@@ -26,6 +45,33 @@ retrieve_W <- function(distance_matrix, neighbours = 8) {
   return(W)
 }
 
+## @name generate_mixture_data
+## @brief Generate synthetic mixture data for clustering analysis
+##
+## Creates synthetic data from a Gaussian mixture model with clusters positioned
+## at vertices of a high-dimensional simplex.
+##
+## @param N Integer: Number of data points to generate (default: 100)
+## @param K Integer: Number of clusters (default: 10)
+## @param alpha Numeric: Concentration parameter for Dirichlet prior (default: 10)
+## @param dim Integer: Dimensionality of the data space (default: K)
+## @param radius Numeric: Distance of cluster centers from origin (default: 1)
+## @param sigma Numeric: Standard deviation of Gaussian noise (default: 0.1)
+## @param ordered Boolean: Whether to sort data by cluster assignment (default: TRUE)
+## @return List containing:
+##   - points: N x dim matrix of generated data points
+##   - clusts: Vector of cluster assignments (1 to K)
+##   - clust_centres: K x dim matrix of cluster centers
+##   - probs: Vector of cluster probabilities
+##   - original_order: Ordering indices (if ordered=TRUE)
+## @details Clusters are positioned at simplex vertices where center i has coordinate
+##   radius at position i and zeros elsewhere. Points are generated from multivariate
+##   normal distributions centered at these vertices.
+## @throws stop() if input parameters are invalid
+## @example
+## # Generate 50 points in 3 clusters
+## data <- generate_mixture_data(N=50, K=3, alpha=1, dim=5)
+## plot(data$points[,1], data$points[,2], col=data$clusts)
 generate_mixture_data <- function(N = 100, K = 10, alpha = 10, dim = K, radius = 1, sigma = 0.1, ordered = TRUE) {
   # Input validation
   if (N < 1) stop("N must be greater than 1")
@@ -34,44 +80,44 @@ generate_mixture_data <- function(N = 100, K = 10, alpha = 10, dim = K, radius =
   if (dim < K) stop("dim must be ≥ K")
   if (radius <= 0) stop("radius must be positive")
   if (sigma <= 0) stop("sigma must be positive")
-  
+
   # Generate cluster weights from Dirichlet prior
   probs <- as.numeric(rdirichlet(1, rep(alpha, K)))
-  
+
   # Generate cluster assignments
   clusts <- sample(1:K, N, replace = TRUE, prob = probs)
-  
+
   # Generate cluster centres as vertices of dim-dimensional simplex
   # Center i has radius at position i, zeros elsewhere
   clust_centres <- matrix(0, K, dim)
   for (i in 1:K) {
     clust_centres[i, i] <- radius
   }
-  
+
   # Covariance matrix: sigma^2 * I_dim
   Sigma <- diag(sigma^2, dim)
-  
+
   # Generate points
   points <- matrix(0, N, dim)
   for (i in 1:N) {
     cluster <- clusts[i]
     points[i, ] <- rmvnorm(1, mean = clust_centres[cluster, ], sigma = Sigma)
   }
-  
+
   # Optional: Order data by cluster assignments
   if (ordered) {
     # Sort by cluster assignment
     order_idx <- order(clusts)
     points <- points[order_idx, ]
     clusts <- clusts[order_idx]
-    
+
     # Also return the ordering for reference
     return(list(
       points = points,
       clusts = clusts,
       clust_centres = clust_centres,
       probs = probs,
-      original_order = order_idx  # In case you need to map back
+      original_order = order_idx # In case you need to map back
     ))
   } else {
     return(list(
@@ -83,6 +129,26 @@ generate_mixture_data <- function(N = 100, K = 10, alpha = 10, dim = K, radius =
   }
 }
 
+## @name distance_plot
+## @brief Create histogram comparing intra-cluster vs inter-cluster distances
+##
+## Generates overlaid histograms showing the distribution of pairwise distances
+## within clusters versus between different clusters.
+##
+## @param all_data Numeric matrix: Data points (N x d)
+## @param clusts Integer vector: Cluster assignments for each data point
+## @param save Boolean: Whether to save the plot to file (default: FALSE)
+## @param folder String: Directory path for saving plots (default: "results/plots/")
+## @return None (generates plot)
+## @details Creates two overlaid histograms:
+##   - Orange: Intra-cluster distances (same cluster)
+##   - Blue: Inter-cluster distances (different clusters)
+##   Only upper triangular distances are used to avoid duplicates.
+## @note If save=TRUE, creates the output directory if it doesn't exist
+## @example
+## # Generate synthetic data and plot distances
+## data <- generate_mixture_data(N=100, K=3)
+## distance_plot(data$points, data$clusts, save=TRUE)
 distance_plot <- function(all_data, clusts, save = FALSE, folder = "results/plots/") {
   # Calculate distance matrix
   dist_matrix <- as.matrix(dist(all_data))
@@ -92,31 +158,36 @@ distance_plot <- function(all_data, clusts, save = FALSE, folder = "results/plot
 
   # Extract distances and determine if they are intra or inter-cluster
   distances <- dist_matrix[upper_tri_indices]
-  cluster_pairs <- cbind(clusts[upper_tri_indices[,1]], clusts[upper_tri_indices[,2]])
+  cluster_pairs <- cbind(clusts[upper_tri_indices[, 1]], clusts[upper_tri_indices[, 2]])
 
   # Classify distances as intra-cluster (same cluster) or inter-cluster (different clusters)
-  intra_cluster <- distances[cluster_pairs[,1] == cluster_pairs[,2]]
-  inter_cluster <- distances[cluster_pairs[,1] != cluster_pairs[,2]]
+  intra_cluster <- distances[cluster_pairs[, 1] == cluster_pairs[, 2]]
+  inter_cluster <- distances[cluster_pairs[, 1] != cluster_pairs[, 2]]
 
   # Create histogram with overlaid distributions
-  hist(inter_cluster, breaks = 30, col = rgb(0, 0, 1, 0.7), # Orange with transparency
-      main = "Histogram of Pairwise Distances", 
-      xlab = "Distance", 
-      ylab = "Frequency",
-      xlim = range(c(intra_cluster, inter_cluster)))
+  hist(inter_cluster,
+    breaks = 30, col = rgb(0, 0, 1, 0.7), # Orange with transparency
+    main = "Histogram of Pairwise Distances",
+    xlab = "Distance",
+    ylab = "Frequency",
+    xlim = range(c(intra_cluster, inter_cluster))
+  )
 
   # Add intra-cluster distances on top
-  hist(intra_cluster, breaks = 30, col = rgb(1, 0.5, 0, 0.7), # Orange with transparency 
-      add = TRUE)
+  hist(intra_cluster,
+    breaks = 30, col = rgb(1, 0.5, 0, 0.7), # Orange with transparency
+    add = TRUE
+  )
 
   # Add legend
-  legend("topright", 
-        legend = c("Intra-cluster", "Inter-cluster"), 
-        fill = c(rgb(1, 0.5, 0, 0.7), rgb(0, 0, 1, 0.7)),
-        bty = "n")
+  legend("topright",
+    legend = c("Intra-cluster", "Inter-cluster"),
+    fill = c(rgb(1, 0.5, 0, 0.7), rgb(0, 0, 1, 0.7)),
+    bty = "n"
+  )
 
   # Save plot if needed
-  if(save){
+  if (save) {
     if (!dir.exists(folder)) {
       dir.create(folder, recursive = TRUE)
     }
@@ -125,14 +196,36 @@ distance_plot <- function(all_data, clusts, save = FALSE, folder = "results/plot
   }
 }
 
-# Function to plot MCMC analysis results - Similarity matrix, trace plots, autocorrelation, posterior distribution
+## @name plot_mcmc_results
+## @brief Generate comprehensive MCMC diagnostic plots and clustering analysis
+##
+## Creates multiple diagnostic plots for MCMC clustering results including trace plots,
+## posterior distributions, similarity matrices, and autocorrelation analysis.
+##
+## @param results List: MCMC results containing K, allocations, and loglikelihood traces
+## @param true_labels Integer vector: Ground truth cluster assignments
+## @param BI Integer: Burn-in period (number of initial iterations to discard)
+## @param save Boolean: Whether to save plots to files (default: FALSE)
+## @param folder String: Directory path for saving plots (default: "results/plots/")
+## @return None (generates multiple plots)
+## @details Generates the following plots:
+##   1. Posterior distribution of number of clusters (after burn-in)
+##   2. Trace plot of number of clusters over iterations
+##   3. Posterior similarity matrix heatmap
+##   4. SALSO clustering analysis with Adjusted Rand Index
+##   5. Autocorrelation plots for MCMC chains
+## @note Applies burn-in period to all analyses. Creates output directory if save=TRUE.
+## @warning Skips plots if required data is missing or invalid
+## @example
+## # Assuming mcmc_results contains MCMC output
+## plot_mcmc_results(mcmc_results, true_clusters, BI=1000, save=TRUE)
 plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "results/plots/") {
   # Clean previous plots
   graphics.off()
 
   # Apply burn-in to all data
   k_values <- unlist(results$K)
-  
+
   # Check if K values exist and are valid
   if (is.null(k_values) || length(k_values) == 0) {
     cat("Warning: No valid K values found, skipping cluster distribution plot\n")
@@ -181,14 +274,14 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
     scale_x_discrete(drop = FALSE) # Ensures all cluster_found values are shown
   print(p1)
 
-  if (save)
+  if (save) {
     ggsave(filename = paste0(folder, "posterior_num_clusters.png"), plot = p1, width = 8, height = 6)
+  }
 
   ### Second plot - Trace of number of clusters
   if (is.null(results$K)) {
     cat("Warning: No valid K values for trace plot\n")
-  } 
-  else {  
+  } else {
     if (length(k_values) > 0) {
       k_df <- data.frame(
         Iteration = seq_along(k_values),
@@ -211,10 +304,11 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
           panel.grid.minor = element_line(color = "grey95"),
           legend.position = "top"
         )
-      
+
       print(p2)
-      if (save)
+      if (save) {
         ggsave(filename = paste0(folder, "traceplot.png"), plot = p2, width = 8, height = 6)
+      }
     } else {
       cat("Warning: No valid K values for trace plot after cleaning\n")
     }
@@ -231,7 +325,7 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
       allocations_post_burnin <- allocations_post_burnin[(BI + 1):length(allocations_post_burnin)]
       cat("Using", length(allocations_post_burnin), "allocation samples after burn-in\n")
     }
-    
+
     if (length(allocations_post_burnin) == 0) {
       cat("Warning: No allocations remaining after burn-in\n")
     } else {
@@ -281,8 +375,9 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
         ) +
         coord_fixed()
       print(p3)
-      if (save)
+      if (save) {
         ggsave(filename = paste0(folder, "similarity_matrix.png"), plot = p3, width = 8, height = 6)
+      }
     }
   }
 
@@ -294,7 +389,7 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
     if (BI > 0 && length(allocations_post_burnin) > BI) {
       allocations_post_burnin <- allocations_post_burnin[(BI + 1):length(allocations_post_burnin)]
     }
-    
+
     if (length(allocations_post_burnin) > 0) {
       # Convert allocations to matrix format for SALSO
       C <- matrix(unlist(lapply(allocations_post_burnin, function(x) x + 1)),
@@ -313,16 +408,16 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
 
       # Compute posterior similarity matrix using SALSO
       psm <- salso::psm(C)
-      
+
       # Get point estimate using Variation of Information (VI) loss
       point_estimate <- salso::salso(C, loss = "VI")
-      
+
       # # Reorder based on cluster assignments for better visualization
       # cluster_order <- order(point_estimate)
       # psm_reordered <- psm[cluster_order, cluster_order]
       # true_labels_reordered <- true_labels[cluster_order]
       # point_estimate_reordered <- point_estimate[cluster_order]
-      
+
       # # Plot the reordered similarity matrix
       # pheatmap(psm_reordered,
       #         cluster_rows = FALSE,
@@ -333,20 +428,19 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
       #         show_colnames = FALSE,
       #         border_color = NA,              # No grid
       # )
-      
+
       # Print results
       cat("=== SALSO Clustering Results (Post Burn-in) ===\n")
       cat("Cluster Sizes:\n")
       print(table(point_estimate))
-      
+
       cat("\nAdjusted Rand Index:", arandi(point_estimate, true_labels), "\n")
       cat("Number of post burn-in samples:", nrow(C), "\n")
 
-      if(save){
+      if (save) {
         ari_file <- paste0(folder, "salso_ari.txt")
         write(paste("Adjusted Rand Index:", arandi(point_estimate, true_labels)), file = ari_file)
       }
-      
     } else {
       cat("Warning: No allocation data remaining after burn-in\n")
     }
@@ -360,12 +454,12 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
     # Apply burn-in to loglikelihood
     logl_original <- results$loglikelihood
     logl_post_burnin <- logl_original
-    k_post_burnin <- k_values  # k_values already has burn-in applied
-    
+    k_post_burnin <- k_values # k_values already has burn-in applied
+
     if (BI > 0 && length(logl_original) > BI) {
       logl_post_burnin <- logl_original[(BI + 1):length(logl_original)]
     }
-    
+
     # Remove any NA or infinite values
     logl_clean <- logl_post_burnin[is.finite(logl_post_burnin)]
     k_clean <- k_post_burnin[is.finite(k_post_burnin)]
@@ -422,7 +516,24 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
   }
 }
 
-# Function to set hyperparameters based on elbow method and k-means
+## @name plot_k_means
+## @brief Plot elbow curve for optimal K selection using K-means clustering
+##
+## Performs K-means clustering for different values of K and plots the within-cluster
+## sum of squares (WSS) to help identify the optimal number of clusters using the elbow method.
+##
+## @param dist_matrix Numeric matrix: Pairwise distance matrix
+## @param max_k Integer: Maximum number of clusters to test (default: 10)
+## @return None (generates elbow plot)
+## @details Uses multidimensional scaling (MDS) to convert the distance matrix to
+##   2D coordinates, then applies K-means for K = 1 to max_k. Plots WSS vs K
+##   to visualize the elbow point indicating optimal cluster number.
+## @note The elbow point suggests where adding more clusters provides diminishing returns
+## @example
+## # Create distance matrix and find optimal K
+## coords <- matrix(rnorm(100), 50, 2)
+## dist_mat <- as.matrix(dist(coords))
+## plot_k_means(dist_mat, max_k = 8)
 plot_k_means <- function(dist_matrix, max_k = 10) {
   # Step 1: Compute elbow method for K selection
   wss <- numeric(max_k)
@@ -448,7 +559,30 @@ plot_k_means <- function(dist_matrix, max_k = 10) {
   print(elbow_plot)
 }
 
-# Function to save results with a specific naming convention in a specified folder
+## @name save_with_name
+## @brief Save simulation results with systematic naming convention
+##
+## Saves MCMC simulation results, ground truth, data, and parameters to files
+## using a standardized naming convention based on algorithm parameters.
+##
+## @param folder String: Base directory for saving results
+## @param params List: Parameter list containing BI, NI, a, sigma, tau values
+## @param initialization String: Initialization method identifier
+## @return None (saves files to disk)
+## @details Creates subdirectory with name format:
+##   {initialization}_BI{BI}_NI{NI}_a{a}_sigma{sigma}_tau{tau}/
+##   Saves the following files:
+##   - simulation_results.rds: MCMC results
+##   - simulation_ground_truth.rds: True cluster labels
+##   - simulation_data.rds: Generated data points
+##   - simulation_distance_matrix.rds: Distance matrix
+##   - simulation_initial_params.rds: Hyperparameters
+## @note Creates directory structure if it doesn't exist
+## @warning Requires global variables: mcmc_result, ground_truth, all_data, dist_matrix, hyperparams
+## @example
+## # Save results with specific parameters
+## params <- list(BI=1000, NI=5000, a=2, sigma=1, tau=0.5)
+## save_with_name("results/", params, "kmeans")
 save_with_name <- function(folder, params, initialization) {
   ## Name creation
   folder <- "results/"
@@ -483,11 +617,44 @@ save_with_name <- function(folder, params, initialization) {
   saveRDS(hyperparams, file = filename_initial_params)
 }
 
-# Function to set hyperparameters using elbow method and k-means clustering
+## @name set_hyperparameters
+## @brief Set hyperparameters for Bayesian clustering using K-means initialization
+##
+## Estimates hyperparameters for a Bayesian clustering model by fitting Gamma distributions
+## to intra-cluster and inter-cluster distances from K-means clustering results.
+##
+## @param data_coords Numeric matrix: Coordinate representation of data points
+## @param dist_matrix Numeric matrix: Pairwise distance matrix
+## @param k_elbow Integer: Number of clusters suggested by elbow method
+## @param ground_truth Integer vector: True cluster labels (optional, for plotting)
+## @param plot_clustering Boolean: Whether to plot initial clustering results (default: FALSE)
+## @param plot_distribution Boolean: Whether to plot distance distributions (default: TRUE)
+## @return List containing estimated hyperparameters:
+##   - delta1: Shape parameter for intra-cluster distances (< 1 for cohesion)
+##   - alpha: First parameter for within-cluster Gamma prior
+##   - beta: Second parameter for within-cluster Gamma prior
+##   - delta2: Shape parameter for inter-cluster distances (> 1 for repulsion)
+##   - zeta: First parameter for between-cluster Gamma prior
+##   - gamma: Second parameter for between-cluster Gamma prior
+##   - k_elbow: Number of clusters used
+##   - initial_clusters: K-means cluster assignments
+##   - ground_truth: Original ground truth labels (if provided)
+## @details Algorithm steps:
+##   1. Apply K-means clustering with k_elbow clusters
+##   2. Separate distances into intra-cluster (A) and inter-cluster (B) groups
+##   3. Fit Gamma distributions to both distance groups using MLE
+##   4. Adjust parameters to ensure delta1 < 1 (cohesion) and delta2 > 1 (repulsion)
+##   5. Compute hyperparameters: alpha = delta1 * n_A, beta = sum(A), etc.
+## @note Uses method of moments for initial estimates, then maximum likelihood estimation
+## @warning Falls back to default values if distribution fitting fails
+## @example
+## # Set hyperparameters from data
+## coords <- matrix(rnorm(100), 50, 2)
+## dist_mat <- as.matrix(dist(coords))
+## hyperparams <- set_hyperparameters(coords, dist_mat, k_elbow=3, plot_distribution=TRUE)
 set_hyperparameters <- function(data_coords, dist_matrix, k_elbow, ground_truth = NULL, plot_clustering = FALSE, plot_distribution = TRUE) {
-
   coords <- data_coords
-  
+
   # Step 2: Use k-means with K_elbow to get initial clustering
   kmeans_result <- kmeans(coords, centers = k_elbow, nstart = 25)
   initial_clusters <- kmeans_result$cluster
@@ -521,7 +688,7 @@ set_hyperparameters <- function(data_coords, dist_matrix, k_elbow, ground_truth 
       y = coords[, 2],
       cluster = as.factor(initial_clusters)
     )
-    
+
     # Add ground truth if provided
     if (!is.null(ground_truth)) {
       cluster_data$ground_truth <- as.factor(ground_truth)
@@ -537,7 +704,7 @@ set_hyperparameters <- function(data_coords, dist_matrix, k_elbow, ground_truth 
       theme_minimal()
 
     print(cluster_plot)
-    
+
     # Plot ground truth if provided
     if (!is.null(ground_truth)) {
       gt_plot <- ggplot(cluster_data, aes(x = x, y = y, color = ground_truth)) +
@@ -548,7 +715,7 @@ set_hyperparameters <- function(data_coords, dist_matrix, k_elbow, ground_truth 
           y = "Y Coordinate"
         ) +
         theme_minimal()
-      
+
       print(gt_plot)
     }
   }
@@ -687,60 +854,76 @@ set_hyperparameters <- function(data_coords, dist_matrix, k_elbow, ground_truth 
     cat("Warning: No inter-cluster distances found, using default values\n")
   }
 
-if (plot_distribution == TRUE) {
+  if (plot_distribution == TRUE) {
     # First plot: Within-cluster distances with algorithm's gamma parameters
     if (exists("A") && length(A) > 1) {
       A_df <- data.frame(Distance = A)
-      
+
       # Use the algorithm's parameters: delta1, alpha, beta
       # Convert from alpha, beta to shape, rate parameterization
       # Your algorithm uses: alpha = delta1 * n_A, beta = sum(A)
       # For plotting, we need the rate parameter that corresponds to these
-      
+
       # The relationship is: alpha = shape * rate, beta = sum(data)
       # So: rate = alpha / delta1 = n_A (when alpha = delta1 * n_A)
       # But we want E[X] = shape/rate to match the empirical mean
       # Better approach: use delta1 as shape, and derive rate from the mean
-      
+
       algorithm_shape_A <- delta1
       # For gamma distribution: mean = shape/rate, so rate = shape/mean
       empirical_mean_A <- mean(A)
       algorithm_rate_A <- algorithm_shape_A / empirical_mean_A
-      
+
       p1 <- ggplot(A_df, aes(x = Distance)) +
-        geom_histogram(aes(y = after_stat(density)), bins = 30, fill = "lightblue", 
-                      color = "black", alpha = 0.7) +
-        stat_function(fun = dgamma, 
-                     args = list(shape = algorithm_shape_A, rate = algorithm_rate_A), 
-                     color = "red", linewidth = 1) +
-        labs(title = paste("Within-Cluster Distances with Algorithm's Gamma\n",
-                          "δ₁ (shape) =", round(algorithm_shape_A, 3), 
-                          ", α =", round(alpha, 3), ", β =", round(beta, 3)),
-             x = "Distance", y = "Density") +
+        geom_histogram(aes(y = after_stat(density)),
+          bins = 30, fill = "lightblue",
+          color = "black", alpha = 0.7
+        ) +
+        stat_function(
+          fun = dgamma,
+          args = list(shape = algorithm_shape_A, rate = algorithm_rate_A),
+          color = "red", linewidth = 1
+        ) +
+        labs(
+          title = paste(
+            "Within-Cluster Distances with Algorithm's Gamma\n",
+            "δ₁ (shape) =", round(algorithm_shape_A, 3),
+            ", α =", round(alpha, 3), ", β =", round(beta, 3)
+          ),
+          x = "Distance", y = "Density"
+        ) +
         theme_minimal()
       print(p1)
     }
 
-    # Second plot: Inter-cluster distances with algorithm's gamma parameters  
+    # Second plot: Inter-cluster distances with algorithm's gamma parameters
     if (exists("B") && length(B) > 1) {
       B_df <- data.frame(Distance = B)
-      
+
       # Use the algorithm's parameters: delta2, zeta, gamma_param
       algorithm_shape_B <- delta2
       # For gamma distribution: mean = shape/rate, so rate = shape/mean
       empirical_mean_B <- mean(B)
       algorithm_rate_B <- algorithm_shape_B / empirical_mean_B
-      
+
       p2 <- ggplot(B_df, aes(x = Distance)) +
-        geom_histogram(aes(y = after_stat(density)), bins = 30, fill = "lightgreen", 
-                      color = "black", alpha = 0.7) +
-        stat_function(fun = dgamma, 
-                     args = list(shape = algorithm_shape_B, rate = algorithm_rate_B), 
-                     color = "blue", linewidth = 1) +
-        labs(title = paste("Inter-Cluster Distances with Algorithm's Gamma\n",
-                          "δ₂ (shape) =", round(algorithm_shape_B, 3), 
-                          ", ζ =", round(zeta, 3), ", γ =", round(gamma_param, 3)),
-             x = "Distance", y = "Density") +
+        geom_histogram(aes(y = after_stat(density)),
+          bins = 30, fill = "lightgreen",
+          color = "black", alpha = 0.7
+        ) +
+        stat_function(
+          fun = dgamma,
+          args = list(shape = algorithm_shape_B, rate = algorithm_rate_B),
+          color = "blue", linewidth = 1
+        ) +
+        labs(
+          title = paste(
+            "Inter-Cluster Distances with Algorithm's Gamma\n",
+            "δ₂ (shape) =", round(algorithm_shape_B, 3),
+            ", ζ =", round(zeta, 3), ", γ =", round(gamma_param, 3)
+          ),
+          x = "Distance", y = "Density"
+        ) +
         theme_minimal()
       print(p2)
     }
@@ -760,7 +943,25 @@ if (plot_distribution == TRUE) {
   ))
 }
 
-# Function to plot ground truth and data
+## @name plot_data
+## @brief Plot 2D visualization of clustered data points
+##
+## Creates a scatter plot of data points colored by their cluster assignments,
+## useful for visualizing clustering results in 2D space.
+##
+## @param all_data Numeric matrix: Data points (N x d), uses first 2 dimensions for plotting
+## @param cluster_labels Integer vector: Cluster assignment for each data point
+## @param save Boolean: Whether to save the plot to file (default: FALSE)
+## @param folder String: Directory path for saving plots (default: "results/plots/")
+## @return ggplot object (plot is also displayed)
+## @details Creates scatter plot using first two dimensions of data with points
+##   colored by cluster membership. Useful for ground truth visualization or
+##   comparing different clustering results.
+## @note Only uses first two columns of all_data for x,y coordinates
+## @example
+## # Plot clustering results
+## data <- generate_mixture_data(N=100, K=3, dim=5)
+## plot_data(data$points, data$clusts, save=TRUE)
 plot_data <- function(all_data, cluster_labels, save = FALSE, folder = "results/plots/") {
   ground_truth <- as.factor(cluster_labels)
 
@@ -782,6 +983,7 @@ plot_data <- function(all_data, cluster_labels, save = FALSE, folder = "results/
     theme_minimal()
 
   # Save the plot
-  if (save)
+  if (save) {
     ggsave(filename = paste0(folder, "data_clusters.png"), width = 8, height = 6)
+  }
 }

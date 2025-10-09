@@ -107,47 +107,128 @@ $(function(){initNavTree('classSplitMerge__SAMS.html',''); initResizable(true); 
   <div class="headertitle"><div class="title">SplitMerge_SAMS Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Sequential Allocation Merge-Split (SAMS) sampler for Bayesian nonparametric models.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="splitmerge__SAMS_8hpp_source.html">splitmerge_SAMS.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for SplitMerge_SAMS:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="classSplitMerge__SAMS.png" usemap="#SplitMerge_5FSAMS_map" alt=""/>
   <map id="SplitMerge_5FSAMS_map" name="SplitMerge_5FSAMS_map">
-<area href="classSampler.html" alt="Sampler" shape="rect" coords="0,0,116,24"/>
+<area href="classSampler.html" title="Abstract base class for MCMC sampler implementations." alt="Sampler" shape="rect" coords="0,0,116,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af812bf4c32fef71ddae082bfa26d1465" id="r_af812bf4c32fef71ddae082bfa26d1465"><td class="memItemLeft" align="right" valign="top"><a id="af812bf4c32fef71ddae082bfa26d1465" name="af812bf4c32fef71ddae082bfa26d1465"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SplitMerge_SAMS</b> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classLikelihood.html">Likelihood</a> &amp;l, <a class="el" href="classProcess.html">Process</a> &amp;pr, bool shuffle)</td></tr>
+<tr class="memitem:af812bf4c32fef71ddae082bfa26d1465" id="r_af812bf4c32fef71ddae082bfa26d1465"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af812bf4c32fef71ddae082bfa26d1465">SplitMerge_SAMS</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classLikelihood.html">Likelihood</a> &amp;l, <a class="el" href="classProcess.html">Process</a> &amp;pr, bool shuffle)</td></tr>
+<tr class="memdesc:af812bf4c32fef71ddae082bfa26d1465"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for SAMS (Sequential Allocation Merge-Split) sampler.  <br /></td></tr>
 <tr class="separator:af812bf4c32fef71ddae082bfa26d1465"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a198db7f37403e0f7093771f03ca961e6" id="r_a198db7f37403e0f7093771f03ca961e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a198db7f37403e0f7093771f03ca961e6">step</a> () override</td></tr>
+<tr class="memdesc:a198db7f37403e0f7093771f03ca961e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform one iteration of the SAMS algorithm.  <br /></td></tr>
 <tr class="separator:a198db7f37403e0f7093771f03ca961e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classSampler"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classSampler')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classSampler.html">Sampler</a></td></tr>
-<tr class="memitem:a13b15d8c01c34c6d78d93a6ba091e6aa inherit pub_methods_classSampler" id="r_a13b15d8c01c34c6d78d93a6ba091e6aa"><td class="memItemLeft" align="right" valign="top">
-&#160;</td><td class="memItemRight" valign="bottom"><b>Sampler</b> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classLikelihood.html">Likelihood</a> &amp;l, <a class="el" href="classProcess.html">Process</a> &amp;pr)</td></tr>
+<tr class="memitem:a13b15d8c01c34c6d78d93a6ba091e6aa inherit pub_methods_classSampler" id="r_a13b15d8c01c34c6d78d93a6ba091e6aa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSampler.html#a13b15d8c01c34c6d78d93a6ba091e6aa">Sampler</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classLikelihood.html">Likelihood</a> &amp;l, <a class="el" href="classProcess.html">Process</a> &amp;pr)</td></tr>
+<tr class="memdesc:a13b15d8c01c34c6d78d93a6ba091e6aa inherit pub_methods_classSampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor initializing sampler with required components.  <br /></td></tr>
 <tr class="separator:a13b15d8c01c34c6d78d93a6ba091e6aa inherit pub_methods_classSampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a211a2f7cb64b2adf3a8c66f92abf8f7d inherit pub_methods_classSampler" id="r_a211a2f7cb64b2adf3a8c66f92abf8f7d"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSampler.html#a211a2f7cb64b2adf3a8c66f92abf8f7d">~Sampler</a> ()=default</td></tr>
+<tr class="memdesc:a211a2f7cb64b2adf3a8c66f92abf8f7d inherit pub_methods_classSampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor for proper cleanup of derived classes.  <br /></td></tr>
+<tr class="separator:a211a2f7cb64b2adf3a8c66f92abf8f7d inherit pub_methods_classSampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_classSampler"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classSampler')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classSampler.html">Sampler</a></td></tr>
-<tr class="memitem:a82728aa82b611766bc21cbfbb04e83b5 inherit pro_attribs_classSampler" id="r_a82728aa82b611766bc21cbfbb04e83b5"><td class="memItemLeft" align="right" valign="top">
-<a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>data</b></td></tr>
+<tr class="memitem:a82728aa82b611766bc21cbfbb04e83b5 inherit pro_attribs_classSampler" id="r_a82728aa82b611766bc21cbfbb04e83b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSampler.html#a82728aa82b611766bc21cbfbb04e83b5">data</a></td></tr>
+<tr class="memdesc:a82728aa82b611766bc21cbfbb04e83b5 inherit pro_attribs_classSampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the data object containing observations and current allocations.  <br /></td></tr>
 <tr class="separator:a82728aa82b611766bc21cbfbb04e83b5 inherit pro_attribs_classSampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26e07fa20b8d68ca6f906b40e0f6a9d0 inherit pro_attribs_classSampler" id="r_a26e07fa20b8d68ca6f906b40e0f6a9d0"><td class="memItemLeft" align="right" valign="top">
-<a class="el" href="structParams.html">Params</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>params</b></td></tr>
+<tr class="memitem:a26e07fa20b8d68ca6f906b40e0f6a9d0 inherit pro_attribs_classSampler" id="r_a26e07fa20b8d68ca6f906b40e0f6a9d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structParams.html">Params</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSampler.html#a26e07fa20b8d68ca6f906b40e0f6a9d0">params</a></td></tr>
+<tr class="memdesc:a26e07fa20b8d68ca6f906b40e0f6a9d0 inherit pro_attribs_classSampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the parameters object containing model hyperparameters and MCMC settings.  <br /></td></tr>
 <tr class="separator:a26e07fa20b8d68ca6f906b40e0f6a9d0 inherit pro_attribs_classSampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0645536f5f1d2dc799bec46a6253b664 inherit pro_attribs_classSampler" id="r_a0645536f5f1d2dc799bec46a6253b664"><td class="memItemLeft" align="right" valign="top">
-<a class="el" href="classLikelihood.html">Likelihood</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>likelihood</b></td></tr>
+<tr class="memitem:a0645536f5f1d2dc799bec46a6253b664 inherit pro_attribs_classSampler" id="r_a0645536f5f1d2dc799bec46a6253b664"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classLikelihood.html">Likelihood</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSampler.html#a0645536f5f1d2dc799bec46a6253b664">likelihood</a></td></tr>
+<tr class="memdesc:a0645536f5f1d2dc799bec46a6253b664 inherit pro_attribs_classSampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the likelihood computation object for evaluating cluster assignments.  <br /></td></tr>
 <tr class="separator:a0645536f5f1d2dc799bec46a6253b664 inherit pro_attribs_classSampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ec54ff9fe8f22c8514496d6f3b998d0 inherit pro_attribs_classSampler" id="r_a8ec54ff9fe8f22c8514496d6f3b998d0"><td class="memItemLeft" align="right" valign="top">
-<a class="el" href="classProcess.html">Process</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>process</b></td></tr>
+<tr class="memitem:a8ec54ff9fe8f22c8514496d6f3b998d0 inherit pro_attribs_classSampler" id="r_a8ec54ff9fe8f22c8514496d6f3b998d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classProcess.html">Process</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSampler.html#a8ec54ff9fe8f22c8514496d6f3b998d0">process</a></td></tr>
+<tr class="memdesc:a8ec54ff9fe8f22c8514496d6f3b998d0 inherit pro_attribs_classSampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the stochastic process object (<a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a>, <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>, <a class="el" href="classDPW.html" title="Dirichlet Process with spatial Weights class for spatially-aware Bayesian nonparametric clustering.">DPW</a>, <a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a>)  <br /></td></tr>
 <tr class="separator:a8ec54ff9fe8f22c8514496d6f3b998d0 inherit pro_attribs_classSampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abec9d161c1e486904e6d2869890c4be3 inherit pro_attribs_classSampler" id="r_abec9d161c1e486904e6d2869890c4be3"><td class="memItemLeft" align="right" valign="top">
-std::random_device&#160;</td><td class="memItemRight" valign="bottom"><b>rd</b></td></tr>
+<tr class="memitem:abec9d161c1e486904e6d2869890c4be3 inherit pro_attribs_classSampler" id="r_abec9d161c1e486904e6d2869890c4be3"><td class="memItemLeft" align="right" valign="top">std::random_device&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSampler.html#abec9d161c1e486904e6d2869890c4be3">rd</a></td></tr>
+<tr class="memdesc:abec9d161c1e486904e6d2869890c4be3 inherit pro_attribs_classSampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Random device for generating random numbers across sampling algorithms.  <br /></td></tr>
 <tr class="separator:abec9d161c1e486904e6d2869890c4be3 inherit pro_attribs_classSampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Sequential Allocation Merge-Split (SAMS) sampler for Bayesian nonparametric models. </p>
+<p>This class implements the SAMS algorithm, a variant of the split-merge sampler that uses sequential allocation instead of restricted Gibbs sampling for proposal generation. SAMS can be more efficient than standard split-merge for certain model configurations and provides an alternative proposal mechanism.</p>
+<p>Key differences from standard Split-Merge:</p><ul>
+<li><b>Sequential Allocation</b>: Observations are allocated one by one in random order</li>
+<li><b>Simplified Proposals</b>: No need for full restricted Gibbs chains</li>
+<li><b>Efficient Computation</b>: Faster proposal generation for large clusters</li>
+<li><b>Maintained Ergodicity</b>: Preserves theoretical properties of split-merge</li>
+</ul>
+<p>The algorithm maintains the same three types of moves (split, merge, shuffle) but uses a different mechanism for generating proposals within each move type.</p>
+<p>@reference Dahl, D. B. and Newcomb, S. (2022). "Sequentially allocated
+merge-split samplers for conjugate Bayesian nonparametric models" @reference Martinez, A. F. and Mena, R. H. (2014). "On a Nonparametric Change
+Point Detection Model in Markovian Regimes"</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a>, <a class="el" href="classSplitMerge.html" title="Split-Merge sampler for Bayesian nonparametric mixture models.">SplitMerge</a> </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af812bf4c32fef71ddae082bfa26d1465" name="af812bf4c32fef71ddae082bfa26d1465"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af812bf4c32fef71ddae082bfa26d1465">&#9670;&#160;</a></span>SplitMerge_SAMS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">SplitMerge_SAMS::SplitMerge_SAMS </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classData.html">Data</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>d</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structParams.html">Params</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classLikelihood.html">Likelihood</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>l</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classProcess.html">Process</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>pr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>shuffle</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor for SAMS (Sequential Allocation Merge-Split) sampler. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">d</td><td>Reference to <a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a> object containing observations </td></tr>
+    <tr><td class="paramname">p</td><td>Reference to <a class="el" href="structParams.html" title="Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...">Params</a> object with hyperparameters </td></tr>
+    <tr><td class="paramname">l</td><td>Reference to <a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> object for probability computations </td></tr>
+    <tr><td class="paramname">pr</td><td>Reference to <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> object defining the prior </td></tr>
+    <tr><td class="paramname">shuffle</td><td>Flag to enable shuffle moves in addition to split-merge</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Initializes the SAMS sampler, which uses sequential allocation instead of restricted Gibbs sampling for generating proposals. This can provide computational advantages for certain model configurations. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a198db7f37403e0f7093771f03ca961e6" name="a198db7f37403e0f7093771f03ca961e6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a198db7f37403e0f7093771f03ca961e6">&#9670;&#160;</a></span>step()</h2>
@@ -171,15 +252,24 @@ std::random_device&#160;</td><td class="memItemRight" valign="bottom"><b>rd</b><
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Perform one iteration of the SAMS algorithm. </p>
+<p>Executes one step of the SAMS sampler:</p><ol type="1">
+<li>Randomly select two observations as anchors</li>
+<li>Determine move type based on their current assignments</li>
+<li>Generate proposal using sequential allocation</li>
+<li>Compute acceptance ratio and accept/reject the proposal</li>
+</ol>
+<p>The sequential allocation approach can be more efficient than restricted Gibbs sampling while maintaining the theoretical properties of split-merge. </p>
 <p>Perform a single split-merge MCMC step. Randomly choose two indices and decide whether to propose a split or merge move.</p>
 
-<p>Implements <a class="el" href="classSampler.html">Sampler</a>.</p>
+<p>Implements <a class="el" href="classSampler.html#a49153313f42d53d107bfe2b2e9d83fa5">Sampler</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/<a class="el" href="splitmerge__SAMS_8hpp_source.html">splitmerge_SAMS.hpp</a></li>
-<li>src/<b>splitmerge_SAMS.cpp</b></li>
+<li>src/<a class="el" href="splitmerge__SAMS_8cpp.html">splitmerge_SAMS.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

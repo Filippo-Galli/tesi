@@ -1,35 +1,71 @@
-# MCMC Clustering with Dirichlet Process and Normalized Generalized Gamma Process
+# Bayesian Nonparametric Clustering with MCMC
 
-This project implements Bayesian nonparametric clustering methods using Markov Chain Monte Carlo (MCMC) techniques. It combines R for data analysis and visualization with C++ for high-performance MCMC sampling, focusing on Dirichlet Process (DP) and Normalized Generalized Gamma Process (NGGP) mixture models with spatial dependency.
+This project implements advanced Bayesian nonparametric clustering methods using state-of-the-art MCMC techniques. It provides a comprehensive framework for clustering analysis with Dirichlet Process (DP), Normalized Generalized Gamma Process (NGGP), and their weighted spatial variants, combining R for data analysis with high-performance C++ implementations.
 
-## Features
+**📚 Documentation:** [Doxygen API Reference](file:///home/filippo/Documents/tesi/docs/index.html)  
+**🔬 Research Focus:** Bayesian nonparametric models with spatial dependencies  
+**⚡ Performance:** Optimized C++ backend with R interface
+## ✨ Key Features
 
-- **Bayesian Clustering**: Implementation of DP and NGGP mixture models
-- **Spatial Dependencies**: Support for spatial clustering with adjacency matrices
-- **Multiple Samplers**: Neal's Algorithm 2 and Split-Merge sampling strategies
-- **Data Generation**: Simulated data generation from mixture models (Natarajan method)
-- **Comprehensive Analysis**: Visualization, convergence diagnostics, and clustering evaluation
-- **C++/R Integration**: High-performance C++ backend with R interface using Rcpp
+### 🎯 **Advanced Clustering Models**
+- **Dirichlet Process (DP)**: Classic nonparametric clustering with automatic cluster discovery
+- **Normalized Generalized Gamma Process (NGGP)**: Enhanced flexibility and control over cluster structures  
+- **Weighted Variants (DPW, NGGPW)**: Spatial dependency integration for geographic/network data
+- **Automatic Model Selection**: Data-driven hyperparameter estimation
 
-## Project Structure
+### 🔄 **State-of-the-Art MCMC Samplers**
+- **Neal's Algorithm 3**: Efficient collapsed Gibbs sampling for standard applications
+- **Split-Merge**: Advanced joint updates for improved mixing and faster convergence
+- **SAMS (Sequential Allocation)**: Optimized proposal generation for large-scale problems
+- **Hybrid Approaches**: Flexible combination of sampling strategies
+
+### 🌍 **Spatial Dependencies**
+- **Adjacency Matrix Support**: Incorporate spatial/network structure into clustering
+- **Geographic Clustering**: Specialized algorithms for spatial data analysis
+
+### 📊 **Comprehensive Analysis Suite**
+- **Real-time Monitoring**: Live convergence diagnostics and progress tracking
+- **Advanced Visualization**: Heatmaps, trace plots, and clustering evaluation
+- **Performance Metrics**: ARI, silhouette scores, and posterior analysis
+- **Reproducible Workflows**: Automated analysis pipelines with devenv integration
+
+## 📁 Project Architecture
 
 ```
-├── R/                          # R scripts for analysis and utilities
-│   ├── sim_data_production.R       # Data generation and simulation
-│   ├── simulation_data.R           # Main MCMC analysis script
-│   ├── analysis.R                  # Results analysis and visualization
-│   └── utils.R                     # Utility functions and plotting
-├── src/                        # C++ source code
-│   ├── launcher.cpp                # Main MCMC interface
-│   ├── DP_*.cpp                    # Dirichlet Process implementations
-│   ├── NGGP_*.cpp                  # NGGP implementations
-│   ├── Data.hpp                    # Cluster management
-│   ├── Likelihood.hpp              # Likelihood computation
-│   └── Params.hpp                  # Parameter management
-├── simulation_data/            # Generated simulation datasets
-├── results/                    # MCMC results and analysis outputs
-├── devenv.nix                  # Development environment configuration
-└── README.MD                   # This file
+tesi/
+├── 📂 R/                              # R Analysis & Visualization Suite
+│   ├── 🔬 sim_data_production.R          # Advanced data simulation (Natarajan method)
+│   ├── 🚀 simulation_data.R              # Main MCMC workflow orchestration  
+│   ├── 📊 analysis.R                     # Post-processing and visualization
+│   └── 🛠️  utils.R                       # Utility functions and diagnostics
+├── 📂 src/                            # High-Performance C++ Core
+│   ├── 🎯 Core Framework
+│   │   ├── Sampler.hpp                    # Abstract MCMC sampler base class
+│   │   ├── Process.hpp                    # Bayesian nonparametric process interface  
+│   │   ├── Data.hpp                       # Efficient cluster data management
+│   │   ├── Likelihood.hpp                 # Optimized likelihood computations
+│   │   └── Params.hpp                     # Comprehensive parameter management
+│   ├── 🔄 MCMC Samplers  
+│   │   ├── neal.hpp/.cpp                  # Neal's Algorithm 3 (Gibbs sampling)
+│   │   ├── splitmerge.hpp/.cpp            # Split-Merge sampler  
+│   │   └── splitmerge_SAMS.hpp/.cpp       # Sequential Allocation Merge-Split
+│   ├── 📈 Process Implementations
+│   │   ├── DP.hpp/.cpp                    # Dirichlet Process
+│   │   ├── NGGP.hpp/.cpp                  # Normalized Generalized Gamma Process
+│   │   ├── DPW.hpp/.cpp                   # Weighted Dirichlet Process (spatial)
+│   │   └── NGGPW.hpp/.cpp                 # Weighted NGGP (spatial)
+│   └── 🔗 launcher.cpp                   # R-C++ integration interface
+├── 📂 docs/                           # Auto-Generated Documentation
+│   ├── 📖 Doxygen HTML documentation      # Comprehensive API reference
+│   └── 🎨 doxygen-theme/                 # Custom documentation styling
+├── 📂 simulation_data/                # Simulated Datasets Repository
+│   └── 📊 Natarajan_*sigma_*d/           # Organized by parameters (σ, dimensions)
+├── 📂 results/                        # MCMC Analysis Outputs  
+│   └── 📈 {algorithm}_{config}/          # Results organized by method and parameters
+├── ⚙️  devenv.nix                      # Reproducible Development Environment
+├── 🔧 devenv.yaml                     # Environment Configuration  
+├── 🔒 devenv.lock                     # Locked Dependencies
+└── 📝 README.MD                      # This comprehensive guide
 ```
 
 ## Installation and Setup
@@ -76,7 +112,7 @@ install.packages(c(
 
 **System Dependencies:**
 - R (≥ 4.0)
-- C++ compiler with C++11 support
+- C++ compiler with C++23 support
 - Eigen3 library
 - BLAS/LAPACK libraries
 
@@ -116,17 +152,25 @@ This script performs:
 - **MCMC Sampling**: Runs Bayesian clustering with selected algorithm
 - **Real-time Monitoring**: Displays progress and convergence diagnostics
 
-**Algorithm Selection (in `src/launcher.cpp`):**
+**Algorithm Configuration (in `src/launcher.cpp`):**
+
+The framework provides multiple combinations of **Process × Sampler × Spatial** configurations:
+
 ```cpp
-// Uncomment the desired sampler:
-// DPNeal2 sampler(data, param, likelihood);           // DP + Neal's Algorithm 2
-// DPNeal2W sampler(data, param, likelihood);          // DP + Neal 2 + Spatial
-// DPSplitMerge sampler(data, param, likelihood);      // DP + Split-Merge
-// DPSplitMergeW sampler(data, param, likelihood);     // DP + Split-Merge + Spatial
-// NGGPNeal2 sampler(data, param, likelihood);         // NGGP + Neal 2
-// NGGPNeal2W sampler(data, param, likelihood);        // NGGP + Neal 2 + Spatial
-// NGGPSplitMerge sampler(data, param, likelihood);    // NGGP + Split-Merge
-NGGPSplitMergeW sampler(data, param, likelihood);      // NGGP + Split-Merge + Spatial (default)
+// 🎯 PROCESS SELECTION
+// DP              - Dirichlet Process (classic nonparametric prior)
+// NGGP            - Normalized Generalized Gamma Process (enhanced flexibility)
+// DPW/NGGPW       - Weighted variants with spatial dependencies
+
+// 🔄 SAMPLER SELECTION  
+// Neal3           - Collapsed Gibbs sampling (efficient, standard)
+// SplitMerge      - Joint updates (better mixing, complex structures)
+// SplitMerge_SAMS - Sequential allocation (optimized proposals)
+
+// Example configurations:
+DP process(data, param); // Basic DP process
+Neal3 neal_sampler(data, params, likelihood, process); 
+
 ```
 
 **MCMC Parameters:**
@@ -166,23 +210,46 @@ This generates:
   - `simulation_distance_matrix.rds`: Distance matrix
   - `plots/`: Generated visualizations
 
-## Key Functions
+## 🔧 Core Components & API
 
-### Data Generation (`utils.R`)
-- `generate_mixture_data()`: Natarajan mixture model simulation
-- `distance_plot()`: Intra vs inter-cluster distance visualization
+### 📊 **Data Generation & Simulation** (`utils.R`)
+```r
+generate_mixture_data(N, sigma, d)     # Advanced Natarajan mixture simulation
+distance_plot(data, labels)            # Intra/inter-cluster distance analysis  
+```
 
-### Hyperparameter Setting (`utils.R`)
-- `set_hyperparameters()`: Automatic hyperparameter estimation using k-means
-- `plot_k_means()`: Elbow method for optimal K selection
+### ⚙️ **Hyperparameter Optimization** (`utils.R`)  
+```r
+set_hyperparameters(data, dist_matrix) # Automatic parameter estimation via k-means
+plot_k_means(data, max_k)              # Elbow method for optimal cluster number
+```
 
-### Analysis (`utils.R`)
-- `plot_mcmc_results()`: Comprehensive MCMC analysis and visualization
-- `plot_data()`: Basic data and clustering visualization
+### 🚀 **High-Performance MCMC Interface** (`launcher.cpp`)
+```cpp
+// Core classes (fully documented with Doxygen)
+class Params;           // Parameter management with validation
+class Data;             // Cluster data structures  
+class Likelihood;       // Loglikelihood computations
+class Process;          // Abstract nonparametric process interface
+class Sampler;          // Abstract MCMC sampler base class
 
-### MCMC Interface (`launcher.cpp`)
-- `mcmc()`: Main MCMC sampling function
-- `Params`: Parameter management class
+// Main interface
+Rcpp::List mcmc(matrix, params, initial_clusters); // Primary MCMC function
+```
+
+### 📚 **Class Hierarchy** (See [Doxygen Docs](docs/index.html))
+```
+Sampler (abstract base)
+├── Neal3              # Algorithm 3 implementation
+├── SplitMerge         # Standard split-merge sampler  
+└── SplitMerge_SAMS    # Sequential allocation variant
+
+Process (abstract base)  
+├── DP                 # Dirichlet Process
+├── DPW                # Weighted Dirichlet Process
+├── NGGP               # Normalized Generalized Gamma Process
+└── NGGPW              # Weighted NGGP
+```
 
 ## Example Workflow
 
@@ -209,35 +276,69 @@ This generates:
    plot_mcmc_results(mcmc_result, ground_truth, BI = 2000)
    ```
 
-## Configuration
+## ⚙️ Advanced Configuration
 
-### Compilation
-The project automatically compiles C++ code when sourcing:
+### 🔧 **Compilation & Build System**
 ```r
-sourceCpp("src/launcher.cpp")
+# Automatic compilation with dependency management
+sourceCpp("src/launcher.cpp")  # Compiles entire C++ framework
 ```
 
-### Algorithm Selection
-Modify `src/launcher.cpp` to choose different sampling strategies:
-- **DP vs NGGP**: Different nonparametric priors
-- **Neal2 vs SplitMerge**: Different sampling algorithms  
-- **W vs non-W**: With or without spatial dependencies
+### 🌍 **Spatial Dependency Configuration**
+```cpp
+// In Params constructor
+Params params(
+    delta1, alpha, beta,           // Process hyperparameters
+    delta2, gamma, zeta,           // Likelihood hyperparameters  
+    BI, NI,                        // MCMC iterations
+    a, sigma, tau,                 // Process parameters
+    coefficient,                   // Spatial weight (0 = no spatial, 1+ = strong spatial)
+    W                             // Adjacency matrix (k-NN or custom)
+);
+```
 
-### Spatial Dependencies
-- Adjacency matrix `W` controls spatial clustering
-- `coefficient` parameter weights spatial vs non-spatial terms
-- `retrieve_W()` generates adjacency from distance (k-nearest neighbors)
+### 📊 **Hyperparameter Tuning Guide**
+```r
+# Process parameters (control clustering behavior)
+a      <- 1.0      # Total mass (higher = more clusters)
+sigma  <- 0.5      # NGGP flexibility (0-1, higher = more flexible)  
+tau    <- 1.0      # NGGP tail parameter
 
-## Performance
+# MCMC parameters (control sampling quality)
+BI     <- 2000     # Burn-in (increase if slow convergence)
+NI     <- 10000    # Iterations (increase for precision)
 
-- **C++ Backend**: High-performance MCMC sampling
-- **Progress Monitoring**: Real-time iteration tracking
-- **Memory Efficient**: Streaming results storage
-- **Parallel Potential**: Ready for multi-threading extensions
+# Spatial parameters  
+coefficient <- 0.5  # Spatial strength (tune based on spatial structure)
+k_neighbors <- 5    # Adjacency matrix connectivity
+```
 
-## Troubleshooting
+## 🛠️ Troubleshooting & FAQ
 
-1. **Compilation Issues**: Ensure Eigen3 and R development headers are installed
-2. **Package Dependencies**: Use `devenv shell` for automatic setup
-3. **Memory Issues**: Reduce `NI` parameter for large datasets
-4. **Convergence**: Increase burn-in `BI` if trace plots show non-stationarity
+### 🔧 **Installation Issues**
+```bash
+# Missing dependencies  
+sudo apt-get install r-base-dev libeigen3-dev liblapack-dev libblas-dev
+
+# Rcpp compilation errors
+R -e "install.packages('Rcpp', type='source')"
+
+# devenv not working
+nix --version  # Ensure Nix is installed
+devenv --version  # Verify devenv installation
+```
+
+### 📞 **Getting Help**
+- 📚 **Documentation**: [Doxygen API Reference](docs/index.html)
+- 🔍 **Code Examples**: See `R/simulation_data.R` for complete workflows  
+- 🧪 **Test Cases**: Run `R/sim_data_production.R` for validation
+- 📖 **Theory**: References in code comments and Doxygen documentation
+
+## 📚 References & Citations
+
+- **Neal, R. M. (2000)**: "Markov Chain Sampling Methods for Dirichlet Process Mixture Models"
+- **Jain, S. & Neal, R. M. (2004)**: "A Split-Merge Markov Chain Monte Carlo Procedure for the Dirichlet Process Mixture Model"  
+- **Dahl, D. B. and Newcomb, S. (2022)**: "Sequentially allocated merge-split samplers for conjugate Bayesian nonparametric models"
+- **Favaro, S. & Teh, Y. W. (2013)**: "MCMC for Normalized Random Measure Mixture Models"
+- **Martinez, A. F. and Mena, R. H. (2014)**: "On a Nonparametric Change Point Detection Model in Markovian Regimes"
+- **Natarajan, A. and  De Iorio, M. (2023)**: "Cohesion and Repulsion in Bayesian Distance Clustering"

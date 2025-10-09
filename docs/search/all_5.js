@@ -1,9 +1,16 @@
 var searchData=
 [
-  ['params_0',['Params',['../structParams.html',1,'']]],
-  ['point_5floglikelihood_5fcond_1',['point_loglikelihood_cond',['../classLikelihood.html#ab1af66318d8b64eff5162e5973b4c256',1,'Likelihood::point_loglikelihood_cond(int point_index, int cluster_index) const'],['../classLikelihood.html#a1810c4e20f01e037f24aa8c93bfd78f0',1,'Likelihood::point_loglikelihood_cond(int point_index, int cluster_index, const Eigen::VectorXi &amp;cls_ass_k) const']]],
-  ['prior_5fratio_5fmerge_2',['prior_ratio_merge',['../classDP.html#a0e9b5eed61089876ad4fa25440e6fe0a',1,'DP::prior_ratio_merge()'],['../classDPW.html#a75b3b17a4f1353be261598f817dfc151',1,'DPW::prior_ratio_merge()'],['../classNGGP.html#a79e4070dff59378d106d56545ea66a84',1,'NGGP::prior_ratio_merge()'],['../classNGGPW.html#a96acaa9d2dacbac024ffaba9d075249a',1,'NGGPW::prior_ratio_merge()']]],
-  ['prior_5fratio_5fshuffle_3',['prior_ratio_shuffle',['../classDP.html#a124720c8dca0a4ebb401576f3f829624',1,'DP::prior_ratio_shuffle()'],['../classDPW.html#a657ee647610b79bda39db864bee2b6fa',1,'DPW::prior_ratio_shuffle()'],['../classNGGP.html#acd7a5bc6cbe029ec09d9a083c01277ff',1,'NGGP::prior_ratio_shuffle()'],['../classNGGPW.html#a9bc80b5731581b00c33479fd3b16d55d',1,'NGGPW::prior_ratio_shuffle()']]],
-  ['prior_5fratio_5fsplit_4',['prior_ratio_split',['../classDP.html#add6430ec2928d6260b9a4f78f6a2867a',1,'DP::prior_ratio_split()'],['../classDPW.html#a9ae9225ada0d3d26b9f7e584783e117c',1,'DPW::prior_ratio_split()'],['../classNGGP.html#a6488070ea12d0a9c9454d96e8b5cb719',1,'NGGP::prior_ratio_split()'],['../classNGGPW.html#a73053c1ef8025c03e60ef25f42509bf4',1,'NGGPW::prior_ratio_split()']]],
-  ['process_5',['Process',['../classProcess.html',1,'']]]
+  ['citations_0',['📚 References &amp; Citations',['../index.html#autotoc_md30',1,'']]],
+  ['class_20hierarchy_20strong_20see_20a_20href_20docs_20index_20html_20doxygen_20docs_20a_1',['📚 &lt;strong&gt;Class Hierarchy&lt;/strong&gt; (See &lt;a href=&quot;docs/index.html&quot; &gt;Doxygen Docs&lt;/a&gt;)',['../index.html#autotoc_md21',1,'']]],
+  ['cluster_5floglikelihood_2',['cluster_loglikelihood',['../classLikelihood.html#aefb5c3a772c975a5727c7d760d1e58a3',1,'Likelihood::cluster_loglikelihood(int cluster_index) const'],['../classLikelihood.html#a13641f8ecf2c1a6d1cdf153420b46c9d',1,'Likelihood::cluster_loglikelihood(int cluster_index, const Eigen::VectorXi &amp;cls_ass_k) const']]],
+  ['clustering_20models_20strong_3',['🎯 &lt;strong&gt;Advanced Clustering Models&lt;/strong&gt;',['../index.html#autotoc_md2',1,'']]],
+  ['clustering_20with_20mcmc_4',['Bayesian Nonparametric Clustering with MCMC',['../index.html',1,'']]],
+  ['coefficient_5',['coefficient',['../structParams.html#ad3e8ee3d32a16676fc14903bb536e4e8',1,'Params']]],
+  ['compilation_20build_20system_20strong_6',['🔧 &lt;strong&gt;Compilation &amp; Build System&lt;/strong&gt;',['../index.html#autotoc_md24',1,'']]],
+  ['components_20api_7',['🔧 Core Components &amp; API',['../index.html#autotoc_md17',1,'']]],
+  ['comprehensive_20analysis_20suite_20strong_8',['📊 &lt;strong&gt;Comprehensive Analysis Suite&lt;/strong&gt;',['../index.html#autotoc_md5',1,'']]],
+  ['configuration_9',['⚙️ Advanced Configuration',['../index.html#autotoc_md23',1,'']]],
+  ['configuration_20strong_10',['🌍 &lt;strong&gt;Spatial Dependency Configuration&lt;/strong&gt;',['../index.html#autotoc_md25',1,'']]],
+  ['core_20components_20api_11',['🔧 Core Components &amp; API',['../index.html#autotoc_md17',1,'']]],
+  ['cpp_20tt_12',['🚀 &lt;strong&gt;High-Performance MCMC Interface&lt;/strong&gt; (&lt;tt&gt;launcher.cpp&lt;/tt&gt;)',['../index.html#autotoc_md20',1,'']]]
 ];

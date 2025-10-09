@@ -104,60 +104,101 @@ $(function(){initNavTree('Process_8hpp_source.html',''); initResizable(true); })
   <div class="headertitle"><div class="title">Process.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="Likelihood_8hpp.html">Likelihood.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;Params.hpp&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="Data_8hpp.html">Data.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;Eigen/Dense&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="foldopen" id="foldopen00008" data-start="{" data-end="};">
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="classProcess.html">    8</a></span><span class="keyword">class </span>Process {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>  <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <a class="code hl_class" href="classData.html">Data</a> &amp;data;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <a class="code hl_struct" href="structParams.html">Params</a> &amp;params;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    Eigen::VectorXi old_allocations; <span class="comment">// to store old allocations in case of rejection</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordtype">int</span> idx_i, idx_j; <span class="comment">// indices of the two observations involved in the split-merge move</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="comment">// Prefetch values for efficiency</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> log_a = log(params.a);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    Process(<a class="code hl_class" href="classData.html">Data</a> &amp;d, <a class="code hl_struct" href="structParams.html">Params</a> &amp;p) : data(d), params(p){ old_allocations = data.get_allocations(); };</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="comment">// Gibbs sampling methods</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">virtual</span> <span class="keywordtype">double</span> gibbs_prior_existing_cluster(<span class="keywordtype">int</span> cls_idx, <span class="keywordtype">int</span> obs_idx) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">virtual</span> <span class="keywordtype">double</span> gibbs_prior_new_cluster() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="comment">// Useful for split-merge algorithms</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">virtual</span> <span class="keywordtype">double</span> prior_ratio_split(<span class="keywordtype">int</span> ci, <span class="keywordtype">int</span> cj) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">virtual</span> <span class="keywordtype">double</span> prior_ratio_merge(<span class="keywordtype">int</span> size_old_ci, <span class="keywordtype">int</span> size_old_cj) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">virtual</span> <span class="keywordtype">double</span> prior_ratio_shuffle(<span class="keywordtype">int</span> size_old_ci, <span class="keywordtype">int</span> size_old_cj, <span class="keywordtype">int</span> ci, <span class="keywordtype">int</span> cj) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="comment">// Set old allocations</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">void</span> set_old_allocations(<span class="keyword">const</span> Eigen::VectorXi &amp;new_allocations) { old_allocations = new_allocations; };</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordtype">void</span> set_idx_i(<span class="keywordtype">int</span> i) { idx_i = i; };</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordtype">void</span> set_idx_j(<span class="keywordtype">int</span> j) { idx_j = j; };</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="comment">// function to update parameters if needed</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update_params() = 0;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">virtual</span> ~Process() {};</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>};</div>
+<a href="Process_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="Data_8hpp.html">Data.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="Likelihood_8hpp.html">Likelihood.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="Params_8hpp.html">Params.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;Eigen/Dense&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span></div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="};">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="classProcess.html">   41</a></span><span class="keyword">class </span><a class="code hl_function" href="classProcess.html#a45c13512446ea3e7353ed88773d496a6">Process</a> {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="classProcess.html#af8d15d280b7b72defee3438abf1f9c8f">   45</a></span>  <a class="code hl_class" href="classData.html">Data</a> &amp;<a class="code hl_variable" href="classProcess.html#af8d15d280b7b72defee3438abf1f9c8f">data</a>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classProcess.html#a4c3ef16d47835acfa8fbe86aefb8c6e8">   49</a></span>  <a class="code hl_struct" href="structParams.html">Params</a> &amp;<a class="code hl_variable" href="classProcess.html#a4c3ef16d47835acfa8fbe86aefb8c6e8">params</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="classProcess.html#a837d783fac7c9f12243cd93b4534e3e4">   53</a></span>  Eigen::VectorXi <a class="code hl_variable" href="classProcess.html#a837d783fac7c9f12243cd93b4534e3e4">old_allocations</a>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classProcess.html#a86e6ee0bfe7bcbfc5da6e8e54dc827a9">   56</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="classProcess.html#a86e6ee0bfe7bcbfc5da6e8e54dc827a9">idx_i</a>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="classProcess.html#a6268d4e1236ecc0a2a5a7af400c7868b">   59</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="classProcess.html#a6268d4e1236ecc0a2a5a7af400c7868b">idx_j</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classProcess.html#a38b41ae4bad9a3a5f4b474f2f5a18561">   62</a></span>  <span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code hl_variable" href="classProcess.html#a38b41ae4bad9a3a5f4b474f2f5a18561">log_a</a> = log(<a class="code hl_variable" href="classProcess.html#a4c3ef16d47835acfa8fbe86aefb8c6e8">params</a>.a);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classProcess.html#a45c13512446ea3e7353ed88773d496a6">   75</a></span>  <a class="code hl_function" href="classProcess.html#a45c13512446ea3e7353ed88773d496a6">Process</a>(<a class="code hl_class" href="classData.html">Data</a> &amp;d, <a class="code hl_struct" href="structParams.html">Params</a> &amp;p) : <a class="code hl_variable" href="classProcess.html#af8d15d280b7b72defee3438abf1f9c8f">data</a>(d), <a class="code hl_variable" href="classProcess.html#a4c3ef16d47835acfa8fbe86aefb8c6e8">params</a>(p) {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <a class="code hl_variable" href="classProcess.html#a837d783fac7c9f12243cd93b4534e3e4">old_allocations</a> = <a class="code hl_variable" href="classProcess.html#af8d15d280b7b72defee3438abf1f9c8f">data</a>.get_allocations();</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  };</div>
+</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  <span class="comment">// ========== Gibbs Sampling Methods ==========</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="classProcess.html#a17d00dd1cdddc0c2c8b3d4155afcb54c">   93</a></span>  <span class="keyword">virtual</span> <span class="keywordtype">double</span> <a class="code hl_function" href="classProcess.html#a17d00dd1cdddc0c2c8b3d4155afcb54c">gibbs_prior_existing_cluster</a>(<span class="keywordtype">int</span> cls_idx,</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                                              <span class="keywordtype">int</span> obs_idx) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="classProcess.html#af0620ca38fdd6c3fb09b6d008cfe728d">  105</a></span>  <span class="keyword">virtual</span> <span class="keywordtype">double</span> <a class="code hl_function" href="classProcess.html#af0620ca38fdd6c3fb09b6d008cfe728d">gibbs_prior_new_cluster</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>  <span class="comment">// ========== Split-Merge Algorithm Methods ==========</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="classProcess.html#a3077b5bf1703a691927ae3779900a734">  119</a></span>  <span class="keyword">virtual</span> <span class="keywordtype">double</span> <a class="code hl_function" href="classProcess.html#a3077b5bf1703a691927ae3779900a734">prior_ratio_split</a>(<span class="keywordtype">int</span> ci, <span class="keywordtype">int</span> cj) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="classProcess.html#a3f839a738e76fc3ab83d3a7bfc228984">  132</a></span>  <span class="keyword">virtual</span> <span class="keywordtype">double</span> <a class="code hl_function" href="classProcess.html#a3f839a738e76fc3ab83d3a7bfc228984">prior_ratio_merge</a>(<span class="keywordtype">int</span> size_old_ci, <span class="keywordtype">int</span> size_old_cj) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="classProcess.html#a3bd733b3232c8cf865bc0d6c1a07aea4">  147</a></span>  <span class="keyword">virtual</span> <span class="keywordtype">double</span> <a class="code hl_function" href="classProcess.html#a3bd733b3232c8cf865bc0d6c1a07aea4">prior_ratio_shuffle</a>(<span class="keywordtype">int</span> size_old_ci, <span class="keywordtype">int</span> size_old_cj, <span class="keywordtype">int</span> ci,</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                                     <span class="keywordtype">int</span> cj) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>  <span class="comment">// ========== State Management Methods ==========</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span></div>
+<div class="foldopen" id="foldopen00160" data-start="{" data-end="}">
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="classProcess.html#a6174151176ec3d063ac441e5a80d0c44">  160</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classProcess.html#a6174151176ec3d063ac441e5a80d0c44">set_old_allocations</a>(<span class="keyword">const</span> Eigen::VectorXi &amp;new_allocations) {</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <a class="code hl_variable" href="classProcess.html#a837d783fac7c9f12243cd93b4534e3e4">old_allocations</a> = new_allocations;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>  };</div>
+</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="classProcess.html#a7ea0be22abcf92f98620c8b81690a76f">  169</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classProcess.html#a7ea0be22abcf92f98620c8b81690a76f">set_idx_i</a>(<span class="keywordtype">int</span> i) { <a class="code hl_variable" href="classProcess.html#a86e6ee0bfe7bcbfc5da6e8e54dc827a9">idx_i</a> = i; };</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno"><a class="line" href="classProcess.html#a9c638d305db4abae7c8fedca34e71794">  176</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classProcess.html#a9c638d305db4abae7c8fedca34e71794">set_idx_j</a>(<span class="keywordtype">int</span> j) { <a class="code hl_variable" href="classProcess.html#a6268d4e1236ecc0a2a5a7af400c7868b">idx_j</a> = j; };</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>  <span class="comment">// ========== Parameter Update Methods ==========</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="classProcess.html#ac610fb84ed64db2a74fa1447ce5a582e">  188</a></span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classProcess.html#ac610fb84ed64db2a74fa1447ce5a582e">update_params</a>() = 0;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="classProcess.html#a7ff358c1d3b155bc09e1271266cdce7d">  193</a></span>  <span class="keyword">virtual</span> <a class="code hl_function" href="classProcess.html#a7ff358c1d3b155bc09e1271266cdce7d">~Process</a>() {};</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>};</div>
 </div>
 <div class="ttc" id="aData_8hpp_html"><div class="ttname"><a href="Data_8hpp.html">Data.hpp</a></div><div class="ttdoc">Data structure for managing point distances and cluster allocations.</div></div>
 <div class="ttc" id="aLikelihood_8hpp_html"><div class="ttname"><a href="Likelihood_8hpp.html">Likelihood.hpp</a></div><div class="ttdoc">Likelihood computation for clustering with cohesion and repulsion.</div></div>
+<div class="ttc" id="aParams_8hpp_html"><div class="ttname"><a href="Params_8hpp.html">Params.hpp</a></div><div class="ttdoc">Parameter management for Bayesian nonparametric MCMC models.</div></div>
 <div class="ttc" id="aclassData_html"><div class="ttname"><a href="classData.html">Data</a></div><div class="ttdoc">Manages distance matrices and cluster allocations for points.</div><div class="ttdef"><b>Definition</b> Data.hpp:26</div></div>
-<div class="ttc" id="astructParams_html"><div class="ttname"><a href="structParams.html">Params</a></div><div class="ttdef"><b>Definition</b> Params.hpp:7</div></div>
+<div class="ttc" id="aclassProcess_html_a17d00dd1cdddc0c2c8b3d4155afcb54c"><div class="ttname"><a href="classProcess.html#a17d00dd1cdddc0c2c8b3d4155afcb54c">Process::gibbs_prior_existing_cluster</a></div><div class="ttdeci">virtual double gibbs_prior_existing_cluster(int cls_idx, int obs_idx) const =0</div><div class="ttdoc">Compute prior probability for assigning observation to existing cluster.</div></div>
+<div class="ttc" id="aclassProcess_html_a3077b5bf1703a691927ae3779900a734"><div class="ttname"><a href="classProcess.html#a3077b5bf1703a691927ae3779900a734">Process::prior_ratio_split</a></div><div class="ttdeci">virtual double prior_ratio_split(int ci, int cj) const =0</div><div class="ttdoc">Compute prior ratio for split move in split-merge algorithm.</div></div>
+<div class="ttc" id="aclassProcess_html_a38b41ae4bad9a3a5f4b474f2f5a18561"><div class="ttname"><a href="classProcess.html#a38b41ae4bad9a3a5f4b474f2f5a18561">Process::log_a</a></div><div class="ttdeci">const double log_a</div><div class="ttdoc">Precomputed logarithm of total mass parameter for efficiency.</div><div class="ttdef"><b>Definition</b> Process.hpp:62</div></div>
+<div class="ttc" id="aclassProcess_html_a3bd733b3232c8cf865bc0d6c1a07aea4"><div class="ttname"><a href="classProcess.html#a3bd733b3232c8cf865bc0d6c1a07aea4">Process::prior_ratio_shuffle</a></div><div class="ttdeci">virtual double prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci, int cj) const =0</div><div class="ttdoc">Compute prior ratio for shuffle move in split-merge algorithm.</div></div>
+<div class="ttc" id="aclassProcess_html_a3f839a738e76fc3ab83d3a7bfc228984"><div class="ttname"><a href="classProcess.html#a3f839a738e76fc3ab83d3a7bfc228984">Process::prior_ratio_merge</a></div><div class="ttdeci">virtual double prior_ratio_merge(int size_old_ci, int size_old_cj) const =0</div><div class="ttdoc">Compute prior ratio for merge move in split-merge algorithm.</div></div>
+<div class="ttc" id="aclassProcess_html_a45c13512446ea3e7353ed88773d496a6"><div class="ttname"><a href="classProcess.html#a45c13512446ea3e7353ed88773d496a6">Process::Process</a></div><div class="ttdeci">Process(Data &amp;d, Params &amp;p)</div><div class="ttdoc">Constructor initializing process with data and parameters.</div><div class="ttdef"><b>Definition</b> Process.hpp:75</div></div>
+<div class="ttc" id="aclassProcess_html_a4c3ef16d47835acfa8fbe86aefb8c6e8"><div class="ttname"><a href="classProcess.html#a4c3ef16d47835acfa8fbe86aefb8c6e8">Process::params</a></div><div class="ttdeci">Params &amp; params</div><div class="ttdoc">Reference to the parameters object containing process hyperparameters.</div><div class="ttdef"><b>Definition</b> Process.hpp:49</div></div>
+<div class="ttc" id="aclassProcess_html_a6174151176ec3d063ac441e5a80d0c44"><div class="ttname"><a href="classProcess.html#a6174151176ec3d063ac441e5a80d0c44">Process::set_old_allocations</a></div><div class="ttdeci">void set_old_allocations(const Eigen::VectorXi &amp;new_allocations)</div><div class="ttdoc">Store current allocations for potential rollback.</div><div class="ttdef"><b>Definition</b> Process.hpp:160</div></div>
+<div class="ttc" id="aclassProcess_html_a6268d4e1236ecc0a2a5a7af400c7868b"><div class="ttname"><a href="classProcess.html#a6268d4e1236ecc0a2a5a7af400c7868b">Process::idx_j</a></div><div class="ttdeci">int idx_j</div><div class="ttdoc">Index of second observation involved in split-merge move.</div><div class="ttdef"><b>Definition</b> Process.hpp:59</div></div>
+<div class="ttc" id="aclassProcess_html_a7ea0be22abcf92f98620c8b81690a76f"><div class="ttname"><a href="classProcess.html#a7ea0be22abcf92f98620c8b81690a76f">Process::set_idx_i</a></div><div class="ttdeci">void set_idx_i(int i)</div><div class="ttdoc">Set index of first observation in split-merge pair.</div><div class="ttdef"><b>Definition</b> Process.hpp:169</div></div>
+<div class="ttc" id="aclassProcess_html_a7ff358c1d3b155bc09e1271266cdce7d"><div class="ttname"><a href="classProcess.html#a7ff358c1d3b155bc09e1271266cdce7d">Process::~Process</a></div><div class="ttdeci">virtual ~Process()</div><div class="ttdoc">Virtual destructor for proper cleanup of derived classes.</div><div class="ttdef"><b>Definition</b> Process.hpp:193</div></div>
+<div class="ttc" id="aclassProcess_html_a837d783fac7c9f12243cd93b4534e3e4"><div class="ttname"><a href="classProcess.html#a837d783fac7c9f12243cd93b4534e3e4">Process::old_allocations</a></div><div class="ttdeci">Eigen::VectorXi old_allocations</div><div class="ttdoc">Storage for previous allocations to enable rollback in case of rejection.</div><div class="ttdef"><b>Definition</b> Process.hpp:53</div></div>
+<div class="ttc" id="aclassProcess_html_a86e6ee0bfe7bcbfc5da6e8e54dc827a9"><div class="ttname"><a href="classProcess.html#a86e6ee0bfe7bcbfc5da6e8e54dc827a9">Process::idx_i</a></div><div class="ttdeci">int idx_i</div><div class="ttdoc">Index of first observation involved in split-merge move.</div><div class="ttdef"><b>Definition</b> Process.hpp:56</div></div>
+<div class="ttc" id="aclassProcess_html_a9c638d305db4abae7c8fedca34e71794"><div class="ttname"><a href="classProcess.html#a9c638d305db4abae7c8fedca34e71794">Process::set_idx_j</a></div><div class="ttdeci">void set_idx_j(int j)</div><div class="ttdoc">Set index of second observation in split-merge pair.</div><div class="ttdef"><b>Definition</b> Process.hpp:176</div></div>
+<div class="ttc" id="aclassProcess_html_ac610fb84ed64db2a74fa1447ce5a582e"><div class="ttname"><a href="classProcess.html#ac610fb84ed64db2a74fa1447ce5a582e">Process::update_params</a></div><div class="ttdeci">virtual void update_params()=0</div><div class="ttdoc">Update process parameters during MCMC sampling.</div></div>
+<div class="ttc" id="aclassProcess_html_af0620ca38fdd6c3fb09b6d008cfe728d"><div class="ttname"><a href="classProcess.html#af0620ca38fdd6c3fb09b6d008cfe728d">Process::gibbs_prior_new_cluster</a></div><div class="ttdeci">virtual double gibbs_prior_new_cluster() const =0</div><div class="ttdoc">Compute prior probability for creating a new cluster.</div></div>
+<div class="ttc" id="aclassProcess_html_af8d15d280b7b72defee3438abf1f9c8f"><div class="ttname"><a href="classProcess.html#af8d15d280b7b72defee3438abf1f9c8f">Process::data</a></div><div class="ttdeci">Data &amp; data</div><div class="ttdoc">Reference to the data object containing observations and allocations.</div><div class="ttdef"><b>Definition</b> Process.hpp:45</div></div>
+<div class="ttc" id="astructParams_html"><div class="ttname"><a href="structParams.html">Params</a></div><div class="ttdoc">Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...</div><div class="ttdef"><b>Definition</b> Params.hpp:35</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.13.2-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><b>Process.hpp</b></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="Process_8hpp.html">Process.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>

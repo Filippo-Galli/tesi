@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['set_5fallocation_0',['set_allocation',['../classData.html#a010f0f017f255c52592cf2794abb53ab',1,'Data']]],
-  ['set_5fallocations_1',['set_allocations',['../classData.html#ad766a335e9d89cd7b6de8c2ab9a8d165',1,'Data']]],
-  ['step_2',['step',['../classNeal3.html#abfabb9dfe80f6fce1c93ac4151279f86',1,'Neal3::step()'],['../classSplitMerge.html#a87c7ea9050b7157ae5af7d4e63bb16bf',1,'SplitMerge::step()'],['../classSplitMerge__SAMS.html#a198db7f37403e0f7093771f03ca961e6',1,'SplitMerge_SAMS::step()']]]
+  ['neal3_0',['Neal3',['../classNeal3.html#ad50c5edb8fddcf84043fa2aa1249f9ea',1,'Neal3']]],
+  ['nggp_1',['NGGP',['../classNGGP.html#a57096d805a72df5aed67b2de25c83310',1,'NGGP']]],
+  ['nggpw_2',['NGGPW',['../classNGGPW.html#ac09056d73ffba4e39cbe54f5268950c9',1,'NGGPW']]]
 ];

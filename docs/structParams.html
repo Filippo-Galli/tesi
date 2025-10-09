@@ -108,55 +108,383 @@ $(function(){initNavTree('structParams.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">Params Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Structure containing all parameters needed for the <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> (Normalized Generalized Gamma <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a>) and <a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a> (Dirichlet <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a>) model.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Params_8hpp_source.html">Params.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afa6a76acb711fb655e784298bc5574f5" id="r_afa6a76acb711fb655e784298bc5574f5"><td class="memItemLeft" align="right" valign="top"><a id="afa6a76acb711fb655e784298bc5574f5" name="afa6a76acb711fb655e784298bc5574f5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Params</b> (double delta1=0.5, double alpha=2, double beta=2, double delta2=2, double gamma=2, double zeta=2, int BI=1000, int NI=10000, double a=1.0, double sigma=1.0, double tau=1.0, double coefficient=1, Eigen::MatrixXi W=Eigen::MatrixXi())</td></tr>
+<tr class="memitem:afa6a76acb711fb655e784298bc5574f5" id="r_afa6a76acb711fb655e784298bc5574f5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa6a76acb711fb655e784298bc5574f5">Params</a> (double <a class="el" href="#acad792a82c688eae73b4d1ff995dd763">delta1</a>=0.5, double <a class="el" href="#a881058e4167b8bbb7715e23975b0d893">alpha</a>=2, double <a class="el" href="#aa60c8904558d5ba4bd15e23b4b49e3bd">beta</a>=2, double <a class="el" href="#ae3049b9c5dc70dcc58704ec81f9c64d0">delta2</a>=2, double <a class="el" href="#a978c763893030b3acc13857475cc71fa">gamma</a>=2, double <a class="el" href="#a38c8348b7c7a18470a4b19a6b67872d9">zeta</a>=2, int <a class="el" href="#acdf8ff511a41a267775ccb6ba0929e59">BI</a>=1000, int <a class="el" href="#aad4ced5e851807ada535fae7ec6ebc73">NI</a>=10000, double <a class="el" href="#a0e5a7d9968d5b4886b7ee5654d92b3cb">a</a>=1.0, double <a class="el" href="#aae2e11191e0482bdec0fc15482b53e31">sigma</a>=1.0, double <a class="el" href="#a9e4aad62277a980bfa8beaa0bd4ea529">tau</a>=1.0, double <a class="el" href="#ad3e8ee3d32a16676fc14903bb536e4e8">coefficient</a>=1, Eigen::MatrixXi <a class="el" href="#aa4c747d0359567b9e0e6536ebab6da36">W</a>=Eigen::MatrixXi())</td></tr>
+<tr class="memdesc:afa6a76acb711fb655e784298bc5574f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with default parameter values.  <br /></td></tr>
 <tr class="separator:afa6a76acb711fb655e784298bc5574f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:acad792a82c688eae73b4d1ff995dd763" id="r_acad792a82c688eae73b4d1ff995dd763"><td class="memItemLeft" align="right" valign="top"><a id="acad792a82c688eae73b4d1ff995dd763" name="acad792a82c688eae73b4d1ff995dd763"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>delta1</b></td></tr>
+<tr class="memitem:acad792a82c688eae73b4d1ff995dd763" id="r_acad792a82c688eae73b4d1ff995dd763"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acad792a82c688eae73b4d1ff995dd763">delta1</a></td></tr>
+<tr class="memdesc:acad792a82c688eae73b4d1ff995dd763"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape parameter for the first gamma distribution prior.  <br /></td></tr>
 <tr class="separator:acad792a82c688eae73b4d1ff995dd763"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a881058e4167b8bbb7715e23975b0d893" id="r_a881058e4167b8bbb7715e23975b0d893"><td class="memItemLeft" align="right" valign="top"><a id="a881058e4167b8bbb7715e23975b0d893" name="a881058e4167b8bbb7715e23975b0d893"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>alpha</b></td></tr>
+<tr class="memitem:a881058e4167b8bbb7715e23975b0d893" id="r_a881058e4167b8bbb7715e23975b0d893"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a881058e4167b8bbb7715e23975b0d893">alpha</a></td></tr>
+<tr class="memdesc:a881058e4167b8bbb7715e23975b0d893"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape parameter for the lambda_k gamma distribution.  <br /></td></tr>
 <tr class="separator:a881058e4167b8bbb7715e23975b0d893"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa60c8904558d5ba4bd15e23b4b49e3bd" id="r_aa60c8904558d5ba4bd15e23b4b49e3bd"><td class="memItemLeft" align="right" valign="top"><a id="aa60c8904558d5ba4bd15e23b4b49e3bd" name="aa60c8904558d5ba4bd15e23b4b49e3bd"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>beta</b></td></tr>
+<tr class="memitem:aa60c8904558d5ba4bd15e23b4b49e3bd" id="r_aa60c8904558d5ba4bd15e23b4b49e3bd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa60c8904558d5ba4bd15e23b4b49e3bd">beta</a></td></tr>
+<tr class="memdesc:aa60c8904558d5ba4bd15e23b4b49e3bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rate parameter for the lambda_k gamma distribution.  <br /></td></tr>
 <tr class="separator:aa60c8904558d5ba4bd15e23b4b49e3bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3049b9c5dc70dcc58704ec81f9c64d0" id="r_ae3049b9c5dc70dcc58704ec81f9c64d0"><td class="memItemLeft" align="right" valign="top"><a id="ae3049b9c5dc70dcc58704ec81f9c64d0" name="ae3049b9c5dc70dcc58704ec81f9c64d0"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>delta2</b></td></tr>
+<tr class="memitem:ae3049b9c5dc70dcc58704ec81f9c64d0" id="r_ae3049b9c5dc70dcc58704ec81f9c64d0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3049b9c5dc70dcc58704ec81f9c64d0">delta2</a></td></tr>
+<tr class="memdesc:ae3049b9c5dc70dcc58704ec81f9c64d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape parameter for the second gamma distribution prior.  <br /></td></tr>
 <tr class="separator:ae3049b9c5dc70dcc58704ec81f9c64d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a978c763893030b3acc13857475cc71fa" id="r_a978c763893030b3acc13857475cc71fa"><td class="memItemLeft" align="right" valign="top"><a id="a978c763893030b3acc13857475cc71fa" name="a978c763893030b3acc13857475cc71fa"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>gamma</b></td></tr>
+<tr class="memitem:a978c763893030b3acc13857475cc71fa" id="r_a978c763893030b3acc13857475cc71fa"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a978c763893030b3acc13857475cc71fa">gamma</a></td></tr>
+<tr class="memdesc:a978c763893030b3acc13857475cc71fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape parameter for the theta_kt gamma distribution.  <br /></td></tr>
 <tr class="separator:a978c763893030b3acc13857475cc71fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38c8348b7c7a18470a4b19a6b67872d9" id="r_a38c8348b7c7a18470a4b19a6b67872d9"><td class="memItemLeft" align="right" valign="top"><a id="a38c8348b7c7a18470a4b19a6b67872d9" name="a38c8348b7c7a18470a4b19a6b67872d9"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>zeta</b></td></tr>
+<tr class="memitem:a38c8348b7c7a18470a4b19a6b67872d9" id="r_a38c8348b7c7a18470a4b19a6b67872d9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38c8348b7c7a18470a4b19a6b67872d9">zeta</a></td></tr>
+<tr class="memdesc:a38c8348b7c7a18470a4b19a6b67872d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rate parameter for the theta_kt gamma distribution.  <br /></td></tr>
 <tr class="separator:a38c8348b7c7a18470a4b19a6b67872d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acdf8ff511a41a267775ccb6ba0929e59" id="r_acdf8ff511a41a267775ccb6ba0929e59"><td class="memItemLeft" align="right" valign="top"><a id="acdf8ff511a41a267775ccb6ba0929e59" name="acdf8ff511a41a267775ccb6ba0929e59"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>BI</b></td></tr>
+<tr class="memitem:acdf8ff511a41a267775ccb6ba0929e59" id="r_acdf8ff511a41a267775ccb6ba0929e59"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acdf8ff511a41a267775ccb6ba0929e59">BI</a></td></tr>
+<tr class="memdesc:acdf8ff511a41a267775ccb6ba0929e59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of burn-in iterations to discard for chain convergence.  <br /></td></tr>
 <tr class="separator:acdf8ff511a41a267775ccb6ba0929e59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad4ced5e851807ada535fae7ec6ebc73" id="r_aad4ced5e851807ada535fae7ec6ebc73"><td class="memItemLeft" align="right" valign="top"><a id="aad4ced5e851807ada535fae7ec6ebc73" name="aad4ced5e851807ada535fae7ec6ebc73"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>NI</b></td></tr>
+<tr class="memitem:aad4ced5e851807ada535fae7ec6ebc73" id="r_aad4ced5e851807ada535fae7ec6ebc73"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad4ced5e851807ada535fae7ec6ebc73">NI</a></td></tr>
+<tr class="memdesc:aad4ced5e851807ada535fae7ec6ebc73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of iterations after burn-in for posterior sampling.  <br /></td></tr>
 <tr class="separator:aad4ced5e851807ada535fae7ec6ebc73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e5a7d9968d5b4886b7ee5654d92b3cb" id="r_a0e5a7d9968d5b4886b7ee5654d92b3cb"><td class="memItemLeft" align="right" valign="top"><a id="a0e5a7d9968d5b4886b7ee5654d92b3cb" name="a0e5a7d9968d5b4886b7ee5654d92b3cb"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>a</b></td></tr>
+<tr class="memitem:a0e5a7d9968d5b4886b7ee5654d92b3cb" id="r_a0e5a7d9968d5b4886b7ee5654d92b3cb"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e5a7d9968d5b4886b7ee5654d92b3cb">a</a></td></tr>
+<tr class="memdesc:a0e5a7d9968d5b4886b7ee5654d92b3cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total mass parameter of the <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> (controls number of clusters)  <br /></td></tr>
 <tr class="separator:a0e5a7d9968d5b4886b7ee5654d92b3cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae2e11191e0482bdec0fc15482b53e31" id="r_aae2e11191e0482bdec0fc15482b53e31"><td class="memItemLeft" align="right" valign="top"><a id="aae2e11191e0482bdec0fc15482b53e31" name="aae2e11191e0482bdec0fc15482b53e31"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>sigma</b></td></tr>
+<tr class="memitem:aae2e11191e0482bdec0fc15482b53e31" id="r_aae2e11191e0482bdec0fc15482b53e31"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aae2e11191e0482bdec0fc15482b53e31">sigma</a></td></tr>
+<tr class="memdesc:aae2e11191e0482bdec0fc15482b53e31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Second parameter of the <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> (controls cluster sizes)  <br /></td></tr>
 <tr class="separator:aae2e11191e0482bdec0fc15482b53e31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e4aad62277a980bfa8beaa0bd4ea529" id="r_a9e4aad62277a980bfa8beaa0bd4ea529"><td class="memItemLeft" align="right" valign="top"><a id="a9e4aad62277a980bfa8beaa0bd4ea529" name="a9e4aad62277a980bfa8beaa0bd4ea529"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>tau</b></td></tr>
+<tr class="memitem:a9e4aad62277a980bfa8beaa0bd4ea529" id="r_a9e4aad62277a980bfa8beaa0bd4ea529"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e4aad62277a980bfa8beaa0bd4ea529">tau</a></td></tr>
+<tr class="memdesc:a9e4aad62277a980bfa8beaa0bd4ea529"><td class="mdescLeft">&#160;</td><td class="mdescRight">Third parameter of the <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> (controls tail behavior)  <br /></td></tr>
 <tr class="separator:a9e4aad62277a980bfa8beaa0bd4ea529"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3e8ee3d32a16676fc14903bb536e4e8" id="r_ad3e8ee3d32a16676fc14903bb536e4e8"><td class="memItemLeft" align="right" valign="top"><a id="ad3e8ee3d32a16676fc14903bb536e4e8" name="ad3e8ee3d32a16676fc14903bb536e4e8"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>coefficient</b></td></tr>
+<tr class="memitem:ad3e8ee3d32a16676fc14903bb536e4e8" id="r_ad3e8ee3d32a16676fc14903bb536e4e8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad3e8ee3d32a16676fc14903bb536e4e8">coefficient</a></td></tr>
+<tr class="memdesc:ad3e8ee3d32a16676fc14903bb536e4e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coefficient controlling the strength of spatial dependency.  <br /></td></tr>
 <tr class="separator:ad3e8ee3d32a16676fc14903bb536e4e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4c747d0359567b9e0e6536ebab6da36" id="r_aa4c747d0359567b9e0e6536ebab6da36"><td class="memItemLeft" align="right" valign="top"><a id="aa4c747d0359567b9e0e6536ebab6da36" name="aa4c747d0359567b9e0e6536ebab6da36"></a>
-Eigen::MatrixXi&#160;</td><td class="memItemRight" valign="bottom"><b>W</b></td></tr>
+<tr class="memitem:aa4c747d0359567b9e0e6536ebab6da36" id="r_aa4c747d0359567b9e0e6536ebab6da36"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa4c747d0359567b9e0e6536ebab6da36">W</a></td></tr>
+<tr class="memdesc:aa4c747d0359567b9e0e6536ebab6da36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adjacency matrix defining spatial neighborhood structure.  <br /></td></tr>
 <tr class="separator:aa4c747d0359567b9e0e6536ebab6da36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Structure containing all parameters needed for the <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> (Normalized Generalized Gamma <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a>) and <a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a> (Dirichlet <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a>) model. </p>
+<p>This structure holds all the hyperparameters, model parameters, and configuration settings required for running the <a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a> and <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> Bayesian nonparametric model with and without spatial dependency.</p>
+<p>The parameters are organized into several categories:</p><ul>
+<li>Distribution hyperparameters for gamma priors (delta1, alpha, beta, delta2, gamma, zeta)</li>
+<li>Simulation control parameters (BI, NI)</li>
+<li><a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> process parameters (a, sigma, tau)</li>
+<li>Spatial dependency parameters (coefficient, W) </li>
+</ul>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="afa6a76acb711fb655e784298bc5574f5" name="afa6a76acb711fb655e784298bc5574f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa6a76acb711fb655e784298bc5574f5">&#9670;&#160;</a></span>Params()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Params::Params </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>delta1</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.5</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>alpha</em></span><span class="paramdefsep"> = </span><span class="paramdefval">2</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>beta</em></span><span class="paramdefsep"> = </span><span class="paramdefval">2</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>delta2</em></span><span class="paramdefsep"> = </span><span class="paramdefval">2</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>gamma</em></span><span class="paramdefsep"> = </span><span class="paramdefval">2</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>zeta</em></span><span class="paramdefsep"> = </span><span class="paramdefval">2</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>BI</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1000</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>NI</em></span><span class="paramdefsep"> = </span><span class="paramdefval">10000</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>a</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>sigma</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>tau</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>coefficient</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::MatrixXi</td>          <td class="paramname"><span class="paramname"><em>W</em></span><span class="paramdefsep"> = </span><span class="paramdefval">Eigen::MatrixXi()</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor with default parameter values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">delta1</td><td>Shape parameter for first gamma prior (default: 0.5) </td></tr>
+    <tr><td class="paramname">alpha</td><td>Shape parameter for lambda_k gamma distribution (default: 2) </td></tr>
+    <tr><td class="paramname">beta</td><td>Rate parameter for lambda_k gamma distribution (default: 2) </td></tr>
+    <tr><td class="paramname">delta2</td><td>Shape parameter for second gamma prior (default: 2) </td></tr>
+    <tr><td class="paramname">gamma</td><td>Shape parameter for theta_kt gamma distribution (default: 2) </td></tr>
+    <tr><td class="paramname">zeta</td><td>Rate parameter for theta_kt gamma distribution (default: 2) </td></tr>
+    <tr><td class="paramname">BI</td><td>Number of burn-in iterations (default: 1000) </td></tr>
+    <tr><td class="paramname">NI</td><td>Number of post burn-in iterations (default: 10000) </td></tr>
+    <tr><td class="paramname">a</td><td><a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> total mass parameter (default: 1.0) </td></tr>
+    <tr><td class="paramname">sigma</td><td><a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> second parameter (default: 1.0) </td></tr>
+    <tr><td class="paramname">tau</td><td><a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> third parameter (default: 1.0) </td></tr>
+    <tr><td class="paramname">coefficient</td><td>Spatial dependency coefficient (default: 1) </td></tr>
+    <tr><td class="paramname">W</td><td>Adjacency matrix (default: empty matrix) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a0e5a7d9968d5b4886b7ee5654d92b3cb" name="a0e5a7d9968d5b4886b7ee5654d92b3cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e5a7d9968d5b4886b7ee5654d92b3cb">&#9670;&#160;</a></span>a</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Params::a</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Total mass parameter of the <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> (controls number of clusters) </p>
+
+</div>
+</div>
+<a id="a881058e4167b8bbb7715e23975b0d893" name="a881058e4167b8bbb7715e23975b0d893"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a881058e4167b8bbb7715e23975b0d893">&#9670;&#160;</a></span>alpha</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Params::alpha</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shape parameter for the lambda_k gamma distribution. </p>
+
+</div>
+</div>
+<a id="aa60c8904558d5ba4bd15e23b4b49e3bd" name="aa60c8904558d5ba4bd15e23b4b49e3bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa60c8904558d5ba4bd15e23b4b49e3bd">&#9670;&#160;</a></span>beta</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Params::beta</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rate parameter for the lambda_k gamma distribution. </p>
+
+</div>
+</div>
+<a id="acdf8ff511a41a267775ccb6ba0929e59" name="acdf8ff511a41a267775ccb6ba0929e59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdf8ff511a41a267775ccb6ba0929e59">&#9670;&#160;</a></span>BI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Params::BI</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of burn-in iterations to discard for chain convergence. </p>
+
+</div>
+</div>
+<a id="ad3e8ee3d32a16676fc14903bb536e4e8" name="ad3e8ee3d32a16676fc14903bb536e4e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3e8ee3d32a16676fc14903bb536e4e8">&#9670;&#160;</a></span>coefficient</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Params::coefficient</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Coefficient controlling the strength of spatial dependency. </p>
+
+</div>
+</div>
+<a id="acad792a82c688eae73b4d1ff995dd763" name="acad792a82c688eae73b4d1ff995dd763"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acad792a82c688eae73b4d1ff995dd763">&#9670;&#160;</a></span>delta1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Params::delta1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shape parameter for the first gamma distribution prior. </p>
+
+</div>
+</div>
+<a id="ae3049b9c5dc70dcc58704ec81f9c64d0" name="ae3049b9c5dc70dcc58704ec81f9c64d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3049b9c5dc70dcc58704ec81f9c64d0">&#9670;&#160;</a></span>delta2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Params::delta2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shape parameter for the second gamma distribution prior. </p>
+
+</div>
+</div>
+<a id="a978c763893030b3acc13857475cc71fa" name="a978c763893030b3acc13857475cc71fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a978c763893030b3acc13857475cc71fa">&#9670;&#160;</a></span>gamma</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Params::gamma</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shape parameter for the theta_kt gamma distribution. </p>
+
+</div>
+</div>
+<a id="aad4ced5e851807ada535fae7ec6ebc73" name="aad4ced5e851807ada535fae7ec6ebc73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad4ced5e851807ada535fae7ec6ebc73">&#9670;&#160;</a></span>NI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Params::NI</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Number of iterations after burn-in for posterior sampling. </p>
+
+</div>
+</div>
+<a id="aae2e11191e0482bdec0fc15482b53e31" name="aae2e11191e0482bdec0fc15482b53e31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae2e11191e0482bdec0fc15482b53e31">&#9670;&#160;</a></span>sigma</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Params::sigma</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Second parameter of the <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> (controls cluster sizes) </p>
+
+</div>
+</div>
+<a id="a9e4aad62277a980bfa8beaa0bd4ea529" name="a9e4aad62277a980bfa8beaa0bd4ea529"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e4aad62277a980bfa8beaa0bd4ea529">&#9670;&#160;</a></span>tau</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Params::tau</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Third parameter of the <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> (controls tail behavior) </p>
+
+</div>
+</div>
+<a id="aa4c747d0359567b9e0e6536ebab6da36" name="aa4c747d0359567b9e0e6536ebab6da36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4c747d0359567b9e0e6536ebab6da36">&#9670;&#160;</a></span>W</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::MatrixXi Params::W</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adjacency matrix defining spatial neighborhood structure. </p>
+
+</div>
+</div>
+<a id="a38c8348b7c7a18470a4b19a6b67872d9" name="a38c8348b7c7a18470a4b19a6b67872d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38c8348b7c7a18470a4b19a6b67872d9">&#9670;&#160;</a></span>zeta</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double Params::zeta</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rate parameter for the theta_kt gamma distribution. </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/<a class="el" href="Params_8hpp_source.html">Params.hpp</a></li>
 </ul>

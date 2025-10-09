@@ -109,7 +109,7 @@ $(function(){initNavTree('Likelihood_8hpp_source.html',''); initResizable(true);
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="Data_8hpp.html">Data.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;Params.hpp&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="Params_8hpp.html">Params.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span></div>
 <div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classLikelihood.html">   19</a></span><span class="keyword">class </span><a class="code hl_function" href="classLikelihood.html#a2072dc2858072ebe158613d36631f5c0">Likelihood</a> {</div>
@@ -143,12 +143,13 @@ $(function(){initNavTree('Likelihood_8hpp_source.html',''); initResizable(true);
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>};</div>
 </div>
 <div class="ttc" id="aData_8hpp_html"><div class="ttname"><a href="Data_8hpp.html">Data.hpp</a></div><div class="ttdoc">Data structure for managing point distances and cluster allocations.</div></div>
+<div class="ttc" id="aParams_8hpp_html"><div class="ttname"><a href="Params_8hpp.html">Params.hpp</a></div><div class="ttdoc">Parameter management for Bayesian nonparametric MCMC models.</div></div>
 <div class="ttc" id="aclassData_html"><div class="ttname"><a href="classData.html">Data</a></div><div class="ttdoc">Manages distance matrices and cluster allocations for points.</div><div class="ttdef"><b>Definition</b> Data.hpp:26</div></div>
 <div class="ttc" id="aclassLikelihood_html_a1810c4e20f01e037f24aa8c93bfd78f0"><div class="ttname"><a href="classLikelihood.html#a1810c4e20f01e037f24aa8c93bfd78f0">Likelihood::point_loglikelihood_cond</a></div><div class="ttdeci">double point_loglikelihood_cond(int point_index, int cluster_index, const Eigen::VectorXi &amp;cls_ass_k) const</div><div class="ttdoc">Calculates the conditional log-likelihood with explicit cluster assignments.</div></div>
 <div class="ttc" id="aclassLikelihood_html_a2072dc2858072ebe158613d36631f5c0"><div class="ttname"><a href="classLikelihood.html#a2072dc2858072ebe158613d36631f5c0">Likelihood::Likelihood</a></div><div class="ttdeci">Likelihood(const Data &amp;data, const Params &amp;param)</div><div class="ttdoc">Constructs a Likelihood object.</div><div class="ttdef"><b>Definition</b> Likelihood.hpp:62</div></div>
 <div class="ttc" id="aclassLikelihood_html_ab1af66318d8b64eff5162e5973b4c256"><div class="ttname"><a href="classLikelihood.html#ab1af66318d8b64eff5162e5973b4c256">Likelihood::point_loglikelihood_cond</a></div><div class="ttdeci">double point_loglikelihood_cond(int point_index, int cluster_index) const</div><div class="ttdoc">Calculates the conditional log-likelihood of assigning a point to a cluster.</div><div class="ttdef"><b>Definition</b> Likelihood.cpp:102</div></div>
 <div class="ttc" id="aclassLikelihood_html_aefb5c3a772c975a5727c7d760d1e58a3"><div class="ttname"><a href="classLikelihood.html#aefb5c3a772c975a5727c7d760d1e58a3">Likelihood::cluster_loglikelihood</a></div><div class="ttdeci">double cluster_loglikelihood(int cluster_index) const</div><div class="ttdoc">Calculates the full log-likelihood of a cluster.</div><div class="ttdef"><b>Definition</b> Likelihood.cpp:14</div></div>
-<div class="ttc" id="astructParams_html"><div class="ttname"><a href="structParams.html">Params</a></div><div class="ttdef"><b>Definition</b> Params.hpp:7</div></div>
+<div class="ttc" id="astructParams_html"><div class="ttname"><a href="structParams.html">Params</a></div><div class="ttdoc">Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...</div><div class="ttdef"><b>Definition</b> Params.hpp:35</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.13.2-->
