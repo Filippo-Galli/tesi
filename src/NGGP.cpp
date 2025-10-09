@@ -82,33 +82,66 @@ double NGGP::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci, int c
     return log_acceptance_ratio;
 }
 
-void NGGP::update_U() {
-    /**
-     * @brief Updates U using Metropolis-Hastings with change of variable V = log(U).
-     * @details Uses a Gaussian proposal kernel with mean V and variance 1/4.
-     * The conditional density f_{V|π}(v) is log-concave, making MH efficient.
-    */
+// void NGGP::update_U() {
+//     /**
+//      * @brief Updates U using Metropolis-Hastings with change of variable V = log(U).
+//      * @details Uses a Gaussian proposal kernel with mean V and variance 1/4.
+//      * The conditional density f_{V|π}(v) is log-concave, making MH efficient.
+//     */
     
-    // Current value V = log(U)
+//     // Current value V = log(U)
+//     double V_current = std::log(U);
+    
+//     // Propose new V' from N(V, 1/4)
+//     std::normal_distribution<double> proposal(V_current, proposal_std); 
+//     const double V_proposed = proposal(gen);
+    
+//     // Compute log conditional densities (unnormalized)
+//     const double log_density_current = log_conditional_density_V(V_current);
+//     const double log_density_proposed = log_conditional_density_V(V_proposed);
+    
+//     // Compute acceptance ratio (log scale)
+//     double log_acceptance_ratio = log_density_proposed - log_density_current;
+    
+//     // Accept/reject
+//     std::uniform_real_distribution<double> unif(0.0, 1.0);
+//     if (std::log(unif(gen)) < log_acceptance_ratio) { // Accept
+//         U = std::exp(V_proposed);
+//         accepted_U++;
+//     }
+// }
+
+void NGGP::update_U() {
+    // Slice sampling for V = log(U)
     double V_current = std::log(U);
     
-    // Propose new V' from N(V, 1/4)
-    std::normal_distribution<double> proposal(V_current, proposal_std); 
-    const double V_proposed = proposal(gen);
-    
-    // Compute log conditional densities (unnormalized)
-    const double log_density_current = log_conditional_density_V(V_current);
-    const double log_density_proposed = log_conditional_density_V(V_proposed);
-    
-    // Compute acceptance ratio (log scale)
-    double log_acceptance_ratio = log_density_proposed - log_density_current;
-    
-    // Accept/reject
+    // Step 1: Sample vertical level
     std::uniform_real_distribution<double> unif(0.0, 1.0);
-    if (std::log(unif(gen)) < log_acceptance_ratio) { // Accept
-        U = std::exp(V_proposed);
-        accepted_U++;
-    }
+    double log_density_current = log_conditional_density_V(V_current);
+    double log_y = log_density_current + std::log(unif(gen));
+    
+    // Step 2: Create initial interval around V_current
+    double w = 2.0; // Width parameter - tune this
+    double L = V_current - w * unif(gen);
+    double R = L + w;
+    
+    // Step 3: Step out to find slice boundaries
+    while (log_conditional_density_V(L) > log_y) L -= w;
+    while (log_conditional_density_V(R) > log_y) R += w;
+    
+    // Step 4: Shrinkage sampling
+    double V_proposed;
+    do {
+        V_proposed = L + (R - L) * unif(gen);
+        if (log_conditional_density_V(V_proposed) > log_y) {
+            U = std::exp(V_proposed);
+            accepted_U++;
+            return;
+        }
+        // Shrink interval
+        if (V_proposed < V_current) L = V_proposed;
+        else R = V_proposed;
+    } while (true);
 }
 
 double NGGP::log_conditional_density_V(double v) const {
