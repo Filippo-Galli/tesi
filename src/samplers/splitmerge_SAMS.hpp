@@ -13,10 +13,7 @@
 
 #pragma once
 
-#include "Likelihood.hpp"
-#include "Sampler.hpp"
-#include <Eigen/Dense>
-#include <random>
+#include "../utils/Sampler.hpp"
 
 /**
  * @brief Sequential Allocation Merge-Split (SAMS) sampler for Bayesian

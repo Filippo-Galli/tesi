@@ -12,7 +12,6 @@
  */
 
 #include "DPW.hpp"
-#include <math.h>
 
 int DPW::get_neighbors_obs(int obs_idx, int cls_idx) const {
   /**

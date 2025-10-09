@@ -13,10 +13,7 @@
 
 #pragma once
 
-#include "Likelihood.hpp"
-#include "Process.hpp"
-#include "Sampler.hpp"
-#include <random>
+#include "../utils/Sampler.hpp"
 
 /**
  * @brief Implementation of Neal's Algorithm 3 for collapsed Gibbs sampling

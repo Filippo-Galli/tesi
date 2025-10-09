@@ -14,9 +14,9 @@
 #pragma once
 
 #include "Data.hpp"
-#include "Likelihood.hpp"
 #include "Params.hpp"
 #include <Eigen/Dense>
+#include <random>
 
 /**
  * @brief Abstract base class for Bayesian nonparametric processes

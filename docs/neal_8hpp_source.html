@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Thesis docs: src/neal.hpp Source File</title>
+<title>Thesis docs: src/samplers/neal.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -108,45 +108,40 @@ $(function(){initNavTree('neal_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="Likelihood_8hpp.html">Likelihood.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="Process_8hpp.html">Process.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="Sampler_8hpp.html">Sampler.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;random&gt;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span></div>
-<div class="foldopen" id="foldopen00044" data-start="{" data-end="};">
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classNeal3.html">   44</a></span><span class="keyword">class </span><a class="code hl_function" href="classNeal3.html#ad50c5edb8fddcf84043fa2aa1249f9ea">Neal3</a> : <span class="keyword">public</span> <a class="code hl_function" href="classSampler.html#a13b15d8c01c34c6d78d93a6ba091e6aa">Sampler</a> {</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="comment">// ========== Random Number Generation ==========</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  <span class="keyword">mutable</span> std::mt19937 gen;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <span class="comment">// ========== Core Algorithm Methods ==========</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <span class="keywordtype">void</span> step_1_observation(<span class="keywordtype">int</span> index);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="comment">// ========== Constructor ==========</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span></div>
-<div class="foldopen" id="foldopen00083" data-start="{" data-end="}">
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="classNeal3.html#ad50c5edb8fddcf84043fa2aa1249f9ea">   83</a></span>  <a class="code hl_function" href="classNeal3.html#ad50c5edb8fddcf84043fa2aa1249f9ea">Neal3</a>(<a class="code hl_class" href="classData.html">Data</a> &amp;d, <a class="code hl_struct" href="structParams.html">Params</a> &amp;p, <a class="code hl_class" href="classLikelihood.html">Likelihood</a> &amp;l, <a class="code hl_class" href="classProcess.html">Process</a> &amp;pr)</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>      : <a class="code hl_function" href="classSampler.html#a13b15d8c01c34c6d78d93a6ba091e6aa">Sampler</a>(d, p, l, pr), gen(<a class="code hl_variable" href="classSampler.html#abec9d161c1e486904e6d2869890c4be3">rd</a>()) {};</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="Sampler_8hpp.html">../utils/Sampler.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="};">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="classNeal3.html">   41</a></span><span class="keyword">class </span><a class="code hl_function" href="classNeal3.html#ad50c5edb8fddcf84043fa2aa1249f9ea">Neal3</a> : <span class="keyword">public</span> <a class="code hl_function" href="classSampler.html#a13b15d8c01c34c6d78d93a6ba091e6aa">Sampler</a> {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <span class="comment">// ========== Random Number Generation ==========</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keyword">mutable</span> std::mt19937 gen;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  <span class="comment">// ========== Core Algorithm Methods ==========</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <span class="keywordtype">void</span> step_1_observation(<span class="keywordtype">int</span> index);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <span class="comment">// ========== Constructor ==========</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span></div>
+<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="classNeal3.html#ad50c5edb8fddcf84043fa2aa1249f9ea">   80</a></span>  <a class="code hl_function" href="classNeal3.html#ad50c5edb8fddcf84043fa2aa1249f9ea">Neal3</a>(<a class="code hl_class" href="classData.html">Data</a> &amp;d, <a class="code hl_struct" href="structParams.html">Params</a> &amp;p, <a class="code hl_class" href="classLikelihood.html">Likelihood</a> &amp;l, <a class="code hl_class" href="classProcess.html">Process</a> &amp;pr)</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>      : <a class="code hl_function" href="classSampler.html#a13b15d8c01c34c6d78d93a6ba091e6aa">Sampler</a>(d, p, l, pr), gen(<a class="code hl_variable" href="classSampler.html#abec9d161c1e486904e6d2869890c4be3">rd</a>()) {};</div>
 </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  <span class="comment">// ========== MCMC Interface ==========</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span></div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classNeal3.html#abfabb9dfe80f6fce1c93ac4151279f86">step</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>};</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  <span class="comment">// ========== MCMC Interface ==========</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classNeal3.html#abfabb9dfe80f6fce1c93ac4151279f86">step</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>};</div>
 </div>
-<div class="ttc" id="aLikelihood_8hpp_html"><div class="ttname"><a href="Likelihood_8hpp.html">Likelihood.hpp</a></div><div class="ttdoc">Likelihood computation for clustering with cohesion and repulsion.</div></div>
-<div class="ttc" id="aProcess_8hpp_html"><div class="ttname"><a href="Process_8hpp.html">Process.hpp</a></div><div class="ttdoc">Abstract interface for Bayesian nonparametric processes.</div></div>
 <div class="ttc" id="aSampler_8hpp_html"><div class="ttname"><a href="Sampler_8hpp.html">Sampler.hpp</a></div><div class="ttdoc">Abstract base class for MCMC sampling algorithms.</div></div>
 <div class="ttc" id="aclassData_html"><div class="ttname"><a href="classData.html">Data</a></div><div class="ttdoc">Manages distance matrices and cluster allocations for points.</div><div class="ttdef"><b>Definition</b> Data.hpp:26</div></div>
 <div class="ttc" id="aclassLikelihood_html"><div class="ttname"><a href="classLikelihood.html">Likelihood</a></div><div class="ttdoc">Computes log-likelihood for clusters based on distance-based cohesion and repulsion.</div><div class="ttdef"><b>Definition</b> Likelihood.hpp:19</div></div>
-<div class="ttc" id="aclassNeal3_html_abfabb9dfe80f6fce1c93ac4151279f86"><div class="ttname"><a href="classNeal3.html#abfabb9dfe80f6fce1c93ac4151279f86">Neal3::step</a></div><div class="ttdeci">void step() override</div><div class="ttdoc">Perform one complete iteration of Neal&#39;s Algorithm 3.</div><div class="ttdef"><b>Definition</b> neal.cpp:76</div></div>
-<div class="ttc" id="aclassNeal3_html_ad50c5edb8fddcf84043fa2aa1249f9ea"><div class="ttname"><a href="classNeal3.html#ad50c5edb8fddcf84043fa2aa1249f9ea">Neal3::Neal3</a></div><div class="ttdeci">Neal3(Data &amp;d, Params &amp;p, Likelihood &amp;l, Process &amp;pr)</div><div class="ttdoc">Constructor for Neal&#39;s Algorithm 3 sampler.</div><div class="ttdef"><b>Definition</b> neal.hpp:83</div></div>
+<div class="ttc" id="aclassNeal3_html_abfabb9dfe80f6fce1c93ac4151279f86"><div class="ttname"><a href="classNeal3.html#abfabb9dfe80f6fce1c93ac4151279f86">Neal3::step</a></div><div class="ttdeci">void step() override</div><div class="ttdoc">Perform one complete iteration of Neal&#39;s Algorithm 3.</div><div class="ttdef"><b>Definition</b> neal.cpp:73</div></div>
+<div class="ttc" id="aclassNeal3_html_ad50c5edb8fddcf84043fa2aa1249f9ea"><div class="ttname"><a href="classNeal3.html#ad50c5edb8fddcf84043fa2aa1249f9ea">Neal3::Neal3</a></div><div class="ttdeci">Neal3(Data &amp;d, Params &amp;p, Likelihood &amp;l, Process &amp;pr)</div><div class="ttdoc">Constructor for Neal&#39;s Algorithm 3 sampler.</div><div class="ttdef"><b>Definition</b> neal.hpp:80</div></div>
 <div class="ttc" id="aclassProcess_html"><div class="ttname"><a href="classProcess.html">Process</a></div><div class="ttdoc">Abstract base class for Bayesian nonparametric processes.</div><div class="ttdef"><b>Definition</b> Process.hpp:41</div></div>
-<div class="ttc" id="aclassSampler_html_a13b15d8c01c34c6d78d93a6ba091e6aa"><div class="ttname"><a href="classSampler.html#a13b15d8c01c34c6d78d93a6ba091e6aa">Sampler::Sampler</a></div><div class="ttdeci">Sampler(Data &amp;d, Params &amp;p, Likelihood &amp;l, Process &amp;pr)</div><div class="ttdoc">Constructor initializing sampler with required components.</div><div class="ttdef"><b>Definition</b> Sampler.hpp:94</div></div>
-<div class="ttc" id="aclassSampler_html_abec9d161c1e486904e6d2869890c4be3"><div class="ttname"><a href="classSampler.html#abec9d161c1e486904e6d2869890c4be3">Sampler::rd</a></div><div class="ttdeci">std::random_device rd</div><div class="ttdoc">Random device for generating random numbers across sampling algorithms.</div><div class="ttdef"><b>Definition</b> Sampler.hpp:70</div></div>
+<div class="ttc" id="aclassSampler_html_a13b15d8c01c34c6d78d93a6ba091e6aa"><div class="ttname"><a href="classSampler.html#a13b15d8c01c34c6d78d93a6ba091e6aa">Sampler::Sampler</a></div><div class="ttdeci">Sampler(Data &amp;d, Params &amp;p, Likelihood &amp;l, Process &amp;pr)</div><div class="ttdoc">Constructor initializing sampler with required components.</div><div class="ttdef"><b>Definition</b> Sampler.hpp:98</div></div>
+<div class="ttc" id="aclassSampler_html_abec9d161c1e486904e6d2869890c4be3"><div class="ttname"><a href="classSampler.html#abec9d161c1e486904e6d2869890c4be3">Sampler::rd</a></div><div class="ttdeci">std::random_device rd</div><div class="ttdoc">Random device for generating random numbers across sampling algorithms.</div><div class="ttdef"><b>Definition</b> Sampler.hpp:74</div></div>
 <div class="ttc" id="astructParams_html"><div class="ttname"><a href="structParams.html">Params</a></div><div class="ttdoc">Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...</div><div class="ttdef"><b>Definition</b> Params.hpp:35</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -154,7 +149,7 @@ $(function(){initNavTree('neal_8hpp_source.html',''); initResizable(true); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="neal_8hpp.html">neal.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_fdd3f31bfd79da2fa696b86608579c72.html">samplers</a></li><li class="navelem"><a class="el" href="neal_8hpp.html">neal.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>

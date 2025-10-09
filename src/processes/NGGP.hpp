@@ -1,25 +1,24 @@
 /**
- * @file NGGPW.hpp
- * @brief Normalized Generalized Gamma Process with spatial weights (NGGPW)
- * implementation for spatially-aware Bayesian nonparametric clustering.
+ * @file NGGP.hpp
+ * @brief Normalized Generalized Gamma Process (NGGP) implementation for
+ * Bayesian nonparametric clustering.
  */
 
 #pragma once
 
-#include "Process.hpp"
-#include <random>
+#include "../utils/Process.hpp"
 
 /**
- * @class NGGPW
- * @brief Normalized Generalized Gamma Process with spatial Weights class for
- * spatially-aware Bayesian nonparametric clustering.
+ * @class NGGP
+ * @brief Normalized Generalized Gamma Process class for Bayesian nonparametric
+ * clustering.
  *
- * This class extends the Normalized Generalized Gamma Process (NGGP) to
- * incorporate spatial information through an adjacency matrix W. It combines
- * the flexibility of the NGGP in modeling cluster sizes with spatial
- * dependencies between observations.
+ * This class implements a Normalized Generalized Gamma Process (NGGP) that
+ * extends the Dirichlet Process by incorporating a latent variable U. The NGGP
+ * provides more flexibility in modeling cluster sizes and incorporates adaptive
+ * behavior through the U parameter.
  */
-class NGGPW : public Process {
+class NGGP : public Process {
 
 private:
   /**
@@ -105,14 +104,13 @@ private:
 
 public:
   /**
-   * @brief Constructor for the Normalized Generalized Gamma Process with
-   * spatial Weights.
+   * @brief Constructor for the Normalized Generalized Gamma Process.
    * @param d Reference to the data object containing observations and cluster
    * assignments.
    * @param p Reference to the parameters object containing NGGP parameters (a,
-   * sigma, tau) and spatial information (W, coefficient).
+   * sigma, tau).
    */
-  NGGPW(Data &d, Params &p) : Process(d, p), gen(rd()) {};
+  NGGP(Data &d, Params &p) : Process(d, p), gen(rd()) {};
 
   /**
    * @name Gibbs Sampling Methods
@@ -123,10 +121,11 @@ public:
    * @brief Computes the log prior probability of assigning a data point to an
    * existing cluster.
    *
-   * For NGGPW, this combines the NGGP discount parameter (n_k - sigma) with
-   * spatial information from the adjacency matrix W.
+   * For NGGP, this incorporates the discount parameter sigma, giving
+   * probability proportional to (n_k - sigma) where n_k is the cluster size.
    * @param cls_idx The index of the cluster.
-   * @param obs_idx The index of the observation to assign.
+   * @param obs_idx The index of the observation (default: 0, unused in this
+   * implementation).
    * @return The log prior probability of assigning the data point to the
    * existing cluster.
    */
@@ -137,7 +136,7 @@ public:
    * @brief Computes the log prior probability of assigning a data point to a
    * new cluster.
    *
-   * For NGGPW, this follows the NGGP formulation and is proportional to
+   * For NGGP, this depends on the latent variable U and is proportional to
    * alpha * sigma * (tau + U)^sigma.
    * @return The log prior probability of assigning the data point to a new
    * cluster.
@@ -152,12 +151,11 @@ public:
    */
 
   /**
-   * @brief Computes the prior ratio for a split operation in a spatially-aware
-   * NGGP-based split-merge MCMC algorithm.
+   * @brief Computes the prior ratio for a split operation in an NGGP-based
+   * split-merge MCMC algorithm.
    *
-   * This method accounts for both the generalized gamma process prior and
-   * spatial dependencies when computing the acceptance ratio for splitting
-   * clusters.
+   * This method accounts for the generalized gamma process prior when computing
+   * the acceptance ratio for splitting clusters.
    * @param ci The first cluster index involved in the split.
    * @param cj The second cluster index involved in the split.
    * @return The log prior ratio for the split operation.
@@ -165,12 +163,11 @@ public:
   [[nodiscard]] double prior_ratio_split(int ci, int cj) const override;
 
   /**
-   * @brief Computes the prior ratio for a merge operation in a spatially-aware
-   * NGGP-based split-merge MCMC algorithm.
+   * @brief Computes the prior ratio for a merge operation in an NGGP-based
+   * split-merge MCMC algorithm.
    *
-   * This method accounts for both the generalized gamma process prior and
-   * spatial dependencies when computing the acceptance ratio for merging
-   * clusters.
+   * This method accounts for the generalized gamma process prior when computing
+   * the acceptance ratio for merging clusters.
    * @param size_old_ci The size of the first cluster before the merge.
    * @param size_old_cj The size of the second cluster before the merge.
    * @return The log prior ratio for the merge operation.
@@ -179,12 +176,11 @@ public:
                                          int size_old_cj) const override;
 
   /**
-   * @brief Computes the prior ratio for a shuffle operation in a
-   * spatially-aware NGGP-based split-merge MCMC algorithm.
+   * @brief Computes the prior ratio for a shuffle operation in an NGGP-based
+   * split-merge MCMC algorithm.
    *
-   * This method accounts for both the generalized gamma process prior and
-   * spatial dependencies when computing the acceptance ratio for shuffling
-   * observations between clusters.
+   * This method accounts for the generalized gamma process prior when computing
+   * the acceptance ratio for shuffling observations between clusters.
    * @param size_old_ci The size of the first cluster before the shuffle.
    * @param size_old_cj The size of the second cluster before the shuffle.
    * @param ci The first cluster index involved in the shuffle.
@@ -197,45 +193,12 @@ public:
   /** @} */
 
   /**
-   * @name Spatial Methods
-   * @{
-   */
-
-  /**
-   * @brief Returns the number of neighbors for a given observation in a
-   * specific cluster.
-   *
-   * This method counts the neighbors of an observation based on the adjacency
-   * matrix W, considering only neighbors that belong to the specified cluster.
-   * @param obs_idx The index of the observation.
-   * @param cls_idx The index of the cluster to consider for neighbor counting.
-   * @return The number of neighbors for the observation in the specified
-   * cluster.
-   */
-  int get_neighbors_obs(int obs_idx, int cls_idx) const;
-
-  /**
-   * @brief Returns the total number of neighbors for all observations in a
-   * given cluster.
-   *
-   * This method computes the sum of all neighbor connections within a cluster,
-   * which is used in the spatial component of the prior calculations.
-   * @param cls_idx The index of the cluster.
-   * @param old_allo If true, uses the old allocations for neighbor counting;
-   * otherwise, uses current allocations (default: false).
-   * @return The total number of neighbors for the cluster.
-   */
-  int get_neighbors_cls(int cls_idx, bool old_allo = false) const;
-
-  /** @} */
-
-  /**
    * @name Parameter Update Methods
    * @{
    */
 
   /**
-   * @brief Updates the NGGPW parameters by updating the latent variable U.
+   * @brief Updates the NGGP parameters by updating the latent variable U.
    */
   void update_params() override { update_U(); };
 

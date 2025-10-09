@@ -12,9 +12,6 @@
  */
 
 #include "splitmerge_SAMS.hpp"
-#include "Eigen/src/Core/Matrix.h"
-#include "Process.hpp"
-#include "Rcpp/iostream/Rstreambuf.h"
 
 void SplitMerge_SAMS::choose_indeces() {
   /**

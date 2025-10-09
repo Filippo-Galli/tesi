@@ -14,10 +14,7 @@
 
 #pragma once
 
-#include "Likelihood.hpp"
-#include "Sampler.hpp"
-#include <Eigen/Dense>
-#include <random>
+#include "../utils/Sampler.hpp"
 
 /**
  * @brief Split-Merge sampler for Bayesian nonparametric mixture models

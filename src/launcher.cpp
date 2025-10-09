@@ -13,21 +13,21 @@
 
 // [[Rcpp::depends(RcppEigen)]]
 
-#include "neal.hpp"
-#include "splitmerge.hpp"
-#include "splitmerge_SAMS.hpp"
+#include "samplers/neal.hpp"
+#include "samplers/splitmerge.hpp"
+#include "samplers/splitmerge_SAMS.hpp"
 // #include "splitmerge_SDDS.hpp"
 
-#include "DP.hpp"
-#include "DPW.hpp"
-#include "NGGP.hpp"
-#include "NGGPW.hpp"
+#include "processes/DP.hpp"
+#include "processes/DPW.hpp"
+#include "processes/NGGP.hpp"
+#include "processes/NGGPW.hpp"
 
-#include "Data.hpp"
-#include "Likelihood.hpp"
-#include "Params.hpp"
-#include "Process.hpp"
-#include "Rcpp/vector/instantiation.h"
+#include "utils/Data.hpp"
+#include "utils/Likelihood.hpp"
+#include "utils/Params.hpp"
+#include "utils/Process.hpp"
+
 #include <chrono>
 
 /**
@@ -111,22 +111,18 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
 
   // Initialize the Bayesian non-parametric process
   // Uncomment the desired process type:
-  // DP process(data, param);      // Dirichlet Process
+  DP process(data, param);      // Dirichlet Process
   // DPW process(data, param);     // Dirichlet Process with Weights
   // NGGP process(data, param);    // Normalized Generalized Gamma Process
-  NGGPW process(data,
-                param); // Normalized Generalized Gamma Process with Weights
+  // NGGPW process(data,param); // Normalized Generalized Gamma Process with Weights
 
   // Initialize sampling algorithms
-  Neal3 gibbs(data, param, likelihood,
-              process); // Gibbs sampler (Neal Algorithm 3)
+  Neal3 gibbs(data, param, likelihood,process); // Gibbs sampler (Neal Algorithm 3)
 
   // Choose the main sampling strategy:
-  SplitMerge sampler(data, param, likelihood, process,
-                     true); // Split-Merge sampler
-  // SplitMerge_SAMS sampler(data, param, likelihood, process, true);    //
-  // Split-Merge with SAMS SplitMerge_SDDS sampler(data, param, likelihood,
-  // process, true);    // Split-Merge with SDDS
+  //SplitMerge sampler(data, param, likelihood, process, true); // Split-Merge sampler
+  SplitMerge_SAMS sampler(data, param, likelihood, process, true);    // Split-Merge with SAMS 
+  // SplitMerge_SDDS sampler(data, param, likelihood, process, true);    // Split-Merge with SDDS
 
   // Initialize results container to store MCMC output
   Rcpp::List results = Rcpp::List::create(
@@ -167,7 +163,7 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
     Rcpp::as<Rcpp::List>(results["allocations"])[i] =
         Rcpp::wrap(data.get_allocations());
     Rcpp::as<Rcpp::List>(results["K"])[i] = data.get_K();
-    Rcpp::as<Rcpp::NumericVector>(results["U"])[i] = process.get_U();
+    // Rcpp::as<Rcpp::NumericVector>(results["U"])[i] = process.get_U();
 
     // Print progress information at regular intervals
     if ((i + 1) % printing_interval == 0) {
@@ -193,9 +189,9 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
       << "MCMC completed in : "
       << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count()
       << " seconds." << std::endl;
-  std::cout << "Accepted U ratio: "
-            << process.get_accepted_U() * 100 / (param.NI + param.BI) << " %."
-            << std::endl;
+  // std::cout << "Accepted U ratio: "
+  //           << process.get_accepted_U() * 100 / (param.NI + param.BI) << " %."
+  //           << std::endl;
 
   return results;
 }

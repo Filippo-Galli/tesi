@@ -12,10 +12,7 @@
  */
 
 #include "neal.hpp"
-#include "Process.hpp"
-#include <Rcpp.h>
-#include <algorithm>
-#include <random>
+
 using namespace Rcpp;
 
 void Neal3::step_1_observation(int index) {

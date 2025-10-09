@@ -6,8 +6,7 @@
 
 #pragma once
 
-#include "Process.hpp"
-#include <Eigen/Dense>
+#include "../utils/Process.hpp"
 
 /**
  * @class DPW

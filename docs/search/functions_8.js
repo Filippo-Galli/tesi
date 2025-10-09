@@ -8,5 +8,5 @@ var searchData=
   ['set_5fold_5fallocations_5',['set_old_allocations',['../classProcess.html#a6174151176ec3d063ac441e5a80d0c44',1,'Process']]],
   ['splitmerge_6',['SplitMerge',['../classSplitMerge.html#a6c697d29cdb44012ebe037e19745ed8e',1,'SplitMerge']]],
   ['splitmerge_5fsams_7',['SplitMerge_SAMS',['../classSplitMerge__SAMS.html#af812bf4c32fef71ddae082bfa26d1465',1,'SplitMerge_SAMS']]],
-  ['step_8',['step',['../classNeal3.html#abfabb9dfe80f6fce1c93ac4151279f86',1,'Neal3::step()'],['../classSampler.html#a49153313f42d53d107bfe2b2e9d83fa5',1,'Sampler::step()'],['../classSplitMerge.html#a87c7ea9050b7157ae5af7d4e63bb16bf',1,'SplitMerge::step()'],['../classSplitMerge__SAMS.html#a198db7f37403e0f7093771f03ca961e6',1,'SplitMerge_SAMS::step()']]]
+  ['step_8',['step',['../classSampler.html#a49153313f42d53d107bfe2b2e9d83fa5',1,'Sampler::step()'],['../classNeal3.html#abfabb9dfe80f6fce1c93ac4151279f86',1,'Neal3::step()'],['../classSplitMerge.html#a87c7ea9050b7157ae5af7d4e63bb16bf',1,'SplitMerge::step()'],['../classSplitMerge__SAMS.html#a198db7f37403e0f7093771f03ca961e6',1,'SplitMerge_SAMS::step()']]]
 ];

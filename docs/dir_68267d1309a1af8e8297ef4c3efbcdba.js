@@ -1,25 +1,7 @@
 var dir_68267d1309a1af8e8297ef4c3efbcdba =
 [
-    [ "Data.cpp", "Data_8cpp.html", null ],
-    [ "Data.hpp", "Data_8hpp.html", "Data_8hpp" ],
-    [ "DP.cpp", "DP_8cpp.html", null ],
-    [ "DP.hpp", "DP_8hpp.html", "DP_8hpp" ],
-    [ "DPW.cpp", "DPW_8cpp.html", null ],
-    [ "DPW.hpp", "DPW_8hpp.html", "DPW_8hpp" ],
-    [ "launcher.cpp", "launcher_8cpp.html", "launcher_8cpp" ],
-    [ "Likelihood.cpp", "Likelihood_8cpp.html", null ],
-    [ "Likelihood.hpp", "Likelihood_8hpp.html", "Likelihood_8hpp" ],
-    [ "neal.cpp", "neal_8cpp.html", null ],
-    [ "neal.hpp", "neal_8hpp.html", "neal_8hpp" ],
-    [ "NGGP.cpp", "NGGP_8cpp.html", null ],
-    [ "NGGP.hpp", "NGGP_8hpp.html", "NGGP_8hpp" ],
-    [ "NGGPW.cpp", "NGGPW_8cpp.html", null ],
-    [ "NGGPW.hpp", "NGGPW_8hpp.html", "NGGPW_8hpp" ],
-    [ "Params.hpp", "Params_8hpp.html", "Params_8hpp" ],
-    [ "Process.hpp", "Process_8hpp.html", "Process_8hpp" ],
-    [ "Sampler.hpp", "Sampler_8hpp.html", "Sampler_8hpp" ],
-    [ "splitmerge.cpp", "splitmerge_8cpp.html", null ],
-    [ "splitmerge.hpp", "splitmerge_8hpp.html", "splitmerge_8hpp" ],
-    [ "splitmerge_SAMS.cpp", "splitmerge__SAMS_8cpp.html", null ],
-    [ "splitmerge_SAMS.hpp", "splitmerge__SAMS_8hpp.html", "splitmerge__SAMS_8hpp" ]
+    [ "processes", "dir_c330bf96caf2ae7a48d1d88aea65ed18.html", "dir_c330bf96caf2ae7a48d1d88aea65ed18" ],
+    [ "samplers", "dir_fdd3f31bfd79da2fa696b86608579c72.html", "dir_fdd3f31bfd79da2fa696b86608579c72" ],
+    [ "utils", "dir_313caf1132e152dd9b58bea13a4052ca.html", "dir_313caf1132e152dd9b58bea13a4052ca" ],
+    [ "launcher.cpp", "launcher_8cpp.html", "launcher_8cpp" ]
 ];

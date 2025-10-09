@@ -12,9 +12,6 @@
  */
 
 #include "splitmerge.hpp"
-#include "Eigen/src/Core/Matrix.h"
-#include "Process.hpp"
-#include "Rcpp/iostream/Rstreambuf.h"
 
 void SplitMerge::choose_indeces() {
   /**

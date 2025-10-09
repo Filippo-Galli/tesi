@@ -17,7 +17,11 @@
 #include "Likelihood.hpp"
 #include "Params.hpp"
 #include "Process.hpp"
+
 #include <random>
+#include <Rcpp.h>
+#include <algorithm>
+#include <Eigen/Dense>
 
 /**
  * @brief Abstract base class for MCMC sampler implementations
