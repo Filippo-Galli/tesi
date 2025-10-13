@@ -63,6 +63,8 @@ private:
    */
   void step_1_observation(int index);
 
+  int sample_from_log_probs(const std::vector<double>& log_probs);
+
 public:
   // ========== Constructor ==========
 

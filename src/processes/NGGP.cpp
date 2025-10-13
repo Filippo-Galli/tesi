@@ -28,9 +28,7 @@ double NGGP::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) const {
    */
 
   int cluster_size = data.get_cluster_size(cls_idx);
-  return (cluster_size - params.sigma > 0)
-             ? log(cluster_size - params.sigma)
-             : std::numeric_limits<double>::lowest();
+  return (cluster_size - params.sigma > 0) ? log(cluster_size - params.sigma) : std::numeric_limits<double>::lowest();
 }
 
 double NGGP::gibbs_prior_new_cluster() const {
@@ -139,8 +137,7 @@ double NGGP::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci,
 
 //     // Compute log conditional densities (unnormalized)
 //     const double log_density_current = log_conditional_density_V(V_current);
-//     const double log_density_proposed =
-//     log_conditional_density_V(V_proposed);
+//     const double log_density_proposed = log_conditional_density_V(V_proposed);
 
 //     // Compute acceptance ratio (log scale)
 //     double log_acceptance_ratio = log_density_proposed - log_density_current;
@@ -218,12 +215,19 @@ double NGGP::log_conditional_density_V(double v) const {
   // log(e^{vn}) = vn
   const double term1 = v * n;
 
-  // log((e^v + τ)^{n-a|π|}) = (n - a*K) * log(e^v + τ)
-  const double term2 = -(n - params.a * K) * std::log(exp_v + tau);
+  // log((e^v + τ)^{n-a|π|}) = - (n - a*K) * log(e^v + τ)
+  const double term2 = - (n - params.a * K) * std::log(exp_v + tau);
 
   // -(a/σ)((e^v+τ)^σ - τ^σ)
-  const double term3 =
-      -a_over_sigma * (std::pow(exp_v + tau, params.sigma) - tau_power_sigma);
+  const double term3 = - a_over_sigma * (std::pow(exp_v + tau, params.sigma) - tau_power_sigma);
+  
+  Rcpp::Rcout << "Current: n=" << data.get_n() 
+              << " K=" << data.get_K() 
+              << " a=" << params.a 
+              << " sigma=" << params.sigma 
+              << " tau=" << params.tau 
+              << " a*K=" << params.a * data.get_K() << std::endl;
+  Rcpp::Rcout << "U: " << U << " V: " << v << " - Term1: " << term1 << " - Term 2: " << term2  << " - Term 3: " << term3 << std::endl;
 
   return term1 + term2 + term3;
 }

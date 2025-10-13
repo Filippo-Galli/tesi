@@ -186,6 +186,8 @@ void SplitMerge::merge_move() {
   std::uniform_real_distribution<> dis(0.0, 1.0);
   if (log(dis(gen)) > acceptance_ratio) // move not accepted
     data.set_allocations(original_allocations);
+  else
+    accepted_merge++;
 }
 
 void SplitMerge::split_move() {
@@ -222,6 +224,8 @@ void SplitMerge::split_move() {
   std::uniform_real_distribution<> dis2(0.0, 1.0);
   if (log(dis2(gen)) > acceptance_ratio) // move not accepted
     data.set_allocations(original_allocations);
+  else
+    accepted_split++;
 }
 
 double
@@ -277,9 +281,10 @@ void SplitMerge::shuffle() {
 
   // Accept or reject the move
   std::uniform_real_distribution<> acceptance_ratio_dis(0.0, 1.0);
-  if (log(acceptance_ratio_dis(gen)) >
-      log_acceptance_ratio) // move not accepted
+  if (log(acceptance_ratio_dis(gen)) > log_acceptance_ratio) // move not accepted
     data.set_allocations(original_allocations);
+  else
+    accepted_shuffle++;
 }
 
 double SplitMerge::compute_acceptance_ratio_shuffle(double likelihood_old_ci,
@@ -367,8 +372,7 @@ void SplitMerge::step() {
    */
 
   choose_indeces();
-  process.set_old_allocations(
-      data.get_allocations()); // Update old allocations in the process
+  process.set_old_allocations(data.get_allocations()); // Update old allocations in the process
   process.set_idx_i(idx_i);
   process.set_idx_j(idx_j);
 
@@ -380,8 +384,7 @@ void SplitMerge::step() {
 
   if (shuffle_bool) {
     choose_clusters_shuffle();
-    process.set_old_allocations(
-        data.get_allocations()); // Update old allocations in the process
+    process.set_old_allocations(data.get_allocations()); // Update old allocations in the process
     process.set_idx_i(idx_i);
     process.set_idx_j(idx_j);
     shuffle();

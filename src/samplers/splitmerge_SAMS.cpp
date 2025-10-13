@@ -191,6 +191,8 @@ void SplitMerge_SAMS::merge_move() {
   std::uniform_real_distribution<> dis(0.0, 1.0);
   if (log(dis(gen)) > acceptance_ratio) // move not accepted
     data.set_allocations(original_allocations);
+  else
+    accepted_merge++;
 }
 
 void SplitMerge_SAMS::split_move() {
@@ -227,6 +229,8 @@ void SplitMerge_SAMS::split_move() {
   std::uniform_real_distribution<> dis2(0.0, 1.0);
   if (log(dis2(gen)) > acceptance_ratio) // move not accepted
     data.set_allocations(original_allocations);
+  else
+    accepted_split++;
 }
 
 double
@@ -281,9 +285,10 @@ void SplitMerge_SAMS::shuffle() {
 
   // Accept or reject the move
   std::uniform_real_distribution<> acceptance_ratio_dis(0.0, 1.0);
-  if (log(acceptance_ratio_dis(gen)) >
-      log_acceptance_ratio) // move not accepted
+  if (log(acceptance_ratio_dis(gen)) > log_acceptance_ratio) // move not accepted
     data.set_allocations(original_allocations);
+  else
+    accepted_shuffle++;
 }
 
 double SplitMerge_SAMS::compute_acceptance_ratio_shuffle(

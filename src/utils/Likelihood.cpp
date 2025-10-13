@@ -105,9 +105,7 @@ double Likelihood::point_loglikelihood_cond(int point_index,
   const auto cls_ass_k = data.get_cluster_assignments(cluster_index);
 
   // Check if this is a new cluster (index == K) or existing cluster
-  int n_k = (cluster_index != data.get_K())
-                ? data.get_cluster_size(cluster_index)
-                : 0;
+  int n_k = (cluster_index != data.get_K()) ? data.get_cluster_size(cluster_index) : 0;
 
   /* -------------------- Cohesion part -------------------------- */
   double coeh = compute_cohesion(point_index, cluster_index, cls_ass_k, n_k);
@@ -142,7 +140,7 @@ double Likelihood::compute_cohesion(int point_index, int cluster_index,
   double beta_mh = params.beta + sum_i;
 
   // Cohesion likelihood using gamma distribution
-  loglik += (-n_k) * lgamma(params.delta1);   // Product normalization
+  loglik += (-n_k) * lgamma_delta1;   // Product normalization
   loglik += (params.delta1 - 1) * log_prod_i; // Distance product term
 
   // Normalization constant
@@ -158,9 +156,14 @@ double Likelihood::compute_repulsion(int point_index, int cluster_index,
                                      int n_k) const {
   double loglik = 0;
 
+  int num_cluster = data.get_K();
+
+  if(num_cluster == 1 || num_cluster == 0)
+    return 0;
+
   // Parallel computation of repulsion from all other clusters
   #pragma omp parallel for reduction(+:loglik)
-  for (int t = 0; t < data.get_K(); ++t) {
+  for (int t = 0; t < num_cluster; ++t) {
     if (t == cluster_index)
       continue;
 

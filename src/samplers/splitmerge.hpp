@@ -87,6 +87,11 @@ private:
    * (merge direction) */
   double log_merge_gibbs_prob = 0;
 
+  // ========== Debug variables ==========
+  int accepted_split = 0;
+  int accepted_merge = 0;
+  int accepted_shuffle = 0;
+
   // ========== Move Selection Methods ==========
 
   /**
@@ -219,4 +224,23 @@ public:
    * based on the cluster assignments of the selected observations.
    */
   void step() override;
+
+  // ========== Accessor Methods ==========
+  /**
+   * @brief Get number of accepted split moves for diagnostics
+   * @return Count of accepted split moves
+   */
+  int get_accepted_split() const { return accepted_split; };
+
+  /**
+   * @brief Get number of accepted merge moves for diagnostics
+   * @return Count of accepted merge moves
+   */
+  int get_accepted_merge() const { return accepted_merge; };
+
+  /**
+   * @brief Get number of accepted shuffle moves for diagnostics
+   * @return Count of accepted shuffle moves
+   */
+  int get_accepted_shuffle() const { return accepted_shuffle; };
 };

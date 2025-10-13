@@ -15,6 +15,34 @@
 
 using namespace Rcpp;
 
+// In neal.cpp, could be a private helper in Neal3 or a free function
+int Neal3::sample_from_log_probs(const std::vector<double>& log_probs) {
+  // 1. Log-Sum-Exp trick for numerical stability
+  double max_loglik = *std::max_element(log_probs.begin(), log_probs.end());
+  
+  std::vector<double> weights(log_probs.size());
+  double sum_weights = 0.0;
+  for (size_t i = 0; i < log_probs.size(); ++i) {
+      weights[i] = exp(log_probs[i] - max_loglik);
+      sum_weights += weights[i];
+  }
+
+  // 2. Roulette wheel selection
+  std::uniform_real_distribution<double> unif(0.0, sum_weights);
+  double u = unif(gen);
+
+  int sampled_idx = -1;
+  for (size_t i = 0; i < weights.size(); ++i) {
+      u -= weights[i];
+      if (u < 0.0) {
+          sampled_idx = i;
+          break;
+      }
+  }
+  // Fallback for floating point inaccuracies
+  return (sampled_idx != -1) ? sampled_idx : weights.size() - 1;
+}
+
 void Neal3::step_1_observation(int index) {
   /**
    * @brief Performs a step in the DPNeal2 sampling process.
@@ -33,8 +61,7 @@ void Neal3::step_1_observation(int index) {
     log_likelihoods[k] = likelihood.point_loglikelihood_cond(index, k);
 
   // Compute the log likelihood of the point being in a new cluster
-  log_likelihoods[data.get_K()] =
-      likelihood.point_loglikelihood_cond(index, data.get_K());
+  log_likelihoods[data.get_K()] = likelihood.point_loglikelihood_cond(index, data.get_K());
 
   // multiply by the prior probability of the cluster
   for (int k = 0; k < data.get_K(); ++k) {
@@ -43,28 +70,27 @@ void Neal3::step_1_observation(int index) {
   log_likelihoods[data.get_K()] += process.gibbs_prior_new_cluster();
 
   // Normalize the log likelihoods
-  double max_loglik =
-      *std::max_element(log_likelihoods.begin(), log_likelihoods.end());
-  std::vector<double> probs(log_likelihoods);
+  // double max_loglik = *std::max_element(log_likelihoods.begin(), log_likelihoods.end());
+  // std::vector<double> probs(log_likelihoods);
 
-  for (double &prob : probs) {
-    prob = exp(prob - max_loglik);
-  }
-  double sum_probs = std::accumulate(probs.begin(), probs.end(), 0.0);
-  for (double &prob : probs) {
-    prob /= sum_probs;
-  }
+  // for (double &prob : probs) {
+  //   prob = exp(prob - max_loglik);
+  // }
+  // double sum_probs = std::accumulate(probs.begin(), probs.end(), 0.0);
+  // for (double &prob : probs) {
+  //   prob /= sum_probs;
+  // }
 
   // DEBUG
   // Rcpp::Rcout << "Log likelihoods and probabilities for data point " << index
-  // << ":" << std::endl; for (int i = 0; i < probs.size(); ++i) {
-  //     Rcpp::Rcout << "\tCluster " << i << ": l = " << log_likelihoods[i] << "
-  //     p = "<< probs[i] << std::endl;
+  // << ":" << std::endl; 
+  // for (int i = 0; i < log_likelihoods.size(); ++i) {
+  //     Rcpp::Rcout << "\tCluster " << i << ": l = " << log_likelihoods[i] << std::endl;
   // }
 
   // Sample a cluster based on the probabilities
-  std::discrete_distribution<int> dist(probs.begin(), probs.end());
-  int sampled_cluster = dist(gen);
+  // std::discrete_distribution<int> dist(probs.begin(), probs.end());
+  int sampled_cluster = sample_from_log_probs(log_likelihoods);
 
   // Set the allocation for the data point
   data.set_allocation(index, sampled_cluster);
@@ -75,6 +101,11 @@ void Neal3::step() {
    * @brief Performs a single step of the DP Neal 2 algorithm for all the
    * dataset.
    */
+
+  // // Create and shuffle a vector of indices
+  // std::vector<int> indices(data.get_n());
+  // std::iota(indices.begin(), indices.end(), 0);
+  // std::shuffle(indices.begin(), indices.end(), gen);
 
   for (int j = 0; j < data.get_n(); ++j) {
     step_1_observation(j);
