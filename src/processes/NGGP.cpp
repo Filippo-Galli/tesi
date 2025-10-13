@@ -221,13 +221,5 @@ double NGGP::log_conditional_density_V(double v) const {
   // -(a/σ)((e^v+τ)^σ - τ^σ)
   const double term3 = - a_over_sigma * (std::pow(exp_v + tau, params.sigma) - tau_power_sigma);
   
-  Rcpp::Rcout << "Current: n=" << data.get_n() 
-              << " K=" << data.get_K() 
-              << " a=" << params.a 
-              << " sigma=" << params.sigma 
-              << " tau=" << params.tau 
-              << " a*K=" << params.a * data.get_K() << std::endl;
-  Rcpp::Rcout << "U: " << U << " V: " << v << " - Term1: " << term1 << " - Term 2: " << term2  << " - Term 3: " << term3 << std::endl;
-
   return term1 + term2 + term3;
 }

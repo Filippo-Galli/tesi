@@ -14,6 +14,7 @@
 // [[Rcpp::depends(RcppEigen)]]
 
 #include "samplers/neal.hpp"
+#include "samplers/neal_ZDNAM.hpp"
 #include "samplers/splitmerge.hpp"
 #include "samplers/splitmerge_SAMS.hpp"
 // #include "splitmerge_SDDS.hpp"
@@ -41,8 +42,7 @@
 RCPP_MODULE(params_module) {
   Rcpp::class_<Params>("Params")
       .constructor<double, double, double, double, double, double, int, int,
-                   double, double, double, double, Eigen::MatrixXi>(
-          "Constructor with W matrix")
+                   double, double, double, double, Eigen::MatrixXi>("Constructor with W matrix")
       .constructor("Default constructor")
       .field("delta1", &Params::delta1, "Parameter for the first gamma")
       .field("alpha", &Params::alpha, "Parameter for the lambda_k gamma")
@@ -112,12 +112,13 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   // Initialize the Bayesian non-parametric process
   // Uncomment the desired process type:
   DP process(data, param);      // Dirichlet Process
-  // DPW process(data, param);     // Dirichlet Process with Weights
-  // NGGP process(data, param);    // Normalized Generalized Gamma Process
-  // NGGPW process(data,param); // Normalized Generalized Gamma Process with Weights
+  //DPW process(data, param);     // Dirichlet Process with Weights
+  //NGGP process(data, param);    // Normalized Generalized Gamma Process
+  //NGGPW process(data,param); // Normalized Generalized Gamma Process with Weights
 
   // Initialize sampling algorithms
   Neal3 gibbs(data, param, likelihood,process); // Gibbs sampler (Neal Algorithm 3)
+  //Neal3ZDNAM sampler(data, param, likelihood, process); // Gibbs sampler with ZDNAM
 
   // Choose the main sampling strategy:
   //SplitMerge sampler(data, param, likelihood, process, true); // Split-Merge sampler
@@ -126,21 +127,16 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
 
   // Initialize results container to store MCMC output
   Rcpp::List results = Rcpp::List::create(
-      Rcpp::Named("allocations") =
-          Rcpp::List(param.NI + param.BI),                // Cluster assignments
+      Rcpp::Named("allocations") = Rcpp::List(param.NI + param.BI),                // Cluster assignments
       Rcpp::Named("K") = Rcpp::List(param.NI + param.BI), // Number of clusters
-      Rcpp::Named("loglikelihood") = Rcpp::NumericVector(
-          param.NI + param.BI, 0.0), // Log-likelihood values
-      Rcpp::Named("U") =
-          Rcpp::NumericVector(param.NI + param.BI, 0.0) // Process parameter U
+      Rcpp::Named("loglikelihood") = Rcpp::NumericVector(param.NI + param.BI, 0.0), // Log-likelihood values
+      Rcpp::Named("U") = Rcpp::NumericVector(param.NI + param.BI, 0.0) // Process parameter U
   );
 
   // Print MCMC configuration and start timing
-  std::cout << "Starting MCMC with " << param.NI << " iterations after "
-            << param.BI << " burn-in iterations." << std::endl;
+  std::cout << "Starting MCMC with " << param.NI << " iterations after " << param.BI << " burn-in iterations." << std::endl;
 
-  std::chrono::steady_clock::time_point begin =
-      std::chrono::steady_clock::now();
+  std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
   // Calculate progress reporting interval (5% of total iterations)
   int printing_interval = int((param.NI + param.BI) * 0.05);
@@ -149,49 +145,50 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   // Main MCMC loop
   for (int i = 0; i < param.NI + param.BI; ++i) {
 
-    // Perform one MCMC step using the chosen sampler
-    sampler.step();
-
-    // Optional: Perform Gibbs step every 50 iterations (currently disabled)
-    // if(i % 50 == 0)
-    //   gibbs.step();
-
     // Update process-specific parameters
     process.update_params();
 
+    // Perform one MCMC step using the chosen sampler
+    sampler.step();
+
+    // Optional: Perform Gibbs step 
+    // if(i % 100 == 0)
+    //   gibbs.step();
+
     // Store results for current iteration
-    Rcpp::as<Rcpp::List>(results["allocations"])[i] =
-        Rcpp::wrap(data.get_allocations());
+    Rcpp::as<Rcpp::List>(results["allocations"])[i] = Rcpp::wrap(data.get_allocations());
     Rcpp::as<Rcpp::List>(results["K"])[i] = data.get_K();
-    // Rcpp::as<Rcpp::NumericVector>(results["U"])[i] = process.get_U();
+    
+    //Rcpp::as<Rcpp::NumericVector>(results["U"])[i] = process.get_U();
 
     // Print progress information at regular intervals
     if ((i + 1) % printing_interval == 0) {
       std::cout << "Iteration " << i + 1 << ": ";
-      auto elapsed_seconds =
-          std::chrono::duration_cast<std::chrono::milliseconds>(
-              std::chrono::steady_clock::now() - begin)
-              .count() /
-          1000.0;
+      auto elapsed_seconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - begin).count() / 1000.0;
       if (elapsed_seconds > 0) {
         iter_s = static_cast<double>(i + 1) / elapsed_seconds;
       } else {
         iter_s = 0.0;
       }
-      std::cout << "Number of clusters: " << data.get_K()
-                << " iter/s: " << iter_s << std::endl;
+      std::cout << "Number of clusters: " << data.get_K() << " iter/s: " << iter_s << std::endl;
     }
   }
 
   // Calculate and display final timing and acceptance statistics
   std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-  std::cout
-      << "MCMC completed in : "
-      << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count()
-      << " seconds." << std::endl;
-  // std::cout << "Accepted U ratio: "
-  //           << process.get_accepted_U() * 100 / (param.NI + param.BI) << " %."
-  //           << std::endl;
+  std::cout << "MCMC completed in : " << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() << " seconds." << std::endl;
+
+  //std::cout << "Accepted U ratio: " << process.get_accepted_U() * 100 / (param.NI + param.BI) << " %." << std::endl;
+
+  std::cout << "Accepted split ratio: "
+            << sampler.get_accepted_split() * 100 * 2 / (param.NI + param.BI) 
+            << " %." << std::endl;
+  std::cout << "Accepted merge ratio: "
+            << sampler.get_accepted_merge() * 100 * 2 / (param.NI + param.BI) 
+            << " %." << std::endl;  
+  std::cout << "Accepted shuffle ratio: "
+            << sampler.get_accepted_shuffle() * 100 / (param.NI + param.BI)
+            << " %." << std::endl;
 
   return results;
 }

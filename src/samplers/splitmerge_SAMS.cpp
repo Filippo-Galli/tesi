@@ -73,20 +73,20 @@ void SplitMerge_SAMS::choose_indeces() {
 #endif
 }
 
-void SplitMerge_SAMS::sequential_allocation(int iterations,
-                                            bool only_probabilities) {
+void SplitMerge_SAMS::sequential_allocation(int iterations, bool only_probabilities, bool sequential) {
   /**
    * @brief Perform restricted Gibbs sampling on the points in S to propose new
    * allocations for iter iterations.
    * @param iterations Number of Gibbs sampling iterations to perform.
    * @param only_probabilities If true, only compute the probabilities without
+   * @param sequential If true, unallocate points before sampling (default true)
    * changing allocations (used in merge move).
    */
 
   for (int i = 0; i < iterations; ++i) {
 
     // Unallocate all points in S
-    for (int idx = 0; idx < S.size(); ++idx) {
+    for (int idx = 0; idx < S.size() && sequential; ++idx) {
       data.set_allocation(S(idx), -1); // Unallocate point
     }
 
@@ -145,8 +145,7 @@ SplitMerge_SAMS::compute_acceptance_ratio_merge(double likelihood_old_ci,
   // Prior ratio
   int size_old_ci = (original_allocations.array() == ci).count();
   int size_old_cj = (original_allocations.array() == cj).count();
-  double log_acceptance_ratio =
-      process.prior_ratio_merge(size_old_ci, size_old_cj);
+  double log_acceptance_ratio = process.prior_ratio_merge(size_old_ci, size_old_cj);
 
   // Likelihood ratio
   log_acceptance_ratio += likelihood.cluster_loglikelihood(ci);
@@ -154,7 +153,6 @@ SplitMerge_SAMS::compute_acceptance_ratio_merge(double likelihood_old_ci,
   log_acceptance_ratio -= likelihood_old_cj;
 
   // Proposal ratio
-  sequential_allocation(1, true); // only compute probabilities
   log_acceptance_ratio += log_merge_gibbs_prob;
 
   return log_acceptance_ratio;
@@ -173,8 +171,9 @@ void SplitMerge_SAMS::merge_move() {
   double likelihood_old_ci = likelihood.cluster_loglikelihood(ci);
   double likelihood_old_cj = likelihood.cluster_loglikelihood(cj);
 
-  data.set_allocation(
-      idx_j, ci); // Temporarily assign j to ci for likelihood computation
+  sequential_allocation(1, true); // only compute probabilities
+
+  data.set_allocation(idx_j, ci); // Temporarily assign j to ci for likelihood computation
 
   // Propose new allocations by merging clusters ci and cj
   for (int idx = 0; idx < launch_state.size(); ++idx) {
@@ -184,8 +183,7 @@ void SplitMerge_SAMS::merge_move() {
   }
 
   // Compute acceptance ratio
-  double acceptance_ratio =
-      compute_acceptance_ratio_merge(likelihood_old_ci, likelihood_old_cj);
+  double acceptance_ratio = compute_acceptance_ratio_merge(likelihood_old_ci, likelihood_old_cj);
 
   // Accept or reject the move
   std::uniform_real_distribution<> dis(0.0, 1.0);
@@ -222,8 +220,7 @@ void SplitMerge_SAMS::split_move() {
   sequential_allocation(1);
 
   // Compute acceptance ratio
-  double acceptance_ratio =
-      compute_acceptance_ratio_split(likelihood_old_cluster);
+  double acceptance_ratio = compute_acceptance_ratio_split(likelihood_old_cluster);
 
   // Accept or reject the move
   std::uniform_real_distribution<> dis2(0.0, 1.0);
@@ -276,12 +273,14 @@ void SplitMerge_SAMS::shuffle() {
   int old_ci_size = data.get_cluster_size(ci);
   int old_cj_size = data.get_cluster_size(cj);
 
+  // Compute probabilities
+  sequential_allocation(1, true, false); // only compute probabilities
+
   // Use restricted gibbs to refine the allocations
-  sequential_allocation(1);
+  sequential_allocation(3, false, false);
 
   // Compute acceptance ratio
-  double log_acceptance_ratio = compute_acceptance_ratio_shuffle(
-      likelihood_old_ci, likelihood_old_cj, old_ci_size, old_cj_size);
+  double log_acceptance_ratio = compute_acceptance_ratio_shuffle(likelihood_old_ci, likelihood_old_cj, old_ci_size, old_cj_size);
 
   // Accept or reject the move
   std::uniform_real_distribution<> acceptance_ratio_dis(0.0, 1.0);
@@ -300,8 +299,7 @@ double SplitMerge_SAMS::compute_acceptance_ratio_shuffle(
    */
 
   // Prior ratio
-  double log_acceptance_ratio =
-      process.prior_ratio_shuffle(old_ci_size, old_cj_size, ci, cj);
+  double log_acceptance_ratio = process.prior_ratio_shuffle(old_ci_size, old_cj_size, ci, cj);
 
   // Likelihood ratio
   log_acceptance_ratio += likelihood.cluster_loglikelihood(ci);
@@ -311,7 +309,6 @@ double SplitMerge_SAMS::compute_acceptance_ratio_shuffle(
 
   // Proposal ratio
   log_acceptance_ratio -= log_split_gibbs_prob;
-  sequential_allocation(1, true); // only compute probabilities
   log_acceptance_ratio += log_merge_gibbs_prob;
 
   return log_acceptance_ratio;

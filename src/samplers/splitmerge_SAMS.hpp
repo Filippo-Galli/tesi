@@ -127,7 +127,7 @@ private:
    * processes observations one by one in random order, making allocation
    * decisions based on current partial assignments.
    */
-  void sequential_allocation(int iterations, bool only_probabilities = false);
+  void sequential_allocation(int iterations, bool only_probabilities = false, bool sequential = true);
 
   // ========== Split Move Implementation ==========
 
