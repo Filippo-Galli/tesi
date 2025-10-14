@@ -124,12 +124,58 @@ ggplot(repulsion_data, aes(x = distance, y = repulsion_value, color = factor(gam
   theme_minimal()
 
 
-# Plot Weidbull distribution for all the distances ----
-weibull_data <- data.frame(distance = distances)
-weibull_data$weibull_value <- dweibull(weibull_data$distance, shape = 3, scale = 2)
-ggplot(weibull_data, aes(x = distance, y = weibull_value)) +
-  geom_line(color = "blue") +
-  labs(x = "Distance",
-       y = "Weibull Density",
-       title = "Weibull Distribution (shape=3, scale=2)") +
-  theme_minimal()
+# Density of v
+log_conditional_density_V <- function(v, K, n, a, sigma, tau) {
+  
+  # Pre-compute exp(v)
+  exp_v <- exp(v)
+  
+  # Pre-compute frequently used values
+  a_over_sigma <- a / sigma
+  tau_power_sigma <- tau^sigma
+  
+  # Compute log density components
+  # log(e^{vn}) = vn
+  term1 <- v * n
+  
+  # log((e^v + τ)^{n-a|π|}) = -(n - a*K) * log(e^v + τ)
+  term2 <- -(n - a * K) * log(exp_v + tau)
+  
+  # -(a/σ)((e^v+τ)^σ - τ^σ)
+  term3 <- -a_over_sigma * ((exp_v + tau)^sigma - tau_power_sigma)
+  
+  # Return log density
+  return(term1 + term2 + term3)
+}
+
+# Set parameters
+params <- list(
+  pi = 25,
+  n = 100,
+  a = 1,
+  sigma = 0.1,
+  tau = 1
+)
+
+# Create sequence of v values
+v_values <- seq(0, 40, length.out = 2000)
+
+# Calculate densities
+densities <- f_V_given_pi(
+  v = v_values,
+  pi = params$pi,
+  n = params$n,
+  a = params$a,
+  sigma = params$sigma,
+  tau = params$tau
+)
+
+# Plot the density function
+plot(v_values, densities, 
+      type = "l", 
+      lwd = 2,
+      col = "blue",
+      xlab = "v",
+      ylab = expression(f[paste(V,"|",pi)](v)),
+      main = "Conditional Probability Density Function")
+grid()

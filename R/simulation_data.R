@@ -22,7 +22,10 @@ set.seed(44)
 
 ## Path to simulation data folder
 ## @details Contains simulated data with Natarajan model parameters
-folder <- "simulation_data/Natarajan_0.2sigma_50d"
+sigma <- 0.2
+d <- 50
+namefile <- paste0("Natarajan_", sigma, "sigma_", d, "d")
+folder <- paste0("simulation_data/", namefile)
 
 ## Load simulated datasets
 ## @param all_data Matrix of observed data points
@@ -92,8 +95,8 @@ param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  2000, 10000, 1, # BI, NI, a,
-  0.4, 1, 1, # sigma, tau, coeff spatial dep
+  2000, 10000, 0.1, # BI, NI, a,
+  0.7, 1, 1, # sigma, tau, coeff spatial dep 
   W # Spatial adjacency matrix
 )
 
@@ -103,7 +106,7 @@ param <- new(
 
 ## Initialize cluster allocations
 ## @details Multiple initialization strategies available:
-## 
+##
 ## Option 1: All-in-one allocation (all points in single cluster)
 ## @code
 ## hyperparams$initial_clusters <- rep(0, nrow(dist_matrix))
@@ -152,6 +155,8 @@ if (file.exists(log_file)) {
   file.remove(log_file) # Remove previous log file
 }
 
+hyperparams$initial_clusters <- ground_truth - 1 # For testing purposes, start from ground truth
+
 ## Execute MCMC and capture console output
 results <- capture.output(
   {
@@ -170,7 +175,11 @@ results <- capture.output(
 ## @param param Parameter object used in analysis
 ## @param name Custom name for saved output files
 ## @details Uncomment to save results with specific naming scheme
-# save_with_name(folder, param, "DP_Neal2W1_SMW1_kmeans_025_10")
+process <- "DP" # Dirichlet Process
+method <- "splitmerge50_Neal1" # MCMC method used
+initialization <- "kmeans" # Initialization strategy)
+filename <- paste0(process, "_", method, "_", initialization, "_", sigma, "sigma_", d, "d")
+# save_with_name(folder, param, filename)
 
 # ==============================================================================
 # Visualization
@@ -183,3 +192,15 @@ results <- capture.output(
 ## @param BI Number of burn-in iterations to exclude
 ## @details Generates diagnostic plots for convergence and cluster assignments
 plot_mcmc_results(mcmc_result, as.factor(ground_truth), BI = param$BI)
+
+# ==============================================================================
+# Plot U Trace
+# ==============================================================================
+
+## Plot trace of auxiliary variable U over MCMC iterations
+
+plot(mcmc_result$U, type = "l", xlab = "Iteration", ylab = "U")
+abline(h = mean(mcmc_result$U), col = "red", lty = 2)
+legend("topright", legend = c("Mean U"), col = c("red"), lty = 2)
+titolo <- paste0("Trace of U over MCMC iterations (mean U = ", round(mean(mcmc_result$U), 3), ")")
+title(main = titolo)
