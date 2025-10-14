@@ -53,10 +53,8 @@ int NGGPW::get_neighbors_cls(int cls_idx, bool old_allo) const {
    * @return The total number of neighbors for the cluster.
    */
 
-  Eigen::VectorXi allocations_to_use =
-      old_allo ? old_allocations : data.get_allocations();
-  Eigen::VectorXi obs_in_cluster =
-      (allocations_to_use.array() == cls_idx).cast<int>();
+  Eigen::VectorXi allocations_to_use = old_allo ? old_allocations : data.get_allocations();
+  Eigen::VectorXi obs_in_cluster = (allocations_to_use.array() == cls_idx).cast<int>();
   const int total_neighbors = (params.W * obs_in_cluster).sum();
   return total_neighbors;
 }
@@ -76,9 +74,7 @@ double NGGPW::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) const {
 
   const int cluster_size = data.get_cluster_size(cls_idx);
   double prior = params.coefficient * get_neighbors_obs(obs_idx, cls_idx);
-  prior = cluster_size - params.sigma > 0
-              ? prior + log(cluster_size - params.sigma)
-              : std::numeric_limits<double>::lowest();
+  prior = cluster_size - params.sigma > 0 ? prior + log(cluster_size - params.sigma) : std::numeric_limits<double>::lowest();
   return prior;
 }
 
@@ -88,10 +84,11 @@ double NGGPW::gibbs_prior_new_cluster() const {
    * new cluster.
    *
    * For NGGPW, this follows the NGGP formulation and is proportional to
-   * alpha * sigma * (tau + U)^sigma.
+   * alpha * sigma * (tau + U)^sigma. New clusters have zero spatial neighbors.
    * @return The log prior probability of assigning the data point to a new
    * cluster.
    */
+
   return log_a + params.sigma * log(params.tau + U);
 }
 
@@ -111,16 +108,15 @@ double NGGPW::prior_ratio_split(int ci, int cj) const {
   const int n_ci = data.get_cluster_size(ci);
   const int n_cj = data.get_cluster_size(cj);
 
+  // NGGP prior part
   double log_acceptance_ratio = 0.0;
   log_acceptance_ratio += log_a;
   log_acceptance_ratio += params.sigma * log(params.tau + U);
-  log_acceptance_ratio -=
-      n_ci + n_cj - params.sigma > 0 ? lgamma(n_ci + n_cj - params.sigma) : 0;
-  log_acceptance_ratio +=
-      n_ci - params.sigma > 0 ? lgamma(n_ci - params.sigma) : 0;
-  log_acceptance_ratio +=
-      n_cj - params.sigma > 0 ? lgamma(n_cj - params.sigma) : 0;
+  log_acceptance_ratio -= n_ci + n_cj - params.sigma > 0 ? lgamma(n_ci + n_cj - params.sigma) : 0;
+  log_acceptance_ratio += n_ci - params.sigma > 0 ? lgamma(n_ci - params.sigma) : 0;
+  log_acceptance_ratio += n_cj - params.sigma > 0 ? lgamma(n_cj - params.sigma) : 0;
 
+  // Spatial part: add new clusters, subtract old merged cluster
   log_acceptance_ratio += params.coefficient * get_neighbors_cls(ci);
   log_acceptance_ratio += params.coefficient * get_neighbors_cls(cj);
   log_acceptance_ratio -= params.coefficient * get_neighbors_cls(ci, true);
@@ -143,11 +139,12 @@ double NGGPW::prior_ratio_merge(int size_old_ci, int size_old_cj) const {
 
   const int size_merge = size_old_ci + size_old_cj;
 
+  // NGGP prior part
   double log_acceptance_ratio = -log_a;
   log_acceptance_ratio -= params.sigma * log(params.tau + U);
-  log_acceptance_ratio += lgamma(size_merge - params.sigma);
-  log_acceptance_ratio -= lgamma(size_old_ci - params.sigma);
-  log_acceptance_ratio -= lgamma(size_old_cj - params.sigma);
+  log_acceptance_ratio += size_merge - params.sigma > 0 ? lgamma(size_merge - params.sigma) : 0;
+  log_acceptance_ratio -= size_old_ci - params.sigma > 0 ? lgamma(size_old_ci - params.sigma) : 0;
+  log_acceptance_ratio -= size_old_cj - params.sigma > 0 ? lgamma(size_old_cj - params.sigma) : 0;
 
   // Spatial part
   const int old_ci = old_allocations[idx_i];
@@ -181,14 +178,16 @@ double NGGPW::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci,
   const int n_cj = data.get_cluster_size(cj);
 
   double log_acceptance_ratio = 0.0;
-  log_acceptance_ratio +=
-      n_ci - params.sigma > 0 ? lgamma(n_ci - params.sigma) : 0;
-  log_acceptance_ratio +=
-      n_cj - params.sigma > 0 ? lgamma(n_cj - params.sigma) : 0;
-  log_acceptance_ratio -=
-      size_old_ci - params.sigma > 0 ? lgamma(size_old_ci - params.sigma) : 0;
-  log_acceptance_ratio -=
-      size_old_cj - params.sigma > 0 ? lgamma(size_old_cj - params.sigma) : 0;
+  log_acceptance_ratio += n_ci - params.sigma > 0 ? lgamma(n_ci - params.sigma) : 0;
+  log_acceptance_ratio += n_cj - params.sigma > 0 ? lgamma(n_cj - params.sigma) : 0;
+  log_acceptance_ratio -= size_old_ci - params.sigma > 0 ? lgamma(size_old_ci - params.sigma) : 0;
+  log_acceptance_ratio -= size_old_cj - params.sigma > 0 ? lgamma(size_old_cj - params.sigma) : 0;
+
+  // Spatial part
+  log_acceptance_ratio += params.coefficient * get_neighbors_cls(ci);
+  log_acceptance_ratio += params.coefficient * get_neighbors_cls(cj);
+  log_acceptance_ratio -= params.coefficient * get_neighbors_cls(ci, true);
+  log_acceptance_ratio -= params.coefficient * get_neighbors_cls(cj, true);
 
   return log_acceptance_ratio;
 }
@@ -294,8 +293,7 @@ double NGGPW::log_conditional_density_V(double v) const {
   const double term2 = -(n - params.a * K) * std::log(exp_v + tau);
 
   // -(a/σ)((e^v+τ)^σ - τ^σ)
-  const double term3 =
-      -a_over_sigma * (std::pow(exp_v + tau, params.sigma) - tau_power_sigma);
+  const double term3 = -a_over_sigma * (std::pow(exp_v + tau, params.sigma) - tau_power_sigma);
 
   return term1 + term2 + term3;
 }

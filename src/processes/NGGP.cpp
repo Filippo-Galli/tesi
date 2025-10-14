@@ -62,9 +62,9 @@ double NGGP::prior_ratio_split(int ci, int cj) const {
   double log_acceptance_ratio = 0.0;
   log_acceptance_ratio += log_a;
   log_acceptance_ratio += params.sigma * log(params.tau + U);
-  log_acceptance_ratio -= lgamma(n_ci + n_cj - params.sigma);
-  log_acceptance_ratio += lgamma(n_ci - params.sigma);
-  log_acceptance_ratio += lgamma(n_cj - params.sigma);
+  log_acceptance_ratio -= n_ci + n_cj - params.sigma > 0 ? lgamma(n_ci + n_cj - params.sigma) : 0;
+  log_acceptance_ratio += n_ci - params.sigma > 0 ? lgamma(n_ci - params.sigma) : 0;
+  log_acceptance_ratio += n_cj - params.sigma > 0 ? lgamma(n_cj - params.sigma) : 0;
 
   return log_acceptance_ratio;
 }
@@ -85,9 +85,9 @@ double NGGP::prior_ratio_merge(int size_old_ci, int size_old_cj) const {
 
   double log_acceptance_ratio = -log_a;
   log_acceptance_ratio -= params.sigma * log(params.tau + U);
-  log_acceptance_ratio += lgamma(size_merge - params.sigma);
-  log_acceptance_ratio -= lgamma(size_old_ci - params.sigma);
-  log_acceptance_ratio -= lgamma(size_old_cj - params.sigma);
+  log_acceptance_ratio += size_merge - params.sigma > 0 ? lgamma(size_merge - params.sigma) : 0;
+  log_acceptance_ratio -= size_old_ci - params.sigma > 0 ? lgamma(size_old_ci - params.sigma) : 0;
+  log_acceptance_ratio -= size_old_cj - params.sigma > 0 ? lgamma(size_old_cj - params.sigma) : 0;
 
   return log_acceptance_ratio;
 }
@@ -111,10 +111,10 @@ double NGGP::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci,
   const int n_cj = data.get_cluster_size(cj);
 
   double log_acceptance_ratio = 0.0;
-  log_acceptance_ratio += lgamma(n_ci - params.sigma);
-  log_acceptance_ratio += lgamma(n_cj - params.sigma);
-  log_acceptance_ratio -= lgamma(size_old_ci - params.sigma);
-  log_acceptance_ratio -= lgamma(size_old_cj - params.sigma);
+  log_acceptance_ratio += n_ci - params.sigma > 0 ? lgamma(n_ci - params.sigma) : 0;
+  log_acceptance_ratio += n_cj - params.sigma > 0 ? lgamma(n_cj - params.sigma) : 0;
+  log_acceptance_ratio -= size_old_ci - params.sigma > 0 ? lgamma(size_old_ci - params.sigma) : 0;
+  log_acceptance_ratio -= size_old_cj - params.sigma > 0 ? lgamma(size_old_cj - params.sigma) : 0;
 
   return log_acceptance_ratio;
 }

@@ -27,7 +27,7 @@ private:
    */
 
   /** @brief Latent variable U in the NGGP model. */
-  double U = 100;
+  double U = 1;
 
   /** @brief Parameter tau from the NGGP specification. */
   double tau = params.tau;
