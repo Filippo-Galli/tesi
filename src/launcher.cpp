@@ -14,7 +14,7 @@
 // [[Rcpp::depends(RcppEigen)]]
 
 #include "samplers/neal.hpp"
-#include "samplers/neal_ZDNAM.hpp"
+//#include "samplers/neal_ZDNAM.hpp"
 #include "samplers/splitmerge.hpp"
 #include "samplers/splitmerge_SAMS.hpp"
 // #include "splitmerge_SDDS.hpp"
@@ -117,12 +117,12 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   //NGGPW process(data,param); // Normalized Generalized Gamma Process with Weights
 
   // Initialize sampling algorithms
-  Neal3 gibbs(data, param, likelihood,process); // Gibbs sampler (Neal Algorithm 3)
+  Neal3 sampler(data, param, likelihood,process); // Gibbs sampler (Neal Algorithm 3)
   //Neal3ZDNAM sampler(data, param, likelihood, process); // Gibbs sampler with ZDNAM
 
   // Choose the main sampling strategy:
   //SplitMerge sampler(data, param, likelihood, process, true); // Split-Merge sampler
-  SplitMerge_SAMS sampler(data, param, likelihood, process, true);    // Split-Merge with SAMS 
+  //SplitMerge_SAMS sampler(data, param, likelihood, process, true);    // Split-Merge with SAMS 
   // SplitMerge_SDDS sampler(data, param, likelihood, process, true);    // Split-Merge with SDDS
 
   // Initialize results container to store MCMC output
@@ -152,7 +152,7 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
     sampler.step();
 
     // Optional: Perform Gibbs step 
-    // if(i % 100 == 0)
+    // if(i % 50 == 0)
     //   gibbs.step();
 
     // Store results for current iteration
@@ -180,15 +180,15 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
 
   //std::cout << "Accepted U ratio: " << process.get_accepted_U() * 100 / (param.NI + param.BI) << " %." << std::endl;
 
-  std::cout << "Accepted split ratio: "
-            << sampler.get_accepted_split() * 100 * 2 / (param.NI + param.BI) 
-            << " %." << std::endl;
-  std::cout << "Accepted merge ratio: "
-            << sampler.get_accepted_merge() * 100 * 2 / (param.NI + param.BI) 
-            << " %." << std::endl;  
-  std::cout << "Accepted shuffle ratio: "
-            << sampler.get_accepted_shuffle() * 100 / (param.NI + param.BI)
-            << " %." << std::endl;
+  // std::cout << "Accepted split ratio: "
+  //           << sampler.get_accepted_split() * 100 * 2 / (param.NI + param.BI) 
+  //           << " %." << std::endl;
+  // std::cout << "Accepted merge ratio: "
+  //           << sampler.get_accepted_merge() * 100 * 2 / (param.NI + param.BI) 
+  //           << " %." << std::endl;  
+  // std::cout << "Accepted shuffle ratio: "
+  //           << sampler.get_accepted_shuffle() * 100 / (param.NI + param.BI)
+  //           << " %." << std::endl;
 
   return results;
 }

@@ -31,6 +31,31 @@ double NGGP::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) const {
   return (cluster_size - params.sigma > 0) ? log(cluster_size - params.sigma) : std::numeric_limits<double>::lowest();
 }
 
+Eigen::VectorXd NGGP::gibbs_prior_existing_clusters(int obs_idx) const {
+  /**
+   * @brief Computes the log prior probabilities of assigning a data point to
+   * all existing clusters.
+   *
+   * This method incorporates spatial information by considering the number of
+   * neighbors in each target cluster when computing the prior probabilities.
+   * @param obs_idx The index of the observation to assign.
+   * @return A vector of log prior probabilities for assigning the data point to
+   * each existing cluster.
+   */
+
+  Eigen::VectorXd priors = Eigen::VectorXd::Zero(data.get_K());
+
+  // Compute prior for each existing cluster
+  for (int k = 0; k < data.get_K(); ++k) {
+    const int cluster_size = data.get_cluster_size(k);
+    double prior = cluster_size  - params.sigma > 0 ? log(cluster_size - params.sigma)
+                                    : std::numeric_limits<double>::lowest();
+    priors(k) = prior;
+  }
+
+  return priors;
+}
+
 double NGGP::gibbs_prior_new_cluster() const {
   /**
    * @brief Computes the log prior probability of assigning a data point to a

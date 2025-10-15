@@ -26,8 +26,24 @@ double DP::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) const {
    */
 
   const int cluster_size = data.get_cluster_size(cls_idx);
-  return (cluster_size > 0) ? log(cluster_size)
-                            : std::numeric_limits<double>::lowest();
+  return (cluster_size > 0) ? log(cluster_size) : std::numeric_limits<double>::lowest();
+}
+
+Eigen::VectorXd DP::gibbs_prior_existing_clusters(int obs_idx) const {
+  /**
+   * @brief Computes the log prior probabilities of assigning a data point to
+   * all existing clusters.
+   * @param obs_idx The index of the observation (unused in this
+   * implementation).
+   * @return A vector of log prior probabilities for all existing clusters.
+   */
+
+  Eigen::VectorXd log_priors(data.get_K());
+  for (int k = 0; k < data.get_K(); ++k) {
+      int cluster_size = data.get_cluster_size(k);
+      log_priors(k) = (cluster_size > 0) ? log(cluster_size) : std::numeric_limits<double>::lowest();
+  }
+  return log_priors;
 }
 
 double DP::gibbs_prior_new_cluster() const {

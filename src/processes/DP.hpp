@@ -43,6 +43,15 @@ public:
   gibbs_prior_existing_cluster(int cls_idx, int obs_idx = 0) const override;
 
   /**
+   * @brief Computes the log prior probabilities of assigning a data point to
+   * all existing clusters.
+   * @param obs_idx The index of the observation.
+   * @return A vector of log prior probabilities for all existing clusters.
+   */
+  [[nodiscard]] Eigen::VectorXd
+  gibbs_prior_existing_clusters(int obs_idx) const override;
+
+  /**
    * @brief Computes the log prior probability of assigning a data point to a
    * new cluster.
    * @return The log prior probability of assigning the data point to a new

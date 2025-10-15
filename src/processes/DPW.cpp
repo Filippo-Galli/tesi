@@ -13,6 +13,30 @@
 
 #include "DPW.hpp"
 
+Eigen::VectorXi DPW::get_neighbors_obs(int obs_idx) const {
+  /**
+   * @brief Returns the number of neighbors for a given observation
+   * regardless of cluster membership.
+   * This method counts the total number of neighbors of an observation
+   * based on the adjacency matrix W.
+   * @param obs_idx The index of the observation.
+   * @return The total number of neighbors for the observation for all clusters.
+   */
+
+  Eigen::VectorXi cluster_adjacency = Eigen::VectorXi::Zero(data.get_K());
+
+  // Extract the adjacency edges of index
+  Eigen::RowVectorXi row = params.W.row(obs_idx);
+  for (int i = 0; i < row.size(); ++i) {
+    int cluster_i = data.get_cluster_assignment(i);
+    if (row(i) == 1 && cluster_i != -1) {
+      cluster_adjacency(cluster_i) += 1;
+    }
+  }
+
+  return cluster_adjacency;
+}
+
 int DPW::get_neighbors_obs(int obs_idx, int cls_idx) const {
   /**
    * @brief Returns the number of neighbors for a given observation in a
@@ -59,6 +83,32 @@ int DPW::get_neighbors_cls(int cls_idx, bool old_allo) const {
       (allocations_to_use.array() == cls_idx).cast<int>();
   const int total_neighbors = (params.W * obs_in_cluster).sum();
   return total_neighbors;
+}
+
+Eigen::VectorXd DPW::gibbs_prior_existing_clusters(int obs_idx) const {
+  /**
+   * @brief Computes the log prior probabilities of assigning a data point to
+   * all existing clusters.
+   *
+   * This method incorporates spatial information by considering the number of
+   * neighbors in each target cluster when computing the prior probabilities.
+   * @param obs_idx The index of the observation to assign.
+   * @return A vector of log prior probabilities for assigning the data point to
+   * each existing cluster.
+   */
+
+  Eigen::VectorXd priors = Eigen::VectorXd::Zero(data.get_K());
+  Eigen::VectorXi neighbors = get_neighbors_obs(obs_idx);
+
+  // Compute prior for each existing cluster
+  for (int k = 0; k < data.get_K(); ++k) {
+    const int cluster_size = data.get_cluster_size(k);
+    double prior = cluster_size > 0 ? log(cluster_size)
+                                    : std::numeric_limits<double>::lowest();
+    priors(k) = prior + params.coefficient * neighbors(k);
+  }
+
+  return priors;
 }
 
 double DPW::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) const {

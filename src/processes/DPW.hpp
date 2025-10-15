@@ -7,6 +7,7 @@
 #pragma once
 
 #include "../utils/Process.hpp"
+#include "Eigen/src/Core/Matrix.h"
 
 /**
  * @class DPW
@@ -48,6 +49,15 @@ public:
    */
   [[nodiscard]] double gibbs_prior_existing_cluster(int cls_idx,
                                                     int obs_idx) const override;
+
+  /**
+    * @brief Computes the log prior probabilities of assigning a data point to every existing cluster.
+    * This method is useful for Gibbs sampling over existing clusters.
+    * It returns a vector of log prior probabilities for all existing clusters.
+    * @param obs_idx The index of the observation to assign.
+    * @return A vector of log prior probabilities for assigning the data point to each existing cluster.
+  */                                     
+  [[nodiscard]] Eigen::VectorXd gibbs_prior_existing_clusters(int obs_idx) const override;
 
   /**
    * @brief Computes the log prior probability of assigning a data point to a
@@ -124,6 +134,16 @@ public:
    * cluster.
    */
   int get_neighbors_obs(int obs_idx, int cls_idx) const;
+
+  /**
+   * @brief Returns the number of neighbors for a given observation
+   * regardless of cluster membership.
+   * This method counts the total number of neighbors of an observation
+   * based on the adjacency matrix W.
+   * @param obs_idx The index of the observation.
+   * @return The total number of neighbors for the observation for all clusters.
+   */
+  Eigen::VectorXi get_neighbors_obs(int obs_idx) const;
 
   /**
    * @brief Returns the total number of neighbors for all observations in a

@@ -90,8 +90,20 @@ public:
    * assigning an observation to an existing cluster in Gibbs sampling. The
    * exact computation depends on the specific process (DP, NGGP, etc.).
    */
-  virtual double gibbs_prior_existing_cluster(int cls_idx,
-                                              int obs_idx) const = 0;
+  virtual double gibbs_prior_existing_cluster(int cls_idx, int obs_idx) const = 0;
+
+  /**
+  * @brief Compute prior probabilities for assigning observation to all existing
+  * clusters
+  * @param obs_idx Index of the observation to be assigned
+  * @return Vector of log prior probabilities for all existing clusters
+  * @details This method computes the prior components of the probabilities for
+  * assigning an observation to each existing cluster in Gibbs sampling. The
+  * exact computation depends on the specific process (DP, NGGP, etc.).
+  * The returned vector has a length equal to the current number of clusters.
+  */
+
+  virtual Eigen::VectorXd gibbs_prior_existing_clusters(int obs_idx) const = 0;
 
   /**
    * @brief Compute prior probability for creating a new cluster

@@ -64,32 +64,13 @@ void Neal3::step_1_observation(int index) {
   log_likelihoods[data.get_K()] = likelihood.point_loglikelihood_cond(index, data.get_K());
 
   // multiply by the prior probability of the cluster
+  auto priors = process.gibbs_prior_existing_clusters(index);
   for (int k = 0; k < data.get_K(); ++k) {
-    log_likelihoods[k] += process.gibbs_prior_existing_cluster(k, index);
+    log_likelihoods[k] += priors(k);
   }
   log_likelihoods[data.get_K()] += process.gibbs_prior_new_cluster();
 
-  // Normalize the log likelihoods
-  // double max_loglik = *std::max_element(log_likelihoods.begin(), log_likelihoods.end());
-  // std::vector<double> probs(log_likelihoods);
-
-  // for (double &prob : probs) {
-  //   prob = exp(prob - max_loglik);
-  // }
-  // double sum_probs = std::accumulate(probs.begin(), probs.end(), 0.0);
-  // for (double &prob : probs) {
-  //   prob /= sum_probs;
-  // }
-
-  // DEBUG
-  // Rcpp::Rcout << "Log likelihoods and probabilities for data point " << index
-  // << ":" << std::endl; 
-  // for (int i = 0; i < log_likelihoods.size(); ++i) {
-  //     Rcpp::Rcout << "\tCluster " << i << ": l = " << log_likelihoods[i] << std::endl;
-  // }
-
   // Sample a cluster based on the probabilities
-  // std::discrete_distribution<int> dist(probs.begin(), probs.end());
   int sampled_cluster = sample_from_log_probs(log_likelihoods);
 
   // Set the allocation for the data point
