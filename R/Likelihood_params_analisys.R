@@ -20,12 +20,12 @@ repulsion_term <- function(distance, delta_2, zeta, gamma) {
   term1 * term2 * term3
 }
 
-distances <- seq(0.01, 10, by = 0.1)
+distances <- seq(0.1, 2.5, by = 0.1)
 
 # Cohesion Analysis ----
-delta_1_values <- seq(0.1, 0.9, by = 0.2)
-alpha_values <- seq(1, 10, by = 1)
-beta_values <- seq(1, 10, by = 1)
+delta_1_values <- seq(0.1, 1, by = 0.2)
+alpha_values <- seq(1, 10, by = 2)
+beta_values <- seq(1, 10, by = 2)
 
 ## Plotting Cohesion Term for different delta_1 values for all distances
 
@@ -43,6 +43,9 @@ ggplot(cohesion_data, aes(x = distance, y = cohesion_value, color = factor(delta
      color = "delta_1") +
   theme_minimal()
 
+### Save the plot
+# ggsave("cohesion_delta1_plot.png", width = 8, height = 6)
+
 ## Plotting Cohesion Term for different alpha values for all distances
 
 cohesion_data <- expand.grid(distance = distances, alpha = alpha_values)
@@ -59,8 +62,9 @@ ggplot(cohesion_data, aes(x = distance, y = cohesion_value, color = factor(alpha
      color = "alpha") +
   theme_minimal()
 
-## Plotting Cohesion Term for different alpha values for all distances
+# ggsave("cohesion_alpha_plot.png", width = 8, height = 6)
 
+## Plotting Cohesion Term for different beta values for all distances
 cohesion_data <- expand.grid(distance = distances, beta = beta_values)
 cohesion_data$cohesion_value <- mapply(cohesion_term, 
                     cohesion_data$distance, 
@@ -75,10 +79,30 @@ ggplot(cohesion_data, aes(x = distance, y = cohesion_value, color = factor(beta)
        color = "beta") +
   theme_minimal()
 
+ggsave("cohesion_beta_plot.png", width = 8, height = 6)
+
+# Simultaneous increment of alpha/2 and beta
+cohesion_data <- expand.grid(distance = distances, beta = beta_values)
+cohesion_data$cohesion_value <- mapply(cohesion_term, 
+                    cohesion_data$distance, 
+                    0.9, 
+                    alpha = cohesion_data$beta/2, beta = cohesion_data$beta)
+
+ggplot(cohesion_data, aes(x = distance, y = cohesion_value, color = factor(beta))) +
+  geom_line() +
+  labs(x = "Distance",
+       y = "Cohesion Term",
+       title = "Cohesion Term vs Distance - delta_1 = 0.9 and alpha = beta/2",
+       color = "beta") +
+  theme_minimal()
+
+ggsave("cohesion_alpha_beta_plot.png", width = 8, height = 6)
+
 # Repulsion Analysis ----
-delta_2_values <- seq(5, 100, by = 5)
-zeta_values <- seq(1, 10, by = 1)
-gamma_values <- seq(1, 10, by = 1)
+distances <- seq(0.1, 20, by = 0.1)
+delta_2_values <- seq(5, 21, by = 4)
+zeta_values <- seq(1, 10, by = 2)
+gamma_values <- seq(1, 10, by = 2)
 
 ## Plotting Repulsion Term for different delta_2 values for all distances
 repulsion_data <- expand.grid(distance = distances, delta_2 = delta_2_values)
@@ -95,6 +119,8 @@ ggplot(repulsion_data, aes(x = distance, y = repulsion_value, color = factor(del
        color = "delta_2") +
   theme_minimal()
 
+ggsave("repulsion_delta2_plot.png", width = 8, height = 6)
+
 ## Plotting Repulsion Term for different zeta values for all distances
 repulsion_data <- expand.grid(distance = distances, zeta = zeta_values)
 repulsion_data$repulsion_value <- mapply(repulsion_term,
@@ -108,6 +134,8 @@ ggplot(repulsion_data, aes(x = distance, y = repulsion_value, color = factor(zet
         title = "Repulsion Term vs Distance - delta_2 = 10, gamma = 1",
         color = "zeta") +
   theme_minimal()
+
+ggsave("repulsion_zeta_plot.png", width = 8, height = 6)
 
 ## Plotting Repulsion Term for different gamma values for all distances
 repulsion_data <- expand.grid(distance = distances, gamma = gamma_values)
@@ -123,9 +151,26 @@ ggplot(repulsion_data, aes(x = distance, y = repulsion_value, color = factor(gam
        color = "gamma") +
   theme_minimal()
 
+ggsave("repulsion_gamma_plot.png", width = 8, height = 6)
 
-# Density of v
-log_conditional_density_V <- function(v, K, n, a, sigma, tau) {
+## Simultaneous increment of zeta and gamma
+repulsion_data <- expand.grid(distance = distances, gamma = gamma_values)
+repulsion_data$repulsion_value <- mapply(repulsion_term,
+                      repulsion_data$distance,
+                      10,
+                      zeta = repulsion_data$gamma*10, gamma = repulsion_data$gamma)
+ggplot(repulsion_data, aes(x = distance, y = repulsion_value, color = factor(gamma))) +
+  geom_line() +
+  labs(x = "Distance",
+       y = "Repulsion Term",
+       title = "Repulsion Term vs Distance - delta_2 = 10 and zeta = gamma*10",
+       color = "gamma") +
+  theme_minimal()
+
+ggsave("repulsion_zeta_gamma_plot_delta.png", width = 8, height = 6)
+
+# Density of v ----
+conditional_density_V <- function(v, K, n, a, sigma, tau) {
   
   # Pre-compute exp(v)
   exp_v <- exp(v)
@@ -144,38 +189,46 @@ log_conditional_density_V <- function(v, K, n, a, sigma, tau) {
   # -(a/σ)((e^v+τ)^σ - τ^σ)
   term3 <- -a_over_sigma * ((exp_v + tau)^sigma - tau_power_sigma)
   
-  # Return log density
-  return(term1 + term2 + term3)
+  # Return density
+  exp(term1 + term2 + term3)
 }
 
-# Set parameters
-params <- list(
-  pi = 25,
-  n = 100,
-  a = 1,
-  sigma = 0.1,
-  tau = 1
-)
+v_values <- seq(0, 20, length.out = 2000)
+pi_values <- seq(10, 40, by = 5)
+n = 100
+a_values <- seq(0.1, 0.9, by = 0.2)
+sigma_values <- seq(0.1, 0.9, by = 0.2)
+tau_values <- seq(0.1, 2, by = 0.5)
 
-# Create sequence of v values
-v_values <- seq(0, 40, length.out = 2000)
+## Plotting log density for different pi values
+log_density_data <- expand.grid(v = v_values, a = a_values)
+log_density_data$log_density_value <- mapply(conditional_density_V,
+                                              log_density_data$v,
+                                              7,
+                                              100, 
+                                              log_density_data$a, 0.7, 1)
+ggplot(log_density_data, aes(x = v, y = log_density_value, color = factor(a))) +
+  geom_line() +
+  labs(x = "v",
+       y = "Log Density of v",
+       title = "Density of V unormalized - K = 7, n = 100, sigma = 0.7, tau = 1",
+       color = "a values") +
+  theme_minimal()
 
-# Calculate densities
-densities <- f_V_given_pi(
-  v = v_values,
-  pi = params$pi,
-  n = params$n,
-  a = params$a,
-  sigma = params$sigma,
-  tau = params$tau
-)
+ggsave("log_density_a_plot.png", width = 8, height = 6)
 
-# Plot the density function
-plot(v_values, densities, 
-      type = "l", 
-      lwd = 2,
-      col = "blue",
-      xlab = "v",
-      ylab = expression(f[paste(V,"|",pi)](v)),
-      main = "Conditional Probability Density Function")
-grid()
+## Plotting log density for different pi values
+log_density_data <- expand.grid(v = v_values, pi = pi_values)
+log_density_data$log_density_value <- mapply(conditional_density_V,
+                                              log_density_data$v,
+                                              log_density_data$pi,
+                                              100, 0.01, 0.7, 1)
+ggplot(log_density_data, aes(x = v, y = log_density_value, color = factor(pi))) +
+  geom_line() +
+  labs(x = "v",
+       y = "Log Density of v",
+       title = "Density of V unormalized - n = 100, a = 0.01, sigma = 0.7, tau = 1",
+       color = "Number of clusters (|π|)") +
+  theme_minimal()
+
+ggsave("log_density_pi_plot.png", width = 8, height = 6)

@@ -3,6 +3,7 @@ var classProcess =
     [ "Process", "classProcess.html#a45c13512446ea3e7353ed88773d496a6", null ],
     [ "~Process", "classProcess.html#a7ff358c1d3b155bc09e1271266cdce7d", null ],
     [ "gibbs_prior_existing_cluster", "classProcess.html#a17d00dd1cdddc0c2c8b3d4155afcb54c", null ],
+    [ "gibbs_prior_existing_clusters", "classProcess.html#aa217cf47b5d0293b0f7d4875f130cef6", null ],
     [ "gibbs_prior_new_cluster", "classProcess.html#af0620ca38fdd6c3fb09b6d008cfe728d", null ],
     [ "prior_ratio_merge", "classProcess.html#a3f839a738e76fc3ab83d3a7bfc228984", null ],
     [ "prior_ratio_shuffle", "classProcess.html#a3bd733b3232c8cf865bc0d6c1a07aea4", null ],

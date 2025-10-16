@@ -134,6 +134,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a784f82d4ce452c27f2257e36a551f3cd" id="r_a784f82d4ce452c27f2257e36a551f3cd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a784f82d4ce452c27f2257e36a551f3cd">gibbs_prior_existing_cluster</a> (int cls_idx, int obs_idx=0) const override</td></tr>
 <tr class="memdesc:a784f82d4ce452c27f2257e36a551f3cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the log prior probability of assigning a data point to an existing cluster.  <br /></td></tr>
 <tr class="separator:a784f82d4ce452c27f2257e36a551f3cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace7f37cc26a0e71aa02494378310430b" id="r_ace7f37cc26a0e71aa02494378310430b"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace7f37cc26a0e71aa02494378310430b">gibbs_prior_existing_clusters</a> (int obs_idx) const override</td></tr>
+<tr class="memdesc:ace7f37cc26a0e71aa02494378310430b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the log prior probabilities of assigning a data point to all existing clusters.  <br /></td></tr>
+<tr class="separator:ace7f37cc26a0e71aa02494378310430b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9fe292894aa5c08db269e1398f21d9e9" id="r_a9fe292894aa5c08db269e1398f21d9e9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9fe292894aa5c08db269e1398f21d9e9">gibbs_prior_new_cluster</a> () const override</td></tr>
 <tr class="memdesc:a9fe292894aa5c08db269e1398f21d9e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the log prior probability of assigning a data point to a new cluster.  <br /></td></tr>
 <tr class="separator:a9fe292894aa5c08db269e1398f21d9e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -275,6 +278,49 @@ Additional Inherited Members</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The log prior probability of assigning the data point to its current cluster.</dd></dl>
 
 <p>Implements <a class="el" href="classProcess.html#a17d00dd1cdddc0c2c8b3d4155afcb54c">Process</a>.</p>
+
+</div>
+</div>
+<a id="ace7f37cc26a0e71aa02494378310430b" name="ace7f37cc26a0e71aa02494378310430b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace7f37cc26a0e71aa02494378310430b">&#9670;&#160;</a></span>gibbs_prior_existing_clusters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd DP::gibbs_prior_existing_clusters </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>obs_idx</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Computes the log prior probabilities of assigning a data point to all existing clusters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obs_idx</td><td>The index of the observation. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A vector of log prior probabilities for all existing clusters. </dd></dl>
+<p>Computes the log prior probabilities of assigning a data point to all existing clusters. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obs_idx</td><td>The index of the observation (unused in this implementation). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A vector of log prior probabilities for all existing clusters.</dd></dl>
+
+<p>Implements <a class="el" href="classProcess.html#aa217cf47b5d0293b0f7d4875f130cef6">Process</a>.</p>
 
 </div>
 </div>

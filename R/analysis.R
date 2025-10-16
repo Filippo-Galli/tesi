@@ -3,7 +3,7 @@ source("R/utils.R")
 list.files("results/")
 
 # Load the results and ground truth for later analysis
-folder <- "results/DP_splitmerge50_Neal1_kmeans_0.25sigma_10d_BI2000_NI10000_a1_sigma0.4_tau1/"
+folder <- "results/NGGPW_Neal_kmeans_0.2sigma_50d_BI2000_NI5000_a0.1_sigma0.7_tau1/"
 filename_results <- "simulation_results.rds"
 filename_gt <- "simulation_ground_truth.rds"
 filename_dist <- "simulation_distance_matrix.rds"

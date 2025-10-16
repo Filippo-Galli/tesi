@@ -448,71 +448,15 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
     cat("Warning: No allocation data found, skipping posterior similarity matrix analysis\n")
   }
 
-  ### Fifth plot - Auto-correlation plot (using post burn-in data)
-  # Check if loglikelihood data exists and is valid
-  if (!is.null(results$loglikelihood) && length(results$loglikelihood) > 0) {
-    # Apply burn-in to loglikelihood
-    logl_original <- results$loglikelihood
-    logl_post_burnin <- logl_original
-    k_post_burnin <- k_values # k_values already has burn-in applied
-
-    if (BI > 0 && length(logl_original) > BI) {
-      logl_post_burnin <- logl_original[(BI + 1):length(logl_original)]
-    }
-
-    # Remove any NA or infinite values
-    logl_clean <- logl_post_burnin[is.finite(logl_post_burnin)]
-    k_clean <- k_post_burnin[is.finite(k_post_burnin)]
-
-    cat("Debug autocorr (post burn-in): logl_clean length =", length(logl_clean), "\n")
-    cat("Debug autocorr (post burn-in): k_clean length =", length(k_clean), "\n")
-
-    if (length(logl_clean) > 1 && length(k_clean) > 1) {
-      # Ensure both vectors have the same length
-      min_length <- min(length(logl_clean), length(k_clean))
-      mcmc_list <- list(
-        ncls = k_clean[1:min_length],
-        logl = logl_clean[1:min_length]
-      )
-      mcmc_matrix <- do.call(cbind, mcmc_list)
-
-      # Only plot if we have valid data and variance > 0
-      if (all(is.finite(mcmc_matrix)) && ncol(mcmc_matrix) > 0 && nrow(mcmc_matrix) > 1) {
-        # Check if there's variance in the data
-        if (any(apply(mcmc_matrix, 2, var, na.rm = TRUE) > 0)) {
-          tryCatch(
-            {
-              acf(mcmc_matrix, main = paste("Autocorrelation of MCMC chains (Post Burn-in:", BI, ")"))
-            },
-            error = function(e) {
-              cat("Error in MCMC chains autocorrelation:", e$message, "\n")
-            }
-          )
-        } else {
-          cat("Warning: No variance in post burn-in MCMC data for autocorrelation\n")
-        }
-      } else {
-        cat("Warning: Skipping autocorrelation plot due to invalid post burn-in data\n")
-      }
-    } else {
-      cat("Warning: Not enough valid post burn-in data for autocorrelation plot\n")
-    }
-
-    # Plot loglikelihood autocorrelation separately (post burn-in)
-    if (length(logl_clean) > 1 && var(logl_clean, na.rm = TRUE) > 0) {
-      tryCatch(
-        {
-          acf(logl_clean, main = paste("Autocorrelation of Log-Likelihood (Post Burn-in:", BI, ")"))
-        },
-        error = function(e) {
-          cat("Error in loglikelihood autocorrelation:", e$message, "\n")
-        }
-      )
-    } else {
-      cat("Warning: Not enough post burn-in loglikelihood data or no variance for autocorrelation\n")
-    }
-  } else {
-    cat("Warning: No loglikelihood data available for autocorrelation plot\n")
+  ### Fifth plot - plot U trace
+  plot(results$U, type = "l", xlab = "Iteration", ylab = "U")
+  abline(h = mean(results$U), col = "red", lty = 2)
+  legend("topright", legend = c("Mean U"), col = c("red"), lty = 2)
+  titolo <- paste0("Trace of U over MCMC iterations (mean U = ", round(mean(results$U), 3), ")")
+  title(main = titolo)
+  if (save) {
+    dev.copy(png, filename = paste0(folder, "U_trace.png"))
+    dev.off()
   }
 }
 

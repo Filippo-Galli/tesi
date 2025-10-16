@@ -130,6 +130,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a87c7ea9050b7157ae5af7d4e63bb16bf" id="r_a87c7ea9050b7157ae5af7d4e63bb16bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87c7ea9050b7157ae5af7d4e63bb16bf">step</a> () override</td></tr>
 <tr class="memdesc:a87c7ea9050b7157ae5af7d4e63bb16bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform one iteration of the split-merge algorithm.  <br /></td></tr>
 <tr class="separator:a87c7ea9050b7157ae5af7d4e63bb16bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a3ea45e1d3bde17d917eea887ca324c" id="r_a8a3ea45e1d3bde17d917eea887ca324c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8a3ea45e1d3bde17d917eea887ca324c">get_accepted_split</a> () const</td></tr>
+<tr class="memdesc:a8a3ea45e1d3bde17d917eea887ca324c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of accepted split moves for diagnostics.  <br /></td></tr>
+<tr class="separator:a8a3ea45e1d3bde17d917eea887ca324c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad259991cb650d3c053adaedb610f31b9" id="r_ad259991cb650d3c053adaedb610f31b9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad259991cb650d3c053adaedb610f31b9">get_accepted_merge</a> () const</td></tr>
+<tr class="memdesc:ad259991cb650d3c053adaedb610f31b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of accepted merge moves for diagnostics.  <br /></td></tr>
+<tr class="separator:ad259991cb650d3c053adaedb610f31b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af711a9a7ca43c343a28bda7c9cc7ae3e" id="r_af711a9a7ca43c343a28bda7c9cc7ae3e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af711a9a7ca43c343a28bda7c9cc7ae3e">get_accepted_shuffle</a> () const</td></tr>
+<tr class="memdesc:af711a9a7ca43c343a28bda7c9cc7ae3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of accepted shuffle moves for diagnostics.  <br /></td></tr>
+<tr class="separator:af711a9a7ca43c343a28bda7c9cc7ae3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classSampler"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classSampler')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classSampler.html">Sampler</a></td></tr>
 <tr class="memitem:a13b15d8c01c34c6d78d93a6ba091e6aa inherit pub_methods_classSampler" id="r_a13b15d8c01c34c6d78d93a6ba091e6aa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSampler.html#a13b15d8c01c34c6d78d93a6ba091e6aa">Sampler</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classLikelihood.html">Likelihood</a> &amp;l, <a class="el" href="classProcess.html">Process</a> &amp;pr)</td></tr>
 <tr class="memdesc:a13b15d8c01c34c6d78d93a6ba091e6aa inherit pub_methods_classSampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor initializing sampler with required components.  <br /></td></tr>
@@ -229,6 +238,90 @@ Point Detection Model in Markovian Regimes"</p>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad259991cb650d3c053adaedb610f31b9" name="ad259991cb650d3c053adaedb610f31b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad259991cb650d3c053adaedb610f31b9">&#9670;&#160;</a></span>get_accepted_merge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SplitMerge::get_accepted_merge </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get number of accepted merge moves for diagnostics. </p>
+<dl class="section return"><dt>Returns</dt><dd>Count of accepted merge moves </dd></dl>
+
+</div>
+</div>
+<a id="af711a9a7ca43c343a28bda7c9cc7ae3e" name="af711a9a7ca43c343a28bda7c9cc7ae3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af711a9a7ca43c343a28bda7c9cc7ae3e">&#9670;&#160;</a></span>get_accepted_shuffle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SplitMerge::get_accepted_shuffle </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get number of accepted shuffle moves for diagnostics. </p>
+<dl class="section return"><dt>Returns</dt><dd>Count of accepted shuffle moves </dd></dl>
+
+</div>
+</div>
+<a id="a8a3ea45e1d3bde17d917eea887ca324c" name="a8a3ea45e1d3bde17d917eea887ca324c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a3ea45e1d3bde17d917eea887ca324c">&#9670;&#160;</a></span>get_accepted_split()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SplitMerge::get_accepted_split </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get number of accepted split moves for diagnostics. </p>
+<dl class="section return"><dt>Returns</dt><dd>Count of accepted split moves </dd></dl>
+
+</div>
+</div>
 <a id="a87c7ea9050b7157ae5af7d4e63bb16bf" name="a87c7ea9050b7157ae5af7d4e63bb16bf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a87c7ea9050b7157ae5af7d4e63bb16bf">&#9670;&#160;</a></span>step()</h2>
 

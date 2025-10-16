@@ -134,6 +134,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a17d00dd1cdddc0c2c8b3d4155afcb54c" id="r_a17d00dd1cdddc0c2c8b3d4155afcb54c"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a17d00dd1cdddc0c2c8b3d4155afcb54c">gibbs_prior_existing_cluster</a> (int cls_idx, int obs_idx) const =0</td></tr>
 <tr class="memdesc:a17d00dd1cdddc0c2c8b3d4155afcb54c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute prior probability for assigning observation to existing cluster.  <br /></td></tr>
 <tr class="separator:a17d00dd1cdddc0c2c8b3d4155afcb54c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa217cf47b5d0293b0f7d4875f130cef6" id="r_aa217cf47b5d0293b0f7d4875f130cef6"><td class="memItemLeft" align="right" valign="top">virtual Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa217cf47b5d0293b0f7d4875f130cef6">gibbs_prior_existing_clusters</a> (int obs_idx) const =0</td></tr>
+<tr class="memdesc:aa217cf47b5d0293b0f7d4875f130cef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute prior probabilities for assigning observation to all existing clusters.  <br /></td></tr>
+<tr class="separator:aa217cf47b5d0293b0f7d4875f130cef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0620ca38fdd6c3fb09b6d008cfe728d" id="r_af0620ca38fdd6c3fb09b6d008cfe728d"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0620ca38fdd6c3fb09b6d008cfe728d">gibbs_prior_new_cluster</a> () const =0</td></tr>
 <tr class="memdesc:af0620ca38fdd6c3fb09b6d008cfe728d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute prior probability for creating a new cluster.  <br /></td></tr>
 <tr class="separator:af0620ca38fdd6c3fb09b6d008cfe728d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -301,6 +304,43 @@ Protected Attributes</h2></td></tr>
 <p>This method computes the prior component of the probability for assigning an observation to an existing cluster in Gibbs sampling. The exact computation depends on the specific process (<a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a>, <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>, etc.). </p>
 
 <p>Implemented in <a class="el" href="classDP.html#a784f82d4ce452c27f2257e36a551f3cd">DP</a>, <a class="el" href="classDPW.html#aeaf93fc39436113b77d0a47b4e8b44f6">DPW</a>, <a class="el" href="classNGGP.html#aa964c1c8065166bcdbeb030618094b42">NGGP</a>, and <a class="el" href="classNGGPW.html#ab426d4cd7024170228d9a1894219e6e5">NGGPW</a>.</p>
+
+</div>
+</div>
+<a id="aa217cf47b5d0293b0f7d4875f130cef6" name="aa217cf47b5d0293b0f7d4875f130cef6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa217cf47b5d0293b0f7d4875f130cef6">&#9670;&#160;</a></span>gibbs_prior_existing_clusters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Eigen::VectorXd Process::gibbs_prior_existing_clusters </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>obs_idx</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute prior probabilities for assigning observation to all existing clusters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obs_idx</td><td>Index of the observation to be assigned </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector of log prior probabilities for all existing clusters</dd></dl>
+<p>This method computes the prior components of the probabilities for assigning an observation to each existing cluster in Gibbs sampling. The exact computation depends on the specific process (<a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a>, <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>, etc.). The returned vector has a length equal to the current number of clusters. </p>
+
+<p>Implemented in <a class="el" href="classDP.html#ace7f37cc26a0e71aa02494378310430b">DP</a>, <a class="el" href="classDPW.html#ad3ff8c4e6d339973c697846e75bc5402">DPW</a>, <a class="el" href="classNGGP.html#adcfa100946e2ceaa9cc3902a554eeb05">NGGP</a>, and <a class="el" href="classNGGPW.html#a4d306324be933acde8d129a71ec4f524">NGGPW</a>.</p>
 
 </div>
 </div>
