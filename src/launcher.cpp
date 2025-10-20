@@ -111,9 +111,9 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
 
   // Initialize the Bayesian non-parametric process
   // Uncomment the desired process type:
-  DP process(data, param);      // Dirichlet Process
+  //DP process(data, param);      // Dirichlet Process
   //DPW process(data, param);     // Dirichlet Process with Weights
-  //NGGP process(data, param);    // Normalized Generalized Gamma Process
+  NGGP process(data, param);    // Normalized Generalized Gamma Process
   //NGGPW process(data,param); // Normalized Generalized Gamma Process with Weights
 
   // Initialize sampling algorithms
@@ -140,6 +140,7 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
 
   // Calculate progress reporting interval (5% of total iterations)
   int printing_interval = int((param.NI + param.BI) * 0.05);
+  //int printing_interval = 1;
   double iter_s = 0.0; // Iterations per second
 
   // Main MCMC loop
@@ -159,7 +160,7 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
     Rcpp::as<Rcpp::List>(results["allocations"])[i] = Rcpp::wrap(data.get_allocations());
     Rcpp::as<Rcpp::List>(results["K"])[i] = data.get_K();
     
-    //Rcpp::as<Rcpp::NumericVector>(results["U"])[i] = process.get_U();
+    Rcpp::as<Rcpp::NumericVector>(results["U"])[i] = process.get_U();
 
     // Print progress information at regular intervals
     if ((i + 1) % printing_interval == 0) {
@@ -178,7 +179,7 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
   std::cout << "MCMC completed in : " << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() << " seconds." << std::endl;
 
-  //std::cout << "Accepted U ratio: " << process.get_accepted_U() * 100 / (param.NI + param.BI) << " %." << std::endl;
+  std::cout << "Accepted U ratio: " << process.get_accepted_U() * 100 / (param.NI + param.BI) << " %." << std::endl;
 
   // std::cout << "Accepted split ratio: "
   //           << sampler.get_accepted_split() * 100 * 2 / (param.NI + param.BI) 

@@ -448,11 +448,15 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
     cat("Warning: No allocation data found, skipping posterior similarity matrix analysis\n")
   }
 
-  ### Fifth plot - plot U trace
-  plot(results$U, type = "l", xlab = "Iteration", ylab = "U")
-  abline(h = mean(results$U), col = "red", lty = 2)
+  ### Fifth plot - plot U trace without BI
+  U_after_burnin <- results$U
+  if (BI > 0 && length(U_after_burnin) > BI) {
+    U_after_burnin <- U_after_burnin[(BI + 1):length(U_after_burnin)]
+  }
+  plot(U_after_burnin, type = "l", xlab = "Iteration", ylab = "U")
+  abline(h = mean(U_after_burnin), col = "red", lty = 2)
   legend("topright", legend = c("Mean U"), col = c("red"), lty = 2)
-  titolo <- paste0("Trace of U over MCMC iterations (mean U = ", round(mean(results$U), 3), ")")
+  titolo <- paste0("Trace of U over MCMC iterations (mean U = ", round(mean(U_after_burnin), 3), ")")
   title(main = titolo)
   if (save) {
     dev.copy(png, filename = paste0(folder, "U_trace.png"))

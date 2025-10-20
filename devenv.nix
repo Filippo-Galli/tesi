@@ -30,6 +30,8 @@
     pkgs.rPackages.languageserver  # R Language Server Protocol (keep only once)
     pkgs.rPackages.jsonlite        # JSON support for LSP
     pkgs.rPackages.renv            # Package management
+    pkgs.rPackages.mvtnorm         # Mixture for simulated data
+    pkgs.rPackages.gtools
  
     # Data analysis packages
     pkgs.rPackages.ggplot2         # Data visualization
@@ -87,6 +89,24 @@
     R --slave -e "library(RcppEigen); cat('RcppEigen version:', as.character(packageVersion('RcppEigen')), '\n')"
     R --slave -e "library(salso); cat('SALSO version:', as.character(packageVersion('salso')), '\n')"
     R --slave -e "library(languageserver); cat('languageserver version:', as.character(packageVersion('languageserver')), '\n')"
+  '';
+
+  scripts.install-mcclust-ext.exec = ''
+    echo "Installing mcclust.ext from Warwick archive..."
+    mkdir -p $R_LIBS_USER
+    chmod -R u+w $R_LIBS_USER
+    
+    # Set R_LIBS to only use the user library for installation
+    export R_LIBS=$R_LIBS_USER
+    
+    R -e "
+      .libPaths(Sys.getenv('R_LIBS_USER'))
+      if (!require('devtools', quietly = TRUE)) {
+        install.packages('devtools', repos='https://cloud.r-project.org', lib=.libPaths()[1])
+      }
+      devtools::install_url('http://wrap.warwick.ac.uk/71934/1/mcclust.ext_1.0.tar.gz', lib=.libPaths()[1])
+    "
+    echo "✅ mcclust.ext installed successfully!"
   '';
 
   scripts.setup-clangd.exec = ''
