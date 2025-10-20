@@ -22,8 +22,8 @@ set.seed(44)
 
 ## Path to simulation data folder
 ## @details Contains simulated data with Natarajan model parameters
-sigma <- .18
-d <- 10
+sigma <- .2
+d <- 50
 namefile <- paste0("Natarajan_", sigma, "sigma_", d, "d")
 folder <- paste0("simulation_data/", namefile)
 
@@ -95,8 +95,8 @@ param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  2000, 5000, 0.1, # BI, NI, a,
-  0.7, 1, 1, # sigma, tau, coeff spatial dep 
+  1000, 2000, 1, # BI, NI, a,
+  0.01, 1, 1, # sigma, tau, coeff spatial dep 
   W # Spatial adjacency matrix
 )
 
@@ -177,7 +177,7 @@ process <- "NGGPW" # Dirichlet Process
 method <- "Neal" # MCMC method used
 initialization <- "kmeans" # Initialization strategy)
 filename <- paste0(process, "_", method, "_", initialization, "_", sigma, "sigma_", d, "d")
-save_with_name(folder, param, filename)
+#save_with_name(folder, param, filename)
 
 # ==============================================================================
 # Visualization
@@ -189,7 +189,7 @@ save_with_name(folder, param, filename)
 ## @param ground_truth True cluster labels as factor
 ## @param BI Number of burn-in iterations to exclude
 ## @details Generates diagnostic plots for convergence and cluster assignments
-#plot_mcmc_results(mcmc_result, as.factor(ground_truth), BI = param$BI)
+plot_mcmc_results(mcmc_result, as.factor(ground_truth), BI = param$BI)
 
 # ==============================================================================
 # Plot U Trace

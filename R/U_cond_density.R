@@ -1,31 +1,25 @@
 library(shiny)
 
 # Define the conditional density function
-conditional_density_V <- function(v, K, n, a, sigma, tau) {
+log_density_U <- function(u, K, n, a, sigma, tau = 1) {
+
+  # Term 1: u^(n-1) -> (n-1)*log(u)
+  term1 <- log(u) * (n - 1)
   
-  # Pre-compute exp(v)
-  exp_v <- exp(v)
+  # Term 2: 1/(u + tau)^(n - sigma*K) -> (n - sigma*K)*log(u + tau)
+  term2 <- (n - sigma * K) * log(u + tau)
   
-  # Pre-compute frequently used values
+  # Term 3: exp(-(a/sigma) * ((u + tau)^sigma - tau^sigma))
   a_over_sigma <- a / sigma
   tau_power_sigma <- tau^sigma
-  
-  # Compute log density components
-  # log(e^{vn}) = vn
-  term1 <- v * n
-  
-  # log((e^v + τ)^{n-a|π|}) = -(n - a*K) * log(e^v + τ)
-  term2 <- -(n - a * K) * log(exp_v + tau)
-  
-  # -(a/σ)((e^v+τ)^σ - τ^σ)
-  term3 <- -a_over_sigma * ((exp_v + tau)^sigma - tau_power_sigma)
+  term3 <- -a_over_sigma * ((u + tau)^sigma - tau_power_sigma)
   
   # Return density
-  exp(term1 + term2 + term3)
+  term1 - term2 + term3
 }
 
 ui <- fluidPage(
-  titlePanel("Conditional Density V(v | ·)"),
+  titlePanel("Conditional log-Density U(u | ·)"),
   
   sidebarLayout(
     sidebarPanel(
@@ -33,7 +27,7 @@ ui <- fluidPage(
                   "K (number of categories):", 
                   min = 1, 
                   max = 40, 
-                  value = 20, 
+                  value = 25, 
                   step = 1),
       
       sliderInput("n", 
@@ -47,30 +41,30 @@ ui <- fluidPage(
                   "a (parameter):", 
                   min = 0.01, 
                   max = 5, 
-                  value = 0.1, 
+                  value = 1, 
                   step = 0.1),
       
       sliderInput("sigma", 
                   "σ (sigma):", 
-                  min = 0.1, 
-                  max = 1, 
-                  value = 0.7, 
-                  step = 0.1),
+                  min = 0.01, 
+                  max = 0.3, 
+                  value = 0.1, 
+                  step = 0.01),
       
       sliderInput("tau", 
                   "τ (tau):", 
-                  min = 0.01, 
-                  max = 5, 
+                  min = 0, 
+                  max = 10, 
                   value = 1, 
-                  step = 0.01),
+                  step = 0.1),
       
       hr(),
       
       sliderInput("v_range", 
                   "v range:", 
-                  min = -5, 
-                  max = 20, 
-                  value = c(-5, 20), 
+                  min = 0.01, 
+                  max = 2000, 
+                  value = c(0.01, 2000), 
                   step = 0.5)
     ),
     
@@ -86,11 +80,11 @@ server <- function(input, output) {
   
   output$densityPlot <- renderPlot({
     # Generate v values
-    v <- seq(input$v_range[1], input$v_range[2], length.out = 500)
+    u <- seq(input$v_range[1], input$v_range[2], length.out = 500)
     
     # Compute density for each v
-    density_values <- sapply(v, function(v_i) {
-      conditional_density_V(v_i, 
+    density_values <- sapply(u, function(u_i) {
+      log_density_U(u_i, 
                            K = input$K, 
                            n = input$n, 
                            a = input$a, 
@@ -103,11 +97,10 @@ server <- function(input, output) {
     
     if (sum(valid_idx) > 0) {
       # Plot
-      plot(v[valid_idx], density_values[valid_idx], 
+      plot(u[valid_idx], density_values[valid_idx], 
            type = "l", 
            lwd = 2, 
            col = "steelblue",
-           main = "Conditional Density of V",
            xlab = "v",
            ylab = "Density",
            las = 1)
@@ -116,10 +109,10 @@ server <- function(input, output) {
       
       # Add vertical line at mode (approximate)
       mode_idx <- which.max(density_values[valid_idx])
-      mode_v <- v[valid_idx][mode_idx]
-      abline(v = mode_v, col = "red", lty = 2, lwd = 1.5)
+      mode_u <- u[valid_idx][mode_idx]
+      abline(v = mode_u, col = "red", lty = 2, lwd = 1.5)
       legend("topright", 
-             legend = paste("Mode ≈", round(mode_v, 3)),
+             legend = paste("Mode ≈", round(mode_u, 3)),
              col = "red", lty = 2, lwd = 1.5, bty = "n")
     } else {
       plot(0, 0, type = "n", 
