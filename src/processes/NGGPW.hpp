@@ -45,12 +45,12 @@ private:
   void update_U();
 
   /**
-   * @brief Computes the log conditional density of V = log(U) given the
+   * @brief Computes the log conditional density of U given the
    * partition.
-   * @param v The value of V = log(U).
+   * @param u The current value of U.
    * @return The log of the unnormalized conditional density.
    */
-  double log_conditional_density_V(double v) const;
+  double log_conditional_density_U(double u) const;
 
   /** @} */
 
@@ -99,6 +99,9 @@ private:
 
   /** @brief Counter for accepted U updates (for monitoring acceptance rate). */
   int accepted_U = 0;
+
+  /** @brief total number of iteration */
+  int total_iterations = 0;
 
   /** @} */
 
@@ -275,6 +278,14 @@ public:
    * @return The number of accepted U updates.
    */
   int get_accepted_U() const { return accepted_U; }
+
+  /**
+   * @brief Gets the current acceptance rate for U updates.
+   * @return The acceptance rate as a fraction in [0, 1].
+  */
+  double get_acceptance_rate() const {
+    return total_iterations > 0 ?  static_cast<double>(accepted_U) / total_iterations : 0.0;
+  }
 
   /** @} */
 };

@@ -7,6 +7,7 @@
 #pragma once
 
 #include "../utils/Process.hpp"
+#include <deque>
 
 /**
  * @class NGGP
@@ -40,17 +41,16 @@ private:
    */
 
   /**
-   * @brief Updates the latent variable U using slice sampling.
+   * @brief Updates the latent variable U using Metropolis-Hastings.
    */
   void update_U();
 
   /**
-   * @brief Computes the log conditional density of V = log(U) given the
-   * partition.
-   * @param v The value of V = log(U).
+   * @brief Computes the log conditional density of U given the partition.
+   * @param u The value of U.
    * @return The log of the unnormalized conditional density.
    */
-  double log_conditional_density_V(double v) const;
+  double log_conditional_density_U(double u) const;
 
   /** @} */
 
@@ -67,16 +67,8 @@ private:
 
   /** @} */
 
-  /**
-   * @name Algorithm Parameters
-   * @{
-   */
-
-  /** @brief Standard deviation for the Gaussian proposal distribution in the MH
-   * update of U. */
-  static constexpr double proposal_std = 0.5;
-
-  /** @} */
+  /** @brief Standard deviation for the Gaussian proposal distribution. */
+  const double proposal_std = 0.5;
 
   /**
    * @name Cached Constants
@@ -98,7 +90,10 @@ private:
    */
 
   /** @brief Counter for accepted U updates (for monitoring acceptance rate). */
-  int accepted_U = 0;
+  mutable int accepted_U = 0;
+
+  /** @brief total number of iteration */
+  int total_iterations = 0;
 
   /** @} */
 
@@ -129,8 +124,7 @@ public:
    * @return The log prior probability of assigning the data point to the
    * existing cluster.
    */
-  [[nodiscard]] double
-  gibbs_prior_existing_cluster(int cls_idx, int obs_idx = 0) const override;
+  [[nodiscard]] double gibbs_prior_existing_cluster(int cls_idx, int obs_idx = 0) const override;
 
   /**
     * @brief Computes the log prior probabilities of assigning a data point to every existing cluster.
@@ -229,6 +223,14 @@ public:
    * @return The number of accepted U updates.
    */
   int get_accepted_U() const { return accepted_U; }
+
+  /**
+   * @brief Gets the current acceptance rate for U updates.
+   * @return The acceptance rate as a fraction in [0, 1].
+   */
+  double get_acceptance_rate() const {
+    return total_iterations > 0 ?  static_cast<double>(accepted_U) / total_iterations : 0.0;
+  }
 
   /** @} */
 };

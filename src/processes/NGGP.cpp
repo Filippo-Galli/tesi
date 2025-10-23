@@ -143,108 +143,71 @@ double NGGP::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci,
 
   return log_acceptance_ratio;
 }
-
-// void NGGP::update_U() {
-//     /**
-//      * @brief Updates U using Metropolis-Hastings with change of variable V =
-//      log(U).
-//      * @details Uses a Gaussian proposal kernel with mean V and variance 1/4.
-//      * The conditional density f_{V|π}(v) is log-concave, making MH
-//      efficient.
-//     */
-
-//     // Current value V = log(U)
-//     double V_current = std::log(U);
-
-//     // Propose new V' from N(V, 1/4)
-//     std::normal_distribution<double> proposal(V_current, proposal_std);
-//     const double V_proposed = proposal(gen);
-
-//     // Compute log conditional densities (unnormalized)
-//     const double log_density_current = log_conditional_density_V(V_current);
-//     const double log_density_proposed = log_conditional_density_V(V_proposed);
-
-//     // Compute acceptance ratio (log scale)
-//     double log_acceptance_ratio = log_density_proposed - log_density_current;
-
-//     // Accept/reject
-//     std::uniform_real_distribution<double> unif(0.0, 1.0);
-//     if (std::log(unif(gen)) < log_acceptance_ratio) { // Accept
-//         U = std::exp(V_proposed);
-//         accepted_U++;
-//     }
-// }
-
 void NGGP::update_U() {
-  /**
-   * @brief Updates the latent variable U using slice sampling on V = log(U).
-   *
-   * This method uses slice sampling to update the latent variable U by working
-   * with the log-transformed variable V = log(U) for better numerical
-   * stability. The slice sampling algorithm is more efficient than
-   * Metropolis-Hastings for this log-concave density.
-   */
-  // Slice sampling for V = log(U)
-  double V_current = std::log(U);
+    /**
+     * @brief Updates U using Adaptive Metropolis-Hastings.
+     * @details Proposal standard deviation is adapted during burn-in to target
+     * an acceptance rate of 0.234 (Roberts et al., 2001).
+     */
+     
+    total_iterations++;
 
-  // Step 1: Sample vertical level
-  std::uniform_real_distribution<double> unif(0.0, 1.0);
-  double log_density_current = log_conditional_density_V(V_current);
-  double log_y = log_density_current + std::log(unif(gen));
+    // Current value
+    double U_current = U;
 
-  // Step 2: Create initial interval around V_current
-  double w = 2.0; // Width parameter - tune this
-  double L = V_current - w * unif(gen);
-  double R = L + w;
+    // Propose new U from N(U_current, proposal_std^2)
+    std::normal_distribution<double> proposal(U_current, proposal_std);
+    const double U_proposed = proposal(gen);
 
-  // Step 3: Step out to find slice boundaries
-  while (log_conditional_density_V(L) > log_y)
-    L -= w;
-  while (log_conditional_density_V(R) > log_y)
-    R += w;
-
-  // Step 4: Shrinkage sampling
-  double V_proposed;
-  do {
-    V_proposed = L + (R - L) * unif(gen);
-    if (log_conditional_density_V(V_proposed) > log_y) {
-      U = std::exp(V_proposed);
-      accepted_U++;
+    // Only accept positive proposals
+    if (U_proposed <= 0) {
       return;
     }
-    // Shrink interval
-    if (V_proposed < V_current)
-      L = V_proposed;
-    else
-      R = V_proposed;
-  } while (true);
+
+    // Compute log conditional densities (unnormalized)
+    const double log_density_current = log_conditional_density_U(U_current);
+    const double log_density_proposed = log_conditional_density_U(U_proposed);
+
+    // Compute acceptance ratio (log scale)
+    double log_acceptance_ratio = log_density_proposed - log_density_current;
+
+    // Accept/reject
+    std::uniform_real_distribution<double> unif(0.0, 1.0);
+    if (std::log(unif(gen)) < log_acceptance_ratio) {
+      U = U_proposed;
+      accepted_U++;
+    }
 }
 
-double NGGP::log_conditional_density_V(double v) const {
+double NGGP::log_conditional_density_U(double u) const {
   /**
    * @brief Computes the log conditional density of V = log(U) given the
    * partition.
    *
    * The conditional density is:
-   * f_{V|π}(v) ∝ (e^v)^n / (e^v + τ)^{n-a|π|} * exp(-(a/σ)((e^v+τ)^σ - τ^σ))
+   * f_{V|π}(v) ∝ (u)^(n-1) / (u + τ)^{n-sigma|π|} * exp(-(a/σ)((u+τ)^σ - τ^σ))
    *
-   * @param v The value of V = log(U).
+   * @param u The value of U
    * @return The log of the unnormalized conditional density.
    */
-
-  const double exp_v = std::exp(v);
+;
   const int n = data.get_n();
   const int K = data.get_K();
 
   // Compute log density components
   // log(e^{vn}) = vn
-  const double term1 = v * n;
+  const double term1 = (n - 1) * log(u);
 
-  // log((e^v + τ)^{n-a|π|}) = - (n - a*K) * log(e^v + τ)
-  const double term2 = - (n - params.a * K) * std::log(exp_v + tau);
+  // log((e^v + τ)^{n-sigma|π|}) = - (n - sigma*K) * log(e^v + τ)
+  const double term2 = - (n - params.sigma * K) * std::log(u + tau);
 
   // -(a/σ)((e^v+τ)^σ - τ^σ)
-  const double term3 = - a_over_sigma * (std::pow(exp_v + tau, params.sigma) - tau_power_sigma);
+  const double term3 = - a_over_sigma * (std::pow(u + tau, params.sigma) - tau_power_sigma);
+
+  // Rcpp::Rcout << "U: " << u << " Log cond density components: "
+  //           << " term1: " << term1
+  //           << " term2: " << term2
+  //           << " term3: " << term3 << std::endl;
   
   return term1 + term2 + term3;
 }
