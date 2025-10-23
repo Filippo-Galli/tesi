@@ -17,6 +17,7 @@ library(mcclust.ext) # For MCMC clustering functions
 library(mvtnorm)
 library(gtools)
 library(salso)
+library(aricode)
 
 ## @name retrieve_W
 ## @brief Construct adjacency matrix from distance matrix using k-nearest neighbors
@@ -191,7 +192,7 @@ distance_plot <- function(all_data, clusts, save = FALSE, folder = "results/plot
     if (!dir.exists(folder)) {
       dir.create(folder, recursive = TRUE)
     }
-    dev.copy(png, filename = paste0(folder, "distance_histogram.png"))
+    dev.copy(png, filename = paste0(folder, "distance_histogram.png"), width = 2400, height = 1800, res = 300)
     dev.off()
   }
 }
@@ -410,7 +411,9 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
       psm <- salso::psm(C)
 
       # Get point estimate using Variation of Information (VI) loss
-      point_estimate <- salso::salso(C, loss = "VI")
+      point_estimate <- salso::salso(C, loss = "binder",
+                                     maxNClusters = 200,        # Increase cluster limit
+                                     maxZealousAttempts = 1000)
 
       # # Reorder based on cluster assignments for better visualization
       # cluster_order <- order(point_estimate)
@@ -434,12 +437,24 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
       cat("Cluster Sizes:\n")
       print(table(point_estimate))
 
-      cat("\nAdjusted Rand Index:", arandi(point_estimate, true_labels), "\n")
-      cat("Number of post burn-in samples:", nrow(C), "\n")
+      point_labels <- as.vector(point_estimate)
+
+      # Adjusted Rand Index (ARI)
+      cat("\nAdjusted Rand Index:", 
+          arandi(point_estimate, true_labels), "\n")
+
+      # NMI
+      cat("Normalized Mutual Information:", 
+          NMI(point_labels, true_labels), "\n")
+
+      # VI
+      cat("Variation of Information:", NVI(point_labels, true_labels), "\n")
 
       if (save) {
-        ari_file <- paste0(folder, "salso_ari.txt")
-        write(paste("Adjusted Rand Index:", arandi(point_estimate, true_labels)), file = ari_file)
+        stats_file <- paste0(folder, "salso_stats.txt")
+        write(paste("Adjusted Rand Index:", arandi(point_estimate, true_labels)), file = stats_file)
+        write(paste("Normalized Mutual Information:", NMI(point_labels, true_labels)), file = stats_file, append = TRUE)
+        write(paste("Variation of Information:", NVI(point_labels, true_labels)), file = stats_file, append = TRUE)
       }
     } else {
       cat("Warning: No allocation data remaining after burn-in\n")
@@ -458,8 +473,20 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
   legend("topright", legend = c("Mean U"), col = c("red"), lty = 2)
   titolo <- paste0("Trace of U over MCMC iterations (mean U = ", round(mean(U_after_burnin), 3), ")")
   title(main = titolo)
+
+  # Re-do the plot to make it bigger and save if needed
   if (save) {
-    dev.copy(png, filename = paste0(folder, "U_trace.png"))
+    # Open a PNG device with larger dimensions 
+    png(filename = paste0(folder, "U_trace.png"), width = 2400, height = 1800, res = 300)
+    
+    # Re-draw the plot from scratch
+    plot(U_after_burnin, type = "l", xlab = "Iteration", ylab = "U")
+    abline(h = mean(U_after_burnin), col = "red", lty = 2)
+    legend("topright", legend = c("Mean U"), col = c("red"), lty = 2)
+    titolo <- paste0("Trace of U over MCMC iterations (mean U = ", round(mean(U_after_burnin), 3), ")")
+    title(main = titolo)
+    
+    # Close the device to finalize the file
     dev.off()
   }
 }
