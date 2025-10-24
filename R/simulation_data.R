@@ -95,8 +95,8 @@ param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  1000, 2000, 1, # BI, NI, a,
-  0.01, 1, 1, # sigma, tau, coeff spatial dep 
+  10000, 10000, 2, # BI, NI, a,
+  0.1, 1, 1, # sigma, tau, coeff spatial dependence
   W # Spatial adjacency matrix
 )
 
@@ -173,8 +173,8 @@ results <- capture.output(
 ## @param param Parameter object used in analysis
 ## @param name Custom name for saved output files
 ## @details Uncomment to save results with specific naming scheme
-process <- "NGGPW" # Dirichlet Process
-method <- "Neal" # MCMC method used
+process <- "NGGP"
+method <- "Neal1+SM25" # MCMC method used
 initialization <- "kmeans" # Initialization strategy)
 filename <- paste0(process, "_", method, "_", initialization, "_", sigma, "sigma_", d, "d")
 #save_with_name(folder, param, filename)
@@ -190,15 +190,3 @@ filename <- paste0(process, "_", method, "_", initialization, "_", sigma, "sigma
 ## @param BI Number of burn-in iterations to exclude
 ## @details Generates diagnostic plots for convergence and cluster assignments
 plot_mcmc_results(mcmc_result, as.factor(ground_truth), BI = param$BI)
-
-# ==============================================================================
-# Plot U Trace
-# ==============================================================================
-
-## Plot trace of auxiliary variable U over MCMC iterations
-
-# plot(mcmc_result$U, type = "l", xlab = "Iteration", ylab = "U")
-# abline(h = mean(mcmc_result$U), col = "red", lty = 2)
-# legend("topright", legend = c("Mean U"), col = c("red"), lty = 2)
-# titolo <- paste0("Trace of U over MCMC iterations (mean U = ", round(mean(mcmc_result$U), 3), ")")
-# title(main = titolo)

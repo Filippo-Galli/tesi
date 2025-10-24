@@ -14,7 +14,7 @@
 // [[Rcpp::depends(RcppEigen)]]
 
 #include "samplers/neal.hpp"
-//#include "samplers/neal_ZDNAM.hpp"
+#include "samplers/neal_ZDNAM.hpp"
 #include "samplers/splitmerge.hpp"
 #include "samplers/splitmerge_SAMS.hpp"
 // #include "splitmerge_SDDS.hpp"
@@ -24,10 +24,12 @@
 #include "processes/NGGP.hpp"
 #include "processes/NGGPW.hpp"
 
+#include "samplers/U_sampler/RWMH.hpp"
+//#include "samplers/U_sampler/MALA.hpp"
+
 #include "utils/Data.hpp"
 #include "utils/Likelihood.hpp"
 #include "utils/Params.hpp"
-#include "utils/Process.hpp"
 
 #include <chrono>
 
@@ -109,19 +111,23 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   // Initialize likelihood computation object
   Likelihood likelihood(data, param);
 
+  // Sampler for U parameter if needed by the process
+  RWMH U_sampler(param, data, true, 2.0, true);
+  //MALA U_sampler(param, data, true, 80, true);
+
   // Initialize the Bayesian non-parametric process
   // Uncomment the desired process type:
   //DP process(data, param);      // Dirichlet Process
   //DPW process(data, param);     // Dirichlet Process with Weights
-  NGGP process(data, param);    // Normalized Generalized Gamma Process
-  //NGGPW process(data,param); // Normalized Generalized Gamma Process with Weights
+  //NGGP process(data, param, U_sampler);    // Normalized Generalized Gamma Process
+  NGGPW process(data,param, U_sampler); // Normalized Generalized Gamma Process with Weights
 
   // Initialize sampling algorithms
-  Neal3 sampler(data, param, likelihood,process); // Gibbs sampler (Neal Algorithm 3)
-  //Neal3ZDNAM sampler(data, param, likelihood, process); // Gibbs sampler with ZDNAM
+  //Neal3 gibbs(data, param, likelihood,process); // Gibbs sampler (Neal Algorithm 3)
+  Neal3ZDNAM gibbs(data, param, likelihood, process); // Gibbs sampler with ZDNAM
 
   // Choose the main sampling strategy:
-  //SplitMerge sampler(data, param, likelihood, process, true); // Split-Merge sampler
+  SplitMerge sampler(data,param, likelihood, process, true); // Split-Merge sampler
   //SplitMerge_SAMS sampler(data, param, likelihood, process, true);    // Split-Merge with SAMS 
   // SplitMerge_SDDS sampler(data, param, likelihood, process, true);    // Split-Merge with SDDS
 
@@ -153,14 +159,13 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
     sampler.step();
 
     // Optional: Perform Gibbs step 
-    // if(i % 50 == 0)
-    //   gibbs.step();
+    if(i % 25 == 0)
+      gibbs.step();
 
     // Store results for current iteration
     Rcpp::as<Rcpp::List>(results["allocations"])[i] = Rcpp::wrap(data.get_allocations());
     Rcpp::as<Rcpp::List>(results["K"])[i] = data.get_K();
-    
-    Rcpp::as<Rcpp::NumericVector>(results["U"])[i] = process.get_U();
+    Rcpp::as<Rcpp::NumericVector>(results["U"])[i] = U_sampler.get_U();
 
     // Print progress information at regular intervals
     if ((i + 1) % printing_interval == 0) {
@@ -171,7 +176,8 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
       } else {
         iter_s = 0.0;
       }
-      std::cout << "Number of clusters: " << data.get_K() << " iter/s: " << iter_s << std::endl;
+      std::cout << "Clusters: " << data.get_K() << " - iter/s: " << iter_s 
+      << " | time to complete: " << (param.BI + param.NI - i)/iter_s<< " s" << std::endl;
     }
   }
 
@@ -179,17 +185,9 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
   std::cout << "MCMC completed in : " << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() << " seconds." << std::endl;
 
-  std::cout << "Accepted U ratio: " << process.get_accepted_U() * 100 / (param.NI + param.BI) << " %." << std::endl;
-
-  // std::cout << "Accepted split ratio: "
-  //           << sampler.get_accepted_split() * 100 * 2 / (param.NI + param.BI) 
-  //           << " %." << std::endl;
-  // std::cout << "Accepted merge ratio: "
-  //           << sampler.get_accepted_merge() * 100 * 2 / (param.NI + param.BI) 
-  //           << " %." << std::endl;  
-  // std::cout << "Accepted shuffle ratio: "
-  //           << sampler.get_accepted_shuffle() * 100 / (param.NI + param.BI)
-  //           << " %." << std::endl;
+  // std::cout << "Accepted split ratio: " << sampler.get_accepted_split() * 100 * 2 / (param.NI + param.BI) << " %." << std::endl;
+  // std::cout << "Accepted merge ratio: " << sampler.get_accepted_merge() * 100 * 2 / (param.NI + param.BI) << " %." << std::endl;  
+  // std::cout << "Accepted shuffle ratio: " << sampler.get_accepted_shuffle() * 100 / (param.NI + param.BI) << " %." << std::endl;
 
   return results;
 }

@@ -151,10 +151,10 @@ double SplitMerge::compute_acceptance_ratio_merge(double likelihood_old_ci,
   // Proposal ratio (already computed in merge_move before calling this
   // function)
 
-  Rcpp::Rcout << "\t[DEBUG - Merge] log_prior_ratio: " << log_prior_ratio
-              << ", log_likelihood_ratio: " << log_likelihood_ratio
-              << ", log_merge_gibbs_prob: " << log_merge_gibbs_prob
-              << std::endl;
+  // Rcpp::Rcout << "\t[DEBUG - Merge] log_prior_ratio: " << log_prior_ratio
+  //             << ", log_likelihood_ratio: " << log_likelihood_ratio
+  //             << ", log_merge_gibbs_prob: " << log_merge_gibbs_prob
+  //             << std::endl;
 
   return log_prior_ratio + log_likelihood_ratio + log_merge_gibbs_prob;
 }
@@ -191,8 +191,8 @@ void SplitMerge::merge_move() {
   double acceptance_ratio =
       compute_acceptance_ratio_merge(likelihood_old_ci, likelihood_old_cj);
 
-  Rcpp::Rcout << "[DEBUG - Merge] acceptance_ratio: " << acceptance_ratio
-              << std::endl;
+  // Rcpp::Rcout << "[DEBUG - Merge] acceptance_ratio: " << acceptance_ratio
+  //             << std::endl;
 
   // Accept or reject the move
   std::uniform_real_distribution<> dis(0.0, 1.0);
@@ -229,14 +229,14 @@ void SplitMerge::split_move() {
   }
 
   // Perform restricted Gibbs sampling to refine the allocations
-  restricted_gibbs(30);
+  restricted_gibbs(5);
 
   // Compute acceptance ratio
   double acceptance_ratio =
       compute_acceptance_ratio_split(likelihood_old_cluster);
 
-  Rcpp::Rcout << "[DEBUG - Split] acceptance_ratio: " << acceptance_ratio
-              << std::endl;
+  // Rcpp::Rcout << "[DEBUG - Split] acceptance_ratio: " << acceptance_ratio
+  //             << std::endl;
 
   // Accept or reject the move
   std::uniform_real_distribution<> dis2(0.0, 1.0);
@@ -264,10 +264,10 @@ SplitMerge::compute_acceptance_ratio_split(double likelihood_old_cluster) {
   log_likelihood_ratio += likelihood.cluster_loglikelihood(cj);
   log_likelihood_ratio -= likelihood_old_cluster;
 
-  Rcpp::Rcout << "\t[DEBUG - Split] log_prior_ratio: " << log_prior_ratio
-              << ", log_likelihood_ratio: " << log_likelihood_ratio
-              << ", log_split_gibbs_prob: " << log_split_gibbs_prob
-              << std::endl;
+  // Rcpp::Rcout << "\t[DEBUG - Split] log_prior_ratio: " << log_prior_ratio
+  //             << ", log_likelihood_ratio: " << log_likelihood_ratio
+  //             << ", log_split_gibbs_prob: " << log_split_gibbs_prob
+  //             << std::endl;
 
   return log_split_gibbs_prob + log_likelihood_ratio + log_prior_ratio;
 }
@@ -294,7 +294,7 @@ void SplitMerge::shuffle() {
   int old_cj_size = data.get_cluster_size(cj);
 
   // Use restricted gibbs to refine the allocations
-  restricted_gibbs(10);
+  restricted_gibbs(5);
 
   // Compute acceptance ratio
   double log_acceptance_ratio = compute_acceptance_ratio_shuffle(

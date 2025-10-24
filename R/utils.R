@@ -489,6 +489,9 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
     # Close the device to finalize the file
     dev.off()
   }
+
+  ### Sixth plot - ACF plots for MCMC chains
+  acf(U_after_burnin, main = "ACF of U over MCMC iterations")
 }
 
 ## @name plot_k_means
