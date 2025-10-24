@@ -66,7 +66,7 @@ double NGGP::gibbs_prior_new_cluster() const {
    * @return The log prior probability of assigning the data point to a new
    * cluster.
    */
-  return log_a + params.sigma * log(params.tau + U);
+  return log_a + params.sigma * log(params.tau + U_sampler_method.get_U());
 }
 
 double NGGP::prior_ratio_split(int ci, int cj) const {
@@ -86,7 +86,7 @@ double NGGP::prior_ratio_split(int ci, int cj) const {
 
   double log_acceptance_ratio = 0.0;
   log_acceptance_ratio += log_a;
-  log_acceptance_ratio += params.sigma * log(params.tau + U);
+  log_acceptance_ratio += params.sigma * log(params.tau + U_sampler_method.get_U());
   log_acceptance_ratio -= n_ci + n_cj - params.sigma > 0 ? lgamma(n_ci + n_cj - params.sigma) : 0;
   log_acceptance_ratio += n_ci - params.sigma > 0 ? lgamma(n_ci - params.sigma) : 0;
   log_acceptance_ratio += n_cj - params.sigma > 0 ? lgamma(n_cj - params.sigma) : 0;
@@ -109,7 +109,7 @@ double NGGP::prior_ratio_merge(int size_old_ci, int size_old_cj) const {
   const int size_merge = size_old_ci + size_old_cj;
 
   double log_acceptance_ratio = -log_a;
-  log_acceptance_ratio -= params.sigma * log(params.tau + U);
+  log_acceptance_ratio -= params.sigma * log(params.tau + U_sampler_method.get_U());
   log_acceptance_ratio += size_merge - params.sigma > 0 ? lgamma(size_merge - params.sigma) : 0;
   log_acceptance_ratio -= size_old_ci - params.sigma > 0 ? lgamma(size_old_ci - params.sigma) : 0;
   log_acceptance_ratio -= size_old_cj - params.sigma > 0 ? lgamma(size_old_cj - params.sigma) : 0;
@@ -142,72 +142,4 @@ double NGGP::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci,
   log_acceptance_ratio -= size_old_cj - params.sigma > 0 ? lgamma(size_old_cj - params.sigma) : 0;
 
   return log_acceptance_ratio;
-}
-void NGGP::update_U() {
-    /**
-     * @brief Updates U using Adaptive Metropolis-Hastings.
-     * @details Proposal standard deviation is adapted during burn-in to target
-     * an acceptance rate of 0.234 (Roberts et al., 2001).
-     */
-     
-    total_iterations++;
-
-    // Current value
-    double U_current = U;
-
-    // Propose new U from N(U_current, proposal_std^2)
-    std::normal_distribution<double> proposal(U_current, proposal_std);
-    const double U_proposed = proposal(gen);
-
-    // Only accept positive proposals
-    if (U_proposed <= 0) {
-      return;
-    }
-
-    // Compute log conditional densities (unnormalized)
-    const double log_density_current = log_conditional_density_U(U_current);
-    const double log_density_proposed = log_conditional_density_U(U_proposed);
-
-    // Compute acceptance ratio (log scale)
-    double log_acceptance_ratio = log_density_proposed - log_density_current;
-
-    // Accept/reject
-    std::uniform_real_distribution<double> unif(0.0, 1.0);
-    if (std::log(unif(gen)) < log_acceptance_ratio) {
-      U = U_proposed;
-      accepted_U++;
-    }
-}
-
-double NGGP::log_conditional_density_U(double u) const {
-  /**
-   * @brief Computes the log conditional density of V = log(U) given the
-   * partition.
-   *
-   * The conditional density is:
-   * f_{V|π}(v) ∝ (u)^(n-1) / (u + τ)^{n-sigma|π|} * exp(-(a/σ)((u+τ)^σ - τ^σ))
-   *
-   * @param u The value of U
-   * @return The log of the unnormalized conditional density.
-   */
-;
-  const int n = data.get_n();
-  const int K = data.get_K();
-
-  // Compute log density components
-  // log(e^{vn}) = vn
-  const double term1 = (n - 1) * log(u);
-
-  // log((e^v + τ)^{n-sigma|π|}) = - (n - sigma*K) * log(e^v + τ)
-  const double term2 = - (n - params.sigma * K) * std::log(u + tau);
-
-  // -(a/σ)((e^v+τ)^σ - τ^σ)
-  const double term3 = - a_over_sigma * (std::pow(u + tau, params.sigma) - tau_power_sigma);
-
-  // Rcpp::Rcout << "U: " << u << " Log cond density components: "
-  //           << " term1: " << term1
-  //           << " term2: " << term2
-  //           << " term3: " << term3 << std::endl;
-  
-  return term1 + term2 + term3;
 }

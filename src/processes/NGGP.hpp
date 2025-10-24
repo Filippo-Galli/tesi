@@ -6,8 +6,8 @@
 
 #pragma once
 
+#include "../samplers/U_sampler/U_sampler.hpp"
 #include "../utils/Process.hpp"
-#include <deque>
 
 /**
  * @class NGGP
@@ -27,31 +27,15 @@ private:
    * @{
    */
 
-  /** @brief Latent variable U in the NGGP model. */
-  double U = 1;
-
-  /** @brief Parameter tau from the NGGP specification. */
-  double tau = params.tau;
-
-  /** @} */
-
   /**
-   * @name Private Methods
-   * @{
+   * @brief Reference to the U_sampler instance for updating the latent variable
+   * U.
+   *
+   * This can be any derived class of U_sampler (e.g., RWMH or MALA) that
+   * implements the MCMC algorithm for sampling U from its conditional
+   * distribution.
    */
-
-  /**
-   * @brief Updates the latent variable U using Metropolis-Hastings.
-   */
-  void update_U();
-
-  /**
-   * @brief Computes the log conditional density of U given the partition.
-   * @param u The value of U.
-   * @return The log of the unnormalized conditional density.
-   */
-  double log_conditional_density_U(double u) const;
-
+  U_sampler &U_sampler_method;
   /** @} */
 
   /**
@@ -67,36 +51,6 @@ private:
 
   /** @} */
 
-  /** @brief Standard deviation for the Gaussian proposal distribution. */
-  const double proposal_std = 0.5;
-
-  /**
-   * @name Cached Constants
-   * @brief Pre-computed values for computational efficiency.
-   * @{
-   */
-
-  /** @brief Ratio a/sigma for efficient computation. */
-  const double a_over_sigma = params.a / params.sigma;
-
-  /** @brief Pre-computed tau^sigma for efficient computation. */
-  const double tau_power_sigma = std::pow(params.tau, params.sigma);
-
-  /** @} */
-
-  /**
-   * @name Statistics
-   * @{
-   */
-
-  /** @brief Counter for accepted U updates (for monitoring acceptance rate). */
-  mutable int accepted_U = 0;
-
-  /** @brief total number of iteration */
-  int total_iterations = 0;
-
-  /** @} */
-
 public:
   /**
    * @brief Constructor for the Normalized Generalized Gamma Process.
@@ -104,8 +58,11 @@ public:
    * assignments.
    * @param p Reference to the parameters object containing NGGP parameters (a,
    * sigma, tau).
+   * @param mh Reference to a U_sampler instance (e.g., RWMH or MALA) for
+   * updating the latent variable U via MCMC.
    */
-  NGGP(Data &d, Params &p) : Process(d, p), gen(rd()) {};
+  NGGP(Data &d, Params &p, U_sampler &mh)
+      : Process(d, p), gen(rd()), U_sampler_method(mh) {};
 
   /**
    * @name Gibbs Sampling Methods
@@ -124,16 +81,20 @@ public:
    * @return The log prior probability of assigning the data point to the
    * existing cluster.
    */
-  [[nodiscard]] double gibbs_prior_existing_cluster(int cls_idx, int obs_idx = 0) const override;
+  [[nodiscard]] double
+  gibbs_prior_existing_cluster(int cls_idx, int obs_idx = 0) const override;
 
   /**
-    * @brief Computes the log prior probabilities of assigning a data point to every existing cluster.
-    * This method is useful for Gibbs sampling over existing clusters.
-    * It returns a vector of log prior probabilities for all existing clusters.
-    * @param obs_idx The index of the observation to assign.
-    * @return A vector of log prior probabilities for assigning the data point to each existing cluster.
-  */                                     
-  [[nodiscard]] Eigen::VectorXd gibbs_prior_existing_clusters(int obs_idx) const override;
+   * @brief Computes the log prior probabilities of assigning a data point to
+   * every existing cluster. This method is useful for Gibbs sampling over
+   * existing clusters. It returns a vector of log prior probabilities for all
+   * existing clusters.
+   * @param obs_idx The index of the observation to assign.
+   * @return A vector of log prior probabilities for assigning the data point to
+   * each existing cluster.
+   */
+  [[nodiscard]] Eigen::VectorXd
+  gibbs_prior_existing_clusters(int obs_idx) const override;
 
   /**
    * @brief Computes the log prior probability of assigning a data point to a
@@ -202,35 +163,14 @@ public:
 
   /**
    * @brief Updates the NGGP parameters by updating the latent variable U.
+   *
+   * This method delegates the update to the U_sampler instance, which uses
+   * an MCMC algorithm (RWMH or MALA) to sample U from its conditional
+   * distribution given the current partition.
+   *
+   * @see U_sampler::update_U(), RWMH::update_U(), MALA::update_U()
    */
-  void update_params() override { update_U(); };
-
-  /** @} */
-
-  /**
-   * @name Accessor Methods
-   * @{
-   */
-
-  /**
-   * @brief Gets the current value of the latent variable U.
-   * @return The current value of U.
-   */
-  double get_U() const { return U; }
-
-  /**
-   * @brief Gets the number of accepted U updates for monitoring convergence.
-   * @return The number of accepted U updates.
-   */
-  int get_accepted_U() const { return accepted_U; }
-
-  /**
-   * @brief Gets the current acceptance rate for U updates.
-   * @return The acceptance rate as a fraction in [0, 1].
-   */
-  double get_acceptance_rate() const {
-    return total_iterations > 0 ?  static_cast<double>(accepted_U) / total_iterations : 0.0;
-  }
+  void update_params() override { U_sampler_method.update_U(); };
 
   /** @} */
 };
