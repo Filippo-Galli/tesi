@@ -25,7 +25,7 @@
 #include "processes/NGGPW.hpp"
 
 #include "samplers/U_sampler/RWMH.hpp"
-//#include "samplers/U_sampler/MALA.hpp"
+#include "samplers/U_sampler/MALA.hpp"
 
 #include "utils/Data.hpp"
 #include "utils/Likelihood.hpp"
@@ -112,8 +112,8 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   Likelihood likelihood(data, param);
 
   // Sampler for U parameter if needed by the process
-  RWMH U_sampler(param, data, true, 2.0, true);
-  //MALA U_sampler(param, data, true, 80, true);
+  //RWMH U_sampler(param, data, true, 2.0, true);
+  MALA U_sampler(param, data, false, 2, true);
 
   // Initialize the Bayesian non-parametric process
   // Uncomment the desired process type:
@@ -123,8 +123,8 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   NGGPW process(data,param, U_sampler); // Normalized Generalized Gamma Process with Weights
 
   // Initialize sampling algorithms
-  //Neal3 gibbs(data, param, likelihood,process); // Gibbs sampler (Neal Algorithm 3)
-  Neal3ZDNAM gibbs(data, param, likelihood, process); // Gibbs sampler with ZDNAM
+  Neal3 gibbs(data, param, likelihood,process); // Gibbs sampler (Neal Algorithm 3)
+  //Neal3ZDNAM gibbs(data, param, likelihood, process); // Gibbs sampler with ZDNAM
 
   // Choose the main sampling strategy:
   SplitMerge sampler(data,param, likelihood, process, true); // Split-Merge sampler

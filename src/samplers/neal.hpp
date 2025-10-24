@@ -33,7 +33,8 @@
  * The algorithm is particularly effective for models where the likelihood can
  * be computed in closed form after integrating out cluster-specific parameters.
  *
- * @reference Neal, R. M. (2000). "Markov Chain Sampling Methods for Dirichlet
+ * @note
+ * reference Neal, R. M. (2000). "Markov Chain Sampling Methods for Dirichlet
  * Process Mixture Models"
  *
  * @see Sampler, Process, Likelihood

@@ -33,9 +33,10 @@
  * Metropolis-Hastings acceptance/rejection based on prior and likelihood
  * ratios. The algorithm maintains detailed balance and ergodicity.
  *
- * @reference Jain, S. and Neal, R. M. (2004). "A Split-Merge Markov Chain Monte
+ * @note
+ * reference Jain, S. and Neal, R. M. (2004). "A Split-Merge Markov Chain Monte
  * Carlo Procedure for the Dirichlet Process Mixture Model"
- * @reference Martinez, A. F. and Mena, R. H. (2014). "On a Nonparametric Change
+ * reference Martinez, A. F. and Mena, R. H. (2014). "On a Nonparametric Change
  * Point Detection Model in Markovian Regimes"
  *
  * @see Sampler, SplitMerge_SAMS

@@ -36,9 +36,10 @@
  * but uses a different mechanism for generating proposals within each move
  * type.
  *
- * @reference Dahl, D. B. and Newcomb, S. (2022). "Sequentially allocated
+ * @note
+ * reference Dahl, D. B. and Newcomb, S. (2022). "Sequentially allocated
  * merge-split samplers for conjugate Bayesian nonparametric models"
- * @reference Martinez, A. F. and Mena, R. H. (2014). "On a Nonparametric Change
+ * reference Martinez, A. F. and Mena, R. H. (2014). "On a Nonparametric Change
  * Point Detection Model in Markovian Regimes"
  *
  * @see Sampler, SplitMerge
@@ -121,6 +122,7 @@ private:
    * @param iterations Number of allocation passes to perform
    * @param only_probabilities If true, only compute proposal probabilities
    * without updating state
+   * @param sequential If true, use sequential allocation; if false, use restricted Gibbs sampling
    *
    * @details Implements the core SAMS algorithm by sequentially allocating
    * observations to clusters. Unlike restricted Gibbs sampling, this approach
