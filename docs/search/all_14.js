@@ -8,5 +8,6 @@ var searchData=
   ['tt_5',['tt',['../index.html#autotoc_md19',1,'⚙️ &lt;strong&gt;Hyperparameter Optimization&lt;/strong&gt; (&lt;tt&gt;utils.R&lt;/tt&gt;)'],['../index.html#autotoc_md18',1,'📊 &lt;strong&gt;Data Generation &amp; Simulation&lt;/strong&gt; (&lt;tt&gt;utils.R&lt;/tt&gt;)'],['../index.html#autotoc_md20',1,'🚀 &lt;strong&gt;High-Performance MCMC Interface&lt;/strong&gt; (&lt;tt&gt;launcher.cpp&lt;/tt&gt;)']]],
   ['tt_20launcher_20cpp_20tt_6',['🚀 &lt;strong&gt;High-Performance MCMC Interface&lt;/strong&gt; (&lt;tt&gt;launcher.cpp&lt;/tt&gt;)',['../index.html#autotoc_md20',1,'']]],
   ['tt_20utils_20r_20tt_7',['tt utils R tt',['../index.html#autotoc_md19',1,'⚙️ &lt;strong&gt;Hyperparameter Optimization&lt;/strong&gt; (&lt;tt&gt;utils.R&lt;/tt&gt;)'],['../index.html#autotoc_md18',1,'📊 &lt;strong&gt;Data Generation &amp; Simulation&lt;/strong&gt; (&lt;tt&gt;utils.R&lt;/tt&gt;)']]],
-  ['tuning_20guide_20strong_8',['📊 &lt;strong&gt;Hyperparameter Tuning Guide&lt;/strong&gt;',['../index.html#autotoc_md26',1,'']]]
+  ['tuning_20guide_20strong_8',['📊 &lt;strong&gt;Hyperparameter Tuning Guide&lt;/strong&gt;',['../index.html#autotoc_md26',1,'']]],
+  ['tuning_5fenabled_9',['tuning_enabled',['../classMALA.html#ab76aa610ccc0ef8c33d11c3f85fb2ebc',1,'MALA::tuning_enabled'],['../classRWMH.html#aa803a348282de6fd0144d22f96b59a4d',1,'RWMH::tuning_enabled']]]
 ];

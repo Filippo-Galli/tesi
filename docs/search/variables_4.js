@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['gamma_0',['gamma',['../structParams.html#a978c763893030b3acc13857475cc71fa',1,'Params']]],
-  ['gen_1',['gen',['../classU__sampler.html#a553c7a0f7d16dcfe3060b4a0ae9175cd',1,'U_sampler']]]
+  ['epsilon_0',['epsilon',['../classMALA.html#a6aff6e66f730d6f3cf097bacd1ac8c69',1,'MALA']]]
 ];

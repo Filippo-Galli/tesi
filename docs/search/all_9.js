@@ -1,7 +1,7 @@
 var searchData=
 [
   ['gamma_0',['gamma',['../structParams.html#a978c763893030b3acc13857475cc71fa',1,'Params']]],
-  ['gen_1',['gen',['../classU__sampler.html#a553c7a0f7d16dcfe3060b4a0ae9175cd',1,'U_sampler']]],
+  ['gen_1',['gen',['../classNGGP.html#a31ccceab465d9cb529de13d20da69b8f',1,'NGGP::gen'],['../classNGGPW.html#ae1c12276c0588a8d2f6687d82630a523',1,'NGGPW::gen'],['../classNeal3.html#a6c1fb83b507ed24597b7dc0fa6529bad',1,'Neal3::gen'],['../classNeal3ZDNAM.html#a2a3912c70da056ae420f00ce277c44b7',1,'Neal3ZDNAM::gen'],['../classSplitMerge.html#ad0927420ab4d0448d0626858a8df573e',1,'SplitMerge::gen'],['../classSplitMerge__SAMS.html#aa34f55f86d4976501c6916ede6c7661b',1,'SplitMerge_SAMS::gen'],['../classU__sampler.html#a553c7a0f7d16dcfe3060b4a0ae9175cd',1,'U_sampler::gen']]],
   ['generated_20data_2',['Generated Data',['../index.html#autotoc_md15',1,'']]],
   ['generation_20simulation_20strong_20tt_20utils_20r_20tt_3',['📊 &lt;strong&gt;Data Generation &amp; Simulation&lt;/strong&gt; (&lt;tt&gt;utils.R&lt;/tt&gt;)',['../index.html#autotoc_md18',1,'']]],
   ['get_5faccepted_5fmerge_4',['get_accepted_merge',['../classSplitMerge.html#ad259991cb650d3c053adaedb610f31b9',1,'SplitMerge::get_accepted_merge()'],['../classSplitMerge__SAMS.html#adc7ce8d882f8a3c08575ae4494580255',1,'SplitMerge_SAMS::get_accepted_merge()']]],
@@ -21,6 +21,8 @@ var searchData=
   ['gibbs_5fprior_5fexisting_5fcluster_18',['gibbs_prior_existing_cluster',['../classDP.html#a784f82d4ce452c27f2257e36a551f3cd',1,'DP::gibbs_prior_existing_cluster()'],['../classDPW.html#aeaf93fc39436113b77d0a47b4e8b44f6',1,'DPW::gibbs_prior_existing_cluster()'],['../classNGGP.html#aa964c1c8065166bcdbeb030618094b42',1,'NGGP::gibbs_prior_existing_cluster()'],['../classNGGPW.html#ab426d4cd7024170228d9a1894219e6e5',1,'NGGPW::gibbs_prior_existing_cluster()'],['../classProcess.html#a17d00dd1cdddc0c2c8b3d4155afcb54c',1,'Process::gibbs_prior_existing_cluster()']]],
   ['gibbs_5fprior_5fexisting_5fclusters_19',['gibbs_prior_existing_clusters',['../classDP.html#ace7f37cc26a0e71aa02494378310430b',1,'DP::gibbs_prior_existing_clusters()'],['../classDPW.html#ad3ff8c4e6d339973c697846e75bc5402',1,'DPW::gibbs_prior_existing_clusters()'],['../classNGGP.html#adcfa100946e2ceaa9cc3902a554eeb05',1,'NGGP::gibbs_prior_existing_clusters()'],['../classNGGPW.html#a4d306324be933acde8d129a71ec4f524',1,'NGGPW::gibbs_prior_existing_clusters()'],['../classProcess.html#aa217cf47b5d0293b0f7d4875f130cef6',1,'Process::gibbs_prior_existing_clusters()']]],
   ['gibbs_5fprior_5fnew_5fcluster_20',['gibbs_prior_new_cluster',['../classDP.html#a9fe292894aa5c08db269e1398f21d9e9',1,'DP::gibbs_prior_new_cluster()'],['../classDPW.html#a45df971d1f01be2086ff0e0d570996fa',1,'DPW::gibbs_prior_new_cluster()'],['../classNGGP.html#a6657cd20138e193eaa7326d31617cb1c',1,'NGGP::gibbs_prior_new_cluster()'],['../classNGGPW.html#a7ca86eefba6ef5c6b9505589aaff0a8a',1,'NGGPW::gibbs_prior_new_cluster()'],['../classProcess.html#af0620ca38fdd6c3fb09b6d008cfe728d',1,'Process::gibbs_prior_new_cluster()']]],
-  ['guide_21',['Usage Guide',['../index.html#autotoc_md10',1,'']]],
-  ['guide_20strong_22',['📊 &lt;strong&gt;Hyperparameter Tuning Guide&lt;/strong&gt;',['../index.html#autotoc_md26',1,'']]]
+  ['grad_5flog_5fconditional_5fdensity_5fu_21',['grad_log_conditional_density_U',['../classMALA.html#ac28d5b37d39708a6360d0f248696a7b5',1,'MALA']]],
+  ['grad_5flog_5fconditional_5fdensity_5fv_22',['grad_log_conditional_density_V',['../classMALA.html#a41b2222c2b048e24aa9e24966aa0604d',1,'MALA']]],
+  ['guide_23',['Usage Guide',['../index.html#autotoc_md10',1,'']]],
+  ['guide_20strong_24',['📊 &lt;strong&gt;Hyperparameter Tuning Guide&lt;/strong&gt;',['../index.html#autotoc_md26',1,'']]]
 ];

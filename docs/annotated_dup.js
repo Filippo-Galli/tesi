@@ -4,6 +4,7 @@ var annotated_dup =
     [ "DP", "classDP.html", "classDP" ],
     [ "DPW", "classDPW.html", "classDPW" ],
     [ "Likelihood", "classLikelihood.html", "classLikelihood" ],
+    [ "MALA", "classMALA.html", "classMALA" ],
     [ "Neal3", "classNeal3.html", "classNeal3" ],
     [ "Neal3ZDNAM", "classNeal3ZDNAM.html", "classNeal3ZDNAM" ],
     [ "NGGP", "classNGGP.html", "classNGGP" ],

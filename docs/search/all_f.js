@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['n_0',['n',['../classU__sampler.html#a2ff0d1829fb23f7e753654355237c77a',1,'U_sampler']]],
+  ['n_0',['n',['../classData.html#adef43f6f1e61ebb5ca3f96015b99df77',1,'Data::n'],['../classU__sampler.html#a2ff0d1829fb23f7e753654355237c77a',1,'U_sampler::n']]],
   ['neal_2ecpp_1',['neal.cpp',['../neal_8cpp.html',1,'']]],
   ['neal_2ehpp_2',['neal.hpp',['../neal_8hpp.html',1,'']]],
   ['neal3_3',['Neal3',['../classNeal3.html',1,'Neal3'],['../classNeal3.html#ad50c5edb8fddcf84043fa2aa1249f9ea',1,'Neal3::Neal3()']]],

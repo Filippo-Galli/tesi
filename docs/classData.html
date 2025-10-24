@@ -103,6 +103,8 @@ $(function(){initNavTree('classData.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classData-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Data Class Reference</div></div>
 </div><!--header-->
@@ -145,6 +147,30 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad766a335e9d89cd7b6de8c2ab9a8d165" id="r_ad766a335e9d89cd7b6de8c2ab9a8d165"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad766a335e9d89cd7b6de8c2ab9a8d165">set_allocations</a> (const Eigen::VectorXi &amp;new_allocations)</td></tr>
 <tr class="memdesc:ad766a335e9d89cd7b6de8c2ab9a8d165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets all cluster allocations at once.  <br /></td></tr>
 <tr class="separator:ad766a335e9d89cd7b6de8c2ab9a8d165"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a084c9582515b320c586462db84fe9788" id="r_a084c9582515b320c586462db84fe9788"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a084c9582515b320c586462db84fe9788">compact_cluster</a> (int old_cluster)</td></tr>
+<tr class="memdesc:a084c9582515b320c586462db84fe9788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an empty cluster and compacts cluster indices.  <br /></td></tr>
+<tr class="separator:a084c9582515b320c586462db84fe9788"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ab6b235cc3084edb59b83bac93b8e1ead" id="r_ab6b235cc3084edb59b83bac93b8e1ead"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6b235cc3084edb59b83bac93b8e1ead">D</a></td></tr>
+<tr class="memdesc:ab6b235cc3084edb59b83bac93b8e1ead"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance matrix between all points.  <br /></td></tr>
+<tr class="separator:ab6b235cc3084edb59b83bac93b8e1ead"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adef43f6f1e61ebb5ca3f96015b99df77" id="r_adef43f6f1e61ebb5ca3f96015b99df77"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adef43f6f1e61ebb5ca3f96015b99df77">n</a></td></tr>
+<tr class="memdesc:adef43f6f1e61ebb5ca3f96015b99df77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of points.  <br /></td></tr>
+<tr class="separator:adef43f6f1e61ebb5ca3f96015b99df77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3216ace6edfe6d6a3f522db636d4d49" id="r_aa3216ace6edfe6d6a3f522db636d4d49"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3216ace6edfe6d6a3f522db636d4d49">allocations</a></td></tr>
+<tr class="memdesc:aa3216ace6edfe6d6a3f522db636d4d49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cluster allocation for each point.  <br /></td></tr>
+<tr class="separator:aa3216ace6edfe6d6a3f522db636d4d49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea3f372f41512f19256c760098f6a1fc" id="r_aea3f372f41512f19256c760098f6a1fc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea3f372f41512f19256c760098f6a1fc">K</a></td></tr>
+<tr class="memdesc:aea3f372f41512f19256c760098f6a1fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current number of clusters.  <br /></td></tr>
+<tr class="separator:aea3f372f41512f19256c760098f6a1fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cc015bc58a769616d92318242712825" id="r_a5cc015bc58a769616d92318242712825"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; int, std::vector&lt; int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5cc015bc58a769616d92318242712825">cluster_members</a></td></tr>
+<tr class="memdesc:a5cc015bc58a769616d92318242712825"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps cluster indices to vectors of point indices in that cluster.  <br /></td></tr>
+<tr class="separator:a5cc015bc58a769616d92318242712825"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manages distance matrices and cluster allocations for points. </p>
@@ -187,6 +213,39 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a084c9582515b320c586462db84fe9788" name="a084c9582515b320c586462db84fe9788"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a084c9582515b320c586462db84fe9788">&#9670;&#160;</a></span>compact_cluster()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Data::compact_cluster </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>old_cluster</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes an empty cluster and compacts cluster indices. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">old_cluster</td><td>Index of the cluster to remove </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a76ebba89fa69c1f2ff4d2905882ee5cb" name="a76ebba89fa69c1f2ff4d2905882ee5cb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a76ebba89fa69c1f2ff4d2905882ee5cb">&#9670;&#160;</a></span>get_allocations()</h2>
 
@@ -472,6 +531,127 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aa3216ace6edfe6d6a3f522db636d4d49" name="aa3216ace6edfe6d6a3f522db636d4d49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3216ace6edfe6d6a3f522db636d4d49">&#9670;&#160;</a></span>allocations</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXi Data::allocations</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cluster allocation for each point. </p>
+
+</div>
+</div>
+<a id="a5cc015bc58a769616d92318242712825" name="a5cc015bc58a769616d92318242712825"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cc015bc58a769616d92318242712825">&#9670;&#160;</a></span>cluster_members</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt;int, std::vector&lt;int&gt; &gt; Data::cluster_members</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Maps cluster indices to vectors of point indices in that cluster. </p>
+
+</div>
+</div>
+<a id="ab6b235cc3084edb59b83bac93b8e1ead" name="ab6b235cc3084edb59b83bac93b8e1ead"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6b235cc3084edb59b83bac93b8e1ead">&#9670;&#160;</a></span>D</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::MatrixXd Data::D</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Distance matrix between all points. </p>
+
+</div>
+</div>
+<a id="aea3f372f41512f19256c760098f6a1fc" name="aea3f372f41512f19256c760098f6a1fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea3f372f41512f19256c760098f6a1fc">&#9670;&#160;</a></span>K</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Data::K</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Current number of clusters. </p>
+
+</div>
+</div>
+<a id="adef43f6f1e61ebb5ca3f96015b99df77" name="adef43f6f1e61ebb5ca3f96015b99df77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adef43f6f1e61ebb5ca3f96015b99df77">&#9670;&#160;</a></span>n</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Data::n</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Number of points. </p>
 
 </div>
 </div>

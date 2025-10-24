@@ -1,8 +1,31 @@
 var classSplitMerge__SAMS =
 [
     [ "SplitMerge_SAMS", "classSplitMerge__SAMS.html#af812bf4c32fef71ddae082bfa26d1465", null ],
+    [ "choose_clusters_shuffle", "classSplitMerge__SAMS.html#a0f209904a93d4ba19a9e0b599fa1e8ea", null ],
+    [ "choose_indeces", "classSplitMerge__SAMS.html#a7c24fa1ba190b6cf4adc2ac011ae5c33", null ],
+    [ "compute_acceptance_ratio_merge", "classSplitMerge__SAMS.html#ab8cae3bc20e68ad01b70c12c5418fc75", null ],
+    [ "compute_acceptance_ratio_shuffle", "classSplitMerge__SAMS.html#aca21e410527783e4d78b4c263d8f2480", null ],
+    [ "compute_acceptance_ratio_split", "classSplitMerge__SAMS.html#acba1ce0aa45cadf54443b5f1c0eceaa6", null ],
     [ "get_accepted_merge", "classSplitMerge__SAMS.html#adc7ce8d882f8a3c08575ae4494580255", null ],
     [ "get_accepted_shuffle", "classSplitMerge__SAMS.html#a6d446d7fd2fbbf4f34fa85c1f4aa2696", null ],
     [ "get_accepted_split", "classSplitMerge__SAMS.html#abcbd7a097cf3138a7c4ebf8cfe693405", null ],
-    [ "step", "classSplitMerge__SAMS.html#a198db7f37403e0f7093771f03ca961e6", null ]
+    [ "merge_move", "classSplitMerge__SAMS.html#a6f774a8523fa9cd09826aecd6a177d11", null ],
+    [ "sequential_allocation", "classSplitMerge__SAMS.html#a1cf7698ea219623995597a45932db97c", null ],
+    [ "shuffle", "classSplitMerge__SAMS.html#ae16402a25ef38853ec04e4c7c88216e0", null ],
+    [ "split_move", "classSplitMerge__SAMS.html#a2dd087d9385e3bea847afe311d121b72", null ],
+    [ "step", "classSplitMerge__SAMS.html#a198db7f37403e0f7093771f03ca961e6", null ],
+    [ "accepted_merge", "classSplitMerge__SAMS.html#a28b3d26014b638f3db3996601458a57f", null ],
+    [ "accepted_shuffle", "classSplitMerge__SAMS.html#a6dc7efc5585029e7a37411cf4f17a608", null ],
+    [ "accepted_split", "classSplitMerge__SAMS.html#af44a46bc10d47c3b9fc341a68cd9968b", null ],
+    [ "ci", "classSplitMerge__SAMS.html#a08e1e9e19f1aa0098d5595f8a1cb3f2f", null ],
+    [ "cj", "classSplitMerge__SAMS.html#ad13f1d9fbd90ca3974083fb5cd46713a", null ],
+    [ "gen", "classSplitMerge__SAMS.html#aa34f55f86d4976501c6916ede6c7661b", null ],
+    [ "idx_i", "classSplitMerge__SAMS.html#a9b460b3552b928e4b53f497b25abfec2", null ],
+    [ "idx_j", "classSplitMerge__SAMS.html#af0c799c515ff0ffbe501400b5f19ccc6", null ],
+    [ "launch_state", "classSplitMerge__SAMS.html#a206bae65e863eb7fe273630d98225bbc", null ],
+    [ "log_merge_gibbs_prob", "classSplitMerge__SAMS.html#a922a5126d03338f8e6f3116b30e3a1e5", null ],
+    [ "log_split_gibbs_prob", "classSplitMerge__SAMS.html#a5e4e5d49b7be84ec2b6aa6fce0a629a9", null ],
+    [ "original_allocations", "classSplitMerge__SAMS.html#ab7284d1659fa7c56c2ecfcb63665b0fb", null ],
+    [ "S", "classSplitMerge__SAMS.html#a9cea74d3d45844942423e71aa034eccb", null ],
+    [ "shuffle_bool", "classSplitMerge__SAMS.html#a72d799ebddc0c40ce3dda9ac359b9cc2", null ]
 ];

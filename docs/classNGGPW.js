@@ -10,5 +10,8 @@ var classNGGPW =
     [ "prior_ratio_merge", "classNGGPW.html#a96acaa9d2dacbac024ffaba9d075249a", null ],
     [ "prior_ratio_shuffle", "classNGGPW.html#a9bc80b5731581b00c33479fd3b16d55d", null ],
     [ "prior_ratio_split", "classNGGPW.html#a73053c1ef8025c03e60ef25f42509bf4", null ],
-    [ "update_params", "classNGGPW.html#a46cc6dfe0fa4e2b3a96745e77622a7e4", null ]
+    [ "update_params", "classNGGPW.html#a46cc6dfe0fa4e2b3a96745e77622a7e4", null ],
+    [ "gen", "classNGGPW.html#ae1c12276c0588a8d2f6687d82630a523", null ],
+    [ "rd", "classNGGPW.html#a410d13fc348ec3740a2ef63338142a62", null ],
+    [ "U_sampler_method", "classNGGPW.html#a991d4ee5fc8cef2cf251c76b2a5e3b75", null ]
 ];

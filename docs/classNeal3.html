@@ -103,6 +103,8 @@ $(function(){initNavTree('classNeal3.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classNeal3-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Neal3 Class Reference</div></div>
 </div><!--header-->
@@ -138,6 +140,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a211a2f7cb64b2adf3a8c66f92abf8f7d inherit pub_methods_classSampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor for proper cleanup of derived classes.  <br /></td></tr>
 <tr class="separator:a211a2f7cb64b2adf3a8c66f92abf8f7d inherit pub_methods_classSampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ac20cf03f5de473bdc3cf1c7e59137f53" id="r_ac20cf03f5de473bdc3cf1c7e59137f53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac20cf03f5de473bdc3cf1c7e59137f53">step_1_observation</a> (int index)</td></tr>
+<tr class="memdesc:ac20cf03f5de473bdc3cf1c7e59137f53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sample cluster assignment for a single observation.  <br /></td></tr>
+<tr class="separator:ac20cf03f5de473bdc3cf1c7e59137f53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ca49f482ffc919067a11842ee88e3f1" id="r_a1ca49f482ffc919067a11842ee88e3f1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ca49f482ffc919067a11842ee88e3f1">sample_from_log_probs</a> (const std::vector&lt; double &gt; &amp;log_probs)</td></tr>
+<tr class="separator:a1ca49f482ffc919067a11842ee88e3f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a6c1fb83b507ed24597b7dc0fa6529bad" id="r_a6c1fb83b507ed24597b7dc0fa6529bad"><td class="memItemLeft" align="right" valign="top">std::mt19937&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c1fb83b507ed24597b7dc0fa6529bad">gen</a></td></tr>
+<tr class="memdesc:a6c1fb83b507ed24597b7dc0fa6529bad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mersenne Twister random number generator for sampling operations.  <br /></td></tr>
+<tr class="separator:a6c1fb83b507ed24597b7dc0fa6529bad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_classSampler"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classSampler')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classSampler.html">Sampler</a></td></tr>
@@ -167,8 +183,8 @@ Additional Inherited Members</h2></td></tr>
 <li><b>Automatic cluster creation/deletion</b>: Clusters are created when needed and deleted when empty</li>
 </ul>
 <p>The algorithm is particularly effective for models where the likelihood can be computed in closed form after integrating out cluster-specific parameters.</p>
-<p>@reference Neal, R. M. (2000). "Markov Chain Sampling Methods for Dirichlet
-Process Mixture Models"</p>
+<dl class="section note"><dt>Note</dt><dd>reference Neal, R. M. (2000). "Markov Chain Sampling Methods for Dirichlet
+Process Mixture Models"</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a>, <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a>, <a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad50c5edb8fddcf84043fa2aa1249f9ea" name="ad50c5edb8fddcf84043fa2aa1249f9ea"></a>
@@ -223,6 +239,31 @@ Process Mixture Models"</p>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1ca49f482ffc919067a11842ee88e3f1" name="a1ca49f482ffc919067a11842ee88e3f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ca49f482ffc919067a11842ee88e3f1">&#9670;&#160;</a></span>sample_from_log_probs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Neal3::sample_from_log_probs </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>log_probs</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="abfabb9dfe80f6fce1c93ac4151279f86" name="abfabb9dfe80f6fce1c93ac4151279f86"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abfabb9dfe80f6fce1c93ac4151279f86">&#9670;&#160;</a></span>step()</h2>
 
@@ -253,10 +294,82 @@ Process Mixture Models"</p>
 <li>Cluster structure may have changed (clusters created/destroyed)</li>
 <li>The Markov chain has advanced by one step</li>
 </ul>
-<dl class="section see"><dt>See also</dt><dd>step_1_observation() </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ac20cf03f5de473bdc3cf1c7e59137f53" title="Sample cluster assignment for a single observation.">step_1_observation()</a> </dd></dl>
 <p>Performs a single step of the <a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a> Neal 2 algorithm for all the dataset.</p>
 
 <p>Implements <a class="el" href="classSampler.html#a49153313f42d53d107bfe2b2e9d83fa5">Sampler</a>.</p>
+
+</div>
+</div>
+<a id="ac20cf03f5de473bdc3cf1c7e59137f53" name="ac20cf03f5de473bdc3cf1c7e59137f53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac20cf03f5de473bdc3cf1c7e59137f53">&#9670;&#160;</a></span>step_1_observation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Neal3::step_1_observation </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sample cluster assignment for a single observation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>Index of the observation to update</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This method implements the core of Algorithm 3:</p><ol type="1">
+<li>Remove the observation from its current cluster</li>
+<li>Compute probabilities for all existing clusters plus a new cluster</li>
+<li>Sample new assignment from the full conditional distribution</li>
+<li>Update cluster assignments and clean up empty clusters</li>
+</ol>
+<p>The probabilities combine prior information from the <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> with likelihood information computed by integrating out cluster parameters. </p>
+<p>Performs a step in the DPNeal2 sampling process.</p>
+<p>This method is responsible for updating the allocations of the data points based on the current state of the model. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The index of the data point to update.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a6c1fb83b507ed24597b7dc0fa6529bad" name="a6c1fb83b507ed24597b7dc0fa6529bad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c1fb83b507ed24597b7dc0fa6529bad">&#9670;&#160;</a></span>gen</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::mt19937 Neal3::gen</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mersenne Twister random number generator for sampling operations. </p>
 
 </div>
 </div>

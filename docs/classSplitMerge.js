@@ -1,8 +1,31 @@
 var classSplitMerge =
 [
     [ "SplitMerge", "classSplitMerge.html#a6c697d29cdb44012ebe037e19745ed8e", null ],
+    [ "choose_clusters_shuffle", "classSplitMerge.html#a3d85471b9580ef6c1ba01d65c0ffd9aa", null ],
+    [ "choose_indeces", "classSplitMerge.html#aaed9ff940af303b63963207bc2dfdf1c", null ],
+    [ "compute_acceptance_ratio_merge", "classSplitMerge.html#a9a7c47c778c584f3b49f4c77ff30b302", null ],
+    [ "compute_acceptance_ratio_shuffle", "classSplitMerge.html#aef1773371d9b543fcefc8c2cd02eba49", null ],
+    [ "compute_acceptance_ratio_split", "classSplitMerge.html#a918acf018b41086f3ce1a1440aced4ad", null ],
     [ "get_accepted_merge", "classSplitMerge.html#ad259991cb650d3c053adaedb610f31b9", null ],
     [ "get_accepted_shuffle", "classSplitMerge.html#af711a9a7ca43c343a28bda7c9cc7ae3e", null ],
     [ "get_accepted_split", "classSplitMerge.html#a8a3ea45e1d3bde17d917eea887ca324c", null ],
-    [ "step", "classSplitMerge.html#a87c7ea9050b7157ae5af7d4e63bb16bf", null ]
+    [ "merge_move", "classSplitMerge.html#a81747132bb2e0601a4e20c12d26197aa", null ],
+    [ "restricted_gibbs", "classSplitMerge.html#ad3e2149688f6e7e5625488bab6bace42", null ],
+    [ "shuffle", "classSplitMerge.html#a2272eee0bd1557aab937c2153eb61a70", null ],
+    [ "split_move", "classSplitMerge.html#a974d26fdaa24bc930a60a2cc91ce18b0", null ],
+    [ "step", "classSplitMerge.html#a87c7ea9050b7157ae5af7d4e63bb16bf", null ],
+    [ "accepted_merge", "classSplitMerge.html#a46013383a90e71068caa7e869e2b273c", null ],
+    [ "accepted_shuffle", "classSplitMerge.html#a460c78dd0d4ea04ae3c469938411d6e2", null ],
+    [ "accepted_split", "classSplitMerge.html#a35e44c78542697fe09f69b95a1e74e38", null ],
+    [ "ci", "classSplitMerge.html#a279e3994771d2eb521866d2af71734ec", null ],
+    [ "cj", "classSplitMerge.html#a6ad6a018b97799fae4e41a372b6f5553", null ],
+    [ "gen", "classSplitMerge.html#ad0927420ab4d0448d0626858a8df573e", null ],
+    [ "idx_i", "classSplitMerge.html#a9dec6faf29e2cdbcab0bff427e15e2a3", null ],
+    [ "idx_j", "classSplitMerge.html#a825261c6e1e57297e59fffbeb094dbf6", null ],
+    [ "launch_state", "classSplitMerge.html#a35d2725e443d1cd588a71410ca5f4531", null ],
+    [ "log_merge_gibbs_prob", "classSplitMerge.html#a59cc830210e3ca2753a59e39d6ea625c", null ],
+    [ "log_split_gibbs_prob", "classSplitMerge.html#afefac12e75094f3e256a9c6c2adda20f", null ],
+    [ "original_allocations", "classSplitMerge.html#ad96552c6bbf67fc857911cdf2c2dca81", null ],
+    [ "S", "classSplitMerge.html#a5bfc16aa4e6d36eb42f8a0d6a5f4a493", null ],
+    [ "shuffle_bool", "classSplitMerge.html#a2ed6cc2e1bdf63606d13f6ca020d09c5", null ]
 ];

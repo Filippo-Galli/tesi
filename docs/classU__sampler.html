@@ -119,7 +119,8 @@ Inheritance diagram for U_sampler:</div>
  <div class="center">
   <img src="classU__sampler.png" usemap="#U_5Fsampler_map" alt=""/>
   <map id="U_5Fsampler_map" name="U_5Fsampler_map">
-<area href="classRWMH.html" title="Random Walk Metropolis-Hastings sampler for updating the latent variable U." alt="RWMH" shape="rect" coords="0,56,71,80"/>
+<area href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U." alt="MALA" shape="rect" coords="0,56,71,80"/>
+<area href="classRWMH.html" title="Random Walk Metropolis-Hastings sampler for updating the latent variable U." alt="RWMH" shape="rect" coords="81,56,152,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -187,7 +188,7 @@ Protected Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract base class for MCMC sampling of the latent variable U. </p>
 <p>This class provides the interface and common functionality for sampling the latent variable U in Normalized Generalized Gamma <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> (<a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>) mixture models. The latent variable U appears in the conditional distribution of the partition and must be updated via MCMC methods.</p>
-<p>Derived classes must implement the <a class="el" href="#a68c7b18e6183b1bc9a1645ff36e0c82f" title="Pure virtual method to update the latent variable U.">update_U()</a> method using specific sampling algorithms such as Random Walk Metropolis-Hastings (<a class="el" href="classRWMH.html" title="Random Walk Metropolis-Hastings sampler for updating the latent variable U.">RWMH</a>) or Metropolis-Adjusted Langevin Algorithm (MALA).</p>
+<p>Derived classes must implement the <a class="el" href="#a68c7b18e6183b1bc9a1645ff36e0c82f" title="Pure virtual method to update the latent variable U.">update_U()</a> method using specific sampling algorithms such as Random Walk Metropolis-Hastings (<a class="el" href="classRWMH.html" title="Random Walk Metropolis-Hastings sampler for updating the latent variable U.">RWMH</a>) or Metropolis-Adjusted Langevin Algorithm (<a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a>).</p>
 <dl class="section note"><dt>Note</dt><dd>Reference: "Clustering blood donors via mixtures of product partition
       models with covariates" by Argiento et al., 2024 </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -409,9 +410,9 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Pure virtual method to update the latent variable U. </p>
-<p>This method must be implemented by derived classes to perform MCMC updates of the latent variable U using specific sampling algorithms (e.g., Random Walk Metropolis-Hastings, MALA). </p>
+<p>This method must be implemented by derived classes to perform MCMC updates of the latent variable U using specific sampling algorithms (e.g., Random Walk Metropolis-Hastings, <a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a>). </p>
 
-<p>Implemented in <a class="el" href="classRWMH.html#a1349180615746681801b1b6b86fe1c4b">RWMH</a>.</p>
+<p>Implemented in <a class="el" href="classMALA.html#a40d442a7e6e66c3853e4014326ee5934">MALA</a>, and <a class="el" href="classRWMH.html#a1349180615746681801b1b6b86fe1c4b">RWMH</a>.</p>
 
 </div>
 </div>

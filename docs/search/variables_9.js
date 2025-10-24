@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['params_0',['params',['../classProcess.html#a4c3ef16d47835acfa8fbe86aefb8c6e8',1,'Process::params'],['../classSampler.html#a26e07fa20b8d68ca6f906b40e0f6a9d0',1,'Sampler::params'],['../classU__sampler.html#aae20479c86071657e0fe00d54c9d0d3c',1,'U_sampler::params']]],
-  ['process_1',['process',['../classSampler.html#a8ec54ff9fe8f22c8514496d6f3b998d0',1,'Sampler']]]
+  ['n_0',['n',['../classData.html#adef43f6f1e61ebb5ca3f96015b99df77',1,'Data::n'],['../classU__sampler.html#a2ff0d1829fb23f7e753654355237c77a',1,'U_sampler::n']]],
+  ['ni_1',['NI',['../structParams.html#aad4ced5e851807ada535fae7ec6ebc73',1,'Params']]]
 ];

@@ -103,6 +103,8 @@ $(function(){initNavTree('classRWMH.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classRWMH-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">RWMH Class Reference</div></div>
 </div><!--header-->
@@ -124,7 +126,7 @@ Inheritance diagram for RWMH:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abd3f2472d65d54f0ff47ef63488c91d9" id="r_abd3f2472d65d54f0ff47ef63488c91d9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd3f2472d65d54f0ff47ef63488c91d9">RWMH</a> (<a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classData.html">Data</a> &amp;d, bool use_V=false, double prop_sd=1, bool tuning=false)</td></tr>
+<tr class="memitem:abd3f2472d65d54f0ff47ef63488c91d9" id="r_abd3f2472d65d54f0ff47ef63488c91d9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd3f2472d65d54f0ff47ef63488c91d9">RWMH</a> (<a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classData.html">Data</a> &amp;d, bool <a class="el" href="#a21b4ed6ad1172dfacec56fb3539141a8">use_V</a>=false, double prop_sd=1, bool tuning=false)</td></tr>
 <tr class="memdesc:abd3f2472d65d54f0ff47ef63488c91d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="classRWMH.html" title="Random Walk Metropolis-Hastings sampler for updating the latent variable U.">RWMH</a> sampler.  <br /></td></tr>
 <tr class="separator:abd3f2472d65d54f0ff47ef63488c91d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1349180615746681801b1b6b86fe1c4b" id="r_a1349180615746681801b1b6b86fe1c4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1349180615746681801b1b6b86fe1c4b">update_U</a> () override</td></tr>
@@ -140,6 +142,36 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1f1b535ec7cad2be0aa24c7535c084d1 inherit pub_methods_classU__sampler" id="r_a1f1b535ec7cad2be0aa24c7535c084d1"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classU__sampler.html#a1f1b535ec7cad2be0aa24c7535c084d1">~U_sampler</a> ()=default</td></tr>
 <tr class="memdesc:a1f1b535ec7cad2be0aa24c7535c084d1 inherit pub_methods_classU__sampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor for the <a class="el" href="classU__sampler.html" title="Abstract base class for MCMC sampling of the latent variable U.">U_sampler</a> class.  <br /></td></tr>
 <tr class="separator:a1f1b535ec7cad2be0aa24c7535c084d1 inherit pub_methods_classU__sampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a81e2b14edfbb27123b3a291ae7057fb4" id="r_a81e2b14edfbb27123b3a291ae7057fb4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a81e2b14edfbb27123b3a291ae7057fb4">Robbins_Monro_tuning</a> ()</td></tr>
+<tr class="memdesc:a81e2b14edfbb27123b3a291ae7057fb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs Robbins-Monro adaptive tuning of the proposal standard deviation.  <br /></td></tr>
+<tr class="separator:a81e2b14edfbb27123b3a291ae7057fb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Sampling Methods</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Private methods implementing <a class="el" href="classRWMH.html" title="Random Walk Metropolis-Hastings sampler for updating the latent variable U.">RWMH</a> updates on different scales. </p>
+</div></td></tr>
+<tr class="memitem:af350f5e44ac4f74c84d41f87f52b1aa5" id="r_af350f5e44ac4f74c84d41f87f52b1aa5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af350f5e44ac4f74c84d41f87f52b1aa5">sampling_U</a> ()</td></tr>
+<tr class="memdesc:af350f5e44ac4f74c84d41f87f52b1aa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs one <a class="el" href="classRWMH.html" title="Random Walk Metropolis-Hastings sampler for updating the latent variable U.">RWMH</a> update step for U on the original scale.  <br /></td></tr>
+<tr class="separator:af350f5e44ac4f74c84d41f87f52b1aa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0067c5b24f41c79920c43b7f3ae66c76" id="r_a0067c5b24f41c79920c43b7f3ae66c76"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0067c5b24f41c79920c43b7f3ae66c76">sampling_V</a> ()</td></tr>
+<tr class="memdesc:a0067c5b24f41c79920c43b7f3ae66c76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs one <a class="el" href="classRWMH.html" title="Random Walk Metropolis-Hastings sampler for updating the latent variable U.">RWMH</a> update step for V = log(U).  <br /></td></tr>
+<tr class="separator:a0067c5b24f41c79920c43b7f3ae66c76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ab36d78a51cba6fbd0d0287f03ccf3a09" id="r_ab36d78a51cba6fbd0d0287f03ccf3a09"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab36d78a51cba6fbd0d0287f03ccf3a09">proposal_sd</a> = 1.0</td></tr>
+<tr class="memdesc:ab36d78a51cba6fbd0d0287f03ccf3a09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Standard deviation for the Gaussian proposal distribution.  <br /></td></tr>
+<tr class="separator:ab36d78a51cba6fbd0d0287f03ccf3a09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3d5418ffa4992d72e951473a5fc9021" id="r_ae3d5418ffa4992d72e951473a5fc9021"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3d5418ffa4992d72e951473a5fc9021">accept</a> = false</td></tr>
+<tr class="memdesc:ae3d5418ffa4992d72e951473a5fc9021"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating whether the last proposal was accepted.  <br /></td></tr>
+<tr class="separator:ae3d5418ffa4992d72e951473a5fc9021"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21b4ed6ad1172dfacec56fb3539141a8" id="r_a21b4ed6ad1172dfacec56fb3539141a8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a21b4ed6ad1172dfacec56fb3539141a8">use_V</a> = false</td></tr>
+<tr class="memdesc:a21b4ed6ad1172dfacec56fb3539141a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to use V = log(U) scale for sampling instead of U directly.  <br /></td></tr>
+<tr class="separator:a21b4ed6ad1172dfacec56fb3539141a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa803a348282de6fd0144d22f96b59a4d" id="r_aa803a348282de6fd0144d22f96b59a4d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa803a348282de6fd0144d22f96b59a4d">tuning_enabled</a> = false</td></tr>
+<tr class="memdesc:aa803a348282de6fd0144d22f96b59a4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to enable/disable Robbins-Monro automatic tuning.  <br /></td></tr>
+<tr class="separator:aa803a348282de6fd0144d22f96b59a4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -250,6 +282,122 @@ When tuning = true, proposal_sd will be automatically adjusted during sampling. 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a81e2b14edfbb27123b3a291ae7057fb4" name="a81e2b14edfbb27123b3a291ae7057fb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81e2b14edfbb27123b3a291ae7057fb4">&#9670;&#160;</a></span>Robbins_Monro_tuning()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RWMH::Robbins_Monro_tuning </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Performs Robbins-Monro adaptive tuning of the proposal standard deviation. </p>
+<p>Adjusts the proposal standard deviation to target an optimal acceptance rate of 0.44 for one-dimensional random walk proposals. The tuning follows the Robbins-Monro stochastic approximation scheme:</p>
+<p class="formulaDsp">
+<img class="formulaDsp" alt="\[\log(\sigma_{\text{prop}}^{(t+1)}) = \log(\sigma_{\text{prop}}^{(t)})
++ \frac{c}{t} \cdot \delta_t
+\]" src="form_5.png"/>
+</p>
+<p>where:</p><ul>
+<li><img class="formulaInl" alt="$\delta_t = \mathbb{1}_{\{\text{accept}\}} - \alpha_{\text{target}}$" src="form_6.png"/></li>
+<li><img class="formulaInl" alt="$c = 1 / (\alpha_{\text{target}} \cdot (1 - \alpha_{\text{target}}))$" src="form_7.png"/></li>
+<li><img class="formulaInl" alt="$\alpha_{\text{target}} = 0.44$" src="form_8.png"/> (optimal for 1D random walk)</li>
+<li><img class="formulaInl" alt="$t$" src="form_9.png"/> is the current iteration number</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>Reference: "Adaptive optimal scaling of Metropolis-Hastings
+algorithms using the Robbins-Monro process" by Garthwaite et al. (2016).</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a1349180615746681801b1b6b86fe1c4b" title="Updates the latent variable U using Random Walk Metropolis-Hastings.">update_U()</a> </dd></dl>
+
+</div>
+</div>
+<a id="af350f5e44ac4f74c84d41f87f52b1aa5" name="af350f5e44ac4f74c84d41f87f52b1aa5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af350f5e44ac4f74c84d41f87f52b1aa5">&#9670;&#160;</a></span>sampling_U()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RWMH::sampling_U </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Performs one <a class="el" href="classRWMH.html" title="Random Walk Metropolis-Hastings sampler for updating the latent variable U.">RWMH</a> update step for U on the original scale. </p>
+<p>Proposes a new value from a truncated normal distribution:   </p><p class="formulaDsp">
+<img class="formulaDsp" alt="\[U' \sim \mathcal{N}(U_{\text{current}}, \sigma_{\text{prop}}^2) \quad
+\text{truncated to } (0, \infty) \]" src="form_0.png"/>
+</p>
+<p>The acceptance probability accounts for the asymmetric proposal due to truncation:  </p><p class="formulaDsp">
+<img class="formulaDsp" alt="\[ \alpha = \min\left(1, \frac{f(U')}{f(U)} \cdot
+\frac{q(U|U')}{q(U'|U)}\right) \]" src="form_1.png"/>
+</p>
+<p>where <img class="formulaInl" alt="$q(U'|U)$" src="form_2.png"/> is the truncated normal proposal density.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a0067c5b24f41c79920c43b7f3ae66c76" title="Performs one RWMH update step for V = log(U).">sampling_V()</a> </dd></dl>
+
+</div>
+</div>
+<a id="a0067c5b24f41c79920c43b7f3ae66c76" name="a0067c5b24f41c79920c43b7f3ae66c76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0067c5b24f41c79920c43b7f3ae66c76">&#9670;&#160;</a></span>sampling_V()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RWMH::sampling_V </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Performs one <a class="el" href="classRWMH.html" title="Random Walk Metropolis-Hastings sampler for updating the latent variable U.">RWMH</a> update step for V = log(U). </p>
+<p>Proposes a new value from an unrestricted normal distribution:   </p><p class="formulaDsp">
+<img class="formulaDsp" alt="\[V' \sim \mathcal{N}(V_{\text{current}}, \sigma_{\text{prop}}^2)
+\]" src="form_3.png"/>
+</p>
+<p>The acceptance probability simplifies to:   </p><p class="formulaDsp">
+<img class="formulaDsp" alt="\[\alpha = \min\left(1, \frac{f(V')}{f(V)}\right)
+\]" src="form_4.png"/>
+</p>
+<dl class="section note"><dt>Note</dt><dd>since the proposal is symmetric. Sampling on the log scale can improve efficiency and avoids truncation issues.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#af350f5e44ac4f74c84d41f87f52b1aa5" title="Performs one RWMH update step for U on the original scale.">sampling_U()</a> </dd></dl>
+
+</div>
+</div>
 <a id="a1349180615746681801b1b6b86fe1c4b" name="a1349180615746681801b1b6b86fe1c4b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1349180615746681801b1b6b86fe1c4b">&#9670;&#160;</a></span>update_U()</h2>
 
@@ -276,13 +424,111 @@ When tuning = true, proposal_sd will be automatically adjusted during sampling. 
 <p>Updates the latent variable U using Random Walk Metropolis-Hastings. </p>
 <p>This method performs one iteration of the <a class="el" href="classRWMH.html" title="Random Walk Metropolis-Hastings sampler for updating the latent variable U.">RWMH</a> algorithm. It:</p><ol type="1">
 <li>Increments the iteration counter</li>
-<li>Performs either sampling_U() or sampling_V() depending on use_V flag</li>
+<li>Performs either <a class="el" href="#af350f5e44ac4f74c84d41f87f52b1aa5" title="Performs one RWMH update step for U on the original scale.">sampling_U()</a> or <a class="el" href="#a0067c5b24f41c79920c43b7f3ae66c76" title="Performs one RWMH update step for V = log(U).">sampling_V()</a> depending on use_V flag</li>
 <li>Optionally tunes the proposal standard deviation if tuning is enabled</li>
 </ol>
 <p>The choice between U and V scale affects the proposal distribution and acceptance probability calculation.</p>
-<dl class="section see"><dt>See also</dt><dd>sampling_U(), sampling_V(), Robbins_Monro_tuning() </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#af350f5e44ac4f74c84d41f87f52b1aa5" title="Performs one RWMH update step for U on the original scale.">sampling_U()</a>, <a class="el" href="#a0067c5b24f41c79920c43b7f3ae66c76" title="Performs one RWMH update step for V = log(U).">sampling_V()</a>, <a class="el" href="#a81e2b14edfbb27123b3a291ae7057fb4" title="Performs Robbins-Monro adaptive tuning of the proposal standard deviation.">Robbins_Monro_tuning()</a> </dd></dl>
 
 <p>Implements <a class="el" href="classU__sampler.html#a68c7b18e6183b1bc9a1645ff36e0c82f">U_sampler</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae3d5418ffa4992d72e951473a5fc9021" name="ae3d5418ffa4992d72e951473a5fc9021"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3d5418ffa4992d72e951473a5fc9021">&#9670;&#160;</a></span>accept</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool RWMH::accept = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Flag indicating whether the last proposal was accepted. </p>
+
+</div>
+</div>
+<a id="ab36d78a51cba6fbd0d0287f03ccf3a09" name="ab36d78a51cba6fbd0d0287f03ccf3a09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab36d78a51cba6fbd0d0287f03ccf3a09">&#9670;&#160;</a></span>proposal_sd</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double RWMH::proposal_sd = 1.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Standard deviation for the Gaussian proposal distribution. </p>
+<p>This parameter controls the step size of the random walk proposal. It can be automatically tuned using Robbins-Monro adaptation if enabled. </p>
+
+</div>
+</div>
+<a id="aa803a348282de6fd0144d22f96b59a4d" name="aa803a348282de6fd0144d22f96b59a4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa803a348282de6fd0144d22f96b59a4d">&#9670;&#160;</a></span>tuning_enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool RWMH::tuning_enabled = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Flag to enable/disable Robbins-Monro automatic tuning. </p>
+
+</div>
+</div>
+<a id="a21b4ed6ad1172dfacec56fb3539141a8" name="a21b4ed6ad1172dfacec56fb3539141a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21b4ed6ad1172dfacec56fb3539141a8">&#9670;&#160;</a></span>use_V</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool RWMH::use_V = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Flag to use V = log(U) scale for sampling instead of U directly. </p>
 
 </div>
 </div>

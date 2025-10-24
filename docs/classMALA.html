@@ -103,10 +103,15 @@ $(function(){initNavTree('classMALA.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classMALA-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">MALA Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Metropolis-Adjusted Langevin Algorithm (<a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a>) sampler for the latent variable U.  
+ <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="MALA_8hpp_source.html">MALA.hpp</a>&gt;</code></p>
 <div class="dynheader">
@@ -115,26 +120,67 @@ Inheritance diagram for MALA:</div>
  <div class="center">
   <img src="classMALA.png" usemap="#MALA_map" alt=""/>
   <map id="MALA_map" name="MALA_map">
-<area href="classU__sampler.html" alt="U_sampler" shape="rect" coords="0,0,71,24"/>
+<area href="classU__sampler.html" title="Abstract base class for MCMC sampling of the latent variable U." alt="U_sampler" shape="rect" coords="0,0,71,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7721443577ca4639c17e298b2c1d56b2" id="r_a7721443577ca4639c17e298b2c1d56b2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7721443577ca4639c17e298b2c1d56b2">MALA</a> (<a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classData.html">Data</a> &amp;d, bool use_V=false, double eps=1, bool tuning=false)</td></tr>
+<tr class="memitem:a7721443577ca4639c17e298b2c1d56b2" id="r_a7721443577ca4639c17e298b2c1d56b2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7721443577ca4639c17e298b2c1d56b2">MALA</a> (<a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classData.html">Data</a> &amp;d, bool <a class="el" href="#aa1bd45a50795023b92ea781a495fa599">use_V</a>=false, double eps=1, bool tuning=false)</td></tr>
+<tr class="memdesc:a7721443577ca4639c17e298b2c1d56b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a> sampler.  <br /></td></tr>
 <tr class="separator:a7721443577ca4639c17e298b2c1d56b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40d442a7e6e66c3853e4014326ee5934" id="r_a40d442a7e6e66c3853e4014326ee5934"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a40d442a7e6e66c3853e4014326ee5934">update_U</a> () override</td></tr>
-<tr class="memdesc:a40d442a7e6e66c3853e4014326ee5934"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pure virtual method to update the latent variable U.  <br /></td></tr>
+<tr class="memdesc:a40d442a7e6e66c3853e4014326ee5934"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs one <a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a> update step for the latent variable U.  <br /></td></tr>
 <tr class="separator:a40d442a7e6e66c3853e4014326ee5934"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classU__sampler"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classU__sampler')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classU__sampler.html">U_sampler</a></td></tr>
 <tr class="memitem:a23ec32a62896472e93d554ca9d74669b inherit pub_methods_classU__sampler" id="r_a23ec32a62896472e93d554ca9d74669b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classU__sampler.html#a23ec32a62896472e93d554ca9d74669b">U_sampler</a> (<a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classData.html">Data</a> &amp;d)</td></tr>
-<tr class="memdesc:a23ec32a62896472e93d554ca9d74669b inherit pub_methods_classU__sampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="classU__sampler.html">U_sampler</a> class.  <br /></td></tr>
+<tr class="memdesc:a23ec32a62896472e93d554ca9d74669b inherit pub_methods_classU__sampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the <a class="el" href="classU__sampler.html" title="Abstract base class for MCMC sampling of the latent variable U.">U_sampler</a> class.  <br /></td></tr>
 <tr class="separator:a23ec32a62896472e93d554ca9d74669b inherit pub_methods_classU__sampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16bbf085253b0900a81783694aa20d5f inherit pub_methods_classU__sampler" id="r_a16bbf085253b0900a81783694aa20d5f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classU__sampler.html#a16bbf085253b0900a81783694aa20d5f">get_U</a> () const</td></tr>
+<tr class="memdesc:a16bbf085253b0900a81783694aa20d5f inherit pub_methods_classU__sampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the current value of U.  <br /></td></tr>
 <tr class="separator:a16bbf085253b0900a81783694aa20d5f inherit pub_methods_classU__sampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f1b535ec7cad2be0aa24c7535c084d1 inherit pub_methods_classU__sampler" id="r_a1f1b535ec7cad2be0aa24c7535c084d1"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classU__sampler.html#a1f1b535ec7cad2be0aa24c7535c084d1">~U_sampler</a> ()=default</td></tr>
-<tr class="memdesc:a1f1b535ec7cad2be0aa24c7535c084d1 inherit pub_methods_classU__sampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor for the <a class="el" href="classU__sampler.html">U_sampler</a> class.  <br /></td></tr>
+<tr class="memdesc:a1f1b535ec7cad2be0aa24c7535c084d1 inherit pub_methods_classU__sampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor for the <a class="el" href="classU__sampler.html" title="Abstract base class for MCMC sampling of the latent variable U.">U_sampler</a> class.  <br /></td></tr>
 <tr class="separator:a1f1b535ec7cad2be0aa24c7535c084d1 inherit pub_methods_classU__sampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ac28d5b37d39708a6360d0f248696a7b5" id="r_ac28d5b37d39708a6360d0f248696a7b5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac28d5b37d39708a6360d0f248696a7b5">grad_log_conditional_density_U</a> (double <a class="el" href="classU__sampler.html#a61dcec6f1695e04c541e6ef00022158f">U</a>) const</td></tr>
+<tr class="memdesc:ac28d5b37d39708a6360d0f248696a7b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the gradient of log conditional density with respect to U.  <br /></td></tr>
+<tr class="separator:ac28d5b37d39708a6360d0f248696a7b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41b2222c2b048e24aa9e24966aa0604d" id="r_a41b2222c2b048e24aa9e24966aa0604d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41b2222c2b048e24aa9e24966aa0604d">grad_log_conditional_density_V</a> (double v) const</td></tr>
+<tr class="memdesc:a41b2222c2b048e24aa9e24966aa0604d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the gradient of log conditional density with respect to V = log(U).  <br /></td></tr>
+<tr class="separator:a41b2222c2b048e24aa9e24966aa0604d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1455a59881092cacc41465bec09cc1c6" id="r_a1455a59881092cacc41465bec09cc1c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1455a59881092cacc41465bec09cc1c6">sampling_U</a> ()</td></tr>
+<tr class="memdesc:a1455a59881092cacc41465bec09cc1c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Samples U using <a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a> on the original U scale.  <br /></td></tr>
+<tr class="separator:a1455a59881092cacc41465bec09cc1c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a010edce40e77a91e229e3a138d0dce10" id="r_a010edce40e77a91e229e3a138d0dce10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a010edce40e77a91e229e3a138d0dce10">sampling_V</a> ()</td></tr>
+<tr class="memdesc:a010edce40e77a91e229e3a138d0dce10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Samples U using <a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a> on the transformed V = log(U) scale.  <br /></td></tr>
+<tr class="separator:a010edce40e77a91e229e3a138d0dce10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6377f0f9540fdd0b9098bc640b401c4a" id="r_a6377f0f9540fdd0b9098bc640b401c4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6377f0f9540fdd0b9098bc640b401c4a">Robbins_Monro_tuning</a> ()</td></tr>
+<tr class="memdesc:a6377f0f9540fdd0b9098bc640b401c4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs Robbins-Monro tuning of the proposal step size epsilon.  <br /></td></tr>
+<tr class="separator:a6377f0f9540fdd0b9098bc640b401c4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a6aff6e66f730d6f3cf097bacd1ac8c69" id="r_a6aff6e66f730d6f3cf097bacd1ac8c69"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6aff6e66f730d6f3cf097bacd1ac8c69">epsilon</a> = 1.0</td></tr>
+<tr class="memdesc:a6aff6e66f730d6f3cf097bacd1ac8c69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Step size parameter for the Langevin dynamics proposal.  <br /></td></tr>
+<tr class="separator:a6aff6e66f730d6f3cf097bacd1ac8c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5438f9284a2dceab88c2c63f59279555" id="r_a5438f9284a2dceab88c2c63f59279555"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5438f9284a2dceab88c2c63f59279555">old_epsilon</a> = 1.0</td></tr>
+<tr class="memdesc:a5438f9284a2dceab88c2c63f59279555"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous value of epsilon, used for restart mechanism in adaptive tuning.  <br /></td></tr>
+<tr class="separator:a5438f9284a2dceab88c2c63f59279555"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8214abceb906c0b08cccb054fe2ede3" id="r_af8214abceb906c0b08cccb054fe2ede3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8214abceb906c0b08cccb054fe2ede3">accept</a> = false</td></tr>
+<tr class="memdesc:af8214abceb906c0b08cccb054fe2ede3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating whether the last proposal was accepted.  <br /></td></tr>
+<tr class="separator:af8214abceb906c0b08cccb054fe2ede3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1bd45a50795023b92ea781a495fa599" id="r_aa1bd45a50795023b92ea781a495fa599"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1bd45a50795023b92ea781a495fa599">use_V</a> = false</td></tr>
+<tr class="memdesc:aa1bd45a50795023b92ea781a495fa599"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to use V = log(U) transformation instead of direct U sampling.  <br /></td></tr>
+<tr class="separator:aa1bd45a50795023b92ea781a495fa599"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab76aa610ccc0ef8c33d11c3f85fb2ebc" id="r_ab76aa610ccc0ef8c33d11c3f85fb2ebc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab76aa610ccc0ef8c33d11c3f85fb2ebc">tuning_enabled</a> = false</td></tr>
+<tr class="memdesc:ab76aa610ccc0ef8c33d11c3f85fb2ebc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to enable/disable Robbins-Monro adaptive tuning of step size.  <br /></td></tr>
+<tr class="separator:ab76aa610ccc0ef8c33d11c3f85fb2ebc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a3fbec91e9cce3a2ad6d9f3538ca112" id="r_a6a3fbec91e9cce3a2ad6d9f3538ca112"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a3fbec91e9cce3a2ad6d9f3538ca112">BI_adapt</a> = 5 / (0.574 * (1 - 0.574))</td></tr>
+<tr class="memdesc:a6a3fbec91e9cce3a2ad6d9f3538ca112"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of initial iterations before adaptive tuning begins.  <br /></td></tr>
+<tr class="separator:a6a3fbec91e9cce3a2ad6d9f3538ca112"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -147,10 +193,13 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a5dd0a1bd30dff4e6a1efa644f164b85d inherit pro_methods_classU__sampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classU__sampler"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classU__sampler')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classU__sampler.html">U_sampler</a></td></tr>
 <tr class="memitem:aae20479c86071657e0fe00d54c9d0d3c inherit pro_attribs_classU__sampler" id="r_aae20479c86071657e0fe00d54c9d0d3c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structParams.html">Params</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classU__sampler.html#aae20479c86071657e0fe00d54c9d0d3c">params</a></td></tr>
+<tr class="memdesc:aae20479c86071657e0fe00d54c9d0d3c inherit pro_attribs_classU__sampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the parameters object containing <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> parameters.  <br /></td></tr>
 <tr class="separator:aae20479c86071657e0fe00d54c9d0d3c inherit pro_attribs_classU__sampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5acb88efacc886e0603de3bff294c1c6 inherit pro_attribs_classU__sampler" id="r_a5acb88efacc886e0603de3bff294c1c6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classU__sampler.html#a5acb88efacc886e0603de3bff294c1c6">data</a></td></tr>
+<tr class="memdesc:a5acb88efacc886e0603de3bff294c1c6 inherit pro_attribs_classU__sampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the data object containing observations and cluster assignments.  <br /></td></tr>
 <tr class="separator:a5acb88efacc886e0603de3bff294c1c6 inherit pro_attribs_classU__sampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d973e404393789b3799a407bc8d9c03 inherit pro_attribs_classU__sampler" id="r_a1d973e404393789b3799a407bc8d9c03"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classU__sampler.html#a1d973e404393789b3799a407bc8d9c03">total_iterations</a> = 0</td></tr>
+<tr class="memdesc:a1d973e404393789b3799a407bc8d9c03 inherit pro_attribs_classU__sampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counter for total MCMC iterations performed.  <br /></td></tr>
 <tr class="separator:a1d973e404393789b3799a407bc8d9c03 inherit pro_attribs_classU__sampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25806348f421eaab938a458b18106c0b inherit pro_attribs_classU__sampler" id="r_a25806348f421eaab938a458b18106c0b"><td class="memItemLeft" align="right" valign="top">std::random_device&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classU__sampler.html#a25806348f421eaab938a458b18106c0b">rd</a></td></tr>
 <tr class="memdesc:a25806348f421eaab938a458b18106c0b inherit pro_attribs_classU__sampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Random device for seeding.  <br /></td></tr>
@@ -168,10 +217,18 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a2ff0d1829fb23f7e753654355237c77a inherit pro_attribs_classU__sampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of observations n.  <br /></td></tr>
 <tr class="separator:a2ff0d1829fb23f7e753654355237c77a inherit pro_attribs_classU__sampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61dcec6f1695e04c541e6ef00022158f inherit pro_attribs_classU__sampler" id="r_a61dcec6f1695e04c541e6ef00022158f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classU__sampler.html#a61dcec6f1695e04c541e6ef00022158f">U</a> = 1.0</td></tr>
-<tr class="memdesc:a61dcec6f1695e04c541e6ef00022158f inherit pro_attribs_classU__sampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">U starting value.  <br /></td></tr>
+<tr class="memdesc:a61dcec6f1695e04c541e6ef00022158f inherit pro_attribs_classU__sampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current value of the latent variable U (initialized to 1.0).  <br /></td></tr>
 <tr class="separator:a61dcec6f1695e04c541e6ef00022158f inherit pro_attribs_classU__sampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Metropolis-Adjusted Langevin Algorithm (<a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a>) sampler for the latent variable U. </p>
+<p>This class implements the <a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a> algorithm, a gradient-based MCMC sampler that uses first-order derivative information to propose more informed moves in the parameter space. The algorithm can operate either on U directly or on V = log(U) for improved numerical stability.</p>
+<p><a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a> uses the following proposal mechanism:</p><ul>
+<li>U' = U + (ε²/2)∇log p(U|·) + ε*Z, where Z ~ N(0,1)</li>
+</ul>
+<p>The class supports adaptive tuning of the step size ε using the Robbins-Monro algorithm to achieve an optimal acceptance rate of approximately 0.574 (optimal for 1D problems).</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classU__sampler.html" title="Abstract base class for MCMC sampling of the latent variable U.">U_sampler</a> </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7721443577ca4639c17e298b2c1d56b2" name="a7721443577ca4639c17e298b2c1d56b2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7721443577ca4639c17e298b2c1d56b2">&#9670;&#160;</a></span>MALA()</h2>
 
@@ -214,9 +271,194 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Constructor for <a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a> sampler. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>Reference to model parameters </td></tr>
+    <tr><td class="paramname">d</td><td>Reference to observed data </td></tr>
+    <tr><td class="paramname">use_V</td><td>If true, sample on V = log(U) scale instead of U scale (default: false) </td></tr>
+    <tr><td class="paramname">eps</td><td>Initial step size for Langevin dynamics (default: 1.0) </td></tr>
+    <tr><td class="paramname">tuning</td><td>If true, enable Robbins-Monro adaptive tuning (default: false) </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac28d5b37d39708a6360d0f248696a7b5" name="ac28d5b37d39708a6360d0f248696a7b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac28d5b37d39708a6360d0f248696a7b5">&#9670;&#160;</a></span>grad_log_conditional_density_U()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double MALA::grad_log_conditional_density_U </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>U</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Computes the gradient of log conditional density with respect to U. </p>
+<p>The gradient is given by: ∇_U log p(U|·) = (n-1)/U - (n - σK)/(U+τ) - a(U+τ)^(σ-1)</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">U</td><td>The current value of the latent variable U </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The gradient value at U </dd></dl>
+
+</div>
+</div>
+<a id="a41b2222c2b048e24aa9e24966aa0604d" name="a41b2222c2b048e24aa9e24966aa0604d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41b2222c2b048e24aa9e24966aa0604d">&#9670;&#160;</a></span>grad_log_conditional_density_V()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double MALA::grad_log_conditional_density_V </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Computes the gradient of log conditional density with respect to V = log(U). </p>
+<p>Uses the chain rule to transform the gradient from U to V scale: ∇_V log p(V|·) = ∇_U log p(U|·) * U + 1</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>The current value of V = log(U) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The gradient value at V </dd></dl>
+
+</div>
+</div>
+<a id="a6377f0f9540fdd0b9098bc640b401c4a" name="a6377f0f9540fdd0b9098bc640b401c4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6377f0f9540fdd0b9098bc640b401c4a">&#9670;&#160;</a></span>Robbins_Monro_tuning()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MALA::Robbins_Monro_tuning </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Performs Robbins-Monro tuning of the proposal step size epsilon. </p>
+<p>Adjusts epsilon to target an acceptance rate of 0.574 (optimal for 1D <a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a>), based on the Robbins-Monro stochastic approximation algorithm. The update rule is:</p>
+<p>epsilon = exp(log(epsilon) + c * δ / t)</p>
+<p>where:</p><ul>
+<li>δ = (accepted ? 1.0 : 0.0) - target_acc</li>
+<li>c = 1.0 / (target_acc * (1 - target_acc))</li>
+<li>t = total_iterations</li>
+</ul>
+<p>Includes a restart mechanism to prevent epsilon from changing too rapidly (resets iteration counter if epsilon changes by more than factor of 3).</p>
+<dl class="section note"><dt>Note</dt><dd>Only active after BI_adapt initial iterations and when tuning_enabled is true </dd></dl>
+<dl class="section see"><dt>See also</dt><dd>Garthwaite et al. (2016), "Adaptive optimal scaling of
+Metropolis-Hastings algorithms using the Robbins-Monro process" </dd></dl>
+
+</div>
+</div>
+<a id="a1455a59881092cacc41465bec09cc1c6" name="a1455a59881092cacc41465bec09cc1c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1455a59881092cacc41465bec09cc1c6">&#9670;&#160;</a></span>sampling_U()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MALA::sampling_U </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Samples U using <a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a> on the original U scale. </p>
+<p>Implements the <a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a> proposal mechanism directly on U:</p><ul>
+<li>Proposes U' = U + (ε²/2)∇log p(U) + ε*Z</li>
+<li>Computes acceptance ratio including asymmetric proposal densities</li>
+<li>Accepts/rejects according to Metropolis-Hastings criterion </li>
+</ul>
+
+</div>
+</div>
+<a id="a010edce40e77a91e229e3a138d0dce10" name="a010edce40e77a91e229e3a138d0dce10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a010edce40e77a91e229e3a138d0dce10">&#9670;&#160;</a></span>sampling_V()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MALA::sampling_V </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Samples U using <a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a> on the transformed V = log(U) scale. </p>
+<p>Implements <a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a> on the log-transformed space for better numerical stability:</p><ul>
+<li>Proposes V' = V + (ε²/2)∇log p(V) + ε*Z</li>
+<li>Transforms back to U scale: U' = exp(V')</li>
+<li>Includes Jacobian correction in acceptance ratio</li>
+<li>Useful when U is constrained to be positive and has large dynamic range </li>
+</ul>
+
+</div>
+</div>
 <a id="a40d442a7e6e66c3853e4014326ee5934" name="a40d442a7e6e66c3853e4014326ee5934"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a40d442a7e6e66c3853e4014326ee5934">&#9670;&#160;</a></span>update_U()</h2>
 
@@ -240,9 +482,161 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Pure virtual method to update the latent variable U. </p>
+<p>Performs one <a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a> update step for the latent variable U. </p>
+<p>Executes the following sequence:</p><ol type="1">
+<li>Increments iteration counter</li>
+<li>Performs <a class="el" href="classMALA.html" title="Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.">MALA</a> sampling (either on V or U scale based on use_V flag)</li>
+<li>Applies Robbins-Monro tuning if enabled</li>
+</ol>
+<dl class="section note"><dt>Note</dt><dd>Overrides the pure virtual function from <a class="el" href="classU__sampler.html" title="Abstract base class for MCMC sampling of the latent variable U.">U_sampler</a> base class </dd></dl>
 
 <p>Implements <a class="el" href="classU__sampler.html#a68c7b18e6183b1bc9a1645ff36e0c82f">U_sampler</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="af8214abceb906c0b08cccb054fe2ede3" name="af8214abceb906c0b08cccb054fe2ede3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8214abceb906c0b08cccb054fe2ede3">&#9670;&#160;</a></span>accept</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MALA::accept = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Flag indicating whether the last proposal was accepted. </p>
+
+</div>
+</div>
+<a id="a6a3fbec91e9cce3a2ad6d9f3538ca112" name="a6a3fbec91e9cce3a2ad6d9f3538ca112"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a3fbec91e9cce3a2ad6d9f3538ca112">&#9670;&#160;</a></span>BI_adapt</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MALA::BI_adapt = 5 / (0.574 * (1 - 0.574))</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Number of initial iterations before adaptive tuning begins. </p>
+<p>Set to 5/(target_acc * (1 - target_acc)) ≈ 20.4 iterations. This allows some initial exploration before adaptation starts. </p>
+
+</div>
+</div>
+<a id="a6aff6e66f730d6f3cf097bacd1ac8c69" name="a6aff6e66f730d6f3cf097bacd1ac8c69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6aff6e66f730d6f3cf097bacd1ac8c69">&#9670;&#160;</a></span>epsilon</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double MALA::epsilon = 1.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Step size parameter for the Langevin dynamics proposal. </p>
+
+</div>
+</div>
+<a id="a5438f9284a2dceab88c2c63f59279555" name="a5438f9284a2dceab88c2c63f59279555"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5438f9284a2dceab88c2c63f59279555">&#9670;&#160;</a></span>old_epsilon</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double MALA::old_epsilon = 1.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Previous value of epsilon, used for restart mechanism in adaptive tuning. </p>
+
+</div>
+</div>
+<a id="ab76aa610ccc0ef8c33d11c3f85fb2ebc" name="ab76aa610ccc0ef8c33d11c3f85fb2ebc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab76aa610ccc0ef8c33d11c3f85fb2ebc">&#9670;&#160;</a></span>tuning_enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MALA::tuning_enabled = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Flag to enable/disable Robbins-Monro adaptive tuning of step size. </p>
+
+</div>
+</div>
+<a id="aa1bd45a50795023b92ea781a495fa599" name="aa1bd45a50795023b92ea781a495fa599"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1bd45a50795023b92ea781a495fa599">&#9670;&#160;</a></span>use_V</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MALA::use_V = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Flag to use V = log(U) transformation instead of direct U sampling. </p>
 
 </div>
 </div>

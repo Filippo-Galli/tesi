@@ -103,6 +103,8 @@ $(function(){initNavTree('classSplitMerge__SAMS.html',''); initResizable(true); 
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classSplitMerge__SAMS-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">SplitMerge_SAMS Class Reference</div></div>
 </div><!--header-->
@@ -124,7 +126,7 @@ Inheritance diagram for SplitMerge_SAMS:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af812bf4c32fef71ddae082bfa26d1465" id="r_af812bf4c32fef71ddae082bfa26d1465"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af812bf4c32fef71ddae082bfa26d1465">SplitMerge_SAMS</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classLikelihood.html">Likelihood</a> &amp;l, <a class="el" href="classProcess.html">Process</a> &amp;pr, bool shuffle)</td></tr>
+<tr class="memitem:af812bf4c32fef71ddae082bfa26d1465" id="r_af812bf4c32fef71ddae082bfa26d1465"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af812bf4c32fef71ddae082bfa26d1465">SplitMerge_SAMS</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classLikelihood.html">Likelihood</a> &amp;l, <a class="el" href="classProcess.html">Process</a> &amp;pr, bool <a class="el" href="#ae16402a25ef38853ec04e4c7c88216e0">shuffle</a>)</td></tr>
 <tr class="memdesc:af812bf4c32fef71ddae082bfa26d1465"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for SAMS (Sequential Allocation Merge-Split) sampler.  <br /></td></tr>
 <tr class="separator:af812bf4c32fef71ddae082bfa26d1465"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a198db7f37403e0f7093771f03ca961e6" id="r_a198db7f37403e0f7093771f03ca961e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a198db7f37403e0f7093771f03ca961e6">step</a> () override</td></tr>
@@ -146,6 +148,78 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a211a2f7cb64b2adf3a8c66f92abf8f7d inherit pub_methods_classSampler" id="r_a211a2f7cb64b2adf3a8c66f92abf8f7d"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSampler.html#a211a2f7cb64b2adf3a8c66f92abf8f7d">~Sampler</a> ()=default</td></tr>
 <tr class="memdesc:a211a2f7cb64b2adf3a8c66f92abf8f7d inherit pub_methods_classSampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor for proper cleanup of derived classes.  <br /></td></tr>
 <tr class="separator:a211a2f7cb64b2adf3a8c66f92abf8f7d inherit pub_methods_classSampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a7c24fa1ba190b6cf4adc2ac011ae5c33" id="r_a7c24fa1ba190b6cf4adc2ac011ae5c33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c24fa1ba190b6cf4adc2ac011ae5c33">choose_indeces</a> ()</td></tr>
+<tr class="memdesc:a7c24fa1ba190b6cf4adc2ac011ae5c33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Randomly select two observations for split-merge proposal.  <br /></td></tr>
+<tr class="separator:a7c24fa1ba190b6cf4adc2ac011ae5c33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f209904a93d4ba19a9e0b599fa1e8ea" id="r_a0f209904a93d4ba19a9e0b599fa1e8ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f209904a93d4ba19a9e0b599fa1e8ea">choose_clusters_shuffle</a> ()</td></tr>
+<tr class="memdesc:a0f209904a93d4ba19a9e0b599fa1e8ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select clusters for shuffle move.  <br /></td></tr>
+<tr class="separator:a0f209904a93d4ba19a9e0b599fa1e8ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cf7698ea219623995597a45932db97c" id="r_a1cf7698ea219623995597a45932db97c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1cf7698ea219623995597a45932db97c">sequential_allocation</a> (int iterations, bool only_probabilities=false, bool sequential=true)</td></tr>
+<tr class="memdesc:a1cf7698ea219623995597a45932db97c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate proposal state via sequential allocation.  <br /></td></tr>
+<tr class="separator:a1cf7698ea219623995597a45932db97c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dd087d9385e3bea847afe311d121b72" id="r_a2dd087d9385e3bea847afe311d121b72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2dd087d9385e3bea847afe311d121b72">split_move</a> ()</td></tr>
+<tr class="memdesc:a2dd087d9385e3bea847afe311d121b72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute a split move using SAMS.  <br /></td></tr>
+<tr class="separator:a2dd087d9385e3bea847afe311d121b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acba1ce0aa45cadf54443b5f1c0eceaa6" id="r_acba1ce0aa45cadf54443b5f1c0eceaa6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acba1ce0aa45cadf54443b5f1c0eceaa6">compute_acceptance_ratio_split</a> (double likelihood_old_cluster)</td></tr>
+<tr class="memdesc:acba1ce0aa45cadf54443b5f1c0eceaa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute acceptance ratio for SAMS split move.  <br /></td></tr>
+<tr class="separator:acba1ce0aa45cadf54443b5f1c0eceaa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f774a8523fa9cd09826aecd6a177d11" id="r_a6f774a8523fa9cd09826aecd6a177d11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f774a8523fa9cd09826aecd6a177d11">merge_move</a> ()</td></tr>
+<tr class="memdesc:a6f774a8523fa9cd09826aecd6a177d11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute a merge move using SAMS.  <br /></td></tr>
+<tr class="separator:a6f774a8523fa9cd09826aecd6a177d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8cae3bc20e68ad01b70c12c5418fc75" id="r_ab8cae3bc20e68ad01b70c12c5418fc75"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab8cae3bc20e68ad01b70c12c5418fc75">compute_acceptance_ratio_merge</a> (double likelihood_old_ci, double likelihood_old_cj)</td></tr>
+<tr class="memdesc:ab8cae3bc20e68ad01b70c12c5418fc75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute acceptance ratio for SAMS merge move.  <br /></td></tr>
+<tr class="separator:ab8cae3bc20e68ad01b70c12c5418fc75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae16402a25ef38853ec04e4c7c88216e0" id="r_ae16402a25ef38853ec04e4c7c88216e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae16402a25ef38853ec04e4c7c88216e0">shuffle</a> ()</td></tr>
+<tr class="memdesc:ae16402a25ef38853ec04e4c7c88216e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute a shuffle move using SAMS.  <br /></td></tr>
+<tr class="separator:ae16402a25ef38853ec04e4c7c88216e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca21e410527783e4d78b4c263d8f2480" id="r_aca21e410527783e4d78b4c263d8f2480"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca21e410527783e4d78b4c263d8f2480">compute_acceptance_ratio_shuffle</a> (double likelihood_old_ci, double likelihood_old_cj, int old_ci_size, int old_cj_size)</td></tr>
+<tr class="memdesc:aca21e410527783e4d78b4c263d8f2480"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute acceptance ratio for SAMS shuffle move.  <br /></td></tr>
+<tr class="separator:aca21e410527783e4d78b4c263d8f2480"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aa34f55f86d4976501c6916ede6c7661b" id="r_aa34f55f86d4976501c6916ede6c7661b"><td class="memItemLeft" align="right" valign="top">std::mt19937&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa34f55f86d4976501c6916ede6c7661b">gen</a></td></tr>
+<tr class="memdesc:aa34f55f86d4976501c6916ede6c7661b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mersenne Twister random number generator for sampling operations.  <br /></td></tr>
+<tr class="separator:aa34f55f86d4976501c6916ede6c7661b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b460b3552b928e4b53f497b25abfec2" id="r_a9b460b3552b928e4b53f497b25abfec2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b460b3552b928e4b53f497b25abfec2">idx_i</a></td></tr>
+<tr class="memdesc:a9b460b3552b928e4b53f497b25abfec2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index of first randomly chosen observation.  <br /></td></tr>
+<tr class="separator:a9b460b3552b928e4b53f497b25abfec2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0c799c515ff0ffbe501400b5f19ccc6" id="r_af0c799c515ff0ffbe501400b5f19ccc6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0c799c515ff0ffbe501400b5f19ccc6">idx_j</a></td></tr>
+<tr class="memdesc:af0c799c515ff0ffbe501400b5f19ccc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index of second randomly chosen observation.  <br /></td></tr>
+<tr class="separator:af0c799c515ff0ffbe501400b5f19ccc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08e1e9e19f1aa0098d5595f8a1cb3f2f" id="r_a08e1e9e19f1aa0098d5595f8a1cb3f2f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08e1e9e19f1aa0098d5595f8a1cb3f2f">ci</a></td></tr>
+<tr class="memdesc:a08e1e9e19f1aa0098d5595f8a1cb3f2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cluster assignment of first observation.  <br /></td></tr>
+<tr class="separator:a08e1e9e19f1aa0098d5595f8a1cb3f2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad13f1d9fbd90ca3974083fb5cd46713a" id="r_ad13f1d9fbd90ca3974083fb5cd46713a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad13f1d9fbd90ca3974083fb5cd46713a">cj</a></td></tr>
+<tr class="memdesc:ad13f1d9fbd90ca3974083fb5cd46713a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cluster assignment of second observation.  <br /></td></tr>
+<tr class="separator:ad13f1d9fbd90ca3974083fb5cd46713a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72d799ebddc0c40ce3dda9ac359b9cc2" id="r_a72d799ebddc0c40ce3dda9ac359b9cc2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72d799ebddc0c40ce3dda9ac359b9cc2">shuffle_bool</a> = false</td></tr>
+<tr class="memdesc:a72d799ebddc0c40ce3dda9ac359b9cc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to enable shuffle moves (Mena and Martinez, 2014)  <br /></td></tr>
+<tr class="separator:a72d799ebddc0c40ce3dda9ac359b9cc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a206bae65e863eb7fe273630d98225bbc" id="r_a206bae65e863eb7fe273630d98225bbc"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a206bae65e863eb7fe273630d98225bbc">launch_state</a></td></tr>
+<tr class="memdesc:a206bae65e863eb7fe273630d98225bbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Launch state for sequential allocation.  <br /></td></tr>
+<tr class="separator:a206bae65e863eb7fe273630d98225bbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cea74d3d45844942423e71aa034eccb" id="r_a9cea74d3d45844942423e71aa034eccb"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9cea74d3d45844942423e71aa034eccb">S</a></td></tr>
+<tr class="memdesc:a9cea74d3d45844942423e71aa034eccb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indices of observations in clusters ci and cj.  <br /></td></tr>
+<tr class="separator:a9cea74d3d45844942423e71aa034eccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7284d1659fa7c56c2ecfcb63665b0fb" id="r_ab7284d1659fa7c56c2ecfcb63665b0fb"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7284d1659fa7c56c2ecfcb63665b0fb">original_allocations</a></td></tr>
+<tr class="memdesc:ab7284d1659fa7c56c2ecfcb63665b0fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Original cluster assignments before move proposal.  <br /></td></tr>
+<tr class="separator:ab7284d1659fa7c56c2ecfcb63665b0fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e4e5d49b7be84ec2b6aa6fce0a629a9" id="r_a5e4e5d49b7be84ec2b6aa6fce0a629a9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e4e5d49b7be84ec2b6aa6fce0a629a9">log_split_gibbs_prob</a> = 0</td></tr>
+<tr class="memdesc:a5e4e5d49b7be84ec2b6aa6fce0a629a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log probability of generating current state via sequential allocation (split direction)  <br /></td></tr>
+<tr class="separator:a5e4e5d49b7be84ec2b6aa6fce0a629a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a922a5126d03338f8e6f3116b30e3a1e5" id="r_a922a5126d03338f8e6f3116b30e3a1e5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a922a5126d03338f8e6f3116b30e3a1e5">log_merge_gibbs_prob</a> = 0</td></tr>
+<tr class="memdesc:a922a5126d03338f8e6f3116b30e3a1e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log probability of generating current state via sequential allocation (merge direction)  <br /></td></tr>
+<tr class="separator:a922a5126d03338f8e6f3116b30e3a1e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af44a46bc10d47c3b9fc341a68cd9968b" id="r_af44a46bc10d47c3b9fc341a68cd9968b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af44a46bc10d47c3b9fc341a68cd9968b">accepted_split</a> = 0</td></tr>
+<tr class="separator:af44a46bc10d47c3b9fc341a68cd9968b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28b3d26014b638f3db3996601458a57f" id="r_a28b3d26014b638f3db3996601458a57f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28b3d26014b638f3db3996601458a57f">accepted_merge</a> = 0</td></tr>
+<tr class="separator:a28b3d26014b638f3db3996601458a57f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dc7efc5585029e7a37411cf4f17a608" id="r_a6dc7efc5585029e7a37411cf4f17a608"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6dc7efc5585029e7a37411cf4f17a608">accepted_shuffle</a> = 0</td></tr>
+<tr class="separator:a6dc7efc5585029e7a37411cf4f17a608"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -176,9 +250,9 @@ Additional Inherited Members</h2></td></tr>
 <li><b>Maintained Ergodicity</b>: Preserves theoretical properties of split-merge</li>
 </ul>
 <p>The algorithm maintains the same three types of moves (split, merge, shuffle) but uses a different mechanism for generating proposals within each move type.</p>
-<p>@reference Dahl, D. B. and Newcomb, S. (2022). "Sequentially allocated
-merge-split samplers for conjugate Bayesian nonparametric models" @reference Martinez, A. F. and Mena, R. H. (2014). "On a Nonparametric Change
-Point Detection Model in Markovian Regimes"</p>
+<dl class="section note"><dt>Note</dt><dd>reference Dahl, D. B. and Newcomb, S. (2022). "Sequentially allocated
+merge-split samplers for conjugate Bayesian nonparametric models" reference Martinez, A. F. and Mena, R. H. (2014). "On a Nonparametric Change
+Point Detection Model in Markovian Regimes"</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a>, <a class="el" href="classSplitMerge.html" title="Split-Merge sampler for Bayesian nonparametric mixture models.">SplitMerge</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af812bf4c32fef71ddae082bfa26d1465" name="af812bf4c32fef71ddae082bfa26d1465"></a>
@@ -239,6 +313,204 @@ Point Detection Model in Markovian Regimes"</p>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0f209904a93d4ba19a9e0b599fa1e8ea" name="a0f209904a93d4ba19a9e0b599fa1e8ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f209904a93d4ba19a9e0b599fa1e8ea">&#9670;&#160;</a></span>choose_clusters_shuffle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SplitMerge_SAMS::choose_clusters_shuffle </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Select clusters for shuffle move. </p>
+<p>Determines cluster assignments and prepares for redistribution between two existing clusters. </p>
+<p>Randomly choose two distinct clusters ci and cj from the current allocations. Update idx_i and idx_j to be random points from these clusters.</p>
+
+</div>
+</div>
+<a id="a7c24fa1ba190b6cf4adc2ac011ae5c33" name="a7c24fa1ba190b6cf4adc2ac011ae5c33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c24fa1ba190b6cf4adc2ac011ae5c33">&#9670;&#160;</a></span>choose_indeces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SplitMerge_SAMS::choose_indeces </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Randomly select two observations for split-merge proposal. </p>
+<p>Uniformly samples two distinct observation indices that will determine the type of move and the clusters involved. </p>
+<p>Randomly choose two distinct indices i and j from the data points. Identify their clusters ci and cj. Prepare the launch_state and S vectors for the split-merge operation.</p>
+
+</div>
+</div>
+<a id="ab8cae3bc20e68ad01b70c12c5418fc75" name="ab8cae3bc20e68ad01b70c12c5418fc75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8cae3bc20e68ad01b70c12c5418fc75">&#9670;&#160;</a></span>compute_acceptance_ratio_merge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double SplitMerge_SAMS::compute_acceptance_ratio_merge </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>likelihood_old_ci</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>likelihood_old_cj</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute acceptance ratio for SAMS merge move. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">likelihood_old_ci</td><td><a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> of first original cluster </td></tr>
+    <tr><td class="paramname">likelihood_old_cj</td><td><a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> of second original cluster </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Log acceptance ratio for the merge proposal </dd></dl>
+<p>Compute the log acceptance ratio for a merge move. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">likelihood_old_ci</td><td>The log likelihood of cluster ci before the merge. </td></tr>
+    <tr><td class="paramname">likelihood_old_cj</td><td>The log likelihood of cluster cj before the merge. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The log acceptance ratio for the merge move.</dd></dl>
+
+</div>
+</div>
+<a id="aca21e410527783e4d78b4c263d8f2480" name="aca21e410527783e4d78b4c263d8f2480"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca21e410527783e4d78b4c263d8f2480">&#9670;&#160;</a></span>compute_acceptance_ratio_shuffle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double SplitMerge_SAMS::compute_acceptance_ratio_shuffle </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>likelihood_old_ci</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>likelihood_old_cj</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>old_ci_size</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>old_cj_size</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute acceptance ratio for SAMS shuffle move. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">likelihood_old_ci</td><td><a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> of first cluster before shuffle </td></tr>
+    <tr><td class="paramname">likelihood_old_cj</td><td><a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> of second cluster before shuffle </td></tr>
+    <tr><td class="paramname">old_ci_size</td><td>Size of first cluster before shuffle </td></tr>
+    <tr><td class="paramname">old_cj_size</td><td>Size of second cluster before shuffle </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Log acceptance ratio for the shuffle proposal </dd></dl>
+<p>Compute the log acceptance ratio for a shuffle move. </p><dl class="section return"><dt>Returns</dt><dd>The log acceptance ratio for the shuffle move.</dd></dl>
+
+</div>
+</div>
+<a id="acba1ce0aa45cadf54443b5f1c0eceaa6" name="acba1ce0aa45cadf54443b5f1c0eceaa6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acba1ce0aa45cadf54443b5f1c0eceaa6">&#9670;&#160;</a></span>compute_acceptance_ratio_split()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double SplitMerge_SAMS::compute_acceptance_ratio_split </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>likelihood_old_cluster</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute acceptance ratio for SAMS split move. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">likelihood_old_cluster</td><td><a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> of the original single cluster </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Log acceptance ratio for the split proposal </dd></dl>
+<p>Compute the log acceptance ratio for a split move. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">likelihood_old_cluster</td><td>The log likelihood of the original cluster before the split. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The log acceptance ratio for the split move.</dd></dl>
+
+</div>
+</div>
 <a id="adc7ce8d882f8a3c08575ae4494580255" name="adc7ce8d882f8a3c08575ae4494580255"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adc7ce8d882f8a3c08575ae4494580255">&#9670;&#160;</a></span>get_accepted_merge()</h2>
 
@@ -323,6 +595,146 @@ Point Detection Model in Markovian Regimes"</p>
 
 </div>
 </div>
+<a id="a6f774a8523fa9cd09826aecd6a177d11" name="a6f774a8523fa9cd09826aecd6a177d11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f774a8523fa9cd09826aecd6a177d11">&#9670;&#160;</a></span>merge_move()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SplitMerge_SAMS::merge_move </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Execute a merge move using SAMS. </p>
+<p>Attempts to merge two clusters into one using sequential allocation to determine the final unified assignment. </p>
+<p>Propose a merge move by combining clusters ci and cj. Compute the acceptance ratio and decide whether to accept or reject the move.</p>
+
+</div>
+</div>
+<a id="a1cf7698ea219623995597a45932db97c" name="a1cf7698ea219623995597a45932db97c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cf7698ea219623995597a45932db97c">&#9670;&#160;</a></span>sequential_allocation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SplitMerge_SAMS::sequential_allocation </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>iterations</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>only_probabilities</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>sequential</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Generate proposal state via sequential allocation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iterations</td><td>Number of allocation passes to perform </td></tr>
+    <tr><td class="paramname">only_probabilities</td><td>If true, only compute proposal probabilities without updating state </td></tr>
+    <tr><td class="paramname">sequential</td><td>If true, use sequential allocation; if false, use restricted Gibbs sampling</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Implements the core SAMS algorithm by sequentially allocating observations to clusters. Unlike restricted Gibbs sampling, this approach processes observations one by one in random order, making allocation decisions based on current partial assignments. </p>
+<p>Perform restricted Gibbs sampling on the points in S to propose new allocations for iter iterations. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">iterations</td><td>Number of Gibbs sampling iterations to perform. </td></tr>
+    <tr><td class="paramname">only_probabilities</td><td>If true, only compute the probabilities without </td></tr>
+    <tr><td class="paramname">sequential</td><td>If true, unallocate points before sampling (default true) changing allocations (used in merge move).</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae16402a25ef38853ec04e4c7c88216e0" name="ae16402a25ef38853ec04e4c7c88216e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae16402a25ef38853ec04e4c7c88216e0">&#9670;&#160;</a></span>shuffle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SplitMerge_SAMS::shuffle </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Execute a shuffle move using SAMS. </p>
+<p>Redistributes observations between two clusters using sequential allocation while maintaining the two-cluster structure. </p>
+<p>Perform a shuffle move to refine the allocations of points in S. This move helps to improve mixing by allowing points to switch clusters.</p>
+
+</div>
+</div>
+<a id="a2dd087d9385e3bea847afe311d121b72" name="a2dd087d9385e3bea847afe311d121b72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dd087d9385e3bea847afe311d121b72">&#9670;&#160;</a></span>split_move()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SplitMerge_SAMS::split_move </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Execute a split move using SAMS. </p>
+<p>Attempts to split a cluster using sequential allocation to generate the proposal state. The two anchor observations are placed in separate subclusters initially. </p>
+<p>Propose a split move by dividing cluster ci into two clusters. Compute the acceptance ratio and decide whether to accept or reject the move.</p>
+
+</div>
+</div>
 <a id="a198db7f37403e0f7093771f03ca961e6" name="a198db7f37403e0f7093771f03ca961e6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a198db7f37403e0f7093771f03ca961e6">&#9670;&#160;</a></span>step()</h2>
 
@@ -357,6 +769,337 @@ Point Detection Model in Markovian Regimes"</p>
 <p>Perform a single split-merge MCMC step. Randomly choose two indices and decide whether to propose a split or merge move.</p>
 
 <p>Implements <a class="el" href="classSampler.html#a49153313f42d53d107bfe2b2e9d83fa5">Sampler</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a28b3d26014b638f3db3996601458a57f" name="a28b3d26014b638f3db3996601458a57f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28b3d26014b638f3db3996601458a57f">&#9670;&#160;</a></span>accepted_merge</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SplitMerge_SAMS::accepted_merge = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6dc7efc5585029e7a37411cf4f17a608" name="a6dc7efc5585029e7a37411cf4f17a608"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dc7efc5585029e7a37411cf4f17a608">&#9670;&#160;</a></span>accepted_shuffle</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SplitMerge_SAMS::accepted_shuffle = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af44a46bc10d47c3b9fc341a68cd9968b" name="af44a46bc10d47c3b9fc341a68cd9968b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af44a46bc10d47c3b9fc341a68cd9968b">&#9670;&#160;</a></span>accepted_split</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SplitMerge_SAMS::accepted_split = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a08e1e9e19f1aa0098d5595f8a1cb3f2f" name="a08e1e9e19f1aa0098d5595f8a1cb3f2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08e1e9e19f1aa0098d5595f8a1cb3f2f">&#9670;&#160;</a></span>ci</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SplitMerge_SAMS::ci</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cluster assignment of first observation. </p>
+
+</div>
+</div>
+<a id="ad13f1d9fbd90ca3974083fb5cd46713a" name="ad13f1d9fbd90ca3974083fb5cd46713a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad13f1d9fbd90ca3974083fb5cd46713a">&#9670;&#160;</a></span>cj</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SplitMerge_SAMS::cj</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cluster assignment of second observation. </p>
+
+</div>
+</div>
+<a id="aa34f55f86d4976501c6916ede6c7661b" name="aa34f55f86d4976501c6916ede6c7661b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa34f55f86d4976501c6916ede6c7661b">&#9670;&#160;</a></span>gen</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::mt19937 SplitMerge_SAMS::gen</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mersenne Twister random number generator for sampling operations. </p>
+
+</div>
+</div>
+<a id="a9b460b3552b928e4b53f497b25abfec2" name="a9b460b3552b928e4b53f497b25abfec2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b460b3552b928e4b53f497b25abfec2">&#9670;&#160;</a></span>idx_i</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SplitMerge_SAMS::idx_i</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Index of first randomly chosen observation. </p>
+
+</div>
+</div>
+<a id="af0c799c515ff0ffbe501400b5f19ccc6" name="af0c799c515ff0ffbe501400b5f19ccc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0c799c515ff0ffbe501400b5f19ccc6">&#9670;&#160;</a></span>idx_j</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SplitMerge_SAMS::idx_j</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Index of second randomly chosen observation. </p>
+
+</div>
+</div>
+<a id="a206bae65e863eb7fe273630d98225bbc" name="a206bae65e863eb7fe273630d98225bbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a206bae65e863eb7fe273630d98225bbc">&#9670;&#160;</a></span>launch_state</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXi SplitMerge_SAMS::launch_state</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Launch state for sequential allocation. </p>
+
+</div>
+</div>
+<a id="a922a5126d03338f8e6f3116b30e3a1e5" name="a922a5126d03338f8e6f3116b30e3a1e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a922a5126d03338f8e6f3116b30e3a1e5">&#9670;&#160;</a></span>log_merge_gibbs_prob</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double SplitMerge_SAMS::log_merge_gibbs_prob = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Log probability of generating current state via sequential allocation (merge direction) </p>
+
+</div>
+</div>
+<a id="a5e4e5d49b7be84ec2b6aa6fce0a629a9" name="a5e4e5d49b7be84ec2b6aa6fce0a629a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e4e5d49b7be84ec2b6aa6fce0a629a9">&#9670;&#160;</a></span>log_split_gibbs_prob</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double SplitMerge_SAMS::log_split_gibbs_prob = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Log probability of generating current state via sequential allocation (split direction) </p>
+
+</div>
+</div>
+<a id="ab7284d1659fa7c56c2ecfcb63665b0fb" name="ab7284d1659fa7c56c2ecfcb63665b0fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7284d1659fa7c56c2ecfcb63665b0fb">&#9670;&#160;</a></span>original_allocations</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXi SplitMerge_SAMS::original_allocations</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Original cluster assignments before move proposal. </p>
+
+</div>
+</div>
+<a id="a9cea74d3d45844942423e71aa034eccb" name="a9cea74d3d45844942423e71aa034eccb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cea74d3d45844942423e71aa034eccb">&#9670;&#160;</a></span>S</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXi SplitMerge_SAMS::S</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Indices of observations in clusters ci and cj. </p>
+
+</div>
+</div>
+<a id="a72d799ebddc0c40ce3dda9ac359b9cc2" name="a72d799ebddc0c40ce3dda9ac359b9cc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72d799ebddc0c40ce3dda9ac359b9cc2">&#9670;&#160;</a></span>shuffle_bool</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SplitMerge_SAMS::shuffle_bool = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Flag to enable shuffle moves (Mena and Martinez, 2014) </p>
 
 </div>
 </div>

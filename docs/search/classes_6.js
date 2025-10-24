@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['u_5fsampler_0',['U_sampler',['../classU__sampler.html',1,'']]]
+  ['sampler_0',['Sampler',['../classSampler.html',1,'']]],
+  ['splitmerge_1',['SplitMerge',['../classSplitMerge.html',1,'']]],
+  ['splitmerge_5fsams_2',['SplitMerge_SAMS',['../classSplitMerge__SAMS.html',1,'']]]
 ];

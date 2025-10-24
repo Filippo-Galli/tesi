@@ -16,6 +16,7 @@ var hierarchy =
       [ "SplitMerge_SAMS", "classSplitMerge__SAMS.html", null ]
     ] ],
     [ "U_sampler", "classU__sampler.html", [
+      [ "MALA", "classMALA.html", null ],
       [ "RWMH", "classRWMH.html", null ]
     ] ]
 ];
