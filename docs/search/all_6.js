@@ -1,7 +1,7 @@
 var searchData=
 [
   ['data_0',['Data',['../classData.html',1,'Data'],['../classData.html#a34716705eac15a27111db0c5f5a24b7a',1,'Data::Data()'],['../index.html#autotoc_md15',1,'Generated Data']]],
-  ['data_1',['data',['../classProcess.html#af8d15d280b7b72defee3438abf1f9c8f',1,'Process::data'],['../classSampler.html#a82728aa82b611766bc21cbfbb04e83b5',1,'Sampler::data']]],
+  ['data_1',['data',['../classProcess.html#af8d15d280b7b72defee3438abf1f9c8f',1,'Process::data'],['../classSampler.html#a82728aa82b611766bc21cbfbb04e83b5',1,'Sampler::data'],['../classU__sampler.html#a5acb88efacc886e0603de3bff294c1c6',1,'U_sampler::data']]],
   ['data_20generation_20simulation_20strong_20tt_20utils_20r_20tt_2',['📊 &lt;strong&gt;Data Generation &amp; Simulation&lt;/strong&gt; (&lt;tt&gt;utils.R&lt;/tt&gt;)',['../index.html#autotoc_md18',1,'']]],
   ['data_20simulation_3',['1. Data Simulation',['../index.html#autotoc_md11',1,'']]],
   ['data_2ecpp_4',['Data.cpp',['../Data_8cpp.html',1,'']]],

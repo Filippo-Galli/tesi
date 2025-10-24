@@ -1,7 +1,7 @@
 var searchData=
 [
   ['params_0',['Params',['../structParams.html',1,'Params'],['../structParams.html#afa6a76acb711fb655e784298bc5574f5',1,'Params::Params()']]],
-  ['params_1',['params',['../classProcess.html#a4c3ef16d47835acfa8fbe86aefb8c6e8',1,'Process::params'],['../classSampler.html#a26e07fa20b8d68ca6f906b40e0f6a9d0',1,'Sampler::params']]],
+  ['params_1',['params',['../classProcess.html#a4c3ef16d47835acfa8fbe86aefb8c6e8',1,'Process::params'],['../classSampler.html#a26e07fa20b8d68ca6f906b40e0f6a9d0',1,'Sampler::params'],['../classU__sampler.html#aae20479c86071657e0fe00d54c9d0d3c',1,'U_sampler::params']]],
   ['params_2ehpp_2',['Params.hpp',['../Params_8hpp.html',1,'']]],
   ['performance_20mcmc_20interface_20strong_20tt_20launcher_20cpp_20tt_3',['🚀 &lt;strong&gt;High-Performance MCMC Interface&lt;/strong&gt; (&lt;tt&gt;launcher.cpp&lt;/tt&gt;)',['../index.html#autotoc_md20',1,'']]],
   ['point_5floglikelihood_5fcond_4',['point_loglikelihood_cond',['../classLikelihood.html#ab1af66318d8b64eff5162e5973b4c256',1,'Likelihood::point_loglikelihood_cond(int point_index, int cluster_index) const'],['../classLikelihood.html#a1810c4e20f01e037f24aa8c93bfd78f0',1,'Likelihood::point_loglikelihood_cond(int point_index, int cluster_index, const Eigen::VectorXi &amp;cls_ass_k) const']]],

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Thesis docs: src/processes/NGGPW.hpp Source File</title>
+<title>Docs: src/processes/NGGPW.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -32,7 +32,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Thesis docs
+   <div id="projectname">Docs
    </div>
   </td>
  </tr>
@@ -108,101 +108,76 @@ $(function(){initNavTree('NGGPW_8hpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="Process_8hpp.html">../utils/Process.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span></div>
-<div class="foldopen" id="foldopen00021" data-start="{" data-end="};">
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="classNGGPW.html">   21</a></span><span class="keyword">class </span><a class="code hl_function" href="classNGGPW.html#ac09056d73ffba4e39cbe54f5268950c9">NGGPW</a> : <span class="keyword">public</span> <a class="code hl_function" href="classProcess.html#a45c13512446ea3e7353ed88773d496a6">Process</a> {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="keywordtype">double</span> U = 1;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  <span class="keywordtype">double</span> tau = <a class="code hl_variable" href="classProcess.html#a4c3ef16d47835acfa8fbe86aefb8c6e8">params</a>.tau;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <span class="keywordtype">void</span> update_U();</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keywordtype">double</span> log_conditional_density_V(<span class="keywordtype">double</span> v) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  std::random_device rd;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  <span class="keyword">mutable</span> std::mt19937 gen;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="U__sampler_8hpp.html">../samplers/U_sampler/U_sampler.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="Process_8hpp.html">../utils/Process.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span></div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classNGGPW.html">   22</a></span><span class="keyword">class </span><a class="code hl_function" href="classNGGPW.html#a7e49df388b7c231cf02503916f157738">NGGPW</a> : <span class="keyword">public</span> <a class="code hl_function" href="classProcess.html#a45c13512446ea3e7353ed88773d496a6">Process</a> {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <a class="code hl_class" href="classU__sampler.html">U_sampler</a> &amp;U_sampler_method;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  std::random_device rd;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  <span class="keyword">mutable</span> std::mt19937 gen;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00065" data-start="{" data-end="}">
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="classNGGPW.html#a7e49df388b7c231cf02503916f157738">   65</a></span>  <a class="code hl_function" href="classNGGPW.html#a7e49df388b7c231cf02503916f157738">NGGPW</a>(<a class="code hl_class" href="classData.html">Data</a> &amp;d, <a class="code hl_struct" href="structParams.html">Params</a> &amp;p, <a class="code hl_class" href="classU__sampler.html">U_sampler</a> &amp;mh)</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>      : <a class="code hl_function" href="classProcess.html#a45c13512446ea3e7353ed88773d496a6">Process</a>(d, p), U_sampler_method(mh), gen(rd()) {};</div>
+</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">double</span> proposal_std = 0.5;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>  [[nodiscard]] <span class="keywordtype">double</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  <a class="code hl_function" href="classNGGPW.html#ab426d4cd7024170228d9a1894219e6e5">gibbs_prior_existing_cluster</a>(<span class="keywordtype">int</span> cls_idx, <span class="keywordtype">int</span> obs_idx = 0) <span class="keyword">const override</span>;</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> a_over_sigma = <a class="code hl_variable" href="classProcess.html#a4c3ef16d47835acfa8fbe86aefb8c6e8">params</a>.a / <a class="code hl_variable" href="classProcess.html#a4c3ef16d47835acfa8fbe86aefb8c6e8">params</a>.sigma;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>  <span class="keyword">const</span> <span class="keywordtype">double</span> tau_power_sigma = std::pow(<a class="code hl_variable" href="classProcess.html#a4c3ef16d47835acfa8fbe86aefb8c6e8">params</a>.tau, <a class="code hl_variable" href="classProcess.html#a4c3ef16d47835acfa8fbe86aefb8c6e8">params</a>.sigma);</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>  <span class="keywordtype">int</span> accepted_U = 0;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="classNGGPW.html#ac09056d73ffba4e39cbe54f5268950c9">  114</a></span>  <a class="code hl_function" href="classNGGPW.html#ac09056d73ffba4e39cbe54f5268950c9">NGGPW</a>(<a class="code hl_class" href="classData.html">Data</a> &amp;d, <a class="code hl_struct" href="structParams.html">Params</a> &amp;p) : <a class="code hl_function" href="classProcess.html#a45c13512446ea3e7353ed88773d496a6">Process</a>(d, p), gen(rd()) {};</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span></div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>  [[nodiscard]] <span class="keywordtype">double</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>  <a class="code hl_function" href="classNGGPW.html#ab426d4cd7024170228d9a1894219e6e5">gibbs_prior_existing_cluster</a>(<span class="keywordtype">int</span> cls_idx, <span class="keywordtype">int</span> obs_idx = 0) <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>                                     </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>  [[nodiscard]] Eigen::VectorXd <a class="code hl_function" href="classNGGPW.html#a4d306324be933acde8d129a71ec4f524">gibbs_prior_existing_clusters</a>(<span class="keywordtype">int</span> obs_idx) <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  [[nodiscard]] Eigen::VectorXd</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>  <a class="code hl_function" href="classNGGPW.html#a4d306324be933acde8d129a71ec4f524">gibbs_prior_existing_clusters</a>(<span class="keywordtype">int</span> obs_idx) <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  [[nodiscard]] <span class="keywordtype">double</span> <a class="code hl_function" href="classNGGPW.html#a7ca86eefba6ef5c6b9505589aaff0a8a">gibbs_prior_new_cluster</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>  [[nodiscard]] <span class="keywordtype">double</span> <a class="code hl_function" href="classNGGPW.html#a73053c1ef8025c03e60ef25f42509bf4">prior_ratio_split</a>(<span class="keywordtype">int</span> ci, <span class="keywordtype">int</span> cj) <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>  [[nodiscard]] <span class="keywordtype">double</span> <a class="code hl_function" href="classNGGPW.html#a96acaa9d2dacbac024ffaba9d075249a">prior_ratio_merge</a>(<span class="keywordtype">int</span> size_old_ci,</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                                         <span class="keywordtype">int</span> size_old_cj) <span class="keyword">const override</span>;</div>
 <div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span></div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>  [[nodiscard]] <span class="keywordtype">double</span> <a class="code hl_function" href="classNGGPW.html#a7ca86eefba6ef5c6b9505589aaff0a8a">gibbs_prior_new_cluster</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span></div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>  [[nodiscard]] <span class="keywordtype">double</span> <a class="code hl_function" href="classNGGPW.html#a9bc80b5731581b00c33479fd3b16d55d">prior_ratio_shuffle</a>(<span class="keywordtype">int</span> size_old_ci, <span class="keywordtype">int</span> size_old_cj,</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                                           <span class="keywordtype">int</span> ci, <span class="keywordtype">int</span> cj) <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span></div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span></div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>  [[nodiscard]] <span class="keywordtype">double</span> <a class="code hl_function" href="classNGGPW.html#a73053c1ef8025c03e60ef25f42509bf4">prior_ratio_split</a>(<span class="keywordtype">int</span> ci, <span class="keywordtype">int</span> cj) <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span></div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>  [[nodiscard]] <span class="keywordtype">double</span> <a class="code hl_function" href="classNGGPW.html#a96acaa9d2dacbac024ffaba9d075249a">prior_ratio_merge</a>(<span class="keywordtype">int</span> size_old_ci,</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>                                         <span class="keywordtype">int</span> size_old_cj) <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span></div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>  [[nodiscard]] <span class="keywordtype">double</span> <a class="code hl_function" href="classNGGPW.html#a9bc80b5731581b00c33479fd3b16d55d">prior_ratio_shuffle</a>(<span class="keywordtype">int</span> size_old_ci, <span class="keywordtype">int</span> size_old_cj,</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>                                           <span class="keywordtype">int</span> ci, <span class="keywordtype">int</span> cj) <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>  <span class="keywordtype">int</span> <a class="code hl_function" href="classNGGPW.html#a4b00679d1bcbc8f23631336414043075">get_neighbors_obs</a>(<span class="keywordtype">int</span> obs_idx, <span class="keywordtype">int</span> cls_idx) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>  Eigen::VectorXi <a class="code hl_function" href="classNGGPW.html#a4b00679d1bcbc8f23631336414043075">get_neighbors_obs</a>(<span class="keywordtype">int</span> obs_idx) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>  <span class="keywordtype">int</span> <a class="code hl_function" href="classNGGPW.html#abd2e272a1bd8afe503511d9995a01c28">get_neighbors_cls</a>(<span class="keywordtype">int</span> cls_idx, <span class="keywordtype">bool</span> old_allo = <span class="keyword">false</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span></div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span></div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span></div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span></div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>  <span class="keywordtype">int</span> <a class="code hl_function" href="classNGGPW.html#a4b00679d1bcbc8f23631336414043075">get_neighbors_obs</a>(<span class="keywordtype">int</span> obs_idx, <span class="keywordtype">int</span> cls_idx) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span></div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>  Eigen::VectorXi <a class="code hl_function" href="classNGGPW.html#a4b00679d1bcbc8f23631336414043075">get_neighbors_obs</a>(<span class="keywordtype">int</span> obs_idx) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span></div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>  <span class="keywordtype">int</span> <a class="code hl_function" href="classNGGPW.html#abd2e272a1bd8afe503511d9995a01c28">get_neighbors_cls</a>(<span class="keywordtype">int</span> cls_idx, <span class="keywordtype">bool</span> old_allo = <span class="keyword">false</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span></div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span></div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span></div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno"><a class="line" href="classNGGPW.html#a46cc6dfe0fa4e2b3a96745e77622a7e4">  258</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classNGGPW.html#a46cc6dfe0fa4e2b3a96745e77622a7e4">update_params</a>()<span class="keyword"> override </span>{ update_U(); };</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span></div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span></div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span></div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno"><a class="line" href="classNGGPW.html#a9d6aef91cfa5e5e3273a3f17d45df812">  271</a></span>  <span class="keywordtype">double</span> <a class="code hl_function" href="classNGGPW.html#a9d6aef91cfa5e5e3273a3f17d45df812">get_U</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> U; }</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span></div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno"><a class="line" href="classNGGPW.html#af8f8fdff010cbf17d849842b3b972fd6">  277</a></span>  <span class="keywordtype">int</span> <a class="code hl_function" href="classNGGPW.html#af8f8fdff010cbf17d849842b3b972fd6">get_accepted_U</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> accepted_U; }</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span></div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>};</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno"><a class="line" href="classNGGPW.html#a46cc6dfe0fa4e2b3a96745e77622a7e4">  219</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classNGGPW.html#a46cc6dfe0fa4e2b3a96745e77622a7e4">update_params</a>()<span class="keyword"> override </span>{ U_sampler_method.update_U(); };</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>};</div>
 </div>
 <div class="ttc" id="aProcess_8hpp_html"><div class="ttname"><a href="Process_8hpp.html">Process.hpp</a></div><div class="ttdoc">Abstract interface for Bayesian nonparametric processes.</div></div>
+<div class="ttc" id="aU__sampler_8hpp_html"><div class="ttname"><a href="U__sampler_8hpp.html">U_sampler.hpp</a></div><div class="ttdoc">Base class for sampling the latent variable U in NGGP mixture models.</div></div>
 <div class="ttc" id="aclassData_html"><div class="ttname"><a href="classData.html">Data</a></div><div class="ttdoc">Manages distance matrices and cluster allocations for points.</div><div class="ttdef"><b>Definition</b> Data.hpp:26</div></div>
-<div class="ttc" id="aclassNGGPW_html_a46cc6dfe0fa4e2b3a96745e77622a7e4"><div class="ttname"><a href="classNGGPW.html#a46cc6dfe0fa4e2b3a96745e77622a7e4">NGGPW::update_params</a></div><div class="ttdeci">void update_params() override</div><div class="ttdoc">Updates the NGGPW parameters by updating the latent variable U.</div><div class="ttdef"><b>Definition</b> NGGPW.hpp:258</div></div>
+<div class="ttc" id="aclassNGGPW_html_a46cc6dfe0fa4e2b3a96745e77622a7e4"><div class="ttname"><a href="classNGGPW.html#a46cc6dfe0fa4e2b3a96745e77622a7e4">NGGPW::update_params</a></div><div class="ttdeci">void update_params() override</div><div class="ttdoc">Updates the NGGPW parameters by updating the latent variable U.</div><div class="ttdef"><b>Definition</b> NGGPW.hpp:219</div></div>
 <div class="ttc" id="aclassNGGPW_html_a4b00679d1bcbc8f23631336414043075"><div class="ttname"><a href="classNGGPW.html#a4b00679d1bcbc8f23631336414043075">NGGPW::get_neighbors_obs</a></div><div class="ttdeci">int get_neighbors_obs(int obs_idx, int cls_idx) const</div><div class="ttdoc">Returns the number of neighbors for a given observation in a specific cluster.</div><div class="ttdef"><b>Definition</b> NGGPW.cpp:16</div></div>
-<div class="ttc" id="aclassNGGPW_html_a4d306324be933acde8d129a71ec4f524"><div class="ttname"><a href="classNGGPW.html#a4d306324be933acde8d129a71ec4f524">NGGPW::gibbs_prior_existing_clusters</a></div><div class="ttdeci">Eigen::VectorXd gibbs_prior_existing_clusters(int obs_idx) const override</div><div class="ttdoc">Computes the log prior probabilities of assigning a data point to every existing cluster....</div><div class="ttdef"><b>Definition</b> NGGPW.cpp:86</div></div>
-<div class="ttc" id="aclassNGGPW_html_a73053c1ef8025c03e60ef25f42509bf4"><div class="ttname"><a href="classNGGPW.html#a73053c1ef8025c03e60ef25f42509bf4">NGGPW::prior_ratio_split</a></div><div class="ttdeci">double prior_ratio_split(int ci, int cj) const override</div><div class="ttdoc">Computes the prior ratio for a split operation in a spatially-aware NGGP-based split-merge MCMC algor...</div><div class="ttdef"><b>Definition</b> NGGPW.cpp:145</div></div>
-<div class="ttc" id="aclassNGGPW_html_a7ca86eefba6ef5c6b9505589aaff0a8a"><div class="ttname"><a href="classNGGPW.html#a7ca86eefba6ef5c6b9505589aaff0a8a">NGGPW::gibbs_prior_new_cluster</a></div><div class="ttdeci">double gibbs_prior_new_cluster() const override</div><div class="ttdoc">Computes the log prior probability of assigning a data point to a new cluster.</div><div class="ttdef"><b>Definition</b> NGGPW.cpp:131</div></div>
-<div class="ttc" id="aclassNGGPW_html_a96acaa9d2dacbac024ffaba9d075249a"><div class="ttname"><a href="classNGGPW.html#a96acaa9d2dacbac024ffaba9d075249a">NGGPW::prior_ratio_merge</a></div><div class="ttdeci">double prior_ratio_merge(int size_old_ci, int size_old_cj) const override</div><div class="ttdoc">Computes the prior ratio for a merge operation in a spatially-aware NGGP-based split-merge MCMC algor...</div><div class="ttdef"><b>Definition</b> NGGPW.cpp:177</div></div>
-<div class="ttc" id="aclassNGGPW_html_a9bc80b5731581b00c33479fd3b16d55d"><div class="ttname"><a href="classNGGPW.html#a9bc80b5731581b00c33479fd3b16d55d">NGGPW::prior_ratio_shuffle</a></div><div class="ttdeci">double prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci, int cj) const override</div><div class="ttdoc">Computes the prior ratio for a shuffle operation in a spatially-aware NGGP-based split-merge MCMC alg...</div><div class="ttdef"><b>Definition</b> NGGPW.cpp:211</div></div>
-<div class="ttc" id="aclassNGGPW_html_a9d6aef91cfa5e5e3273a3f17d45df812"><div class="ttname"><a href="classNGGPW.html#a9d6aef91cfa5e5e3273a3f17d45df812">NGGPW::get_U</a></div><div class="ttdeci">double get_U() const</div><div class="ttdoc">Gets the current value of the latent variable U.</div><div class="ttdef"><b>Definition</b> NGGPW.hpp:271</div></div>
-<div class="ttc" id="aclassNGGPW_html_ab426d4cd7024170228d9a1894219e6e5"><div class="ttname"><a href="classNGGPW.html#ab426d4cd7024170228d9a1894219e6e5">NGGPW::gibbs_prior_existing_cluster</a></div><div class="ttdeci">double gibbs_prior_existing_cluster(int cls_idx, int obs_idx=0) const override</div><div class="ttdoc">Computes the log prior probability of assigning a data point to an existing cluster.</div><div class="ttdef"><b>Definition</b> NGGPW.cpp:112</div></div>
-<div class="ttc" id="aclassNGGPW_html_abd2e272a1bd8afe503511d9995a01c28"><div class="ttname"><a href="classNGGPW.html#abd2e272a1bd8afe503511d9995a01c28">NGGPW::get_neighbors_cls</a></div><div class="ttdeci">int get_neighbors_cls(int cls_idx, bool old_allo=false) const</div><div class="ttdoc">Returns the total number of neighbors for all observations in a given cluster.</div><div class="ttdef"><b>Definition</b> NGGPW.cpp:43</div></div>
-<div class="ttc" id="aclassNGGPW_html_ac09056d73ffba4e39cbe54f5268950c9"><div class="ttname"><a href="classNGGPW.html#ac09056d73ffba4e39cbe54f5268950c9">NGGPW::NGGPW</a></div><div class="ttdeci">NGGPW(Data &amp;d, Params &amp;p)</div><div class="ttdoc">Constructor for the Normalized Generalized Gamma Process with spatial Weights.</div><div class="ttdef"><b>Definition</b> NGGPW.hpp:114</div></div>
-<div class="ttc" id="aclassNGGPW_html_af8f8fdff010cbf17d849842b3b972fd6"><div class="ttname"><a href="classNGGPW.html#af8f8fdff010cbf17d849842b3b972fd6">NGGPW::get_accepted_U</a></div><div class="ttdeci">int get_accepted_U() const</div><div class="ttdoc">Gets the number of accepted U updates for monitoring convergence.</div><div class="ttdef"><b>Definition</b> NGGPW.hpp:277</div></div>
+<div class="ttc" id="aclassNGGPW_html_a4d306324be933acde8d129a71ec4f524"><div class="ttname"><a href="classNGGPW.html#a4d306324be933acde8d129a71ec4f524">NGGPW::gibbs_prior_existing_clusters</a></div><div class="ttdeci">Eigen::VectorXd gibbs_prior_existing_clusters(int obs_idx) const override</div><div class="ttdoc">Computes the log prior probabilities of assigning a data point to every existing cluster....</div><div class="ttdef"><b>Definition</b> NGGPW.cpp:84</div></div>
+<div class="ttc" id="aclassNGGPW_html_a73053c1ef8025c03e60ef25f42509bf4"><div class="ttname"><a href="classNGGPW.html#a73053c1ef8025c03e60ef25f42509bf4">NGGPW::prior_ratio_split</a></div><div class="ttdeci">double prior_ratio_split(int ci, int cj) const override</div><div class="ttdoc">Computes the prior ratio for a split operation in a spatially-aware NGGP-based split-merge MCMC algor...</div><div class="ttdef"><b>Definition</b> NGGPW.cpp:143</div></div>
+<div class="ttc" id="aclassNGGPW_html_a7ca86eefba6ef5c6b9505589aaff0a8a"><div class="ttname"><a href="classNGGPW.html#a7ca86eefba6ef5c6b9505589aaff0a8a">NGGPW::gibbs_prior_new_cluster</a></div><div class="ttdeci">double gibbs_prior_new_cluster() const override</div><div class="ttdoc">Computes the log prior probability of assigning a data point to a new cluster.</div><div class="ttdef"><b>Definition</b> NGGPW.cpp:129</div></div>
+<div class="ttc" id="aclassNGGPW_html_a7e49df388b7c231cf02503916f157738"><div class="ttname"><a href="classNGGPW.html#a7e49df388b7c231cf02503916f157738">NGGPW::NGGPW</a></div><div class="ttdeci">NGGPW(Data &amp;d, Params &amp;p, U_sampler &amp;mh)</div><div class="ttdoc">Constructor for the Normalized Generalized Gamma Process with spatial Weights.</div><div class="ttdef"><b>Definition</b> NGGPW.hpp:65</div></div>
+<div class="ttc" id="aclassNGGPW_html_a96acaa9d2dacbac024ffaba9d075249a"><div class="ttname"><a href="classNGGPW.html#a96acaa9d2dacbac024ffaba9d075249a">NGGPW::prior_ratio_merge</a></div><div class="ttdeci">double prior_ratio_merge(int size_old_ci, int size_old_cj) const override</div><div class="ttdoc">Computes the prior ratio for a merge operation in a spatially-aware NGGP-based split-merge MCMC algor...</div><div class="ttdef"><b>Definition</b> NGGPW.cpp:175</div></div>
+<div class="ttc" id="aclassNGGPW_html_a9bc80b5731581b00c33479fd3b16d55d"><div class="ttname"><a href="classNGGPW.html#a9bc80b5731581b00c33479fd3b16d55d">NGGPW::prior_ratio_shuffle</a></div><div class="ttdeci">double prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci, int cj) const override</div><div class="ttdoc">Computes the prior ratio for a shuffle operation in a spatially-aware NGGP-based split-merge MCMC alg...</div><div class="ttdef"><b>Definition</b> NGGPW.cpp:209</div></div>
+<div class="ttc" id="aclassNGGPW_html_ab426d4cd7024170228d9a1894219e6e5"><div class="ttname"><a href="classNGGPW.html#ab426d4cd7024170228d9a1894219e6e5">NGGPW::gibbs_prior_existing_cluster</a></div><div class="ttdeci">double gibbs_prior_existing_cluster(int cls_idx, int obs_idx=0) const override</div><div class="ttdoc">Computes the log prior probability of assigning a data point to an existing cluster.</div><div class="ttdef"><b>Definition</b> NGGPW.cpp:110</div></div>
+<div class="ttc" id="aclassNGGPW_html_abd2e272a1bd8afe503511d9995a01c28"><div class="ttname"><a href="classNGGPW.html#abd2e272a1bd8afe503511d9995a01c28">NGGPW::get_neighbors_cls</a></div><div class="ttdeci">int get_neighbors_cls(int cls_idx, bool old_allo=false) const</div><div class="ttdoc">Returns the total number of neighbors for all observations in a given cluster.</div><div class="ttdef"><b>Definition</b> NGGPW.cpp:41</div></div>
 <div class="ttc" id="aclassProcess_html_a45c13512446ea3e7353ed88773d496a6"><div class="ttname"><a href="classProcess.html#a45c13512446ea3e7353ed88773d496a6">Process::Process</a></div><div class="ttdeci">Process(Data &amp;d, Params &amp;p)</div><div class="ttdoc">Constructor initializing process with data and parameters.</div><div class="ttdef"><b>Definition</b> Process.hpp:75</div></div>
-<div class="ttc" id="aclassProcess_html_a4c3ef16d47835acfa8fbe86aefb8c6e8"><div class="ttname"><a href="classProcess.html#a4c3ef16d47835acfa8fbe86aefb8c6e8">Process::params</a></div><div class="ttdeci">Params &amp; params</div><div class="ttdoc">Reference to the parameters object containing process hyperparameters.</div><div class="ttdef"><b>Definition</b> Process.hpp:49</div></div>
+<div class="ttc" id="aclassU__sampler_html"><div class="ttname"><a href="classU__sampler.html">U_sampler</a></div><div class="ttdoc">Abstract base class for MCMC sampling of the latent variable U.</div><div class="ttdef"><b>Definition</b> U_sampler.hpp:28</div></div>
 <div class="ttc" id="astructParams_html"><div class="ttname"><a href="structParams.html">Params</a></div><div class="ttdoc">Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...</div><div class="ttdef"><b>Definition</b> Params.hpp:35</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

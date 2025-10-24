@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "Thesis docs", "index.html", [
+  [ "Docs", "index.html", [
     [ "Bayesian Nonparametric Clustering with MCMC", "index.html", "index" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],

@@ -1,8 +1,6 @@
 var classNGGP =
 [
-    [ "NGGP", "classNGGP.html#a57096d805a72df5aed67b2de25c83310", null ],
-    [ "get_accepted_U", "classNGGP.html#a0c1ac091d359bf06d7dc16497f3f1d35", null ],
-    [ "get_U", "classNGGP.html#a190664dc43d4074a64bdacd0f5658373", null ],
+    [ "NGGP", "classNGGP.html#a7239a08c3add6e13307e3b35c376580a", null ],
     [ "gibbs_prior_existing_cluster", "classNGGP.html#aa964c1c8065166bcdbeb030618094b42", null ],
     [ "gibbs_prior_existing_clusters", "classNGGP.html#adcfa100946e2ceaa9cc3902a554eeb05", null ],
     [ "gibbs_prior_new_cluster", "classNGGP.html#a6657cd20138e193eaa7326d31617cb1c", null ],

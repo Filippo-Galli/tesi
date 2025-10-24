@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['w_0',['W',['../structParams.html#aa4c747d0359567b9e0e6536ebab6da36',1,'Params']]]
+  ['u_0',['U',['../classU__sampler.html#a61dcec6f1695e04c541e6ef00022158f',1,'U_sampler']]]
 ];

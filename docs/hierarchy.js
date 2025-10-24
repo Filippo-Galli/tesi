@@ -11,7 +11,11 @@ var hierarchy =
     ] ],
     [ "Sampler", "classSampler.html", [
       [ "Neal3", "classNeal3.html", null ],
+      [ "Neal3ZDNAM", "classNeal3ZDNAM.html", null ],
       [ "SplitMerge", "classSplitMerge.html", null ],
       [ "SplitMerge_SAMS", "classSplitMerge__SAMS.html", null ]
+    ] ],
+    [ "U_sampler", "classU__sampler.html", [
+      [ "RWMH", "classRWMH.html", null ]
     ] ]
 ];

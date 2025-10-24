@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Thesis docs: NGGPW Class Reference</title>
+<title>Docs: NGGPW Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -32,7 +32,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Thesis docs
+   <div id="projectname">Docs
    </div>
   </td>
  </tr>
@@ -124,9 +124,9 @@ Inheritance diagram for NGGPW:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac09056d73ffba4e39cbe54f5268950c9" id="r_ac09056d73ffba4e39cbe54f5268950c9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac09056d73ffba4e39cbe54f5268950c9">NGGPW</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p)</td></tr>
-<tr class="memdesc:ac09056d73ffba4e39cbe54f5268950c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the Normalized Generalized Gamma <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> with spatial Weights.  <br /></td></tr>
-<tr class="separator:ac09056d73ffba4e39cbe54f5268950c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e49df388b7c231cf02503916f157738" id="r_a7e49df388b7c231cf02503916f157738"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e49df388b7c231cf02503916f157738">NGGPW</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classU__sampler.html">U_sampler</a> &amp;mh)</td></tr>
+<tr class="memdesc:a7e49df388b7c231cf02503916f157738"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the Normalized Generalized Gamma <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> with spatial Weights.  <br /></td></tr>
+<tr class="separator:a7e49df388b7c231cf02503916f157738"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Gibbs Sampling Methods</div></td></tr>
 <tr class="memitem:ab426d4cd7024170228d9a1894219e6e5" id="r_ab426d4cd7024170228d9a1894219e6e5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab426d4cd7024170228d9a1894219e6e5">gibbs_prior_existing_cluster</a> (int cls_idx, int obs_idx=0) const override</td></tr>
 <tr class="memdesc:ab426d4cd7024170228d9a1894219e6e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the log prior probability of assigning a data point to an existing cluster.  <br /></td></tr>
@@ -161,13 +161,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a46cc6dfe0fa4e2b3a96745e77622a7e4" id="r_a46cc6dfe0fa4e2b3a96745e77622a7e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46cc6dfe0fa4e2b3a96745e77622a7e4">update_params</a> () override</td></tr>
 <tr class="memdesc:a46cc6dfe0fa4e2b3a96745e77622a7e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the <a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a> parameters by updating the latent variable U.  <br /></td></tr>
 <tr class="separator:a46cc6dfe0fa4e2b3a96745e77622a7e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Accessor Methods</div></td></tr>
-<tr class="memitem:a9d6aef91cfa5e5e3273a3f17d45df812" id="r_a9d6aef91cfa5e5e3273a3f17d45df812"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9d6aef91cfa5e5e3273a3f17d45df812">get_U</a> () const</td></tr>
-<tr class="memdesc:a9d6aef91cfa5e5e3273a3f17d45df812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current value of the latent variable U.  <br /></td></tr>
-<tr class="separator:a9d6aef91cfa5e5e3273a3f17d45df812"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8f8fdff010cbf17d849842b3b972fd6" id="r_af8f8fdff010cbf17d849842b3b972fd6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8f8fdff010cbf17d849842b3b972fd6">get_accepted_U</a> () const</td></tr>
-<tr class="memdesc:af8f8fdff010cbf17d849842b3b972fd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of accepted U updates for monitoring convergence.  <br /></td></tr>
-<tr class="separator:af8f8fdff010cbf17d849842b3b972fd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classProcess"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classProcess')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classProcess.html">Process</a></td></tr>
 <tr class="memitem:a45c13512446ea3e7353ed88773d496a6 inherit pub_methods_classProcess" id="r_a45c13512446ea3e7353ed88773d496a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a45c13512446ea3e7353ed88773d496a6">Process</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p)</td></tr>
 <tr class="memdesc:a45c13512446ea3e7353ed88773d496a6 inherit pub_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor initializing process with data and parameters.  <br /></td></tr>
@@ -211,8 +204,8 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p>Normalized Generalized Gamma <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> with spatial Weights class for spatially-aware Bayesian nonparametric clustering. </p>
 <p>This class extends the Normalized Generalized Gamma <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> (<a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>) to incorporate spatial information through an adjacency matrix W. It combines the flexibility of the <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> in modeling cluster sizes with spatial dependencies between observations. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac09056d73ffba4e39cbe54f5268950c9" name="ac09056d73ffba4e39cbe54f5268950c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac09056d73ffba4e39cbe54f5268950c9">&#9670;&#160;</a></span>NGGPW()</h2>
+<a id="a7e49df388b7c231cf02503916f157738" name="a7e49df388b7c231cf02503916f157738"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e49df388b7c231cf02503916f157738">&#9670;&#160;</a></span>NGGPW()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -228,7 +221,12 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structParams.html">Params</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="structParams.html">Params</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classU__sampler.html">U_sampler</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>mh</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -243,6 +241,7 @@ Additional Inherited Members</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">d</td><td>Reference to the data object containing observations and cluster assignments. </td></tr>
     <tr><td class="paramname">p</td><td>Reference to the parameters object containing <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> parameters (a, sigma, tau) and spatial information (W, coefficient). </td></tr>
+    <tr><td class="paramname">mh</td><td>Reference to a <a class="el" href="classU__sampler.html" title="Abstract base class for MCMC sampling of the latent variable U.">U_sampler</a> instance (e.g., <a class="el" href="classRWMH.html" title="Random Walk Metropolis-Hastings sampler for updating the latent variable U.">RWMH</a> or MALA) for updating the latent variable U via MCMC. </td></tr>
   </table>
   </dd>
 </dl>
@@ -250,34 +249,6 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af8f8fdff010cbf17d849842b3b972fd6" name="af8f8fdff010cbf17d849842b3b972fd6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8f8fdff010cbf17d849842b3b972fd6">&#9670;&#160;</a></span>get_accepted_U()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int NGGPW::get_accepted_U </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets the number of accepted U updates for monitoring convergence. </p>
-<dl class="section return"><dt>Returns</dt><dd>The number of accepted U updates. </dd></dl>
-
-</div>
-</div>
 <a id="abd2e272a1bd8afe503511d9995a01c28" name="abd2e272a1bd8afe503511d9995a01c28"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abd2e272a1bd8afe503511d9995a01c28">&#9670;&#160;</a></span>get_neighbors_cls()</h2>
 
@@ -388,34 +359,6 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The number of neighbors for the observation in the specified cluster.</dd></dl>
-
-</div>
-</div>
-<a id="a9d6aef91cfa5e5e3273a3f17d45df812" name="a9d6aef91cfa5e5e3273a3f17d45df812"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d6aef91cfa5e5e3273a3f17d45df812">&#9670;&#160;</a></span>get_U()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double NGGPW::get_U </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets the current value of the latent variable U. </p>
-<dl class="section return"><dt>Returns</dt><dd>The current value of U. </dd></dl>
 
 </div>
 </div>
@@ -733,6 +676,8 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Updates the <a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a> parameters by updating the latent variable U. </p>
+<p>This method delegates the update to the <a class="el" href="classU__sampler.html" title="Abstract base class for MCMC sampling of the latent variable U.">U_sampler</a> instance, which uses an MCMC algorithm (<a class="el" href="classRWMH.html" title="Random Walk Metropolis-Hastings sampler for updating the latent variable U.">RWMH</a> or MALA) to sample U from its conditional distribution given the current partition.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classU__sampler.html#a68c7b18e6183b1bc9a1645ff36e0c82f" title="Pure virtual method to update the latent variable U.">U_sampler::update_U()</a>, <a class="el" href="classRWMH.html#a1349180615746681801b1b6b86fe1c4b" title="Updates the latent variable U using Random Walk Metropolis-Hastings.">RWMH::update_U()</a>, MALA::update_U() </dd></dl>
 
 <p>Implements <a class="el" href="classProcess.html#ac610fb84ed64db2a74fa1447ce5a582e">Process</a>.</p>
 
