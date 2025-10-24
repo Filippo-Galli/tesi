@@ -1,80 +1,105 @@
 # Bayesian Nonparametric Clustering with MCMC
 
-This project implements advanced Bayesian nonparametric clustering methods using state-of-the-art MCMC techniques. It provides a comprehensive framework for clustering analysis with Dirichlet Process (DP), Normalized Generalized Gamma Process (NGGP), and their weighted spatial variants, combining R for data analysis with high-performance C++ implementations.
+A powerful framework for discovering clusters in your data without specifying the number of clusters in advance. This project combines the flexibility of Bayesian statistics with the efficiency of modern computational methods.
 
-**📚 Documentation:** [Doxygen API Reference](https://filippo-galli.github.io/tesi/)  
-**🔬 Research Focus:** Bayesian nonparametric models with spatial dependencies  
-**⚡ Performance:** Optimized C++ backend with R interface
-## ✨ Key Features
+**📚 Full Documentation:** [API Reference & Technical Details](https://filippo-galli.github.io/tesi/)  
+**🎯 What it does:** Automatically finds natural groupings in complex datasets  
+**⚡ How it works:** R for easy analysis + C++ for fast computation
+## ✨ What Makes This Special?
 
-### 🎯 **Advanced Clustering Models**
-- **Dirichlet Process (DP)**: Classic nonparametric clustering with automatic cluster discovery
-- **Normalized Generalized Gamma Process (NGGP)**: Enhanced flexibility and control over cluster structures  
-- **Weighted Variants (DPW, NGGPW)**: Spatial dependency integration for geographic/network data
-- **Automatic Model Selection**: Data-driven hyperparameter estimation
+### 🎯 **Smart Clustering Methods**
+You don't need to guess how many clusters exist in your data. The framework includes:
+- **Basic Models (DP)**: Great for getting started with automatic clustering
+- **Flexible Models (NGGP)**: For complex data with varying cluster shapes and sizes
+- **Spatial Models (DPW, NGGPW)**: When your data points have locations or network connections
+- **Auto-tuning**: The system helps estimate good starting parameters
 
-### 🔄 **State-of-the-Art MCMC Samplers**
-- **Neal's Algorithm 3**: Efficient collapsed Gibbs sampling for standard applications
-- **Split-Merge**: Advanced joint updates for improved mixing and faster convergence
-- **SAMS (Sequential Allocation)**: Optimized proposal generation for large-scale problems
-- **Hybrid Approaches**: Flexible combination of sampling strategies
+� *[See technical details in documentation](https://filippo-galli.github.io/tesi/)*
 
-### 🌍 **Spatial Dependencies**
-- **Adjacency Matrix Support**: Incorporate spatial/network structure into clustering
-- **Geographic Clustering**: Specialized algorithms for spatial data analysis
+### 🔄 **Multiple Analysis Methods**
+Different algorithms for different needs:
+- **Fast & Simple**: Neal's algorithm for quick results on well-separated clusters
+- **Robust**: Split-Merge methods for tricky clustering problems
+- **Optimized**: SAMS variant for large datasets
 
-### 📊 **Comprehensive Analysis Suite**
-- **Real-time Monitoring**: Live convergence diagnostics and progress tracking
-- **Advanced Visualization**: Heatmaps, trace plots, and clustering evaluation
-- **Performance Metrics**: ARI, silhouette scores, and posterior analysis
-- **Reproducible Workflows**: Automated analysis pipelines with devenv integration
+👉 *[Algorithm comparison in docs](https://filippo-galli.github.io/tesi/)*
+
+### 🌍 **Location-Aware Clustering**
+Perfect for geographic data or networks:
+- Automatically consider nearby points when forming clusters
+- Works with any adjacency structure (neighbors, social networks, etc.)
+- Adjustable spatial influence
+
+### 📊 **Rich Visualization & Diagnostics**
+Understand your results with:
+- Real-time progress monitoring
+- Professional plots and heatmaps
+- Quality metrics (how well did it work?)
+- Reproducible analysis scripts
 
 ## 📁 Project Architecture
 
 ```
 tesi/
-├── 📂 R/                              # R Analysis & Visualization Suite
-│   ├── 🔬 sim_data_production.R          # Advanced data simulation (Natarajan method)
-│   ├── 🚀 simulation_data.R              # Main MCMC workflow orchestration  
-│   ├── 📊 analysis.R                     # Post-processing and visualization
-│   └── 🛠️  utils.R                       # Utility functions and diagnostics
-├── 📂 src/                            # High-Performance C++ Core
-│   ├── 🎯 Core Framework
-│   │   ├── Sampler.hpp                    # Abstract MCMC sampler base class
-│   │   ├── Process.hpp                    # Bayesian nonparametric process interface  
-│   │   ├── Data.hpp                       # Efficient cluster data management
-│   │   ├── Likelihood.hpp                 # Optimized likelihood computations
-│   │   └── Params.hpp                     # Comprehensive parameter management
-│   ├── 🔄 MCMC Samplers  
-│   │   ├── neal.hpp/.cpp                  # Neal's Algorithm 3 (Gibbs sampling)
-│   │   ├── splitmerge.hpp/.cpp            # Split-Merge sampler  
-│   │   └── splitmerge_SAMS.hpp/.cpp       # Sequential Allocation Merge-Split
-│   ├── 📈 Process Implementations
-│   │   ├── DP.hpp/.cpp                    # Dirichlet Process
-│   │   ├── NGGP.hpp/.cpp                  # Normalized Generalized Gamma Process
-│   │   ├── DPW.hpp/.cpp                   # Weighted Dirichlet Process (spatial)
-│   │   └── NGGPW.hpp/.cpp                 # Weighted NGGP (spatial)
-│   └── 🔗 launcher.cpp                   # R-C++ integration interface
-├── 📂 docs/                           # Auto-Generated Documentation
-│   ├── 📖 Doxygen HTML documentation      # Comprehensive API reference
-│   └── 🎨 doxygen-theme/                 # Custom documentation styling
-├── 📂 simulation_data/                # Simulated Datasets Repository
-│   └── 📊 Natarajan_*sigma_*d/           # Organized by parameters (σ, dimensions)
-├── 📂 results/                        # MCMC Analysis Outputs  
-│   └── 📈 {algorithm}_{config}/          # Results organized by method and parameters
-├── ⚙️  devenv.nix                      # Reproducible Development Environment
-├── 🔧 devenv.yaml                     # Environment Configuration  
-├── 🔒 devenv.lock                     # Locked Dependencies
-└── 📝 README.MD                      # This comprehensive guide
+├── 📂 R/                                      # R Analysis & Visualization Suite
+│   ├── 🔬 sim_data_production.R                  # Data simulation (Natarajan/Gaussian/Gamma)
+│   ├── 🚀 simulation_data.R                      # Main MCMC workflow orchestration  
+│   ├── 📊 analysis.R                             # Post-processing and visualization
+│   ├── 🛠️  utils.R                               # Utility functions and diagnostics
+│   ├── � Likelihood_params_analisys.R           # Hyperparameter analysis tools
+│   └── 🧪 U_cond_density.R                       # NGGP U-parameter density analysis
+├── �📂 src/                                    # High-Performance C++ Core
+│   ├── 📂 utils/                                  # Core Framework Components
+│   │   ├── Sampler.hpp                              # Abstract MCMC sampler base class
+│   │   ├── Process.hpp                              # Bayesian nonparametric process interface  
+│   │   ├── Data.hpp/.cpp                            # Efficient cluster data management
+│   │   ├── Likelihood.hpp/.cpp                      # Optimized likelihood computations
+│   │   └── Params.hpp                               # Comprehensive parameter management
+│   ├── � samplers/                               # MCMC Sampling Algorithms
+│   │   ├── neal.hpp/.cpp                            # Neal's Algorithm 3 (collapsed Gibbs)
+│   │   ├── neal_ZDNAM.hpp/.cpp                      # ZDNAM-enhanced Neal sampler
+│   │   ├── splitmerge.hpp/.cpp                      # Split-Merge sampler  
+│   │   ├── splitmerge_SAMS.hpp/.cpp                 # Sequential Allocation Merge-Split
+│   │   └── � U_sampler/                            # Continuous Parameter Samplers
+│   │       ├── RWMH.hpp                                 # Random Walk Metropolis-Hastings
+│   │       └── MALA.hpp                                 # Metropolis-Adjusted Langevin
+│   ├── 📂 processes/                              # Bayesian Nonparametric Processes
+│   │   ├── DP.hpp/.cpp                              # Dirichlet Process
+│   │   ├── DPW.hpp/.cpp                             # Weighted Dirichlet Process (spatial)
+│   │   ├── NGGP.hpp/.cpp                            # Normalized Generalized Gamma Process
+│   │   └── NGGPW.hpp/.cpp                           # Weighted NGGP (spatial)
+│   └── 🔗 launcher.cpp                           # R-C++ integration interface
+├── 📂 docs/                                   # Auto-Generated Documentation
+│   ├── 📖 HTML files                              # Doxygen API reference
+│   └── 🎨 Custom CSS                              # Documentation styling
+├── 📂 doxygen-theme/                          # Doxygen Theme Components
+├── 📂 simulation_data/                        # Simulated Datasets Repository
+│   └── 📊 Natarajan_{σ}sigma_{d}d/              # Organized by parameters
+│       ├── all_data.rds                             # Raw data points
+│       ├── ground_truth.rds                         # True cluster labels
+│       └── dist_matrix.rds                          # Distance matrix
+├── 📂 results/                                # MCMC Analysis Outputs  
+│   └── 📈 {process}_{sampler}_{init}_{params}/  # Results by configuration
+│       ├── simulation_results.rds                   # MCMC output
+│       ├── simulation_ground_truth.rds              # True labels
+│       ├── simulation_data.rds                      # Original data
+│       ├── simulation_distance_matrix.rds           # Distance matrix
+│       ├── simulation_initial_params.rds            # Parameter object
+│       └── plots/                                   # Generated visualizations
+├── ⚙️  devenv.nix                              # Reproducible Development Environment
+├── 🔧 devenv.yaml                             # Environment Configuration  
+├── 🔒 devenv.lock                             # Locked Dependencies
+├── 📋 Doxyfile                                # Doxygen configuration
+└── 📝 README.MD                              # This comprehensive guide
 ```
 
-## Installation and Setup
+## 🚀 Quick Start
 
-### Prerequisites
+### Option 1: Automatic Setup (Recommended)
 
-This project uses [devenv](https://devenv.sh/) for reproducible development environments with Nix.
+The easiest way using [devenv](https://devenv.sh/) - it handles everything automatically:
 
-1. **Install Nix** (if not already installed):
+1. **Install Nix** (one-time setup):
    ```bash
    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
    ```
@@ -84,255 +109,339 @@ This project uses [devenv](https://devenv.sh/) for reproducible development envi
    nix profile install --accept-flake-config github:cachix/devenv/latest
    ```
 
-3. **Enter the development environment**:
+3. **Start working** (from the project folder):
    ```bash
    cd /path/to/tesi
    devenv shell
    ```
 
-This will automatically set up:
-- R with all required packages (Rcpp, RcppEigen, ggplot2, etc.)
-- C++ compiler toolchain
-- MCMC analysis libraries (salso, mcclust, etc.)
-- VS Code integration (language server, plot viewer)
+That's it! Everything you need is now installed and ready.
 
-### Manual Installation (Alternative)
+### Option 2: Manual Setup
 
-If not using devenv, install the following:
+If you prefer to install components yourself:
 
-**R Packages:**
+**In R:**
 ```r
 install.packages(c(
-  "Rcpp", "RcppEigen", "ggplot2", "dplyr", "tidyr",
-  "spam", "fields", "viridisLite", "RColorBrewer", 
-  "pheatmap", "mcclust.ext", "mvtnorm", "gtools", 
-  "salso", "MASS"
+  "Rcpp", "RcppEigen", "ggplot2", "dplyr", 
+  "mcclust.ext", "salso", "MASS"
 ))
 ```
 
-**System Dependencies:**
-- R (≥ 4.0)
-- C++ compiler with C++23 support
-- Eigen3 library
-- BLAS/LAPACK libraries
+**System requirements:**
+- R version 4.0 or newer
+- A C++ compiler
+- Eigen3 library (for linear algebra)
 
-## Usage Guide
+Most of these are pre-installed on modern systems or easily available through your package manager.
 
-### 1. Data Simulation
+## 📖 How to Use
 
-First, generate simulated clustering data using the Natarajan method:
+### Step 1: Create Test Data
+
+Generate some clustering data to practice with:
 
 ```bash
-cd /path/to/tesi
 Rscript R/sim_data_production.R
 ```
 
-This script:
-- Generates mixture data with configurable parameters (σ, dimensions)
-- Creates distance matrices for spatial analysis
-- Saves data to `simulation_data/` directory
-- Supports different data generation methods (Gaussian, Gamma, Natarajan)
+**What this does:**
+- Creates synthetic datasets with known cluster structures
+- Saves them in the `simulation_data/` folder
+- You can verify the clustering algorithms work correctly
 
-**Key Parameters:**
-- `sigma`: Controls cluster separation (0.18, 0.2, 0.25)
-- `d`: Dimensionality (10, 50)
-- `N`: Number of data points (default: 100)
+**Customize your data** (open `R/sim_data_production.R` and edit):
+```r
+sigma <- 0.25  # How separated are clusters? (0.18=close, 0.25=far apart)
+d <- 10        # How many dimensions? (10 or 50)
+N <- 100       # How many data points?
+```
 
-### 2. MCMC Analysis
+The script supports different data types - see comments in the file for Gaussian or Gamma distributions.
 
-Run the main clustering analysis:
+### Step 2: Run the Clustering Analysis
+
+Analyze your data to find clusters:
 
 ```bash
 Rscript R/simulation_data.R
 ```
 
-This script performs:
-- **Data Loading**: Reads simulated data and distance matrices
-- **Hyperparameter Estimation**: Uses k-means and elbow method for initialization
-- **MCMC Sampling**: Runs Bayesian clustering with selected algorithm
-- **Real-time Monitoring**: Displays progress and convergence diagnostics
+**What happens:**
+1. Loads your data
+2. Makes smart guesses about initial parameters (using k-means)
+3. Runs the clustering algorithm
+4. Shows you progress in real-time
+5. Saves results for later analysis
 
-**Algorithm Configuration (in `src/launcher.cpp`):**
+**Choosing Your Algorithm** (edit `src/launcher.cpp`):
 
-The framework provides multiple combinations of **Process × Sampler × Spatial** configurations:
+The framework lets you mix and match different components. Here's what's currently active:
 
 ```cpp
-// 🎯 PROCESS SELECTION
-// DP              - Dirichlet Process (classic nonparametric prior)
-// NGGP            - Normalized Generalized Gamma Process (enhanced flexibility)
-// DPW/NGGPW       - Weighted variants with spatial dependencies
+// Which clustering model? (uncomment one)
+// DP process(data, param);              // Standard (simple, fast)
+// DPW process(data, param);             // Standard + spatial awareness
+// NGGP process(data, param);            // Flexible (handles complex shapes)
+NGGPW process(data, param);              // Flexible + spatial ✓ CURRENTLY USED
 
-// 🔄 SAMPLER SELECTION  
-// Neal3           - Collapsed Gibbs sampling (efficient, standard)
-// SplitMerge      - Joint updates (better mixing, complex structures)
-// SplitMerge_SAMS - Sequential allocation (optimized proposals)
-
-// Example configurations:
-DP process(data, param); // Basic DP process
-Neal3 neal_sampler(data, params, likelihood, process); 
-
+// Which sampling method? (uncomment one)
+// Neal3 sampler(...);                   // Fast (good for simple cases)
+// SplitMerge sampler(...);              // Robust (better for tricky data)
+SplitMerge_SAMS sampler(...);            // Optimized (best for large data) ✓ CURRENTLY USED
 ```
 
-**MCMC Parameters:**
-- `BI`: Burn-in iterations (default: 2000)
-- `NI`: Sampling iterations (default: 10000)
-- `a`: Total mass parameter (default: 1)
-- `sigma`: NGGP parameter (default: 0.5)
-- `tau`: NGGP parameter (default: 1.0)
+**Tuning the Analysis** (in `R/simulation_data.R`):
 
-### 3. Results Analysis
+Most parameters are set automatically, but you can adjust these:
 
-Analyze and visualize results:
+```r
+param <- new(Params,
+  hyperparams$delta1, hyperparams$alpha, hyperparams$beta,  # Auto-set ✓
+  hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,  # Auto-set ✓
+  
+  # How long to run? (adjust these)
+  10000,        # Burn-in: initial warm-up phase (larger = more reliable)
+  10000,        # Sampling: how many samples to collect
+  
+  # Clustering behavior (tune these if needed)
+  2,            # How many clusters to expect? (higher = finds more clusters)
+  0.1,          # Flexibility: how varied can cluster shapes be? (0.1 to 0.7)
+  1,            # Advanced parameter (usually leave at 1)
+  
+  # Spatial awareness (for geographic data)
+  1,            # How much to consider location? (0 = ignore, 1+ = consider)
+  W             # Which points are neighbors?
+)
+```
+
+**Quick tuning guide:**
+- **Finding too many clusters?** Reduce the "expect" parameter (try 1 or 0.5)
+- **Finding too few?** Increase it (try 3 or 4)
+- **Need better quality?** Increase both burn-in and sampling (try 20000 each)
+- **Fast test run?** Use 2000 burn-in, 5000 sampling
+
+👉 *[Full parameter guide in documentation](https://filippo-galli.github.io/tesi/classParams.html)*
+
+### Step 3: Visualize Results
+
+Create plots and check how well it worked:
 
 ```bash
 Rscript R/analysis.R
 ```
 
-This generates:
-- **Convergence Diagnostics**: Trace plots, autocorrelation analysis
-- **Clustering Results**: Posterior similarity matrices, cluster assignments
-- **Performance Metrics**: Adjusted Rand Index (ARI), cluster distribution
-- **Visualization**: Heatmaps, scatter plots, distance distributions
+**Point it to your results** (edit the folder path in the script):
+```r
+folder <- "results/NGGPW_Neal_kmeans_0.2sigma_50d_BI2000_NI5000_a0.1_sigma0.7_tau1/"
+```
+
+**You'll get:**
+- **Quality checks**: Did the algorithm converge? Is it stable?
+- **Cluster visualizations**: Heatmaps and plots showing the discovered clusters
+- **Performance scores**: How well do the clusters match reality? (for test data)
+- **Beautiful plots**: Publication-ready figures saved in the `plots/` folder
+
+**Understanding the output:**
+- Stable horizontal lines in trace plots = good convergence ✓
+- High ARI score (>0.8) = excellent clustering ✓
+- Clear blocks in heatmap = distinct clusters ✓
 
 ## Output Files
 
-### Generated Data
-- `simulation_data/Natarajan_{sigma}sigma_{d}d/`
-  - `all_data.rds`: Raw data points
-  - `ground_truth.rds`: True cluster labels
-  - `dist_matrix.rds`: Distance matrix
-
-### MCMC Results
-- `results/{algorithm}_{initialization}_{parameters}/`
-  - `simulation_results.rds`: MCMC output (allocations, K, log-likelihood)
-  - `simulation_ground_truth.rds`: True labels
-  - `simulation_data.rds`: Original data
-  - `simulation_distance_matrix.rds`: Distance matrix
-  - `plots/`: Generated visualizations
-
-## 🔧 Core Components & API
-
-### 📊 **Data Generation & Simulation** (`utils.R`)
-```r
-generate_mixture_data(N, sigma, d)     # Advanced Natarajan mixture simulation
-distance_plot(data, labels)            # Intra/inter-cluster distance analysis  
+### Generated Data (`simulation_data/`)
+```
+simulation_data/Natarajan_{σ}sigma_{d}d/
+├── all_data.rds           # N×d matrix of data points
+├── ground_truth.rds       # True cluster labels (length N vector)
+└── dist_matrix.rds        # N×N distance matrix
 ```
 
-### ⚙️ **Hyperparameter Optimization** (`utils.R`)  
-```r
-set_hyperparameters(data, dist_matrix) # Automatic parameter estimation via k-means
-plot_k_means(data, max_k)              # Elbow method for optimal cluster number
+### MCMC Results (`results/`)
+Organized by configuration: `{process}_{sampler}_{init}_{params}/`
+
+Example: `NGGPW_Neal_kmeans_0.2sigma_50d_BI2000_NI5000_a0.1_sigma0.7_tau1/`
+
+```
+results/{configuration}/
+├── simulation_results.rds              # Main MCMC output
+│   ├── $allocations                       # List of cluster assignments per iteration
+│   ├── $K                                 # Number of clusters per iteration  
+│   ├── $loglikelihood                     # Log-likelihood trace
+│   └── $U                                 # NGGP U parameter trace (if applicable)
+├── simulation_ground_truth.rds         # True labels (for validation)
+├── simulation_data.rds                 # Original data matrix
+├── simulation_distance_matrix.rds      # Distance matrix used
+├── simulation_initial_params.rds       # Params object (hyperparameters)
+└── plots/                              # Generated visualizations
+    ├── trace_plot_K.png
+    ├── trace_plot_loglikelihood.png
+    ├── posterior_similarity_matrix.png
+    ├── cluster_assignments.png
+    ├── distance_distribution.png
+    └── ... (additional diagnostic plots)
 ```
 
-### 🚀 **High-Performance MCMC Interface** (`launcher.cpp`)
+**Naming Convention:**
+- **Process**: `DP`, `DPW`, `NGGP`, `NGGPW`
+- **Sampler**: `Neal`, `Neal_ZDNAM`, `SM` (SplitMerge), `SAMS`
+- **Initialization**: `kmeans`, `sequential`, `single`
+- **Parameters**: `{σ}sigma_{d}d_BI{burn-in}_NI{iterations}_a{mass}_sigma{σ}_tau{τ}`
+
+## 🔧 For Developers
+
+### Main Functions You'll Use
+
+**In R (`R/utils.R`):**
+```r
+# Create test data
+generate_mixture_data(N = 100, sigma = 0.25, d = 10)
+
+# Set up parameters automatically
+set_hyperparameters(data, dist_matrix, k_elbow = 3)
+
+# Visualize results
+plot_mcmc_results(mcmc_result, ground_truth, BI = 2000)
+
+# Check if the right number of clusters is being found
+plot_k_means(dist_matrix, max_k = 15)
+```
+
+**Main entry point (`src/launcher.cpp`):**
 ```cpp
-// Core classes (fully documented with Doxygen)
-class Params;           // Parameter management with validation
-class Data;             // Cluster data structures  
-class Likelihood;       // Loglikelihood computations
-class Process;          // Abstract nonparametric process interface
-class Sampler;          // Abstract MCMC sampler base class
-
-// Main interface
-Rcpp::List mcmc(matrix, params, initial_clusters); // Primary MCMC function
+// The function that does all the clustering work
+Rcpp::List mcmc(distances, param, initial_allocations)
 ```
 
-### 📚 **Class Hierarchy** (See [Doxygen Docs](docs/index.html))
+### Architecture Overview
+
+The code is organized in layers:
+
 ```
-Sampler (abstract base)
-├── Neal3              # Algorithm 3 implementation
-├── SplitMerge         # Standard split-merge sampler  
-└── SplitMerge_SAMS    # Sequential allocation variant
-
-Process (abstract base)  
-├── DP                 # Dirichlet Process
-├── DPW                # Weighted Dirichlet Process
-├── NGGP               # Normalized Generalized Gamma Process
-└── NGGPW              # Weighted NGGP
+R Scripts (Easy to use)
+    ↓
+launcher.cpp (Connects R to C++)
+    ↓
+Processes (DP, NGGP, etc.) ← What kind of clustering?
+    ↓
+Samplers (Neal, SplitMerge, etc.) ← How to find clusters?
+    ↓
+Data & Likelihood (Math happens here)
 ```
+## 💡 Example Workflow
 
-## Example Workflow
+### Your First Analysis (Step by Step)
 
-1. **Generate Data**:
-   ```r
-   # In R/sim_data_production.R
-   sigma <- 0.25
-   d <- 10
-   data_generation <- generate_mixture_data(N = 100, sigma = sigma, d = d)
-   ```
-
-2. **Run MCMC**:
-   ```r
-   # In R/simulation_data.R
-   sourceCpp("src/launcher.cpp")
-   hyperparams <- set_hyperparameters(all_data, dist_matrix, k_elbow = 3)
-   param <- new(Params, hyperparams$delta1, hyperparams$alpha, ...)
-   mcmc_result <- mcmc(dist_matrix, param, hyperparams$initial_clusters)
-   ```
-
-3. **Analyze Results**:
-   ```r
-   # Automatic analysis with burn-in
-   plot_mcmc_results(mcmc_result, ground_truth, BI = 2000)
-   ```
-
-## ⚙️ Advanced Configuration
-
-### 🔧 **Compilation & Build System**
+**1. Make some test data:**
 ```r
-# Automatic compilation with dependency management
-sourceCpp("src/launcher.cpp")  # Compiles entire C++ framework
+# Open R and run:
+source("R/utils.R")
+set.seed(123)
+
+# Create 2 clear clusters
+library(MASS)
+cluster1 <- mvrnorm(30, mu = c(0, 0), Sigma = diag(2))
+cluster2 <- mvrnorm(30, mu = c(5, 5), Sigma = diag(2))
+my_data <- rbind(cluster1, cluster2)
+
+# Save it
+saveRDS(my_data, "my_test_data.rds")
 ```
 
-### 🌍 **Spatial Dependency Configuration**
-```cpp
-// In Params constructor
-Params params(
-    delta1, alpha, beta,           // Process hyperparameters
-    delta2, gamma, zeta,           // Likelihood hyperparameters  
-    BI, NI,                        // MCMC iterations
-    a, sigma, tau,                 // Process parameters
-    coefficient,                   // Spatial weight (0 = no spatial, 1+ = strong spatial)
-    W                             // Adjacency matrix (k-NN or custom)
-);
-```
-
-### 📊 **Hyperparameter Tuning Guide**
+**2. Run clustering:**
 ```r
-# Process parameters (control clustering behavior)
-a      <- 1.0      # Total mass (higher = more clusters)
-sigma  <- 0.5      # NGGP flexibility (0-1, higher = more flexible)  
-tau    <- 1.0      # NGGP tail parameter
+# Load the framework
+source("R/utils.R")
+sourceCpp("src/launcher.cpp")
 
-# MCMC parameters (control sampling quality)
-BI     <- 2000     # Burn-in (increase if slow convergence)
-NI     <- 10000    # Iterations (increase for precision)
+# Load your data
+my_data <- readRDS("my_test_data.rds")
+dist_matrix <- as.matrix(dist(my_data))
 
-# Spatial parameters  
-coefficient <- 0.5  # Spatial strength (tune based on spatial structure)
-k_neighbors <- 5    # Adjacency matrix connectivity
+# Let it figure out good parameters
+W <- retrieve_W(dist_matrix, k = 5)
+hyperparams <- set_hyperparameters(my_data, dist_matrix, k_elbow = 2)
+
+# Set up the analysis (using defaults)
+param <- new(Params,
+  hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
+  hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
+  2000, 5000,    # Burn-in: 2000, Sampling: 5000
+  1, 0.5, 1,     # Expect ~2 clusters, moderate flexibility
+  0, W           # No spatial (our data isn't geographic)
+)
+
+# Run it!
+result <- mcmc(dist_matrix, param, hyperparams$initial_clusters - 1)
 ```
 
-## 🛠️ Troubleshooting & FAQ
+**3. See what you found:**
+```r
+# Make plots
+plot_mcmc_results(result, BI = 2000)
 
-### 🔧 **Installation Issues**
+# How many clusters did it find?
+final_K <- result$K[2001:length(result$K)]  # After burn-in
+mean(final_K)  # Should be close to 2
+```
+
+### Working with the Example Data
+
+The project includes pre-made examples:
+
 ```bash
-# Missing dependencies  
-sudo apt-get install r-base-dev libeigen3-dev liblapack-dev libblas-dev
+# Generate example datasets
+Rscript R/sim_data_production.R
 
-# Rcpp compilation errors
-R -e "install.packages('Rcpp', type='source')"
+# Run analysis on them
+Rscript R/simulation_data.R
 
-# devenv not working
-nix --version  # Ensure Nix is installed
-devenv --version  # Verify devenv installation
+# Make plots
+Rscript R/analysis.R
 ```
 
-### 📞 **Getting Help**
-- 📚 **Documentation**: [Doxygen API Reference](docs/index.html)
-- 🔍 **Code Examples**: See `R/simulation_data.R` for complete workflows  
-- 🧪 **Test Cases**: Run `R/sim_data_production.R` for validation
-- 📖 **Theory**: References in code comments and Doxygen documentation
+Each script is well-commented - open them to see exactly what's happening!
+
+## ⚙️ Advanced Options
+
+### Switching Algorithms
+
+The default setup works well for most cases, but you can customize:
+
+**In `src/launcher.cpp`, find these lines and uncomment what you want:**
+
+```cpp
+// Line ~110: Pick your clustering model
+NGGPW process(data, params, likelihood);  // Current choice
+
+// Line ~125: Pick your sampling method  
+SplitMerge_SAMS sampler(...);  // Current choice
+```
+
+After changing, recompile in R:
+```r
+sourceCpp("src/launcher.cpp")
+```
+
+### Spatial/Geographic Data
+
+If your data has locations or network structure:
+
+```r
+# Create neighbor connections (5 nearest neighbors)
+W <- retrieve_W(dist_matrix, k = 5)
+
+# Or use your own adjacency matrix
+# W <- my_neighbor_matrix  # 1 if neighbors, 0 otherwise
+
+# Tell the model to use spatial info
+param <- new(Params, ...,
+  coefficient = 1,  # How much to consider location (0 to 2)
+  W                 # Your neighbor matrix
+)
+```
+
 
 ## 📚 References & Citations
 
