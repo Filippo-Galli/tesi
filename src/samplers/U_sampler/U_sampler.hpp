@@ -38,6 +38,9 @@ protected:
   /** @brief Counter for total MCMC iterations performed. */
   int total_iterations = 0;
 
+  /** @brief Counter of accepted U*/
+  int accepted_U = 0;
+
   /** @brief Random device for seeding. */
   std::random_device rd;
 
@@ -165,6 +168,16 @@ public:
    * @return The current value of the latent variable U.
    */
   double get_U() const { return U; }
+
+  /**
+  * @brief Getter for the acceptance rate of U updates.
+  * @return The acceptance rate as a double.
+  */
+  double get_acceptance_rate() const {
+    if(total_iterations == 0)
+      return 0.0;
+    return static_cast<double>(accepted_U) / static_cast<double>(total_iterations);
+  }
 
   /**
   @brief Virtual destructor for the U_sampler class.

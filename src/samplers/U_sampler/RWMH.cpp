@@ -52,8 +52,10 @@ void RWMH::sampling_U() {
   // Accept or reject
   std::uniform_real_distribution<double> unif(0.0, 1.0);
   accept = std::log(unif(gen)) < log_acceptance_ratio;
-  if (accept)
+  if (accept){
     U = U_proposed;
+    accepted_U++;
+  }
 }
 
 // RWMH update on V = log(U) scale with symmetric normal proposal
@@ -75,8 +77,10 @@ void RWMH::sampling_V() {
   // Accept or reject
   std::uniform_real_distribution<double> unif(0.0, 1.0);
   accept = std::log(unif(gen)) < log_acceptance_ratio;
-  if (accept)
-    U = exp(V_proposed); // Transform back to U scale
+  if (accept){
+    U = exp(V_proposed);
+    accepted_U++;
+  }
 }
 
 // Robbins-Monro adaptive tuning to achieve optimal acceptance rate

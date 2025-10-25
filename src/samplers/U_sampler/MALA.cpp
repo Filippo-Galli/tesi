@@ -65,8 +65,9 @@ void MALA::sampling_V() {
   // Metropolis-Hastings accept/reject step
   std::uniform_real_distribution<double> unif(0.0, 1.0);
   bool accept = std::log(unif(gen)) < log_acceptance_ratio;
-  if (accept) {
+  if (accept){
     U = U_proposed;
+    accepted_U++;
   }
 }
 
@@ -122,8 +123,10 @@ void MALA::sampling_U() {
   // Metropolis-Hastings accept/reject step
   std::uniform_real_distribution<double> unif(0.0, 1.0);
   accept = std::log(unif(gen)) < log_acceptance_ratio;
-  if (accept)
+  if (accept){
     U = U_proposed;
+    accepted_U++;
+  }
 }
 
 double MALA::grad_log_conditional_density_U(double u) const {
@@ -168,6 +171,6 @@ void MALA::Robbins_Monro_tuning() {
   }
 
   // Periodic logging of epsilon value for monitoring
-  if (total_iterations % 1000 == 0)
-    Rcpp::Rcout << "[DEBUG] - Updated epsilon: " << epsilon << std::endl;
+  // if (total_iterations % 1000 == 0)
+  //   Rcpp::Rcout << "[DEBUG] - Updated epsilon: " << epsilon << std::endl;
 }

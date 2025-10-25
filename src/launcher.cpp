@@ -112,8 +112,8 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   Likelihood likelihood(data, param);
 
   // Sampler for U parameter if needed by the process
-  //RWMH U_sampler(param, data, true, 2.0, true);
-  MALA U_sampler(param, data, false, 2, true);
+  RWMH U_sampler(param, data, true, 2.0, true);
+  //MALA U_sampler(param, data, true, 2, true);
 
   // Initialize the Bayesian non-parametric process
   // Uncomment the desired process type:
@@ -184,6 +184,7 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   // Calculate and display final timing and acceptance statistics
   std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
   std::cout << "MCMC completed in : " << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() << " seconds." << std::endl;
+  std::cout << "U acceptance rate: " << U_sampler.get_acceptance_rate() * 100 << " %." << std::endl;
 
   // std::cout << "Accepted split ratio: " << sampler.get_accepted_split() * 100 * 2 / (param.NI + param.BI) << " %." << std::endl;
   // std::cout << "Accepted merge ratio: " << sampler.get_accepted_merge() * 100 * 2 / (param.NI + param.BI) << " %." << std::endl;  
