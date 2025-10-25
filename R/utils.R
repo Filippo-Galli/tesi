@@ -227,27 +227,9 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
   # Apply burn-in to all data
   k_values <- unlist(results$K)
 
-  # Check if K values exist and are valid
-  if (is.null(k_values) || length(k_values) == 0) {
-    cat("Warning: No valid K values found, skipping cluster distribution plot\n")
-    return(NULL)
-  }
-
   # Apply burn-in period
   if (BI > 0 && length(k_values) > BI) {
     k_values <- k_values[(BI + 1):length(k_values)]
-    cat("Applied burn-in: Using", length(k_values), "samples after discarding first", BI, "iterations\n")
-  } else if (BI > 0) {
-    cat("Warning: Burn-in period (", BI, ") is greater than or equal to total iterations (", length(k_values), ")\n")
-    cat("Using all available data\n")
-  }
-
-  # Remove any NA values
-  k_values <- k_values[!is.na(k_values)]
-
-  if (length(k_values) == 0) {
-    cat("Warning: All K values are NA after burn-in, skipping cluster distribution plot\n")
-    return(NULL)
   }
 
   ### First plot - Posterior distribution of the number of clusters (after burn-in)
@@ -276,191 +258,146 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
   print(p1)
 
   if (save) {
-    ggsave(filename = paste0(folder, "posterior_num_clusters.png"), plot = p1, width = 8, height = 6)
+    ggsave(filename = paste0(folder, "posterior_num_clusters.png"),
+           plot = p1, width = 8, height = 6)
   }
 
   ### Second plot - Trace of number of clusters
-  if (is.null(results$K)) {
-    cat("Warning: No valid K values for trace plot\n")
-  } else {
-    if (length(k_values) > 0) {
-      k_df <- data.frame(
-        Iteration = seq_along(k_values),
-        NumClusters = k_values
-      )
+  k_df <- data.frame(
+    Iteration = seq_along(k_values),
+    NumClusters = k_values
+  )
 
-      p2 <- ggplot(k_df, aes(x = Iteration, y = NumClusters)) +
-        geom_line() +
-        labs(
-          x = "Iteration",
-          y = "Number of clusters",
-          title = paste("Trace Plot (Burn-in:", BI, "iterations)")
-        ) +
-        theme(
-          axis.text.x = element_text(size = 15),
-          axis.text.y = element_text(size = 15),
-          text = element_text(size = 15),
-          panel.background = element_blank(),
-          panel.grid.major = element_line(color = "grey95"),
-          panel.grid.minor = element_line(color = "grey95"),
-          legend.position = "top"
-        )
+  p2 <- ggplot(k_df, aes(x = Iteration, y = NumClusters)) +
+    geom_line() +
+    labs(
+      x = "Iteration",
+      y = "Number of clusters",
+      title = paste("Trace Plot (Burn-in:", BI, "iterations)")
+    ) +
+    theme(
+      axis.text.x = element_text(size = 15),
+      axis.text.y = element_text(size = 15),
+      text = element_text(size = 15),
+      panel.background = element_blank(),
+      panel.grid.major = element_line(color = "grey95"),
+      panel.grid.minor = element_line(color = "grey95"),
+      legend.position = "top"
+    )
 
-      print(p2)
-      if (save) {
-        ggsave(filename = paste0(folder, "traceplot.png"), plot = p2, width = 8, height = 6)
-      }
-    } else {
-      cat("Warning: No valid K values for trace plot after cleaning\n")
-    }
+  print(p2)
+  if (save) {
+    ggsave(filename = paste0(folder, "traceplot.png"),
+           plot = p2, width = 8, height = 6)
   }
 
   ### Third plot - Posterior Similarity Matrix (using post burn-in data only)
-  # Check if allocations exist
-  if (is.null(results$allocations) || length(results$allocations) == 0) {
-    cat("Warning: No allocation data found, skipping similarity matrix plot\n")
-  } else {
-    # Apply burn-in to allocations
-    allocations_post_burnin <- results$allocations
-    if (BI > 0 && length(allocations_post_burnin) > BI) {
-      allocations_post_burnin <- allocations_post_burnin[(BI + 1):length(allocations_post_burnin)]
-      cat("Using", length(allocations_post_burnin), "allocation samples after burn-in\n")
-    }
+  #### Apply burn-in to allocations
+  allocations_post_burnin <- results$allocations
+  if (BI > 0 && length(allocations_post_burnin) > BI) {
+    allocations_post_burnin <- allocations_post_burnin[(BI + 1):length(allocations_post_burnin)]
+  }
 
-    if (length(allocations_post_burnin) == 0) {
-      cat("Warning: No allocations remaining after burn-in\n")
-    } else {
-      # Compute posterior similarity matrix
-      n <- nrow(dist_matrix)
-      similarity_matrix <- matrix(0, nrow = n, ncol = n)
+  #### Compute posterior similarity matrix
+  n <- nrow(dist_matrix)
+  similarity_matrix <- matrix(0, nrow = n, ncol = n)
 
-      # For each MCMC iteration (post burn-in), add to similarity matrix
-      for (iter in seq_along(allocations_post_burnin)) {
-        allocation <- allocations_post_burnin[[iter]]
-        if (!is.null(allocation) && length(allocation) == n) {
-          for (i in 1:(n - 1)) {
-            for (j in (i + 1):n) {
-              if (allocation[i] == allocation[j]) {
-                similarity_matrix[i, j] <- similarity_matrix[i, j] + 1
-                similarity_matrix[j, i] <- similarity_matrix[j, i] + 1
-              }
-            }
-          }
-        }
-      }
+  # For each MCMC iteration (post burn-in), add to similarity matrix
+  # for (iter in seq_along(allocations_post_burnin)) {
+  #   allocation <- allocations_post_burnin[[iter]]
+  #   if (!is.null(allocation) && length(allocation) == n) {
+  #     for (i in 1:(n - 1)) {
+  #       for (j in (i + 1):n) {
+  #         if (allocation[i] == allocation[j]) {
+  #           similarity_matrix[i, j] <- similarity_matrix[i, j] + 1
+  #           similarity_matrix[j, i] <- similarity_matrix[j, i] + 1
+  #         }
+  #       }
+  #     }
+  #   }
+  # }
 
-      # Normalize by number of post burn-in iterations
-      similarity_matrix <- similarity_matrix / length(allocations_post_burnin)
-
-      # Set diagonal to 1 (each point is always similar to itself)
-      diag(similarity_matrix) <- 1
-
-      # Create heatmap of posterior similarity matrix
-      similarity_df <- expand.grid(i = 1:n, j = 1:n)
-      similarity_df$similarity <- as.vector(similarity_matrix)
-
-      p3 <- ggplot(similarity_df, aes(x = i, y = j, fill = similarity)) +
-        geom_tile() +
-        scale_fill_gradient(low = "white", high = "darkblue") +
-        labs(
-          x = "Data Point Index",
-          y = "Data Point Index",
-          fill = "Posterior\nSimilarity",
-          title = paste("Posterior Similarity Matrix (After Burn-in:", BI, ")")
-        ) +
-        theme(
-          axis.text.x = element_text(size = 12),
-          axis.text.y = element_text(size = 12),
-          text = element_text(size = 12),
-          panel.background = element_blank()
-        ) +
-        coord_fixed()
-      print(p3)
-      if (save) {
-        ggsave(filename = paste0(folder, "similarity_matrix.png"), plot = p3, width = 8, height = 6)
-      }
+  # For each MCMC iteration (post burn-in), add to similarity matrix
+  for (iter in seq_along(allocations_post_burnin)) {
+    allocation <- allocations_post_burnin[[iter]]
+    if (!is.null(allocation) && length(allocation) == n) {
+      # This creates a matrix where entry [i,j] is TRUE if allocation[i] == allocation[j]
+      same_cluster <- outer(allocation, allocation, "==")
+      
+      # Add to similarity matrix (this is already symmetric, so no need for separate i,j loop)
+      similarity_matrix <- similarity_matrix + same_cluster
     }
   }
 
+  # Normalize by number of post burn-in iterations
+  similarity_matrix <- similarity_matrix / length(allocations_post_burnin)
+
+  # Set diagonal to 1 (each point is always similar to itself)
+  diag(similarity_matrix) <- 1
+
+  # Create heatmap of posterior similarity matrix
+  similarity_df <- expand.grid(i = 1:n, j = 1:n)
+  similarity_df$similarity <- as.vector(similarity_matrix)
+
+  p3 <- ggplot(similarity_df, aes(x = i, y = j, fill = similarity)) +
+    geom_tile() +
+    scale_fill_gradient(low = "white", high = "darkblue") +
+    labs(
+      x = "Data Point Index",
+      y = "Data Point Index",
+      fill = "Posterior\nSimilarity",
+      title = paste("Posterior Similarity Matrix (After Burn-in:", BI, ")")
+    ) +
+    theme(
+      axis.text.x = element_text(size = 12),
+      axis.text.y = element_text(size = 12),
+      text = element_text(size = 12),
+      panel.background = element_blank()
+    ) +
+    coord_fixed()
+  print(p3)
+  if (save) {
+    ggsave(filename = paste0(folder, "similarity_matrix.png"), 
+           plot = p3, width = 8, height = 6)
+  }
+
   ### Fourth plot - Posterior similarity matrix analysis (using SALSO)
-  # Check if allocations exist, otherwise skip this plot
-  if (!is.null(results$allocations) && length(results$allocations) > 0) {
-    # Apply burn-in to allocations
-    allocations_post_burnin <- results$allocations
-    if (BI > 0 && length(allocations_post_burnin) > BI) {
-      allocations_post_burnin <- allocations_post_burnin[(BI + 1):length(allocations_post_burnin)]
-    }
 
-    if (length(allocations_post_burnin) > 0) {
-      # Convert allocations to matrix format for SALSO
-      C <- matrix(unlist(lapply(allocations_post_burnin, function(x) x + 1)),
-        nrow = length(allocations_post_burnin),
-        ncol = length(true_labels),
-        byrow = TRUE
-      )
+  #### Convert allocations to matrix format for SALSO
+  C <- matrix(unlist(lapply(allocations_post_burnin, function(x) x + 1)),
+    nrow = length(allocations_post_burnin),
+    ncol = length(true_labels),
+    byrow = TRUE
+  )
 
-      required_packages <- c("salso", "fields", "viridisLite", "RColorBrewer", "pheatmap")
-      for (pkg in required_packages) {
-        if (!require(pkg, character.only = TRUE)) {
-          install.packages(pkg)
-          library(pkg, character.only = TRUE)
-        }
-      }
+  #### Get point estimate using Variation of Information (VI) loss
+  point_estimate <- salso::salso(C, loss = "binder",
+                                 maxNClusters = 200,
+                                 maxZealousAttempts = 1000)
 
-      # Compute posterior similarity matrix using SALSO
-      psm <- salso::psm(C)
+  #### Print results
+  cat("=== SALSO Clustering Results (Post Burn-in) ===\n")
+  cat("Cluster Sizes:\n")
+  print(table(point_estimate))
 
-      # Get point estimate using Variation of Information (VI) loss
-      point_estimate <- salso::salso(C, loss = "binder",
-                                     maxNClusters = 200,        # Increase cluster limit
-                                     maxZealousAttempts = 1000)
+  point_labels <- as.vector(point_estimate)
 
-      # # Reorder based on cluster assignments for better visualization
-      # cluster_order <- order(point_estimate)
-      # psm_reordered <- psm[cluster_order, cluster_order]
-      # true_labels_reordered <- true_labels[cluster_order]
-      # point_estimate_reordered <- point_estimate[cluster_order]
+  #### Adjusted Rand Index (ARI)
+  cat("\nAdjusted Rand Index:",
+      arandi(point_estimate, true_labels), "\n")
 
-      # # Plot the reordered similarity matrix
-      # pheatmap(psm_reordered,
-      #         cluster_rows = FALSE,
-      #         cluster_cols = FALSE,
-      #         color = colorRampPalette(c("white", "blue"))(100),
-      #         main = "Posterior Similarity Matrix (SALSO - Reordered)",
-      #         show_rownames = FALSE,
-      #         show_colnames = FALSE,
-      #         border_color = NA,              # No grid
-      # )
+  #### NMI
+  cat("Normalized Mutual Information:",
+      NMI(point_labels, true_labels), "\n")
 
-      # Print results
-      cat("=== SALSO Clustering Results (Post Burn-in) ===\n")
-      cat("Cluster Sizes:\n")
-      print(table(point_estimate))
+  #### VI
+  cat("Variation of Information:", NVI(point_labels, true_labels), "\n")
 
-      point_labels <- as.vector(point_estimate)
-
-      # Adjusted Rand Index (ARI)
-      cat("\nAdjusted Rand Index:", 
-          arandi(point_estimate, true_labels), "\n")
-
-      # NMI
-      cat("Normalized Mutual Information:", 
-          NMI(point_labels, true_labels), "\n")
-
-      # VI
-      cat("Variation of Information:", NVI(point_labels, true_labels), "\n")
-
-      if (save) {
-        stats_file <- paste0(folder, "salso_stats.txt")
-        write(paste("Adjusted Rand Index:", arandi(point_estimate, true_labels)), file = stats_file)
-        write(paste("Normalized Mutual Information:", NMI(point_labels, true_labels)), file = stats_file, append = TRUE)
-        write(paste("Variation of Information:", NVI(point_labels, true_labels)), file = stats_file, append = TRUE)
-      }
-    } else {
-      cat("Warning: No allocation data remaining after burn-in\n")
-    }
-  } else {
-    cat("Warning: No allocation data found, skipping posterior similarity matrix analysis\n")
+  if (save) {
+    stats_file <- paste0(folder, "salso_stats.txt")
+    write(paste("Adjusted Rand Index:", arandi(point_estimate, true_labels)), file = stats_file)
+    write(paste("Normalized Mutual Information:", NMI(point_labels, true_labels)), file = stats_file, append = TRUE)
+    write(paste("Variation of Information:", NVI(point_labels, true_labels)), file = stats_file, append = TRUE)
   }
 
   ### Fifth plot - plot U trace without BI
@@ -468,30 +405,21 @@ plot_mcmc_results <- function(results, true_labels, BI, save = FALSE, folder = "
   if (BI > 0 && length(U_after_burnin) > BI) {
     U_after_burnin <- U_after_burnin[(BI + 1):length(U_after_burnin)]
   }
-  plot(U_after_burnin, type = "l", xlab = "Iteration", ylab = "U")
+  plot(U_after_burnin, type = "l", xlab = "Iteration", ylab = "U", width = 2400, height = 1800, res = 300)
   abline(h = mean(U_after_burnin), col = "red", lty = 2)
   legend("topright", legend = c("Mean U"), col = c("red"), lty = 2)
   titolo <- paste0("Trace of U over MCMC iterations (mean U = ", round(mean(U_after_burnin), 3), ")")
   title(main = titolo)
 
-  # Re-do the plot to make it bigger and save if needed
   if (save) {
-    # Open a PNG device with larger dimensions 
-    png(filename = paste0(folder, "U_trace.png"), width = 2400, height = 1800, res = 300)
-    
-    # Re-draw the plot from scratch
-    plot(U_after_burnin, type = "l", xlab = "Iteration", ylab = "U")
-    abline(h = mean(U_after_burnin), col = "red", lty = 2)
-    legend("topright", legend = c("Mean U"), col = c("red"), lty = 2)
-    titolo <- paste0("Trace of U over MCMC iterations (mean U = ", round(mean(U_after_burnin), 3), ")")
-    title(main = titolo)
-    
-    # Close the device to finalize the file
-    dev.off()
+    dev.copy(png, filename = paste0(folder, "U_trace"), width = 2400, height = 1800, res = 300)
   }
 
   ### Sixth plot - ACF plots for MCMC chains
   acf(U_after_burnin, main = "ACF of U over MCMC iterations")
+  if (save) {
+    dev.copy(png, filename = paste0(folder, "U_acf"), width = 2400, height = 1800, res = 300)
+  }
 }
 
 ## @name plot_k_means
