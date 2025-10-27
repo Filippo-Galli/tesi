@@ -98,6 +98,9 @@ RCPP_MODULE(params_module) {
 Rcpp::List
 mcmc(const Eigen::MatrixXd &distances, Params &param,
      const Rcpp::IntegerVector &initial_allocations_r = Rcpp::IntegerVector()) {
+
+  std::ios::sync_with_stdio(false); // Disable synchronization for faster I/O and non-blocking output
+  
   // Convert R IntegerVector to Eigen::VectorXi for compatibility with
   // Eigen-based classes
   Eigen::VectorXi initial_allocations;
@@ -128,7 +131,7 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
 
   // Choose the main sampling strategy:
   SplitMerge sampler(data,param, likelihood, process, true); // Split-Merge sampler
-  //SplitMerge_SAMS sampler(data, param, likelihood, process, true);    // Split-Merge with SAMS 
+  // SplitMerge_SAMS sampler(data, param, likelihood, process, true);    // Split-Merge with SAMS 
   // SplitMerge_SDDS sampler(data, param, likelihood, process, true);    // Split-Merge with SDDS
 
   // Initialize results container to store MCMC output
@@ -177,7 +180,7 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
         iter_s = 0.0;
       }
       std::cout << "Clusters: " << data.get_K() << " - iter/s: " << iter_s 
-      << " | time to complete: " << (param.BI + param.NI - i)/iter_s<< " s" << std::endl;
+      << " | eta: " << (param.BI + param.NI - i)/iter_s<< " s" << std::endl;
     }
   }
 
