@@ -22,8 +22,8 @@ set.seed(44)
 
 ## Path to simulation data folder
 ## @details Contains simulated data with Natarajan model parameters
-sigma <- .2
-d <- 50
+sigma <- .25
+d <- 10
 namefile <- paste0("Natarajan_", sigma, "sigma_", d, "d")
 folder <- paste0("simulation_data/", namefile)
 
@@ -43,6 +43,10 @@ dist_matrix <- readRDS(file = paste0(folder, "/dist_matrix.rds"))
 ## @details Computes binary adjacency matrix based on distance threshold
 W <- retrieve_W(dist_matrix)
 
+# Check is W is symmetric
+if (!isSymmetric(W)) {
+  warning("W is not symmetric!")
+}
 # ==============================================================================
 # C++ Integration
 # ==============================================================================
@@ -75,7 +79,7 @@ hyperparams <- set_hyperparameters(all_data, dist_matrix,
 # Parameter Object Initialization
 # ==============================================================================
 
-## Create parameter object with Dirichlet Process hyperparameters
+## Create parameter object for Dirichlet Process or Normalized Generalized Gamma Process hyperparameters
 ##
 ## @param delta1 Shape parameter for the cohesion term
 ## @param alpha Shape parameter for lambdas of cohesion term
@@ -95,7 +99,7 @@ param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  10000, 10000, 2, # BI, NI, a,
+  2000, 5000, 1, # BI, NI, a,
   0.1, 1, 1, # sigma, tau, coeff spatial dependence
   W # Spatial adjacency matrix
 )
