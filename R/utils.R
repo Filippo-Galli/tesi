@@ -43,6 +43,11 @@ retrieve_W <- function(distance_matrix, neighbours = 8) {
     nn_indices <- order(distance_matrix[i, ])[2:(neighbours + 1)]
     W[i, nn_indices] <- 1
   }
+
+  # Make W only upper triangular to avoid double counting
+  W <- (W + t(W)) > 0
+  # W[lower.tri(W)] <- 0
+
   return(W)
 }
 

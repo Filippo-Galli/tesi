@@ -53,7 +53,7 @@ int NGGPW::get_neighbors_cls(int cls_idx, bool old_allo) const {
 
   Eigen::VectorXi allocations_to_use = old_allo ? old_allocations : data.get_allocations();
   Eigen::VectorXi obs_in_cluster = (allocations_to_use.array() == cls_idx).cast<int>();
-  const int total_neighbors = (params.W * obs_in_cluster).sum();
+  const int total_neighbors = (params.W * obs_in_cluster).sum() / 2; // Divide by 2 to avoid double counting
   return total_neighbors;
 }
 

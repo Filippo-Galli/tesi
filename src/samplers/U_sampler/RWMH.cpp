@@ -95,6 +95,8 @@ void RWMH::Robbins_Monro_tuning() {
   // Update log(proposal_sd) using Robbins-Monro scheme
   proposal_sd = std::exp(std::log(proposal_sd) + c * delta / total_iterations);
 
+  // TODO: missing restarting logic
+
   // Optional: print diagnostics every 1000 iterations
   // if(total_iterations % 1000 == 0)
   //     Rcpp::Rcout << "[DEBUG] - Updated proposal sd: " << proposal_sd <<
