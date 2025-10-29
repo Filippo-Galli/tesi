@@ -343,8 +343,10 @@ void SplitMerge::choose_clusters_shuffle() {
    * clusters.
    */
 
-  if (data.get_K() < 2)
-    throw std::runtime_error("Not enough clusters to perform shuffle.");
+  if (data.get_K() < 2){
+    std::cout << "Not enough clusters to perform shuffle." << std::endl;
+    return;
+  }
 
   std::uniform_int_distribution<> dis(0, data.get_K() - 1);
 
