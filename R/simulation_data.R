@@ -19,7 +19,12 @@ set.seed(44)
 
 ## Load real data
 dist_matrix <- readRDS(file = "real_data/distance_chi_squared.rds")
-distance_plot(dist_matrix)
+#plot_distance(dist_matrix)
+
+if (min(dist_matrix) <= 0) {
+  dist_matrix <- dist_matrix + 1e-3
+  plot_distance(dist_matrix)
+}
 
 ##############################################################################
 # Spatial Adjacency Matrix ====
@@ -45,7 +50,7 @@ sourceCpp("src/launcher.cpp")
 ##############################################################################
 
 # Plot k-means elbow method to help set hyperparameters
-plot_k_means(dist_matrix, max_k = 10)
+plot_k_medoids(dist_matrix, max_k = 10)
 
 # Set hyperparameters based on distance matrix
 hyperparams <- set_hyperparameters(dist_matrix,

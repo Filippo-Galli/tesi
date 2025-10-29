@@ -19,6 +19,7 @@ library(gtools)
 library(salso)
 library(aricode)
 library(reshape2)
+library(cluster)
 
 retrieve_W <- function(distance_matrix, neighbours = 8) {
   # For each element find the nearest neighbours
@@ -129,10 +130,10 @@ save_with_name <- function(folder, params, initialization) {
 }
 
 set_hyperparameters <- function(dist_matrix, k_elbow, ground_truth = NULL, plot_clustering = FALSE, plot_distribution = TRUE) {
-  mds_result <- cmdscale(dist_matrix, k = 2)  # or higher dimensions if needed
 
-  kmeans_result <- kmeans(mds_result, centers = k_elbow, nstart = 25)
-  initial_clusters <- kmeans_result$cluster
+  # Use k-medoids to get initial clusters
+  pam_fit <- pam(dist_matrix, k = k_elbow, diss = TRUE)
+  initial_clusters <- pam_fit$clustering
 
   # Step 3: Split pairwise distances into within-cluster (A) and inter-cluster (B)
   n <- nrow(dist_matrix)

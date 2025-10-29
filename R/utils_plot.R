@@ -19,6 +19,8 @@ library(gtools)
 library(salso)
 library(aricode)
 library(reshape2)
+library(cluster)
+library(label.switching)
 
 plot_distance <- function(dist_matrix, cls = NULL,
                           save = FALSE, folder = "results/plots/",
@@ -309,29 +311,36 @@ plot_acf_U <- function(results, BI, save = FALSE, folder = "results/plots/") {
   }
 }
 
-plot_k_means <- function(dist_matrix, max_k = 10) {
-  # Step 1: Compute elbow method for K selection
-  wss <- numeric(max_k)
-  # For distance matrices, we need to use multidimensional scaling to get coordinates
-  mds_result <- cmdscale(dist_matrix, k = 2) # 2D embedding
-
-  for (k in 1:max_k) {
-    kmeans_result <- kmeans(mds_result, centers = k, nstart = 25)
-    wss[k] <- kmeans_result$tot.withinss
+plot_k_medoids <- function(dist_matrix, max_k = 10) {
+  # Ensure dist_matrix is in the right format
+  if(!inherits(dist_matrix, "dist")) {
+    dist_matrix <- as.dist(dist_matrix)
   }
-
+  
+  # Step 1: Compute elbow method for K selection using PAM (k-medoids)
+  wss <- numeric(max_k)
+  
+  for (k in 1:max_k) {
+    kmedoids_result <- pam(dist_matrix, k = k, diss = TRUE)
+    wss[k] <- kmedoids_result$objective[1]  # Use objective instead of tot.withinss
+  }
+  
   # Plot the elbow curve
   elbow_data <- data.frame(K = 1:max_k, WSS = wss)
   elbow_plot <- ggplot(elbow_data, aes(x = K, y = WSS)) +
     geom_line() +
     geom_point() +
     labs(
-      title = "Elbow Method for Optimal K",
+      title = "Elbow Method for Optimal K (K-Medoids/PAM)",
       x = "Number of Clusters (K)",
-      y = "Within-Cluster Sum of Squares"
+      y = "Total Dissimilarity"
     ) +
     theme_minimal()
+  
   print(elbow_plot)
+  
+  # Return the WSS values for further analysis
+  return(invisible(elbow_data))
 }
 
 plot_data <- function(all_data, cluster_labels, save = FALSE, folder = "results/plots/") {

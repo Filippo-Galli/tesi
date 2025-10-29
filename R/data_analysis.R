@@ -53,6 +53,9 @@ for (i in seq_along(histograms_list)) {
 ##############################################################################
 # Plot Distance ====
 ##############################################################################
+plot_distance(distance_euclidean,
+              title = "Euclidean Distance", save = TRUE,
+              folder = "results/distance_plots/")
 plot_distance(distance_hist_intersection,
               title = "Histogram Intersection Distance", save = TRUE,
               folder = "results/distance_plots/")
@@ -61,9 +64,6 @@ plot_distance(distance_jeff_divergences,
               folder = "results/distance_plots/")
 plot_distance(distance_chi_squared,
               title = "Chi-Squared Distance", save = TRUE,
-              folder = "results/distance_plots/")
-plot_distance(distance_euclidean,
-              title = "Euclidean Distance", save = TRUE,
               folder = "results/distance_plots/")
 
 ##############################################################################
