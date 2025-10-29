@@ -226,7 +226,7 @@ plot_post_sim_matrix <- function(results, BI, save = FALSE, folder = "results/pl
       x = "Data Point Index (clustered)",
       y = "Data Point Index (clustered)",
       fill = "Posterior\nSimilarity",
-      title = "Posterior Similarity Matrix (clustered order)"
+      title = "Posterior Similarity Matrix"
     ) +
     theme_minimal(base_size = 13) +
     coord_fixed()
@@ -370,4 +370,87 @@ plot_data <- function(all_data, cluster_labels, save = FALSE, folder = "results/
     ggsave(filename = paste0(folder, "data_clusters.png"), 
            plot = p3, width = 8, height = 6)
   }
+}
+
+plot_cls_est <- function(results, BI, save = FALSE, folder = "results/plots/") {
+  #### Apply burn-in to allocations
+  allocations_post_burnin <- results$allocations
+  if (BI > 0 && length(allocations_post_burnin) > BI) {
+    allocations_post_burnin <- allocations_post_burnin[(BI + 1):length(allocations_post_burnin)]
+  }
+
+  #### Convert allocations to matrix format for SALSO
+  C <- matrix(unlist(lapply(allocations_post_burnin, function(x) x + 1)),
+    nrow = length(allocations_post_burnin),
+    ncol = length(allocations_post_burnin[[1]]),
+    byrow = TRUE
+  )
+
+  #### Get point estimate using Variation of Information (VI) loss
+  point_estimate <- salso::salso(C, loss = "binder",
+                                 maxNClusters = 200,
+                                 maxZealousAttempts = 1000)
+
+  #### Print results
+  cat("=== SALSO Clustering Results (Post Burn-in) ===\n")
+  cat("Cluster Sizes:\n")
+  print(table(point_estimate))
+
+  if (save) {
+    cls_file <- paste0(folder, "salso_cluster_estimate.txt")
+    write("Cluster Sizes:", file = cls_file)
+    write(capture.output(table(point_estimate)), file = cls_file, append = TRUE)
+  }
+
+  return(invisible(point_estimate))
+}
+
+plot_map_cls <- function(results, BI, save = FALSE,
+                         folder = "results/plots/",
+                         puma_dir = "input/counties-pumas",
+                         id_col = "PUMA",
+                         unit_ids = NULL) {
+  if (!requireNamespace("sf", quietly = TRUE)) {
+    stop("Package 'sf' is required for plot_map_cls().")
+  }
+
+  shp <- list.files(puma_dir, pattern = "\\.shp$", full.names = TRUE)
+  if (length(shp) == 0) {
+    stop("No .shp file found in '", puma_dir, "'.")
+  }
+
+  point_estimate <- plot_cls_est(results, BI = BI)
+  if (is.null(names(point_estimate))) {
+    candidate_ids <- unit_ids %||% results$unit_ids %||% results$puma_ids
+    if (is.null(candidate_ids) || length(candidate_ids) != length(point_estimate)) {
+      stop("Provide unit_ids or store results$unit_ids/results$puma_ids matching the PUMAs.")
+    }
+    names(point_estimate) <- candidate_ids
+  }
+
+  geom <- sf::st_read(shp[1], quiet = TRUE)
+  cluster_df <- tibble::tibble(
+    id = names(point_estimate),
+    cluster = factor(point_estimate)
+  )
+  names(cluster_df)[1] <- id_col
+  geom <- dplyr::left_join(geom, cluster_df, by = id_col)
+
+  p <- ggplot2::ggplot(geom) +
+    ggplot2::geom_sf(aes(fill = cluster), color = "grey60", size = 0.2) +
+    ggplot2::scale_fill_viridis_d(option = "turbo", na.value = "lightgrey") +
+    ggplot2::labs(
+      title = "PUMAs by Cluster Assignment",
+      fill = "Cluster"
+    ) +
+    ggplot2::theme_minimal()
+
+  print(p)
+
+  if (save) {
+    if (!dir.exists(folder)) dir.create(folder, recursive = TRUE)
+    ggplot2::ggsave(file.path(folder, "puma_clusters.png"), p, width = 10, height = 8)
+  }
+
+  invisible(p)
 }

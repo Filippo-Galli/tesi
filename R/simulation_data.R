@@ -18,12 +18,11 @@ set.seed(44)
 # dist_matrix <- readRDS(file = paste0(folder, "/dist_matrix.rds"))
 
 ## Load real data
-dist_matrix <- readRDS(file = "real_data/distance_chi_squared.rds")
+dist_matrix <- readRDS(file = "real_data/distance_euclidean.rds")
 #plot_distance(dist_matrix)
 
 if (min(dist_matrix) <= 0) {
   dist_matrix <- dist_matrix + 1e-3
-  plot_distance(dist_matrix)
 }
 
 ##############################################################################
@@ -116,3 +115,11 @@ plot_trace_cls(mcmc_result, BI = param$BI)
 plot_post_sim_matrix(mcmc_result, BI = param$BI)
 plot_trace_U(mcmc_result, BI = param$BI)
 plot_acf_U(mcmc_result, BI = param$BI)
+plot_cls_est(mcmc_result, BI = param$BI)
+
+puma_ids <- sf::st_read("input/counties-pumas/counties-pumas.shp", quiet = TRUE)[["PUMA"]]
+plot_map_cls(
+  results = mcmc_result,
+  BI = param$BI,
+  unit_ids = puma_ids
+)
