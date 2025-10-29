@@ -123,3 +123,5 @@ plot_map_cls(
   BI = param$BI,
   unit_ids = puma_ids
 )
+
+plot_map_prior_mean(unit_ids = puma_ids)

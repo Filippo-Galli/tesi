@@ -454,3 +454,55 @@ plot_map_cls <- function(results, BI, save = FALSE,
 
   invisible(p)
 }
+
+plot_map_prior_mean <- function (save = FALSE, folder = "results/plots/",
+                                 puma_dir = "input/counties-pumas",
+                                 id_col = "PUMA",
+                                 unit_ids = NULL) {
+  if (!requireNamespace("sf", quietly = TRUE)) {
+    stop("Package 'sf' is required for plot_map_prior_mean().")
+  }
+
+  shp <- list.files(puma_dir, pattern = "\\.shp$", full.names = TRUE)
+  if (length(shp) == 0) {
+    stop("No .shp file found in '", puma_dir, "'.")
+  }
+
+  load("input/full_dataset.dat")
+
+  if (is.null(unit_ids)) {
+    unit_ids <- names(data)
+  }
+  if (is.null(unit_ids) || length(unit_ids) != length(data)) {
+    stop("Provide unit_ids matching the number of PUMAs in 'data'.")
+  }
+
+  prior_means <- vapply(data, mean, numeric(1))
+  names(prior_means) <- unit_ids
+
+  geom <- sf::st_read(shp[1], quiet = TRUE)
+  prior_df <- tibble::tibble(
+    !!id_col := as.character(unit_ids),
+    prior_mean = prior_means
+  )
+  geom[[id_col]] <- as.character(geom[[id_col]])
+  geom <- dplyr::left_join(geom, prior_df, by = id_col)
+
+  p <- ggplot2::ggplot(geom) +
+    ggplot2::geom_sf(aes(fill = prior_mean), color = "grey60", size = 0.2) +
+    ggplot2::scale_fill_viridis_c(option = "viridis", na.value = "lightgrey") +
+    ggplot2::labs(
+      title = "PUMAs by Prior Mean",
+      fill = "Prior Mean"
+    ) +
+    ggplot2::theme_minimal()
+
+  print(p)
+
+  if (save) {
+    if (!dir.exists(folder)) dir.create(folder, recursive = TRUE)
+    ggplot2::ggsave(file.path(folder, "puma_prior_means.png"), p, width = 10, height = 8)
+  }
+
+  invisible(p)
+}
