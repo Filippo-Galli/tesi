@@ -1,4 +1,5 @@
 source("R/utils.R")
+source("R/utils_plot.R")
 
 ##############################################################################
 # Load .dat files from 'input/' directory ====
@@ -19,7 +20,7 @@ for (i in seq_along(data)) {
 ##############################################################################
 # Distances between histograms ====
 ##############################################################################
-distance_hist_divergences <- matrix(0, nrow = length(histograms_list),
+distance_hist_intersection <- matrix(0, nrow = length(histograms_list),
                                     ncol = length(histograms_list))
 distance_jeff_divergences <- matrix(0, nrow = length(histograms_list),
                                     ncol = length(histograms_list))
@@ -30,7 +31,7 @@ distance_euclidean <- matrix(0, nrow = length(histograms_list),
 
 for (i in seq_along(histograms_list)) {
   for (j in seq_along(histograms_list)) {
-    distance_hist_divergences[i, j] <-
+    distance_hist_intersection[i, j] <-
       compute_hist_distances(histograms_list[[i]], histograms_list[[j]])
 
     distance_jeff_divergences[i, j] <-
@@ -50,13 +51,29 @@ for (i in seq_along(histograms_list)) {
 }
 
 ##############################################################################
+# Plot Distance ====
+##############################################################################
+plot_distance(distance_hist_intersection,
+              title = "Histogram Intersection Distance", save = TRUE,
+              folder = "results/distance_plots/")
+plot_distance(distance_jeff_divergences,
+              title = "Jeffreys Divergence Distance", save = TRUE,
+              folder = "results/distance_plots/")
+plot_distance(distance_chi_squared,
+              title = "Chi-Squared Distance", save = TRUE,
+              folder = "results/distance_plots/")
+plot_distance(distance_euclidean,
+              title = "Euclidean Distance", save = TRUE,
+              folder = "results/distance_plots/")
+
+##############################################################################
 # Save Data ====
 ##############################################################################
 
 # Save distance matrices
 folder <- "real_data"
-saveRDS(distance_hist_divergences,
-        file = paste0(folder, "/distance_hist_divergences.rds"))
+saveRDS(distance_hist_intersection,
+        file = paste0(folder, "/distance_hist_intersection.rds"))
 saveRDS(distance_jeff_divergences,
         file = paste0(folder, "/distance_jeff_divergences.rds"))
 saveRDS(distance_chi_squared,

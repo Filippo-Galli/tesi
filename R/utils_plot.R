@@ -20,13 +20,16 @@ library(salso)
 library(aricode)
 library(reshape2)
 
-plot_distance <- function(dist_matrix, cls = NULL, save = FALSE, folder = "results/plots/") {
+plot_distance <- function(dist_matrix, cls = NULL,
+                          save = FALSE, folder = "results/plots/",
+                          title = "Distance Histogram",
+                          normalize = FALSE) {
   # Calculate distance matrix
   dist_matrix <- as.matrix(dist_matrix)
 
   cls_exist <- !is.null(cls)
 
-  if(!cls_exist) {
+  if (!cls_exist) {
     cls <- rep(1, nrow(dist_matrix)) # All in one cluster
   }
 
@@ -35,48 +38,67 @@ plot_distance <- function(dist_matrix, cls = NULL, save = FALSE, folder = "resul
 
   # Extract distances and determine if they are intra or inter-cluster
   distances <- dist_matrix[upper_tri_indices]
-  cluster_pairs <- cbind(cls[upper_tri_indices[, 1]], cls[upper_tri_indices[, 2]])
+  cluster_pairs <- cbind(cls[upper_tri_indices[, 1]],
+                         cls[upper_tri_indices[, 2]])
 
-  # Classify distances as intra-cluster (same cluster) or inter-cluster (different clusters)
+  # Classify distances as intra-cluster or inter-cluster 
   intra_cluster <- distances[cluster_pairs[, 1] == cluster_pairs[, 2]]
   inter_cluster <- distances[cluster_pairs[, 1] != cluster_pairs[, 2]]
 
+  # Determine y-axis label based on normalization
+  ylab <- if (normalize) "Density" else "Frequency"
+
   # Create histogram with overlaid distributions
   hist(intra_cluster,
-    breaks = 30, col = rgb(1, 0.5, 0, 0.7), # Orange with transparency
-    main = "Histogram of Pairwise Distances",
+    breaks = 30, 
+    col = rgb(1, 0.5, 0, 0.7),
+    main = "",
     xlab = "Distance",
-    ylab = "Frequency",
+    ylab = ylab,
+    freq = !normalize,  # If normalize=TRUE, freq=FALSE (shows density)
     xlim = range(c(intra_cluster, inter_cluster)),
-    ylim = c(0, max(
-      hist(intra_cluster, plot = FALSE)$counts,
-      if(cls_exist) hist(inter_cluster, plot = FALSE)$counts else 0
-    ) + 5)
+    ylim = if(normalize) {
+      c(0, max(
+        hist(intra_cluster, breaks = 30, plot = FALSE)$density,
+        if(cls_exist) hist(inter_cluster, breaks = 30, plot = FALSE)$density else 0
+      ) * 1.1)
+    } else {
+      c(0, max(
+        hist(intra_cluster, breaks = 30, plot = FALSE)$counts,
+        if(cls_exist) hist(inter_cluster, breaks = 30, plot = FALSE)$counts else 0
+      ) + 5)
+    }
   )
 
   if(cls_exist) {
     hist(inter_cluster,
-      breaks = 30, col = rgb(0, 0, 1, 0.7), # Orange with transparency
+      breaks = 30, 
+      col = rgb(0, 0, 1, 0.7),
+      freq = !normalize,  # Match normalization setting
       add = TRUE
     )
   }
 
   # Add legend
   legend("topright",
-    legend = ifelse(cls_exist, c("Intra-cluster", "Inter-cluster"), "Intra-cluster"),
-    fill = c(rgb(1, 0.5, 0, 0.7), rgb(0, 0, 1, 0.7)),
+    legend = if(cls_exist) c("Intra-cluster", "Inter-cluster") else "Distance",
+    fill = if(cls_exist) c(rgb(1, 0.5, 0, 0.7), rgb(0, 0, 1, 0.7)) else rgb(1, 0.5, 0, 0.7),
     bty = "n"
   )
+  title(main = title)
 
   # Save plot if needed
   if (save) {
     if (!dir.exists(folder)) {
       dir.create(folder, recursive = TRUE)
     }
-    dev.copy(png, filename = paste0(folder, "distance_histogram.png"), width = 2400, height = 1800, res = 300)
+    words_title <- gsub(" ", "_", title)
+    dev.copy(png, filename = paste0(folder, words_title, ".png"),
+             width = 2400, height = 1800, res = 300)
     dev.off()
   }
 }
+
 
 plot_post_distr <- function(results, BI, save = FALSE, folder = "results/plots/") {
   # Apply burn-in to all data
