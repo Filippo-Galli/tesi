@@ -1,9 +1,12 @@
-source("R/utils.R")
+source("R/utils_plot.R")
 
-list.files("results/")
+files <- list.files("results/")
+files
 
-# Load the results and ground truth for later analysis
-folder <- "results/NGGPW_Neal_kmeans_0.2sigma_50d_BI2000_NI5000_a0.1_sigma0.7_tau1/"
+##############################################################################
+# Load Results ====
+##############################################################################
+folder <- paste0("results/", files[1], "/")
 filename_results <- "simulation_results.rds"
 filename_gt <- "simulation_ground_truth.rds"
 filename_dist <- "simulation_distance_matrix.rds"
@@ -29,14 +32,14 @@ if (!dir.exists(folder)) {
 }
 
 #################################################################
-############################## Plot Data ########################
+# Plot Data ====
 #################################################################
 
-#plot_data(all_data, ground_truth, save = TRUE, folder)
-distance_plot(all_data, ground_truth, save = TRUE, folder)
+#plot_data(all_data, ground_truth, save = FALSE, folder) # Uncomment to plot data
+plot_distance(dist_matrix, ground_truth, save = FALSE, folder) # Plot distance matrix
 
 #################################################################
-################ Plot Simulation Results ########################
+# Plot Simulation Results ====
 #################################################################
 
 cat("\nFinal hyperparameters:\n")
@@ -48,4 +51,12 @@ cat("gamma =", param$gamma, "\n")
 cat("zeta =", param$zeta, "\n")
 cat("Initial clusters =", param$initial_cluster, "\n")
 
-plot_mcmc_results(results, ground_truth, BI = 2000, save = TRUE, folder = folder)
+##############################################################################
+# Visualization ====
+##############################################################################
+
+plot_post_distr(results, BI = 2000)
+plot_trace_cls(results, BI = 2000)
+plot_post_sim_matrix(results, BI = 2000)
+plot_trace_U(results, BI = 2000)
+plot_acf_U(results, BI = 2000)

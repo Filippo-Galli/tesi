@@ -1,22 +1,37 @@
 { pkgs, lib, config, inputs, ... }:
 
 {
-  # https://devenv.sh/basics/
   env.GREET = "Good day, happy coding";
   
-  # Set R environment variables for better C++ integration
-  env.R_LIBS_USER = "${config.env.DEVENV_STATE}/R";
-  env.PKG_CONFIG_PATH = "${pkgs.pkg-config}/lib/pkgconfig";
+  # ========== DISABLE NIX NATIVE ENFORCEMENT FOR PERFORMANCE ==========
+  env.NIX_ENFORCE_NO_NATIVE = "0";
+
+  # ========== OPTIMIZED C++ COMPILATION FLAGS FOR MCMC ==========
+  # CPU architecture-specific optimizations (best performance)
+  env.MARCH_FLAGS = "-march=native -mtune=native";
   
-  # Ensure R can find Nix-installed packages
-  env.R_LIBS_SITE = "${pkgs.R}/library";
-
-  # C++23 compiler flags for R package compilation
+  # Optimization levels for MCMC (computational intensity is high)
+  # -O3: aggressive optimizations
+  # -ffast-math: allow aggressive floating point optimizations (safe for MCMC)
+  # -funroll-loops: unroll loops for better CPU cache utilization
+  # -ftree-vectorize: auto-vectorize loops (SIMD)
+  # -flto: link-time optimization
   env.CXX_STD = "CXX23";
-  env.PKG_CXXFLAGS = "-std=c++23";
-  env.CXXFLAGS = "-std=c++23";
+  env.PKG_CXXFLAGS = "-O3 -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto";
+  env.CXXFLAGS = "-O3 -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto";
+  env.PKG_CFLAGS = "-O3 -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto";
+  
+  # Linker flags for optimization
+  env.PKG_LIBS = "-flto=auto";
+  env.LDFLAGS = "-flto=auto";
+  
+  # Set R environment variables
+  env.R_LIBS_USER = "${config.env.DEVENV_STATE}/R";
+  env.R_LIBS_SITE = "${pkgs.R}/library";
+  env.PKG_CONFIG_PATH = "${pkgs.pkg-config}/lib/pkgconfig:${pkgs.openssl.dev}/lib/pkgconfig:${pkgs.udunits}/lib/pkgconfig";
+  env.LD_LIBRARY_PATH = "${pkgs.openssl}/lib:${pkgs.udunits}/lib:${pkgs.geos}/lib:${pkgs.gdal}/lib:${pkgs.proj}/lib";
+  env.LIBRARY_PATH = "${pkgs.openssl.dev}/lib:${pkgs.udunits}/lib:${pkgs.geos}/lib:${pkgs.gdal}/lib:${pkgs.proj}/lib";
 
-  # https://devenv.sh/packages/
   packages = [ 
     pkgs.git
 
@@ -25,18 +40,18 @@
     pkgs.rPackages.Rcpp
     pkgs.rPackages.RcppEigen
     
-    # VS Code R integration packages (remove duplicates)
-    pkgs.rPackages.httpgd          # Plot viewer for VS Code
-    pkgs.rPackages.languageserver  # R Language Server Protocol (keep only once)
-    pkgs.rPackages.jsonlite        # JSON support for LSP
-    pkgs.rPackages.renv            # Package management
-    pkgs.rPackages.mvtnorm         # Mixture for simulated data
+    # VS Code R integration packages
+    pkgs.rPackages.httpgd
+    pkgs.rPackages.languageserver
+    pkgs.rPackages.jsonlite
+    pkgs.rPackages.renv
+    pkgs.rPackages.mvtnorm
     pkgs.rPackages.gtools
  
     # Data analysis packages
-    pkgs.rPackages.ggplot2         # Data visualization
-    pkgs.rPackages.dplyr           # Data manipulation
-    pkgs.rPackages.tidyr           # Data tidying
+    pkgs.rPackages.ggplot2
+    pkgs.rPackages.dplyr
+    pkgs.rPackages.tidyr
 
     # MCMC and clustering tools
     pkgs.rPackages.spam
@@ -45,9 +60,25 @@
     pkgs.rPackages.RColorBrewer
     pkgs.rPackages.pheatmap
     pkgs.rPackages.mcclust
-    pkgs.rPackages.salso           # SALSO clustering
-    pkgs.rPackages.mclust          # For ARI calculation
+    pkgs.rPackages.salso
+    pkgs.rPackages.mclust
     
+    # ========== ADD THESE FOR SPATIAL PACKAGES (s2, sf, units) ==========
+    # Spatial packages
+    pkgs.rPackages.s2
+    pkgs.rPackages.sf
+    pkgs.rPackages.units
+    pkgs.rPackages.spdep
+    
+    # System dependencies for spatial packages
+    pkgs.openssl           # Required by s2
+    pkgs.udunits           # Required by units
+    pkgs.geos              # Required by sf (s2 internally)
+    pkgs.gdal              # Required by sf
+    pkgs.proj              # Required by sf
+    pkgs.libxml2           # Often needed by spatial packages
+    # ========== END SPATIAL PACKAGES ==========
+
     # C++ development tools
     pkgs.gcc13
     pkgs.gfortran
@@ -70,7 +101,6 @@
     pkgs.doxygen
   ];
 
-  # https://devenv.sh/scripts/
   scripts.hello.exec = ''
     echo hello from $GREET
   '';
@@ -80,7 +110,9 @@
     mkdir -p $R_LIBS_USER
     echo "R library path: $R_LIBS_USER"
     echo "R site library: $R_LIBS_SITE"
-    echo "You can now use R with Rcpp, RcppEigen, and SALSO support!"
+    echo "PKG_CONFIG_PATH: $PKG_CONFIG_PATH"
+    echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
+    echo "You can now use R with Rcpp, RcppEigen, spatial packages, and SALSO support!"
   '';
 
   scripts.test-rcpp.exec = ''
@@ -91,12 +123,19 @@
     R --slave -e "library(languageserver); cat('languageserver version:', as.character(packageVersion('languageserver')), '\n')"
   '';
 
+  scripts.test-spatial.exec = ''
+    echo "Testing spatial package installations..."
+    R --slave -e "library(sf); cat('sf version:', as.character(packageVersion('sf')), '\n')"
+    R --slave -e "library(s2); cat('s2 version:', as.character(packageVersion('s2')), '\n')"
+    R --slave -e "library(units); cat('units version:', as.character(packageVersion('units')), '\n')"
+    R --slave -e "library(spdep); cat('spdep version:', as.character(packageVersion('spdep')), '\n')"
+  '';
+
   scripts.install-mcclust-ext.exec = ''
     echo "Installing mcclust.ext from Warwick archive..."
     mkdir -p $R_LIBS_USER
     chmod -R u+w $R_LIBS_USER
     
-    # Set R_LIBS to only use the user library for installation
     export R_LIBS=$R_LIBS_USER
     
     R -e "
@@ -112,12 +151,10 @@
   scripts.setup-clangd.exec = ''
     echo "Setting up clangd configuration..."
     
-    # Get actual R include paths dynamically
     R_INCLUDE=$(R --slave -e "cat(R.home('include'))")
     RCPP_INCLUDE=$(R --slave -e "cat(system.file('include', package='Rcpp'))")
     RCPPEIGEN_INCLUDE=$(R --slave -e "cat(system.file('include', package='RcppEigen'))")
     
-    # Generate .clangd file with correct paths
     cat > .clangd <<EOF
 CompileFlags:
   Add: [
@@ -136,7 +173,7 @@ EOF
   scripts.check-r-packages.exec = ''
     echo "Checking all required R packages..."
     R --slave -e "
-      required_packages <- c('salso', 'pheatmap', 'mclust', 'mcclust', 'languageserver', 'httpgd')
+      required_packages <- c('salso', 'pheatmap', 'mclust', 'mcclust', 'languageserver', 'httpgd', 'sf', 's2', 'units', 'spdep')
       for (pkg in required_packages) {
         if (requireNamespace(pkg, quietly = TRUE)) {
           cat('✅', pkg, 'version:', as.character(packageVersion(pkg)), '\n')
@@ -153,24 +190,23 @@ EOF
     echo "✅ Removed all .o files"
   '';
 
+  enterShell = ''
+    setup-clangd
+    
+    echo ""
+    echo "🚀 R + C++ + Spatial development environment is ready for VS Code!"
+    echo "   - httpgd: Plot viewing"
+    echo "   - languageserver: IntelliSense and code completion"
+    echo "   - salso: Modern clustering analysis"
+    echo "   - sf/s2/units: Spatial data analysis"
+    echo "   - spdep: Spatial dependence analysis"
+    echo "   - clangd: C++ LSP with correct R/Rcpp paths"
+    echo ""
+    echo "💡 Run 'test-spatial' to verify spatial package installations"
+    echo "💡 Run 'check-r-packages' to check all R packages"
+    echo "💡 Run 'r-setup' to display environment paths"
+    echo ""
+  '';
 
-enterShell = ''
-  setup-clangd
-  
-  echo ""
-  echo "🚀 R + C++ development environment is ready for VS Code!"
-  echo "   - httpgd: Plot viewing"
-  echo "   - languageserver: IntelliSense and code completion"
-  echo "   - salso: Modern clustering analysis"
-  echo "   - clangd: C++ LSP with correct R/Rcpp paths"
-  echo ""
-  echo "💡 If VS Code asks to install languageserver, click 'No' - it's already available via Nix"
-  echo "   or restart your VS Code language server"
-  echo "💡 If you see 'RcppEigen not found', run 'devenv r-setup' to set up the environment"
-  echo "💡 to clean C++ objects file .o type clean_o_files"
-  echo ""
-'';
-
-  # https://devenv.sh/languages/
   languages.r.enable = true;
 }

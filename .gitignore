@@ -30,3 +30,5 @@ results/
 
 # Simulation data folder
 simulation_data/
+real_data/
+input/
