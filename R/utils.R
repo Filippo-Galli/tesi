@@ -95,7 +95,7 @@ generate_mixture_data <- function(N = 100, K = 10, alpha = 10, dim = K, radius =
   }
 }
 
-save_with_name <- function(folder, params, initialization) {
+save_with_name <- function(folder, params, initialization, gt = FALSE) {
   ## Name creation
   folder <- "results/"
   # Nomenclature: initialization + BI + NI + a + sigma + tau
@@ -111,20 +111,23 @@ save_with_name <- function(folder, params, initialization) {
   }
 
   filename_results <- "simulation_results.rds"
-  filename_gt <- "simulation_ground_truth.rds"
-  filename_data <- "simulation_data.rds"
+  if (gt) {
+    filename_results <- "simulation_ground_truth.rds"
+  }
   filename_dist <- "simulation_distance_matrix.rds"
   filename_initial_params <- "simulation_initial_params.rds"
 
   filename_results <- paste0(folder, filename_results)
-  filename_gt <- paste0(folder, filename_gt)
-  filename_data <- paste0(folder, filename_data)
+  if (gt) {
+    filename_gt <- paste0(folder, filename_gt)
+  }
   filename_dist <- paste0(folder, filename_dist)
   filename_initial_params <- paste0(folder, filename_initial_params)
 
   saveRDS(mcmc_result, file = filename_results)
-  saveRDS(ground_truth, file = filename_gt)
-  saveRDS(all_data, file = filename_data)
+  if (gt) {
+    saveRDS(ground_truth, file = filename_gt)
+  }
   saveRDS(dist_matrix, file = filename_dist)
   saveRDS(hyperparams, file = filename_initial_params)
 }
@@ -419,7 +422,7 @@ set_hyperparameters <- function(dist_matrix, k_elbow, ground_truth = NULL, plot_
   ))
 }
 
-compute_hist_distances <- function(hist1, hist2, type = "Histogram-Divergence"){
+compute_hist_distances <- function(hist1, hist2, type = "Histogram-Divergence") {
   # Extract counts from histogram objects
   counts1 <- hist1$counts
   counts2 <- hist2$counts
@@ -462,6 +465,18 @@ compute_hist_distances <- function(hist1, hist2, type = "Histogram-Divergence"){
     # Compute Euclidean distance
     euclidian_distance <- sqrt(sum((counts1 - counts2)^2))
     return(euclidian_distance)
+  } else if (type == "CM") {
+    # Compute Cramer-von Mises distance
+    cum1 <- cumsum(counts1)
+    cum2 <- cumsum(counts2)
+    cm_distance <- sum((cum1 - cum2)^2)
+    return(cm_distance)
+  } else if (type == "Wasserstein") {
+    # Compute Wasserstein distance
+    cum1 <- cumsum(counts1)
+    cum2 <- cumsum(counts2)
+    wasserstein_distance <- sum(abs(cum1 - cum2))
+    return(wasserstein_distance)
   } else {
     stop("Unsupported distance type")
   }

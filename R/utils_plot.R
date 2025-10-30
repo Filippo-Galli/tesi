@@ -52,12 +52,12 @@ plot_distance <- function(dist_matrix, cls = NULL,
 
   # Create histogram with overlaid distributions
   hist(intra_cluster,
-    breaks = 30, 
+    breaks = 20,
     col = rgb(1, 0.5, 0, 0.7),
     main = "",
     xlab = "Distance",
     ylab = ylab,
-    freq = !normalize,  # If normalize=TRUE, freq=FALSE (shows density)
+    probability = normalize,  # If normalize=TRUE, probability=TRUE (shows density)
     xlim = range(c(intra_cluster, inter_cluster)),
     ylim = if(normalize) {
       c(0, max(
@@ -287,27 +287,52 @@ plot_trace_U <- function(results, BI, save = FALSE, folder = "results/plots/") {
   if (BI > 0 && length(U_after_burnin) > BI) {
     U_after_burnin <- U_after_burnin[(BI + 1):length(U_after_burnin)]
   }
-  plot(U_after_burnin, type = "l", xlab = "Iteration", ylab = "U", width = 2400, height = 1800, res = 300)
-  abline(h = mean(U_after_burnin), col = "red", lty = 2)
-  legend("topright", legend = c("Mean U"), col = c("red"), lty = 2)
-  titolo <- paste0("Trace of U over MCMC iterations (mean U = ", round(mean(U_after_burnin), 3), ")")
-  title(main = titolo)
+
+  draw_plot <- function() {
+    plot(U_after_burnin, type = "l", xlab = "Iteration", ylab = "U")
+    abline(h = mean(U_after_burnin), col = "red", lty = 2)
+    legend("topright", legend = sprintf("Mean U = %.3f", mean(U_after_burnin)),
+           col = "red", lty = 2, bty = "n")
+    title(main = sprintf("Trace of U over MCMC iterations\n(mean U = %.3f)", mean(U_after_burnin)))
+  }
+
+  draw_plot()
 
   if (save) {
-    dev.copy(png, filename = paste0(folder, "U_trace"), width = 2400, height = 1800, res = 300)
+    if (!dir.exists(folder)) dir.create(folder, recursive = TRUE)
+    file <- file.path(folder, "U_trace.png")
+    if (requireNamespace("ragg", quietly = TRUE)) {
+      ragg::agg_png(file, width = 2400, height = 1800, res = 300)
+    } else {
+      png(file, width = 2400, height = 1800, res = 300)
+    }
+    draw_plot()
+    dev.off()
   }
 }
 
 plot_acf_U <- function(results, BI, save = FALSE, folder = "results/plots/") {
-  
   U_after_burnin <- results$U
   if (BI > 0 && length(U_after_burnin) > BI) {
     U_after_burnin <- U_after_burnin[(BI + 1):length(U_after_burnin)]
   }
 
-  acf(U_after_burnin, main = "ACF of U over MCMC iterations")
+  draw_plot <- function() {
+    acf(U_after_burnin, main = "ACF of U over MCMC iterations")
+  }
+
+  draw_plot()
+
   if (save) {
-    dev.copy(png, filename = paste0(folder, "U_acf"), width = 2400, height = 1800, res = 300)
+    if (!dir.exists(folder)) dir.create(folder, recursive = TRUE)
+    file <- file.path(folder, "U_acf.png")
+    if (requireNamespace("ragg", quietly = TRUE)) {
+      ragg::agg_png(file, width = 2400, height = 1800, res = 300)
+    } else {
+      png(file, width = 2400, height = 1800, res = 300)
+    }
+    draw_plot()
+    dev.off()
   }
 }
 
@@ -387,7 +412,7 @@ plot_cls_est <- function(results, BI, save = FALSE, folder = "results/plots/") {
   )
 
   #### Get point estimate using Variation of Information (VI) loss
-  point_estimate <- salso::salso(C, loss = "binder",
+  point_estimate <- salso::salso(C, loss = "VI",
                                  maxNClusters = 200,
                                  maxZealousAttempts = 1000)
 
@@ -505,4 +530,120 @@ plot_map_prior_mean <- function (save = FALSE, folder = "results/plots/",
   }
 
   invisible(p)
+}
+
+plot_hist_cls <- function(results, BI, save = FALSE, folder = "results/plots/") {
+  load("input/full_dataset.dat")
+  point_estimate <- plot_cls_est(results, BI = BI)
+  unique_clusters <- sort(unique(point_estimate))
+  n_clusters <- length(unique_clusters)
+
+  cat("\n=== Cluster Diagnostics ===\n")
+  cat("Number of clusters found:", n_clusters, "\n")
+  cat("Cluster sizes:\n")
+  print(table(point_estimate))
+
+  draw_histograms <- function() {
+    if (n_clusters == 1) {
+      cat("\n⚠️  WARNING: Only 1 cluster found. Showing overall distribution.\n")
+      combined_data <- unlist(data)
+      hist(combined_data,
+           breaks = 30,
+           main = paste("Single Cluster Distribution\n(n_pumas =", length(data), ")"),
+           xlab = "Income Value",
+           ylab = "Density",
+           col = "steelblue",
+           border = "white",
+           probability = TRUE)
+      if (length(unique(combined_data)) > 1) {
+        lines(density(combined_data), col = "red", lwd = 2)
+      }
+      legend("topleft",
+             legend = c(
+               paste("Mean:", round(mean(combined_data), 2)),
+               paste("SD:", round(sd(combined_data), 2)),
+               paste("N obs:", length(combined_data))
+             ),
+             bty = "n",
+             cex = 0.9)
+
+      cat("\nOverall statistics:\n")
+      cat("Mean:", mean(combined_data), "\n")
+      cat("SD:", sd(combined_data), "\n")
+      cat("Min:", min(combined_data), "\n")
+      cat("Max:", max(combined_data), "\n")
+
+      puma_means <- sapply(data, mean)
+      cat("\nPUMA-level variation:\n")
+      cat("Mean of means:", mean(puma_means), "\n")
+      cat("SD of means:", sd(puma_means), "\n")
+      cat("Range of means:", range(puma_means), "\n")
+    } else {
+      clusters <- point_estimate
+      data_split <- split(data, as.factor(clusters))
+      op <- graphics::par(no.readonly = TRUE)
+      on.exit(graphics::par(op), add = TRUE)
+      n_rows <- ceiling(sqrt(n_clusters))
+      n_cols <- ceiling(n_clusters / n_rows)
+      graphics::par(mfrow = c(n_rows, n_cols))
+
+      for (cl in names(data_split)) {
+        cluster_data <- data_split[[cl]]
+        n_pumas <- length(cluster_data)
+        combined_data <- unlist(cluster_data)
+        hist(combined_data,
+             breaks = 30,
+             main = paste("Cluster", cl, "\n(n =", n_pumas, "PUMAs)"),
+             xlab = "Income Value",
+             ylab = "Density",
+             col = rainbow(n_clusters, alpha = 0.6)[as.numeric(cl)],
+             border = "white",
+             probability = TRUE)
+        if (length(unique(combined_data)) > 1) {
+          lines(density(combined_data), col = "black", lwd = 2)
+        }
+        cat("\nCluster", cl, "statistics:\n")
+        cat("  N PUMAs:", n_pumas, "\n")
+        cat("  N observations:", length(combined_data), "\n")
+        cat("  Mean:", mean(combined_data), "\n")
+        cat("  SD:", sd(combined_data), "\n")
+
+        legend("topleft",
+        legend = c(
+          paste("Mean:", round(mean(combined_data), 2)),
+          paste("SD:", round(sd(combined_data), 2)),
+          paste("N obs:", length(combined_data))
+        ),
+        bty = "n",
+        cex = 0.9)
+      }
+    }
+  }
+
+  draw_histograms()
+
+  device_opened <- FALSE
+  if (save) {
+    if (!dir.exists(folder)) dir.create(folder, recursive = TRUE)
+    out_file <- file.path(folder, "cluster_histograms.png")
+    if (requireNamespace("ragg", quietly = TRUE)) {
+      ragg::agg_png(filename = out_file, width = 2400, height = 1800, res = 300)
+    } else {
+      png_type <- if (capabilities("cairo")) "cairo" else if (capabilities("X11")) "Xlib" else "cairo"
+      grDevices::png(filename = out_file, width = 2400, height = 1800, res = 300, type = png_type)
+    }
+    device_opened <- TRUE
+    on.exit({
+      if (device_opened) grDevices::dev.off()
+    }, add = TRUE)
+  }
+
+  draw_histograms()
+
+  if (device_opened) {
+    grDevices::dev.off()
+    device_opened <- FALSE
+  }
+
+  invisible(point_estimate)
 }

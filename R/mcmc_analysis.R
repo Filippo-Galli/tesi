@@ -6,23 +6,23 @@ files
 ##############################################################################
 # Load Results ====
 ##############################################################################
-folder <- paste0("results/", files[1], "/")
+folder <- paste0("results/", files[7], "/")
 filename_results <- "simulation_results.rds"
-filename_gt <- "simulation_ground_truth.rds"
+#filename_gt <- "simulation_ground_truth.rds"
 filename_dist <- "simulation_distance_matrix.rds"
-filename_data <- "simulation_data.rds"
+#filename_data <- "simulation_data.rds"
 filename_initial_params <- "simulation_initial_params.rds"
 
 filename_results <- paste0(folder, filename_results)
-filename_gt <- paste0(folder, filename_gt)
+#filename_gt <- paste0(folder, filename_gt)
 filename_dist <- paste0(folder, filename_dist)
-filename_data <- paste0(folder, filename_data)
+#filename_data <- paste0(folder, filename_data)
 filename_initial_params <- paste0(folder, filename_initial_params)
 
 results <- readRDS(file = filename_results)
-ground_truth <- readRDS(file = filename_gt)
+#ground_truth <- readRDS(file = filename_gt)
 dist_matrix <- readRDS(file = filename_dist)
-all_data <- readRDS(file = filename_data)
+#all_data <- readRDS(file = filename_data)
 param <- readRDS(file = filename_initial_params)
 
 # Create plot directory if it doesn't exist
@@ -36,7 +36,7 @@ if (!dir.exists(folder)) {
 #################################################################
 
 #plot_data(all_data, ground_truth, save = FALSE, folder) # Uncomment to plot data
-plot_distance(dist_matrix, ground_truth, save = FALSE, folder) # Plot distance matrix
+#plot_distance(dist_matrix, save = FALSE, folder) # Plot distance matrix
 
 #################################################################
 # Plot Simulation Results ====
@@ -55,8 +55,19 @@ cat("Initial clusters =", param$initial_cluster, "\n")
 # Visualization ====
 ##############################################################################
 
-plot_post_distr(results, BI = 2000)
-plot_trace_cls(results, BI = 2000)
-plot_post_sim_matrix(results, BI = 2000)
-plot_trace_U(results, BI = 2000)
-plot_acf_U(results, BI = 2000)
+plot_post_distr(results, BI = 10000, save = TRUE, folder = folder)
+plot_trace_cls(results, BI = 10000, save = TRUE, folder = folder)
+plot_post_sim_matrix(results, BI = 10000, save = TRUE, folder = folder)
+plot_trace_U(results, BI = 10000, save = TRUE, folder = folder)
+plot_acf_U(results, BI = 10000, save = TRUE, folder = folder)
+
+puma_ids <- sf::st_read("input/counties-pumas/counties-pumas.shp", quiet = TRUE)[["PUMA"]]
+plot_map_cls(
+  results = results,
+  BI = 10000,
+  unit_ids = puma_ids,
+  save = TRUE,
+  folder = folder
+)
+
+plot_hist_cls(results = results, BI = 10000, save = TRUE, folder = folder)
