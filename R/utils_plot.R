@@ -25,7 +25,8 @@ library(label.switching)
 plot_distance <- function(dist_matrix, cls = NULL,
                           save = FALSE, folder = "results/plots/",
                           title = "Distance Histogram",
-                          normalize = FALSE) {
+                          normalize = FALSE,
+                          breaks = 30) {  # Added as parameter
   # Calculate distance matrix
   dist_matrix <- as.matrix(dist_matrix)
 
@@ -47,36 +48,36 @@ plot_distance <- function(dist_matrix, cls = NULL,
   intra_cluster <- distances[cluster_pairs[, 1] == cluster_pairs[, 2]]
   inter_cluster <- distances[cluster_pairs[, 1] != cluster_pairs[, 2]]
 
-  # Determine y-axis label based on normalization
+  # Pre-compute histograms for ylim calculation
+  h_intra <- hist(intra_cluster, breaks = breaks, plot = FALSE)
+  h_inter <- if(cls_exist) hist(inter_cluster, breaks = breaks, plot = FALSE) else NULL
+  
+  # Determine y-axis label and limits based on normalization
   ylab <- if (normalize) "Density" else "Frequency"
+  
+  ylim_max <- if(normalize) {
+    max(h_intra$density, if(cls_exist) h_inter$density else 0) * 1.1
+  } else {
+    max(h_intra$counts, if(cls_exist) h_inter$counts else 0) * 1.1
+  }
 
   # Create histogram with overlaid distributions
   hist(intra_cluster,
-    breaks = 20,
+    breaks = breaks,
     col = rgb(1, 0.5, 0, 0.7),
     main = "",
     xlab = "Distance",
     ylab = ylab,
-    probability = normalize,  # If normalize=TRUE, probability=TRUE (shows density)
+    probability = normalize,
     xlim = range(c(intra_cluster, inter_cluster)),
-    ylim = if(normalize) {
-      c(0, max(
-        hist(intra_cluster, breaks = 30, plot = FALSE)$density,
-        if(cls_exist) hist(inter_cluster, breaks = 30, plot = FALSE)$density else 0
-      ) * 1.1)
-    } else {
-      c(0, max(
-        hist(intra_cluster, breaks = 30, plot = FALSE)$counts,
-        if(cls_exist) hist(inter_cluster, breaks = 30, plot = FALSE)$counts else 0
-      ) + 5)
-    }
+    ylim = c(0, ylim_max)
   )
 
   if(cls_exist) {
     hist(inter_cluster,
-      breaks = 30, 
+      breaks = breaks, 
       col = rgb(0, 0, 1, 0.7),
-      freq = !normalize,  # Match normalization setting
+      probability = normalize,
       add = TRUE
     )
   }

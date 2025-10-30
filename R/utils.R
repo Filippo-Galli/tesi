@@ -426,7 +426,19 @@ compute_hist_distances <- function(hist1, hist2, type = "Histogram-Divergence") 
   # Extract counts from histogram objects
   counts1 <- hist1$counts
   counts2 <- hist2$counts
-  
+
+  # Get bin widths (important for proper CM and Wasserstein)
+  breaks1 <- hist1$breaks
+  breaks2 <- hist2$breaks
+
+  # Calculate bin width (assuming equal widths)
+  bin_width1 <- diff(breaks1)[1]
+  bin_width2 <- diff(breaks2)[1]
+  if (abs(bin_width1 - bin_width2) > 1e-10) {
+    warning("Histograms have different bin widths. Results may be inaccurate.")
+  }
+  bin_width <- bin_width1  # Use first histogram's bin width
+
   # Handle different bin numbers by aligning to common bins
   max_bins <- max(length(counts1), length(counts2))
   
@@ -466,16 +478,16 @@ compute_hist_distances <- function(hist1, hist2, type = "Histogram-Divergence") 
     euclidian_distance <- sqrt(sum((counts1 - counts2)^2))
     return(euclidian_distance)
   } else if (type == "CM") {
-    # Compute Cramer-von Mises distance
+    # Cramér-von Mises: weight by bin width
     cum1 <- cumsum(counts1)
     cum2 <- cumsum(counts2)
-    cm_distance <- sum((cum1 - cum2)^2)
+    cm_distance <- bin_width * sum((cum1 - cum2)^2)
     return(cm_distance)
   } else if (type == "Wasserstein") {
-    # Compute Wasserstein distance
+    # Wasserstein: weight by bin width
     cum1 <- cumsum(counts1)
     cum2 <- cumsum(counts2)
-    wasserstein_distance <- sum(abs(cum1 - cum2))
+    wasserstein_distance <- bin_width * sum(abs(cum1 - cum2))
     return(wasserstein_distance)
   } else {
     stop("Unsupported distance type")
