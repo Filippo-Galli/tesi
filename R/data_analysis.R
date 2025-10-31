@@ -13,15 +13,16 @@ load("input/adj_matrix.dat")
 histograms_list <- list()
 
 for (i in seq_along(data)) {
-  puma_data <- data[[i]]
-  histograms_list[[i]] <- hist(puma_data, plot = FALSE, breaks = 20, probability = TRUE)
+  pumas_data <- data[[i]]
+  histograms_list[[i]] <- hist(pumas_data, plot = FALSE,
+                               breaks = 20, probability = TRUE)
 }
 
 ##############################################################################
 # Distances between histograms ====
 ##############################################################################
 distance_hist_intersection <- matrix(0, nrow = length(histograms_list),
-                                    ncol = length(histograms_list))
+                                     ncol = length(histograms_list))
 distance_jeff_divergences <- matrix(0, nrow = length(histograms_list),
                                     ncol = length(histograms_list))
 distance_chi_squared <- matrix(0, nrow = length(histograms_list),
@@ -32,6 +33,9 @@ distance_cm <- matrix(0, nrow = length(histograms_list),
                       ncol = length(histograms_list))
 distance_wasserstein <- matrix(0, nrow = length(histograms_list),
                                ncol = length(histograms_list))
+
+distance_mean <- matrix(0, nrow = length(histograms_list),
+                        ncol = length(histograms_list))
 
 for (i in seq_along(histograms_list)) {
   for (j in seq_along(histograms_list)) {
@@ -52,12 +56,14 @@ for (i in seq_along(histograms_list)) {
                              type = "euclidean")
     distance_cm[i, j] <-
       compute_hist_distances(histograms_list[[i]],
-                            histograms_list[[j]],
-                            type = "CM")
+                             histograms_list[[j]],
+                             type = "CM")
     distance_wasserstein[i, j] <-
       compute_hist_distances(histograms_list[[i]],
-                            histograms_list[[j]],
-                            type = "Wasserstein")
+                             histograms_list[[j]],
+                             type = "Wasserstein")
+
+    distance_mean[i, j] <- sqrt(abs(mean(data[[i]])^2 - mean(data[[j]])^2))
   }
 }
 
@@ -82,6 +88,9 @@ plot_distance(distance_cm,
 plot_distance(distance_wasserstein,
               title = "Wasserstein Distance", save = TRUE,
               folder = "results/distance_plots/")
+plot_distance(distance_mean,
+              title = "Mean Difference", save = TRUE,
+              folder = "results/distance_plots/")
 
 ##############################################################################
 # Save Data ====
@@ -89,18 +98,20 @@ plot_distance(distance_wasserstein,
 
 # # Save distance matrices
 folder <- "real_data"
-saveRDS(distance_hist_intersection,
-        file = paste0(folder, "/distance_hist_intersection.rds"))
-saveRDS(distance_jeff_divergences,
-        file = paste0(folder, "/distance_jeff_divergences.rds"))
-saveRDS(distance_chi_squared,
-        file = paste0(folder, "/distance_chi_squared.rds"))
-saveRDS(distance_euclidean,
-        file = paste0(folder, "/distance_euclidean.rds"))
-saveRDS(distance_cm,
-        file = paste0(folder, "/distance_cm.rds"))
-saveRDS(distance_wasserstein,
-        file = paste0(folder, "/distance_wasserstein.rds"))
+# saveRDS(distance_hist_intersection,
+#         file = paste0(folder, "/distance_hist_intersection.rds"))
+# saveRDS(distance_jeff_divergences,
+#         file = paste0(folder, "/distance_jeff_divergences.rds"))
+# saveRDS(distance_chi_squared,
+#         file = paste0(folder, "/distance_chi_squared.rds"))
+# saveRDS(distance_euclidean,
+#         file = paste0(folder, "/distance_euclidean.rds"))
+# saveRDS(distance_cm,
+#         file = paste0(folder, "/distance_cm.rds"))
+# saveRDS(distance_wasserstein,
+#         file = paste0(folder, "/distance_wasserstein.rds"))
+saveRDS(distance_mean,
+        file = paste0(folder, "/distance_mean.rds"))
 
 # Save adjacency matrix
 saveRDS(W, file = paste0(folder, "/adj_matrix.rds"))

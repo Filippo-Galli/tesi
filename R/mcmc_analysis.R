@@ -6,7 +6,7 @@ files
 ##############################################################################
 # Load Results ====
 ##############################################################################
-folder <- paste0("results/", files[7], "/")
+folder <- paste0("results/", files[1], "/")
 filename_results <- "simulation_results.rds"
 #filename_gt <- "simulation_ground_truth.rds"
 filename_dist <- "simulation_distance_matrix.rds"
@@ -69,5 +69,10 @@ plot_map_cls(
   save = TRUE,
   folder = folder
 )
+
+plot_map_prior_mean(save = FALSE, folder = "results/plots/",
+                    puma_dir = "input/counties-pumas",
+                    id_col = "PUMA",
+                    unit_ids = puma_ids)
 
 plot_hist_cls(results = results, BI = 10000, save = TRUE, folder = folder)

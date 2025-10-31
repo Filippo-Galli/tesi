@@ -26,7 +26,7 @@ plot_distance <- function(dist_matrix, cls = NULL,
                           save = FALSE, folder = "results/plots/",
                           title = "Distance Histogram",
                           normalize = FALSE,
-                          breaks = 30) {  # Added as parameter
+                          breaks = 30) {
   # Calculate distance matrix
   dist_matrix <- as.matrix(dist_matrix)
 
