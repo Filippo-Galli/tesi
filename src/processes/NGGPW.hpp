@@ -8,6 +8,7 @@
 
 #include "../samplers/U_sampler/U_sampler.hpp"
 #include "../utils/Process.hpp"
+#include "module/spatial_module.hpp"
 
 /**
  * @class NGGPW
@@ -19,7 +20,7 @@
  * the flexibility of the NGGP in modeling cluster sizes with spatial
  * dependencies between observations.
  */
-class NGGPW : public Process {
+class NGGPW : public Process, protected SpatialModule {
 
 private:
   /**
@@ -63,7 +64,11 @@ public:
    * updating the latent variable U via MCMC.
    */
   NGGPW(Data &d, Params &p, U_sampler &mh)
-      : Process(d, p), U_sampler_method(mh), gen(rd()) {};
+      : Process(d, p), SpatialModule(p, d,
+                                     [this]() -> const Eigen::VectorXi & {
+                                       return this->old_allocations_view();
+                                     }),
+        U_sampler_method(mh), gen(rd()) {};
 
   /**
    * @name Gibbs Sampling Methods
@@ -156,49 +161,6 @@ public:
    */
   [[nodiscard]] double prior_ratio_shuffle(int size_old_ci, int size_old_cj,
                                            int ci, int cj) const override;
-
-  /** @} */
-
-  /**
-   * @name Spatial Methods
-   * @{
-   */
-
-  /**
-   * @brief Returns the number of neighbors for a given observation in a
-   * specific cluster.
-   *
-   * This method counts the neighbors of an observation based on the adjacency
-   * matrix W, considering only neighbors that belong to the specified cluster.
-   * @param obs_idx The index of the observation.
-   * @param cls_idx The index of the cluster to consider for neighbor counting.
-   * @return The number of neighbors for the observation in the specified
-   * cluster.
-   */
-  int get_neighbors_obs(int obs_idx, int cls_idx) const;
-
-  /**
-   * @brief Returns the number of neighbors for a given observation
-   * regardless of cluster membership.
-   * This method counts the total number of neighbors of an observation
-   * based on the adjacency matrix W.
-   * @param obs_idx The index of the observation.
-   * @return The total number of neighbors for the observation for all clusters.
-   */
-  Eigen::VectorXi get_neighbors_obs(int obs_idx) const;
-
-  /**
-   * @brief Returns the total number of neighbors for all observations in a
-   * given cluster.
-   *
-   * This method computes the sum of all neighbor connections within a cluster,
-   * which is used in the spatial component of the prior calculations.
-   * @param cls_idx The index of the cluster.
-   * @param old_allo If true, uses the old allocations for neighbor counting;
-   * otherwise, uses current allocations (default: false).
-   * @return The total number of neighbors for the cluster.
-   */
-  int get_neighbors_cls(int cls_idx, bool old_allo = false) const;
 
   /** @} */
 
