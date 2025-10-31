@@ -134,9 +134,10 @@ save_with_name <- function(folder, params, initialization, gt = FALSE) {
 
 set_hyperparameters <- function(dist_matrix, k_elbow, ground_truth = NULL, plot_clustering = FALSE, plot_distribution = TRUE) {
 
-  # Use k-medoids to get initial clusters
-  pam_fit <- pam(dist_matrix, k = k_elbow, diss = TRUE)
-  initial_clusters <- pam_fit$clustering
+  # Use k-means to get initial clusters
+  mds_result <- cmdscale(dist_matrix, k = 2)
+  kmeans_result <- kmeans(mds_result, centers = k_elbow, nstart = 25)
+  initial_clusters <- kmeans_result$cluster
 
   # Step 3: Split pairwise distances into within-cluster (A) and inter-cluster (B)
   n <- nrow(dist_matrix)
@@ -163,8 +164,8 @@ set_hyperparameters <- function(dist_matrix, k_elbow, ground_truth = NULL, plot_
   # Plot the initial clustering from k-means (optional)
   if (plot_clustering) {
     cluster_data <- data.frame(
-      x = coords[, 1],
-      y = coords[, 2],
+      x = mds_result[, 1],
+      y = mds_result[, 2],
       cluster = as.factor(initial_clusters)
     )
 

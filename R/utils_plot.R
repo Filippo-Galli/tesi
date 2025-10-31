@@ -337,18 +337,20 @@ plot_acf_U <- function(results, BI, save = FALSE, folder = "results/plots/") {
   }
 }
 
-plot_k_medoids <- function(dist_matrix, max_k = 10) {
+plot_k_means <- function(dist_matrix, max_k = 10) {
   # Ensure dist_matrix is in the right format
   if(!inherits(dist_matrix, "dist")) {
     dist_matrix <- as.dist(dist_matrix)
   }
+
+  mds_result <- cmdscale(dist_matrix, k = 2)
   
-  # Step 1: Compute elbow method for K selection using PAM (k-medoids)
+  # Step 1: Compute elbow method for K selection using kmeans
   wss <- numeric(max_k)
   
   for (k in 1:max_k) {
-    kmedoids_result <- pam(dist_matrix, k = k, diss = TRUE)
-    wss[k] <- kmedoids_result$objective[1]  # Use objective instead of tot.withinss
+    kmeans_result <- kmeans(mds_result, centers = k, nstart = 25)
+    wss[k] <- kmeans_result$tot.withinss
   }
   
   # Plot the elbow curve

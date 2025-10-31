@@ -52,7 +52,7 @@ sourceCpp("src/launcher.cpp")
 ##############################################################################
 
 # Plot k-means elbow method to help set hyperparameters
-# plot_k_medoids(dist_matrix, max_k = 10)
+plot_k_means(dist_matrix, max_k = 10)
 
 # Set hyperparameters based on distance matrix
 hyperparams <- set_hyperparameters(dist_matrix,
