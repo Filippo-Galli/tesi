@@ -118,7 +118,7 @@ Inheritance diagram for NGGPW:</div>
  <div class="center">
   <img src="classNGGPW.png" usemap="#NGGPW_map" alt=""/>
   <map id="NGGPW_map" name="NGGPW_map">
-<area href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes." alt="Process" shape="rect" coords="0,0,58,24"/>
+<area href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes." alt="Process" shape="rect" coords="0,0,92,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -147,16 +147,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9bc80b5731581b00c33479fd3b16d55d" id="r_a9bc80b5731581b00c33479fd3b16d55d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9bc80b5731581b00c33479fd3b16d55d">prior_ratio_shuffle</a> (int size_old_ci, int size_old_cj, int ci, int cj) const override</td></tr>
 <tr class="memdesc:a9bc80b5731581b00c33479fd3b16d55d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the prior ratio for a shuffle operation in a spatially-aware NGGP-based split-merge MCMC algorithm.  <br /></td></tr>
 <tr class="separator:a9bc80b5731581b00c33479fd3b16d55d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Spatial Methods</div></td></tr>
-<tr class="memitem:a4b00679d1bcbc8f23631336414043075" id="r_a4b00679d1bcbc8f23631336414043075"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b00679d1bcbc8f23631336414043075">get_neighbors_obs</a> (int obs_idx, int cls_idx) const</td></tr>
-<tr class="memdesc:a4b00679d1bcbc8f23631336414043075"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of neighbors for a given observation in a specific cluster.  <br /></td></tr>
-<tr class="separator:a4b00679d1bcbc8f23631336414043075"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92fa6d3307adf9545c7bb0d70a1fb338" id="r_a92fa6d3307adf9545c7bb0d70a1fb338"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92fa6d3307adf9545c7bb0d70a1fb338">get_neighbors_obs</a> (int obs_idx) const</td></tr>
-<tr class="memdesc:a92fa6d3307adf9545c7bb0d70a1fb338"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of neighbors for a given observation regardless of cluster membership. This method counts the total number of neighbors of an observation based on the adjacency matrix W.  <br /></td></tr>
-<tr class="separator:a92fa6d3307adf9545c7bb0d70a1fb338"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd2e272a1bd8afe503511d9995a01c28" id="r_abd2e272a1bd8afe503511d9995a01c28"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd2e272a1bd8afe503511d9995a01c28">get_neighbors_cls</a> (int cls_idx, bool old_allo=false) const</td></tr>
-<tr class="memdesc:abd2e272a1bd8afe503511d9995a01c28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of neighbors for all observations in a given cluster.  <br /></td></tr>
-<tr class="separator:abd2e272a1bd8afe503511d9995a01c28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Parameter Update Methods</div></td></tr>
 <tr class="memitem:a46cc6dfe0fa4e2b3a96745e77622a7e4" id="r_a46cc6dfe0fa4e2b3a96745e77622a7e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46cc6dfe0fa4e2b3a96745e77622a7e4">update_params</a> () override</td></tr>
 <tr class="memdesc:a46cc6dfe0fa4e2b3a96745e77622a7e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the <a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a> parameters by updating the latent variable U.  <br /></td></tr>
@@ -194,6 +184,10 @@ Private Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_classProcess"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_classProcess')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classProcess.html">Process</a></td></tr>
+<tr class="memitem:a914f8d21512e26141f7f79cfe9a16bd5 inherit pro_methods_classProcess" id="r_a914f8d21512e26141f7f79cfe9a16bd5"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXi &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a914f8d21512e26141f7f79cfe9a16bd5">old_allocations_view</a> () const</td></tr>
+<tr class="memdesc:a914f8d21512e26141f7f79cfe9a16bd5 inherit pro_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides read-only access to the stored previous allocations.  <br /></td></tr>
+<tr class="separator:a914f8d21512e26141f7f79cfe9a16bd5 inherit pro_methods_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classProcess"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classProcess')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classProcess.html">Process</a></td></tr>
 <tr class="memitem:af8d15d280b7b72defee3438abf1f9c8f inherit pro_attribs_classProcess" id="r_af8d15d280b7b72defee3438abf1f9c8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#af8d15d280b7b72defee3438abf1f9c8f">data</a></td></tr>
 <tr class="memdesc:af8d15d280b7b72defee3438abf1f9c8f inherit pro_attribs_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the data object containing observations and allocations.  <br /></td></tr>
@@ -202,7 +196,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a4c3ef16d47835acfa8fbe86aefb8c6e8 inherit pro_attribs_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the parameters object containing process hyperparameters.  <br /></td></tr>
 <tr class="separator:a4c3ef16d47835acfa8fbe86aefb8c6e8 inherit pro_attribs_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a837d783fac7c9f12243cd93b4534e3e4 inherit pro_attribs_classProcess" id="r_a837d783fac7c9f12243cd93b4534e3e4"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a837d783fac7c9f12243cd93b4534e3e4">old_allocations</a></td></tr>
-<tr class="memdesc:a837d783fac7c9f12243cd93b4534e3e4 inherit pro_attribs_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage for previous allocations to enable rollback in case of rejection.  <br /></td></tr>
+<tr class="memdesc:a837d783fac7c9f12243cd93b4534e3e4 inherit pro_attribs_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage for previous allocations to enable rollback in case of rejection or for computation requiring it.  <br /></td></tr>
 <tr class="separator:a837d783fac7c9f12243cd93b4534e3e4 inherit pro_attribs_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86e6ee0bfe7bcbfc5da6e8e54dc827a9 inherit pro_attribs_classProcess" id="r_a86e6ee0bfe7bcbfc5da6e8e54dc827a9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a86e6ee0bfe7bcbfc5da6e8e54dc827a9">idx_i</a></td></tr>
 <tr class="memdesc:a86e6ee0bfe7bcbfc5da6e8e54dc827a9 inherit pro_attribs_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index of first observation involved in split-merge move.  <br /></td></tr>
@@ -263,119 +257,6 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="abd2e272a1bd8afe503511d9995a01c28" name="abd2e272a1bd8afe503511d9995a01c28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd2e272a1bd8afe503511d9995a01c28">&#9670;&#160;</a></span>get_neighbors_cls()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int NGGPW::get_neighbors_cls </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cls_idx</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>old_allo</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;) const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the total number of neighbors for all observations in a given cluster. </p>
-<p>This method computes the sum of all neighbor connections within a cluster, which is used in the spatial component of the prior calculations. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cls_idx</td><td>The index of the cluster. </td></tr>
-    <tr><td class="paramname">old_allo</td><td>If true, uses the old allocations for neighbor counting; otherwise, uses current allocations (default: false). </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The total number of neighbors for the cluster. </dd></dl>
-<p>Returns the total number of neighbors for all observations in a given cluster.</p>
-<p>This method computes the sum of all neighbor connections within a cluster, which is used in the spatial component of the prior calculations. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cls_idx</td><td>The index of the cluster. </td></tr>
-    <tr><td class="paramname">old_allo</td><td>If true, uses the old allocations for neighbor counting; otherwise, uses current allocations. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The total number of neighbors for the cluster.</dd></dl>
-
-</div>
-</div>
-<a id="a92fa6d3307adf9545c7bb0d70a1fb338" name="a92fa6d3307adf9545c7bb0d70a1fb338"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92fa6d3307adf9545c7bb0d70a1fb338">&#9670;&#160;</a></span>get_neighbors_obs() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::VectorXi NGGPW::get_neighbors_obs </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>obs_idx</em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the number of neighbors for a given observation regardless of cluster membership. This method counts the total number of neighbors of an observation based on the adjacency matrix W. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">obs_idx</td><td>The index of the observation. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The total number of neighbors for the observation for all clusters. </dd></dl>
-<p>Returns the number of neighbors for a given observation regardless of cluster membership. This method counts the total number of neighbors of an observation based on the adjacency matrix W. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">obs_idx</td><td>The index of the observation. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The total number of neighbors for the observation for all clusters.</dd></dl>
-
-</div>
-</div>
-<a id="a4b00679d1bcbc8f23631336414043075" name="a4b00679d1bcbc8f23631336414043075"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b00679d1bcbc8f23631336414043075">&#9670;&#160;</a></span>get_neighbors_obs() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int NGGPW::get_neighbors_obs </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>obs_idx</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cls_idx</em></span>&#160;) const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the number of neighbors for a given observation in a specific cluster. </p>
-<p>This method counts the neighbors of an observation based on the adjacency matrix W, considering only neighbors that belong to the specified cluster. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">obs_idx</td><td>The index of the observation. </td></tr>
-    <tr><td class="paramname">cls_idx</td><td>The index of the cluster to consider for neighbor counting. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of neighbors for the observation in the specified cluster. </dd></dl>
-<p>Returns the number of neighbors for a given observation in a specific cluster.</p>
-<p>This method counts the neighbors of an observation based on the adjacency matrix W, considering only neighbors that belong to the specified cluster. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">obs_idx</td><td>The index of the observation. </td></tr>
-    <tr><td class="paramname">cls_idx</td><td>The index of the cluster to consider for neighbor counting. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of neighbors for the observation in the specified cluster.</dd></dl>
-
-</div>
-</div>
 <a id="ab426d4cd7024170228d9a1894219e6e5" name="ab426d4cd7024170228d9a1894219e6e5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab426d4cd7024170228d9a1894219e6e5">&#9670;&#160;</a></span>gibbs_prior_existing_cluster()</h2>
 

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['3_20results_20analysis_0',['3. Results Analysis',['../index.html#autotoc_md13',1,'']]]
+  ['3_3a_20visualize_20results_0',['Step 3: Visualize Results',['../index.html#autotoc_md13',1,'']]]
 ];

@@ -1,13 +1,15 @@
 var searchData=
 [
-  ['u_0',['U',['../classU__sampler.html#a61dcec6f1695e04c541e6ef00022158f',1,'U_sampler']]],
-  ['u_5fsampler_1',['U_sampler',['../classU__sampler.html',1,'U_sampler'],['../classU__sampler.html#a23ec32a62896472e93d554ca9d74669b',1,'U_sampler::U_sampler()']]],
-  ['u_5fsampler_2ecpp_2',['U_sampler.cpp',['../U__sampler_8cpp.html',1,'']]],
-  ['u_5fsampler_2ehpp_3',['U_sampler.hpp',['../U__sampler_8hpp.html',1,'']]],
-  ['u_5fsampler_5fmethod_4',['U_sampler_method',['../classNGGP.html#a54461db9db11e9d4164754427e265f08',1,'NGGP::U_sampler_method'],['../classNGGPW.html#a991d4ee5fc8cef2cf251c76b2a5e3b75',1,'NGGPW::U_sampler_method']]],
-  ['update_5fparams_5',['update_params',['../classDP.html#a577726382e64c057fcbc889325084ad1',1,'DP::update_params()'],['../classDPW.html#a16a239e120dad65bbe1b55a2771cde60',1,'DPW::update_params()'],['../classNGGP.html#a6c28f93e9b1a28edd8eef383c06447a1',1,'NGGP::update_params()'],['../classNGGPW.html#a46cc6dfe0fa4e2b3a96745e77622a7e4',1,'NGGPW::update_params()'],['../classProcess.html#ac610fb84ed64db2a74fa1447ce5a582e',1,'Process::update_params()']]],
-  ['update_5fu_6',['update_U',['../classMALA.html#a40d442a7e6e66c3853e4014326ee5934',1,'MALA::update_U()'],['../classRWMH.html#a1349180615746681801b1b6b86fe1c4b',1,'RWMH::update_U()'],['../classU__sampler.html#a68c7b18e6183b1bc9a1645ff36e0c82f',1,'U_sampler::update_U()']]],
-  ['usage_20guide_7',['Usage Guide',['../index.html#autotoc_md10',1,'']]],
-  ['use_5fv_8',['use_V',['../classMALA.html#aa1bd45a50795023b92ea781a495fa599',1,'MALA::use_V'],['../classRWMH.html#a21b4ed6ad1172dfacec56fb3539141a8',1,'RWMH::use_V']]],
-  ['utils_20r_20tt_9',['utils R tt',['../index.html#autotoc_md19',1,'⚙️ &lt;strong&gt;Hyperparameter Optimization&lt;/strong&gt; (&lt;tt&gt;utils.R&lt;/tt&gt;)'],['../index.html#autotoc_md18',1,'📊 &lt;strong&gt;Data Generation &amp; Simulation&lt;/strong&gt; (&lt;tt&gt;utils.R&lt;/tt&gt;)']]]
+  ['tau_0',['tau',['../structParams.html#a9e4aad62277a980bfa8beaa0bd4ea529',1,'Params']]],
+  ['tau_5fpower_5fsigma_1',['tau_power_sigma',['../classU__sampler.html#a74ac9522035e4694f3ce209d250a11f9',1,'U_sampler']]],
+  ['test_20data_2',['Step 1: Create Test Data',['../index.html#autotoc_md11',1,'']]],
+  ['the_20clustering_20analysis_3',['Step 2: Run the Clustering Analysis',['../index.html#autotoc_md12',1,'']]],
+  ['the_20example_20data_4',['Working with the Example Data',['../index.html#autotoc_md22',1,'']]],
+  ['this_20special_5',['✨ What Makes This Special?',['../index.html#autotoc_md1',1,'']]],
+  ['to_20use_6',['📖 How to Use',['../index.html#autotoc_md10',1,'']]],
+  ['total_5fiterations_7',['total_iterations',['../classU__sampler.html#a1d973e404393789b3799a407bc8d9c03',1,'U_sampler']]],
+  ['tt_8',['tt',['../index.html#autotoc_md15',1,'Generated Data (&lt;tt&gt;simulation_data/&lt;/tt&gt;)'],['../index.html#autotoc_md16',1,'MCMC Results (&lt;tt&gt;results/&lt;/tt&gt;)']]],
+  ['tt_20results_20tt_9',['MCMC Results (&lt;tt&gt;results/&lt;/tt&gt;)',['../index.html#autotoc_md16',1,'']]],
+  ['tt_20simulation_5fdata_20tt_10',['Generated Data (&lt;tt&gt;simulation_data/&lt;/tt&gt;)',['../index.html#autotoc_md15',1,'']]],
+  ['tuning_5fenabled_11',['tuning_enabled',['../classMALA.html#ab76aa610ccc0ef8c33d11c3f85fb2ebc',1,'MALA::tuning_enabled'],['../classRWMH.html#aa803a348282de6fd0144d22f96b59a4d',1,'RWMH::tuning_enabled']]]
 ];

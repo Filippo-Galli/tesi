@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['w_0',['W',['../structParams.html#aa4c747d0359567b9e0e6536ebab6da36',1,'Params']]],
-  ['with_20mcmc_1',['Bayesian Nonparametric Clustering with MCMC',['../index.html',1,'']]],
-  ['workflow_2',['Example Workflow',['../index.html#autotoc_md22',1,'']]]
+  ['verbosity_5flevel_0',['VERBOSITY_LEVEL',['../Data_8hpp.html#a7be2f72d88f018001011f9a2b031621a',1,'Data.hpp']]],
+  ['visualization_20diagnostics_20strong_1',['📊 &lt;strong&gt;Rich Visualization &amp; Diagnostics&lt;/strong&gt;',['../index.html#autotoc_md5',1,'']]],
+  ['visualize_20results_2',['Step 3: Visualize Results',['../index.html#autotoc_md13',1,'']]]
 ];

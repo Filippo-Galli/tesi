@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['rcpp_5fexposed_5fclass_0',['RCPP_EXPOSED_CLASS',['../Params_8hpp.html#a0adfe6efaa5f8a9a923761f32f0f4451',1,'Params.hpp']]],
-  ['rcpp_5fmodule_1',['RCPP_MODULE',['../launcher_8cpp.html#a740848696136388d950307173a06eb4d',1,'launcher.cpp']]],
-  ['restricted_5fgibbs_2',['restricted_gibbs',['../classSplitMerge.html#ad3e2149688f6e7e5625488bab6bace42',1,'SplitMerge']]],
-  ['robbins_5fmonro_5ftuning_3',['Robbins_Monro_tuning',['../classMALA.html#a6377f0f9540fdd0b9098bc640b401c4a',1,'MALA::Robbins_Monro_tuning()'],['../classRWMH.html#a81e2b14edfbb27123b3a291ae7057fb4',1,'RWMH::Robbins_Monro_tuning()']]],
-  ['rwmh_4',['RWMH',['../classRWMH.html#abd3f2472d65d54f0ff47ef63488c91d9',1,'RWMH']]]
+  ['params_0',['Params',['../structParams.html#afa6a76acb711fb655e784298bc5574f5',1,'Params']]],
+  ['point_5floglikelihood_5fcond_1',['point_loglikelihood_cond',['../classLikelihood.html#ab1af66318d8b64eff5162e5973b4c256',1,'Likelihood::point_loglikelihood_cond(int point_index, int cluster_index) const'],['../classLikelihood.html#a08c3ab12e361dfe8d0bf48a07243774a',1,'Likelihood::point_loglikelihood_cond(int point_index, int cluster_index, const Eigen::Ref&lt; const Eigen::VectorXi &gt; &amp;cls_ass_k) const']]],
+  ['prior_5fratio_5fmerge_2',['prior_ratio_merge',['../classDP.html#a0e9b5eed61089876ad4fa25440e6fe0a',1,'DP::prior_ratio_merge()'],['../classDPW.html#a75b3b17a4f1353be261598f817dfc151',1,'DPW::prior_ratio_merge()'],['../classNGGP.html#a79e4070dff59378d106d56545ea66a84',1,'NGGP::prior_ratio_merge()'],['../classNGGPW.html#a96acaa9d2dacbac024ffaba9d075249a',1,'NGGPW::prior_ratio_merge()'],['../classProcess.html#a3f839a738e76fc3ab83d3a7bfc228984',1,'Process::prior_ratio_merge()']]],
+  ['prior_5fratio_5fshuffle_3',['prior_ratio_shuffle',['../classDP.html#a124720c8dca0a4ebb401576f3f829624',1,'DP::prior_ratio_shuffle()'],['../classDPW.html#a657ee647610b79bda39db864bee2b6fa',1,'DPW::prior_ratio_shuffle()'],['../classNGGP.html#acd7a5bc6cbe029ec09d9a083c01277ff',1,'NGGP::prior_ratio_shuffle()'],['../classNGGPW.html#a9bc80b5731581b00c33479fd3b16d55d',1,'NGGPW::prior_ratio_shuffle()'],['../classProcess.html#a3bd733b3232c8cf865bc0d6c1a07aea4',1,'Process::prior_ratio_shuffle()']]],
+  ['prior_5fratio_5fsplit_4',['prior_ratio_split',['../classDP.html#add6430ec2928d6260b9a4f78f6a2867a',1,'DP::prior_ratio_split()'],['../classDPW.html#a9ae9225ada0d3d26b9f7e584783e117c',1,'DPW::prior_ratio_split()'],['../classNGGP.html#a6488070ea12d0a9c9454d96e8b5cb719',1,'NGGP::prior_ratio_split()'],['../classNGGPW.html#a73053c1ef8025c03e60ef25f42509bf4',1,'NGGPW::prior_ratio_split()'],['../classProcess.html#a3077b5bf1703a691927ae3779900a734',1,'Process::prior_ratio_split(int ci, int cj) const =0']]],
+  ['process_5',['Process',['../classProcess.html#a45c13512446ea3e7353ed88773d496a6',1,'Process']]]
 ];

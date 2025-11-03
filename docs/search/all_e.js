@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['mala_0',['MALA',['../classMALA.html',1,'MALA'],['../classMALA.html#a7721443577ca4639c17e298b2c1d56b2',1,'MALA::MALA()']]],
-  ['mala_2ecpp_1',['MALA.cpp',['../MALA_8cpp.html',1,'']]],
-  ['mala_2ehpp_2',['MALA.hpp',['../MALA_8hpp.html',1,'']]],
-  ['manual_20installation_20alternative_3',['Manual Installation (Alternative)',['../index.html#autotoc_md9',1,'']]],
-  ['mcmc_4',['Bayesian Nonparametric Clustering with MCMC',['../index.html',1,'']]],
-  ['mcmc_5',['mcmc',['../launcher_8cpp.html#ac9dd2715233e95e771a0936ff5e8d090',1,'launcher.cpp']]],
-  ['mcmc_20analysis_6',['2. MCMC Analysis',['../index.html#autotoc_md12',1,'']]],
-  ['mcmc_20interface_20strong_20tt_20launcher_20cpp_20tt_7',['🚀 &lt;strong&gt;High-Performance MCMC Interface&lt;/strong&gt; (&lt;tt&gt;launcher.cpp&lt;/tt&gt;)',['../index.html#autotoc_md20',1,'']]],
-  ['mcmc_20results_8',['MCMC Results',['../index.html#autotoc_md16',1,'']]],
-  ['mcmc_20samplers_20strong_9',['🔄 &lt;strong&gt;State-of-the-Art MCMC Samplers&lt;/strong&gt;',['../index.html#autotoc_md3',1,'']]],
-  ['merge_5fmove_10',['merge_move',['../classSplitMerge.html#a81747132bb2e0601a4e20c12d26197aa',1,'SplitMerge::merge_move()'],['../classSplitMerge__SAMS.html#a6f774a8523fa9cd09826aecd6a177d11',1,'SplitMerge_SAMS::merge_move()']]],
-  ['models_20strong_11',['🎯 &lt;strong&gt;Advanced Clustering Models&lt;/strong&gt;',['../index.html#autotoc_md2',1,'']]]
+  ['main_20functions_20you_20ll_20use_0',['Main Functions You&apos;ll Use',['../index.html#autotoc_md18',1,'']]],
+  ['makes_20this_20special_1',['✨ What Makes This Special?',['../index.html#autotoc_md1',1,'']]],
+  ['mala_2',['MALA',['../classMALA.html',1,'MALA'],['../classMALA.html#a7721443577ca4639c17e298b2c1d56b2',1,'MALA::MALA()']]],
+  ['mala_2ecpp_3',['MALA.cpp',['../MALA_8cpp.html',1,'']]],
+  ['mala_2ehpp_4',['MALA.hpp',['../MALA_8hpp.html',1,'']]],
+  ['manual_20setup_5',['Option 2: Manual Setup',['../index.html#autotoc_md9',1,'']]],
+  ['mcmc_6',['Bayesian Nonparametric Clustering with MCMC',['../index.html',1,'']]],
+  ['mcmc_7',['mcmc',['../launcher_8cpp.html#ac9dd2715233e95e771a0936ff5e8d090',1,'launcher.cpp']]],
+  ['mcmc_20results_20tt_20results_20tt_8',['MCMC Results (&lt;tt&gt;results/&lt;/tt&gt;)',['../index.html#autotoc_md16',1,'']]],
+  ['merge_5fmove_9',['merge_move',['../classSplitMerge.html#a81747132bb2e0601a4e20c12d26197aa',1,'SplitMerge::merge_move()'],['../classSplitMerge__SAMS.html#a6f774a8523fa9cd09826aecd6a177d11',1,'SplitMerge_SAMS::merge_move()']]],
+  ['methods_20strong_10',['Methods strong',['../index.html#autotoc_md2',1,'🎯 &lt;strong&gt;Smart Clustering Methods&lt;/strong&gt;'],['../index.html#autotoc_md3',1,'🔄 &lt;strong&gt;Multiple Analysis Methods&lt;/strong&gt;']]],
+  ['multiple_20analysis_20methods_20strong_11',['🔄 &lt;strong&gt;Multiple Analysis Methods&lt;/strong&gt;',['../index.html#autotoc_md3',1,'']]]
 ];

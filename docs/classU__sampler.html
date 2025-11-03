@@ -135,6 +135,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a16bbf085253b0900a81783694aa20d5f" id="r_a16bbf085253b0900a81783694aa20d5f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16bbf085253b0900a81783694aa20d5f">get_U</a> () const</td></tr>
 <tr class="memdesc:a16bbf085253b0900a81783694aa20d5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the current value of U.  <br /></td></tr>
 <tr class="separator:a16bbf085253b0900a81783694aa20d5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addfaeffc2f038a144332e96a6bf1dc7d" id="r_addfaeffc2f038a144332e96a6bf1dc7d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#addfaeffc2f038a144332e96a6bf1dc7d">get_acceptance_rate</a> () const</td></tr>
+<tr class="memdesc:addfaeffc2f038a144332e96a6bf1dc7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the acceptance rate of U updates.  <br /></td></tr>
+<tr class="separator:addfaeffc2f038a144332e96a6bf1dc7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f1b535ec7cad2be0aa24c7535c084d1" id="r_a1f1b535ec7cad2be0aa24c7535c084d1"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f1b535ec7cad2be0aa24c7535c084d1">~U_sampler</a> ()=default</td></tr>
 <tr class="memdesc:a1f1b535ec7cad2be0aa24c7535c084d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor for the <a class="el" href="classU__sampler.html" title="Abstract base class for MCMC sampling of the latent variable U.">U_sampler</a> class.  <br /></td></tr>
 <tr class="separator:a1f1b535ec7cad2be0aa24c7535c084d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,6 +166,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a1d973e404393789b3799a407bc8d9c03" id="r_a1d973e404393789b3799a407bc8d9c03"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d973e404393789b3799a407bc8d9c03">total_iterations</a> = 0</td></tr>
 <tr class="memdesc:a1d973e404393789b3799a407bc8d9c03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counter for total MCMC iterations performed.  <br /></td></tr>
 <tr class="separator:a1d973e404393789b3799a407bc8d9c03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acca05886c1b4138a4f42fa1800a4d31a" id="r_acca05886c1b4138a4f42fa1800a4d31a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acca05886c1b4138a4f42fa1800a4d31a">accepted_U</a> = 0</td></tr>
+<tr class="memdesc:acca05886c1b4138a4f42fa1800a4d31a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counter of accepted U.  <br /></td></tr>
+<tr class="separator:acca05886c1b4138a4f42fa1800a4d31a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25806348f421eaab938a458b18106c0b" id="r_a25806348f421eaab938a458b18106c0b"><td class="memItemLeft" align="right" valign="top">std::random_device&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25806348f421eaab938a458b18106c0b">rd</a></td></tr>
 <tr class="memdesc:a25806348f421eaab938a458b18106c0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Random device for seeding.  <br /></td></tr>
 <tr class="separator:a25806348f421eaab938a458b18106c0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -259,6 +265,34 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="addfaeffc2f038a144332e96a6bf1dc7d" name="addfaeffc2f038a144332e96a6bf1dc7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addfaeffc2f038a144332e96a6bf1dc7d">&#9670;&#160;</a></span>get_acceptance_rate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double U_sampler::get_acceptance_rate </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Getter for the acceptance rate of U updates. </p>
+<dl class="section return"><dt>Returns</dt><dd>The acceptance rate as a double. </dd></dl>
+
+</div>
+</div>
 <a id="a16bbf085253b0900a81783694aa20d5f" name="a16bbf085253b0900a81783694aa20d5f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a16bbf085253b0900a81783694aa20d5f">&#9670;&#160;</a></span>get_U()</h2>
 
@@ -438,6 +472,30 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Ratio a/sigma for efficient computation. </p>
+
+</div>
+</div>
+<a id="acca05886c1b4138a4f42fa1800a4d31a" name="acca05886c1b4138a4f42fa1800a4d31a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acca05886c1b4138a4f42fa1800a4d31a">&#9670;&#160;</a></span>accepted_U</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int U_sampler::accepted_U = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Counter of accepted U. </p>
 
 </div>
 </div>

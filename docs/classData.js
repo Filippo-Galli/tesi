@@ -5,6 +5,7 @@ var classData =
     [ "get_allocations", "classData.html#a76ebba89fa69c1f2ff4d2905882ee5cb", null ],
     [ "get_cluster_assignment", "classData.html#a01186813be50f1785aff75c43835ae12", null ],
     [ "get_cluster_assignments", "classData.html#aed93ea1d6166151c8ff89a3c11f4be35", null ],
+    [ "get_cluster_assignments_ref", "classData.html#ac7f783945481fdf95a9f0d56b7de116f", null ],
     [ "get_cluster_size", "classData.html#a2b7114221a3a42f608e4a814e74030e2", null ],
     [ "get_distance", "classData.html#ad7e997f17eb2f794c0dfc9b6b73260b0", null ],
     [ "get_K", "classData.html#adf1f6a52cebebeb2afe3a3bdb49fc2fe", null ],

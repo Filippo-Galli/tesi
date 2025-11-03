@@ -5,6 +5,7 @@ var classProcess =
     [ "gibbs_prior_existing_cluster", "classProcess.html#a17d00dd1cdddc0c2c8b3d4155afcb54c", null ],
     [ "gibbs_prior_existing_clusters", "classProcess.html#aa217cf47b5d0293b0f7d4875f130cef6", null ],
     [ "gibbs_prior_new_cluster", "classProcess.html#af0620ca38fdd6c3fb09b6d008cfe728d", null ],
+    [ "old_allocations_view", "classProcess.html#a914f8d21512e26141f7f79cfe9a16bd5", null ],
     [ "prior_ratio_merge", "classProcess.html#a3f839a738e76fc3ab83d3a7bfc228984", null ],
     [ "prior_ratio_shuffle", "classProcess.html#a3bd733b3232c8cf865bc0d6c1a07aea4", null ],
     [ "prior_ratio_split", "classProcess.html#a3077b5bf1703a691927ae3779900a734", null ],

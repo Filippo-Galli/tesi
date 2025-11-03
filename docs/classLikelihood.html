@@ -123,24 +123,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aefb5c3a772c975a5727c7d760d1e58a3" id="r_aefb5c3a772c975a5727c7d760d1e58a3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aefb5c3a772c975a5727c7d760d1e58a3">cluster_loglikelihood</a> (int cluster_index) const</td></tr>
 <tr class="memdesc:aefb5c3a772c975a5727c7d760d1e58a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the full log-likelihood of a cluster.  <br /></td></tr>
 <tr class="separator:aefb5c3a772c975a5727c7d760d1e58a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13641f8ecf2c1a6d1cdf153420b46c9d" id="r_a13641f8ecf2c1a6d1cdf153420b46c9d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13641f8ecf2c1a6d1cdf153420b46c9d">cluster_loglikelihood</a> (int cluster_index, const Eigen::VectorXi &amp;cls_ass_k) const</td></tr>
-<tr class="memdesc:a13641f8ecf2c1a6d1cdf153420b46c9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the full log-likelihood of a cluster with explicit assignments.  <br /></td></tr>
-<tr class="separator:a13641f8ecf2c1a6d1cdf153420b46c9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59ed19db145e978f5f14087a1f0a708b" id="r_a59ed19db145e978f5f14087a1f0a708b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59ed19db145e978f5f14087a1f0a708b">cluster_loglikelihood</a> (int cluster_index, const Eigen::Ref&lt; const Eigen::VectorXi &gt; &amp;cls_ass_k) const</td></tr>
+<tr class="memdesc:a59ed19db145e978f5f14087a1f0a708b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the full log-likelihood of a cluster with explicit assignments.  <br /></td></tr>
+<tr class="separator:a59ed19db145e978f5f14087a1f0a708b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1af66318d8b64eff5162e5973b4c256" id="r_ab1af66318d8b64eff5162e5973b4c256"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1af66318d8b64eff5162e5973b4c256">point_loglikelihood_cond</a> (int point_index, int cluster_index) const</td></tr>
 <tr class="memdesc:ab1af66318d8b64eff5162e5973b4c256"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the conditional log-likelihood of assigning a point to a cluster.  <br /></td></tr>
 <tr class="separator:ab1af66318d8b64eff5162e5973b4c256"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1810c4e20f01e037f24aa8c93bfd78f0" id="r_a1810c4e20f01e037f24aa8c93bfd78f0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1810c4e20f01e037f24aa8c93bfd78f0">point_loglikelihood_cond</a> (int point_index, int cluster_index, const Eigen::VectorXi &amp;cls_ass_k) const</td></tr>
-<tr class="memdesc:a1810c4e20f01e037f24aa8c93bfd78f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the conditional log-likelihood with explicit cluster assignments.  <br /></td></tr>
-<tr class="separator:a1810c4e20f01e037f24aa8c93bfd78f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08c3ab12e361dfe8d0bf48a07243774a" id="r_a08c3ab12e361dfe8d0bf48a07243774a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08c3ab12e361dfe8d0bf48a07243774a">point_loglikelihood_cond</a> (int point_index, int cluster_index, const Eigen::Ref&lt; const Eigen::VectorXi &gt; &amp;cls_ass_k) const</td></tr>
+<tr class="memdesc:a08c3ab12e361dfe8d0bf48a07243774a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the conditional log-likelihood with explicit cluster assignments.  <br /></td></tr>
+<tr class="separator:a08c3ab12e361dfe8d0bf48a07243774a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a38854f778c0ae2082bb99b2a1841f80c" id="r_a38854f778c0ae2082bb99b2a1841f80c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38854f778c0ae2082bb99b2a1841f80c">compute_cohesion</a> (int point_index, int cluster_index, const Eigen::VectorXi cls_ass_k, int n_k) const</td></tr>
-<tr class="memdesc:a38854f778c0ae2082bb99b2a1841f80c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the cohesion component of the likelihood for a point.  <br /></td></tr>
-<tr class="separator:a38854f778c0ae2082bb99b2a1841f80c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a425dbf17f25861561d18b20e41abd851" id="r_a425dbf17f25861561d18b20e41abd851"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a425dbf17f25861561d18b20e41abd851">compute_repulsion</a> (int point_index, int cluster_index, const Eigen::VectorXi cls_ass_k, int n_k) const</td></tr>
-<tr class="memdesc:a425dbf17f25861561d18b20e41abd851"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the repulsion component of the likelihood for a point.  <br /></td></tr>
-<tr class="separator:a425dbf17f25861561d18b20e41abd851"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad90a0a04967bd64404cdbaff3187ba39" id="r_ad90a0a04967bd64404cdbaff3187ba39"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad90a0a04967bd64404cdbaff3187ba39">compute_cohesion</a> (int point_index, int cluster_index, const Eigen::Ref&lt; const Eigen::VectorXi &gt; &amp;cls_ass_k, int n_k) const</td></tr>
+<tr class="memdesc:ad90a0a04967bd64404cdbaff3187ba39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the cohesion component of the likelihood for a point.  <br /></td></tr>
+<tr class="separator:ad90a0a04967bd64404cdbaff3187ba39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a424810a8eefc9f7b324ba13c990331f6" id="r_a424810a8eefc9f7b324ba13c990331f6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a424810a8eefc9f7b324ba13c990331f6">compute_repulsion</a> (int point_index, int cluster_index, const Eigen::Ref&lt; const Eigen::VectorXi &gt; &amp;cls_ass_k, int n_k) const</td></tr>
+<tr class="memdesc:a424810a8eefc9f7b324ba13c990331f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the repulsion component of the likelihood for a point.  <br /></td></tr>
+<tr class="separator:a424810a8eefc9f7b324ba13c990331f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -232,8 +232,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a13641f8ecf2c1a6d1cdf153420b46c9d" name="a13641f8ecf2c1a6d1cdf153420b46c9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13641f8ecf2c1a6d1cdf153420b46c9d">&#9670;&#160;</a></span>cluster_loglikelihood() <span class="overload">[2/2]</span></h2>
+<a id="a59ed19db145e978f5f14087a1f0a708b" name="a59ed19db145e978f5f14087a1f0a708b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59ed19db145e978f5f14087a1f0a708b">&#9670;&#160;</a></span>cluster_loglikelihood() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -246,7 +246,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::VectorXi &amp;</td>          <td class="paramname"><span class="paramname"><em>cls_ass_k</em></span>&#160;) const</td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXi &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>cls_ass_k</em></span>&#160;) const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -263,8 +263,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a38854f778c0ae2082bb99b2a1841f80c" name="a38854f778c0ae2082bb99b2a1841f80c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38854f778c0ae2082bb99b2a1841f80c">&#9670;&#160;</a></span>compute_cohesion()</h2>
+<a id="ad90a0a04967bd64404cdbaff3187ba39" name="ad90a0a04967bd64404cdbaff3187ba39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad90a0a04967bd64404cdbaff3187ba39">&#9670;&#160;</a></span>compute_cohesion()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -285,7 +285,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::VectorXi</td>          <td class="paramname"><span class="paramname"><em>cls_ass_k</em></span>, </td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXi &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>cls_ass_k</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -314,8 +314,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a425dbf17f25861561d18b20e41abd851" name="a425dbf17f25861561d18b20e41abd851"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a425dbf17f25861561d18b20e41abd851">&#9670;&#160;</a></span>compute_repulsion()</h2>
+<a id="a424810a8eefc9f7b324ba13c990331f6" name="a424810a8eefc9f7b324ba13c990331f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a424810a8eefc9f7b324ba13c990331f6">&#9670;&#160;</a></span>compute_repulsion()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -336,7 +336,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::VectorXi</td>          <td class="paramname"><span class="paramname"><em>cls_ass_k</em></span>, </td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXi &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>cls_ass_k</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -396,8 +396,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a1810c4e20f01e037f24aa8c93bfd78f0" name="a1810c4e20f01e037f24aa8c93bfd78f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1810c4e20f01e037f24aa8c93bfd78f0">&#9670;&#160;</a></span>point_loglikelihood_cond() <span class="overload">[2/2]</span></h2>
+<a id="a08c3ab12e361dfe8d0bf48a07243774a" name="a08c3ab12e361dfe8d0bf48a07243774a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08c3ab12e361dfe8d0bf48a07243774a">&#9670;&#160;</a></span>point_loglikelihood_cond() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -415,7 +415,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Eigen::VectorXi &amp;</td>          <td class="paramname"><span class="paramname"><em>cls_ass_k</em></span>&#160;) const</td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXi &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>cls_ass_k</em></span>&#160;) const</td>
         </tr>
       </table>
 </div><div class="memdoc">
