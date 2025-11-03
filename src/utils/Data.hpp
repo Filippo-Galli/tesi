@@ -118,8 +118,7 @@ public:
    * @return Map to vector of point indices in the cluster
    * @throws std::out_of_range if cluster index is invalid
    */
-  Eigen::Map<const Eigen::VectorXi>
-  get_cluster_assignments_ref(int cluster) const;
+  Eigen::Map<const Eigen::VectorXi> get_cluster_assignments_ref(int cluster) const;
 
   // Setters
 

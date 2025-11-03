@@ -1,4 +1,10 @@
+/**
+ * @file MALA.hpp
+ * @brief Metropolis-Adjusted Langevin Algorithm (MALA) sampler for the latent variable U.
+ */
+
 #pragma once
+
 #include "U_sampler.hpp"
 
 /**
