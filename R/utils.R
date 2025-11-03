@@ -133,6 +133,10 @@ save_with_name <- function(folder, params, initialization, gt = FALSE) {
 }
 
 set_hyperparameters <- function(dist_matrix, k_elbow, ground_truth = NULL, plot_clustering = FALSE, plot_distribution = TRUE) {
+  # Ensure dist_matrix is in the right format
+  if (!inherits(dist_matrix, "dist")) {
+    dist_matrix <- as.dist(dist_matrix)
+  }
 
   # Use k-means to get initial clusters
   mds_result <- cmdscale(dist_matrix, k = 2)
@@ -140,7 +144,8 @@ set_hyperparameters <- function(dist_matrix, k_elbow, ground_truth = NULL, plot_
   initial_clusters <- kmeans_result$cluster
 
   # Step 3: Split pairwise distances into within-cluster (A) and inter-cluster (B)
-  n <- nrow(dist_matrix)
+  n <- attr(dist_matrix, "Size") # Get size from dist object
+  dist_matrix <- as.matrix(dist_matrix) # Convert back to matrix for indexing
   cat("Processing", n, "data points...\n")
 
   # Much more efficient vectorized approach
@@ -438,11 +443,11 @@ compute_hist_distances <- function(hist1, hist2, type = "Histogram-Divergence") 
   if (abs(bin_width1 - bin_width2) > 1e-10) {
     warning("Histograms have different bin widths. Results may be inaccurate.")
   }
-  bin_width <- bin_width1  # Use first histogram's bin width
+  bin_width <- bin_width1 # Use first histogram's bin width
 
   # Handle different bin numbers by aligning to common bins
   max_bins <- max(length(counts1), length(counts2))
-  
+
   # Pad shorter histogram with zeros if needed
   if (length(counts1) < max_bins) {
     counts1 <- c(counts1, rep(0, max_bins - length(counts1)))
@@ -450,7 +455,7 @@ compute_hist_distances <- function(hist1, hist2, type = "Histogram-Divergence") 
   if (length(counts2) < max_bins) {
     counts2 <- c(counts2, rep(0, max_bins - length(counts2)))
   }
-  
+
   # Normalize to probability distributions (sum to 1)
   counts1 <- counts1 / sum(counts1)
   counts2 <- counts2 / sum(counts2)

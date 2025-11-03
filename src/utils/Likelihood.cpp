@@ -9,15 +9,17 @@
 #include <Rcpp.h>
 #include <cmath>
 #include <math.h>
+#ifdef _OPENMP
 #include <omp.h>
+#endif
 
 double Likelihood::cluster_loglikelihood(int cluster_index) const {
-  auto cls_ass_k = data.get_cluster_assignments(cluster_index);
+  auto cls_ass_k = data.get_cluster_assignments_ref(cluster_index);
   return cluster_loglikelihood(cluster_index, cls_ass_k);
 }
 
-double Likelihood::cluster_loglikelihood(int cluster_index,
-                                  const Eigen::VectorXi &cls_ass_k) const {
+double Likelihood::cluster_loglikelihood(int cluster_index, const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k) const {
+
   int K = data.get_K(); // number of clusters
   double rep = 0, coh = 0;
   int n_k = data.get_cluster_size(cluster_index); // cluster size of cluster_index
@@ -31,7 +33,7 @@ double Likelihood::cluster_loglikelihood(int cluster_index,
     // Silently handle empty cluster case during MCMC sampling
     return 0;
   }
-  
+
   if (n_k != 1) {
     pairs = n_k * (n_k - 1) / 2;
     cohesion_part = true;
@@ -44,11 +46,11 @@ double Likelihood::cluster_loglikelihood(int cluster_index,
       continue;
 
     int n_t = data.get_cluster_size(t); // cluster size of t
-    const Eigen::VectorXi &cls_ass_t = data.get_cluster_assignments(t);
+    auto cls_ass_t = data.get_cluster_assignments_ref(t);
 
     log_prod = 0;
     sum = 0;
-    
+
     // Calculate all pairwise distances between clusters
     for (int i = 0; i < n_k; ++i) {
       for (int j = 0; j < n_t; ++j) {
@@ -60,12 +62,12 @@ double Likelihood::cluster_loglikelihood(int cluster_index,
     }
 
     // Gamma likelihood components for repulsion
-    rep += log_prod * (params.delta2 - 1);              // Distance product term
-    rep -= lgamma(params.delta2) * (n_k * n_t);         // Normalization
+    rep += log_prod * (params.delta2 - 1);      // Distance product term
+    rep -= lgamma(params.delta2) * (n_k * n_t); // Normalization
 
-    rep += log_gamma_zeta;                              // Prior term
+    rep += log_gamma_zeta; // Prior term
 
-    rep += lgamma(n_k * n_t * params.delta2 + params.zeta);  // Posterior term
+    rep += lgamma(n_k * n_t * params.delta2 + params.zeta); // Posterior term
     rep -= log(params.gamma + sum) * (n_k * n_t * params.delta2 + params.zeta);
   }
 
@@ -88,24 +90,25 @@ double Likelihood::cluster_loglikelihood(int cluster_index,
   }
 
   // Gamma likelihood components for cohesion
-  coh += log_prod * (params.delta1 - 1);         // Distance product term
-  coh -= lgamma(params.delta1) * (pairs);        // Normalization
+  coh += log_prod * (params.delta1 - 1);  // Distance product term
+  coh -= lgamma(params.delta1) * (pairs); // Normalization
 
-  coh += log_beta_alpha;                         // Prior term
+  coh += log_beta_alpha; // Prior term
 
-  coh += lgamma(pairs * params.delta1 + params.alpha);  // Posterior term
+  coh += lgamma(pairs * params.delta1 + params.alpha); // Posterior term
   coh -= log(params.beta + sum) * (pairs * params.delta1 + params.alpha);
 
   return rep + coh;
 }
 
-double Likelihood::point_loglikelihood_cond(int point_index,
-                                            int cluster_index) const {
+double Likelihood::point_loglikelihood_cond(int point_index, int cluster_index) const {
   // Get cluster assignments for the target cluster
-  const auto cls_ass_k = data.get_cluster_assignments(cluster_index);
+  auto cls_ass_k = data.get_cluster_assignments_ref(cluster_index);
 
   // Check if this is a new cluster (index == K) or existing cluster
-  int n_k = (cluster_index != data.get_K()) ? data.get_cluster_size(cluster_index) : 0;
+  int n_k = (cluster_index != data.get_K())
+                ? data.get_cluster_size(cluster_index)
+                : 0;
 
   /* -------------------- Cohesion part -------------------------- */
   double coeh = compute_cohesion(point_index, cluster_index, cls_ass_k, n_k);
@@ -117,8 +120,8 @@ double Likelihood::point_loglikelihood_cond(int point_index,
 }
 
 double Likelihood::compute_cohesion(int point_index, int cluster_index,
-                                    const Eigen::VectorXi cls_ass_k,
-                                    int n_k) const {
+                             const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k,
+                             int n_k) const {
   double loglik = 0;
 
   // Early return for empty clusters (new cluster case)
@@ -140,40 +143,39 @@ double Likelihood::compute_cohesion(int point_index, int cluster_index,
   double beta_mh = params.beta + sum_i;
 
   // Cohesion likelihood using gamma distribution
-  loglik += (-n_k) * lgamma_delta1;   // Product normalization
+  loglik += (-n_k) * lgamma_delta1;           // Product normalization
   loglik += (params.delta1 - 1) * log_prod_i; // Distance product term
 
   // Normalization constant
   loglik += lgamma(alpha_mh);        // Γ(α_mh)
   loglik += log_beta_alpha;          // β^α / Γ(α)
   loglik -= alpha_mh * log(beta_mh); // β_mh^α_mh
-  
+
   return loglik;
 }
 
-double Likelihood::compute_repulsion(int point_index, int cluster_index,
-                                     const Eigen::VectorXi cls_ass_k,
-                                     int n_k) const {
+double Likelihood::compute_repulsion(int point_index, int cluster_index, const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k, int n_k) const {
   double loglik = 0;
 
   int num_cluster = data.get_K();
 
-  if(num_cluster == 1 || num_cluster == 0)
+  if (num_cluster == 1 || num_cluster == 0)
     return 0;
 
   // Parallel computation of repulsion from all other clusters
-  #pragma omp parallel for reduction(+:loglik)
+  #ifdef _OPENMP
+  #pragma omp parallel for reduction(+ : loglik)
+  #endif
   for (int t = 0; t < num_cluster; ++t) {
     if (t == cluster_index)
       continue;
 
     int n_t = data.get_cluster_size(t);
-    auto cls_ass_t = data.get_cluster_assignments(t);
+    auto cls_ass_t = data.get_cluster_assignments_ref(t);
 
     // Skip empty clusters
-    if (n_t == 0) {
+    if (n_t == 0)
       continue;
-    }
 
     double sum_i = 0, log_point_prod = 0;
 

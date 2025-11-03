@@ -39,37 +39,62 @@ Data::Data(const Eigen::MatrixXd &distances,
 }
 
 double Data::get_distance(int i, int j) const {
-  #if VERBOSITY_LEVEL >= 1
+#if VERBOSITY_LEVEL >= 1
   if (i < 0 || i >= D.rows() || j < 0 || j >= D.cols()) {
     throw std::out_of_range("Index out of bounds in get_distance");
   }
-  #endif
+#endif
 
   return D(i, j);
 }
 
 Eigen::VectorXi Data::get_cluster_assignments(int cluster) const {
-  #if VERBOSITY_LEVEL >= 1
+#if VERBOSITY_LEVEL >= 1
   if (cluster > K || cluster < 0) {
     throw std::out_of_range("Index out of bounds in get_cluster_assignments");
   }
-  #endif
+#endif
+
+  auto it = cluster_members.find(cluster);
 
   // Check if the cluster exists in the map before accessing it
-  if (cluster_members.find(cluster) == cluster_members.end()) {
-    return Eigen::VectorXi::Zero(0); // Return empty vector for non-existent clusters
+  if (it == cluster_members.end()) {
+    return Eigen::VectorXi::Zero(
+        0); // Return empty vector for non-existent clusters
   }
 
-  return Eigen::Map<const Eigen::VectorXi>(cluster_members.at(cluster).data(),
-                                           cluster_members.at(cluster).size());
+  return Eigen::Map<const Eigen::VectorXi>(it->second.data(),
+                                           it->second.size());
+}
+
+Eigen::Map<const Eigen::VectorXi>
+Data::get_cluster_assignments_ref(int cluster) const {
+#if VERBOSITY_LEVEL >= 1
+  if (cluster > K || cluster < 0) {
+    throw std::out_of_range(
+        "Index out of bounds in get_cluster_assignments_ref");
+  }
+#endif
+
+  auto it = cluster_members.find(cluster);
+
+  // Check if the cluster exists in the map before accessing it
+  if (it == cluster_members.end()) {
+    static const int dummy_value = 0;
+    return Eigen::Map<const Eigen::VectorXi>(&dummy_value, 0);
+  }
+
+  return Eigen::Map<const Eigen::VectorXi>(
+      it->second.data(), static_cast<Eigen::Index>(it->second.size()));
 }
 
 void Data::compact_cluster(int old_cluster) {
-  #if VERBOSITY_LEVEL >= 1
+#if VERBOSITY_LEVEL >= 1
   if (old_cluster < 0 || old_cluster >= K) {
-    throw std::out_of_range("old_cluster index out of bounds in compact_cluster");
+    throw std::out_of_range(
+        "old_cluster index out of bounds in compact_cluster");
   }
-  #endif
+#endif
 
   // Early exit if there's only one cluster or if compacting the last cluster
   if (K <= 1 || old_cluster == K - 1) {
@@ -87,7 +112,7 @@ void Data::compact_cluster(int old_cluster) {
     for (int point_index : last_cluster_it->second) {
       allocations(point_index) = old_cluster;
     }
-    
+
     // Move members of the last cluster to the old cluster using move semantics
     cluster_members[old_cluster] = std::move(last_cluster_it->second);
   } else {
@@ -101,22 +126,22 @@ void Data::compact_cluster(int old_cluster) {
 }
 
 void Data::set_allocation(int index, int cluster) {
-  // Bounds checking for index
-  #if VERBOSITY_LEVEL >= 1
+// Bounds checking for index
+#if VERBOSITY_LEVEL >= 1
   if (index < 0 || index >= n) {
     throw std::out_of_range("Index out of bounds in set_allocation");
   }
-  #endif
+#endif
 
-  // Validate cluster parameter early
-  #if VERBOSITY_LEVEL >= 1
+// Validate cluster parameter early
+#if VERBOSITY_LEVEL >= 1
   if (cluster < -1 || cluster > K) {
     throw std::out_of_range("Invalid cluster index in set_allocation");
   }
-  #endif
+#endif
 
   int old_cluster = allocations(index);
-  
+
   // Early exit if no change needed
   if (old_cluster == cluster) {
     return;
@@ -129,18 +154,20 @@ void Data::set_allocation(int index, int cluster) {
   if (old_cluster != -1) {
     old_cluster_it = cluster_members.find(old_cluster);
     old_cluster_exists = (old_cluster_it != cluster_members.end());
-    
-    #if VERBOSITY_LEVEL >= 1
+
+#if VERBOSITY_LEVEL >= 1
     if (!old_cluster_exists) {
-      throw std::runtime_error("Inconsistent state: old_cluster not found in cluster_members");
+      throw std::runtime_error(
+          "Inconsistent state: old_cluster not found in cluster_members");
     }
-    #endif
+#endif
   }
 
   // Remove from old cluster first (if applicable)
   if (old_cluster_exists) {
-    auto& old_members = old_cluster_it->second;
-    // Use find + erase instead of remove + erase for single element (more efficient)
+    auto &old_members = old_cluster_it->second;
+    // Use find + erase instead of remove + erase for single element (more
+    // efficient)
     auto it = std::find(old_members.begin(), old_members.end(), index);
     if (it != old_members.end()) {
       old_members.erase(it);
@@ -153,19 +180,16 @@ void Data::set_allocation(int index, int cluster) {
   // Handle new cluster assignment
   if (cluster == -1) {
     // Point becomes unallocated - nothing more to do after removal above
-  } 
-  else if (cluster == K) {
+  } else if (cluster == K) {
     // New cluster creation
     cluster_members[K].push_back(index);
     K++;
-  } 
-  else {
+  } else {
     // Existing cluster assignment - cache the target cluster iterator
     auto target_cluster_it = cluster_members.find(cluster);
     if (target_cluster_it != cluster_members.end()) {
       target_cluster_it->second.push_back(index);
-    } 
-    else {
+    } else {
       // Create the cluster if it doesn't exist
       cluster_members[cluster].push_back(index);
     }
@@ -178,12 +202,12 @@ void Data::set_allocation(int index, int cluster) {
 }
 
 void Data::set_allocations(const Eigen::VectorXi &new_allocations) {
-  #if VERBOSITY_LEVEL >= 1
+#if VERBOSITY_LEVEL >= 1
   if (new_allocations.size() != n) {
     throw std::invalid_argument(
         "New allocations vector must be of size n, set_allocations failed");
   }
-  #endif
+#endif
 
   allocations = new_allocations;
 

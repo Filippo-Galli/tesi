@@ -39,8 +39,7 @@ int SpatialModule::get_neighbors_cls(int cls_idx, bool old_allo) const {
    */
 
   const Eigen::VectorXi &allocations_reference =
-      (old_allo && old_allocations_provider) ? old_allocations_provider()
-                                             : data_module.get_allocations();
+      (old_allo && old_allocations_provider) ? old_allocations_provider() : data_module.get_allocations();
   Eigen::VectorXi obs_in_cluster = (allocations_reference.array() == cls_idx).cast<int>();
 
   const int total_neighbors = obs_in_cluster.dot(params_module.W * obs_in_cluster) / 2; // Divide by 2 to avoid double counting

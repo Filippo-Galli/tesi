@@ -368,8 +368,7 @@ void SplitMerge::choose_clusters_shuffle() {
   // Pre-allocate launch_state and S
   const int size_ci = data.get_cluster_size(ci);
   const int size_cj = data.get_cluster_size(cj);
-  const int launch_state_size =
-      size_ci + size_cj - 2; // Exclude points i and j from the launch state
+  const int launch_state_size = size_ci + size_cj - 2; // Exclude points i and j from the launch state
   launch_state.resize(launch_state_size);
   S.resize(launch_state_size);
 
