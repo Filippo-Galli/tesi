@@ -41,24 +41,26 @@ plot_distance <- function(dist_matrix, cls = NULL,
 
   # Extract distances and determine if they are intra or inter-cluster
   distances <- dist_matrix[upper_tri_indices]
-  cluster_pairs <- cbind(cls[upper_tri_indices[, 1]],
-                         cls[upper_tri_indices[, 2]])
+  cluster_pairs <- cbind(
+    cls[upper_tri_indices[, 1]],
+    cls[upper_tri_indices[, 2]]
+  )
 
-  # Classify distances as intra-cluster or inter-cluster 
+  # Classify distances as intra-cluster or inter-cluster
   intra_cluster <- distances[cluster_pairs[, 1] == cluster_pairs[, 2]]
   inter_cluster <- distances[cluster_pairs[, 1] != cluster_pairs[, 2]]
 
   # Pre-compute histograms for ylim calculation
   h_intra <- hist(intra_cluster, breaks = breaks, plot = FALSE)
-  h_inter <- if(cls_exist) hist(inter_cluster, breaks = breaks, plot = FALSE) else NULL
-  
+  h_inter <- if (cls_exist) hist(inter_cluster, breaks = breaks, plot = FALSE) else NULL
+
   # Determine y-axis label and limits based on normalization
   ylab <- if (normalize) "Density" else "Frequency"
-  
-  ylim_max <- if(normalize) {
-    max(h_intra$density, if(cls_exist) h_inter$density else 0) * 1.1
+
+  ylim_max <- if (normalize) {
+    max(h_intra$density, if (cls_exist) h_inter$density else 0) * 1.1
   } else {
-    max(h_intra$counts, if(cls_exist) h_inter$counts else 0) * 1.1
+    max(h_intra$counts, if (cls_exist) h_inter$counts else 0) * 1.1
   }
 
   # Create histogram with overlaid distributions
@@ -73,9 +75,9 @@ plot_distance <- function(dist_matrix, cls = NULL,
     ylim = c(0, ylim_max)
   )
 
-  if(cls_exist) {
+  if (cls_exist) {
     hist(inter_cluster,
-      breaks = breaks, 
+      breaks = breaks,
       col = rgb(0, 0, 1, 0.7),
       probability = normalize,
       add = TRUE
@@ -84,8 +86,8 @@ plot_distance <- function(dist_matrix, cls = NULL,
 
   # Add legend
   legend("topright",
-    legend = if(cls_exist) c("Intra-cluster", "Inter-cluster") else "Distance",
-    fill = if(cls_exist) c(rgb(1, 0.5, 0, 0.7), rgb(0, 0, 1, 0.7)) else rgb(1, 0.5, 0, 0.7),
+    legend = if (cls_exist) c("Intra-cluster", "Inter-cluster") else "Distance",
+    fill = if (cls_exist) c(rgb(1, 0.5, 0, 0.7), rgb(0, 0, 1, 0.7)) else rgb(1, 0.5, 0, 0.7),
     bty = "n"
   )
   title(main = title)
@@ -96,8 +98,10 @@ plot_distance <- function(dist_matrix, cls = NULL,
       dir.create(folder, recursive = TRUE)
     }
     words_title <- gsub(" ", "_", title)
-    dev.copy(png, filename = paste0(folder, words_title, ".png"),
-             width = 2400, height = 1800, res = 300)
+    dev.copy(png,
+      filename = paste0(folder, words_title, ".png"),
+      width = 2400, height = 1800, res = 300
+    )
     dev.off()
   }
 }
@@ -138,8 +142,10 @@ plot_post_distr <- function(results, BI, save = FALSE, folder = "results/plots/"
   print(p1)
 
   if (save) {
-    ggsave(filename = paste0(folder, "posterior_num_clusters.png"),
-           plot = p1, width = 8, height = 6)
+    ggsave(
+      filename = paste0(folder, "posterior_num_clusters.png"),
+      plot = p1, width = 8, height = 6
+    )
   }
 }
 
@@ -176,12 +182,14 @@ plot_trace_cls <- function(results, BI, save = FALSE, folder = "results/plots/")
 
   print(p2)
   if (save) {
-    ggsave(filename = paste0(folder, "traceplot.png"),
-           plot = p2, width = 8, height = 6)
+    ggsave(
+      filename = paste0(folder, "traceplot.png"),
+      plot = p2, width = 8, height = 6
+    )
   }
 }
 
-plot_post_sim_matrix <- function(results, BI, save = FALSE, folder = "results/plots/"){
+plot_post_sim_matrix <- function(results, BI, save = FALSE, folder = "results/plots/") {
   #### Apply burn-in to allocations
   allocations_post_burnin <- results$allocations
   if (BI > 0 && length(allocations_post_burnin) > BI) {
@@ -198,7 +206,7 @@ plot_post_sim_matrix <- function(results, BI, save = FALSE, folder = "results/pl
     if (!is.null(allocation) && length(allocation) == n) {
       # This creates a matrix where entry [i,j] is TRUE if allocation[i] == allocation[j]
       same_cluster <- outer(allocation, allocation, "==")
-      
+
       # Add to similarity matrix (this is already symmetric, so no need for separate i,j loop)
       similarity_matrix <- similarity_matrix + same_cluster
     }
@@ -233,8 +241,10 @@ plot_post_sim_matrix <- function(results, BI, save = FALSE, folder = "results/pl
     coord_fixed()
   print(p3)
   if (save) {
-    ggsave(filename = paste0(folder, "similarity_matrix.png"), 
-           plot = p3, width = 8, height = 6)
+    ggsave(
+      filename = paste0(folder, "similarity_matrix.png"),
+      plot = p3, width = 8, height = 6
+    )
   }
 }
 
@@ -244,7 +254,7 @@ plot_stats <- function(results, true_labels, BI, save = FALSE, folder = "results
   if (BI > 0 && length(allocations_post_burnin) > BI) {
     allocations_post_burnin <- allocations_post_burnin[(BI + 1):length(allocations_post_burnin)]
   }
-  
+
   #### Convert allocations to matrix format for SALSO
   C <- matrix(unlist(lapply(allocations_post_burnin, function(x) x + 1)),
     nrow = length(allocations_post_burnin),
@@ -253,9 +263,11 @@ plot_stats <- function(results, true_labels, BI, save = FALSE, folder = "results
   )
 
   #### Get point estimate using Variation of Information (VI) loss
-  point_estimate <- salso::salso(C, loss = "binder",
-                                 maxNClusters = 200,
-                                 maxZealousAttempts = 1000)
+  point_estimate <- salso::salso(C,
+    loss = "binder",
+    maxNClusters = 200,
+    maxZealousAttempts = 1000
+  )
 
   #### Print results
   cat("=== SALSO Clustering Results (Post Burn-in) ===\n")
@@ -265,12 +277,16 @@ plot_stats <- function(results, true_labels, BI, save = FALSE, folder = "results
   point_labels <- as.vector(point_estimate)
 
   #### Adjusted Rand Index (ARI)
-  cat("\nAdjusted Rand Index:",
-      arandi(point_estimate, true_labels), "\n")
+  cat(
+    "\nAdjusted Rand Index:",
+    arandi(point_estimate, true_labels), "\n"
+  )
 
   #### NMI
-  cat("Normalized Mutual Information:",
-      NMI(point_labels, true_labels), "\n")
+  cat(
+    "Normalized Mutual Information:",
+    NMI(point_labels, true_labels), "\n"
+  )
 
   #### VI
   cat("Variation of Information:", NVI(point_labels, true_labels), "\n")
@@ -292,8 +308,10 @@ plot_trace_U <- function(results, BI, save = FALSE, folder = "results/plots/") {
   draw_plot <- function() {
     plot(U_after_burnin, type = "l", xlab = "Iteration", ylab = "U")
     abline(h = mean(U_after_burnin), col = "red", lty = 2)
-    legend("topright", legend = sprintf("Mean U = %.3f", mean(U_after_burnin)),
-           col = "red", lty = 2, bty = "n")
+    legend("topright",
+      legend = sprintf("Mean U = %.3f", mean(U_after_burnin)),
+      col = "red", lty = 2, bty = "n"
+    )
     title(main = sprintf("Trace of U over MCMC iterations\n(mean U = %.3f)", mean(U_after_burnin)))
   }
 
@@ -339,20 +357,20 @@ plot_acf_U <- function(results, BI, save = FALSE, folder = "results/plots/") {
 
 plot_k_means <- function(dist_matrix, max_k = 10) {
   # Ensure dist_matrix is in the right format
-  if(!inherits(dist_matrix, "dist")) {
+  if (!inherits(dist_matrix, "dist")) {
     dist_matrix <- as.dist(dist_matrix)
   }
 
   mds_result <- cmdscale(dist_matrix, k = 2)
-  
+
   # Step 1: Compute elbow method for K selection using kmeans
   wss <- numeric(max_k)
-  
+
   for (k in 1:max_k) {
     kmeans_result <- kmeans(mds_result, centers = k, nstart = 25)
     wss[k] <- kmeans_result$tot.withinss
   }
-  
+
   # Plot the elbow curve
   elbow_data <- data.frame(K = 1:max_k, WSS = wss)
   elbow_plot <- ggplot(elbow_data, aes(x = K, y = WSS)) +
@@ -364,9 +382,9 @@ plot_k_means <- function(dist_matrix, max_k = 10) {
       y = "Total Dissimilarity"
     ) +
     theme_minimal()
-  
+
   print(elbow_plot)
-  
+
   # Return the WSS values for further analysis
   return(invisible(elbow_data))
 }
@@ -395,8 +413,10 @@ plot_data <- function(all_data, cluster_labels, save = FALSE, folder = "results/
 
   # Save the plot
   if (save) {
-    ggsave(filename = paste0(folder, "data_clusters.png"), 
-           plot = p3, width = 8, height = 6)
+    ggsave(
+      filename = paste0(folder, "data_clusters.png"),
+      plot = p3, width = 8, height = 6
+    )
   }
 }
 
@@ -415,9 +435,11 @@ plot_cls_est <- function(results, BI, save = FALSE, folder = "results/plots/") {
   )
 
   #### Get point estimate using Variation of Information (VI) loss
-  point_estimate <- salso::salso(C, loss = "VI",
-                                 maxNClusters = 200,
-                                 maxZealousAttempts = 1000)
+  point_estimate <- salso::salso(C,
+    loss = "VI",
+    maxNClusters = 200,
+    maxZealousAttempts = 1000
+  )
 
   #### Print results
   cat("=== SALSO Clustering Results (Post Burn-in) ===\n")
@@ -433,7 +455,7 @@ plot_cls_est <- function(results, BI, save = FALSE, folder = "results/plots/") {
   return(invisible(point_estimate))
 }
 
-plot_map_cls <- function(results, BI, save = FALSE,
+plot_map_cls <- function(results, BI, point_estimate = NULL, save = FALSE,
                          folder = "results/plots/",
                          puma_dir = "input/counties-pumas",
                          id_col = "PUMA",
@@ -446,8 +468,6 @@ plot_map_cls <- function(results, BI, save = FALSE,
   if (length(shp) == 0) {
     stop("No .shp file found in '", puma_dir, "'.")
   }
-
-  point_estimate <- plot_cls_est(results, BI = BI)
   if (is.null(names(point_estimate))) {
     candidate_ids <- unit_ids %||% results$unit_ids %||% results$puma_ids
     if (is.null(candidate_ids) || length(candidate_ids) != length(point_estimate)) {
@@ -457,12 +477,19 @@ plot_map_cls <- function(results, BI, save = FALSE,
   }
 
   geom <- sf::st_read(shp[1], quiet = TRUE)
+  geom[[id_col]] <- as.character(geom[[id_col]])
+
   cluster_df <- tibble::tibble(
     id = names(point_estimate),
     cluster = factor(point_estimate)
   )
   names(cluster_df)[1] <- id_col
-  geom <- dplyr::left_join(geom, cluster_df, by = id_col)
+  cluster_df[[id_col]] <- as.character(cluster_df[[id_col]])
+
+  geom <- dplyr::inner_join(geom, cluster_df, by = id_col)
+  geom <- geom |>
+    dplyr::group_by(dplyr::across(dplyr::all_of(id_col)), cluster) |>
+    dplyr::summarise(geometry = sf::st_union(geometry), .groups = "drop")
 
   p <- ggplot2::ggplot(geom) +
     ggplot2::geom_sf(aes(fill = cluster), color = "grey60", size = 0.2) +
@@ -483,10 +510,10 @@ plot_map_cls <- function(results, BI, save = FALSE,
   invisible(p)
 }
 
-plot_map_prior_mean <- function (save = FALSE, folder = "results/plots/",
-                                 puma_dir = "input/counties-pumas",
-                                 id_col = "PUMA",
-                                 unit_ids = NULL) {
+plot_map_prior_mean <- function(save = FALSE, folder = "results/plots/",
+                                puma_dir = "input/counties-pumas",
+                                id_col = "PUMA",
+                                unit_ids = NULL) {
   if (!requireNamespace("sf", quietly = TRUE)) {
     stop("Package 'sf' is required for plot_map_prior_mean().")
   }
@@ -535,9 +562,9 @@ plot_map_prior_mean <- function (save = FALSE, folder = "results/plots/",
   invisible(p)
 }
 
-plot_hist_cls <- function(results, BI, save = FALSE, folder = "results/plots/") {
+plot_hist_cls <- function(results, BI, point_estimate = NULL, save = FALSE, folder = "results/plots/") {
   load("input/full_dataset.dat")
-  point_estimate <- plot_cls_est(results, BI = BI)
+
   unique_clusters <- sort(unique(point_estimate))
   n_clusters <- length(unique_clusters)
 
@@ -551,24 +578,26 @@ plot_hist_cls <- function(results, BI, save = FALSE, folder = "results/plots/") 
       cat("\n⚠️  WARNING: Only 1 cluster found. Showing overall distribution.\n")
       combined_data <- unlist(data)
       hist(combined_data,
-           breaks = 30,
-           main = paste("Single Cluster Distribution\n(n_pumas =", length(data), ")"),
-           xlab = "Income Value",
-           ylab = "Density",
-           col = "steelblue",
-           border = "white",
-           probability = TRUE)
+        breaks = 30,
+        main = paste("Single Cluster Distribution\n(n_pumas =", length(data), ")"),
+        xlab = "Income Value",
+        ylab = "Density",
+        col = "steelblue",
+        border = "white",
+        probability = TRUE
+      )
       if (length(unique(combined_data)) > 1) {
         lines(density(combined_data), col = "red", lwd = 2)
       }
       legend("topleft",
-             legend = c(
-               paste("Mean:", round(mean(combined_data), 2)),
-               paste("SD:", round(sd(combined_data), 2)),
-               paste("N obs:", length(combined_data))
-             ),
-             bty = "n",
-             cex = 0.9)
+        legend = c(
+          paste("Mean:", round(mean(combined_data), 2)),
+          paste("SD:", round(sd(combined_data), 2)),
+          paste("N obs:", length(combined_data))
+        ),
+        bty = "n",
+        cex = 0.9
+      )
 
       cat("\nOverall statistics:\n")
       cat("Mean:", mean(combined_data), "\n")
@@ -595,13 +624,14 @@ plot_hist_cls <- function(results, BI, save = FALSE, folder = "results/plots/") 
         n_pumas <- length(cluster_data)
         combined_data <- unlist(cluster_data)
         hist(combined_data,
-             breaks = 30,
-             main = paste("Cluster", cl, "\n(n =", n_pumas, "PUMAs)"),
-             xlab = "Income Value",
-             ylab = "Density",
-             col = rainbow(n_clusters, alpha = 0.6)[as.numeric(cl)],
-             border = "white",
-             probability = TRUE)
+          breaks = 30,
+          main = paste("Cluster", cl, "\n(n =", n_pumas, "PUMAs)"),
+          xlab = "Income Value",
+          ylab = "Density",
+          col = rainbow(n_clusters, alpha = 0.6)[as.numeric(cl)],
+          border = "white",
+          probability = TRUE
+        )
         if (length(unique(combined_data)) > 1) {
           lines(density(combined_data), col = "black", lwd = 2)
         }
@@ -612,13 +642,14 @@ plot_hist_cls <- function(results, BI, save = FALSE, folder = "results/plots/") 
         cat("  SD:", sd(combined_data), "\n")
 
         legend("topleft",
-        legend = c(
-          paste("Mean:", round(mean(combined_data), 2)),
-          paste("SD:", round(sd(combined_data), 2)),
-          paste("N obs:", length(combined_data))
-        ),
-        bty = "n",
-        cex = 0.9)
+          legend = c(
+            paste("Mean:", round(mean(combined_data), 2)),
+            paste("SD:", round(sd(combined_data), 2)),
+            paste("N obs:", length(combined_data))
+          ),
+          bty = "n",
+          cex = 0.9
+        )
       }
     }
   }
@@ -636,9 +667,12 @@ plot_hist_cls <- function(results, BI, save = FALSE, folder = "results/plots/") 
       grDevices::png(filename = out_file, width = 2400, height = 1800, res = 300, type = png_type)
     }
     device_opened <- TRUE
-    on.exit({
-      if (device_opened) grDevices::dev.off()
-    }, add = TRUE)
+    on.exit(
+      {
+        if (device_opened) grDevices::dev.off()
+      },
+      add = TRUE
+    )
   }
 
   draw_histograms()

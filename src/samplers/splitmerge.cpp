@@ -85,7 +85,7 @@ void SplitMerge::restricted_gibbs(int iterations, bool only_probabilities) {
   for (int i = 0; i < iterations; ++i) {
     for (int idx = 0; idx < S.size(); ++idx) {
       int point_idx = S(idx);
-      int current_cluster = launch_state(idx);
+      int current_cluster = data.get_cluster_assignment(point_idx);
 
       // Remove point from its current cluster
       data.set_allocation(point_idx, -1); // Temporarily unassign the point
@@ -117,6 +117,7 @@ void SplitMerge::restricted_gibbs(int iterations, bool only_probabilities) {
         // if last iteration, accumulate the log probability of the move
         if (i == iterations - 1)
           log_split_gibbs_prob += log(probs(new_cluster_idx));
+
       } else {
         // Just restore the previous allocation
         data.set_allocation(point_idx, current_cluster);
@@ -177,8 +178,7 @@ void SplitMerge::merge_move() {
   // launch state
   restricted_gibbs(1, true); // Compute probability of current allocation
 
-  data.set_allocation(
-      idx_j, ci); // Temporarily assign j to ci for likelihood computation
+  data.set_allocation( idx_j, ci); // Temporarily assign j to ci for likelihood computation
 
   // Propose new allocations by merging clusters ci and cj
   for (int idx = 0; idx < launch_state.size(); ++idx) {
@@ -188,8 +188,7 @@ void SplitMerge::merge_move() {
   }
 
   // Compute acceptance ratio
-  double acceptance_ratio =
-      compute_acceptance_ratio_merge(likelihood_old_ci, likelihood_old_cj);
+  double acceptance_ratio = compute_acceptance_ratio_merge(likelihood_old_ci, likelihood_old_cj);
 
   // Rcpp::Rcout << "[DEBUG - Merge] acceptance_ratio: " << acceptance_ratio
   //             << std::endl;
@@ -218,14 +217,11 @@ void SplitMerge::split_move() {
                                             // if they are in the same cluster
   cj = data.get_cluster_assignment(idx_j); // Update cj to the new cluster index
 
-  // Propose new allocations by splitting cluster ci into ci and cj based on
-  // distances
+  std::uniform_int_distribution<> dis(0, 1);
   for (int idx = 0; idx < launch_state.size(); ++idx) {
-    int point = S(idx);
-    double dist_to_i = data.get_distance(point, idx_i);
-    double dist_to_j = data.get_distance(point, idx_j);
-    int new_cluster = (dist_to_i < dist_to_j) ? ci : cj;
-    data.set_allocation(point, new_cluster);
+      int point = S(idx);
+      int new_cluster = (dis(gen) == 0) ? ci : cj;  // Random
+      data.set_allocation(point, new_cluster);
   }
 
   // Perform restricted Gibbs sampling to refine the allocations
@@ -297,13 +293,11 @@ void SplitMerge::shuffle() {
   restricted_gibbs(5);
 
   // Compute acceptance ratio
-  double log_acceptance_ratio = compute_acceptance_ratio_shuffle(
-      likelihood_old_ci, likelihood_old_cj, old_ci_size, old_cj_size);
+  double log_acceptance_ratio = compute_acceptance_ratio_shuffle(likelihood_old_ci, likelihood_old_cj, old_ci_size, old_cj_size);
 
   // Accept or reject the move
   std::uniform_real_distribution<> acceptance_ratio_dis(0.0, 1.0);
-  if (log(acceptance_ratio_dis(gen)) >
-      log_acceptance_ratio) // move not accepted
+  if (log(acceptance_ratio_dis(gen)) > log_acceptance_ratio) // move not accepted
     data.set_allocations(original_allocations);
   else
     accepted_shuffle++;
@@ -344,7 +338,7 @@ void SplitMerge::choose_clusters_shuffle() {
    */
 
   if (data.get_K() < 2){
-    std::cout << "Not enough clusters to perform shuffle." << std::endl;
+    //std::cout << "Not enough clusters to perform shuffle." << std::endl;
     return;
   }
 

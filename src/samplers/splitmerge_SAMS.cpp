@@ -94,6 +94,12 @@ void SplitMerge_SAMS::sequential_allocation(int iterations, bool only_probabilit
       int point_idx = S(idx);
       int current_cluster = launch_state(idx);
 
+      if(!sequential){
+        current_cluster = data.get_cluster_assignment(point_idx);
+        // Unallocate point only if using restricted Gibbs sampling
+        data.set_allocation(point_idx, -1);
+      }
+
       // Compute probabilities for each cluster (ci and cj)
       Eigen::Vector2d log_probs;
 
@@ -274,10 +280,10 @@ void SplitMerge_SAMS::shuffle() {
   int old_cj_size = data.get_cluster_size(cj);
 
   // Compute probabilities
-  sequential_allocation(1, true, false); // only compute probabilities
+  sequential_allocation(1, true, true); // only compute probabilities
 
   // Use restricted gibbs to refine the allocations
-  sequential_allocation(3, false, false);
+  sequential_allocation(1, false, true);
 
   // Compute acceptance ratio
   double log_acceptance_ratio = compute_acceptance_ratio_shuffle(likelihood_old_ci, likelihood_old_cj, old_ci_size, old_cj_size);
@@ -322,7 +328,7 @@ void SplitMerge_SAMS::choose_clusters_shuffle() {
    */
 
   if (data.get_K() < 2){
-    std::cout << "Not enough clusters to perform shuffle." << std::endl;
+    //std::cout << "Not enough clusters to perform shuffle." << std::endl;
     return;
   }
 
