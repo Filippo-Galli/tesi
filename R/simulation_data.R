@@ -9,32 +9,33 @@ set.seed(44)
 ##############################################################################
 
 # ## Load simulated data
-sigma <- .2
-d <- 50
-namefile <- paste0("Natarajan_", sigma, "sigma_", d, "d")
-folder <- paste0("simulation_data/", namefile)
-all_data <- readRDS(file = paste0(folder, "/all_data.rds"))
-ground_truth <- readRDS(file = paste0(folder, "/ground_truth.rds"))
-dist_matrix <- readRDS(file = paste0(folder, "/dist_matrix.rds"))
+# sigma <- .2
+# d <- 50
+# namefile <- paste0("Natarajan_", sigma, "sigma_", d, "d")
+# folder <- paste0("simulation_data/", namefile)
+# all_data <- readRDS(file = paste0(folder, "/all_data.rds"))
+# ground_truth <- readRDS(file = paste0(folder, "/ground_truth.rds"))
+# dist_matrix <- readRDS(file = paste0(folder, "/dist_matrix.rds"))
 
 ## Load real data
-# files_folder <- "real_data"
-# files <- list.files(files_folder)
-# file_chosen <- files[7]
-# dist_matrix <- readRDS(file = paste0(files_folder, "/", file_chosen))
-# plot_distance(dist_matrix)
+files_folder <- "real_data"
+files <- list.files(files_folder)
+file_chosen <- files[22] # 7, 14, 22
+dist_matrix <- readRDS(file = paste0(files_folder, "/", file_chosen))
+plot_distance(dist_matrix)
 
 if (min(dist_matrix) <= 0) {
   dist_matrix <- dist_matrix + 1e-3
 }
+diag(dist_matrix) <- 0
 
 ##############################################################################
 # Spatial Adjacency Matrix ====
 ##############################################################################
 
 ## Retrieve spatial adjacency matrix W from distance matrix
-W <- retrieve_W(dist_matrix)
-# W <- readRDS(file = "real_data/adj_matrix.rds")
+# W <- retrieve_W(dist_matrix)
+W <- readRDS(file = "real_data/adj_matrix.rds")
 
 # Check is W is symmetric
 if (!isSymmetric(W)) {
@@ -67,7 +68,7 @@ param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  2000, 5000, 1, # BI, NI, a,
+  10000, 10000, 1, # BI, NI, a,
   0.1, 1, 1, # sigma, tau, coeff spatial dependence
   dist_matrix, W # distance matrix, Spatial adjacency matrix
 )
@@ -102,12 +103,13 @@ results <- capture.output(
 ##############################################################################
 # Save Results (Optional) ====
 ##############################################################################
-#data_type <- paste0(files_folder, "_", file_chosen) # "simulation_data" or "real_data_{distance_used}"
-#process <- "NGGPW" # Process type: "DP", "DPW", "NGGP", "NGGPW"
-#method <- "Neal1+SM5" # MCMC method used
-#initialization <- "kmeans" # Initialization strategy
-#filename <- paste0(data_type, "_", process, "_", method, "_", initialization, "_")
-#save_with_name(folder, param, filename)
+file_chosen <- sub("\\.rds$", "", file_chosen)
+data_type <- paste0(files_folder, "_", file_chosen) # "simulation_data" or "real_data_{distance_used}"
+process <- "NGGPW" # Process type: "DP", "DPW", "NGGP", "NGGPW"
+method <- "SM25+Neal1" # MCMC method used
+initialization <- "kmeans" # Initialization strategy
+filename <- paste0(data_type, "_", process, "_", method, "_", initialization, "_")
+save_with_name(folder, param, filename)
 
 ##############################################################################
 # Visualization (Optional) ====
@@ -119,13 +121,17 @@ plot_post_sim_matrix(mcmc_result, BI = param$BI)
 plot_trace_U(mcmc_result, BI = param$BI)
 plot_acf_U(mcmc_result, BI = param$BI)
 plot_cls_est(mcmc_result, BI = param$BI)
-plot_stats(mcmc_result, ground_truth, BI = param$BI)
+# plot_stats(mcmc_result, ground_truth, BI = param$BI)
 
-# puma_ids <- sf::st_read("input/counties-pumas/counties-pumas.shp", quiet = TRUE)[["PUMA"]]
-# plot_map_cls(
-#   results = mcmc_result,
-#   BI = param$BI,
-#   unit_ids = puma_ids
-# )
+puma_ids <- sf::st_read("input/counties-pumas/counties-pumas.shp", quiet = TRUE)[["PUMA"]]
+plot_map_prior_mean(unit_ids = puma_ids)
+plot_map_cls(
+  results = mcmc_result,
+  BI = param$BI,
+  unit_ids = puma_ids
+)
 
-# plot_map_prior_mean(unit_ids = puma_ids)
+plot_hist_cls(
+  results = mcmc_result,
+  BI = param$BI
+)

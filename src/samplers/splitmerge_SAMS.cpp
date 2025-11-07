@@ -62,15 +62,32 @@ void SplitMerge_SAMS::choose_indeces() {
     }
   }
 
-// Ensure we collected the expected number of points
-#if VERBOSITY_LEVEL >= 1
-  if (s_idx != launch_state_size) { // since s_idx is zero-based
-    // Rcpp::Rcout << "[ERROR] s_idx = " << s_idx << ", launch_state_size = " <<
-    // launch_state_size << std::endl;
-    throw std::runtime_error(
-        "Mismatch in expected cluster sizes during split-merge initialization");
+  // Shuffle the launch_state and S in unison to ensure randomness
+  std::vector<int> indices(launch_state_size);
+  for (size_t i = 0; i < launch_state_size; ++i) {
+    indices[i] = i;
   }
-#endif
+  std::shuffle(indices.begin(), indices.end(), gen);
+
+  Eigen::VectorXi shuffled_launch_state(launch_state_size);
+  Eigen::VectorXi shuffled_S(launch_state_size);
+  for (size_t i = 0; i < launch_state_size; ++i)
+  {
+    shuffled_launch_state(i) = launch_state(indices[i]);
+    shuffled_S(i) = S(indices[i]);
+  }
+  launch_state = shuffled_launch_state;
+  S = shuffled_S;  
+
+  // Ensure we collected the expected number of points
+  #if VERBOSITY_LEVEL >= 1
+    if (s_idx != launch_state_size) { // since s_idx is zero-based
+      // Rcpp::Rcout << "[ERROR] s_idx = " << s_idx << ", launch_state_size = " <<
+      // launch_state_size << std::endl;
+      throw std::runtime_error(
+          "Mismatch in expected cluster sizes during split-merge initialization");
+    }
+  #endif
 }
 
 void SplitMerge_SAMS::sequential_allocation(int iterations, bool only_probabilities, bool sequential) {

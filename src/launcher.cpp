@@ -159,11 +159,11 @@ mcmc(Params &param,
     process.update_params();
 
     // Perform one MCMC step using the chosen sampler
-    gibbs.step();
+    sampler.step();
 
     // Optional: Perform Gibbs step 
-    // if(i % 25 == 0)
-    //   gibbs.step();
+    if(i % 25 == 0)
+      gibbs.step();
 
     // Store results for current iteration
     Rcpp::as<Rcpp::List>(results["allocations"])[i] = Rcpp::wrap(data.get_allocations());
