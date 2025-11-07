@@ -159,10 +159,7 @@ mcmc(Params &param,
     process.update_params();
 
     // Perform one MCMC step using the chosen sampler
-    sampler.step();
-
-    // if(i % 10 == 0)
-    //   sm.step();
+    gibbs.step();
 
     // Optional: Perform Gibbs step 
     // if(i % 25 == 0)

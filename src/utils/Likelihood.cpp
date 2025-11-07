@@ -55,7 +55,7 @@ double Likelihood::cluster_loglikelihood(int cluster_index, const Eigen::Ref<con
       for (int j = 0; j < n_t; ++j) {
         double dist = params.D(cls_ass_k(i), cls_ass_t(j));
         // Add small epsilon to prevent log(0) = -inf
-        log_prod += log(dist + 1e-10);
+        log_prod += log_D(cls_ass_k(i), cls_ass_t(j));
         sum += dist;
       }
     }
@@ -83,7 +83,7 @@ double Likelihood::cluster_loglikelihood(int cluster_index, const Eigen::Ref<con
     for (int j = i + 1; j < n_k; ++j) {
       double dist = params.D(cls_ass_k(i), cls_ass_k(j));
       // Add small epsilon to prevent log(0) = -inf
-      log_prod += log(dist + 1e-10);
+      log_prod += log_D(cls_ass_k(i), cls_ass_k(j));
       sum += dist;
     }
   }
@@ -133,7 +133,7 @@ double Likelihood::compute_cohesion(int point_index, int cluster_index,
   for (int i = 0; i < n_k; ++i) {
     double dist = params.D(point_index, cls_ass_k(i));
     sum_i += dist;
-    log_prod_i += log(dist + 1e-10);
+    log_prod_i += log_D(point_index, cls_ass_k(i));
   }    
 
   // Posterior parameters for gamma distribution
@@ -181,7 +181,7 @@ double Likelihood::compute_repulsion(int point_index, int cluster_index, const E
     for (int j = 0; j < n_t; ++j) {
       double point_dist = params.D(point_index, cls_ass_t(j));
       sum_i += point_dist;
-      log_point_prod += log(point_dist + 1e-10); // Add epsilon to prevent log(0)
+      log_point_prod += log_D(point_index, cls_ass_t(j)); 
     }
 
     // Posterior parameters for gamma distribution

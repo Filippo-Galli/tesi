@@ -27,6 +27,7 @@ private:
   const double log_beta_alpha = log(params.beta) * params.alpha - lgamma(params.alpha); ///< log(β^α / Γ(α)) - cached for cohesion normalization
   const double lgamma_delta2 = lgamma(params.delta2); ///< log(Γ(δ₂)) - cached for repulsion calculations
   const double log_gamma_zeta = log(params.gamma) * params.zeta - lgamma(params.zeta); ///< log(γ^ζ / Γ(ζ)) - cached for repulsion normalization
+  const Eigen::MatrixXd log_D = params.D.array().log().matrix(); ///< Precomputed log distance matrix
 
   /**
    * @brief Computes the cohesion component of the likelihood for a point
@@ -63,7 +64,7 @@ public:
    * @param param Reference to model parameters
    */
   Likelihood(const Data &data, const Params &param)
-      : data(data), params(param) {}
+      : data(data), params(param){}
 
   /**
    * @brief Calculates the full log-likelihood of a cluster
