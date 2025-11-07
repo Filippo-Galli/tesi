@@ -57,11 +57,11 @@ protected:
 
   /** @brief Reference to the parameters object containing model hyperparameters
    * and MCMC settings */
-  Params &params;
+  const Params &params;
 
   /** @brief Reference to the likelihood computation object for evaluating
    * cluster assignments */
-  Likelihood &likelihood;
+  const Likelihood &likelihood;
 
   /** @brief Reference to the stochastic process object (DP, NGGP, DPW, NGGPW)
    */
@@ -95,7 +95,7 @@ public:
    * - Different Likelihood models handle various data types and distributions
    * - Parameter settings control burn-in, iterations, and hyperparameter values
    */
-  Sampler(Data &d, Params &p, Likelihood &l, Process &pr)
+  Sampler(Data &d, const Params &p, const Likelihood &l, Process &pr)
       : data(d), params(p), likelihood(l), process(pr) {};
 
   // ========== Pure Virtual Interface ==========

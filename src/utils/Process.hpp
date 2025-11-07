@@ -46,7 +46,7 @@ protected:
 
   /** @brief Reference to the parameters object containing process
    * hyperparameters */
-  Params &params;
+  const Params &params;
 
   /** @brief Storage for previous allocations to enable rollback in case of
    * rejection or for computation requiring it*/
@@ -81,7 +81,7 @@ public:
    * @details Initializes the process and stores a copy of current allocations
    * for potential rollback operations during split-merge moves.
    */
-  Process(Data &d, Params &p) : data(d), params(p) {
+  Process(Data &d, const Params &p) : data(d), params(p) {
     old_allocations = data.get_allocations();
   };
 

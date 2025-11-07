@@ -389,8 +389,7 @@ void SplitMerge::step() {
    */
 
   choose_indeces();
-  process.set_old_allocations(
-      data.get_allocations()); // Update old allocations in the process
+  process.set_old_allocations(data.get_allocations()); // Update old allocations in the process
   process.set_idx_i(idx_i);
   process.set_idx_j(idx_j);
 
