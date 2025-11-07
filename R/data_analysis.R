@@ -63,7 +63,7 @@ for (i in seq_along(histograms_list)) {
                              histograms_list[[j]],
                              type = "Wasserstein")
 
-    distance_mean[i, j] <- sqrt(abs(mean(data[[i]])^2 - mean(data[[j]])^2))
+    distance_mean[i, j] <- abs(mean(data[[i]]) - mean(data[[j]]))
   }
 }
 
@@ -98,18 +98,18 @@ plot_distance(distance_mean,
 
 # # Save distance matrices
 folder <- "real_data"
-# saveRDS(distance_hist_intersection,
-#         file = paste0(folder, "/distance_hist_intersection.rds"))
-# saveRDS(distance_jeff_divergences,
-#         file = paste0(folder, "/distance_jeff_divergences.rds"))
-# saveRDS(distance_chi_squared,
-#         file = paste0(folder, "/distance_chi_squared.rds"))
-# saveRDS(distance_euclidean,
-#         file = paste0(folder, "/distance_euclidean.rds"))
-# saveRDS(distance_cm,
-#         file = paste0(folder, "/distance_cm.rds"))
-# saveRDS(distance_wasserstein,
-#         file = paste0(folder, "/distance_wasserstein.rds"))
+saveRDS(distance_hist_intersection,
+        file = paste0(folder, "/distance_hist_intersection.rds"))
+saveRDS(distance_jeff_divergences,
+        file = paste0(folder, "/distance_jeff_divergences.rds"))
+saveRDS(distance_chi_squared,
+        file = paste0(folder, "/distance_chi_squared.rds"))
+saveRDS(distance_euclidean,
+        file = paste0(folder, "/distance_euclidean.rds"))
+saveRDS(distance_cm,
+        file = paste0(folder, "/distance_cm.rds"))
+saveRDS(distance_wasserstein,
+        file = paste0(folder, "/distance_wasserstein.rds"))
 saveRDS(distance_mean,
         file = paste0(folder, "/distance_mean.rds"))
 

@@ -377,7 +377,7 @@ plot_k_means <- function(dist_matrix, max_k = 10) {
     geom_line() +
     geom_point() +
     labs(
-      title = "Elbow Method for Optimal K (K-Medoids/PAM)",
+      title = "Elbow Method for Optimal K (k-means)",
       x = "Number of Clusters (K)",
       y = "Total Dissimilarity"
     ) +
@@ -465,6 +465,7 @@ plot_map_cls <- function(results, BI, point_estimate = NULL, save = FALSE,
   }
 
   shp <- list.files(puma_dir, pattern = "\\.shp$", full.names = TRUE)
+  point_estimate <- plot_cls_est(results, BI, save = FALSE)
   if (length(shp) == 0) {
     stop("No .shp file found in '", puma_dir, "'.")
   }
@@ -565,6 +566,10 @@ plot_map_prior_mean <- function(save = FALSE, folder = "results/plots/",
 plot_hist_cls <- function(results, BI, point_estimate = NULL, save = FALSE, folder = "results/plots/") {
   load("input/full_dataset.dat")
 
+  if (is.null(point_estimate)) {
+    point_estimate <- plot_cls_est(results, BI, save = FALSE)
+  }
+  
   unique_clusters <- sort(unique(point_estimate))
   n_clusters <- length(unique_clusters)
 
