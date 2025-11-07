@@ -9,6 +9,7 @@
 #include <Rcpp.h>
 #include <RcppEigen.h>
 #include <unordered_map>
+#include "Params.hpp"
 
 // compilation time verbosity level
 #ifndef VERBOSITY_LEVEL
@@ -25,8 +26,8 @@
  */
 class Data {
 private:
-  Eigen::MatrixXd D; ///< Distance matrix between all points
-  int n;             ///< Number of points
+
+  const Params& params; ///< Reference to model parameters
 
   Eigen::VectorXi allocations; ///< Cluster allocation for each point
   int K;                       ///< Current number of clusters
@@ -43,13 +44,11 @@ private:
 public:
   /**
    * @brief Constructs a Data object with a distance matrix
-   * @param distances Square matrix of pairwise distances between points
    * @param initial_allocations Optional initial cluster assignments (default:
    * all in one cluster)
    * @throws std::invalid_argument if distance matrix is not square
    */
-  Data(const Eigen::MatrixXd &distances,
-       const Eigen::VectorXi &initial_allocations = Eigen::VectorXi());
+  Data(const Params& p, const Eigen::VectorXi &initial_allocations = Eigen::VectorXi());
 
   // Getters
 
@@ -65,7 +64,7 @@ public:
    * @brief Gets the total number of points
    * @return Number of points
    */
-  int get_n() const { return n; }
+  int get_n() const { return params.n; }
 
   /**
    * @brief Gets the current number of clusters
@@ -98,7 +97,7 @@ public:
    * @throws std::out_of_range if index is out of bounds
    */
   int get_cluster_assignment(int index) const {
-    if (index < 0 || index >= n) {
+    if (index < 0 || index >= params.n) {
       throw std::out_of_range("Index out of bounds in get_cluster_assignment");
     }
     return allocations(index);

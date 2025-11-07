@@ -7,15 +7,8 @@
 #include "Eigen/src/Core/Matrix.h"
 #include <iostream>
 
-Data::Data(const Eigen::MatrixXd &distances,
-           const Eigen::VectorXi &initial_allocations)
-    : D(distances), allocations(initial_allocations) {
-
-  if (distances.rows() != distances.cols()) {
-    throw std::invalid_argument("Distance matrix must be square");
-  }
-
-  n = distances.rows();
+Data::Data(const Params& p, const Eigen::VectorXi &initial_allocations)
+    : params(p), allocations(initial_allocations) {
 
   // Initialize K (number of clusters) based on initial allocations
   if (allocations.size() == 0) {
@@ -23,14 +16,14 @@ Data::Data(const Eigen::MatrixXd &distances,
                  "points in one cluster."
               << std::endl;
     // If no initial allocations provided, start with all points in one cluster
-    allocations = Eigen::VectorXi::Zero(n);
+    allocations = Eigen::VectorXi::Zero(params.n);
   }
 
   // Find the maximum cluster index to determine K
   K = allocations.maxCoeff() + 1;
 
   // Allocate cluster mapping
-  for (int i = 0; i < n; ++i) {
+  for (int i = 0; i < params.n; ++i) {
     int cluster_id = allocations(i);
     if (cluster_id >= 0) {
       cluster_members[cluster_id].push_back(i);
@@ -45,7 +38,7 @@ double Data::get_distance(int i, int j) const {
     }
   #endif
 
-  return D(i, j);
+  return params.D(i, j);
 }
 
 Eigen::VectorXi Data::get_cluster_assignments(int cluster) const {
@@ -212,7 +205,7 @@ void Data::set_allocations(const Eigen::VectorXi &new_allocations) {
 
   // Update cluster members mapping
   cluster_members.clear();
-  for (int i = 0; i < n; ++i)
+  for (int i = 0; i < params.n; ++i)
     cluster_members[allocations(i)].push_back(i);
 
   // Update K based on the new allocations

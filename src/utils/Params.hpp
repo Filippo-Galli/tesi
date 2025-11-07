@@ -80,6 +80,12 @@ struct Params {
   /** @brief Adjacency matrix defining spatial neighborhood structure */
   Eigen::MatrixXi W;
 
+  /** @brief Distance matrix */
+  Eigen::MatrixXd D; 
+
+  /** @brief Number of points */
+  int n;
+
   /**
    * @brief Constructor with default parameter values
    *
@@ -95,15 +101,16 @@ struct Params {
    * @param sigma NGGP second parameter (default: 1.0)
    * @param tau NGGP third parameter (default: 1.0)
    * @param coefficient Spatial dependency coefficient (default: 1)
+   * @param D Distance matrix (default: empty matrix)
    * @param W Adjacency matrix (default: empty matrix)
    */
   Params(double delta1 = 0.5, double alpha = 2, double beta = 2,
          double delta2 = 2, double gamma = 2, double zeta = 2, int BI = 1000,
          int NI = 10000, double a = 1.0, double sigma = 1.0, double tau = 1.0,
-         double coefficient = 1, Eigen::MatrixXi W = Eigen::MatrixXi())
+         double coefficient = 1, Eigen::MatrixXd D = Eigen::MatrixXd(), Eigen::MatrixXi W = Eigen::MatrixXi())
       : delta1(delta1), alpha(alpha), beta(beta), delta2(delta2), gamma(gamma),
         zeta(zeta), BI(BI), NI(NI), a(a), sigma(sigma), tau(tau),
-        coefficient(coefficient), W(W) {}
+        coefficient(coefficient), D(D), W(W) { n = D.rows(); }
 };
 
 // Expose Params to R

@@ -44,7 +44,7 @@
 RCPP_MODULE(params_module) {
   Rcpp::class_<Params>("Params")
       .constructor<double, double, double, double, double, double, int, int,
-                   double, double, double, double, Eigen::MatrixXi>("Constructor with W matrix")
+                   double, double, double, double, Eigen::MatrixXd, Eigen::MatrixXi>("Constructor with W matrix")
       .constructor("Default constructor")
       .field("delta1", &Params::delta1, "Parameter for the first gamma")
       .field("alpha", &Params::alpha, "Parameter for the lambda_k gamma")
@@ -59,6 +59,7 @@ RCPP_MODULE(params_module) {
       .field("tau", &Params::tau, "Third parameter of the NGGP")
       .field("coefficient", &Params::coefficient,
              "Coefficient for the spatial dependency")
+      .field("D", &Params::D, "Distance matrix between points")
       .field("W", &Params::W, "Adjacency matrix for the points");
 }
 
@@ -70,7 +71,6 @@ RCPP_MODULE(params_module) {
  * supports different process types (DP, DPW, NGGP, NGGPW) and sampling
  * algorithms (Neal3, Split-Merge).
  *
- * @param distances A matrix of distances between data points (Eigen::MatrixXd)
  * @param param Reference to a Params object containing all MCMC parameters and
  * hyperparameters
  * @param initial_allocations_r Optional initial cluster allocations
@@ -96,7 +96,7 @@ RCPP_MODULE(params_module) {
  */
 // [[Rcpp::export]]
 Rcpp::List
-mcmc(const Eigen::MatrixXd &distances, Params &param,
+mcmc(Params &param,
      const Rcpp::IntegerVector &initial_allocations_r = Rcpp::IntegerVector()) {
 
   std::ios::sync_with_stdio(false); // Disable synchronization for faster I/O and non-blocking output
@@ -109,7 +109,7 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   }
 
   // Initialize data structure with distances and optional initial allocations
-  Data data(distances, initial_allocations);
+  Data data(param, initial_allocations);
 
   // Initialize likelihood computation object
   Likelihood likelihood(data, param);
@@ -131,7 +131,7 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
 
   // Choose the main sampling strategy:
   SplitMerge sampler(data,param, likelihood, process, true); // Split-Merge sampler
-  // SplitMerge_SAMS sampler(data, param, likelihood, process, true);    // Split-Merge with SAMS 
+  //SplitMerge_SAMS sampler(data, param, likelihood, process, true);    // Split-Merge with SAMS 
   // SplitMerge_SDDS sampler(data, param, likelihood, process, true);    // Split-Merge with SDDS
 
   // Initialize results container to store MCMC output
@@ -161,9 +161,12 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
     // Perform one MCMC step using the chosen sampler
     sampler.step();
 
+    // if(i % 10 == 0)
+    //   sm.step();
+
     // Optional: Perform Gibbs step 
-    if(i % 25 == 0)
-      gibbs.step();
+    // if(i % 25 == 0)
+    //   gibbs.step();
 
     // Store results for current iteration
     Rcpp::as<Rcpp::List>(results["allocations"])[i] = Rcpp::wrap(data.get_allocations());
@@ -189,9 +192,9 @@ mcmc(const Eigen::MatrixXd &distances, Params &param,
   std::cout << "MCMC completed in : " << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() << " seconds." << std::endl;
   std::cout << "U acceptance rate: " << U_sampler.get_acceptance_rate() * 100 << " %." << std::endl;
 
-  // std::cout << "Accepted split ratio: " << sampler.get_accepted_split() * 100 * 2 / (param.NI + param.BI) << " %." << std::endl;
-  // std::cout << "Accepted merge ratio: " << sampler.get_accepted_merge() * 100 * 2 / (param.NI + param.BI) << " %." << std::endl;  
-  // std::cout << "Accepted shuffle ratio: " << sampler.get_accepted_shuffle() * 100 / (param.NI + param.BI) << " %." << std::endl;
+  std::cout << "Accepted split ratio: " << sampler.get_accepted_split() * 100 * 2 / (param.NI + param.BI) << " %." << std::endl;
+  std::cout << "Accepted merge ratio: " << sampler.get_accepted_merge() * 100 * 2 / (param.NI + param.BI) << " %." << std::endl;  
+  std::cout << "Accepted shuffle ratio: " << sampler.get_accepted_shuffle() * 100 / (param.NI + param.BI) << " %." << std::endl;
 
   return results;
 }

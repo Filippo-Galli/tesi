@@ -69,7 +69,7 @@ param <- new(
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
   2000, 5000, 1, # BI, NI, a,
   0.1, 1, 1, # sigma, tau, coeff spatial dependence
-  W # Spatial adjacency matrix
+  dist_matrix, W # distance matrix, Spatial adjacency matrix
 )
 
 ##############################################################################
@@ -94,7 +94,7 @@ if (file.exists(log_file)) {
 ## Execute MCMC and capture console output
 results <- capture.output(
   {
-    mcmc_result <- mcmc(dist_matrix, param, hyperparams$initial_clusters)
+    mcmc_result <- mcmc(param, hyperparams$initial_clusters)
   },
   file = log_file
 )

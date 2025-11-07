@@ -50,11 +50,10 @@ double Likelihood::cluster_loglikelihood(int cluster_index, const Eigen::Ref<con
 
     log_prod = 0;
     sum = 0;
-
     // Calculate all pairwise distances between clusters
     for (int i = 0; i < n_k; ++i) {
       for (int j = 0; j < n_t; ++j) {
-        double dist = data.get_distance(cls_ass_k(i), cls_ass_t(j));
+        double dist = params.D(cls_ass_k(i), cls_ass_t(j));
         // Add small epsilon to prevent log(0) = -inf
         log_prod += log(dist + 1e-10);
         sum += dist;
@@ -82,7 +81,7 @@ double Likelihood::cluster_loglikelihood(int cluster_index, const Eigen::Ref<con
   // Calculate all pairwise distances within the cluster
   for (int i = 0; i < n_k; ++i) {
     for (int j = i + 1; j < n_k; ++j) {
-      double dist = data.get_distance(cls_ass_k(i), cls_ass_k(j));
+      double dist = params.D(cls_ass_k(i), cls_ass_k(j));
       // Add small epsilon to prevent log(0) = -inf
       log_prod += log(dist + 1e-10);
       sum += dist;
@@ -130,13 +129,12 @@ double Likelihood::compute_cohesion(int point_index, int cluster_index,
   }
 
   double sum_i = 0, log_prod_i = 0;
-
-  // Compute distances from point_index to all points in the cluster
+  //Compute distances from point_index to all points in the cluster
   for (int i = 0; i < n_k; ++i) {
-    double dist = data.get_distance(point_index, cls_ass_k(i));
+    double dist = params.D(point_index, cls_ass_k(i));
     sum_i += dist;
     log_prod_i += log(dist + 1e-10);
-  }
+  }    
 
   // Posterior parameters for gamma distribution
   double alpha_mh = params.alpha + params.delta1 * n_k;
@@ -181,7 +179,7 @@ double Likelihood::compute_repulsion(int point_index, int cluster_index, const E
 
     // Compute distances from point_index to all points in cluster t
     for (int j = 0; j < n_t; ++j) {
-      double point_dist = data.get_distance(point_index, cls_ass_t(j));
+      double point_dist = params.D(point_index, cls_ass_t(j));
       sum_i += point_dist;
       log_point_prod += log(point_dist + 1e-10); // Add epsilon to prevent log(0)
     }
