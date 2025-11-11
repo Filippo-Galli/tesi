@@ -51,6 +51,7 @@ double Likelihood::cluster_loglikelihood(int cluster_index, const Eigen::Ref<con
     log_prod = 0;
     sum = 0;
     // Calculate all pairwise distances between clusters
+    #pragma omp parallel for reduction(+ : log_prod, sum)
     for (int i = 0; i < n_k; ++i) {
       for (int j = 0; j < n_t; ++j) {
         double dist = params.D(cls_ass_k(i), cls_ass_t(j));
