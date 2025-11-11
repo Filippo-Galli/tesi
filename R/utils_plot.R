@@ -583,7 +583,7 @@ plot_hist_cls <- function(results, BI, point_estimate = NULL, save = FALSE, fold
       cat("\n⚠️  WARNING: Only 1 cluster found. Showing overall distribution.\n")
       combined_data <- unlist(data)
       hist(combined_data,
-        breaks = 30,
+        breaks = "FD",
         main = paste("Single Cluster Distribution\n(n_pumas =", length(data), ")"),
         xlab = "Income Value",
         ylab = "Density",

@@ -499,3 +499,74 @@ compute_hist_distances <- function(hist1, hist2, type = "Histogram-Divergence") 
     stop("Unsupported distance type")
   }
 }
+
+compute_kde_distances <- function(dens1, dens2, type = "Histogram-Divergence") {
+  # Extract x and y from density objects
+  x1 <- dens1$x
+  y1 <- dens1$y
+  x2 <- dens2$x
+  y2 <- dens2$y
+  
+  # Find common x range
+  x_min <- max(min(x1), min(x2))
+  x_max <- min(max(x1), max(x2))
+  
+  # Create common grid by interpolating both densities
+  # Use the finer grid between the two
+  n_points <- max(length(x1), length(x2))
+  x_common <- seq(x_min, x_max, length.out = n_points)
+  
+  # Interpolate densities to common grid
+  y1_interp <- approx(x1, y1, xout = x_common, rule = 2)$y
+  y2_interp <- approx(x2, y2, xout = x_common, rule = 2)$y
+  
+  # Set negative values to zero (shouldn't happen but just in case)
+  y1_interp[y1_interp < 0] <- 0
+  y2_interp[y2_interp < 0] <- 0
+  
+  # Calculate grid spacing (analogous to bin width)
+  dx <- diff(x_common)[1]
+  
+  # Normalize to ensure they integrate to 1
+  y1_interp <- y1_interp / sum(y1_interp * dx)
+  y2_interp <- y2_interp / sum(y2_interp * dx)
+  
+  if (type == "Histogram-Divergence") {
+    # Compute Histogram Divergence (intersection)
+    divergence <- dx * sum(pmin(y1_interp, y2_interp))
+    return(divergence)
+  } else if (type == "Jeff") {
+    # Compute Jeffrey Divergence
+    temp_1 <- y1_interp > 0
+    temp_2 <- y2_interp > 0
+    temp_3 <- temp_1 & temp_2
+    kl1 <- sum(y1_interp[temp_3] * log(y1_interp[temp_3] / y2_interp[temp_3]) * dx)
+    kl2 <- sum(y2_interp[temp_3] * log(y2_interp[temp_3] / y1_interp[temp_3]) * dx)
+    
+    jeffrey_divergence <- kl1 + kl2
+    return(jeffrey_divergence)
+  } else if (type == "chi2") {
+    # Compute Chi-squared distance
+    temp_2 <- y2_interp > 0
+    chi2_distance <- ((y1_interp[temp_2] - y2_interp[temp_2])^2) / y2_interp[temp_2]
+    return(dx * sum(chi2_distance))
+  } else if (type == "euclidean") {
+    # Compute Euclidean distance
+    euclidian_distance <- sqrt(dx * sum((y1_interp - y2_interp)^2))
+    return(euclidian_distance)
+  } else if (type == "CM") {
+    # Cramér-von Mises: weight by grid spacing
+    cum1 <- cumsum(y1_interp * dx)
+    cum2 <- cumsum(y2_interp * dx)
+    cm_distance <- dx * sum((cum1 - cum2)^2)
+    return(cm_distance)
+  } else if (type == "Wasserstein") {
+    # Wasserstein: weight by grid spacing
+    cum1 <- cumsum(y1_interp * dx)
+    cum2 <- cumsum(y2_interp * dx)
+    wasserstein_distance <- dx * sum(abs(cum1 - cum2))
+    return(wasserstein_distance)
+  } else {
+    stop("Unsupported distance type")
+  }
+}

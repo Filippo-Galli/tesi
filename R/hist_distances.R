@@ -12,10 +12,14 @@ load("input/adj_matrix.dat")
 ##############################################################################
 histograms_list <- list()
 
+break_points <- c(2, 4, 6, 7, seq(8, 13, by = 0.25))
+
 for (i in seq_along(data)) {
   pumas_data <- data[[i]]
+  break_points[1] <- min(pumas_data)
+  break_points[length(break_points)] <- max(pumas_data)
   histograms_list[[i]] <- hist(pumas_data, plot = FALSE,
-                               breaks = 20, probability = TRUE)
+                               breaks = "FD", probability = TRUE)
 }
 
 ##############################################################################
@@ -33,7 +37,6 @@ distance_cm <- matrix(0, nrow = length(histograms_list),
                       ncol = length(histograms_list))
 distance_wasserstein <- matrix(0, nrow = length(histograms_list),
                                ncol = length(histograms_list))
-
 distance_mean <- matrix(0, nrow = length(histograms_list),
                         ncol = length(histograms_list))
 
@@ -71,47 +74,47 @@ for (i in seq_along(histograms_list)) {
 # Plot Distance ====
 ##############################################################################
 plot_distance(distance_euclidean,
-              title = "Euclidean Distance", save = TRUE,
-              folder = "results/distance_plots/")
+              title = "Euclidean Distance (breaks = FD)", save = TRUE,
+              folder = "results/distance_plots/hist/")
 plot_distance(distance_hist_intersection,
-              title = "Histogram Intersection Distance", save = TRUE,
-              folder = "results/distance_plots/")
+              title = "Histogram Intersection Distance (breaks = FD)", save = TRUE,
+              folder = "results/distance_plots/hist/")
 plot_distance(distance_jeff_divergences,
-              title = "Jeffreys Divergence Distance", save = TRUE,
-              folder = "results/distance_plots/")
+              title = "Jeffreys Divergence Distance(breaks = FD)", save = TRUE,
+              folder = "results/distance_plots/hist/")
 plot_distance(distance_chi_squared,
-              title = "Chi-Squared Distance", save = TRUE,
-              folder = "results/distance_plots/")
+              title = "Chi-Squared Distance (breaks = FD)", save = TRUE,
+              folder = "results/distance_plots/hist/")
 plot_distance(distance_cm,
-              title = "Cramer-von Mises Distance", save = TRUE,
-              folder = "results/distance_plots/")
+              title = "Cramer-von Mises Distance (breaks = FD)", save = TRUE,
+              folder = "results/distance_plots/hist/")
 plot_distance(distance_wasserstein,
-              title = "Wasserstein Distance", save = TRUE,
-              folder = "results/distance_plots/")
+              title = "Wasserstein Distance (breaks = FD)", save = TRUE,
+              folder = "results/distance_plots/hist/")
 plot_distance(distance_mean,
-              title = "Mean Difference", save = TRUE,
-              folder = "results/distance_plots/")
+              title = "Mean Difference (breaks = FD)", save = TRUE,
+              folder = "results/distance_plots/hist/")
 
 ##############################################################################
 # Save Data ====
 ##############################################################################
 
 # # Save distance matrices
-folder <- "real_data"
+folder <- "real_data/hist"
 saveRDS(distance_hist_intersection,
-        file = paste0(folder, "/distance_hist_intersection.rds"))
+        file = paste0(folder, "/FD_distance_hist_intersection.rds"))
 saveRDS(distance_jeff_divergences,
-        file = paste0(folder, "/distance_jeff_divergences.rds"))
+        file = paste0(folder, "/FD_distance_jeff_divergences.rds"))
 saveRDS(distance_chi_squared,
-        file = paste0(folder, "/distance_chi_squared.rds"))
+        file = paste0(folder, "/FD_distance_chi_squared.rds"))
 saveRDS(distance_euclidean,
-        file = paste0(folder, "/distance_euclidean.rds"))
+        file = paste0(folder, "/FD_distance_euclidean.rds"))
 saveRDS(distance_cm,
-        file = paste0(folder, "/distance_cm.rds"))
+        file = paste0(folder, "/FD_distance_cm.rds"))
 saveRDS(distance_wasserstein,
-        file = paste0(folder, "/distance_wasserstein.rds"))
+        file = paste0(folder, "/FD_distance_wasserstein.rds"))
 saveRDS(distance_mean,
-        file = paste0(folder, "/distance_mean.rds"))
+        file = paste0(folder, "/FD_distance_mean.rds"))
 
 # Save adjacency matrix
-saveRDS(W, file = paste0(folder, "/adj_matrix.rds"))
+#saveRDS(W, file = paste0(folder, "/adj_matrix.rds"))
