@@ -17,6 +17,8 @@
 #include "samplers/neal_ZDNAM.hpp"
 #include "samplers/splitmerge.hpp"
 #include "samplers/splitmerge_SAMS.hpp"
+#include "samplers/splitmerge_LSS.hpp"
+
 // #include "splitmerge_SDDS.hpp"
 
 #include "processes/DP.hpp"
@@ -130,9 +132,9 @@ mcmc(Params &param,
   //Neal3ZDNAM gibbs(data, param, likelihood, process); // Gibbs sampler with ZDNAM
 
   // Choose the main sampling strategy:
-  SplitMerge sampler(data,param, likelihood, process, true); // Split-Merge sampler
+  //SplitMerge sampler(data,param, likelihood, process, true); // Split-Merge sampler
   //SplitMerge_SAMS sampler(data, param, likelihood, process, true);    // Split-Merge with SAMS 
-  // SplitMerge_SDDS sampler(data, param, likelihood, process, true);    // Split-Merge with SDDS
+  SplitMerge_LSS sampler(data, param, likelihood, process, true); // Split-Merge with SAMS using sequential allocation
 
   // Initialize results container to store MCMC output
   Rcpp::List results = Rcpp::List::create(
