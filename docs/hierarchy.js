@@ -13,6 +13,7 @@ var hierarchy =
       [ "Neal3", "classNeal3.html", null ],
       [ "Neal3ZDNAM", "classNeal3ZDNAM.html", null ],
       [ "SplitMerge", "classSplitMerge.html", null ],
+      [ "SplitMerge_LSS", "classSplitMerge__LSS.html", null ],
       [ "SplitMerge_SAMS", "classSplitMerge__SAMS.html", null ]
     ] ],
     [ "SpatialModule", null, [

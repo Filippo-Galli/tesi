@@ -162,6 +162,9 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a228d5b708b18028550656f106a404c5d" id="r_a228d5b708b18028550656f106a404c5d"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a228d5b708b18028550656f106a404c5d">log_gamma_zeta</a> = log(params.gamma) * params.zeta - lgamma(params.zeta)</td></tr>
 <tr class="memdesc:a228d5b708b18028550656f106a404c5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">log(γ^ζ / Γ(ζ)) - cached for repulsion normalization  <br /></td></tr>
 <tr class="separator:a228d5b708b18028550656f106a404c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01c2bf67c02e95025c1cb2ef1fe2c24f" id="r_a01c2bf67c02e95025c1cb2ef1fe2c24f"><td class="memItemLeft" align="right" valign="top">const Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a01c2bf67c02e95025c1cb2ef1fe2c24f">log_D</a> = params.D.array().log().matrix()</td></tr>
+<tr class="memdesc:a01c2bf67c02e95025c1cb2ef1fe2c24f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precomputed log distance matrix.  <br /></td></tr>
+<tr class="separator:a01c2bf67c02e95025c1cb2ef1fe2c24f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Computes log-likelihood for clusters based on distance-based cohesion and repulsion. </p>
@@ -527,6 +530,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>log(β^α / Γ(α)) - cached for cohesion normalization </p>
+
+</div>
+</div>
+<a id="a01c2bf67c02e95025c1cb2ef1fe2c24f" name="a01c2bf67c02e95025c1cb2ef1fe2c24f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01c2bf67c02e95025c1cb2ef1fe2c24f">&#9670;&#160;</a></span>log_D</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Eigen::MatrixXd Likelihood::log_D = params.D.array().log().matrix()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Precomputed log distance matrix. </p>
 
 </div>
 </div>

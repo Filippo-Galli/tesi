@@ -1,11 +1,13 @@
 /**
- * @file SplitMerge_LSS.cpp
- * @brief Implementation of Sequential Allocation Merge-Split (SAMS) sampler
+ * @file splitmerge_LSS.cpp
+ * @brief Implementation of Locality Sensitive Sampling (LSS) Split-Merge
+ * sampler
  *
  * This file contains the complete implementation of the SplitMerge_LSS class,
- * which provides an optimized variant of split-merge sampling using sequential
- * allocation for proposal generation. This approach offers computational
- * advantages for large datasets.
+ * which provides an optimized variant of split-merge sampling using locality
+ * sensitive sampling for anchor point selection and sequential allocation for
+ * proposal generation. This approach offers computational advantages for large
+ * datasets.
  *
  * @author Filippo Galli
  * @date 2025
@@ -29,30 +31,29 @@ void SplitMerge_LSS::choose_indeces(bool similarity) {
   auto distances = params.D.row(idx_i);
   double distance_sum = 0.0;
   std::vector<double> probs(data.get_n());
-  
-  if(similarity){
-    for(auto idx = 0; idx < data.get_n(); ++idx){
-      if(idx == idx_i) 
+
+  if (similarity) {
+    for (auto idx = 0; idx < data.get_n(); ++idx) {
+      if (idx == idx_i)
         probs[idx] = 0.0;
       else
         probs[idx] = distances(idx);
       distance_sum += probs[idx];
     }
 
-    for(auto idx = 0; idx < data.get_n(); ++idx){
+    for (auto idx = 0; idx < data.get_n(); ++idx) {
       probs[idx] /= distance_sum;
     }
-  }
-  else {
-    for(auto idx = 0; idx < data.get_n(); ++idx){
-      if(idx == idx_i) 
+  } else {
+    for (auto idx = 0; idx < data.get_n(); ++idx) {
+      if (idx == idx_i)
         probs[idx] = 0.0;
       else
-        probs[idx] = 1/distances(idx);
+        probs[idx] = 1 / distances(idx);
       distance_sum += probs[idx];
     }
 
-    for(auto idx = 0; idx < data.get_n(); ++idx){
+    for (auto idx = 0; idx < data.get_n(); ++idx) {
       probs[idx] /= distance_sum;
     }
   }
@@ -105,26 +106,27 @@ void SplitMerge_LSS::choose_indeces(bool similarity) {
 
   Eigen::VectorXi shuffled_launch_state(launch_state_size);
   Eigen::VectorXi shuffled_S(launch_state_size);
-  for (size_t i = 0; i < launch_state_size; ++i)
-  {
+  for (size_t i = 0; i < launch_state_size; ++i) {
     shuffled_launch_state(i) = launch_state(indices[i]);
     shuffled_S(i) = S(indices[i]);
   }
   launch_state = shuffled_launch_state;
-  S = shuffled_S;  
+  S = shuffled_S;
 
-  // Ensure we collected the expected number of points
-  #if VERBOSITY_LEVEL >= 1
-    if (s_idx != launch_state_size) { // since s_idx is zero-based
-      // Rcpp::Rcout << "[ERROR] s_idx = " << s_idx << ", launch_state_size = " <<
-      // launch_state_size << std::endl;
-      throw std::runtime_error(
-          "Mismatch in expected cluster sizes during split-merge initialization");
-    }
-  #endif
+// Ensure we collected the expected number of points
+#if VERBOSITY_LEVEL >= 1
+  if (s_idx != launch_state_size) { // since s_idx is zero-based
+    // Rcpp::Rcout << "[ERROR] s_idx = " << s_idx << ", launch_state_size = " <<
+    // launch_state_size << std::endl;
+    throw std::runtime_error(
+        "Mismatch in expected cluster sizes during split-merge initialization");
+  }
+#endif
 }
 
-void SplitMerge_LSS::sequential_allocation(int iterations, bool only_probabilities, bool sequential) {
+void SplitMerge_LSS::sequential_allocation(int iterations,
+                                           bool only_probabilities,
+                                           bool sequential) {
   /**
    * @brief Perform restricted Gibbs sampling on the points in S to propose new
    * allocations for iter iterations.
@@ -145,7 +147,7 @@ void SplitMerge_LSS::sequential_allocation(int iterations, bool only_probabiliti
       int point_idx = S(idx);
       int current_cluster = launch_state(idx);
 
-      if(!sequential){
+      if (!sequential) {
         current_cluster = data.get_cluster_assignment(point_idx);
         // Unallocate point only if using restricted Gibbs sampling
         data.set_allocation(point_idx, -1);
@@ -191,7 +193,7 @@ void SplitMerge_LSS::sequential_allocation(int iterations, bool only_probabiliti
 
 double
 SplitMerge_LSS::compute_acceptance_ratio_merge(double likelihood_old_ci,
-                                                double likelihood_old_cj) {
+                                               double likelihood_old_cj) {
   /**
    * @brief Compute the log acceptance ratio for a merge move.
    * @param likelihood_old_ci The log likelihood of cluster ci before the merge.
@@ -202,7 +204,8 @@ SplitMerge_LSS::compute_acceptance_ratio_merge(double likelihood_old_ci,
   // Prior ratio
   int size_old_ci = (original_allocations.array() == ci).count();
   int size_old_cj = (original_allocations.array() == cj).count();
-  double log_acceptance_ratio = process.prior_ratio_merge(size_old_ci, size_old_cj);
+  double log_acceptance_ratio =
+      process.prior_ratio_merge(size_old_ci, size_old_cj);
 
   // Likelihood ratio
   log_acceptance_ratio += likelihood.cluster_loglikelihood(ci);
@@ -230,7 +233,8 @@ void SplitMerge_LSS::merge_move() {
 
   sequential_allocation(1, true); // only compute probabilities
 
-  data.set_allocation(idx_j, ci); // Temporarily assign j to ci for likelihood computation
+  data.set_allocation(
+      idx_j, ci); // Temporarily assign j to ci for likelihood computation
 
   // Propose new allocations by merging clusters ci and cj
   for (int idx = 0; idx < launch_state.size(); ++idx) {
@@ -240,7 +244,8 @@ void SplitMerge_LSS::merge_move() {
   }
 
   // Compute acceptance ratio
-  double acceptance_ratio = compute_acceptance_ratio_merge(likelihood_old_ci, likelihood_old_cj);
+  double acceptance_ratio =
+      compute_acceptance_ratio_merge(likelihood_old_ci, likelihood_old_cj);
 
   // Accept or reject the move
   std::uniform_real_distribution<> dis(0.0, 1.0);
@@ -277,7 +282,8 @@ void SplitMerge_LSS::split_move() {
   sequential_allocation(1);
 
   // Compute acceptance ratio
-  double acceptance_ratio = compute_acceptance_ratio_split(likelihood_old_cluster);
+  double acceptance_ratio =
+      compute_acceptance_ratio_split(likelihood_old_cluster);
 
   // Accept or reject the move
   std::uniform_real_distribution<> dis2(0.0, 1.0);
@@ -337,11 +343,13 @@ void SplitMerge_LSS::shuffle() {
   sequential_allocation(1, false, true);
 
   // Compute acceptance ratio
-  double log_acceptance_ratio = compute_acceptance_ratio_shuffle(likelihood_old_ci, likelihood_old_cj, old_ci_size, old_cj_size);
+  double log_acceptance_ratio = compute_acceptance_ratio_shuffle(
+      likelihood_old_ci, likelihood_old_cj, old_ci_size, old_cj_size);
 
   // Accept or reject the move
   std::uniform_real_distribution<> acceptance_ratio_dis(0.0, 1.0);
-  if (log(acceptance_ratio_dis(gen)) > log_acceptance_ratio) // move not accepted
+  if (log(acceptance_ratio_dis(gen)) >
+      log_acceptance_ratio) // move not accepted
     data.set_allocations(original_allocations);
   else
     accepted_shuffle++;
@@ -356,7 +364,8 @@ double SplitMerge_LSS::compute_acceptance_ratio_shuffle(
    */
 
   // Prior ratio
-  double log_acceptance_ratio = process.prior_ratio_shuffle(old_ci_size, old_cj_size, ci, cj);
+  double log_acceptance_ratio =
+      process.prior_ratio_shuffle(old_ci_size, old_cj_size, ci, cj);
 
   // Likelihood ratio
   log_acceptance_ratio += likelihood.cluster_loglikelihood(ci);
@@ -378,8 +387,8 @@ void SplitMerge_LSS::choose_clusters_shuffle() {
    * clusters.
    */
 
-  if (data.get_K() < 2){
-    //std::cout << "Not enough clusters to perform shuffle." << std::endl;
+  if (data.get_K() < 2) {
+    // std::cout << "Not enough clusters to perform shuffle." << std::endl;
     return;
   }
 
@@ -445,7 +454,8 @@ void SplitMerge_LSS::step() {
 
   if (shuffle_bool) {
     choose_clusters_shuffle();
-    process.set_old_allocations(data.get_allocations()); // Update old allocations in the process
+    process.set_old_allocations(
+        data.get_allocations()); // Update old allocations in the process
     process.set_idx_i(idx_i);
     process.set_idx_j(idx_j);
     shuffle();

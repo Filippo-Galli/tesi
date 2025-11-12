@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Docs: SplitMerge_SAMS Class Reference</title>
+<title>Docs: SplitMerge_LSS Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('classSplitMerge__SAMS.html',''); initResizable(true); });
+$(function(){initNavTree('classSplitMerge__LSS.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -105,42 +105,42 @@ $(function(){initNavTree('classSplitMerge__SAMS.html',''); initResizable(true); 
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="classSplitMerge__SAMS-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">SplitMerge_SAMS Class Reference</div></div>
+<a href="classSplitMerge__LSS-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">SplitMerge_LSS Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Sequential Allocation Merge-Split (SAMS) sampler for Bayesian nonparametric models.  
+<p>Locality Sensitive Sampling (LSS) Split-Merge sampler for Bayesian nonparametric models.  
  <a href="#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="splitmerge__SAMS_8hpp_source.html">splitmerge_SAMS.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="splitmerge__LSS_8hpp_source.html">splitmerge_LSS.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for SplitMerge_SAMS:</div>
+Inheritance diagram for SplitMerge_LSS:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classSplitMerge__SAMS.png" usemap="#SplitMerge_5FSAMS_map" alt=""/>
-  <map id="SplitMerge_5FSAMS_map" name="SplitMerge_5FSAMS_map">
-<area href="classSampler.html" title="Abstract base class for MCMC sampler implementations." alt="Sampler" shape="rect" coords="0,0,116,24"/>
+  <img src="classSplitMerge__LSS.png" usemap="#SplitMerge_5FLSS_map" alt=""/>
+  <map id="SplitMerge_5FLSS_map" name="SplitMerge_5FLSS_map">
+<area href="classSampler.html" title="Abstract base class for MCMC sampler implementations." alt="Sampler" shape="rect" coords="0,0,103,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af812bf4c32fef71ddae082bfa26d1465" id="r_af812bf4c32fef71ddae082bfa26d1465"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af812bf4c32fef71ddae082bfa26d1465">SplitMerge_SAMS</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classLikelihood.html">Likelihood</a> &amp;l, <a class="el" href="classProcess.html">Process</a> &amp;pr, bool <a class="el" href="#ae16402a25ef38853ec04e4c7c88216e0">shuffle</a>)</td></tr>
-<tr class="memdesc:af812bf4c32fef71ddae082bfa26d1465"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for SAMS (Sequential Allocation Merge-Split) sampler.  <br /></td></tr>
-<tr class="separator:af812bf4c32fef71ddae082bfa26d1465"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a198db7f37403e0f7093771f03ca961e6" id="r_a198db7f37403e0f7093771f03ca961e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a198db7f37403e0f7093771f03ca961e6">step</a> () override</td></tr>
-<tr class="memdesc:a198db7f37403e0f7093771f03ca961e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform one iteration of the SAMS algorithm.  <br /></td></tr>
-<tr class="separator:a198db7f37403e0f7093771f03ca961e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcbd7a097cf3138a7c4ebf8cfe693405" id="r_abcbd7a097cf3138a7c4ebf8cfe693405"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abcbd7a097cf3138a7c4ebf8cfe693405">get_accepted_split</a> () const</td></tr>
-<tr class="memdesc:abcbd7a097cf3138a7c4ebf8cfe693405"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of accepted split moves for diagnostics.  <br /></td></tr>
-<tr class="separator:abcbd7a097cf3138a7c4ebf8cfe693405"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc7ce8d882f8a3c08575ae4494580255" id="r_adc7ce8d882f8a3c08575ae4494580255"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc7ce8d882f8a3c08575ae4494580255">get_accepted_merge</a> () const</td></tr>
-<tr class="memdesc:adc7ce8d882f8a3c08575ae4494580255"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of accepted merge moves for diagnostics.  <br /></td></tr>
-<tr class="separator:adc7ce8d882f8a3c08575ae4494580255"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d446d7fd2fbbf4f34fa85c1f4aa2696" id="r_a6d446d7fd2fbbf4f34fa85c1f4aa2696"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d446d7fd2fbbf4f34fa85c1f4aa2696">get_accepted_shuffle</a> () const</td></tr>
-<tr class="memdesc:a6d446d7fd2fbbf4f34fa85c1f4aa2696"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of accepted shuffle moves for diagnostics.  <br /></td></tr>
-<tr class="separator:a6d446d7fd2fbbf4f34fa85c1f4aa2696"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a595c757322a9ad77de02a683f1617377" id="r_a595c757322a9ad77de02a683f1617377"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a595c757322a9ad77de02a683f1617377">SplitMerge_LSS</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classLikelihood.html">Likelihood</a> &amp;l, <a class="el" href="classProcess.html">Process</a> &amp;pr, bool <a class="el" href="#aec5dd1754aebe6d9898f31b8f51eade3">shuffle</a>)</td></tr>
+<tr class="memdesc:a595c757322a9ad77de02a683f1617377"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for LSS (Locality Sensitive Sampling) Split-Merge sampler.  <br /></td></tr>
+<tr class="separator:a595c757322a9ad77de02a683f1617377"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a766bfa11be282aeb39428556c65e0296" id="r_a766bfa11be282aeb39428556c65e0296"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a766bfa11be282aeb39428556c65e0296">step</a> () override</td></tr>
+<tr class="memdesc:a766bfa11be282aeb39428556c65e0296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform one iteration of the LSS Split-Merge algorithm.  <br /></td></tr>
+<tr class="separator:a766bfa11be282aeb39428556c65e0296"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1375b8d9efe2e2120592436e36bbba04" id="r_a1375b8d9efe2e2120592436e36bbba04"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1375b8d9efe2e2120592436e36bbba04">get_accepted_split</a> () const</td></tr>
+<tr class="memdesc:a1375b8d9efe2e2120592436e36bbba04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of accepted split moves for diagnostics.  <br /></td></tr>
+<tr class="separator:a1375b8d9efe2e2120592436e36bbba04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8a4414bb201370286b0dbad7e73ea68" id="r_aa8a4414bb201370286b0dbad7e73ea68"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8a4414bb201370286b0dbad7e73ea68">get_accepted_merge</a> () const</td></tr>
+<tr class="memdesc:aa8a4414bb201370286b0dbad7e73ea68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of accepted merge moves for diagnostics.  <br /></td></tr>
+<tr class="separator:aa8a4414bb201370286b0dbad7e73ea68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4549dbcb5b175229392e7aab4ed694d" id="r_ac4549dbcb5b175229392e7aab4ed694d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4549dbcb5b175229392e7aab4ed694d">get_accepted_shuffle</a> () const</td></tr>
+<tr class="memdesc:ac4549dbcb5b175229392e7aab4ed694d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of accepted shuffle moves for diagnostics.  <br /></td></tr>
+<tr class="separator:ac4549dbcb5b175229392e7aab4ed694d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classSampler"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classSampler')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classSampler.html">Sampler</a></td></tr>
 <tr class="memitem:a4800cc1f9d2718968f5957ca99eee5b1 inherit pub_methods_classSampler" id="r_a4800cc1f9d2718968f5957ca99eee5b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSampler.html#a4800cc1f9d2718968f5957ca99eee5b1">Sampler</a> (<a class="el" href="classData.html">Data</a> &amp;d, const <a class="el" href="structParams.html">Params</a> &amp;p, const <a class="el" href="classLikelihood.html">Likelihood</a> &amp;l, <a class="el" href="classProcess.html">Process</a> &amp;pr)</td></tr>
 <tr class="memdesc:a4800cc1f9d2718968f5957ca99eee5b1 inherit pub_methods_classSampler"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor initializing sampler with required components.  <br /></td></tr>
@@ -151,75 +151,75 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a7c24fa1ba190b6cf4adc2ac011ae5c33" id="r_a7c24fa1ba190b6cf4adc2ac011ae5c33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c24fa1ba190b6cf4adc2ac011ae5c33">choose_indeces</a> ()</td></tr>
-<tr class="memdesc:a7c24fa1ba190b6cf4adc2ac011ae5c33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Randomly select two observations for split-merge proposal.  <br /></td></tr>
-<tr class="separator:a7c24fa1ba190b6cf4adc2ac011ae5c33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f209904a93d4ba19a9e0b599fa1e8ea" id="r_a0f209904a93d4ba19a9e0b599fa1e8ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f209904a93d4ba19a9e0b599fa1e8ea">choose_clusters_shuffle</a> ()</td></tr>
-<tr class="memdesc:a0f209904a93d4ba19a9e0b599fa1e8ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select clusters for shuffle move.  <br /></td></tr>
-<tr class="separator:a0f209904a93d4ba19a9e0b599fa1e8ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cf7698ea219623995597a45932db97c" id="r_a1cf7698ea219623995597a45932db97c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1cf7698ea219623995597a45932db97c">sequential_allocation</a> (int iterations, bool only_probabilities=false, bool sequential=true)</td></tr>
-<tr class="memdesc:a1cf7698ea219623995597a45932db97c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate proposal state via sequential allocation.  <br /></td></tr>
-<tr class="separator:a1cf7698ea219623995597a45932db97c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2dd087d9385e3bea847afe311d121b72" id="r_a2dd087d9385e3bea847afe311d121b72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2dd087d9385e3bea847afe311d121b72">split_move</a> ()</td></tr>
-<tr class="memdesc:a2dd087d9385e3bea847afe311d121b72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute a split move using SAMS.  <br /></td></tr>
-<tr class="separator:a2dd087d9385e3bea847afe311d121b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acba1ce0aa45cadf54443b5f1c0eceaa6" id="r_acba1ce0aa45cadf54443b5f1c0eceaa6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acba1ce0aa45cadf54443b5f1c0eceaa6">compute_acceptance_ratio_split</a> (double likelihood_old_cluster)</td></tr>
-<tr class="memdesc:acba1ce0aa45cadf54443b5f1c0eceaa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute acceptance ratio for SAMS split move.  <br /></td></tr>
-<tr class="separator:acba1ce0aa45cadf54443b5f1c0eceaa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f774a8523fa9cd09826aecd6a177d11" id="r_a6f774a8523fa9cd09826aecd6a177d11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f774a8523fa9cd09826aecd6a177d11">merge_move</a> ()</td></tr>
-<tr class="memdesc:a6f774a8523fa9cd09826aecd6a177d11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute a merge move using SAMS.  <br /></td></tr>
-<tr class="separator:a6f774a8523fa9cd09826aecd6a177d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8cae3bc20e68ad01b70c12c5418fc75" id="r_ab8cae3bc20e68ad01b70c12c5418fc75"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab8cae3bc20e68ad01b70c12c5418fc75">compute_acceptance_ratio_merge</a> (double likelihood_old_ci, double likelihood_old_cj)</td></tr>
-<tr class="memdesc:ab8cae3bc20e68ad01b70c12c5418fc75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute acceptance ratio for SAMS merge move.  <br /></td></tr>
-<tr class="separator:ab8cae3bc20e68ad01b70c12c5418fc75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae16402a25ef38853ec04e4c7c88216e0" id="r_ae16402a25ef38853ec04e4c7c88216e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae16402a25ef38853ec04e4c7c88216e0">shuffle</a> ()</td></tr>
-<tr class="memdesc:ae16402a25ef38853ec04e4c7c88216e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute a shuffle move using SAMS.  <br /></td></tr>
-<tr class="separator:ae16402a25ef38853ec04e4c7c88216e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca21e410527783e4d78b4c263d8f2480" id="r_aca21e410527783e4d78b4c263d8f2480"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca21e410527783e4d78b4c263d8f2480">compute_acceptance_ratio_shuffle</a> (double likelihood_old_ci, double likelihood_old_cj, int old_ci_size, int old_cj_size)</td></tr>
-<tr class="memdesc:aca21e410527783e4d78b4c263d8f2480"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute acceptance ratio for SAMS shuffle move.  <br /></td></tr>
-<tr class="separator:aca21e410527783e4d78b4c263d8f2480"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72d1782c9ef51178895107d575fc4171" id="r_a72d1782c9ef51178895107d575fc4171"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72d1782c9ef51178895107d575fc4171">choose_indeces</a> (bool similarity=false)</td></tr>
+<tr class="memdesc:a72d1782c9ef51178895107d575fc4171"><td class="mdescLeft">&#160;</td><td class="mdescRight">Randomly select two observations for split-merge proposal.  <br /></td></tr>
+<tr class="separator:a72d1782c9ef51178895107d575fc4171"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9db1efefb6e1fd16e8be534c540178ba" id="r_a9db1efefb6e1fd16e8be534c540178ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9db1efefb6e1fd16e8be534c540178ba">choose_clusters_shuffle</a> ()</td></tr>
+<tr class="memdesc:a9db1efefb6e1fd16e8be534c540178ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select clusters for shuffle move.  <br /></td></tr>
+<tr class="separator:a9db1efefb6e1fd16e8be534c540178ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5252791b0a9a1a9b174421205a33c7d" id="r_ac5252791b0a9a1a9b174421205a33c7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5252791b0a9a1a9b174421205a33c7d">sequential_allocation</a> (int iterations, bool only_probabilities=false, bool sequential=true)</td></tr>
+<tr class="memdesc:ac5252791b0a9a1a9b174421205a33c7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate proposal state via sequential allocation.  <br /></td></tr>
+<tr class="separator:ac5252791b0a9a1a9b174421205a33c7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6aed8447d79a5834366538cfe55371f4" id="r_a6aed8447d79a5834366538cfe55371f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6aed8447d79a5834366538cfe55371f4">split_move</a> ()</td></tr>
+<tr class="memdesc:a6aed8447d79a5834366538cfe55371f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute a split move using LSS.  <br /></td></tr>
+<tr class="separator:a6aed8447d79a5834366538cfe55371f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4feef4466a3f38f2514e757dd549c01f" id="r_a4feef4466a3f38f2514e757dd549c01f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4feef4466a3f38f2514e757dd549c01f">compute_acceptance_ratio_split</a> (double likelihood_old_cluster)</td></tr>
+<tr class="memdesc:a4feef4466a3f38f2514e757dd549c01f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute acceptance ratio for LSS split move.  <br /></td></tr>
+<tr class="separator:a4feef4466a3f38f2514e757dd549c01f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a592b28bad845e868b2baef627472a8c3" id="r_a592b28bad845e868b2baef627472a8c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a592b28bad845e868b2baef627472a8c3">merge_move</a> ()</td></tr>
+<tr class="memdesc:a592b28bad845e868b2baef627472a8c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute a merge move using LSS.  <br /></td></tr>
+<tr class="separator:a592b28bad845e868b2baef627472a8c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a424feff7106b2f43492078d82cf1434f" id="r_a424feff7106b2f43492078d82cf1434f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a424feff7106b2f43492078d82cf1434f">compute_acceptance_ratio_merge</a> (double likelihood_old_ci, double likelihood_old_cj)</td></tr>
+<tr class="memdesc:a424feff7106b2f43492078d82cf1434f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute acceptance ratio for LSS merge move.  <br /></td></tr>
+<tr class="separator:a424feff7106b2f43492078d82cf1434f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec5dd1754aebe6d9898f31b8f51eade3" id="r_aec5dd1754aebe6d9898f31b8f51eade3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec5dd1754aebe6d9898f31b8f51eade3">shuffle</a> ()</td></tr>
+<tr class="memdesc:aec5dd1754aebe6d9898f31b8f51eade3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Execute a shuffle move using LSS.  <br /></td></tr>
+<tr class="separator:aec5dd1754aebe6d9898f31b8f51eade3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9305380b10376e14313f9f1d708329a2" id="r_a9305380b10376e14313f9f1d708329a2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9305380b10376e14313f9f1d708329a2">compute_acceptance_ratio_shuffle</a> (double likelihood_old_ci, double likelihood_old_cj, int old_ci_size, int old_cj_size)</td></tr>
+<tr class="memdesc:a9305380b10376e14313f9f1d708329a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute acceptance ratio for LSS shuffle move.  <br /></td></tr>
+<tr class="separator:a9305380b10376e14313f9f1d708329a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:aa34f55f86d4976501c6916ede6c7661b" id="r_aa34f55f86d4976501c6916ede6c7661b"><td class="memItemLeft" align="right" valign="top">std::mt19937&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa34f55f86d4976501c6916ede6c7661b">gen</a></td></tr>
-<tr class="memdesc:aa34f55f86d4976501c6916ede6c7661b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mersenne Twister random number generator for sampling operations.  <br /></td></tr>
-<tr class="separator:aa34f55f86d4976501c6916ede6c7661b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b460b3552b928e4b53f497b25abfec2" id="r_a9b460b3552b928e4b53f497b25abfec2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b460b3552b928e4b53f497b25abfec2">idx_i</a></td></tr>
-<tr class="memdesc:a9b460b3552b928e4b53f497b25abfec2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index of first randomly chosen observation.  <br /></td></tr>
-<tr class="separator:a9b460b3552b928e4b53f497b25abfec2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0c799c515ff0ffbe501400b5f19ccc6" id="r_af0c799c515ff0ffbe501400b5f19ccc6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0c799c515ff0ffbe501400b5f19ccc6">idx_j</a></td></tr>
-<tr class="memdesc:af0c799c515ff0ffbe501400b5f19ccc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index of second randomly chosen observation.  <br /></td></tr>
-<tr class="separator:af0c799c515ff0ffbe501400b5f19ccc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08e1e9e19f1aa0098d5595f8a1cb3f2f" id="r_a08e1e9e19f1aa0098d5595f8a1cb3f2f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08e1e9e19f1aa0098d5595f8a1cb3f2f">ci</a></td></tr>
-<tr class="memdesc:a08e1e9e19f1aa0098d5595f8a1cb3f2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cluster assignment of first observation.  <br /></td></tr>
-<tr class="separator:a08e1e9e19f1aa0098d5595f8a1cb3f2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad13f1d9fbd90ca3974083fb5cd46713a" id="r_ad13f1d9fbd90ca3974083fb5cd46713a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad13f1d9fbd90ca3974083fb5cd46713a">cj</a></td></tr>
-<tr class="memdesc:ad13f1d9fbd90ca3974083fb5cd46713a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cluster assignment of second observation.  <br /></td></tr>
-<tr class="separator:ad13f1d9fbd90ca3974083fb5cd46713a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72d799ebddc0c40ce3dda9ac359b9cc2" id="r_a72d799ebddc0c40ce3dda9ac359b9cc2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72d799ebddc0c40ce3dda9ac359b9cc2">shuffle_bool</a> = false</td></tr>
-<tr class="memdesc:a72d799ebddc0c40ce3dda9ac359b9cc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to enable shuffle moves (Mena and Martinez, 2014)  <br /></td></tr>
-<tr class="separator:a72d799ebddc0c40ce3dda9ac359b9cc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a206bae65e863eb7fe273630d98225bbc" id="r_a206bae65e863eb7fe273630d98225bbc"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a206bae65e863eb7fe273630d98225bbc">launch_state</a></td></tr>
-<tr class="memdesc:a206bae65e863eb7fe273630d98225bbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Launch state for sequential allocation.  <br /></td></tr>
-<tr class="separator:a206bae65e863eb7fe273630d98225bbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cea74d3d45844942423e71aa034eccb" id="r_a9cea74d3d45844942423e71aa034eccb"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9cea74d3d45844942423e71aa034eccb">S</a></td></tr>
-<tr class="memdesc:a9cea74d3d45844942423e71aa034eccb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indices of observations in clusters ci and cj.  <br /></td></tr>
-<tr class="separator:a9cea74d3d45844942423e71aa034eccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7284d1659fa7c56c2ecfcb63665b0fb" id="r_ab7284d1659fa7c56c2ecfcb63665b0fb"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7284d1659fa7c56c2ecfcb63665b0fb">original_allocations</a></td></tr>
-<tr class="memdesc:ab7284d1659fa7c56c2ecfcb63665b0fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Original cluster assignments before move proposal.  <br /></td></tr>
-<tr class="separator:ab7284d1659fa7c56c2ecfcb63665b0fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e4e5d49b7be84ec2b6aa6fce0a629a9" id="r_a5e4e5d49b7be84ec2b6aa6fce0a629a9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e4e5d49b7be84ec2b6aa6fce0a629a9">log_split_gibbs_prob</a> = 0</td></tr>
-<tr class="memdesc:a5e4e5d49b7be84ec2b6aa6fce0a629a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log probability of generating current state via sequential allocation (split direction)  <br /></td></tr>
-<tr class="separator:a5e4e5d49b7be84ec2b6aa6fce0a629a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a922a5126d03338f8e6f3116b30e3a1e5" id="r_a922a5126d03338f8e6f3116b30e3a1e5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a922a5126d03338f8e6f3116b30e3a1e5">log_merge_gibbs_prob</a> = 0</td></tr>
-<tr class="memdesc:a922a5126d03338f8e6f3116b30e3a1e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log probability of generating current state via sequential allocation (merge direction)  <br /></td></tr>
-<tr class="separator:a922a5126d03338f8e6f3116b30e3a1e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af44a46bc10d47c3b9fc341a68cd9968b" id="r_af44a46bc10d47c3b9fc341a68cd9968b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af44a46bc10d47c3b9fc341a68cd9968b">accepted_split</a> = 0</td></tr>
-<tr class="separator:af44a46bc10d47c3b9fc341a68cd9968b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28b3d26014b638f3db3996601458a57f" id="r_a28b3d26014b638f3db3996601458a57f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28b3d26014b638f3db3996601458a57f">accepted_merge</a> = 0</td></tr>
-<tr class="separator:a28b3d26014b638f3db3996601458a57f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dc7efc5585029e7a37411cf4f17a608" id="r_a6dc7efc5585029e7a37411cf4f17a608"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6dc7efc5585029e7a37411cf4f17a608">accepted_shuffle</a> = 0</td></tr>
-<tr class="separator:a6dc7efc5585029e7a37411cf4f17a608"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99554021bcc51e39bc61dde55c7961b8" id="r_a99554021bcc51e39bc61dde55c7961b8"><td class="memItemLeft" align="right" valign="top">std::mt19937&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99554021bcc51e39bc61dde55c7961b8">gen</a></td></tr>
+<tr class="memdesc:a99554021bcc51e39bc61dde55c7961b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mersenne Twister random number generator for sampling operations.  <br /></td></tr>
+<tr class="separator:a99554021bcc51e39bc61dde55c7961b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7a1b9806e8f045ca1b3e3c4f282c233" id="r_ac7a1b9806e8f045ca1b3e3c4f282c233"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac7a1b9806e8f045ca1b3e3c4f282c233">idx_i</a></td></tr>
+<tr class="memdesc:ac7a1b9806e8f045ca1b3e3c4f282c233"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index of first randomly chosen observation.  <br /></td></tr>
+<tr class="separator:ac7a1b9806e8f045ca1b3e3c4f282c233"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c98c80c273d7bb82e5e17207dcbb90d" id="r_a8c98c80c273d7bb82e5e17207dcbb90d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c98c80c273d7bb82e5e17207dcbb90d">idx_j</a></td></tr>
+<tr class="memdesc:a8c98c80c273d7bb82e5e17207dcbb90d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index of second randomly chosen observation.  <br /></td></tr>
+<tr class="separator:a8c98c80c273d7bb82e5e17207dcbb90d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb31363a48582dbf41b5d1749623d7df" id="r_afb31363a48582dbf41b5d1749623d7df"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb31363a48582dbf41b5d1749623d7df">ci</a></td></tr>
+<tr class="memdesc:afb31363a48582dbf41b5d1749623d7df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cluster assignment of first observation.  <br /></td></tr>
+<tr class="separator:afb31363a48582dbf41b5d1749623d7df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ced96fbbfdd52d9b0ae8682b83e5640" id="r_a6ced96fbbfdd52d9b0ae8682b83e5640"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ced96fbbfdd52d9b0ae8682b83e5640">cj</a></td></tr>
+<tr class="memdesc:a6ced96fbbfdd52d9b0ae8682b83e5640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cluster assignment of second observation.  <br /></td></tr>
+<tr class="separator:a6ced96fbbfdd52d9b0ae8682b83e5640"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa850a59ac5189d46ea4f34babcb41e0" id="r_afa850a59ac5189d46ea4f34babcb41e0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa850a59ac5189d46ea4f34babcb41e0">shuffle_bool</a> = false</td></tr>
+<tr class="memdesc:afa850a59ac5189d46ea4f34babcb41e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to enable shuffle moves (Mena and Martinez, 2014)  <br /></td></tr>
+<tr class="separator:afa850a59ac5189d46ea4f34babcb41e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d32095728297ce218120e1bf6454cee" id="r_a5d32095728297ce218120e1bf6454cee"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d32095728297ce218120e1bf6454cee">launch_state</a></td></tr>
+<tr class="memdesc:a5d32095728297ce218120e1bf6454cee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Launch state for sequential allocation.  <br /></td></tr>
+<tr class="separator:a5d32095728297ce218120e1bf6454cee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a339dbb5c0d5dcce9cf351c0dc34a29db" id="r_a339dbb5c0d5dcce9cf351c0dc34a29db"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a339dbb5c0d5dcce9cf351c0dc34a29db">S</a></td></tr>
+<tr class="memdesc:a339dbb5c0d5dcce9cf351c0dc34a29db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indices of observations in clusters ci and cj.  <br /></td></tr>
+<tr class="separator:a339dbb5c0d5dcce9cf351c0dc34a29db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8469a38fe1119d98269a4373cc3d2063" id="r_a8469a38fe1119d98269a4373cc3d2063"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8469a38fe1119d98269a4373cc3d2063">original_allocations</a></td></tr>
+<tr class="memdesc:a8469a38fe1119d98269a4373cc3d2063"><td class="mdescLeft">&#160;</td><td class="mdescRight">Original cluster assignments before move proposal.  <br /></td></tr>
+<tr class="separator:a8469a38fe1119d98269a4373cc3d2063"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace64a91822dea799445ec13c33d54e3c" id="r_ace64a91822dea799445ec13c33d54e3c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace64a91822dea799445ec13c33d54e3c">log_split_gibbs_prob</a> = 0</td></tr>
+<tr class="memdesc:ace64a91822dea799445ec13c33d54e3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log probability of generating current state via sequential allocation (split direction)  <br /></td></tr>
+<tr class="separator:ace64a91822dea799445ec13c33d54e3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16f2309b47927932ba6ec41a64665bd9" id="r_a16f2309b47927932ba6ec41a64665bd9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16f2309b47927932ba6ec41a64665bd9">log_merge_gibbs_prob</a> = 0</td></tr>
+<tr class="memdesc:a16f2309b47927932ba6ec41a64665bd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log probability of generating current state via sequential allocation (merge direction)  <br /></td></tr>
+<tr class="separator:a16f2309b47927932ba6ec41a64665bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a334e39e5d45c07d7ab1206ea42400af5" id="r_a334e39e5d45c07d7ab1206ea42400af5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a334e39e5d45c07d7ab1206ea42400af5">accepted_split</a> = 0</td></tr>
+<tr class="separator:a334e39e5d45c07d7ab1206ea42400af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a686d52f723a414c87007d64e647df358" id="r_a686d52f723a414c87007d64e647df358"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a686d52f723a414c87007d64e647df358">accepted_merge</a> = 0</td></tr>
+<tr class="separator:a686d52f723a414c87007d64e647df358"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8697a2a479ff23e3ea6ac59758a26396" id="r_a8697a2a479ff23e3ea6ac59758a26396"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8697a2a479ff23e3ea6ac59758a26396">accepted_shuffle</a> = 0</td></tr>
+<tr class="separator:a8697a2a479ff23e3ea6ac59758a26396"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -241,22 +241,23 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:abec9d161c1e486904e6d2869890c4be3 inherit pro_attribs_classSampler"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Sequential Allocation Merge-Split (SAMS) sampler for Bayesian nonparametric models. </p>
-<p>This class implements the SAMS algorithm, a variant of the split-merge sampler that uses sequential allocation instead of restricted Gibbs sampling for proposal generation. SAMS can be more efficient than standard split-merge for certain model configurations and provides an alternative proposal mechanism.</p>
+<div class="textblock"><p>Locality Sensitive Sampling (LSS) Split-Merge sampler for Bayesian nonparametric models. </p>
+<p>This class implements the LSS Split-Merge algorithm, a variant of the split-merge sampler that uses locality sensitive sampling to select anchor points based on similarity information. LSS can be more efficient than standard split-merge for large datasets by focusing computational effort on similar observations.</p>
 <p>Key differences from standard Split-Merge:</p><ul>
+<li><b>Locality Sensitive Sampling</b>: Anchor points are selected based on similarity/distance</li>
 <li><b>Sequential Allocation</b>: Observations are allocated one by one in random order</li>
-<li><b>Simplified Proposals</b>: No need for full restricted Gibbs chains</li>
-<li><b>Efficient Computation</b>: Faster proposal generation for large clusters</li>
+<li><b>Efficient Computation</b>: Faster proposal generation leveraging data structure</li>
 <li><b>Maintained Ergodicity</b>: Preserves theoretical properties of split-merge</li>
 </ul>
-<p>The algorithm maintains the same three types of moves (split, merge, shuffle) but uses a different mechanism for generating proposals within each move type.</p>
-<dl class="section note"><dt>Note</dt><dd>reference Dahl, D. B. and Newcomb, S. (2022). "Sequentially allocated
-merge-split samplers for conjugate Bayesian nonparametric models" reference Martinez, A. F. and Mena, R. H. (2014). "On a Nonparametric Change
-Point Detection Model in Markovian Regimes"</dd></dl>
+<p>The algorithm maintains the same three types of moves (split, merge, shuffle) but uses locality sensitive sampling for anchor point selection and sequential allocation for generating proposals within each move type.</p>
+<dl class="section note"><dt>Note</dt><dd>reference Luo, C., Shrivastava, A. (2018). "Scaling-up Split-Merge MCMC with
+Locality Sensitive Sampling (LSS)" reference Dahl, D. B. and Newcomb, S. (2022). "Sequentially allocated merge-split samplers for conjugate Bayesian
+nonparametric models" reference Martinez, A. F. and Mena, R. H. (2014). "On a
+Nonparametric Change Point Detection Model in Markovian Regimes"</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a>, <a class="el" href="classSplitMerge.html" title="Split-Merge sampler for Bayesian nonparametric mixture models.">SplitMerge</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af812bf4c32fef71ddae082bfa26d1465" name="af812bf4c32fef71ddae082bfa26d1465"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af812bf4c32fef71ddae082bfa26d1465">&#9670;&#160;</a></span>SplitMerge_SAMS()</h2>
+<a id="a595c757322a9ad77de02a683f1617377" name="a595c757322a9ad77de02a683f1617377"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a595c757322a9ad77de02a683f1617377">&#9670;&#160;</a></span>SplitMerge_LSS()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -265,7 +266,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">SplitMerge_SAMS::SplitMerge_SAMS </td>
+          <td class="memname">SplitMerge_LSS::SplitMerge_LSS </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classData.html">Data</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>d</em></span>, </td>
         </tr>
@@ -297,7 +298,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Constructor for SAMS (Sequential Allocation Merge-Split) sampler. </p>
+<p>Constructor for LSS (Locality Sensitive Sampling) Split-Merge sampler. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">d</td><td>Reference to <a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a> object containing observations </td></tr>
@@ -308,13 +309,13 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   </table>
   </dd>
 </dl>
-<p>Initializes the SAMS sampler, which uses sequential allocation instead of restricted Gibbs sampling for generating proposals. This can provide computational advantages for certain model configurations. </p>
+<p>Initializes the LSS Split-Merge sampler, which uses locality sensitive sampling for anchor point selection and sequential allocation for generating proposals. This can provide computational advantages for large datasets. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0f209904a93d4ba19a9e0b599fa1e8ea" name="a0f209904a93d4ba19a9e0b599fa1e8ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f209904a93d4ba19a9e0b599fa1e8ea">&#9670;&#160;</a></span>choose_clusters_shuffle()</h2>
+<a id="a9db1efefb6e1fd16e8be534c540178ba" name="a9db1efefb6e1fd16e8be534c540178ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9db1efefb6e1fd16e8be534c540178ba">&#9670;&#160;</a></span>choose_clusters_shuffle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -323,7 +324,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void SplitMerge_SAMS::choose_clusters_shuffle </td>
+          <td class="memname">void SplitMerge_LSS::choose_clusters_shuffle </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -342,8 +343,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="a7c24fa1ba190b6cf4adc2ac011ae5c33" name="a7c24fa1ba190b6cf4adc2ac011ae5c33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c24fa1ba190b6cf4adc2ac011ae5c33">&#9670;&#160;</a></span>choose_indeces()</h2>
+<a id="a72d1782c9ef51178895107d575fc4171" name="a72d1782c9ef51178895107d575fc4171"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72d1782c9ef51178895107d575fc4171">&#9670;&#160;</a></span>choose_indeces()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -352,9 +353,9 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void SplitMerge_SAMS::choose_indeces </td>
+          <td class="memname">void SplitMerge_LSS::choose_indeces </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>similarity</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -366,13 +367,18 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 </div><div class="memdoc">
 
 <p>Randomly select two observations for split-merge proposal. </p>
-<p>Uniformly samples two distinct observation indices that will determine the type of move and the clusters involved. </p>
+<p>Uniformly samples two distinct observation indices that will determine the type of move and the clusters involved. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">similarity</td><td>If true, select indices from similar clusters </td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Randomly choose two distinct indices i and j from the data points. Identify their clusters ci and cj. Prepare the launch_state and S vectors for the split-merge operation.</p>
 
 </div>
 </div>
-<a id="ab8cae3bc20e68ad01b70c12c5418fc75" name="ab8cae3bc20e68ad01b70c12c5418fc75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8cae3bc20e68ad01b70c12c5418fc75">&#9670;&#160;</a></span>compute_acceptance_ratio_merge()</h2>
+<a id="a424feff7106b2f43492078d82cf1434f" name="a424feff7106b2f43492078d82cf1434f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a424feff7106b2f43492078d82cf1434f">&#9670;&#160;</a></span>compute_acceptance_ratio_merge()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -381,7 +387,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double SplitMerge_SAMS::compute_acceptance_ratio_merge </td>
+          <td class="memname">double SplitMerge_LSS::compute_acceptance_ratio_merge </td>
           <td>(</td>
           <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>likelihood_old_ci</em></span>, </td>
         </tr>
@@ -398,7 +404,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Compute acceptance ratio for SAMS merge move. </p>
+<p>Compute acceptance ratio for LSS merge move. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">likelihood_old_ci</td><td><a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> of first original cluster </td></tr>
@@ -418,8 +424,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="aca21e410527783e4d78b4c263d8f2480" name="aca21e410527783e4d78b4c263d8f2480"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca21e410527783e4d78b4c263d8f2480">&#9670;&#160;</a></span>compute_acceptance_ratio_shuffle()</h2>
+<a id="a9305380b10376e14313f9f1d708329a2" name="a9305380b10376e14313f9f1d708329a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9305380b10376e14313f9f1d708329a2">&#9670;&#160;</a></span>compute_acceptance_ratio_shuffle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -428,7 +434,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double SplitMerge_SAMS::compute_acceptance_ratio_shuffle </td>
+          <td class="memname">double SplitMerge_LSS::compute_acceptance_ratio_shuffle </td>
           <td>(</td>
           <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>likelihood_old_ci</em></span>, </td>
         </tr>
@@ -455,7 +461,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Compute acceptance ratio for SAMS shuffle move. </p>
+<p>Compute acceptance ratio for LSS shuffle move. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">likelihood_old_ci</td><td><a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> of first cluster before shuffle </td></tr>
@@ -470,8 +476,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="acba1ce0aa45cadf54443b5f1c0eceaa6" name="acba1ce0aa45cadf54443b5f1c0eceaa6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acba1ce0aa45cadf54443b5f1c0eceaa6">&#9670;&#160;</a></span>compute_acceptance_ratio_split()</h2>
+<a id="a4feef4466a3f38f2514e757dd549c01f" name="a4feef4466a3f38f2514e757dd549c01f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4feef4466a3f38f2514e757dd549c01f">&#9670;&#160;</a></span>compute_acceptance_ratio_split()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -480,7 +486,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double SplitMerge_SAMS::compute_acceptance_ratio_split </td>
+          <td class="memname">double SplitMerge_LSS::compute_acceptance_ratio_split </td>
           <td>(</td>
           <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>likelihood_old_cluster</em></span></td><td>)</td>
           <td></td>
@@ -493,7 +499,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Compute acceptance ratio for SAMS split move. </p>
+<p>Compute acceptance ratio for LSS split move. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">likelihood_old_cluster</td><td><a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> of the original single cluster </td></tr>
@@ -511,8 +517,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="adc7ce8d882f8a3c08575ae4494580255" name="adc7ce8d882f8a3c08575ae4494580255"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc7ce8d882f8a3c08575ae4494580255">&#9670;&#160;</a></span>get_accepted_merge()</h2>
+<a id="aa8a4414bb201370286b0dbad7e73ea68" name="aa8a4414bb201370286b0dbad7e73ea68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8a4414bb201370286b0dbad7e73ea68">&#9670;&#160;</a></span>get_accepted_merge()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -521,7 +527,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int SplitMerge_SAMS::get_accepted_merge </td>
+          <td class="memname">int SplitMerge_LSS::get_accepted_merge </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -539,8 +545,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="a6d446d7fd2fbbf4f34fa85c1f4aa2696" name="a6d446d7fd2fbbf4f34fa85c1f4aa2696"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d446d7fd2fbbf4f34fa85c1f4aa2696">&#9670;&#160;</a></span>get_accepted_shuffle()</h2>
+<a id="ac4549dbcb5b175229392e7aab4ed694d" name="ac4549dbcb5b175229392e7aab4ed694d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4549dbcb5b175229392e7aab4ed694d">&#9670;&#160;</a></span>get_accepted_shuffle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -549,7 +555,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int SplitMerge_SAMS::get_accepted_shuffle </td>
+          <td class="memname">int SplitMerge_LSS::get_accepted_shuffle </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -567,8 +573,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="abcbd7a097cf3138a7c4ebf8cfe693405" name="abcbd7a097cf3138a7c4ebf8cfe693405"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abcbd7a097cf3138a7c4ebf8cfe693405">&#9670;&#160;</a></span>get_accepted_split()</h2>
+<a id="a1375b8d9efe2e2120592436e36bbba04" name="a1375b8d9efe2e2120592436e36bbba04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1375b8d9efe2e2120592436e36bbba04">&#9670;&#160;</a></span>get_accepted_split()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -577,7 +583,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int SplitMerge_SAMS::get_accepted_split </td>
+          <td class="memname">int SplitMerge_LSS::get_accepted_split </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -595,8 +601,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="a6f774a8523fa9cd09826aecd6a177d11" name="a6f774a8523fa9cd09826aecd6a177d11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f774a8523fa9cd09826aecd6a177d11">&#9670;&#160;</a></span>merge_move()</h2>
+<a id="a592b28bad845e868b2baef627472a8c3" name="a592b28bad845e868b2baef627472a8c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a592b28bad845e868b2baef627472a8c3">&#9670;&#160;</a></span>merge_move()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -605,7 +611,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void SplitMerge_SAMS::merge_move </td>
+          <td class="memname">void SplitMerge_LSS::merge_move </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -618,14 +624,14 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Execute a merge move using SAMS. </p>
+<p>Execute a merge move using LSS. </p>
 <p>Attempts to merge two clusters into one using sequential allocation to determine the final unified assignment. </p>
 <p>Propose a merge move by combining clusters ci and cj. Compute the acceptance ratio and decide whether to accept or reject the move.</p>
 
 </div>
 </div>
-<a id="a1cf7698ea219623995597a45932db97c" name="a1cf7698ea219623995597a45932db97c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1cf7698ea219623995597a45932db97c">&#9670;&#160;</a></span>sequential_allocation()</h2>
+<a id="ac5252791b0a9a1a9b174421205a33c7d" name="ac5252791b0a9a1a9b174421205a33c7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5252791b0a9a1a9b174421205a33c7d">&#9670;&#160;</a></span>sequential_allocation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -634,7 +640,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void SplitMerge_SAMS::sequential_allocation </td>
+          <td class="memname">void SplitMerge_LSS::sequential_allocation </td>
           <td>(</td>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>iterations</em></span>, </td>
         </tr>
@@ -677,8 +683,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="ae16402a25ef38853ec04e4c7c88216e0" name="ae16402a25ef38853ec04e4c7c88216e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae16402a25ef38853ec04e4c7c88216e0">&#9670;&#160;</a></span>shuffle()</h2>
+<a id="aec5dd1754aebe6d9898f31b8f51eade3" name="aec5dd1754aebe6d9898f31b8f51eade3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec5dd1754aebe6d9898f31b8f51eade3">&#9670;&#160;</a></span>shuffle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -687,7 +693,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void SplitMerge_SAMS::shuffle </td>
+          <td class="memname">void SplitMerge_LSS::shuffle </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -700,14 +706,14 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Execute a shuffle move using SAMS. </p>
+<p>Execute a shuffle move using LSS. </p>
 <p>Redistributes observations between two clusters using sequential allocation while maintaining the two-cluster structure. </p>
 <p>Perform a shuffle move to refine the allocations of points in S. This move helps to improve mixing by allowing points to switch clusters.</p>
 
 </div>
 </div>
-<a id="a2dd087d9385e3bea847afe311d121b72" name="a2dd087d9385e3bea847afe311d121b72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2dd087d9385e3bea847afe311d121b72">&#9670;&#160;</a></span>split_move()</h2>
+<a id="a6aed8447d79a5834366538cfe55371f4" name="a6aed8447d79a5834366538cfe55371f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6aed8447d79a5834366538cfe55371f4">&#9670;&#160;</a></span>split_move()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -716,7 +722,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void SplitMerge_SAMS::split_move </td>
+          <td class="memname">void SplitMerge_LSS::split_move </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -729,14 +735,14 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Execute a split move using SAMS. </p>
+<p>Execute a split move using LSS. </p>
 <p>Attempts to split a cluster using sequential allocation to generate the proposal state. The two anchor observations are placed in separate subclusters initially. </p>
 <p>Propose a split move by dividing cluster ci into two clusters. Compute the acceptance ratio and decide whether to accept or reject the move.</p>
 
 </div>
 </div>
-<a id="a198db7f37403e0f7093771f03ca961e6" name="a198db7f37403e0f7093771f03ca961e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a198db7f37403e0f7093771f03ca961e6">&#9670;&#160;</a></span>step()</h2>
+<a id="a766bfa11be282aeb39428556c65e0296" name="a766bfa11be282aeb39428556c65e0296"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a766bfa11be282aeb39428556c65e0296">&#9670;&#160;</a></span>step()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -745,7 +751,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void SplitMerge_SAMS::step </td>
+          <td class="memname">void SplitMerge_LSS::step </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -758,14 +764,14 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Perform one iteration of the SAMS algorithm. </p>
-<p>Executes one step of the SAMS sampler:</p><ol type="1">
-<li>Randomly select two observations as anchors</li>
+<p>Perform one iteration of the LSS Split-Merge algorithm. </p>
+<p>Executes one step of the LSS Split-Merge sampler:</p><ol type="1">
+<li>Select two observations as anchors using locality sensitive sampling</li>
 <li>Determine move type based on their current assignments</li>
 <li>Generate proposal using sequential allocation</li>
 <li>Compute acceptance ratio and accept/reject the proposal</li>
 </ol>
-<p>The sequential allocation approach can be more efficient than restricted Gibbs sampling while maintaining the theoretical properties of split-merge. </p>
+<p>The locality sensitive sampling approach selects similar or dissimilar points based on distance information, while sequential allocation provides efficient proposal generation maintaining the theoretical properties of split-merge. </p>
 <p>Perform a single split-merge MCMC step. Randomly choose two indices and decide whether to propose a split or merge move.</p>
 
 <p>Implements <a class="el" href="classSampler.html#a49153313f42d53d107bfe2b2e9d83fa5">Sampler</a>.</p>
@@ -773,8 +779,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a28b3d26014b638f3db3996601458a57f" name="a28b3d26014b638f3db3996601458a57f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28b3d26014b638f3db3996601458a57f">&#9670;&#160;</a></span>accepted_merge</h2>
+<a id="a686d52f723a414c87007d64e647df358" name="a686d52f723a414c87007d64e647df358"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a686d52f723a414c87007d64e647df358">&#9670;&#160;</a></span>accepted_merge</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -783,7 +789,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int SplitMerge_SAMS::accepted_merge = 0</td>
+          <td class="memname">int SplitMerge_LSS::accepted_merge = 0</td>
         </tr>
       </table>
   </td>
@@ -795,8 +801,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="a6dc7efc5585029e7a37411cf4f17a608" name="a6dc7efc5585029e7a37411cf4f17a608"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6dc7efc5585029e7a37411cf4f17a608">&#9670;&#160;</a></span>accepted_shuffle</h2>
+<a id="a8697a2a479ff23e3ea6ac59758a26396" name="a8697a2a479ff23e3ea6ac59758a26396"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8697a2a479ff23e3ea6ac59758a26396">&#9670;&#160;</a></span>accepted_shuffle</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -805,7 +811,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int SplitMerge_SAMS::accepted_shuffle = 0</td>
+          <td class="memname">int SplitMerge_LSS::accepted_shuffle = 0</td>
         </tr>
       </table>
   </td>
@@ -817,8 +823,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="af44a46bc10d47c3b9fc341a68cd9968b" name="af44a46bc10d47c3b9fc341a68cd9968b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af44a46bc10d47c3b9fc341a68cd9968b">&#9670;&#160;</a></span>accepted_split</h2>
+<a id="a334e39e5d45c07d7ab1206ea42400af5" name="a334e39e5d45c07d7ab1206ea42400af5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a334e39e5d45c07d7ab1206ea42400af5">&#9670;&#160;</a></span>accepted_split</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -827,7 +833,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int SplitMerge_SAMS::accepted_split = 0</td>
+          <td class="memname">int SplitMerge_LSS::accepted_split = 0</td>
         </tr>
       </table>
   </td>
@@ -839,8 +845,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="a08e1e9e19f1aa0098d5595f8a1cb3f2f" name="a08e1e9e19f1aa0098d5595f8a1cb3f2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08e1e9e19f1aa0098d5595f8a1cb3f2f">&#9670;&#160;</a></span>ci</h2>
+<a id="afb31363a48582dbf41b5d1749623d7df" name="afb31363a48582dbf41b5d1749623d7df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb31363a48582dbf41b5d1749623d7df">&#9670;&#160;</a></span>ci</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -849,7 +855,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int SplitMerge_SAMS::ci</td>
+          <td class="memname">int SplitMerge_LSS::ci</td>
         </tr>
       </table>
   </td>
@@ -863,8 +869,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="ad13f1d9fbd90ca3974083fb5cd46713a" name="ad13f1d9fbd90ca3974083fb5cd46713a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad13f1d9fbd90ca3974083fb5cd46713a">&#9670;&#160;</a></span>cj</h2>
+<a id="a6ced96fbbfdd52d9b0ae8682b83e5640" name="a6ced96fbbfdd52d9b0ae8682b83e5640"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ced96fbbfdd52d9b0ae8682b83e5640">&#9670;&#160;</a></span>cj</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -873,7 +879,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int SplitMerge_SAMS::cj</td>
+          <td class="memname">int SplitMerge_LSS::cj</td>
         </tr>
       </table>
   </td>
@@ -887,8 +893,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="aa34f55f86d4976501c6916ede6c7661b" name="aa34f55f86d4976501c6916ede6c7661b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa34f55f86d4976501c6916ede6c7661b">&#9670;&#160;</a></span>gen</h2>
+<a id="a99554021bcc51e39bc61dde55c7961b8" name="a99554021bcc51e39bc61dde55c7961b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99554021bcc51e39bc61dde55c7961b8">&#9670;&#160;</a></span>gen</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -897,7 +903,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::mt19937 SplitMerge_SAMS::gen</td>
+          <td class="memname">std::mt19937 SplitMerge_LSS::gen</td>
         </tr>
       </table>
   </td>
@@ -911,8 +917,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="a9b460b3552b928e4b53f497b25abfec2" name="a9b460b3552b928e4b53f497b25abfec2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b460b3552b928e4b53f497b25abfec2">&#9670;&#160;</a></span>idx_i</h2>
+<a id="ac7a1b9806e8f045ca1b3e3c4f282c233" name="ac7a1b9806e8f045ca1b3e3c4f282c233"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7a1b9806e8f045ca1b3e3c4f282c233">&#9670;&#160;</a></span>idx_i</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -921,7 +927,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int SplitMerge_SAMS::idx_i</td>
+          <td class="memname">int SplitMerge_LSS::idx_i</td>
         </tr>
       </table>
   </td>
@@ -935,8 +941,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="af0c799c515ff0ffbe501400b5f19ccc6" name="af0c799c515ff0ffbe501400b5f19ccc6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0c799c515ff0ffbe501400b5f19ccc6">&#9670;&#160;</a></span>idx_j</h2>
+<a id="a8c98c80c273d7bb82e5e17207dcbb90d" name="a8c98c80c273d7bb82e5e17207dcbb90d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c98c80c273d7bb82e5e17207dcbb90d">&#9670;&#160;</a></span>idx_j</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -945,7 +951,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int SplitMerge_SAMS::idx_j</td>
+          <td class="memname">int SplitMerge_LSS::idx_j</td>
         </tr>
       </table>
   </td>
@@ -959,8 +965,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="a206bae65e863eb7fe273630d98225bbc" name="a206bae65e863eb7fe273630d98225bbc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a206bae65e863eb7fe273630d98225bbc">&#9670;&#160;</a></span>launch_state</h2>
+<a id="a5d32095728297ce218120e1bf6454cee" name="a5d32095728297ce218120e1bf6454cee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d32095728297ce218120e1bf6454cee">&#9670;&#160;</a></span>launch_state</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -969,7 +975,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::VectorXi SplitMerge_SAMS::launch_state</td>
+          <td class="memname">Eigen::VectorXi SplitMerge_LSS::launch_state</td>
         </tr>
       </table>
   </td>
@@ -983,8 +989,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="a922a5126d03338f8e6f3116b30e3a1e5" name="a922a5126d03338f8e6f3116b30e3a1e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a922a5126d03338f8e6f3116b30e3a1e5">&#9670;&#160;</a></span>log_merge_gibbs_prob</h2>
+<a id="a16f2309b47927932ba6ec41a64665bd9" name="a16f2309b47927932ba6ec41a64665bd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16f2309b47927932ba6ec41a64665bd9">&#9670;&#160;</a></span>log_merge_gibbs_prob</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -993,7 +999,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double SplitMerge_SAMS::log_merge_gibbs_prob = 0</td>
+          <td class="memname">double SplitMerge_LSS::log_merge_gibbs_prob = 0</td>
         </tr>
       </table>
   </td>
@@ -1007,8 +1013,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="a5e4e5d49b7be84ec2b6aa6fce0a629a9" name="a5e4e5d49b7be84ec2b6aa6fce0a629a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e4e5d49b7be84ec2b6aa6fce0a629a9">&#9670;&#160;</a></span>log_split_gibbs_prob</h2>
+<a id="ace64a91822dea799445ec13c33d54e3c" name="ace64a91822dea799445ec13c33d54e3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace64a91822dea799445ec13c33d54e3c">&#9670;&#160;</a></span>log_split_gibbs_prob</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1017,7 +1023,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double SplitMerge_SAMS::log_split_gibbs_prob = 0</td>
+          <td class="memname">double SplitMerge_LSS::log_split_gibbs_prob = 0</td>
         </tr>
       </table>
   </td>
@@ -1031,8 +1037,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="ab7284d1659fa7c56c2ecfcb63665b0fb" name="ab7284d1659fa7c56c2ecfcb63665b0fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7284d1659fa7c56c2ecfcb63665b0fb">&#9670;&#160;</a></span>original_allocations</h2>
+<a id="a8469a38fe1119d98269a4373cc3d2063" name="a8469a38fe1119d98269a4373cc3d2063"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8469a38fe1119d98269a4373cc3d2063">&#9670;&#160;</a></span>original_allocations</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1041,7 +1047,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::VectorXi SplitMerge_SAMS::original_allocations</td>
+          <td class="memname">Eigen::VectorXi SplitMerge_LSS::original_allocations</td>
         </tr>
       </table>
   </td>
@@ -1055,8 +1061,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="a9cea74d3d45844942423e71aa034eccb" name="a9cea74d3d45844942423e71aa034eccb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cea74d3d45844942423e71aa034eccb">&#9670;&#160;</a></span>S</h2>
+<a id="a339dbb5c0d5dcce9cf351c0dc34a29db" name="a339dbb5c0d5dcce9cf351c0dc34a29db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a339dbb5c0d5dcce9cf351c0dc34a29db">&#9670;&#160;</a></span>S</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1065,7 +1071,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::VectorXi SplitMerge_SAMS::S</td>
+          <td class="memname">Eigen::VectorXi SplitMerge_LSS::S</td>
         </tr>
       </table>
   </td>
@@ -1079,8 +1085,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 
 </div>
 </div>
-<a id="a72d799ebddc0c40ce3dda9ac359b9cc2" name="a72d799ebddc0c40ce3dda9ac359b9cc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72d799ebddc0c40ce3dda9ac359b9cc2">&#9670;&#160;</a></span>shuffle_bool</h2>
+<a id="afa850a59ac5189d46ea4f34babcb41e0" name="afa850a59ac5189d46ea4f34babcb41e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa850a59ac5189d46ea4f34babcb41e0">&#9670;&#160;</a></span>shuffle_bool</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1089,7 +1095,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool SplitMerge_SAMS::shuffle_bool = false</td>
+          <td class="memname">bool SplitMerge_LSS::shuffle_bool = false</td>
         </tr>
       </table>
   </td>
@@ -1104,8 +1110,8 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/samplers/<a class="el" href="splitmerge__SAMS_8hpp_source.html">splitmerge_SAMS.hpp</a></li>
-<li>src/samplers/<a class="el" href="splitmerge__SAMS_8cpp.html">splitmerge_SAMS.cpp</a></li>
+<li>src/samplers/<a class="el" href="splitmerge__LSS_8hpp_source.html">splitmerge_LSS.hpp</a></li>
+<li>src/samplers/<a class="el" href="splitmerge__LSS_8cpp.html">splitmerge_LSS.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1113,7 +1119,7 @@ Point Detection Model in Markovian Regimes"</dd></dl>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="classSplitMerge__SAMS.html">SplitMerge_SAMS</a></li>
+    <li class="navelem"><a class="el" href="classSplitMerge__LSS.html">SplitMerge_LSS</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>

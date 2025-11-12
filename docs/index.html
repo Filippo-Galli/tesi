@@ -357,8 +357,8 @@ Main Functions You'll Use</h2>
 <div class="line"><span class="comment"># Check if the right number of clusters is being found</span></div>
 <div class="line">plot_k_means(dist_matrix, max_k = 15)</div>
 </div><!-- fragment --><p><b>Main entry point (<code><a class="el" href="launcher_8cpp.html" title="Main launcher file for MCMC simulation with various Bayesian non-parametric processes.">src/launcher.cpp</a></code>):</b> </p><div class="fragment"><div class="line"><span class="comment">// The function that does all the clustering work</span></div>
-<div class="line">Rcpp::List <a class="code hl_function" href="launcher_8cpp.html#ac9dd2715233e95e771a0936ff5e8d090">mcmc</a>(distances, param, initial_allocations)</div>
-<div class="ttc" id="alauncher_8cpp_html_ac9dd2715233e95e771a0936ff5e8d090"><div class="ttname"><a href="launcher_8cpp.html#ac9dd2715233e95e771a0936ff5e8d090">mcmc</a></div><div class="ttdeci">Rcpp::List mcmc(const Eigen::MatrixXd &amp;distances, Params &amp;param, const Rcpp::IntegerVector &amp;initial_allocations_r=Rcpp::IntegerVector())</div><div class="ttdoc">Main MCMC function for Bayesian non-parametric clustering.</div><div class="ttdef"><b>Definition</b> launcher.cpp:99</div></div>
+<div class="line">Rcpp::List <a class="code hl_function" href="launcher_8cpp.html#a6272d2af196ebe5de74cf25bc8d1deb9">mcmc</a>(distances, param, initial_allocations)</div>
+<div class="ttc" id="alauncher_8cpp_html_a6272d2af196ebe5de74cf25bc8d1deb9"><div class="ttname"><a href="launcher_8cpp.html#a6272d2af196ebe5de74cf25bc8d1deb9">mcmc</a></div><div class="ttdeci">Rcpp::List mcmc(Params &amp;param, const Rcpp::IntegerVector &amp;initial_allocations_r=Rcpp::IntegerVector())</div><div class="ttdoc">Main MCMC function for Bayesian non-parametric clustering.</div><div class="ttdef"><b>Definition</b> launcher.cpp:101</div></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md19"></a>
 Architecture Overview</h2>
 <p>The code is organized in layers:</p>
@@ -409,7 +409,7 @@ Your First Analysis (Step by Step)</h2>
 <div class="line">)</div>
 <div class="line"> </div>
 <div class="line"><span class="comment"># Run it!</span></div>
-<div class="line">result &lt;- <a class="code hl_function" href="launcher_8cpp.html#ac9dd2715233e95e771a0936ff5e8d090">mcmc</a>(dist_matrix, param, hyperparams$initial_clusters - 1)</div>
+<div class="line">result &lt;- <a class="code hl_function" href="launcher_8cpp.html#a6272d2af196ebe5de74cf25bc8d1deb9">mcmc</a>(dist_matrix, param, hyperparams$initial_clusters - 1)</div>
 </div><!-- fragment --><p><b>3. See what you found:</b> </p><div class="fragment"><div class="line"><span class="comment"># Make plots</span></div>
 <div class="line">plot_mcmc_results(result, BI = 2000)</div>
 <div class="line"> </div>

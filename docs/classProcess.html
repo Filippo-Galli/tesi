@@ -129,9 +129,9 @@ Inheritance diagram for Process:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a45c13512446ea3e7353ed88773d496a6" id="r_a45c13512446ea3e7353ed88773d496a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45c13512446ea3e7353ed88773d496a6">Process</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p)</td></tr>
-<tr class="memdesc:a45c13512446ea3e7353ed88773d496a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor initializing process with data and parameters.  <br /></td></tr>
-<tr class="separator:a45c13512446ea3e7353ed88773d496a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bd31d2434ca052d9a7e2b803e346b8e" id="r_a8bd31d2434ca052d9a7e2b803e346b8e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8bd31d2434ca052d9a7e2b803e346b8e">Process</a> (<a class="el" href="classData.html">Data</a> &amp;d, const <a class="el" href="structParams.html">Params</a> &amp;p)</td></tr>
+<tr class="memdesc:a8bd31d2434ca052d9a7e2b803e346b8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor initializing process with data and parameters.  <br /></td></tr>
+<tr class="separator:a8bd31d2434ca052d9a7e2b803e346b8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17d00dd1cdddc0c2c8b3d4155afcb54c" id="r_a17d00dd1cdddc0c2c8b3d4155afcb54c"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a17d00dd1cdddc0c2c8b3d4155afcb54c">gibbs_prior_existing_cluster</a> (int cls_idx, int obs_idx) const =0</td></tr>
 <tr class="memdesc:a17d00dd1cdddc0c2c8b3d4155afcb54c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute prior probability for assigning observation to existing cluster.  <br /></td></tr>
 <tr class="separator:a17d00dd1cdddc0c2c8b3d4155afcb54c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -177,9 +177,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:af8d15d280b7b72defee3438abf1f9c8f" id="r_af8d15d280b7b72defee3438abf1f9c8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8d15d280b7b72defee3438abf1f9c8f">data</a></td></tr>
 <tr class="memdesc:af8d15d280b7b72defee3438abf1f9c8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the data object containing observations and allocations.  <br /></td></tr>
 <tr class="separator:af8d15d280b7b72defee3438abf1f9c8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c3ef16d47835acfa8fbe86aefb8c6e8" id="r_a4c3ef16d47835acfa8fbe86aefb8c6e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structParams.html">Params</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c3ef16d47835acfa8fbe86aefb8c6e8">params</a></td></tr>
-<tr class="memdesc:a4c3ef16d47835acfa8fbe86aefb8c6e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the parameters object containing process hyperparameters.  <br /></td></tr>
-<tr class="separator:a4c3ef16d47835acfa8fbe86aefb8c6e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2793ccf3c3fe37432a7e19ba2de0e885" id="r_a2793ccf3c3fe37432a7e19ba2de0e885"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structParams.html">Params</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2793ccf3c3fe37432a7e19ba2de0e885">params</a></td></tr>
+<tr class="memdesc:a2793ccf3c3fe37432a7e19ba2de0e885"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the parameters object containing process hyperparameters.  <br /></td></tr>
+<tr class="separator:a2793ccf3c3fe37432a7e19ba2de0e885"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a837d783fac7c9f12243cd93b4534e3e4" id="r_a837d783fac7c9f12243cd93b4534e3e4"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a837d783fac7c9f12243cd93b4534e3e4">old_allocations</a></td></tr>
 <tr class="memdesc:a837d783fac7c9f12243cd93b4534e3e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage for previous allocations to enable rollback in case of rejection or for computation requiring it.  <br /></td></tr>
 <tr class="separator:a837d783fac7c9f12243cd93b4534e3e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -205,8 +205,8 @@ Protected Attributes</h2></td></tr>
 <p>Derived classes must implement the pure virtual methods to define their specific process characteristics (<a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a>, <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>, <a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a>, <a class="el" href="classDPW.html" title="Dirichlet Process with spatial Weights class for spatially-aware Bayesian nonparametric clustering.">DPW</a>).</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a>, <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>, <a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a>, <a class="el" href="classDPW.html" title="Dirichlet Process with spatial Weights class for spatially-aware Bayesian nonparametric clustering.">DPW</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a45c13512446ea3e7353ed88773d496a6" name="a45c13512446ea3e7353ed88773d496a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45c13512446ea3e7353ed88773d496a6">&#9670;&#160;</a></span>Process()</h2>
+<a id="a8bd31d2434ca052d9a7e2b803e346b8e" name="a8bd31d2434ca052d9a7e2b803e346b8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bd31d2434ca052d9a7e2b803e346b8e">&#9670;&#160;</a></span>Process()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -222,7 +222,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structParams.html">Params</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="structParams.html">Params</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -799,8 +799,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a4c3ef16d47835acfa8fbe86aefb8c6e8" name="a4c3ef16d47835acfa8fbe86aefb8c6e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c3ef16d47835acfa8fbe86aefb8c6e8">&#9670;&#160;</a></span>params</h2>
+<a id="a2793ccf3c3fe37432a7e19ba2de0e885" name="a2793ccf3c3fe37432a7e19ba2de0e885"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2793ccf3c3fe37432a7e19ba2de0e885">&#9670;&#160;</a></span>params</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -809,7 +809,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structParams.html">Params</a>&amp; Process::params</td>
+          <td class="memname">const <a class="el" href="structParams.html">Params</a>&amp; Process::params</td>
         </tr>
       </table>
   </td>

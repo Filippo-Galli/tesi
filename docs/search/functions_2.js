@@ -1,9 +1,9 @@
 var searchData=
 [
   ['get_5facceptance_5frate_0',['get_acceptance_rate',['../classU__sampler.html#addfaeffc2f038a144332e96a6bf1dc7d',1,'U_sampler']]],
-  ['get_5faccepted_5fmerge_1',['get_accepted_merge',['../classSplitMerge.html#ad259991cb650d3c053adaedb610f31b9',1,'SplitMerge::get_accepted_merge()'],['../classSplitMerge__SAMS.html#adc7ce8d882f8a3c08575ae4494580255',1,'SplitMerge_SAMS::get_accepted_merge()']]],
-  ['get_5faccepted_5fshuffle_2',['get_accepted_shuffle',['../classSplitMerge.html#af711a9a7ca43c343a28bda7c9cc7ae3e',1,'SplitMerge::get_accepted_shuffle()'],['../classSplitMerge__SAMS.html#a6d446d7fd2fbbf4f34fa85c1f4aa2696',1,'SplitMerge_SAMS::get_accepted_shuffle()']]],
-  ['get_5faccepted_5fsplit_3',['get_accepted_split',['../classSplitMerge.html#a8a3ea45e1d3bde17d917eea887ca324c',1,'SplitMerge::get_accepted_split()'],['../classSplitMerge__SAMS.html#abcbd7a097cf3138a7c4ebf8cfe693405',1,'SplitMerge_SAMS::get_accepted_split()']]],
+  ['get_5faccepted_5fmerge_1',['get_accepted_merge',['../classSplitMerge.html#ad259991cb650d3c053adaedb610f31b9',1,'SplitMerge::get_accepted_merge()'],['../classSplitMerge__LSS.html#aa8a4414bb201370286b0dbad7e73ea68',1,'SplitMerge_LSS::get_accepted_merge()'],['../classSplitMerge__SAMS.html#adc7ce8d882f8a3c08575ae4494580255',1,'SplitMerge_SAMS::get_accepted_merge()']]],
+  ['get_5faccepted_5fshuffle_2',['get_accepted_shuffle',['../classSplitMerge.html#af711a9a7ca43c343a28bda7c9cc7ae3e',1,'SplitMerge::get_accepted_shuffle()'],['../classSplitMerge__LSS.html#ac4549dbcb5b175229392e7aab4ed694d',1,'SplitMerge_LSS::get_accepted_shuffle()'],['../classSplitMerge__SAMS.html#a6d446d7fd2fbbf4f34fa85c1f4aa2696',1,'SplitMerge_SAMS::get_accepted_shuffle()']]],
+  ['get_5faccepted_5fsplit_3',['get_accepted_split',['../classSplitMerge.html#a8a3ea45e1d3bde17d917eea887ca324c',1,'SplitMerge::get_accepted_split()'],['../classSplitMerge__LSS.html#a1375b8d9efe2e2120592436e36bbba04',1,'SplitMerge_LSS::get_accepted_split()'],['../classSplitMerge__SAMS.html#abcbd7a097cf3138a7c4ebf8cfe693405',1,'SplitMerge_SAMS::get_accepted_split()']]],
   ['get_5fallocations_4',['get_allocations',['../classData.html#a76ebba89fa69c1f2ff4d2905882ee5cb',1,'Data']]],
   ['get_5fcluster_5fassignment_5',['get_cluster_assignment',['../classData.html#a01186813be50f1785aff75c43835ae12',1,'Data']]],
   ['get_5fcluster_5fassignments_6',['get_cluster_assignments',['../classData.html#aed93ea1d6166151c8ff89a3c11f4be35',1,'Data']]],

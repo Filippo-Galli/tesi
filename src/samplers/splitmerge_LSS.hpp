@@ -1,11 +1,12 @@
 /**
- * @file splitmerge_SAMS.hpp
- * @brief Sequential Allocation Merge-Split (SAMS) sampler implementation
+ * @file splitmerge_LSS.hpp
+ * @brief Locality Sensitive Sampling (LSS) Split-Merge sampler implementation
  *
- * This file contains the implementation of the SAMS algorithm, an optimized
- * variant of split-merge sampling that uses sequential allocation for proposal
- * generation. SAMS provides computational advantages for large datasets while
- * maintaining theoretical properties of split-merge algorithms.
+ * This file contains the implementation of the LSS Split-Merge algorithm, an
+ * optimized variant of split-merge sampling that uses locality sensitive
+ * sampling for selecting anchor points. LSS provides computational advantages
+ * for large datasets by leveraging similarity information while maintaining
+ * theoretical properties of split-merge algorithms.
  *
  * @author Filippo Galli
  * @date 2025
@@ -16,31 +17,34 @@
 #include "../utils/Sampler.hpp"
 
 /**
- * @brief Sequential Allocation Merge-Split (SAMS) sampler for Bayesian
+ * @brief Locality Sensitive Sampling (LSS) Split-Merge sampler for Bayesian
  * nonparametric models
  *
- * This class implements the SAMS algorithm, a variant of the split-merge
- * sampler that uses sequential allocation instead of restricted Gibbs sampling
- * for proposal generation. SAMS can be more efficient than standard split-merge
- * for certain model configurations and provides an alternative proposal
- * mechanism.
+ * This class implements the LSS Split-Merge algorithm, a variant of the
+ * split-merge sampler that uses locality sensitive sampling to select anchor
+ * points based on similarity information. LSS can be more efficient than
+ * standard split-merge for large datasets by focusing computational effort on
+ * similar observations.
  *
  * @details Key differences from standard Split-Merge:
+ * - **Locality Sensitive Sampling**: Anchor points are selected based on
+ * similarity/distance
  * - **Sequential Allocation**: Observations are allocated one by one in random
  * order
- * - **Simplified Proposals**: No need for full restricted Gibbs chains
- * - **Efficient Computation**: Faster proposal generation for large clusters
+ * - **Efficient Computation**: Faster proposal generation leveraging data
+ * structure
  * - **Maintained Ergodicity**: Preserves theoretical properties of split-merge
  *
  * The algorithm maintains the same three types of moves (split, merge, shuffle)
- * but uses a different mechanism for generating proposals within each move
- * type.
+ * but uses locality sensitive sampling for anchor point selection and
+ * sequential allocation for generating proposals within each move type.
  *
  * @note
- * reference Dahl, D. B. and Newcomb, S. (2022). "Sequentially allocated
- * merge-split samplers for conjugate Bayesian nonparametric models"
- * reference Martinez, A. F. and Mena, R. H. (2014). "On a Nonparametric Change
- * Point Detection Model in Markovian Regimes"
+ * reference Luo, C., Shrivastava, A. (2018). "Scaling-up Split-Merge MCMC with
+ * Locality Sensitive Sampling (LSS)" reference Dahl, D. B. and Newcomb, S.
+ * (2022). "Sequentially allocated merge-split samplers for conjugate Bayesian
+ * nonparametric models" reference Martinez, A. F. and Mena, R. H. (2014). "On a
+ * Nonparametric Change Point Detection Model in Markovian Regimes"
  *
  * @see Sampler, SplitMerge
  */
@@ -123,19 +127,21 @@ private:
    * @param iterations Number of allocation passes to perform
    * @param only_probabilities If true, only compute proposal probabilities
    * without updating state
-   * @param sequential If true, use sequential allocation; if false, use restricted Gibbs sampling
+   * @param sequential If true, use sequential allocation; if false, use
+   * restricted Gibbs sampling
    *
    * @details Implements the core SAMS algorithm by sequentially allocating
    * observations to clusters. Unlike restricted Gibbs sampling, this approach
    * processes observations one by one in random order, making allocation
    * decisions based on current partial assignments.
    */
-  void sequential_allocation(int iterations, bool only_probabilities = false, bool sequential = true);
+  void sequential_allocation(int iterations, bool only_probabilities = false,
+                             bool sequential = true);
 
   // ========== Split Move Implementation ==========
 
   /**
-   * @brief Execute a split move using SAMS
+   * @brief Execute a split move using LSS
    *
    * @details Attempts to split a cluster using sequential allocation to
    * generate the proposal state. The two anchor observations are placed
@@ -144,7 +150,7 @@ private:
   void split_move();
 
   /**
-   * @brief Compute acceptance ratio for SAMS split move
+   * @brief Compute acceptance ratio for LSS split move
    *
    * @param likelihood_old_cluster Likelihood of the original single cluster
    * @return Log acceptance ratio for the split proposal
@@ -154,7 +160,7 @@ private:
   // ========== Merge Move Implementation ==========
 
   /**
-   * @brief Execute a merge move using SAMS
+   * @brief Execute a merge move using LSS
    *
    * @details Attempts to merge two clusters into one using sequential
    * allocation to determine the final unified assignment.
@@ -162,7 +168,7 @@ private:
   void merge_move();
 
   /**
-   * @brief Compute acceptance ratio for SAMS merge move
+   * @brief Compute acceptance ratio for LSS merge move
    *
    * @param likelihood_old_ci Likelihood of first original cluster
    * @param likelihood_old_cj Likelihood of second original cluster
@@ -174,7 +180,7 @@ private:
   // ========== Shuffle Move Implementation ==========
 
   /**
-   * @brief Execute a shuffle move using SAMS
+   * @brief Execute a shuffle move using LSS
    *
    * @details Redistributes observations between two clusters using
    * sequential allocation while maintaining the two-cluster structure.
@@ -182,7 +188,7 @@ private:
   void shuffle();
 
   /**
-   * @brief Compute acceptance ratio for SAMS shuffle move
+   * @brief Compute acceptance ratio for LSS shuffle move
    *
    * @param likelihood_old_ci Likelihood of first cluster before shuffle
    * @param likelihood_old_cj Likelihood of second cluster before shuffle
@@ -198,7 +204,8 @@ public:
   // ========== Constructor ==========
 
   /**
-   * @brief Constructor for SAMS (Sequential Allocation Merge-Split) sampler
+   * @brief Constructor for LSS (Locality Sensitive Sampling) Split-Merge
+   * sampler
    *
    * @param d Reference to Data object containing observations
    * @param p Reference to Params object with hyperparameters
@@ -206,9 +213,10 @@ public:
    * @param pr Reference to Process object defining the prior
    * @param shuffle Flag to enable shuffle moves in addition to split-merge
    *
-   * @details Initializes the SAMS sampler, which uses sequential allocation
-   * instead of restricted Gibbs sampling for generating proposals. This can
-   * provide computational advantages for certain model configurations.
+   * @details Initializes the LSS Split-Merge sampler, which uses locality
+   * sensitive sampling for anchor point selection and sequential allocation for
+   * generating proposals. This can provide computational advantages for large
+   * datasets.
    */
   SplitMerge_LSS(Data &d, Params &p, Likelihood &l, Process &pr, bool shuffle)
       : Sampler(d, p, l, pr), shuffle_bool(shuffle), gen(rd()) {};
@@ -216,20 +224,22 @@ public:
   // ========== MCMC Interface ==========
 
   /**
-   * @brief Perform one iteration of the SAMS algorithm
+   * @brief Perform one iteration of the LSS Split-Merge algorithm
    *
-   * @details Executes one step of the SAMS sampler:
-   * 1. Randomly select two observations as anchors
+   * @details Executes one step of the LSS Split-Merge sampler:
+   * 1. Select two observations as anchors using locality sensitive sampling
    * 2. Determine move type based on their current assignments
    * 3. Generate proposal using sequential allocation
    * 4. Compute acceptance ratio and accept/reject the proposal
    *
-   * The sequential allocation approach can be more efficient than restricted
-   * Gibbs sampling while maintaining the theoretical properties of split-merge.
+   * The locality sensitive sampling approach selects similar or dissimilar
+   * points based on distance information, while sequential allocation provides
+   * efficient proposal generation maintaining the theoretical properties of
+   * split-merge.
    */
   void step() override;
 
-    // ========== Accessor Methods ==========
+  // ========== Accessor Methods ==========
   /**
    * @brief Get number of accepted split moves for diagnostics
    * @return Count of accepted split moves

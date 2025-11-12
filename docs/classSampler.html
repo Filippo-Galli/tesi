@@ -122,15 +122,16 @@ Inheritance diagram for Sampler:</div>
 <area href="classNeal3.html" title="Implementation of Neal&#39;s Algorithm 3 for collapsed Gibbs sampling." alt="Neal3" shape="rect" coords="0,56,116,80"/>
 <area href="classNeal3ZDNAM.html" title="Neal&#39;s Algorithm 3 with ZDNAM for improved collapsed Gibbs sampling." alt="Neal3ZDNAM" shape="rect" coords="126,56,242,80"/>
 <area href="classSplitMerge.html" title="Split-Merge sampler for Bayesian nonparametric mixture models." alt="SplitMerge" shape="rect" coords="252,56,368,80"/>
-<area href="classSplitMerge__SAMS.html" title="Sequential Allocation Merge-Split (SAMS) sampler for Bayesian nonparametric models." alt="SplitMerge_SAMS" shape="rect" coords="378,56,494,80"/>
+<area href="classSplitMerge__LSS.html" title="Locality Sensitive Sampling (LSS) Split-Merge sampler for Bayesian nonparametric models." alt="SplitMerge_LSS" shape="rect" coords="378,56,494,80"/>
+<area href="classSplitMerge__SAMS.html" title="Sequential Allocation Merge-Split (SAMS) sampler for Bayesian nonparametric models." alt="SplitMerge_SAMS" shape="rect" coords="504,56,620,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a13b15d8c01c34c6d78d93a6ba091e6aa" id="r_a13b15d8c01c34c6d78d93a6ba091e6aa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a13b15d8c01c34c6d78d93a6ba091e6aa">Sampler</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classLikelihood.html">Likelihood</a> &amp;l, <a class="el" href="classProcess.html">Process</a> &amp;pr)</td></tr>
-<tr class="memdesc:a13b15d8c01c34c6d78d93a6ba091e6aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor initializing sampler with required components.  <br /></td></tr>
-<tr class="separator:a13b15d8c01c34c6d78d93a6ba091e6aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4800cc1f9d2718968f5957ca99eee5b1" id="r_a4800cc1f9d2718968f5957ca99eee5b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4800cc1f9d2718968f5957ca99eee5b1">Sampler</a> (<a class="el" href="classData.html">Data</a> &amp;d, const <a class="el" href="structParams.html">Params</a> &amp;p, const <a class="el" href="classLikelihood.html">Likelihood</a> &amp;l, <a class="el" href="classProcess.html">Process</a> &amp;pr)</td></tr>
+<tr class="memdesc:a4800cc1f9d2718968f5957ca99eee5b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor initializing sampler with required components.  <br /></td></tr>
+<tr class="separator:a4800cc1f9d2718968f5957ca99eee5b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49153313f42d53d107bfe2b2e9d83fa5" id="r_a49153313f42d53d107bfe2b2e9d83fa5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a49153313f42d53d107bfe2b2e9d83fa5">step</a> ()=0</td></tr>
 <tr class="memdesc:a49153313f42d53d107bfe2b2e9d83fa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pure virtual method to perform one MCMC sampling step.  <br /></td></tr>
 <tr class="separator:a49153313f42d53d107bfe2b2e9d83fa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,12 +144,12 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a82728aa82b611766bc21cbfbb04e83b5" id="r_a82728aa82b611766bc21cbfbb04e83b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a82728aa82b611766bc21cbfbb04e83b5">data</a></td></tr>
 <tr class="memdesc:a82728aa82b611766bc21cbfbb04e83b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the data object containing observations and current allocations.  <br /></td></tr>
 <tr class="separator:a82728aa82b611766bc21cbfbb04e83b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26e07fa20b8d68ca6f906b40e0f6a9d0" id="r_a26e07fa20b8d68ca6f906b40e0f6a9d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structParams.html">Params</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26e07fa20b8d68ca6f906b40e0f6a9d0">params</a></td></tr>
-<tr class="memdesc:a26e07fa20b8d68ca6f906b40e0f6a9d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the parameters object containing model hyperparameters and MCMC settings.  <br /></td></tr>
-<tr class="separator:a26e07fa20b8d68ca6f906b40e0f6a9d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0645536f5f1d2dc799bec46a6253b664" id="r_a0645536f5f1d2dc799bec46a6253b664"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classLikelihood.html">Likelihood</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0645536f5f1d2dc799bec46a6253b664">likelihood</a></td></tr>
-<tr class="memdesc:a0645536f5f1d2dc799bec46a6253b664"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the likelihood computation object for evaluating cluster assignments.  <br /></td></tr>
-<tr class="separator:a0645536f5f1d2dc799bec46a6253b664"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82d788501df27a3490c27085e5c6a218" id="r_a82d788501df27a3490c27085e5c6a218"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structParams.html">Params</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a82d788501df27a3490c27085e5c6a218">params</a></td></tr>
+<tr class="memdesc:a82d788501df27a3490c27085e5c6a218"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the parameters object containing model hyperparameters and MCMC settings.  <br /></td></tr>
+<tr class="separator:a82d788501df27a3490c27085e5c6a218"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1572ed0ff1a7ace0f1c6b60954200d8c" id="r_a1572ed0ff1a7ace0f1c6b60954200d8c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classLikelihood.html">Likelihood</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1572ed0ff1a7ace0f1c6b60954200d8c">likelihood</a></td></tr>
+<tr class="memdesc:a1572ed0ff1a7ace0f1c6b60954200d8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the likelihood computation object for evaluating cluster assignments.  <br /></td></tr>
+<tr class="separator:a1572ed0ff1a7ace0f1c6b60954200d8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ec54ff9fe8f22c8514496d6f3b998d0" id="r_a8ec54ff9fe8f22c8514496d6f3b998d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classProcess.html">Process</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8ec54ff9fe8f22c8514496d6f3b998d0">process</a></td></tr>
 <tr class="memdesc:a8ec54ff9fe8f22c8514496d6f3b998d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the stochastic process object (<a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a>, <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>, <a class="el" href="classDPW.html" title="Dirichlet Process with spatial Weights class for spatially-aware Bayesian nonparametric clustering.">DPW</a>, <a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a>)  <br /></td></tr>
 <tr class="separator:a8ec54ff9fe8f22c8514496d6f3b998d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -169,8 +170,8 @@ Protected Attributes</h2></td></tr>
 <dd>
 <a class="el" href="classNeal3.html" title="Implementation of Neal&#39;s Algorithm 3 for collapsed Gibbs sampling.">Neal3</a>, <a class="el" href="classSplitMerge.html" title="Split-Merge sampler for Bayesian nonparametric mixture models.">SplitMerge</a>, <a class="el" href="classSplitMerge__SAMS.html" title="Sequential Allocation Merge-Split (SAMS) sampler for Bayesian nonparametric models.">SplitMerge_SAMS</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a13b15d8c01c34c6d78d93a6ba091e6aa" name="a13b15d8c01c34c6d78d93a6ba091e6aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13b15d8c01c34c6d78d93a6ba091e6aa">&#9670;&#160;</a></span>Sampler()</h2>
+<a id="a4800cc1f9d2718968f5957ca99eee5b1" name="a4800cc1f9d2718968f5957ca99eee5b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4800cc1f9d2718968f5957ca99eee5b1">&#9670;&#160;</a></span>Sampler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -186,12 +187,12 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structParams.html">Params</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="structParams.html">Params</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classLikelihood.html">Likelihood</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>l</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="classLikelihood.html">Likelihood</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>l</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -286,7 +287,7 @@ Protected Attributes</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>This is a pure virtual function that must be overridden by concrete sampler implementations</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classNeal3.html#abfabb9dfe80f6fce1c93ac4151279f86" title="Perform one complete iteration of Neal&#39;s Algorithm 3.">Neal3::step()</a>, <a class="el" href="classSplitMerge.html#a87c7ea9050b7157ae5af7d4e63bb16bf" title="Perform one iteration of the split-merge algorithm.">SplitMerge::step()</a>, <a class="el" href="classSplitMerge__SAMS.html#a198db7f37403e0f7093771f03ca961e6" title="Perform one iteration of the SAMS algorithm.">SplitMerge_SAMS::step()</a> </dd></dl>
 
-<p>Implemented in <a class="el" href="classNeal3.html#abfabb9dfe80f6fce1c93ac4151279f86">Neal3</a>, <a class="el" href="classNeal3ZDNAM.html#a314e75d46d37ad2d1338571ba670953e">Neal3ZDNAM</a>, <a class="el" href="classSplitMerge.html#a87c7ea9050b7157ae5af7d4e63bb16bf">SplitMerge</a>, and <a class="el" href="classSplitMerge__SAMS.html#a198db7f37403e0f7093771f03ca961e6">SplitMerge_SAMS</a>.</p>
+<p>Implemented in <a class="el" href="classNeal3.html#abfabb9dfe80f6fce1c93ac4151279f86">Neal3</a>, <a class="el" href="classNeal3ZDNAM.html#a314e75d46d37ad2d1338571ba670953e">Neal3ZDNAM</a>, <a class="el" href="classSplitMerge.html#a87c7ea9050b7157ae5af7d4e63bb16bf">SplitMerge</a>, <a class="el" href="classSplitMerge__LSS.html#a766bfa11be282aeb39428556c65e0296">SplitMerge_LSS</a>, and <a class="el" href="classSplitMerge__SAMS.html#a198db7f37403e0f7093771f03ca961e6">SplitMerge_SAMS</a>.</p>
 
 </div>
 </div>
@@ -315,8 +316,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a0645536f5f1d2dc799bec46a6253b664" name="a0645536f5f1d2dc799bec46a6253b664"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0645536f5f1d2dc799bec46a6253b664">&#9670;&#160;</a></span>likelihood</h2>
+<a id="a1572ed0ff1a7ace0f1c6b60954200d8c" name="a1572ed0ff1a7ace0f1c6b60954200d8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1572ed0ff1a7ace0f1c6b60954200d8c">&#9670;&#160;</a></span>likelihood</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -325,7 +326,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classLikelihood.html">Likelihood</a>&amp; Sampler::likelihood</td>
+          <td class="memname">const <a class="el" href="classLikelihood.html">Likelihood</a>&amp; Sampler::likelihood</td>
         </tr>
       </table>
   </td>
@@ -339,8 +340,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a26e07fa20b8d68ca6f906b40e0f6a9d0" name="a26e07fa20b8d68ca6f906b40e0f6a9d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26e07fa20b8d68ca6f906b40e0f6a9d0">&#9670;&#160;</a></span>params</h2>
+<a id="a82d788501df27a3490c27085e5c6a218" name="a82d788501df27a3490c27085e5c6a218"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82d788501df27a3490c27085e5c6a218">&#9670;&#160;</a></span>params</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -349,7 +350,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structParams.html">Params</a>&amp; Sampler::params</td>
+          <td class="memname">const <a class="el" href="structParams.html">Params</a>&amp; Sampler::params</td>
         </tr>
       </table>
   </td>

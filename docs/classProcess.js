@@ -1,6 +1,6 @@
 var classProcess =
 [
-    [ "Process", "classProcess.html#a45c13512446ea3e7353ed88773d496a6", null ],
+    [ "Process", "classProcess.html#a8bd31d2434ca052d9a7e2b803e346b8e", null ],
     [ "~Process", "classProcess.html#a7ff358c1d3b155bc09e1271266cdce7d", null ],
     [ "gibbs_prior_existing_cluster", "classProcess.html#a17d00dd1cdddc0c2c8b3d4155afcb54c", null ],
     [ "gibbs_prior_existing_clusters", "classProcess.html#aa217cf47b5d0293b0f7d4875f130cef6", null ],
@@ -18,5 +18,5 @@ var classProcess =
     [ "idx_j", "classProcess.html#a6268d4e1236ecc0a2a5a7af400c7868b", null ],
     [ "log_a", "classProcess.html#a38b41ae4bad9a3a5f4b474f2f5a18561", null ],
     [ "old_allocations", "classProcess.html#a837d783fac7c9f12243cd93b4534e3e4", null ],
-    [ "params", "classProcess.html#a4c3ef16d47835acfa8fbe86aefb8c6e8", null ]
+    [ "params", "classProcess.html#a2793ccf3c3fe37432a7e19ba2de0e885", null ]
 ];

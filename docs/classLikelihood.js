@@ -11,6 +11,7 @@ var classLikelihood =
     [ "lgamma_delta1", "classLikelihood.html#a28970d0ed4403a37bf78b86c4a70d208", null ],
     [ "lgamma_delta2", "classLikelihood.html#a0ea7d5667017aa02f6015b9df05f2544", null ],
     [ "log_beta_alpha", "classLikelihood.html#a942bf7c0249d646f6af2a7abaaa0400a", null ],
+    [ "log_D", "classLikelihood.html#a01c2bf67c02e95025c1cb2ef1fe2c24f", null ],
     [ "log_gamma_zeta", "classLikelihood.html#a228d5b708b18028550656f106a404c5d", null ],
     [ "params", "classLikelihood.html#afd1795b729f44bd5105979ecb8853642", null ]
 ];
