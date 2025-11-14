@@ -3,23 +3,23 @@
 ## @author Filippo Galli
 ## @date 2025
 
-library(Rcpp)
-library(ggplot2)
-library(MASS) # For fitdistr function
-library(dplyr)
-library(tidyr)
-library(spam) # For comp.psm
-library(fields) # For minVI
-library(viridisLite) # For color scales
-library(RColorBrewer) # For color palettes
-library(pheatmap) # For heatmaps
-library(mcclust.ext) # For MCMC clustering functions
-library(mvtnorm)
-library(gtools)
-library(salso)
-library(aricode)
-library(reshape2)
-library(cluster)
+suppressMessages(library(Rcpp))
+suppressMessages(library(ggplot2))
+suppressMessages(library(MASS)) # For fitdistr function
+suppressMessages(library(dplyr))
+suppressMessages(library(tidyr))
+suppressMessages(library(spam)) # For comp.psm
+suppressMessages(library(fields)) # For minVI
+suppressMessages(library(viridisLite)) # For color scales
+suppressMessages(library(RColorBrewer)) # For color palettes
+suppressMessages(library(pheatmap)) # For heatmaps
+suppressMessages(library(mcclust.ext)) # For MCMC clustering functions
+suppressMessages(library(mvtnorm))
+suppressMessages(library(gtools))
+suppressMessages(library(salso))
+suppressMessages(library(aricode))
+suppressMessages(library(reshape2))
+suppressMessages(library(cluster))
 
 retrieve_W <- function(distance_matrix, neighbours = 8) {
   # For each element find the nearest neighbours
