@@ -7,6 +7,7 @@
 #pragma once
 
 #include "../utils/Process.hpp"
+#include "module/spatial_module.hpp"
 #include "Eigen/src/Core/Matrix.h"
 
 /**
@@ -19,7 +20,7 @@
  * split-merge algorithms that account for spatial dependencies between
  * observations in the clustering process.
  */
-class DPW : public Process {
+class DPW : public Process, protected SpatialModule {
 
 public:
   /**
@@ -29,7 +30,9 @@ public:
    * @param p Reference to the parameters object containing the adjacency matrix
    * W and spatial coefficient.
    */
-  DPW(Data &d, Params &p) : Process(d, p) {};
+  DPW(Data &d, Params &p) 
+    : Process(d, p), 
+      SpatialModule(p, d, [this]() -> const Eigen::VectorXi& { return this->old_allocations; }) {};
 
   /**
    * @name Gibbs Sampling Methods
@@ -118,47 +121,9 @@ public:
   /** @} */
 
   /**
-   * @name Spatial Methods
-   * @{
+   * @note Spatial methods (get_neighbors_obs, get_neighbors_cls) are inherited
+   * from SpatialModule with optimized caching implementation.
    */
-
-  /**
-   * @brief Returns the number of neighbors for a given observation in a
-   * specific cluster.
-   *
-   * This method counts the neighbors of an observation based on the adjacency
-   * matrix W, considering only neighbors that belong to the specified cluster.
-   * @param obs_idx The index of the observation.
-   * @param cls_idx The index of the cluster to consider for neighbor counting.
-   * @return The number of neighbors for the observation in the specified
-   * cluster.
-   */
-  int get_neighbors_obs(int obs_idx, int cls_idx) const;
-
-  /**
-   * @brief Returns the number of neighbors for a given observation
-   * regardless of cluster membership.
-   * This method counts the total number of neighbors of an observation
-   * based on the adjacency matrix W.
-   * @param obs_idx The index of the observation.
-   * @return The total number of neighbors for the observation for all clusters.
-   */
-  Eigen::VectorXi get_neighbors_obs(int obs_idx) const;
-
-  /**
-   * @brief Returns the total number of neighbors for all observations in a
-   * given cluster.
-   *
-   * This method computes the sum of all neighbor connections within a cluster,
-   * which is used in the spatial component of the prior calculations.
-   * @param cls_idx The index of the cluster.
-   * @param old_allo If true, uses the old allocations for neighbor counting;
-   * otherwise, uses current allocations (default: false).
-   * @return The total number of neighbors for the cluster.
-   */
-  int get_neighbors_cls(int cls_idx, bool old_allo = false) const;
-
-  /** @} */
 
   /**
    * @brief Updates the parameters of the Dirichlet Process with spatial
