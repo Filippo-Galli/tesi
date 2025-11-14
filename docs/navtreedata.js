@@ -50,7 +50,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "DPW_8cpp.html",
-"classSplitMerge__SAMS.html#a72d799ebddc0c40ce3dda9ac359b9cc2"
+"classSplitMerge__SAMS.html#a9b460b3552b928e4b53f497b25abfec2"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

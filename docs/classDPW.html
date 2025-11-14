@@ -118,7 +118,7 @@ Inheritance diagram for DPW:</div>
  <div class="center">
   <img src="classDPW.png" usemap="#DPW_map" alt=""/>
   <map id="DPW_map" name="DPW_map">
-<area href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes." alt="Process" shape="rect" coords="0,0,58,24"/>
+<area href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes." alt="Process" shape="rect" coords="0,0,92,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -150,16 +150,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a657ee647610b79bda39db864bee2b6fa" id="r_a657ee647610b79bda39db864bee2b6fa"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a657ee647610b79bda39db864bee2b6fa">prior_ratio_shuffle</a> (int size_old_ci, int size_old_cj, int ci, int cj) const override</td></tr>
 <tr class="memdesc:a657ee647610b79bda39db864bee2b6fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the prior ratio for a shuffle operation in a spatially-aware split-merge MCMC algorithm.  <br /></td></tr>
 <tr class="separator:a657ee647610b79bda39db864bee2b6fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">Spatial Methods</div></td></tr>
-<tr class="memitem:a9266fc75a741f88114d9f32dbe619fee" id="r_a9266fc75a741f88114d9f32dbe619fee"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9266fc75a741f88114d9f32dbe619fee">get_neighbors_obs</a> (int obs_idx, int cls_idx) const</td></tr>
-<tr class="memdesc:a9266fc75a741f88114d9f32dbe619fee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of neighbors for a given observation in a specific cluster.  <br /></td></tr>
-<tr class="separator:a9266fc75a741f88114d9f32dbe619fee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ec8f5ad05bb716331a2afbdb47d49d5" id="r_a5ec8f5ad05bb716331a2afbdb47d49d5"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ec8f5ad05bb716331a2afbdb47d49d5">get_neighbors_obs</a> (int obs_idx) const</td></tr>
-<tr class="memdesc:a5ec8f5ad05bb716331a2afbdb47d49d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of neighbors for a given observation regardless of cluster membership. This method counts the total number of neighbors of an observation based on the adjacency matrix W.  <br /></td></tr>
-<tr class="separator:a5ec8f5ad05bb716331a2afbdb47d49d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29ebefaa0a0ca2c3276f4013d22e4711" id="r_a29ebefaa0a0ca2c3276f4013d22e4711"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a29ebefaa0a0ca2c3276f4013d22e4711">get_neighbors_cls</a> (int cls_idx, bool old_allo=false) const</td></tr>
-<tr class="memdesc:a29ebefaa0a0ca2c3276f4013d22e4711"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of neighbors for all observations in a given cluster.  <br /></td></tr>
-<tr class="separator:a29ebefaa0a0ca2c3276f4013d22e4711"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classProcess"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classProcess')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classProcess.html">Process</a></td></tr>
 <tr class="memitem:a8bd31d2434ca052d9a7e2b803e346b8e inherit pub_methods_classProcess" id="r_a8bd31d2434ca052d9a7e2b803e346b8e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a8bd31d2434ca052d9a7e2b803e346b8e">Process</a> (<a class="el" href="classData.html">Data</a> &amp;d, const <a class="el" href="structParams.html">Params</a> &amp;p)</td></tr>
 <tr class="memdesc:a8bd31d2434ca052d9a7e2b803e346b8e inherit pub_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor initializing process with data and parameters.  <br /></td></tr>
@@ -246,119 +236,6 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a29ebefaa0a0ca2c3276f4013d22e4711" name="a29ebefaa0a0ca2c3276f4013d22e4711"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29ebefaa0a0ca2c3276f4013d22e4711">&#9670;&#160;</a></span>get_neighbors_cls()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int DPW::get_neighbors_cls </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cls_idx</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>old_allo</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;) const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the total number of neighbors for all observations in a given cluster. </p>
-<p>This method computes the sum of all neighbor connections within a cluster, which is used in the spatial component of the prior calculations. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cls_idx</td><td>The index of the cluster. </td></tr>
-    <tr><td class="paramname">old_allo</td><td>If true, uses the old allocations for neighbor counting; otherwise, uses current allocations (default: false). </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The total number of neighbors for the cluster. </dd></dl>
-<p>Returns the total number of neighbors for all observations in a given cluster.</p>
-<p>This method computes the sum of all neighbor connections within a cluster, which is used in the spatial component of the prior calculations. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cls_idx</td><td>The index of the cluster. </td></tr>
-    <tr><td class="paramname">old_allo</td><td>If true, uses the old allocations for neighbor counting; otherwise, uses current allocations. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The total number of neighbors for the cluster.</dd></dl>
-
-</div>
-</div>
-<a id="a5ec8f5ad05bb716331a2afbdb47d49d5" name="a5ec8f5ad05bb716331a2afbdb47d49d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ec8f5ad05bb716331a2afbdb47d49d5">&#9670;&#160;</a></span>get_neighbors_obs() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::VectorXi DPW::get_neighbors_obs </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>obs_idx</em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the number of neighbors for a given observation regardless of cluster membership. This method counts the total number of neighbors of an observation based on the adjacency matrix W. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">obs_idx</td><td>The index of the observation. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The total number of neighbors for the observation for all clusters. </dd></dl>
-<p>Returns the number of neighbors for a given observation regardless of cluster membership. This method counts the total number of neighbors of an observation based on the adjacency matrix W. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">obs_idx</td><td>The index of the observation. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The total number of neighbors for the observation for all clusters.</dd></dl>
-
-</div>
-</div>
-<a id="a9266fc75a741f88114d9f32dbe619fee" name="a9266fc75a741f88114d9f32dbe619fee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9266fc75a741f88114d9f32dbe619fee">&#9670;&#160;</a></span>get_neighbors_obs() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int DPW::get_neighbors_obs </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>obs_idx</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cls_idx</em></span>&#160;) const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the number of neighbors for a given observation in a specific cluster. </p>
-<p>This method counts the neighbors of an observation based on the adjacency matrix W, considering only neighbors that belong to the specified cluster. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">obs_idx</td><td>The index of the observation. </td></tr>
-    <tr><td class="paramname">cls_idx</td><td>The index of the cluster to consider for neighbor counting. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of neighbors for the observation in the specified cluster. </dd></dl>
-<p>Returns the number of neighbors for a given observation in a specific cluster.</p>
-<p>This method counts the neighbors of an observation based on the adjacency matrix W, considering only neighbors that belong to the specified cluster. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">obs_idx</td><td>The index of the observation. </td></tr>
-    <tr><td class="paramname">cls_idx</td><td>The index of the cluster to consider for neighbor counting. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The number of neighbors for the observation in the specified cluster.</dd></dl>
-
-</div>
-</div>
 <a id="aeaf93fc39436113b77d0a47b4e8b44f6" name="aeaf93fc39436113b77d0a47b4e8b44f6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeaf93fc39436113b77d0a47b4e8b44f6">&#9670;&#160;</a></span>gibbs_prior_existing_cluster()</h2>
 
@@ -672,6 +549,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Updates the parameters of the Dirichlet <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> with spatial Weights. </p>
+<dl class="section note"><dt>Note</dt><dd>Spatial methods (get_neighbors_obs, get_neighbors_cls) are inherited from SpatialModule with optimized caching implementation. </dd></dl>
 <p>This is a null implementation as the <a class="el" href="classDPW.html" title="Dirichlet Process with spatial Weights class for spatially-aware Bayesian nonparametric clustering.">DPW</a> has no parameters to update beyond those handled by the base <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> class. </p>
 
 <p>Implements <a class="el" href="classProcess.html#ac610fb84ed64db2a74fa1447ce5a582e">Process</a>.</p>

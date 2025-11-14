@@ -17,6 +17,7 @@ var hierarchy =
       [ "SplitMerge_SAMS", "classSplitMerge__SAMS.html", null ]
     ] ],
     [ "SpatialModule", null, [
+      [ "DPW", "classDPW.html", null ],
       [ "NGGPW", "classNGGPW.html", null ]
     ] ],
     [ "U_sampler", "classU__sampler.html", [
