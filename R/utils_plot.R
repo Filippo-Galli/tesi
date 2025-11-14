@@ -22,6 +22,18 @@ library(reshape2)
 library(cluster)
 library(label.switching)
 
+## @brief Generate consistent colors for clusters
+## @param n_clusters Number of clusters
+## @return Named vector of colors
+get_cluster_colors <- function(n_clusters) {
+  # Use viridis turbo for many clusters
+  colors <- viridisLite::turbo(n_clusters)
+  
+  # Return named vector with cluster numbers as names
+  names(colors) <- as.character(seq_len(n_clusters))
+  return(colors)
+}
+
 plot_distance <- function(dist_matrix, cls = NULL,
                           save = FALSE, folder = "results/plots/",
                           title = "Distance Histogram",
@@ -492,9 +504,13 @@ plot_map_cls <- function(results, BI, point_estimate = NULL, save = FALSE,
     dplyr::group_by(dplyr::across(dplyr::all_of(id_col)), cluster) |>
     dplyr::summarise(geometry = sf::st_union(geometry), .groups = "drop")
 
+  # Get consistent colors for clusters
+  n_clusters <- length(unique(point_estimate))
+  cluster_colors <- get_cluster_colors(n_clusters)
+
   p <- ggplot2::ggplot(geom) +
     ggplot2::geom_sf(aes(fill = cluster), color = "grey60", size = 0.2) +
-    ggplot2::scale_fill_viridis_d(option = "turbo", na.value = "lightgrey") +
+    ggplot2::scale_fill_manual(values = cluster_colors, na.value = "lightgrey") +
     ggplot2::labs(
       title = "PUMAs by Cluster Assignment",
       fill = "Cluster"
@@ -513,6 +529,7 @@ plot_map_cls <- function(results, BI, point_estimate = NULL, save = FALSE,
 
 plot_map_prior_mean <- function(save = FALSE, folder = "results/plots/",
                                 puma_dir = "input/counties-pumas",
+                                input_dir = "input/CA/",
                                 id_col = "PUMA",
                                 unit_ids = NULL) {
   if (!requireNamespace("sf", quietly = TRUE)) {
@@ -524,7 +541,8 @@ plot_map_prior_mean <- function(save = FALSE, folder = "results/plots/",
     stop("No .shp file found in '", puma_dir, "'.")
   }
 
-  load("input/full_dataset.dat")
+  file <- paste0(input_dir, "full_dataset.dat")
+  load(file)
 
   if (is.null(unit_ids)) {
     unit_ids <- names(data)
@@ -563,13 +581,14 @@ plot_map_prior_mean <- function(save = FALSE, folder = "results/plots/",
   invisible(p)
 }
 
-plot_hist_cls <- function(results, BI, point_estimate = NULL, save = FALSE, folder = "results/plots/") {
-  load("input/full_dataset.dat")
+plot_hist_cls <- function(results, BI, input_dir = "input/CA/", point_estimate = NULL, save = FALSE, folder = "results/plots/") {
+  file <- paste0(input_dir, "full_dataset.dat")
+  load(file)
 
   if (is.null(point_estimate)) {
     point_estimate <- plot_cls_est(results, BI, save = FALSE)
   }
-  
+
   unique_clusters <- sort(unique(point_estimate))
   n_clusters <- length(unique_clusters)
 
@@ -624,16 +643,21 @@ plot_hist_cls <- function(results, BI, point_estimate = NULL, save = FALSE, fold
       n_cols <- ceiling(n_clusters / n_rows)
       graphics::par(mfrow = c(n_rows, n_cols))
 
+      # Get consistent colors for clusters
+      cluster_colors <- get_cluster_colors(n_clusters)
+
       for (cl in names(data_split)) {
         cluster_data <- data_split[[cl]]
         n_pumas <- length(cluster_data)
         combined_data <- unlist(cluster_data)
+        # Use consistent cluster colors with transparency
+        cl_color <- adjustcolor(cluster_colors[cl], alpha.f = 0.7)
         hist(combined_data,
           breaks = 30,
           main = paste("Cluster", cl, "\n(n =", n_pumas, "PUMAs)"),
           xlab = "Income Value",
           ylab = "Density",
-          col = rainbow(n_clusters, alpha = 0.6)[as.numeric(cl)],
+          col = cl_color,
           border = "white",
           probability = TRUE
         )

@@ -6,7 +6,7 @@ files
 ##############################################################################
 # Load Results ====
 ##############################################################################
-folder <- paste0("results/", files[1], "/")
+folder <- paste0("results/", files[4], "/")
 filename_results <- "simulation_results.rds"
 #filename_gt <- "simulation_ground_truth.rds"
 filename_dist <- "simulation_distance_matrix.rds"
@@ -26,7 +26,7 @@ dist_matrix <- readRDS(file = filename_dist)
 param <- readRDS(file = filename_initial_params)
 
 # Create plot directory if it doesn't exist
-folder <- paste0(folder, "plots/")
+folder <- paste0(folder, "VI_plots/")
 if (!dir.exists(folder)) {
   dir.create(folder, recursive = TRUE)
 }
@@ -61,18 +61,19 @@ plot_post_sim_matrix(results, BI = 10000, save = TRUE, folder = folder)
 plot_trace_U(results, BI = 10000, save = TRUE, folder = folder)
 plot_acf_U(results, BI = 10000, save = TRUE, folder = folder)
 
-puma_ids <- sf::st_read("input/counties-pumas/counties-pumas.shp", quiet = TRUE)[["PUMA"]]
+puma_ids <- sf::st_read("input/CA/counties-pumas/counties-pumas.shp", quiet = TRUE)[["PUMA"]]
+plot_map_prior_mean(unit_ids = puma_ids, puma_dir = "input/CA/counties-pumas", save = TRUE, folder = folder)
 plot_map_cls(
   results = results,
   BI = 10000,
-  unit_ids = puma_ids,
-  save = TRUE,
-  folder = folder
+  unit_ids = puma_ids, 
+  puma_dir = "input/CA/counties-pumas", 
+  save = TRUE, folder = folder
 )
 
-plot_map_prior_mean(save = FALSE, folder = "results/plots/",
-                    puma_dir = "input/counties-pumas",
-                    id_col = "PUMA",
-                    unit_ids = puma_ids)
-
-plot_hist_cls(results = results, BI = 10000, save = TRUE, folder = folder)
+plot_hist_cls(
+  results = results,
+  BI = 10000, 
+  save = TRUE, folder = folder,
+  #input_dir = "input/CA/",
+)
