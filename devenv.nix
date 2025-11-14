@@ -96,6 +96,10 @@
     pkgs.rPackages.testthat
     pkgs.rPackages.roxygen2
     pkgs.rPackages.knitr
+    pkgs.rPackages.aricode
+    pkgs.rPackages.cluster
+    pkgs.rPackages.reshape2
+    pkgs.rPackages.label_switching
 
     # Documentation
     pkgs.doxygen
@@ -202,6 +206,8 @@ EOF
     echo "   - spdep: Spatial dependence analysis"
     echo "   - clangd: C++ LSP with correct R/Rcpp paths"
     echo ""
+    echo "💡 Run 'install-mcclust-ext' to install mcclust.ext"
+    echo "💡 Run 'clean_o_files' to delete all .o files <=> recompile all"
     echo "💡 Run 'test-spatial' to verify spatial package installations"
     echo "💡 Run 'check-r-packages' to check all R packages"
     echo "💡 Run 'r-setup' to display environment paths"
