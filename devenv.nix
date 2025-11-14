@@ -1,30 +1,37 @@
-{ pkgs, lib, config, inputs, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  inputs,
+  ...
+}:
 
 {
   env.GREET = "Good day, happy coding";
-  
+
   # ========== DISABLE NIX NATIVE ENFORCEMENT FOR PERFORMANCE ==========
   env.NIX_ENFORCE_NO_NATIVE = "0";
 
   # ========== OPTIMIZED C++ COMPILATION FLAGS FOR MCMC ==========
   # CPU architecture-specific optimizations (best performance)
   env.MARCH_FLAGS = "-march=native -mtune=native";
-  
+
   # Optimization levels for MCMC (computational intensity is high)
   # -O3: aggressive optimizations
   # -ffast-math: allow aggressive floating point optimizations (safe for MCMC)
   # -funroll-loops: unroll loops for better CPU cache utilization
   # -ftree-vectorize: auto-vectorize loops (SIMD)
   # -flto: link-time optimization
+  # -fopenmp: enable OpenMP for parallel computing
   env.CXX_STD = "CXX23";
-  env.PKG_CXXFLAGS = "-O3 -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto";
-  env.CXXFLAGS = "-O3 -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto";
-  env.PKG_CFLAGS = "-O3 -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto";
-  
-  # Linker flags for optimization
-  env.PKG_LIBS = "-flto=auto";
-  env.LDFLAGS = "-flto=auto";
-  
+  env.PKG_CXXFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
+  env.CXXFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
+  env.PKG_CFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
+
+  # Linker flags for optimization and OpenMP
+  env.PKG_LIBS = "-flto=auto -fopenmp";
+  env.LDFLAGS = "-flto=auto -fopenmp";
+
   # Set R environment variables
   env.R_LIBS_USER = "${config.env.DEVENV_STATE}/R";
   env.R_LIBS_SITE = "${pkgs.R}/library";
@@ -32,14 +39,14 @@
   env.LD_LIBRARY_PATH = "${pkgs.openssl}/lib:${pkgs.udunits}/lib:${pkgs.geos}/lib:${pkgs.gdal}/lib:${pkgs.proj}/lib";
   env.LIBRARY_PATH = "${pkgs.openssl.dev}/lib:${pkgs.udunits}/lib:${pkgs.geos}/lib:${pkgs.gdal}/lib:${pkgs.proj}/lib";
 
-  packages = [ 
+  packages = [
     pkgs.git
 
     # R development with C++ support
     pkgs.R
     pkgs.rPackages.Rcpp
     pkgs.rPackages.RcppEigen
-    
+
     # VS Code R integration packages
     pkgs.rPackages.httpgd
     pkgs.rPackages.languageserver
@@ -47,7 +54,7 @@
     pkgs.rPackages.renv
     pkgs.rPackages.mvtnorm
     pkgs.rPackages.gtools
- 
+
     # Data analysis packages
     pkgs.rPackages.ggplot2
     pkgs.rPackages.dplyr
@@ -62,21 +69,21 @@
     pkgs.rPackages.mcclust
     pkgs.rPackages.salso
     pkgs.rPackages.mclust
-    
+
     # ========== ADD THESE FOR SPATIAL PACKAGES (s2, sf, units) ==========
     # Spatial packages
     pkgs.rPackages.s2
     pkgs.rPackages.sf
     pkgs.rPackages.units
     pkgs.rPackages.spdep
-    
+
     # System dependencies for spatial packages
-    pkgs.openssl           # Required by s2
-    pkgs.udunits           # Required by units
-    pkgs.geos              # Required by sf (s2 internally)
-    pkgs.gdal              # Required by sf
-    pkgs.proj              # Required by sf
-    pkgs.libxml2           # Often needed by spatial packages
+    pkgs.openssl # Required by s2
+    pkgs.udunits # Required by units
+    pkgs.geos # Required by sf (s2 internally)
+    pkgs.gdal # Required by sf
+    pkgs.proj # Required by sf
+    pkgs.libxml2 # Often needed by spatial packages
     # ========== END SPATIAL PACKAGES ==========
 
     # C++ development tools
@@ -85,12 +92,16 @@
     pkgs.pkg-config
     pkgs.cmake
     pkgs.clang-tools_18
-    
+    pkgs.linuxPackages.perf
+
+    # OpenMP support
+    pkgs.llvmPackages_18.openmp
+
     # Linear algebra libraries (for RcppEigen)
     pkgs.eigen
     pkgs.blas
     pkgs.lapack
-    
+
     # Additional R development packages
     pkgs.rPackages.devtools
     pkgs.rPackages.testthat
@@ -108,7 +119,7 @@
   scripts.hello.exec = ''
     echo hello from $GREET
   '';
-  
+
   scripts.r-setup.exec = ''
     echo "Setting up R environment..."
     mkdir -p $R_LIBS_USER
@@ -139,9 +150,9 @@
     echo "Installing mcclust.ext from Warwick archive..."
     mkdir -p $R_LIBS_USER
     chmod -R u+w $R_LIBS_USER
-    
+
     export R_LIBS=$R_LIBS_USER
-    
+
     R -e "
       .libPaths(Sys.getenv('R_LIBS_USER'))
       if (!require('devtools', quietly = TRUE)) {
@@ -153,25 +164,25 @@
   '';
 
   scripts.setup-clangd.exec = ''
-    echo "Setting up clangd configuration..."
-    
-    R_INCLUDE=$(R --slave -e "cat(R.home('include'))")
-    RCPP_INCLUDE=$(R --slave -e "cat(system.file('include', package='Rcpp'))")
-    RCPPEIGEN_INCLUDE=$(R --slave -e "cat(system.file('include', package='RcppEigen'))")
-    
-    cat > .clangd <<EOF
-CompileFlags:
-  Add: [
-    "-I./include",
-    "-I${pkgs.eigen}/include/eigen3",
-    "-I$R_INCLUDE",
-    "-I$RCPP_INCLUDE", 
-    "-I$RCPPEIGEN_INCLUDE"
-  ]
-EOF
+        echo "Setting up clangd configuration..."
+        
+        R_INCLUDE=$(R --slave -e "cat(R.home('include'))")
+        RCPP_INCLUDE=$(R --slave -e "cat(system.file('include', package='Rcpp'))")
+        RCPPEIGEN_INCLUDE=$(R --slave -e "cat(system.file('include', package='RcppEigen'))")
+        
+        cat > .clangd <<EOF
+    CompileFlags:
+      Add: [
+        "-I./include",
+        "-I${pkgs.eigen}/include/eigen3",
+        "-I$R_INCLUDE",
+        "-I$RCPP_INCLUDE", 
+        "-I$RCPPEIGEN_INCLUDE"
+      ]
+    EOF
 
-    echo "✅ Generated .clangd with dynamic include paths:"
-    cat .clangd
+        echo "✅ Generated .clangd with dynamic include paths:"
+        cat .clangd
   '';
 
   scripts.check-r-packages.exec = ''
@@ -188,6 +199,25 @@ EOF
     "
   '';
 
+  scripts.test-openmp.exec = ''
+        echo "Testing OpenMP support..."
+        cat > /tmp/test_openmp.cpp <<'EOF'
+    #include <omp.h>
+    #include <iostream>
+    int main() {
+        #pragma omp parallel
+        {
+            #pragma omp single
+            std::cout << "Number of OpenMP threads: " << omp_get_num_threads() << std::endl;
+        }
+        return 0;
+    }
+    EOF
+        g++ -fopenmp /tmp/test_openmp.cpp -o /tmp/test_openmp && /tmp/test_openmp
+        rm -f /tmp/test_openmp /tmp/test_openmp.cpp
+        echo "✅ OpenMP is working!"
+  '';
+
   scripts.clean_o_files.exec = ''
     echo "Cleaning up .o files..."
     find . -name "*.o" -type f -delete
@@ -196,7 +226,7 @@ EOF
 
   enterShell = ''
     setup-clangd
-    
+
     echo ""
     echo "🚀 R + C++ + Spatial development environment is ready for VS Code!"
     echo "   - httpgd: Plot viewing"
@@ -205,10 +235,12 @@ EOF
     echo "   - sf/s2/units: Spatial data analysis"
     echo "   - spdep: Spatial dependence analysis"
     echo "   - clangd: C++ LSP with correct R/Rcpp paths"
+    echo "   - OpenMP: Parallel computing support enabled"
     echo ""
     echo "💡 Run 'install-mcclust-ext' to install mcclust.ext"
     echo "💡 Run 'clean_o_files' to delete all .o files <=> recompile all"
     echo "💡 Run 'test-spatial' to verify spatial package installations"
+    echo "💡 Run 'test-openmp' to verify OpenMP is working"
     echo "💡 Run 'check-r-packages' to check all R packages"
     echo "💡 Run 'r-setup' to display environment paths"
     echo ""

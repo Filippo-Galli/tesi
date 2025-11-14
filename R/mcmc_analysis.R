@@ -6,7 +6,7 @@ files
 ##############################################################################
 # Load Results ====
 ##############################################################################
-folder <- paste0("results/", files[4], "/")
+folder <- paste0("results/", files[10], "/")
 filename_results <- "simulation_results.rds"
 #filename_gt <- "simulation_ground_truth.rds"
 filename_dist <- "simulation_distance_matrix.rds"
@@ -61,13 +61,13 @@ plot_post_sim_matrix(results, BI = 10000, save = TRUE, folder = folder)
 plot_trace_U(results, BI = 10000, save = TRUE, folder = folder)
 plot_acf_U(results, BI = 10000, save = TRUE, folder = folder)
 
-puma_ids <- sf::st_read("input/CA/counties-pumas/counties-pumas.shp", quiet = TRUE)[["PUMA"]]
-plot_map_prior_mean(unit_ids = puma_ids, puma_dir = "input/CA/counties-pumas", save = TRUE, folder = folder)
+puma_ids <- sf::st_read("input/West_Midwest/counties-pumas/counties-pumas.shp", quiet = TRUE)[["PUMA"]]
+#plot_map_prior_mean(unit_ids = puma_ids, puma_dir = "input/West_Midwest/counties-pumas", save = TRUE, folder = folder)
 plot_map_cls(
   results = results,
   BI = 10000,
   unit_ids = puma_ids, 
-  puma_dir = "input/CA/counties-pumas", 
+  puma_dir = "input/West_Midwest/counties-pumas", 
   save = TRUE, folder = folder
 )
 
@@ -75,5 +75,5 @@ plot_hist_cls(
   results = results,
   BI = 10000, 
   save = TRUE, folder = folder,
-  #input_dir = "input/CA/",
+  input_dir = "input/West_Midwest/",
 )

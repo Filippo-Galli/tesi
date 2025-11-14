@@ -4,8 +4,8 @@ source("R/utils_plot.R")
 ##############################################################################
 # Load .dat files from 'input/' directory ====
 ##############################################################################
-load("input/California/full_dataset.dat")
-load("input/California/adj_matrix.dat")
+load("input/West_Midwest/full_dataset.dat")
+load("input/West_Midwest/adj_matrix.dat")
 
 ##############################################################################
 # Create histogram for each PUMA ====
@@ -21,64 +21,105 @@ for (i in seq_along(data)) {
 ##############################################################################
 # Distances between histograms ====
 ##############################################################################
-distance_jeff_divergences <- matrix(0, nrow = length(density_list),
-                                    ncol = length(density_list))
-distance_cm <- matrix(0, nrow = length(density_list),
-                      ncol = length(density_list))
-distance_wasserstein <- matrix(0, nrow = length(density_list),
-                               ncol = length(density_list))
-distance_mean <- matrix(0, nrow = length(density_list),
-                        ncol = length(density_list))
+distance_jeff_divergences <- matrix(0,
+  nrow = length(density_list),
+  ncol = length(density_list)
+)
+distance_cm <- matrix(0,
+  nrow = length(density_list),
+  ncol = length(density_list)
+)
+distance_wasserstein <- matrix(0,
+  nrow = length(density_list),
+  ncol = length(density_list)
+)
+distance_mean <- matrix(0,
+  nrow = length(density_list),
+  ncol = length(density_list)
+)
+
+# Create progress bar
+# Only compute upper triangle (including diagonal) since matrices are symmetric
+n <- length(density_list)
+total_iterations <- n * (n + 1) / 2
+pb <- txtProgressBar(min = 0, max = total_iterations, style = 3)
+iteration <- 0
 
 for (i in seq_along(density_list)) {
-  for (j in seq_along(density_list)) {
+  for (j in i:length(density_list)) {
     distance_jeff_divergences[i, j] <-
       compute_kde_distances(density_list[[i]],
-                             density_list[[j]],
-                             type = "Jeff")
+        density_list[[j]],
+        type = "Jeff"
+      )
     distance_cm[i, j] <-
       compute_kde_distances(density_list[[i]],
-                             density_list[[j]],
-                             type = "CM")
+        density_list[[j]],
+        type = "CM"
+      )
     distance_wasserstein[i, j] <-
       compute_kde_distances(density_list[[i]],
-                             density_list[[j]],
-                             type = "Wasserstein")
+        density_list[[j]],
+        type = "Wasserstein"
+      )
 
     distance_mean[i, j] <- abs(mean(data[[i]]) - mean(data[[j]]))
+
+    # Copy to lower triangle for symmetry (skip diagonal)
+    if (i != j) {
+      distance_jeff_divergences[j, i] <- distance_jeff_divergences[i, j]
+      distance_cm[j, i] <- distance_cm[i, j]
+      distance_wasserstein[j, i] <- distance_wasserstein[i, j]
+      distance_mean[j, i] <- distance_mean[i, j]
+    }
+
+    # Update progress bar
+    iteration <- iteration + 1
+    setTxtProgressBar(pb, iteration)
   }
 }
+
+# Close progress bar
+close(pb)
 
 ##############################################################################
 # Plot Distance ====
 ##############################################################################
 plot_distance(distance_jeff_divergences,
-              title = "Jeffreys Divergence Distanc", save = TRUE,
-              folder = "results/distance_plots/CA/")
+  title = "Jeffreys Divergence Distanc", save = TRUE,
+  folder = "results/distance_plots/West_Midwest/"
+)
 plot_distance(distance_cm,
-              title = "Cramer-von Mises Distance", save = TRUE,
-              folder = "results/distance_plots/CA/")
+  title = "Cramer-von Mises Distance", save = TRUE,
+  folder = "results/distance_plots/West_Midwest/"
+)
 plot_distance(distance_wasserstein,
-              title = "Wasserstein Distance", save = TRUE,
-              folder = "results/distance_plots/CA/")
+  title = "Wasserstein Distance", save = TRUE,
+  folder = "results/distance_plots/West_Midwest/"
+)
 plot_distance(distance_mean,
-              title = "Mean Difference", save = TRUE,
-              folder = "results/distance_plots/CA/")
+  title = "Mean Difference", save = TRUE,
+  folder = "results/distance_plots/West_Midwest/"
+)
 
 ##############################################################################
 # Save Data ====
 ##############################################################################
 
 # # Save distance matrices
-folder <- "real_data/CA"
+folder <- "real_data/West_Midwest"
 saveRDS(distance_jeff_divergences,
-        file = paste0(folder, "/distance_jeff_divergences.rds"))
+  file = paste0(folder, "/distance_jeff_divergences.rds")
+)
 saveRDS(distance_cm,
-        file = paste0(folder, "/distance_cm.rds"))
+  file = paste0(folder, "/distance_cm.rds")
+)
 saveRDS(distance_wasserstein,
-        file = paste0(folder, "/distance_wasserstein.rds"))
+  file = paste0(folder, "/distance_wasserstein.rds")
+)
 saveRDS(distance_mean,
-        file = paste0(folder, "/distance_mean.rds"))
+  file = paste0(folder, "/distance_mean.rds")
+)
 
 # Save adjacency matrix
 saveRDS(W, file = paste0(folder, "/adj_matrix.rds"))
