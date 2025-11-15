@@ -19,7 +19,6 @@ set.seed(44)
 
 ## Load real data
 files_folder <- "real_data/CA"
-
 files <- list.files(files_folder)
 file_chosen <- files[5]
 dist_matrix <- readRDS(file = paste0(files_folder, "/", file_chosen))
@@ -35,7 +34,7 @@ diag(dist_matrix) <- 0
 ##############################################################################
 
 ## Retrieve spatial adjacency matrix W from distance matrix
-# W <- retrieve_W(dist_matrix)
+#W <- retrieve_W(dist_matrix)
 W <- readRDS(file = paste0(files_folder, "/adj_matrix.rds"))
 
 # Check is W is symmetric
@@ -47,6 +46,7 @@ if (!isSymmetric(W)) {
 ##############################################################################
 
 ## Load C++ implementation of MCMC algorithm
+# sourceCpp("src/launcher.cpp", rebuild = TRUE, cacheDir = "~/my_rcpp_cache") # useful for perf
 sourceCpp("src/launcher.cpp")
 cat("✅ C++ code compiled successfully!\n\n")
 
@@ -124,19 +124,19 @@ plot_post_sim_matrix(mcmc_result, BI = param$BI)
 plot_trace_U(mcmc_result, BI = param$BI)
 plot_acf_U(mcmc_result, BI = param$BI)
 plot_cls_est(mcmc_result, BI = param$BI)
-# plot_stats(mcmc_result, ground_truth, BI = param$BI)
+#plot_stats(mcmc_result, ground_truth, BI = param$BI)
 
-puma_ids <- sf::st_read("input/CA/counties-pumas/counties-pumas.shp", quiet = TRUE)[["PUMA"]]
-plot_map_prior_mean(unit_ids = puma_ids, puma_dir = "input/CA/counties-pumas")
-plot_map_cls(
-  results = mcmc_result,
-  BI = param$BI,
-  unit_ids = puma_ids,
-  puma_dir = "input/CA/counties-pumas"
-)
+# puma_ids <- sf::st_read("input/CA/counties-pumas/counties-pumas.shp", quiet = TRUE)[["PUMA"]]
+# plot_map_prior_mean(unit_ids = puma_ids, puma_dir = "input/CA/counties-pumas")
+# plot_map_cls(
+#   results = mcmc_result,
+#   BI = param$BI,
+#   unit_ids = puma_ids,
+#   puma_dir = "input/CA/counties-pumas"
+# )
 
-plot_hist_cls(
-  results = mcmc_result,
-  BI = param$BI,
-  # input_dir = "input/CA/",
-)
+# plot_hist_cls(
+#   results = mcmc_result,
+#   BI = param$BI,
+#   # input_dir = "input/CA/",
+# )

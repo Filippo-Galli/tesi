@@ -24,9 +24,9 @@
   # -flto: link-time optimization
   # -fopenmp: enable OpenMP for parallel computing
   env.CXX_STD = "CXX23";
-  env.PKG_CXXFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
-  env.CXXFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
-  env.PKG_CFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
+  env.PKG_CXXFLAGS = "-O3 -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
+  env.CXXFLAGS = "-O3 -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
+  env.PKG_CFLAGS = "-O3 -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
 
   # Linker flags for optimization and OpenMP
   env.PKG_LIBS = "-flto=auto -fopenmp";
