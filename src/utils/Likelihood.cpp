@@ -1,202 +1,176 @@
 /**
  * @file Likelihood.cpp
- * @brief Implementation of the Likelihood class for distance-based clustering
+ * @brief Fully optimized implementation avoiding all BLAS calls
  */
 
 #include "Likelihood.hpp"
-#include "Eigen/src/Core/Matrix.h"
-#include "cmath"
-#include <Rcpp.h>
 #include <cmath>
-#include <math.h>
-#ifdef _OPENMP
-#include <omp.h>
-#endif
 
 double Likelihood::cluster_loglikelihood(int cluster_index) const {
   auto cls_ass_k = data.get_cluster_assignments_ref(cluster_index);
   return cluster_loglikelihood(cluster_index, cls_ass_k);
 }
 
-double Likelihood::cluster_loglikelihood(int cluster_index, const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k) const {
-
-  int K = data.get_K(); // number of clusters
-  double rep = 0, coh = 0;
-  int n_k = data.get_cluster_size(cluster_index); // cluster size of cluster_index
-  int pairs = 0;
-  bool cohesion_part = false;
-
-  double log_prod = 0;
-  double sum = 0;
-
+double Likelihood::cluster_loglikelihood(int cluster_index, 
+                                         const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k) const {
+  const int n_k = cls_ass_k.size();
+  
   if (n_k == 0) {
-    // Silently handle empty cluster case during MCMC sampling
     return 0;
   }
 
-  if (n_k != 1) {
-    pairs = n_k * (n_k - 1) / 2;
-    cohesion_part = true;
-  }
+  double rep = 0;
+  const int K = data.get_K();
+  
+  // Get raw pointer to distance matrices for fastest access
+  const double* __restrict__ D_data = params.D.data();
+  const double* __restrict__ logD_data = log_D_data.data();
 
   /* -------------------- Repulsion part -------------------------- */
-  // Compute repulsive forces between cluster_index and all other clusters
-  for (int t = 0; t < data.get_K(); ++t) {
-    if (t == cluster_index)
-      continue;
+  for (int t = 0; t < K; ++t) {
+    if (t == cluster_index) continue;
 
-    int n_t = data.get_cluster_size(t); // cluster size of t
     auto cls_ass_t = data.get_cluster_assignments_ref(t);
+    const int n_t = cls_ass_t.size();
+    
+    if (n_t == 0) continue;
 
-    log_prod = 0;
-    sum = 0;
-    // Calculate all pairwise distances between clusters
-    #pragma omp parallel for reduction(+ : log_prod, sum)
+    double log_prod = 0;
+    double sum = 0;
+
     for (int i = 0; i < n_k; ++i) {
+      const int idx_i = cls_ass_k(i);
+      const double* D_row = D_data + idx_i * D_cols;
+      const double* logD_row = logD_data + idx_i * D_cols;
+      
       for (int j = 0; j < n_t; ++j) {
-        double dist = params.D(cls_ass_k(i), cls_ass_t(j));
-        // Add small epsilon to prevent log(0) = -inf
-        log_prod += log_D(cls_ass_k(i), cls_ass_t(j));
-        sum += dist;
+        const int idx_j = cls_ass_t(j);
+        sum += D_row[idx_j];
+        log_prod += logD_row[idx_j];
       }
     }
 
-    // Gamma likelihood components for repulsion
-    rep += log_prod * (params.delta2 - 1);      // Distance product term
-    rep -= lgamma(params.delta2) * (n_k * n_t); // Normalization
-
-    rep += log_gamma_zeta; // Prior term
-
-    rep += lgamma(n_k * n_t * params.delta2 + params.zeta); // Posterior term
-    rep -= log(params.gamma + sum) * (n_k * n_t * params.delta2 + params.zeta);
+    const int n_pairs = n_k * n_t;
+    rep += log_prod * (params.delta2 - 1);
+    rep -= lgamma_delta2 * n_pairs;
+    rep += log_gamma_zeta;
+    rep += lgamma(n_pairs * params.delta2 + params.zeta);
+    rep -= log(params.gamma + sum) * (n_pairs * params.delta2 + params.zeta);
   }
 
   /* -------------------- Cohesion part -------------------------- */
-  if (!cohesion_part)
+  if (n_k == 1) {
     return rep;
+  }
 
-  // Reset for cohesion calculation
-  log_prod = 0;
-  sum = 0;
+  const int pairs = n_k * (n_k - 1) / 2;
+  double log_prod = 0;
+  double sum = 0;
 
-  // Calculate all pairwise distances within the cluster
+  // Direct pointer access for cohesion
   for (int i = 0; i < n_k; ++i) {
+    const int idx_i = cls_ass_k(i);
+    const double* D_row = D_data + idx_i * D_cols;
+    const double* logD_row = logD_data + idx_i * D_cols;
+    
     for (int j = i + 1; j < n_k; ++j) {
-      double dist = params.D(cls_ass_k(i), cls_ass_k(j));
-      // Add small epsilon to prevent log(0) = -inf
-      log_prod += log_D(cls_ass_k(i), cls_ass_k(j));
-      sum += dist;
+      const int idx_j = cls_ass_k(j);
+      sum += D_row[idx_j];
+      log_prod += logD_row[idx_j];
     }
   }
 
-  // Gamma likelihood components for cohesion
-  coh += log_prod * (params.delta1 - 1);  // Distance product term
-  coh -= lgamma(params.delta1) * (pairs); // Normalization
-
-  coh += log_beta_alpha; // Prior term
-
-  coh += lgamma(pairs * params.delta1 + params.alpha); // Posterior term
+  double coh = 0;
+  coh += log_prod * (params.delta1 - 1);
+  coh -= lgamma_delta1 * pairs;
+  coh += log_beta_alpha;
+  coh += lgamma(pairs * params.delta1 + params.alpha);
   coh -= log(params.beta + sum) * (pairs * params.delta1 + params.alpha);
 
   return rep + coh;
 }
 
 double Likelihood::point_loglikelihood_cond(int point_index, int cluster_index) const {
-  // Get cluster assignments for the target cluster
   auto cls_ass_k = data.get_cluster_assignments_ref(cluster_index);
+  const int n_k = cls_ass_k.size();
 
-  // Check if this is a new cluster (index == K) or existing cluster
-  int n_k = (cluster_index != data.get_K())
-                ? data.get_cluster_size(cluster_index)
-                : 0;
-
-  /* -------------------- Cohesion part -------------------------- */
   double coeh = compute_cohesion(point_index, cluster_index, cls_ass_k, n_k);
-
-  /* -------------------- Repulsion part -------------------------- */
   double rep = compute_repulsion(point_index, cluster_index, cls_ass_k, n_k);
 
   return coeh + rep;
 }
 
 double Likelihood::compute_cohesion(int point_index, int cluster_index,
-                             const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k,
-                             int n_k) const {
-  double loglik = 0;
-
-  // Early return for empty clusters (new cluster case)
+                                    const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k,
+                                    int n_k) const {
   if (n_k == 0) {
     return 0.0;
   }
 
-  double sum_i = 0, log_prod_i = 0;
-  //Compute distances from point_index to all points in the cluster
+  const double* D_row = params.D.data() + point_index * D_cols;
+  const double* logD_row = log_D_data.data() + point_index * D_cols;
+  
+  double sum_i = 0;
+  double log_prod_i = 0;
+  
   for (int i = 0; i < n_k; ++i) {
-    double dist = params.D(point_index, cls_ass_k(i));
-    sum_i += dist;
-    log_prod_i += log_D(point_index, cls_ass_k(i));
-  }    
+    const int idx = cls_ass_k(i);
+    sum_i += D_row[idx];
+    log_prod_i += logD_row[idx];
+  }
 
-  // Posterior parameters for gamma distribution
-  double alpha_mh = params.alpha + params.delta1 * n_k;
-  double beta_mh = params.beta + sum_i;
+  const double alpha_mh = params.alpha + params.delta1 * n_k;
+  const double beta_mh = params.beta + sum_i;
 
-  // Cohesion likelihood using gamma distribution
-  loglik += (-n_k) * lgamma_delta1;           // Product normalization
-  loglik += (params.delta1 - 1) * log_prod_i; // Distance product term
-
-  // Normalization constant
-  loglik += lgamma(alpha_mh);        // Γ(α_mh)
-  loglik += log_beta_alpha;          // β^α / Γ(α)
-  loglik -= alpha_mh * log(beta_mh); // β_mh^α_mh
+  double loglik = 0;
+  loglik += (-n_k) * lgamma_delta1;
+  loglik += (params.delta1 - 1) * log_prod_i;
+  loglik += lgamma(alpha_mh);
+  loglik += log_beta_alpha;
+  loglik -= alpha_mh * log(beta_mh);
 
   return loglik;
 }
 
-double Likelihood::compute_repulsion(int point_index, int cluster_index, const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k, int n_k) const {
-  double loglik = 0;
+double Likelihood::compute_repulsion(int point_index, int cluster_index,
+                                     const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k,
+                                     int n_k) const {
+  const int num_cluster = data.get_K();
 
-  int num_cluster = data.get_K();
-
-  if (num_cluster == 1 || num_cluster == 0)
+  if (num_cluster <= 1) {
     return 0;
+  }
 
-  // Parallel computation of repulsion from all other clusters
-  #ifdef _OPENMP
-  #pragma omp parallel for reduction(+ : loglik)
-  #endif
+  double loglik = 0;
+  
+  const double* D_row = params.D.data() + point_index * D_cols;
+  const double* logD_row = log_D_data.data() + point_index * D_cols;
+
   for (int t = 0; t < num_cluster; ++t) {
-    if (t == cluster_index)
-      continue;
+    if (t == cluster_index) continue;
 
-    int n_t = data.get_cluster_size(t);
     auto cls_ass_t = data.get_cluster_assignments_ref(t);
+    const int n_t = cls_ass_t.size();
 
-    // Skip empty clusters
-    if (n_t == 0)
-      continue;
+    if (n_t == 0) continue;
 
-    double sum_i = 0, log_point_prod = 0;
+    double sum_i = 0;
+    double log_point_prod = 0;
 
-    // Compute distances from point_index to all points in cluster t
     for (int j = 0; j < n_t; ++j) {
-      double point_dist = params.D(point_index, cls_ass_t(j));
-      sum_i += point_dist;
-      log_point_prod += log_D(point_index, cls_ass_t(j)); 
+      const int idx = cls_ass_t(j);
+      sum_i += D_row[idx];
+      log_point_prod += logD_row[idx];
     }
 
-    // Posterior parameters for gamma distribution
-    double zeta_mt = params.zeta + params.delta2 * n_t;
-    double gamma_mt = params.gamma + sum_i;
+    const double zeta_mt = params.zeta + params.delta2 * n_t;
+    const double gamma_mt = params.gamma + sum_i;
 
-    // Repulsion likelihood using gamma distribution
-    loglik -= n_t * lgamma_delta2;                  // Product normalization
-    loglik += (params.delta2 - 1) * log_point_prod; // Distance product term
-
-    // Normalization constant
-    loglik += lgamma(zeta_mt);         // Γ(ζ_mt)
-    loglik += log_gamma_zeta;          // γ^ζ / Γ(ζ)
-    loglik -= zeta_mt * log(gamma_mt); // γ_mt^ζ_mt
+    loglik -= n_t * lgamma_delta2;
+    loglik += (params.delta2 - 1) * log_point_prod;
+    loglik += lgamma(zeta_mt);
+    loglik += log_gamma_zeta;
+    loglik -= zeta_mt * log(gamma_mt);
   }
 
   return loglik;

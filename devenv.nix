@@ -22,15 +22,17 @@
   # -funroll-loops: unroll loops for better CPU cache utilization
   # -ftree-vectorize: auto-vectorize loops (SIMD)
   # -flto: link-time optimization
-  # -fopenmp: enable OpenMP for parallel computing
   env.CXX_STD = "CXX23";
-  env.PKG_CXXFLAGS = "-O3 -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
-  env.CXXFLAGS = "-O3 -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
-  env.PKG_CFLAGS = "-O3 -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
+  env.PKG_CXXFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto";
+  env.CXXFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto";
+  env.PKG_CFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto";
+
+  # Eigen specific flags
+  env.PKG_CXXFLAGS_EIGEN = "-DEIGEN_NO_DEBUG -DEIGEN_DONT_PARALLELIZE";
 
   # Linker flags for optimization and OpenMP
-  env.PKG_LIBS = "-flto=auto -fopenmp";
-  env.LDFLAGS = "-flto=auto -fopenmp";
+  env.PKG_LIBS = "-flto=auto";
+  env.LDFLAGS = "-flto=auto";
 
   # Set R environment variables
   env.R_LIBS_USER = "${config.env.DEVENV_STATE}/R";

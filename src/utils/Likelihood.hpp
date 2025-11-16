@@ -7,51 +7,53 @@
 
 #include "Data.hpp"
 #include "Params.hpp"
+#include <vector>
 
 /**
  * @class Likelihood
  * @brief Computes log-likelihood for clusters based on distance-based cohesion
  * and repulsion
  *
- * This class implements a likelihood model that encourages points within
- * clusters to be close (cohesion) while clusters are pushed apart (repulsion).
- * The model uses gamma priors on distance distributions.
+ * This class handles the computation of log-likelihoods for clustering models
+ * that incorporate both cohesion (within-cluster similarity) and repulsion
+ * (between-cluster dissimilarity) components. It precomputes values for
+ * efficiency and provides methods to evaluate both cluster-level and
+ * point-level conditional log-likelihoods.
+ * reference: Natarajan et al. (2023) "Cohesion and Repulsion in Bayesian Distance Clustering"
  */
 class Likelihood {
 private:
-  const Data &data; ///< Reference to data containing distances and allocations
-  const Params &params; ///< Model parameters
+  const Data &data; ///< Reference to Data object with distances and allocations
+  const Params &params; ///< Reference to model parameters
 
   // Precomputed values for efficiency
-  const double lgamma_delta1 = lgamma(params.delta1); ///< log(Γ(δ₁)) - cached for cohesion calculations
-  const double log_beta_alpha = log(params.beta) * params.alpha - lgamma(params.alpha); ///< log(β^α / Γ(α)) - cached for cohesion normalization
-  const double lgamma_delta2 = lgamma(params.delta2); ///< log(Γ(δ₂)) - cached for repulsion calculations
-  const double log_gamma_zeta = log(params.gamma) * params.zeta - lgamma(params.zeta); ///< log(γ^ζ / Γ(ζ)) - cached for repulsion normalization
-  const Eigen::MatrixXd log_D = params.D.array().log().matrix(); ///< Precomputed log distance matrix
+  const double lgamma_delta1; ///< Precomputed lgamma(delta1) for cohesion
+  const double log_beta_alpha; ///< Precomputed log(beta) * alpha - lgamma(alpha)
+  const double lgamma_delta2; ///< Precomputed lgamma(delta2) for repulsion
+  const double log_gamma_zeta; ///< Precomputed log(gamma) * zeta - lgamma(zeta)
+
+  std::vector<double> log_D_data;   ///< Precomputed log distance matrix (flattened)
+  const int D_cols; ///< Number of columns in distance matrix
 
   /**
-   * @brief Computes the cohesion component of the likelihood for a point
-   * @details Calculates how well a point fits within a cluster based on
-   *          intra-cluster distances using a gamma likelihood
+   * @brief Computes the cohesion component of the log-likelihood
    * @param point_index Index of the point being evaluated
-   * @param cluster_index Index of the target cluster
+   * @param cluster_index Index of the cluster
    * @param cls_ass_k Vector of point indices in the cluster
    * @param n_k Number of points in the cluster
-   * @return Log-likelihood contribution from cohesion
+   * @return Cohesion log-likelihood contribution
    */
   double compute_cohesion(int point_index, int cluster_index,
                           const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k,
                           int n_k) const;
 
   /**
-   * @brief Computes the repulsion component of the likelihood for a point
-   * @details Calculates the repulsive effect between a point and all other
-   * clusters using inter-cluster distances with a gamma likelihood
+   * @brief Computes the repulsion component of the log-likelihood
    * @param point_index Index of the point being evaluated
-   * @param cluster_index Index of the cluster containing the point
+   * @param cluster_index Index of the cluster
    * @param cls_ass_k Vector of point indices in the cluster
    * @param n_k Number of points in the cluster
-   * @return Log-likelihood contribution from repulsion
+   * @return Repulsion log-likelihood contribution
    */
   double compute_repulsion(int point_index, int cluster_index,
                            const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k,
@@ -59,52 +61,64 @@ private:
 
 public:
   /**
-   * @brief Constructs a Likelihood object
+   * @brief Constructs a Likelihood object with precomputation
    * @param data Reference to Data object with distances and allocations
    * @param param Reference to model parameters
+   *
+   * The constructor precomputes several values for computational efficiency:
+   * - Log-gamma values for delta parameters
+   * - Logarithmic combinations of hyperparameters
+   * - Logarithm of the entire distance matrix
    */
   Likelihood(const Data &data, const Params &param)
-      : data(data), params(param){}
+      : data(data), params(param), lgamma_delta1(lgamma(params.delta1)),
+        log_beta_alpha(log(params.beta) * params.alpha - lgamma(params.alpha)),
+        lgamma_delta2(lgamma(params.delta2)),
+        log_gamma_zeta(log(params.gamma) * params.zeta - lgamma(params.zeta)),
+        D_cols(params.D.cols()) {
+    // Precompute log distances manually
+    const int n = params.D.rows() * params.D.cols();
+    log_D_data.resize(n);
+
+    const double *D_ptr = params.D.data();
+    for (int i = 0; i < n; ++i) {
+      log_D_data[i] = std::log(D_ptr[i]);
+    }
+  }
 
   /**
-   * @brief Calculates the full log-likelihood of a cluster
-   * @details Computes both cohesion (within-cluster) and repulsion
-   * (between-cluster) components for all points in the specified cluster
+   * @brief Computes the full log-likelihood for a cluster
    * @param cluster_index Index of the cluster to evaluate
-   * @return Total log-likelihood of the cluster
+   * @return Total log-likelihood (cohesion + repulsion)
+   *
+   * This method computes both the within-cluster cohesion and the
+   * between-cluster repulsion contributions for the specified cluster.
    */
   double cluster_loglikelihood(int cluster_index) const;
 
   /**
-   * @brief Calculates the full log-likelihood of a cluster with explicit
+   * @brief Computes the full log-likelihood for a cluster with given
    * assignments
-   * @details Overloaded version that accepts cluster assignments directly
    * @param cluster_index Index of the cluster to evaluate
    * @param cls_ass_k Vector of point indices in the cluster
-   * @return Total log-likelihood of the cluster
+   * @return Total log-likelihood (cohesion + repulsion)
+   *
+   * This overload allows computing the likelihood with a custom set of
+   * cluster assignments without modifying the data structure.
    */
-  double cluster_loglikelihood(int cluster_index, const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k) const;
+  double cluster_loglikelihood(
+      int cluster_index,
+      const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k) const;
 
   /**
-   * @brief Calculates the conditional log-likelihood of assigning a point to a
-   * cluster
-   * @details Computes how likely a point is to belong to a cluster, considering
-   *          both its cohesion with the cluster and repulsion from other
-   * clusters
-   * @param point_index Index of the point to evaluate
-   * @param cluster_index Index of the target cluster (can be K for new cluster)
-   * @return Conditional log-likelihood of the point given the cluster
-   */
-  double point_loglikelihood_cond(int point_index, int cluster_index) const;
-
-  /**
-   * @brief Calculates the conditional log-likelihood with explicit cluster
-   * assignments
-   * @details Overloaded version that accepts cluster assignments directly
+   * @brief Computes the conditional log-likelihood of a point given a cluster
    * @param point_index Index of the point to evaluate
    * @param cluster_index Index of the target cluster
-   * @param cls_ass_k Vector of point indices in the cluster
-   * @return Conditional log-likelihood of the point given the cluster
+   * @return Conditional log-likelihood of assigning the point to the cluster
+   *
+   * This method evaluates how well a point fits into a specific cluster,
+   * considering both its cohesion with points in that cluster and its
+   * repulsion from points in other clusters.
    */
-  double point_loglikelihood_cond(int point_index, int cluster_index, const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k) const;
+  double point_loglikelihood_cond(int point_index, int cluster_index) const;
 };

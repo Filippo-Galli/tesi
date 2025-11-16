@@ -58,7 +58,7 @@ void Neal3::step_1_observation(int index) {
   // cluster
   std::vector<double> log_likelihoods(data.get_K() + 1, 0.0);
 
-  #pragma omp parallel for
+  //#pragma omp parallel for
   for (int k = 0; k < data.get_K(); ++k)
     log_likelihoods[k] = likelihood.point_loglikelihood_cond(index, k);
 
