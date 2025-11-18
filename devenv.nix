@@ -6,6 +6,13 @@
   ...
 }:
 
+let
+  openblas = pkgs.openblas.overrideAttrs (old: old // { isILP64 = false; });
+  RWithOpenBlas = pkgs.R.override {
+    blas = openblas;
+    lapack = openblas;
+  };
+in
 {
   env.GREET = "Good day, happy coding";
 
@@ -31,21 +38,22 @@
   env.PKG_CXXFLAGS_EIGEN = "-DEIGEN_NO_DEBUG -DEIGEN_DONT_PARALLELIZE";
 
   # Linker flags for optimization and OpenMP
-  env.PKG_LIBS = "-flto=auto";
-  env.LDFLAGS = "-flto=auto";
+  env.PKG_LIBS = "-L${openblas}/lib -lopenblas -flto=auto";
+  env.LDFLAGS = "-L${openblas}/lib -lopenblas -flto=auto";
 
   # Set R environment variables
   env.R_LIBS_USER = "${config.env.DEVENV_STATE}/R";
   env.R_LIBS_SITE = "${pkgs.R}/library";
   env.PKG_CONFIG_PATH = "${pkgs.pkg-config}/lib/pkgconfig:${pkgs.openssl.dev}/lib/pkgconfig:${pkgs.udunits}/lib/pkgconfig";
-  env.LD_LIBRARY_PATH = "${pkgs.openssl}/lib:${pkgs.udunits}/lib:${pkgs.geos}/lib:${pkgs.gdal}/lib:${pkgs.proj}/lib";
-  env.LIBRARY_PATH = "${pkgs.openssl.dev}/lib:${pkgs.udunits}/lib:${pkgs.geos}/lib:${pkgs.gdal}/lib:${pkgs.proj}/lib";
+  env.LD_LIBRARY_PATH = "${openblas}/lib:${pkgs.openssl}/lib:${pkgs.udunits}/lib:${pkgs.geos}/lib:${pkgs.gdal}/lib:${pkgs.proj}/lib";
+  env.LIBRARY_PATH = "${openblas}/lib:${pkgs.openssl.dev}/lib:${pkgs.udunits}/lib:${pkgs.geos}/lib:${pkgs.gdal}/lib:${pkgs.proj}/lib";
+  env.OPENBLAS_NUM_THREADS = "1";
 
   packages = [
     pkgs.git
 
     # R development with C++ support
-    pkgs.R
+    RWithOpenBlas
     pkgs.rPackages.Rcpp
     pkgs.rPackages.RcppEigen
 
@@ -101,8 +109,7 @@
 
     # Linear algebra libraries (for RcppEigen)
     pkgs.eigen
-    pkgs.blas
-    pkgs.lapack
+    openblas
 
     # Additional R development packages
     pkgs.rPackages.devtools
