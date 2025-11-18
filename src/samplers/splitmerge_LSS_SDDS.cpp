@@ -26,6 +26,10 @@ void SplitMerge_LSS_SDDS::choose_indeces(bool similarity) {
   /**
    * @brief Select two distinct data points using locality sensitive sampling
    *
+   * @param similarity If true, weights proportional to distance (prefers
+   * similar points); if false, weights proportional to 1/distance (prefers
+   * dissimilar points)
+   *
    * @details First selects idx_i uniformly at random. Then selects idx_j based
    * on distance from idx_i:
    * - If similarity=true: weights proportional to distance (prefers similar
@@ -141,6 +145,12 @@ void SplitMerge_LSS_SDDS::sequential_allocation(int iterations,
    * @brief Perform sequential allocation or restricted Gibbs sampling on points
    * in S
    *
+   * @param iterations Number of allocation passes to perform
+   * @param only_probabilities If true, compute probabilities without changing
+   * allocations
+   * @param sequential If true, use sequential allocation; if false, use
+   * restricted Gibbs
+   *
    * @details This function allocates points between clusters ci and cj using
    * one of two modes:
    * - Sequential allocation (sequential=true): Unallocates all points in S at
@@ -154,12 +164,6 @@ void SplitMerge_LSS_SDDS::sequential_allocation(int iterations,
    * new assignments and accumulates log_split_gibbs_prob. If
    * only_probabilities=true, retains original assignments and accumulates
    * log_merge_gibbs_prob (for reverse move probability).
-   *
-   * @param iterations Number of allocation passes to perform
-   * @param only_probabilities If true, compute probabilities without changing
-   * allocations
-   * @param sequential If true, use sequential allocation; if false, use
-   * restricted Gibbs
    */
 
   const int S_size = S.size();
@@ -230,22 +234,23 @@ SplitMerge_LSS_SDDS::compute_acceptance_ratio_merge(double likelihood_old_ci,
   /**
    * @brief Compute the log acceptance ratio for a merge move
    *
+   * @param likelihood_old_ci Log-likelihood of cluster ci before merge
+   * @param likelihood_old_cj Log-likelihood of cluster cj before merge
+   * @return Log acceptance ratio for the merge move
+   *
    * @details Computes log(α) = log(prior_ratio) + log(likelihood_ratio) +
    * log(proposal_ratio)
    * - Prior ratio: accounts for change from two clusters to one
    * - Likelihood ratio: L(merged_ci) - L(old_ci) - L(old_cj)
    * - Proposal ratio: log_merge_gibbs_prob (probability of reverse split move)
    *   Note: For dumb merge, log_merge_gibbs_prob = 0
-   *
-   * @param likelihood_old_ci Log-likelihood of cluster ci before merge
-   * @param likelihood_old_cj Log-likelihood of cluster cj before merge
-   * @return Log acceptance ratio for the merge move
    */
 
   // Prior ratio
   int size_old_ci = (original_allocations.array() == ci).count();
   int size_old_cj = (original_allocations.array() == cj).count();
-  double log_acceptance_ratio = process.prior_ratio_merge(size_old_ci, size_old_cj);
+  double log_acceptance_ratio =
+      process.prior_ratio_merge(size_old_ci, size_old_cj);
 
   // Likelihood ratio
   log_acceptance_ratio += likelihood.cluster_loglikelihood(ci);
@@ -253,7 +258,6 @@ SplitMerge_LSS_SDDS::compute_acceptance_ratio_merge(double likelihood_old_ci,
   log_acceptance_ratio -= likelihood_old_cj;
 
   // Proposal ratio (only included for smart merge)
-  // For dumb merge, log_merge_gibbs_prob = 0, so this term vanishes
   log_acceptance_ratio += log_merge_gibbs_prob;
 
   return log_acceptance_ratio;
@@ -277,15 +281,13 @@ void SplitMerge_LSS_SDDS::smart_merge_move() {
    * sequential allocation refinement.
    */
 
-  log_merge_gibbs_prob = 0;
+  log_merge_gibbs_prob =
+      launch_state.size() * rand_split_prob; // reverse dumb split prob
   log_split_gibbs_prob = 0;
 
+  // Get old cluster likelihoods
   double likelihood_old_ci = likelihood.cluster_loglikelihood(ci);
   double likelihood_old_cj = likelihood.cluster_loglikelihood(cj);
-
-  // Use sequential allocation to refine the merged state
-  // This computes the probability of arriving at the merged configuration
-  sequential_allocation(1, true); // Compute probabilities for proposal ratio
 
   // Assign both anchor points to ci
   data.set_allocation(idx_j, ci);
@@ -296,7 +298,8 @@ void SplitMerge_LSS_SDDS::smart_merge_move() {
   }
 
   // Compute acceptance ratio
-  double acceptance_ratio = compute_acceptance_ratio_merge(likelihood_old_ci, likelihood_old_cj);
+  double acceptance_ratio =
+      compute_acceptance_ratio_merge(likelihood_old_ci, likelihood_old_cj);
 
   // Accept or reject the move
   std::uniform_real_distribution<> dis(0.0, 1.0);
@@ -322,7 +325,7 @@ void SplitMerge_LSS_SDDS::dumb_merge_move() {
    * due to simpler proposal mechanism.
    */
 
-  log_merge_gibbs_prob = 0; // No Gibbs probability for dumb merge
+  sequential_allocation(1, true); // reverse smart split proposal probabilities
 
   double likelihood_old_ci = likelihood.cluster_loglikelihood(ci);
   double likelihood_old_cj = likelihood.cluster_loglikelihood(cj);
@@ -337,7 +340,8 @@ void SplitMerge_LSS_SDDS::dumb_merge_move() {
   }
 
   // Compute acceptance ratio (without sequential allocation proposal)
-  double acceptance_ratio = compute_acceptance_ratio_merge(likelihood_old_ci, likelihood_old_cj);
+  double acceptance_ratio =
+      compute_acceptance_ratio_merge(likelihood_old_ci, likelihood_old_cj);
 
   // Accept or reject the move
   std::uniform_real_distribution<> dis(0.0, 1.0);
@@ -384,7 +388,8 @@ void SplitMerge_LSS_SDDS::smart_split_move() {
   sequential_allocation(1);
 
   // Compute acceptance ratio
-  double acceptance_ratio = compute_acceptance_ratio_split(likelihood_old_cluster);
+  double acceptance_ratio =
+      compute_acceptance_ratio_split(likelihood_old_cluster);
 
   // Accept or reject the move
   std::uniform_real_distribution<> dis2(0.0, 1.0);
@@ -411,9 +416,11 @@ void SplitMerge_LSS_SDDS::dumb_split_move() {
    * due to purely random initial allocation.
    */
 
+  // old likelihood cluster
   double likelihood_old_cluster = likelihood.cluster_loglikelihood(ci);
 
-  log_split_gibbs_prob = 0; // No Gibbs probability for dumb split
+  log_split_gibbs_prob =
+      launch_state.size() * rand_split_prob; // dumb split prob
 
   data.set_allocation(idx_j, data.get_K()); // Create a new cluster for point j
   cj = data.get_cluster_assignment(idx_j); // Update cj to the new cluster index
@@ -442,16 +449,16 @@ double SplitMerge_LSS_SDDS::compute_acceptance_ratio_split(
   /**
    * @brief Compute the log acceptance ratio for a split move
    *
+   * @param likelihood_old_cluster Log-likelihood of the original cluster before
+   * split
+   * @return Log acceptance ratio for the split move
+   *
    * @details Computes log(α) = log(prior_ratio) + log(likelihood_ratio) -
    * log(proposal_ratio)
    * - Prior ratio: accounts for change from one cluster to two
    * - Likelihood ratio: L(new_ci) + L(new_cj) - L(old_ci)
    * - Proposal ratio: log_split_gibbs_prob (probability of forward split path)
    *   Note: For dumb split, log_split_gibbs_prob = 0
-   *
-   * @param likelihood_old_cluster Log-likelihood of the original cluster before
-   * split
-   * @return Log acceptance ratio for the split move
    */
 
   // Prior ratio
@@ -529,6 +536,12 @@ double SplitMerge_LSS_SDDS::compute_acceptance_ratio_shuffle(
   /**
    * @brief Compute the log acceptance ratio for a shuffle move
    *
+   * @param likelihood_old_ci Log-likelihood of cluster ci before shuffle
+   * @param likelihood_old_cj Log-likelihood of cluster cj before shuffle
+   * @param old_ci_size Size of cluster ci before shuffle
+   * @param old_cj_size Size of cluster cj before shuffle
+   * @return Log acceptance ratio for the shuffle move
+   *
    * @details Computes log(α) = log(prior_ratio) + log(likelihood_ratio) +
    * log(proposal_ratio)
    * - Prior ratio: accounts for cluster size changes (shuffle maintains 2
@@ -536,12 +549,6 @@ double SplitMerge_LSS_SDDS::compute_acceptance_ratio_shuffle(
    * - Likelihood ratio: L(new_ci) + L(new_cj) - L(old_ci) - L(old_cj)
    * - Proposal ratio: log_merge_gibbs_prob - log_split_gibbs_prob
    *   (ratio of reverse to forward proposal probabilities)
-   *
-   * @param likelihood_old_ci Log-likelihood of cluster ci before shuffle
-   * @param likelihood_old_cj Log-likelihood of cluster cj before shuffle
-   * @param old_ci_size Size of cluster ci before shuffle
-   * @param old_cj_size Size of cluster cj before shuffle
-   * @return Log acceptance ratio for the shuffle move
    */
 
   // Prior ratio

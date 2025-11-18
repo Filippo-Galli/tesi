@@ -218,8 +218,11 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ae11d1391d015b667789491845f9a95e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log probability of generating current state via sequential allocation (split direction)  <br /></td></tr>
 <tr class="separator:ae11d1391d015b667789491845f9a95e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada77f2fce6d6778a9829447a663bf3c8" id="r_ada77f2fce6d6778a9829447a663bf3c8"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada77f2fce6d6778a9829447a663bf3c8">log_merge_gibbs_prob</a> = 0</td></tr>
-<tr class="memdesc:ada77f2fce6d6778a9829447a663bf3c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log probability of generating current state via sequential allocation (merge direction)  <br /></td></tr>
+<tr class="memdesc:ada77f2fce6d6778a9829447a663bf3c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log probability of generating current state via sequential allocation (merge direction) - reverse of the smart split.  <br /></td></tr>
 <tr class="separator:ada77f2fce6d6778a9829447a663bf3c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7eb7205e19da382f9ac5f7e22c3d1bf" id="r_ad7eb7205e19da382f9ac5f7e22c3d1bf"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad7eb7205e19da382f9ac5f7e22c3d1bf">rand_split_prob</a> = -log(2)</td></tr>
+<tr class="memdesc:ad7eb7205e19da382f9ac5f7e22c3d1bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Random split probability for dumb split move and useful for reverse prob of smart merge.  <br /></td></tr>
+<tr class="separator:ad7eb7205e19da382f9ac5f7e22c3d1bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5592ec0b6838aa6c33c70a9943df5af7" id="r_a5592ec0b6838aa6c33c70a9943df5af7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5592ec0b6838aa6c33c70a9943df5af7">accepted_split</a> = 0</td></tr>
 <tr class="separator:a5592ec0b6838aa6c33c70a9943df5af7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39e947266ef985a35f4ef446def9e42e" id="r_a39e947266ef985a35f4ef446def9e42e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a39e947266ef985a35f4ef446def9e42e">accepted_merge</a> = 0</td></tr>
@@ -400,14 +403,20 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Randomly select two observations for split-merge proposal. </p>
-<p>Samples two distinct observation indices using locality sensitive sampling. When similarity=false, selects dissimilar points (for split moves). When similarity=true, selects similar points (for merge moves). The first point is selected uniformly, and the second is selected based on distance weights from the first point.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">similarity</td><td>If true, select similar points; if false, select dissimilar points </td></tr>
+    <tr><td class="paramname">similarity</td><td>If true, select similar points; if false, select dissimilar points</td></tr>
   </table>
   </dd>
 </dl>
+<p>Samples two distinct observation indices using locality sensitive sampling. When similarity=false, selects dissimilar points (for split moves). When similarity=true, selects similar points (for merge moves). The first point is selected uniformly, and the second is selected based on distance weights from the first point. </p>
 <p>Select two distinct data points using locality sensitive sampling</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">similarity</td><td>If true, weights proportional to distance (prefers similar points); if false, weights proportional to 1/distance (prefers dissimilar points)</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>First selects idx_i uniformly at random. Then selects idx_j based on distance from idx_i:</p><ul>
 <li>If similarity=true: weights proportional to distance (prefers similar points)</li>
 <li>If similarity=false: weights proportional to 1/distance (prefers dissimilar points)</li>
@@ -458,11 +467,6 @@ Additional Inherited Members</h2></td></tr>
 <li>proposal_ratio is log_merge_gibbs_prob (0 for dumb merge) </li>
 </ul>
 <p>Compute the log acceptance ratio for a merge move</p>
-<p>Computes log(α) = log(prior_ratio) + log(likelihood_ratio) + log(proposal_ratio)</p><ul>
-<li>Prior ratio: accounts for change from two clusters to one</li>
-<li><a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> ratio: L(merged_ci) - L(old_ci) - L(old_cj)</li>
-<li>Proposal ratio: log_merge_gibbs_prob (probability of reverse split move) Note: For dumb merge, log_merge_gibbs_prob = 0</li>
-</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">likelihood_old_ci</td><td>Log-likelihood of cluster ci before merge </td></tr>
@@ -471,6 +475,11 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Log acceptance ratio for the merge move</dd></dl>
+<p>Computes log(α) = log(prior_ratio) + log(likelihood_ratio) + log(proposal_ratio)</p><ul>
+<li>Prior ratio: accounts for change from two clusters to one</li>
+<li><a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> ratio: L(merged_ci) - L(old_ci) - L(old_cj)</li>
+<li>Proposal ratio: log_merge_gibbs_prob (probability of reverse split move) Note: For dumb merge, log_merge_gibbs_prob = 0</li>
+</ul>
 
 </div>
 </div>
@@ -528,11 +537,6 @@ Additional Inherited Members</h2></td></tr>
 <li>proposal_ratio = log_merge_gibbs_prob - log_split_gibbs_prob </li>
 </ul>
 <p>Compute the log acceptance ratio for a shuffle move</p>
-<p>Computes log(α) = log(prior_ratio) + log(likelihood_ratio) + log(proposal_ratio)</p><ul>
-<li>Prior ratio: accounts for cluster size changes (shuffle maintains 2 clusters)</li>
-<li><a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> ratio: L(new_ci) + L(new_cj) - L(old_ci) - L(old_cj)</li>
-<li>Proposal ratio: log_merge_gibbs_prob - log_split_gibbs_prob (ratio of reverse to forward proposal probabilities)</li>
-</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">likelihood_old_ci</td><td>Log-likelihood of cluster ci before shuffle </td></tr>
@@ -543,6 +547,11 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Log acceptance ratio for the shuffle move</dd></dl>
+<p>Computes log(α) = log(prior_ratio) + log(likelihood_ratio) + log(proposal_ratio)</p><ul>
+<li>Prior ratio: accounts for cluster size changes (shuffle maintains 2 clusters)</li>
+<li><a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> ratio: L(new_ci) + L(new_cj) - L(old_ci) - L(old_cj)</li>
+<li>Proposal ratio: log_merge_gibbs_prob - log_split_gibbs_prob (ratio of reverse to forward proposal probabilities)</li>
+</ul>
 
 </div>
 </div>
@@ -583,11 +592,6 @@ Additional Inherited Members</h2></td></tr>
 <li>proposal_ratio is log_split_gibbs_prob (0 for dumb split) </li>
 </ul>
 <p>Compute the log acceptance ratio for a split move</p>
-<p>Computes log(α) = log(prior_ratio) + log(likelihood_ratio) - log(proposal_ratio)</p><ul>
-<li>Prior ratio: accounts for change from one cluster to two</li>
-<li><a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> ratio: L(new_ci) + L(new_cj) - L(old_ci)</li>
-<li>Proposal ratio: log_split_gibbs_prob (probability of forward split path) Note: For dumb split, log_split_gibbs_prob = 0</li>
-</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">likelihood_old_cluster</td><td>Log-likelihood of the original cluster before split </td></tr>
@@ -595,6 +599,11 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Log acceptance ratio for the split move</dd></dl>
+<p>Computes log(α) = log(prior_ratio) + log(likelihood_ratio) - log(proposal_ratio)</p><ul>
+<li>Prior ratio: accounts for change from one cluster to two</li>
+<li><a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> ratio: L(new_ci) + L(new_cj) - L(old_ci)</li>
+<li>Proposal ratio: log_split_gibbs_prob (probability of forward split path) Note: For dumb split, log_split_gibbs_prob = 0</li>
+</ul>
 
 </div>
 </div>
@@ -801,11 +810,6 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <p>Implements sequential allocation by processing observations one by one in random order. Each observation is allocated to cluster ci or cj based on conditional likelihood and prior probabilities. This method computes the log probability of the proposed allocation path, which is used in the acceptance ratio. </p>
 <p>Perform sequential allocation or restricted Gibbs sampling on points in S</p>
-<p>This function allocates points between clusters ci and cj using one of two modes:</p><ul>
-<li>Sequential allocation (sequential=true): Unallocates all points in S at once, then processes them one by one, computing conditional probabilities based on current state</li>
-<li>Restricted Gibbs (sequential=false): Unallocates and reallocates points one at a time</li>
-</ul>
-<p>For each point, computes conditional log-probabilities for assignment to ci or cj based on likelihood and prior. If only_probabilities=false, samples new assignments and accumulates log_split_gibbs_prob. If only_probabilities=true, retains original assignments and accumulates log_merge_gibbs_prob (for reverse move probability).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">iterations</td><td>Number of allocation passes to perform </td></tr>
@@ -814,6 +818,11 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+<p>This function allocates points between clusters ci and cj using one of two modes:</p><ul>
+<li>Sequential allocation (sequential=true): Unallocates all points in S at once, then processes them one by one, computing conditional probabilities based on current state</li>
+<li>Restricted Gibbs (sequential=false): Unallocates and reallocates points one at a time</li>
+</ul>
+<p>For each point, computes conditional log-probabilities for assignment to ci or cj based on likelihood and prior. If only_probabilities=false, samples new assignments and accumulates log_split_gibbs_prob. If only_probabilities=true, retains original assignments and accumulates log_merge_gibbs_prob (for reverse move probability).</p>
 
 </div>
 </div>
@@ -1248,7 +1257,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Log probability of generating current state via sequential allocation (merge direction) </p>
+<p>Log probability of generating current state via sequential allocation (merge direction) - reverse of the smart split. </p>
 
 </div>
 </div>
@@ -1297,6 +1306,30 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Original cluster assignments before move proposal. </p>
+
+</div>
+</div>
+<a id="ad7eb7205e19da382f9ac5f7e22c3d1bf" name="ad7eb7205e19da382f9ac5f7e22c3d1bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7eb7205e19da382f9ac5f7e22c3d1bf">&#9670;&#160;</a></span>rand_split_prob</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double SplitMerge_LSS_SDDS::rand_split_prob = -log(2)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Random split probability for dumb split move and useful for reverse prob of smart merge. </p>
 
 </div>
 </div>
