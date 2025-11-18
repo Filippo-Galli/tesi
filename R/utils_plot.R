@@ -639,54 +639,116 @@ plot_hist_cls <- function(results, BI, input_dir = "input/CA/", point_estimate =
       data_split <- split(data, as.factor(clusters))
       op <- graphics::par(no.readonly = TRUE)
       on.exit(graphics::par(op), add = TRUE)
-      n_rows <- ceiling(sqrt(n_clusters))
-      n_cols <- ceiling(n_clusters / n_rows)
-      graphics::par(mfrow = c(n_rows, n_cols))
 
       # Get consistent colors for clusters
       cluster_colors <- get_cluster_colors(n_clusters)
 
-      for (cl in names(data_split)) {
-        cluster_data <- data_split[[cl]]
-        n_pumas <- length(cluster_data)
-        combined_data <- unlist(cluster_data)
-        # Use consistent cluster colors with transparency
-        cl_color <- adjustcolor(cluster_colors[cl], alpha.f = 0.7)
-        hist(combined_data,
-          breaks = 30,
-          main = paste("Cluster", cl, "\n(n =", n_pumas, "PUMAs)"),
-          xlab = "Income Value",
-          ylab = "Density",
-          col = cl_color,
-          border = "white",
-          probability = TRUE
-        )
-        if (length(unique(combined_data)) > 1) {
-          lines(density(combined_data), col = "black", lwd = 2)
-        }
-        cat("\nCluster", cl, "statistics:\n")
-        cat("  N PUMAs:", n_pumas, "\n")
-        cat("  N observations:", length(combined_data), "\n")
-        cat("  Mean:", mean(combined_data), "\n")
-        cat("  SD:", sd(combined_data), "\n")
+      # Split into batches of max 9 clusters per plot
+      max_plots_per_page <- 9
+      cluster_names <- names(data_split)
+      n_batches <- ceiling(n_clusters / max_plots_per_page)
 
-        legend("topleft",
-          legend = c(
-            paste("Mean:", round(mean(combined_data), 2)),
-            paste("SD:", round(sd(combined_data), 2)),
-            paste("N obs:", length(combined_data))
-          ),
-          bty = "n",
-          cex = 0.9
-        )
+      for (batch_idx in seq_len(n_batches)) {
+        # Determine which clusters go in this batch
+        start_idx <- (batch_idx - 1) * max_plots_per_page + 1
+        end_idx <- min(batch_idx * max_plots_per_page, n_clusters)
+        batch_clusters <- cluster_names[start_idx:end_idx]
+        n_plots_in_batch <- length(batch_clusters)
+
+        # Calculate layout for this batch
+        n_rows <- ceiling(sqrt(n_plots_in_batch))
+        n_cols <- ceiling(n_plots_in_batch / n_rows)
+        graphics::par(mfrow = c(n_rows, n_cols))
+
+        for (cl in batch_clusters) {
+          cluster_data <- data_split[[cl]]
+          n_pumas <- length(cluster_data)
+          combined_data <- unlist(cluster_data)
+          # Use consistent cluster colors with transparency
+          cl_color <- adjustcolor(cluster_colors[cl], alpha.f = 0.7)
+          hist(combined_data,
+            breaks = 30,
+            main = paste("Cluster", cl, "\n(n =", n_pumas, "PUMAs)"),
+            xlab = "Income Value",
+            ylab = "Density",
+            col = cl_color,
+            border = "white",
+            probability = TRUE
+          )
+          if (length(unique(combined_data)) > 1) {
+            lines(density(combined_data), col = "black", lwd = 2)
+          }
+          cat("\nCluster", cl, "statistics:\n")
+          cat("  N PUMAs:", n_pumas, "\n")
+          cat("  N observations:", length(combined_data), "\n")
+          cat("  Mean:", mean(combined_data), "\n")
+          cat("  SD:", sd(combined_data), "\n")
+
+          legend("topleft",
+            legend = c(
+              paste("Mean:", round(mean(combined_data), 2)),
+              paste("SD:", round(sd(combined_data), 2)),
+              paste("N obs:", length(combined_data))
+            ),
+            bty = "n",
+            cex = 0.9
+          )
+        }
+
+        # If saving and multiple batches, save each batch separately
+        if (save && n_batches > 1) {
+          if (!dir.exists(folder)) dir.create(folder, recursive = TRUE)
+          out_file <- file.path(folder, paste0("cluster_histograms_batch_", batch_idx, ".png"))
+          if (requireNamespace("ragg", quietly = TRUE)) {
+            ragg::agg_png(filename = out_file, width = 2400, height = 1800, res = 300)
+          } else {
+            png_type <- if (capabilities("cairo")) "cairo" else if (capabilities("X11")) "Xlib" else "cairo"
+            grDevices::png(filename = out_file, width = 2400, height = 1800, res = 300, type = png_type)
+          }
+
+          # Redraw the plots for this batch
+          graphics::par(mfrow = c(n_rows, n_cols))
+          for (cl in batch_clusters) {
+            cluster_data <- data_split[[cl]]
+            n_pumas <- length(cluster_data)
+            combined_data <- unlist(cluster_data)
+            cl_color <- adjustcolor(cluster_colors[cl], alpha.f = 0.7)
+            hist(combined_data,
+              breaks = 30,
+              main = paste("Cluster", cl, "\n(n =", n_pumas, "PUMAs)"),
+              xlab = "Income Value",
+              ylab = "Density",
+              col = cl_color,
+              border = "white",
+              probability = TRUE
+            )
+            if (length(unique(combined_data)) > 1) {
+              lines(density(combined_data), col = "black", lwd = 2)
+            }
+            legend("topleft",
+              legend = c(
+                paste("Mean:", round(mean(combined_data), 2)),
+                paste("SD:", round(sd(combined_data), 2)),
+                paste("N obs:", length(combined_data))
+              ),
+              bty = "n",
+              cex = 0.9
+            )
+          }
+
+          grDevices::dev.off()
+          cat("\nSaved batch", batch_idx, "of", n_batches, "to", out_file, "\n")
+        }
       }
     }
   }
 
   draw_histograms()
 
+  # Only save here if we have <= 9 clusters (single file case)
+  # Multiple batch saving is handled within draw_histograms()
   device_opened <- FALSE
-  if (save) {
+  if (save && n_clusters <= 9) {
     if (!dir.exists(folder)) dir.create(folder, recursive = TRUE)
     out_file <- file.path(folder, "cluster_histograms.png")
     if (requireNamespace("ragg", quietly = TRUE)) {
@@ -702,11 +764,9 @@ plot_hist_cls <- function(results, BI, input_dir = "input/CA/", point_estimate =
       },
       add = TRUE
     )
-  }
 
-  draw_histograms()
+    draw_histograms()
 
-  if (device_opened) {
     grDevices::dev.off()
     device_opened <- FALSE
   }
