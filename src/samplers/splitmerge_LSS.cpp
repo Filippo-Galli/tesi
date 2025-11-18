@@ -136,14 +136,16 @@ void SplitMerge_LSS::sequential_allocation(int iterations,
    * changing allocations (used in merge move).
    */
 
+  const int S_size = S.size();
+
   for (int i = 0; i < iterations; ++i) {
 
     // Unallocate all points in S
-    for (int idx = 0; idx < S.size() && sequential; ++idx) {
+    for (int idx = 0; idx < S_size && sequential; ++idx) {
       data.set_allocation(S(idx), -1); // Unallocate point
     }
 
-    for (int idx = 0; idx < S.size(); ++idx) {
+    for (int idx = 0; idx < S_size; ++idx) {
       int point_idx = S(idx);
       int current_cluster = launch_state(idx);
 
@@ -162,30 +164,33 @@ void SplitMerge_LSS::sequential_allocation(int iterations,
       log_probs(0) += process.gibbs_prior_existing_cluster(ci, point_idx);
       log_probs(1) += process.gibbs_prior_existing_cluster(cj, point_idx);
 
-      // Normalize to get probabilities
+      // Normalize log probabilities using log-sum-exp trick
       double max_log_prob = log_probs.maxCoeff();
-      Eigen::Vector2d probs = (log_probs.array() - max_log_prob).exp();
-      probs /= probs.sum();
+      double log_sum = max_log_prob + log((log_probs.array() - max_log_prob).exp().sum());
 
       if (!only_probabilities) {
+        // Compute normalized probabilities only for sampling
+        Eigen::Vector2d probs = (log_probs.array() - max_log_prob).exp();
+        //probs /= probs.sum();
+
         // Sample new cluster based on computed probabilities
-        std::discrete_distribution<int> dist(probs.data(),
-                                             probs.data() + probs.size());
+        std::discrete_distribution<int> dist(probs.data(), probs.data() + probs.size());
         int new_cluster_idx = dist(gen);
         int new_cluster = (new_cluster_idx == 0) ? ci : cj;
 
         // Assign point to the new cluster
         data.set_allocation(point_idx, new_cluster);
 
-        // if last iteration, accumulate the log probability of the move
+        // if last iteration, accumulate the log probability of the move 
         if (i == iterations - 1)
-          log_split_gibbs_prob += log(probs(new_cluster_idx));
+          log_split_gibbs_prob += log_probs(new_cluster_idx) - log_sum;
       } else {
         // Just restore the previous allocation
         data.set_allocation(point_idx, current_cluster);
 
-        // accumulate the log probability of the move usually for the merge move
-        log_merge_gibbs_prob += log(probs((current_cluster == ci) ? 0 : 1));
+        // accumulate the log probability of the move
+        int cluster_idx = (current_cluster == ci) ? 0 : 1;
+        log_merge_gibbs_prob += log_probs(cluster_idx) - log_sum;
       }
     }
   }
