@@ -96,22 +96,17 @@ void SplitMerge_LSS::choose_indeces(bool similarity) {
       s_idx++;
     }
   }
-
-  // Shuffle the launch_state and S in unison to ensure randomness
-  std::vector<int> indices(launch_state_size);
-  for (size_t i = 0; i < launch_state_size; ++i) {
-    indices[i] = i;
+  
+  // Shuffle launch_state and S in unison using Fisher-Yates algorithm
+  // This maintains alignment between the two vectors while shuffling in-place
+  for (int i = launch_state_size - 1; i > 0; --i) {
+    std::uniform_int_distribution<> dis_shuffle(0, i);
+    int j = dis_shuffle(gen);
+    if (i != j) {
+      std::swap(launch_state(i), launch_state(j));
+      std::swap(S(i), S(j));
+    }
   }
-  std::shuffle(indices.begin(), indices.end(), gen);
-
-  Eigen::VectorXi shuffled_launch_state(launch_state_size);
-  Eigen::VectorXi shuffled_S(launch_state_size);
-  for (size_t i = 0; i < launch_state_size; ++i) {
-    shuffled_launch_state(i) = launch_state(indices[i]);
-    shuffled_S(i) = S(indices[i]);
-  }
-  launch_state = shuffled_launch_state;
-  S = shuffled_S;
 
 // Ensure we collected the expected number of points
 #if VERBOSITY_LEVEL >= 1
@@ -209,8 +204,7 @@ SplitMerge_LSS::compute_acceptance_ratio_merge(double likelihood_old_ci,
   // Prior ratio
   int size_old_ci = (original_allocations.array() == ci).count();
   int size_old_cj = (original_allocations.array() == cj).count();
-  double log_acceptance_ratio =
-      process.prior_ratio_merge(size_old_ci, size_old_cj);
+  double log_acceptance_ratio = process.prior_ratio_merge(size_old_ci, size_old_cj);
 
   // Likelihood ratio
   log_acceptance_ratio += likelihood.cluster_loglikelihood(ci);

@@ -18,6 +18,7 @@
 #include "samplers/splitmerge.hpp"
 #include "samplers/splitmerge_SAMS.hpp"
 #include "samplers/splitmerge_LSS.hpp"
+#include "samplers/splitmerge_LSS_SDDS.hpp"
 
 // #include "splitmerge_SDDS.hpp"
 
@@ -134,7 +135,8 @@ mcmc(Params &param,
   // Choose the main sampling strategy:
   //SplitMerge sampler(data,param, likelihood, process, true); // Split-Merge sampler
   //SplitMerge_SAMS sampler(data, param, likelihood, process, true);    // Split-Merge with SAMS 
-  SplitMerge_LSS sampler(data, param, likelihood, process, true); // Split-Merge with SAMS using sequential allocation
+  //SplitMerge_LSS sampler(data, param, likelihood, process, true); // Split-Merge with SAMS using sequential allocation
+  SplitMerge_LSS_SDDS sampler(data, param, likelihood, process, true);
 
   // Initialize results container to store MCMC output
   Rcpp::List results = Rcpp::List::create(

@@ -15,6 +15,7 @@ var annotated_dup =
     [ "Sampler", "classSampler.html", "classSampler" ],
     [ "SplitMerge", "classSplitMerge.html", "classSplitMerge" ],
     [ "SplitMerge_LSS", "classSplitMerge__LSS.html", "classSplitMerge__LSS" ],
+    [ "SplitMerge_LSS_SDDS", "classSplitMerge__LSS__SDDS.html", "classSplitMerge__LSS__SDDS" ],
     [ "SplitMerge_SAMS", "classSplitMerge__SAMS.html", "classSplitMerge__SAMS" ],
     [ "U_sampler", "classU__sampler.html", "classU__sampler" ]
 ];
