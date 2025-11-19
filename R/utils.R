@@ -130,6 +130,9 @@ save_with_name <- function(folder, params, initialization, gt = FALSE) {
   }
   saveRDS(dist_matrix, file = filename_dist)
   saveRDS(hyperparams, file = filename_initial_params)
+  # Save time taken
+  time_file <- paste0(folder, "time_taken.txt")
+  writeLines(as.character(elapsed_time), con = time_file)
 }
 
 set_hyperparameters <- function(dist_matrix, k_elbow, ground_truth = NULL, plot_clustering = FALSE, plot_distribution = TRUE) {
