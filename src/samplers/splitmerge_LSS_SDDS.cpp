@@ -6,11 +6,8 @@
  * This file contains the complete implementation of the SplitMerge_LSS_SDDS
  * class, which provides an optimized variant of split-merge sampling using:
  * - Locality sensitive sampling for anchor point selection
- * - SDDS (Smart-split, Dumb-merge, Dumb-split, Smart-merge) for adaptive move
- * selection
- * - Sequential allocation for "smart" proposal generation
- * - Simple random allocation for "dumb" proposals
- * - Adaptive pairing strategy for computational efficiency
+ * - SDDS (Smart-split-Dumb-merge, Dumb-split-Smart-merge) for adaptive move
+ * selection to achieve better mixing and perfomance.
  *
  * This approach offers computational advantages for large datasets while
  * maintaining theoretical guarantees of split-merge samplers.
@@ -23,60 +20,31 @@
 #include <random>
 
 void SplitMerge_LSS_SDDS::choose_indeces(bool similarity) {
-  /**
-   * @brief Select two distinct data points using locality sensitive sampling
-   *
-   * @param similarity If true, weights proportional to distance (prefers
-   * similar points); if false, weights proportional to 1/distance (prefers
-   * dissimilar points)
-   *
-   * @details First selects idx_i uniformly at random. Then selects idx_j based
-   * on distance from idx_i:
-   * - If similarity=true: weights proportional to distance (prefers similar
-   * points)
-   * - If similarity=false: weights proportional to 1/distance (prefers
-   * dissimilar points)
-   *
-   * After selection, identifies clusters ci and cj, and prepares launch_state
-   * and S vectors containing all other points from these clusters for the
-   * split-merge operation. The vectors are shuffled to ensure random processing
-   * order.
-   */
 
+  // Select first index idx_i uniformly at random
   std::uniform_int_distribution<> dis(0, data.get_n() - 1);
-
   idx_i = dis(gen);
 
   auto distances = params.D.row(idx_i);
   double distance_sum = 0.0;
   std::vector<double> probs(data.get_n());
-
-  if (similarity) {
-    for (auto idx = 0; idx < data.get_n(); ++idx) {
-      if (idx == idx_i)
-        probs[idx] = 0.0;
-      else
-        probs[idx] = distances(idx);
-      distance_sum += probs[idx];
-    }
-
-    for (auto idx = 0; idx < data.get_n(); ++idx) {
-      probs[idx] /= distance_sum;
-    }
-  } else {
-    for (auto idx = 0; idx < data.get_n(); ++idx) {
-      if (idx == idx_i)
-        probs[idx] = 0.0;
-      else
-        probs[idx] = 1 / distances(idx);
-      distance_sum += probs[idx];
-    }
-
-    for (auto idx = 0; idx < data.get_n(); ++idx) {
-      probs[idx] /= distance_sum;
-    }
+  
+  // Compute probabilities for selecting idx_j based on distances from idx_i
+  // If similarity is true, prefer closer points; otherwise, prefer distant points
+  for (auto idx = 0; idx < data.get_n(); ++idx) {
+    if (idx == idx_i)
+      probs[idx] = 0.0;
+    else
+      probs[idx] = similarity ? 1 / distances(idx) : distances(idx);
+    distance_sum += probs[idx];
   }
 
+  // Normalize probabilities
+  for (auto idx = 0; idx < data.get_n(); ++idx) {
+    probs[idx] /= distance_sum;
+  }
+
+  // Select second index idx_j based on computed probabilities
   std::discrete_distribution<> dis1(probs.begin(), probs.end());
   do {
     idx_j = dis1(gen);
@@ -99,8 +67,7 @@ void SplitMerge_LSS_SDDS::choose_indeces(bool similarity) {
 
   launch_state.resize(launch_state_size);
   S.resize(launch_state_size);
-  original_allocations =
-      data.get_allocations(); // Store original allocations in case of rejection
+  original_allocations = data.get_allocations(); // Store original allocations in case of rejection
 
   // Properly collect all points from clusters ci and cj
   int s_idx = 0;
@@ -141,33 +108,10 @@ void SplitMerge_LSS_SDDS::choose_indeces(bool similarity) {
 void SplitMerge_LSS_SDDS::sequential_allocation(int iterations,
                                                 bool only_probabilities,
                                                 bool sequential) {
-  /**
-   * @brief Perform sequential allocation or restricted Gibbs sampling on points
-   * in S
-   *
-   * @param iterations Number of allocation passes to perform
-   * @param only_probabilities If true, compute probabilities without changing
-   * allocations
-   * @param sequential If true, use sequential allocation; if false, use
-   * restricted Gibbs
-   *
-   * @details This function allocates points between clusters ci and cj using
-   * one of two modes:
-   * - Sequential allocation (sequential=true): Unallocates all points in S at
-   * once, then processes them one by one, computing conditional probabilities
-   * based on current state
-   * - Restricted Gibbs (sequential=false): Unallocates and reallocates points
-   * one at a time
-   *
-   * For each point, computes conditional log-probabilities for assignment to ci
-   * or cj based on likelihood and prior. If only_probabilities=false, samples
-   * new assignments and accumulates log_split_gibbs_prob. If
-   * only_probabilities=true, retains original assignments and accumulates
-   * log_merge_gibbs_prob (for reverse move probability).
-   */
 
   const int S_size = S.size();
 
+  
   for (int i = 0; i < iterations; ++i) {
 
     // Unallocate all points in S
@@ -175,6 +119,7 @@ void SplitMerge_LSS_SDDS::sequential_allocation(int iterations,
       data.set_allocation(S(idx), -1); // Unallocate point
     }
 
+    // Allocate each point in S using RGSM or sequential allocation
     for (int idx = 0; idx < S_size; ++idx) {
       int point_idx = S(idx);
       int current_cluster = launch_state(idx);
@@ -196,17 +141,14 @@ void SplitMerge_LSS_SDDS::sequential_allocation(int iterations,
 
       // Normalize log probabilities using log-sum-exp trick
       double max_log_prob = log_probs.maxCoeff();
-      double log_sum =
-          max_log_prob + log((log_probs.array() - max_log_prob).exp().sum());
+      double log_sum = max_log_prob + log((log_probs.array() - max_log_prob).exp().sum());
 
       if (!only_probabilities) {
         // Compute normalized probabilities only for sampling
         Eigen::Vector2d probs = (log_probs.array() - max_log_prob).exp();
-        // probs /= probs.sum();
 
         // Sample new cluster based on computed probabilities
-        std::discrete_distribution<int> dist(probs.data(),
-                                             probs.data() + probs.size());
+        std::discrete_distribution<int> dist(probs.data(),probs.data() + probs.size());
         int new_cluster_idx = dist(gen);
         int new_cluster = (new_cluster_idx == 0) ? ci : cj;
 
@@ -228,64 +170,30 @@ void SplitMerge_LSS_SDDS::sequential_allocation(int iterations,
   }
 }
 
-double
-SplitMerge_LSS_SDDS::compute_acceptance_ratio_merge(double likelihood_old_ci,
-                                                    double likelihood_old_cj) {
-  /**
-   * @brief Compute the log acceptance ratio for a merge move
-   *
-   * @param likelihood_old_ci Log-likelihood of cluster ci before merge
-   * @param likelihood_old_cj Log-likelihood of cluster cj before merge
-   * @return Log acceptance ratio for the merge move
-   *
-   * @details Computes log(α) = log(prior_ratio) + log(likelihood_ratio) +
-   * log(proposal_ratio)
-   * - Prior ratio: accounts for change from two clusters to one
-   * - Likelihood ratio: L(merged_ci) - L(old_ci) - L(old_cj)
-   * - Proposal ratio: log_merge_gibbs_prob (probability of reverse split move)
-   *   Note: For dumb merge, log_merge_gibbs_prob = 0
-   */
+double SplitMerge_LSS_SDDS::compute_acceptance_ratio_merge(double likelihood_old_ci, double likelihood_old_cj) {
 
   // Prior ratio
   int size_old_ci = (original_allocations.array() == ci).count();
   int size_old_cj = (original_allocations.array() == cj).count();
-  double log_acceptance_ratio =
-      process.prior_ratio_merge(size_old_ci, size_old_cj);
+  double log_acceptance_ratio = process.prior_ratio_merge(size_old_ci, size_old_cj);
 
   // Likelihood ratio
   log_acceptance_ratio += likelihood.cluster_loglikelihood(ci);
   log_acceptance_ratio -= likelihood_old_ci;
   log_acceptance_ratio -= likelihood_old_cj;
 
-  // Proposal ratio (only included for smart merge)
+  // Proposal ratio of the reverse move (smart or dumb split)
   log_acceptance_ratio += log_merge_gibbs_prob;
 
   return log_acceptance_ratio;
 }
 
 void SplitMerge_LSS_SDDS::smart_merge_move() {
-  /**
-   * @brief Propose a smart merge move using sequential allocation
-   *
-   * @details Merges clusters ci and cj into ci with intelligent proposal:
-   * 1. Records old cluster likelihoods
-   * 2. Assigns both anchor points (idx_i, idx_j) to ci
-   * 3. Initially assigns all other points to ci
-   * 4. Uses sequential_allocation(only_probabilities=true) to compute the
-   * probability of arriving at the merged configuration (for reverse split
-   * probability)
-   * 5. Computes acceptance ratio including proposal probability
-   * 6. Accepts/rejects via Metropolis-Hastings
-   *
-   * Higher computational cost than dumb_merge but better proposals through
-   * sequential allocation refinement.
-   */
 
-  log_merge_gibbs_prob =
-      launch_state.size() * rand_split_prob; // reverse dumb split prob
-  log_split_gibbs_prob = 0;
+  // Reverse dumb split proposal probability
+  log_merge_gibbs_prob = S.size() * rand_split_prob; 
 
-  // Get old cluster likelihoods
+  // Get old likelihoods
   double likelihood_old_ci = likelihood.cluster_loglikelihood(ci);
   double likelihood_old_cj = likelihood.cluster_loglikelihood(cj);
 
@@ -298,8 +206,7 @@ void SplitMerge_LSS_SDDS::smart_merge_move() {
   }
 
   // Compute acceptance ratio
-  double acceptance_ratio =
-      compute_acceptance_ratio_merge(likelihood_old_ci, likelihood_old_cj);
+  double acceptance_ratio = compute_acceptance_ratio_merge(likelihood_old_ci, likelihood_old_cj);
 
   // Accept or reject the move
   std::uniform_real_distribution<> dis(0.0, 1.0);
@@ -310,38 +217,24 @@ void SplitMerge_LSS_SDDS::smart_merge_move() {
 }
 
 void SplitMerge_LSS_SDDS::dumb_merge_move() {
-  /**
-   * @brief Propose a dumb merge move with direct merging
-   *
-   * @details Simple merge without sequential allocation:
-   * 1. Records old cluster likelihoods
-   * 2. Sets log_merge_gibbs_prob = 0 (no proposal probability)
-   * 3. Directly assigns idx_j to ci
-   * 4. Reassigns all points from cj to ci
-   * 5. Computes acceptance ratio without proposal term
-   * 6. Accepts/rejects via Metropolis-Hastings
-   *
-   * Computationally faster than smart_merge but may have lower acceptance rates
-   * due to simpler proposal mechanism.
-   */
 
-  sequential_allocation(1, true); // reverse smart split proposal probabilities
+  // Reverse smart split proposal probability
+  sequential_allocation(1, true);
 
+  // Get old likelihoods
   double likelihood_old_ci = likelihood.cluster_loglikelihood(ci);
   double likelihood_old_cj = likelihood.cluster_loglikelihood(cj);
 
   // Direct merge: assign all points to ci
   data.set_allocation(idx_j, ci);
-
   for (int idx = 0; idx < launch_state.size(); ++idx) {
     if (launch_state(idx) == cj) {
       data.set_allocation(S(idx), ci); // Merge cj into ci
     }
   }
 
-  // Compute acceptance ratio (without sequential allocation proposal)
-  double acceptance_ratio =
-      compute_acceptance_ratio_merge(likelihood_old_ci, likelihood_old_cj);
+  // Compute acceptance ratio 
+  double acceptance_ratio = compute_acceptance_ratio_merge(likelihood_old_ci, likelihood_old_cj);
 
   // Accept or reject the move
   std::uniform_real_distribution<> dis(0.0, 1.0);
@@ -352,28 +245,11 @@ void SplitMerge_LSS_SDDS::dumb_merge_move() {
 }
 
 void SplitMerge_LSS_SDDS::smart_split_move() {
-  /**
-   * @brief Propose a smart split move using sequential allocation
-   *
-   * @details Intelligently splits cluster ci into ci and new cluster cj:
-   * 1. Records old single cluster likelihood
-   * 2. Creates new cluster cj and assigns idx_j to it (idx_i remains in ci)
-   * 3. Randomly initializes allocation of other points to ci or cj
-   * 4. Refines via sequential_allocation(1) which:
-   *    - Processes points in random order
-   *    - Computes conditional probabilities for each assignment
-   *    - Accumulates log_split_gibbs_prob for proposal ratio
-   * 5. Computes acceptance ratio including proposal probability
-   * 6. Accepts/rejects via Metropolis-Hastings
-   *
-   * Higher computational cost than dumb_split but better mixing through
-   * intelligent sequential allocation.
-   */
 
+  // old cluster likelihood
   double likelihood_old_cluster = likelihood.cluster_loglikelihood(ci);
 
-  log_split_gibbs_prob = 0; // reset the log probability of the split move
-
+  // Create new cluster for point j
   data.set_allocation(idx_j, data.get_K()); // Create a new cluster for point j
   cj = data.get_cluster_assignment(idx_j); // Update cj to the new cluster index
 
@@ -388,8 +264,7 @@ void SplitMerge_LSS_SDDS::smart_split_move() {
   sequential_allocation(1);
 
   // Compute acceptance ratio
-  double acceptance_ratio =
-      compute_acceptance_ratio_split(likelihood_old_cluster);
+  double acceptance_ratio = compute_acceptance_ratio_split(likelihood_old_cluster);
 
   // Accept or reject the move
   std::uniform_real_distribution<> dis2(0.0, 1.0);
@@ -400,41 +275,26 @@ void SplitMerge_LSS_SDDS::smart_split_move() {
 }
 
 void SplitMerge_LSS_SDDS::dumb_split_move() {
-  /**
-   * @brief Propose a dumb split move with random allocation
-   *
-   * @details Simple split without sequential allocation refinement:
-   * 1. Records old single cluster likelihood
-   * 2. Sets log_split_gibbs_prob = 0 (no proposal probability)
-   * 3. Creates new cluster cj and assigns idx_j to it (idx_i remains in ci)
-   * 4. Randomly allocates other points to ci or cj with equal probability
-   * (50/50)
-   * 5. Computes acceptance ratio without proposal term
-   * 6. Accepts/rejects via Metropolis-Hastings
-   *
-   * Computationally faster than smart_split but may have lower acceptance rates
-   * due to purely random initial allocation.
-   */
 
-  // old likelihood cluster
+  // old cluster likelihood
   double likelihood_old_cluster = likelihood.cluster_loglikelihood(ci);
-
-  log_split_gibbs_prob =
-      launch_state.size() * rand_split_prob; // dumb split prob
-
+  
+  // Create new cluster for point j
   data.set_allocation(idx_j, data.get_K()); // Create a new cluster for point j
   cj = data.get_cluster_assignment(idx_j); // Update cj to the new cluster index
-
+  
   // Randomly allocate points in S to either ci or cj
   std::uniform_int_distribution<> dis(0, 1);
   for (int idx = 0; idx < launch_state.size(); ++idx) {
     int new_cluster = (dis(gen) == 0) ? ci : cj;
     data.set_allocation(S(idx), new_cluster);
   }
-
-  // Compute acceptance ratio (without sequential allocation proposal)
-  double acceptance_ratio =
-      compute_acceptance_ratio_split(likelihood_old_cluster);
+  
+  // Random split proposal probability
+  log_split_gibbs_prob = S.size() * rand_split_prob; // Probability of the dumb split move
+  
+  // Compute acceptance ratio 
+  double acceptance_ratio = compute_acceptance_ratio_split(likelihood_old_cluster);
 
   // Accept or reject the move
   std::uniform_real_distribution<> dis2(0.0, 1.0);
@@ -444,22 +304,7 @@ void SplitMerge_LSS_SDDS::dumb_split_move() {
     accepted_split++;
 }
 
-double SplitMerge_LSS_SDDS::compute_acceptance_ratio_split(
-    double likelihood_old_cluster) {
-  /**
-   * @brief Compute the log acceptance ratio for a split move
-   *
-   * @param likelihood_old_cluster Log-likelihood of the original cluster before
-   * split
-   * @return Log acceptance ratio for the split move
-   *
-   * @details Computes log(α) = log(prior_ratio) + log(likelihood_ratio) -
-   * log(proposal_ratio)
-   * - Prior ratio: accounts for change from one cluster to two
-   * - Likelihood ratio: L(new_ci) + L(new_cj) - L(old_ci)
-   * - Proposal ratio: log_split_gibbs_prob (probability of forward split path)
-   *   Note: For dumb split, log_split_gibbs_prob = 0
-   */
+double SplitMerge_LSS_SDDS::compute_acceptance_ratio_split(double likelihood_old_cluster) {
 
   // Prior ratio
   double log_acceptance_ratio = process.prior_ratio_split(ci, cj);
@@ -469,38 +314,13 @@ double SplitMerge_LSS_SDDS::compute_acceptance_ratio_split(
   log_acceptance_ratio += likelihood.cluster_loglikelihood(cj);
   log_acceptance_ratio -= likelihood_old_cluster;
 
-  // Proposal ratio (only included for smart split)
-  // For dumb split, log_split_gibbs_prob = 0, so this term vanishes
+  // Proposal ratio (dumb or smart split as forwad move)
   log_acceptance_ratio -= log_split_gibbs_prob;
 
   return log_acceptance_ratio;
 }
 
 void SplitMerge_LSS_SDDS::shuffle() {
-  /**
-   * @brief Perform a shuffle move to redistribute points between two existing
-   * clusters
-   *
-   * @details Refines allocations between clusters ci and cj while maintaining
-   * both:
-   * 1. Checks if at least 2 clusters exist (returns early if not)
-   * 2. Records old cluster likelihoods and sizes
-   * 3. Computes reverse proposal probability via
-   * sequential_allocation(only_probabilities=true) stored in
-   * log_merge_gibbs_prob
-   * 4. Performs sequential_allocation(only_probabilities=false) to:
-   *    - Reallocate points between ci and cj
-   *    - Compute forward proposal probability in log_split_gibbs_prob
-   * 5. Computes acceptance ratio with bidirectional proposal probabilities
-   * 6. Accepts/rejects via Metropolis-Hastings
-   *
-   * This move improves mixing by allowing refined redistribution between
-   * existing clusters without changing the total number of clusters.
-   */
-
-  log_split_gibbs_prob = 0; // reset the log probability of the split move - use
-                            // it to store the proposal prob
-  log_merge_gibbs_prob = 0;
 
   if (data.get_K() < 2)
     return; // No point in shuffling if there's only one cluster
@@ -512,7 +332,7 @@ void SplitMerge_LSS_SDDS::shuffle() {
   int old_cj_size = data.get_cluster_size(cj);
 
   // Compute probabilities
-  sequential_allocation(1, true, true); // only compute probabilities
+  sequential_allocation(1, true, true);
 
   // Use restricted gibbs to refine the allocations
   sequential_allocation(1, false, true);
@@ -533,27 +353,9 @@ void SplitMerge_LSS_SDDS::shuffle() {
 double SplitMerge_LSS_SDDS::compute_acceptance_ratio_shuffle(
     double likelihood_old_ci, double likelihood_old_cj, int old_ci_size,
     int old_cj_size) {
-  /**
-   * @brief Compute the log acceptance ratio for a shuffle move
-   *
-   * @param likelihood_old_ci Log-likelihood of cluster ci before shuffle
-   * @param likelihood_old_cj Log-likelihood of cluster cj before shuffle
-   * @param old_ci_size Size of cluster ci before shuffle
-   * @param old_cj_size Size of cluster cj before shuffle
-   * @return Log acceptance ratio for the shuffle move
-   *
-   * @details Computes log(α) = log(prior_ratio) + log(likelihood_ratio) +
-   * log(proposal_ratio)
-   * - Prior ratio: accounts for cluster size changes (shuffle maintains 2
-   * clusters)
-   * - Likelihood ratio: L(new_ci) + L(new_cj) - L(old_ci) - L(old_cj)
-   * - Proposal ratio: log_merge_gibbs_prob - log_split_gibbs_prob
-   *   (ratio of reverse to forward proposal probabilities)
-   */
 
   // Prior ratio
-  double log_acceptance_ratio =
-      process.prior_ratio_shuffle(old_ci_size, old_cj_size, ci, cj);
+  double log_acceptance_ratio = process.prior_ratio_shuffle(old_ci_size, old_cj_size, ci, cj);
 
   // Likelihood ratio
   log_acceptance_ratio += likelihood.cluster_loglikelihood(ci);
@@ -569,29 +371,14 @@ double SplitMerge_LSS_SDDS::compute_acceptance_ratio_shuffle(
 }
 
 void SplitMerge_LSS_SDDS::choose_clusters_shuffle() {
-  /**
-   * @brief Select two distinct clusters and anchor points for shuffle move
-   *
-   * @details For shuffle moves:
-   * 1. Returns early if fewer than 2 clusters exist
-   * 2. Uniformly selects two distinct clusters ci and cj
-   * 3. Uniformly selects random point idx_i from cluster ci
-   * 4. Uniformly selects random point idx_j from cluster cj
-   * 5. Stores original allocations for potential rejection
-   * 6. Prepares launch_state and S vectors containing all points from ci and cj
-   *    (excluding idx_i and idx_j which serve as anchors)
-   *
-   * Unlike choose_indeces(), this method doesn't use locality sensitive
-   * sampling since shuffle moves operate on existing cluster structure.
-   */
 
   if (data.get_K() < 2) {
     // std::cout << "Not enough clusters to perform shuffle." << std::endl;
     return;
   }
 
+  // Choose two distinct clusters ci and cj uniformly at random
   std::uniform_int_distribution<> dis(0, data.get_K() - 1);
-
   ci = dis(gen);
   do {
     cj = dis(gen);
@@ -610,8 +397,7 @@ void SplitMerge_LSS_SDDS::choose_clusters_shuffle() {
   // Pre-allocate launch_state and S
   const int size_ci = data.get_cluster_size(ci);
   const int size_cj = data.get_cluster_size(cj);
-  const int launch_state_size =
-      size_ci + size_cj - 2; // Exclude points i and j from the launch state
+  const int launch_state_size = size_ci + size_cj - 2; // Exclude points i and j from the launch state
   launch_state.resize(launch_state_size);
   S.resize(launch_state_size);
 
@@ -631,71 +417,42 @@ void SplitMerge_LSS_SDDS::choose_clusters_shuffle() {
 }
 
 void SplitMerge_LSS_SDDS::step() {
-  /**
-   * @brief Perform a single LSS-SDDS split-merge MCMC step
-   *
-   * @details Implements the SDDS strategy (Smart-split, Dumb-merge, Dumb-split,
-   * Smart-merge):
-   *
-   * 1. Randomly chooses between two modes with equal probability (50/50):
-   *    - Mode 0 (dissimilarity): Selects dissimilar points (1/distance
-   * weighting)
-   *    - Mode 1 (similarity): Selects similar points (distance weighting)
-   *
-   * 2. Selects anchor points using choose_indeces() with appropriate similarity
-   * flag
-   *
-   * 3. Updates process state with old allocations and anchor indices
-   *
-   * 4. Determines and executes move using SDDS pairing:
-   *    - **Dissimilarity mode (move_type=0):**
-   *      * If ci==cj: **smart_split_move()** - use sequential allocation for
-   * quality split
-   *      * If ci!=cj: **dumb_merge_move()** - use simple merge for efficiency
-   *    - **Similarity mode (move_type=1):**
-   *      * If ci!=cj: **dumb_split_move()** - use simple split for efficiency
-   *      * If ci==cj: **smart_merge_move()** - use sequential allocation for
-   * quality merge
-   *
-   * 5. Optionally performs shuffle move if shuffle_bool is enabled
-   *
-   * The SDDS strategy intelligently allocates computational resources:
-   * expensive sequential allocation is used for splits when dissimilar points
-   * are selected (where splits are likely) and for merges when similar points
-   * are selected (where merges are likely), while using simpler proposals
-   * elsewhere.
-   */
 
   std::discrete_distribution<> dist({0.5, 0.5});
-  const int move_type =
-      dist(gen); // 0 for dissimilarity (split), 1 for similarity (merge)
-  choose_indeces(move_type == 0 ? false : true);
-  process.set_old_allocations(
-      data.get_allocations()); // Update old allocations in the process
+  const int similarity_dist = dist(gen); // 0 for dissimilarity (split), 1 for similarity (merge)
+  choose_indeces(similarity_dist);
+  process.set_old_allocations(data.get_allocations()); // Update old allocations in the process
   process.set_idx_i(idx_i);
   process.set_idx_j(idx_j);
 
+  // Reset log proposal probabilities
+  log_split_gibbs_prob = 0;
+  log_merge_gibbs_prob = 0;
+
   // Determine which move to perform based on strategy
-  if (move_type == 0) {
+  if (similarity_dist) {
+    // smart merge - dumb split
+    if (ci != cj) {
+      smart_merge_move();
+    } else {
+      dumb_split_move();
+    }
+  } else {
     // smart split - dumb merge
     if (ci == cj) {
       smart_split_move();
     } else {
       dumb_merge_move();
     }
-  } else {
-    // smart merge - dumb split
-    if (ci != cj) {
-      dumb_split_move();
-    } else {
-      smart_merge_move();
-    }
   }
+
+  // Reset log proposal probabilities
+  log_split_gibbs_prob = 0;
+  log_merge_gibbs_prob = 0;
 
   if (shuffle_bool) {
     choose_clusters_shuffle();
-    process.set_old_allocations(
-        data.get_allocations()); // Update old allocations in the process
+    process.set_old_allocations(data.get_allocations()); // Update old allocations in the process
     process.set_idx_i(idx_i);
     process.set_idx_j(idx_j);
     shuffle();

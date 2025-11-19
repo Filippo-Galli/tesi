@@ -36,7 +36,7 @@
  *
  * @details Key differences from standard Split-Merge:
  * - **Locality Sensitive Sampling**: Anchor points are selected based on
- * similarity/distance
+ * similarity/dissimilarity derived from distances
  * - **SDDS Strategy**: Adaptive smart/dumb pairing based on point similarity
  *   * Dissimilar points → Smart split (sequential allocation) + Dumb merge
  * (direct)
@@ -105,13 +105,12 @@ private:
   double log_split_gibbs_prob = 0;
 
   /** @brief Log probability of generating current state via sequential
-   * allocation (merge direction) - reverse of the smart split  */
+   * allocation (merge direction) */
   double log_merge_gibbs_prob = 0;
 
-  /** @brief Random split probability for dumb split move and useful for reverse
-   * prob of smart merge
+  /** @brief Constant log probability for random split allocation (dumb split)
    */
-  double rand_split_prob = -log(2); // log(0.5)
+  const double rand_split_prob = log(0.5);
 
   // ========== Debug variables ==========
   int accepted_split = 0;
@@ -123,14 +122,14 @@ private:
   /**
    * @brief Randomly select two observations for split-merge proposal
    *
-   * @param similarity If true, select similar points; if false, select
-   * dissimilar points
-   *
    * @details Samples two distinct observation indices using locality sensitive
    * sampling. When similarity=false, selects dissimilar points (for split
    * moves). When similarity=true, selects similar points (for merge moves). The
    * first point is selected uniformly, and the second is selected based on
    * distance weights from the first point.
+   *
+   * @param similarity If true, select similar points; if false, select
+   * dissimilar points
    */
   void choose_indeces(bool similarity = false);
 
@@ -342,21 +341,18 @@ public:
   // ========== Accessor Methods ==========
   /**
    * @brief Get number of accepted split moves for diagnostics
-   *
    * @return Count of accepted split moves
    */
   int get_accepted_split() const { return accepted_split; };
 
   /**
    * @brief Get number of accepted merge moves for diagnostics
-   *
    * @return Count of accepted merge moves
    */
   int get_accepted_merge() const { return accepted_merge; };
 
   /**
    * @brief Get number of accepted shuffle moves for diagnostics
-   *
    * @return Count of accepted shuffle moves
    */
   int get_accepted_shuffle() const { return accepted_shuffle; };

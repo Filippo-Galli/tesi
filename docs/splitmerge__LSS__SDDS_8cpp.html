@@ -113,10 +113,7 @@ $(function(){initNavTree('splitmerge__LSS__SDDS_8cpp.html',''); initResizable(tr
 <div class="textblock"><p>Implementation of Locality Sensitive Sampling (LSS) with SDDS Split-Merge sampler. </p>
 <p>This file contains the complete implementation of the <a class="el" href="classSplitMerge__LSS__SDDS.html" title="Locality Sensitive Sampling (LSS) with SDDS Split-Merge sampler.">SplitMerge_LSS_SDDS</a> class, which provides an optimized variant of split-merge sampling using:</p><ul>
 <li>Locality sensitive sampling for anchor point selection</li>
-<li>SDDS (Smart-split, Dumb-merge, Dumb-split, Smart-merge) for adaptive move selection</li>
-<li>Sequential allocation for "smart" proposal generation</li>
-<li>Simple random allocation for "dumb" proposals</li>
-<li>Adaptive pairing strategy for computational efficiency</li>
+<li>SDDS (Smart-split-Dumb-merge, Dumb-split-Smart-merge) for adaptive move selection to achieve better mixing and perfomance.</li>
 </ul>
 <p>This approach offers computational advantages for large datasets while maintaining theoretical guarantees of split-merge samplers.</p>
 <dl class="section author"><dt>Author</dt><dd>Filippo Galli </dd></dl>
