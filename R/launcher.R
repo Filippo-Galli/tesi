@@ -18,9 +18,9 @@ set.seed(44)
 # dist_matrix <- readRDS(file = paste0(folder, "/dist_matrix.rds"))
 
 ## Load real data
-files_folder <- "real_data/WestMidwest"
+files_folder <- "real_data/Comuni"
 files <- list.files(files_folder)
-file_chosen <- files[3]
+file_chosen <- files[5]
 dist_matrix <- readRDS(file = paste0(files_folder, "/", file_chosen))
 #plot_distance(dist_matrix)
 
@@ -46,8 +46,8 @@ if (!isSymmetric(W)) {
 ##############################################################################
 
 ## Load C++ implementation of MCMC algorithm
-#sourceCpp("src/launcher.cpp", rebuild = TRUE, cacheDir = "~/my_rcpp_cache") # useful for perf
-sourceCpp("src/launcher.cpp")
+sourceCpp("src/launcher.cpp", rebuild = TRUE, cacheDir = "~/my_rcpp_cache") # useful for perf
+#sourceCpp("src/launcher.cpp")
 cat("✅ C++ code compiled successfully!\n\n")
 
 ##############################################################################
@@ -57,7 +57,7 @@ cat("✅ C++ code compiled successfully!\n\n")
 # Plot k-means elbow method to help set hyperparameters
 #plot_k_means(dist_matrix, max_k = 10)
 
-# # Set hyperparameters based on distance matrix and save it for future use
+# Set hyperparameters based on distance matrix and save it for future use
 # hyperparams <- set_hyperparameters(dist_matrix,
 #   k_elbow = 3, plot_clustering = FALSE, plot_distribution = FALSE
 # )
@@ -72,7 +72,7 @@ param <- new(
   Params,
   hyperparams$delta1, hyperparams$alpha, hyperparams$beta,
   hyperparams$delta2, hyperparams$gamma, hyperparams$zeta,
-  10000, 10000, 1, # BI, NI, a,
+  0, 100, 1, # BI, NI, a,
   0.1, 1, 1, # sigma, tau, coeff spatial dependence
   dist_matrix, W # distance matrix, Spatial adjacency matrix
 )
@@ -110,14 +110,14 @@ elapsed_time <- as.numeric(difftime(end_time, start_time, units = "secs"))
 ##############################################################################
 # Save Results (Optional) ====
 ##############################################################################
-file_chosen <- sub("\\.rds$", "", file_chosen)
-files_folder <- gsub("/", "_", files_folder)
-data_type <- paste0(files_folder, "_", sub("^distance_", "", file_chosen)) # "simulation_data" or "real_data_{distance_used}"
-process <- "NGGPW" # Process type: "DP", "DPW", "NGGP", "NGGPW"
-method <- "LSS_SDDS25+Gibbs1" # MCMC method used
-initialization <- "kmeans" # Initialization strategy
-filename <- paste0(data_type, "_", process, "_", method, "_", initialization, "_")
-save_with_name(folder, param, filename)
+# file_chosen <- sub("\\.rds$", "", file_chosen)
+# files_folder <- gsub("/", "_", files_folder)
+# data_type <- paste0(files_folder, "_", sub("^distance_", "", file_chosen)) # "simulation_data" or "real_data_{distance_used}"
+# process <- "NGGPW" # Process type: "DP", "DPW", "NGGP", "NGGPW"
+# method <- "LSS_SDDS25+Gibbs1" # MCMC method used
+# initialization <- "kmeans" # Initialization strategy
+# filename <- paste0(data_type, "_", process, "_", method, "_", initialization, "_")
+# save_with_name(folder, param, filename)
 
 ##############################################################################
 # Visualization (Optional) ====
