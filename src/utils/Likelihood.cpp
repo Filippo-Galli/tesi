@@ -11,38 +11,41 @@ double Likelihood::cluster_loglikelihood(int cluster_index) const {
   return cluster_loglikelihood(cluster_index, cls_ass_k);
 }
 
-double Likelihood::cluster_loglikelihood(int cluster_index, 
-                                         const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k) const {
+double Likelihood::cluster_loglikelihood(
+    int cluster_index,
+    const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k) const {
   const int n_k = cls_ass_k.size();
-  
+
   if (n_k == 0) {
     return 0;
   }
 
   double rep = 0;
   const int K = data.get_K();
-  
+
   // Get raw pointer to distance matrices for fastest access
-  const double* __restrict__ D_data = params.D.data();
-  const double* __restrict__ logD_data = log_D_data.data();
+  const double *__restrict__ D_data = params.D.data();
+  const double *__restrict__ logD_data = log_D_data.data();
 
   /* -------------------- Repulsion part -------------------------- */
   for (int t = 0; t < K; ++t) {
-    if (t == cluster_index) continue;
+    if (t == cluster_index)
+      continue;
 
     auto cls_ass_t = data.get_cluster_assignments_ref(t);
     const int n_t = cls_ass_t.size();
-    
-    if (n_t == 0) continue;
+
+    if (n_t == 0)
+      continue;
 
     double log_prod = 0;
     double sum = 0;
 
     for (int i = 0; i < n_k; ++i) {
       const int idx_i = cls_ass_k(i);
-      const double* D_row = D_data + idx_i * D_cols;
-      const double* logD_row = logD_data + idx_i * D_cols;
-      
+      const double *D_row = D_data + idx_i * D_cols;
+      const double *logD_row = logD_data + idx_i * D_cols;
+
       for (int j = 0; j < n_t; ++j) {
         const int idx_j = cls_ass_t(j);
         sum += D_row[idx_j];
@@ -70,9 +73,9 @@ double Likelihood::cluster_loglikelihood(int cluster_index,
   // Direct pointer access for cohesion
   for (int i = 0; i < n_k; ++i) {
     const int idx_i = cls_ass_k(i);
-    const double* D_row = D_data + idx_i * D_cols;
-    const double* logD_row = logD_data + idx_i * D_cols;
-    
+    const double *D_row = D_data + idx_i * D_cols;
+    const double *logD_row = logD_data + idx_i * D_cols;
+
     for (int j = i + 1; j < n_k; ++j) {
       const int idx_j = cls_ass_k(j);
       sum += D_row[idx_j];
@@ -90,7 +93,8 @@ double Likelihood::cluster_loglikelihood(int cluster_index,
   return rep + coh;
 }
 
-double Likelihood::point_loglikelihood_cond(int point_index, int cluster_index) const {
+double Likelihood::point_loglikelihood_cond(int point_index,
+                                            int cluster_index) const {
   auto cls_ass_k = data.get_cluster_assignments_ref(cluster_index);
   const int n_k = cls_ass_k.size();
 
@@ -100,19 +104,21 @@ double Likelihood::point_loglikelihood_cond(int point_index, int cluster_index) 
   return coeh + rep;
 }
 
-double Likelihood::compute_cohesion(int point_index, int cluster_index,
-                                    const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k,
-                                    int n_k) const {
+double
+Likelihood::compute_cohesion(int point_index, int cluster_index,
+                             const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k,
+                             int n_k) const {
   if (n_k == 0) {
     return 0.0;
   }
 
-  const double* D_row = params.D.data() + point_index * D_cols;
-  const double* logD_row = log_D_data.data() + point_index * D_cols;
-  
+  const double *__restrict__ D_row = params.D.data() + point_index * D_cols;
+  const double *__restrict__ logD_row =
+      log_D_data.data() + point_index * D_cols;
+
   double sum_i = 0;
   double log_prod_i = 0;
-  
+
   for (int i = 0; i < n_k; ++i) {
     const int idx = cls_ass_k(i);
     sum_i += D_row[idx];
@@ -132,9 +138,9 @@ double Likelihood::compute_cohesion(int point_index, int cluster_index,
   return loglik;
 }
 
-double Likelihood::compute_repulsion(int point_index, int cluster_index,
-                                     const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k,
-                                     int n_k) const {
+double Likelihood::compute_repulsion(
+    int point_index, int cluster_index,
+    const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k, int n_k) const {
   const int num_cluster = data.get_K();
 
   if (num_cluster <= 1) {
@@ -142,17 +148,20 @@ double Likelihood::compute_repulsion(int point_index, int cluster_index,
   }
 
   double loglik = 0;
-  
-  const double* D_row = params.D.data() + point_index * D_cols;
-  const double* logD_row = log_D_data.data() + point_index * D_cols;
+
+  const double *__restrict__ D_row = params.D.data() + point_index * D_cols;
+  const double *__restrict__ logD_row =
+      log_D_data.data() + point_index * D_cols;
 
   for (int t = 0; t < num_cluster; ++t) {
-    if (t == cluster_index) continue;
+    if (t == cluster_index)
+      continue;
 
     auto cls_ass_t = data.get_cluster_assignments_ref(t);
     const int n_t = cls_ass_t.size();
 
-    if (n_t == 0) continue;
+    if (n_t == 0)
+      continue;
 
     double sum_i = 0;
     double log_point_prod = 0;

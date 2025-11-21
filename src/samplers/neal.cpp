@@ -86,21 +86,7 @@ void Neal3::step() {
    * dataset.
    */
 
-  // // Create and shuffle a vector of indices
-  // std::vector<int> indices(data.get_n());
-  // std::iota(indices.begin(), indices.end(), 0);
-  // std::shuffle(indices.begin(), indices.end(), gen);
-
   for (int j = 0; j < data.get_n(); ++j) {
     step_1_observation(j);
   }
-
-  // Rcpp::Rcout << std::endl << "Element per cluster: " << std::endl;
-  // for (int k = 0; k < data.get_K(); ++k) {
-  //     Rcpp::Rcout << "\tCluster " << k << ": " << data.get_cluster_size(k) <<
-  //     std::endl;
-  // }
-  // Rcpp::Rcout <<
-  // "-----------------------------------------------------------------------------"
-  // << std::endl;
 }
