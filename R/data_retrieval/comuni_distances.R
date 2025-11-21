@@ -2,108 +2,129 @@ source("R/utils.R")
 source("R/utils_plot.R")
 
 ##############################################################################
-# Load data from 'input/Comuni' directory ====
+# Load data files from 'input/' directory ====
 ##############################################################################
+cat("Loading data files...\n")
 
-# Check if shapefile exists and load it
-library(sf)
+# Load income distribution data
+full_dataset <- read.csv("input/Comuni/full_dataset.csv", stringsAsFactors = FALSE)
+cat("  - Loaded full_dataset.csv:", nrow(full_dataset), "comuni\n")
 
-# Try to load the shapefile
-tryCatch(
-  {
-    comuni_sf <- st_read("input/Comuni/full_dataset.shp", quiet = TRUE)
-    cat("Shapefile loaded successfully with", nrow(comuni_sf), "features\n")
-  },
-  error = function(e) {
-    stop("Error loading shapefile: ", e$message)
+# Load geometry (if needed for spatial operations)
+geometry <- readRDS("input/Comuni/geometry.rds")
+cat("  - Loaded geometry.rds\n")
+
+# Load adjacency matrix
+W <- as.matrix(read.csv("input/Comuni/adj_matrix.csv", row.names = 1))
+cat("  - Loaded adj_matrix.csv:", nrow(W), "x", ncol(W), "\n")
+
+cat("Data loading completed successfully!\n")
+
+##############################################################################
+# Read histogram for each Comune ====
+##############################################################################
+cat("Extracting histograms for each Comune...\n")
+
+# First, let's check what columns we have
+cat("Available columns in full_dataset:\n")
+print(head(colnames(full_dataset), 20))
+
+# Identify income bracket columns
+# R adds 'X' prefix to column names starting with numbers
+all_cols <- colnames(full_dataset)
+
+# Pattern: columns starting with X followed by digits (income brackets)
+income_columns <- all_cols[grep("^X[0-9]", all_cols)]
+
+# Exclude the first column if it's X0. (it might be a sum or total)
+# Keep it if it represents the 0-10000 bracket
+if (length(income_columns) > 0 && income_columns[1] == "X0.") {
+  # Check if we have X0.10000, if so, remove X0.
+  if ("X0.10000" %in% income_columns) {
+    income_columns <- income_columns[income_columns != "X0."]
   }
-)
-
-# Check if .dat files exist, otherwise we'll need to create them
-# from the shapefile data
-if (!file.exists("input/Comuni/full_dataset.dat")) {
-  cat("No .dat file found. Creating from shapefile...\n")
-
-  # Extract numeric columns from the shapefile
-  # Adjust column names based on your actual data
-  numeric_cols <- sapply(st_drop_geometry(comuni_sf), is.numeric)
-
-  if (sum(numeric_cols) == 0) {
-    stop("No numeric columns found in shapefile data")
-  }
-
-  cat("Found", sum(numeric_cols), "numeric columns\n")
-  cat("Column names:", names(comuni_sf)[numeric_cols], "\n")
-
-  # Convert data to list format (one list element per feature)
-  # Each element contains the numeric values for that feature
-  data <- lapply(1:nrow(comuni_sf), function(i) {
-    as.numeric(st_drop_geometry(comuni_sf)[i, numeric_cols])
-  })
-
-  # Create adjacency matrix based on spatial neighbors
-  cat("Creating adjacency matrix based on spatial neighbors...\n")
-  neighbors <- st_touches(comuni_sf)
-  n <- nrow(comuni_sf)
-  W <- matrix(0, n, n)
-
-  for (i in 1:n) {
-    if (length(neighbors[[i]]) > 0) {
-      W[i, neighbors[[i]]] <- 1
-    }
-  }
-
-  # Make symmetric
-  W <- (W + t(W)) > 0
-  W <- W * 1 # Convert logical to numeric
-
-  # Save the data
-  save(data, file = "input/Comuni/full_dataset.dat")
-  save(W, file = "input/Comuni/adj_matrix.dat")
-
-  cat("Data files created and saved\n")
-} else {
-  # Load existing .dat files
-  load("input/Comuni/full_dataset.dat")
-  load("input/Comuni/adj_matrix.dat")
-  cat("Loaded existing .dat files\n")
 }
 
-##############################################################################
-# Create histogram for each Comune ====
-##############################################################################
+cat("\nDetected income columns:\n")
+print(income_columns)
+
+if (length(income_columns) == 0) {
+  stop("Could not automatically detect income columns. Please specify them manually.")
+}
+
+# Initialize list to store histograms
 hist_list <- list()
 
-# Determine appropriate breaks for histograms
-# Find global range across all data
-all_data <- unlist(data)
-global_min <- min(all_data, na.rm = TRUE)
-global_max <- max(all_data, na.rm = TRUE)
+# Extract histogram data for each Comune
+n_comuni <- nrow(full_dataset)
 
-# Create common breaks for all histograms
-n_breaks <- 30
-breaks <- seq(global_min, global_max, length.out = n_breaks + 1)
+for (i in 1:n_comuni) {
+  # Extract counts for each income bracket
+  income_data <- as.numeric(full_dataset[i, income_columns])
 
-cat("Creating histograms for", length(data), "comuni\n")
-cat("Using", n_breaks, "bins from", global_min, "to", global_max, "\n")
+  # Define bin breaks based on column names
+  # Try to extract numbers from column names
+  bin_breaks_lower <- sapply(income_columns, function(col) {
+    # Extract first number from column name
+    nums <- as.numeric(gsub("[^0-9]", " ", col))
+    nums <- nums[!is.na(nums)]
+    if (length(nums) > 0) {
+      return(nums[1])
+    } else {
+      return(NA)
+    }
+  })
 
-for (i in seq_along(data)) {
-  comuni_data <- data[[i]]
-  # Remove NA values
-  comuni_data <- comuni_data[!is.na(comuni_data)]
-
-  if (length(comuni_data) > 0) {
-    hist_list[[i]] <- hist(comuni_data, breaks = breaks, plot = FALSE)
+  # If we can't parse column names, use default breaks
+  if (all(is.na(bin_breaks_lower))) {
+    bin_breaks <- c(0, 10000, 15000, 26000, 55000, 75000, 120000, Inf)
   } else {
-    # Create empty histogram if no data
-    hist_list[[i]] <- hist(numeric(0), breaks = breaks, plot = FALSE)
+    # Create breaks from column names, adding 0 at start and Inf at end
+    bin_breaks <- c(0, sort(unique(bin_breaks_lower[!is.na(bin_breaks_lower)])), Inf)
   }
+
+  # Ensure we have the right number of breaks (n_bins + 1)
+  if (length(bin_breaks) != length(income_data) + 1) {
+    # Fallback: create evenly spaced breaks
+    bin_breaks <- seq(0, max(bin_breaks[!is.infinite(bin_breaks)]) * 1.2,
+      length.out = length(income_data) + 1
+    )
+    bin_breaks[length(bin_breaks)] <- Inf
+  }
+
+  # Create histogram object
+  hist_obj <- list(
+    breaks = bin_breaks,
+    counts = income_data,
+    mids = (bin_breaks[-length(bin_breaks)] + bin_breaks[-1]) / 2,
+    density = income_data / sum(income_data, na.rm = TRUE),
+    comune = full_dataset$NAME_MUN[i],
+    cod_mun = full_dataset$COD_MUN[i]
+  )
+
+  hist_list[[i]] <- hist_obj
+
+  if (i %% 500 == 0) {
+    cat("  Processed", i, "of", n_comuni, "comuni\n")
+  }
+}
+
+# Name the list elements
+names(hist_list) <- full_dataset$NAME_MUN
+
+cat("Histogram extraction completed:", length(hist_list), "histograms created\n")
+
+# Optional: Visualize a sample histogram
+if (length(hist_list) > 0) {
+  cat("\nSample histogram for:", names(hist_list)[1], "\n")
+  cat("  Total count:", sum(hist_list[[1]]$counts, na.rm = TRUE), "\n")
+  cat("  Income brackets:", length(hist_list[[1]]$counts), "\n")
 }
 
 ##############################################################################
 # Distances between histograms ====
 ##############################################################################
-cat("Computing distances between histograms...\n")
+cat("\nComputing distances between histograms...\n")
 
 distance_jeff_divergences <- matrix(0,
   nrow = length(hist_list),
@@ -124,7 +145,7 @@ distance_mean <- matrix(0,
 
 for (i in seq_along(hist_list)) {
   if (i %% 10 == 0) {
-    cat("Processing histogram", i, "of", length(hist_list), "\n")
+    cat("  Processing histogram", i, "of", length(hist_list), "\n")
   }
   for (j in seq_along(hist_list)) {
     distance_jeff_divergences[i, j] <-
@@ -143,8 +164,12 @@ for (i in seq_along(hist_list)) {
         type = "Wasserstein"
       )
 
-    distance_mean[i, j] <- abs(mean(data[[i]], na.rm = TRUE) -
-      mean(data[[j]], na.rm = TRUE))
+    # Compute mean difference using histogram midpoints weighted by counts
+    mean_i <- sum(hist_list[[i]]$mids * hist_list[[i]]$counts, na.rm = TRUE) /
+      sum(hist_list[[i]]$counts, na.rm = TRUE)
+    mean_j <- sum(hist_list[[j]]$mids * hist_list[[j]]$counts, na.rm = TRUE) /
+      sum(hist_list[[j]]$counts, na.rm = TRUE)
+    distance_mean[i, j] <- abs(mean_i - mean_j)
   }
 }
 
@@ -154,7 +179,7 @@ cat("Distance computation completed\n")
 # Plot Distance (optional) ====
 ##############################################################################
 if (exists("plot_distance")) {
-  cat("Creating distance plots...\n")
+  cat("\nCreating distance plots...\n")
   plot_distance(distance_jeff_divergences,
     title = "Jeffreys Divergence Distance", save = TRUE,
     folder = "results/distance_plots/Comuni/"
@@ -176,7 +201,7 @@ if (exists("plot_distance")) {
 ##############################################################################
 # Save Data ====
 ##############################################################################
-cat("Saving results...\n")
+cat("\nSaving results...\n")
 
 # Create output folder if it doesn't exist
 folder <- "real_data/Comuni"
@@ -206,4 +231,5 @@ cat("\nSummary:\n")
 cat("  - Number of comuni:", length(hist_list), "\n")
 cat("  - Adjacency matrix dimension:", nrow(W), "x", ncol(W), "\n")
 cat("  - Number of neighbors (edges):", sum(W) / 2, "\n")
-cat("  - Distance matrices saved: 7 types\n")
+cat("  - Distance matrices saved: 4 types\n")
+cat("  - Histogram data saved\n")
