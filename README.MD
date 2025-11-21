@@ -22,8 +22,6 @@ Different algorithms for different needs:
 - **Robust**: Split-Merge methods for tricky clustering problems
 - **Optimized**: SAMS variant for large datasets
 
-👉 *[Algorithm comparison in docs](https://filippo-galli.github.io/tesi/)*
-
 ### 🌍 **Location-Aware Clustering**
 Perfect for geographic data or networks:
 - Automatically consider nearby points when forming clusters
@@ -36,62 +34,6 @@ Understand your results with:
 - Professional plots and heatmaps
 - Quality metrics (how well did it work?)
 - Reproducible analysis scripts
-
-## 📁 Project Architecture
-
-```
-tesi/
-├── 📂 R/                                      # R Analysis & Visualization Suite
-│   ├── 🔬 sim_data_production.R                  # Data simulation (Natarajan/Gaussian/Gamma)
-│   ├── 🚀 simulation_data.R                      # Main MCMC workflow orchestration  
-│   ├── 📊 analysis.R                             # Post-processing and visualization
-│   ├── 🛠️  utils.R                               # Utility functions and diagnostics
-│   ├── � Likelihood_params_analisys.R           # Hyperparameter analysis tools
-│   └── 🧪 U_cond_density.R                       # NGGP U-parameter density analysis
-├── �📂 src/                                    # High-Performance C++ Core
-│   ├── 📂 utils/                                  # Core Framework Components
-│   │   ├── Sampler.hpp                              # Abstract MCMC sampler base class
-│   │   ├── Process.hpp                              # Bayesian nonparametric process interface  
-│   │   ├── Data.hpp/.cpp                            # Efficient cluster data management
-│   │   ├── Likelihood.hpp/.cpp                      # Optimized likelihood computations
-│   │   └── Params.hpp                               # Comprehensive parameter management
-│   ├── � samplers/                               # MCMC Sampling Algorithms
-│   │   ├── neal.hpp/.cpp                            # Neal's Algorithm 3 (collapsed Gibbs)
-│   │   ├── neal_ZDNAM.hpp/.cpp                      # ZDNAM-enhanced Neal sampler
-│   │   ├── splitmerge.hpp/.cpp                      # Split-Merge sampler  
-│   │   ├── splitmerge_SAMS.hpp/.cpp                 # Sequential Allocation Merge-Split
-│   │   └── � U_sampler/                            # Continuous Parameter Samplers
-│   │       ├── RWMH.hpp                                 # Random Walk Metropolis-Hastings
-│   │       └── MALA.hpp                                 # Metropolis-Adjusted Langevin
-│   ├── 📂 processes/                              # Bayesian Nonparametric Processes
-│   │   ├── DP.hpp/.cpp                              # Dirichlet Process
-│   │   ├── DPW.hpp/.cpp                             # Weighted Dirichlet Process (spatial)
-│   │   ├── NGGP.hpp/.cpp                            # Normalized Generalized Gamma Process
-│   │   └── NGGPW.hpp/.cpp                           # Weighted NGGP (spatial)
-│   └── 🔗 launcher.cpp                           # R-C++ integration interface
-├── 📂 docs/                                   # Auto-Generated Documentation
-│   ├── 📖 HTML files                              # Doxygen API reference
-│   └── 🎨 Custom CSS                              # Documentation styling
-├── 📂 doxygen-theme/                          # Doxygen Theme Components
-├── 📂 simulation_data/                        # Simulated Datasets Repository
-│   └── 📊 Natarajan_{σ}sigma_{d}d/              # Organized by parameters
-│       ├── all_data.rds                             # Raw data points
-│       ├── ground_truth.rds                         # True cluster labels
-│       └── dist_matrix.rds                          # Distance matrix
-├── 📂 results/                                # MCMC Analysis Outputs  
-│   └── 📈 {process}_{sampler}_{init}_{params}/  # Results by configuration
-│       ├── simulation_results.rds                   # MCMC output
-│       ├── simulation_ground_truth.rds              # True labels
-│       ├── simulation_data.rds                      # Original data
-│       ├── simulation_distance_matrix.rds           # Distance matrix
-│       ├── simulation_initial_params.rds            # Parameter object
-│       └── plots/                                   # Generated visualizations
-├── ⚙️  devenv.nix                              # Reproducible Development Environment
-├── 🔧 devenv.yaml                             # Environment Configuration  
-├── 🔒 devenv.lock                             # Locked Dependencies
-├── 📋 Doxyfile                                # Doxygen configuration
-└── 📝 README.MD                              # This comprehensive guide
-```
 
 ## 🚀 Quick Start
 
@@ -138,61 +80,62 @@ Most of these are pre-installed on modern systems or easily available through yo
 
 ## 📖 How to Use
 
-### Step 1: Create Test Data
+### Step 1: Prepare Your Data
 
-Generate some clustering data to practice with:
+You can work with either simulated or real data:
 
-```bash
-Rscript R/sim_data_production.R
-```
-
-**What this does:**
-- Creates synthetic datasets with known cluster structures
-- Saves them in the `simulation_data/` folder
-- You can verify the clustering algorithms work correctly
-
-**Customize your data** (open `R/sim_data_production.R` and edit):
+**Option A: Simulated Data**
+Use the data retrieval scripts in `R/data_retrieval/`:
 ```r
-sigma <- 0.25  # How separated are clusters? (0.18=close, 0.25=far apart)
-d <- 10        # How many dimensions? (10 or 50)
-N <- 100       # How many data points?
+source("R/data_retrieval/simulated_distances.R")
 ```
 
-The script supports different data types - see comments in the file for Gaussian or Gamma distributions.
+**Option B: Real Data**  
+The framework includes support for real-world datasets. Example datasets are in the `real_data/` folder with pre-computed distance matrices and hyperparameters.
+
+**Option C: Your Own Data**
+Prepare your data as:
+- An N×N distance/dissimilarity matrix
+- Optional: spatial adjacency matrix W (for geographic data)
+- Save as `.rds` files for easy loading
 
 ### Step 2: Run the Clustering Analysis
 
 Analyze your data to find clusters:
 
 ```bash
-Rscript R/simulation_data.R
+Rscript R/launcher.R
 ```
 
 **What happens:**
-1. Loads your data
-2. Makes smart guesses about initial parameters (using k-means)
-3. Runs the clustering algorithm
-4. Shows you progress in real-time
-5. Saves results for later analysis
+1. Loads your data (simulated or real)
+2. Compiles the C++ MCMC implementation
+3. Sets hyperparameters (automatically or from saved values)
+4. Runs the clustering algorithm
+5. Shows progress in real-time (logged to `mcmc_log.txt`)
+6. Saves results in the `results/` folder
 
 **Choosing Your Algorithm** (edit `src/launcher.cpp`):
 
-The framework lets you mix and match different components. Here's what's currently active:
+The framework lets you mix and match different components:
 
 ```cpp
 // Which clustering model? (uncomment one)
-// DP process(data, param);              // Standard (simple, fast)
-// DPW process(data, param);             // Standard + spatial awareness
-// NGGP process(data, param);            // Flexible (handles complex shapes)
-NGGPW process(data, param);              // Flexible + spatial ✓ CURRENTLY USED
+// DP process(data, param);              // Standard Dirichlet Process
+// DPW process(data, param);             // DP + spatial awareness
+// NGGP process(data, param);            // Normalized Generalized Gamma Process
+NGGPW process(data, param);              // NGGP + spatial ✓ RECOMMENDED
 
 // Which sampling method? (uncomment one)
-// Neal3 sampler(...);                   // Fast (good for simple cases)
-// SplitMerge sampler(...);              // Robust (better for tricky data)
-SplitMerge_SAMS sampler(...);            // Optimized (best for large data) ✓ CURRENTLY USED
+// Neal3 sampler(...);                   // Neal's Algorithm 3 (fast, simple)
+// Neal3_ZDNAM sampler(...);             // ZDNAM-enhanced Neal sampler
+// SplitMerge sampler(...);              // Basic Split-Merge
+// SplitMerge_SAMS sampler(...);            // Sequential Allocation MS 
+// SplitMerge_LSS sampler(...);          // Launch State Split-Merge
+SplitMerge_LSS_SDDS sampler(...);     // LSS with SDDS moves ✓ RECOMMENDED
 ```
 
-**Tuning the Analysis** (in `R/simulation_data.R`):
+**Tuning the Analysis** (in `R/launcher.R`):
 
 Most parameters are set automatically, but you can adjust these:
 
@@ -204,49 +147,41 @@ param <- new(Params,
   # How long to run? (adjust these)
   10000,        # Burn-in: initial warm-up phase (larger = more reliable)
   10000,        # Sampling: how many samples to collect
+  1,            # Prior mass parameter (higher = more clusters expected)
   
-  # Clustering behavior (tune these if needed)
-  2,            # How many clusters to expect? (higher = finds more clusters)
-  0.1,          # Flexibility: how varied can cluster shapes be? (0.1 to 0.7)
-  1,            # Advanced parameter (usually leave at 1)
+  # NGGP-specific parameters (for NGGP/NGGPW models)
+  0.1,          # sigma: shape parameter (0.1 to 0.7)
+  1,            # tau: scale parameter (usually leave at 1)
   
-  # Spatial awareness (for geographic data)
-  1,            # How much to consider location? (0 = ignore, 1+ = consider)
-  W             # Which points are neighbors?
+  # Spatial awareness (for DPW/NGGPW models)
+  1,            # coefficient: spatial dependence strength (0 = ignore, 1+ = consider)
+  dist_matrix,  # Distance/dissimilarity matrix
+  W             # Spatial adjacency matrix
 )
 ```
 
-**Quick tuning guide:**
-- **Finding too many clusters?** Reduce the "expect" parameter (try 1 or 0.5)
-- **Finding too few?** Increase it (try 3 or 4)
-- **Need better quality?** Increase both burn-in and sampling (try 20000 each)
-- **Fast test run?** Use 2000 burn-in, 5000 sampling
-
-👉 *[Full parameter guide in documentation](https://filippo-galli.github.io/tesi/classParams.html)*
-
 ### Step 3: Visualize Results
 
-Create plots and check how well it worked:
+Create plots and analyze performance:
 
 ```bash
-Rscript R/analysis.R
+Rscript R/mcmc_analysis.R
 ```
 
-**Point it to your results** (edit the folder path in the script):
+**Select your results** (the script will list available results):
 ```r
-folder <- "results/NGGPW_Neal_kmeans_0.2sigma_50d_BI2000_NI5000_a0.1_sigma0.7_tau1/"
+files <- list.files("results/")
+file_chosen <- files[3]  # Choose which result to analyze
 ```
 
 **You'll get:**
-- **Quality checks**: Did the algorithm converge? Is it stable?
-- **Cluster visualizations**: Heatmaps and plots showing the discovered clusters
-- **Performance scores**: How well do the clusters match reality? (for test data)
-- **Beautiful plots**: Publication-ready figures saved in the `plots/` folder
-
-**Understanding the output:**
-- Stable horizontal lines in trace plots = good convergence ✓
-- High ARI score (>0.8) = excellent clustering ✓
-- Clear blocks in heatmap = distinct clusters ✓
+- **Trace plots**: Convergence diagnostics for number of clusters and log-likelihood
+- **Posterior similarity matrix**: Heatmap showing clustering structure
+- **Cluster assignments**: Distribution of cluster sizes and allocations
+- **ACF plots**: Autocorrelation analysis for U parameter (NGGP models)
+- **Geographic maps**: Spatial visualization of clusters (for real data with shapefiles)
+- **Histograms**: Distribution analysis of cluster characteristics
+- **All plots saved** in `results/{your_result}/VI_plots/` folder
 
 ## Output Files
 
@@ -270,42 +205,68 @@ results/{configuration}/
 │   ├── $K                                 # Number of clusters per iteration  
 │   ├── $loglikelihood                     # Log-likelihood trace
 │   └── $U                                 # NGGP U parameter trace (if applicable)
-├── simulation_ground_truth.rds         # True labels (for validation)
-├── simulation_data.rds                 # Original data matrix
+├── simulation_ground_truth.rds         # True labels (for simulated data)
+├── simulation_data.rds                 # Original data matrix (for simulated data)
 ├── simulation_distance_matrix.rds      # Distance matrix used
 ├── simulation_initial_params.rds       # Params object (hyperparameters)
-└── plots/                              # Generated visualizations
-    ├── trace_plot_K.png
-    ├── trace_plot_loglikelihood.png
-    ├── posterior_similarity_matrix.png
-    ├── cluster_assignments.png
-    ├── distance_distribution.png
-    └── ... (additional diagnostic plots)
+├── time_taken.txt                      # Elapsed time in seconds
+└── VI_plots/                           # Generated visualizations
+    ├── trace_K.png                        # Number of clusters over iterations
+    ├── trace_loglik.png                   # Log-likelihood trace
+    ├── post_sim_matrix.png                # Posterior similarity matrix heatmap
+    ├── cluster_distribution.png           # Distribution of cluster sizes
+    ├── cluster_estimates.png              # Point estimates of clustering
+    ├── trace_U.png                        # U parameter trace (NGGP only)
+    ├── acf_U.png                          # Autocorrelation of U (NGGP only)
+    ├── map_clusters.png                   # Geographic visualization (real data)
+    └── histogram_clusters.png             # Cluster characteristics
 ```
 
 **Naming Convention:**
+- **Data Type**: `simulation_data` or `real_data_{dataset}_{distance_metric}`
 - **Process**: `DP`, `DPW`, `NGGP`, `NGGPW`
-- **Sampler**: `Neal`, `Neal_ZDNAM`, `SM` (SplitMerge), `SAMS`
+- **Sampler**: `Neal`, `Neal_ZDNAM`, `LSS`, `LSS_SDDS`, `SAMS`
 - **Initialization**: `kmeans`, `sequential`, `single`
-- **Parameters**: `{σ}sigma_{d}d_BI{burn-in}_NI{iterations}_a{mass}_sigma{σ}_tau{τ}`
+- **Parameters**: `BI{burn-in}_NI{iterations}_a{mass}_sigma{σ}_tau{τ}` (for NGGP variants)
 
 ## 🔧 For Developers
 
 ### Main Functions You'll Use
 
-**In R (`R/utils.R`):**
+**In R:**
+
+**Utilities (`R/utils.R`):**
 ```r
-# Create test data
-generate_mixture_data(N = 100, sigma = 0.25, d = 10)
-
 # Set up parameters automatically
-set_hyperparameters(data, dist_matrix, k_elbow = 3)
+set_hyperparameters(dist_matrix, k_elbow = 3)
 
-# Visualize results
-plot_mcmc_results(mcmc_result, ground_truth, BI = 2000)
+# Retrieve spatial adjacency matrix
+W <- retrieve_W(dist_matrix, k = 5)
 
-# Check if the right number of clusters is being found
+# Check optimal number of clusters using elbow method
 plot_k_means(dist_matrix, max_k = 15)
+
+# Save results with informative naming
+save_with_name(folder, param, filename)
+```
+
+**Plotting (`R/utils_plot.R`):**
+```r
+# Trace plots for diagnostics
+plot_trace_cls(results, BI = 10000)
+plot_trace_U(results, BI = 10000)
+
+# Posterior analysis
+plot_post_sim_matrix(results, BI = 10000)
+plot_post_distr(results, BI = 10000)
+
+# Cluster visualization
+plot_cls_est(results, BI = 10000)
+plot_map_cls(results, BI = 10000, unit_ids, puma_dir)
+plot_hist_cls(results, BI = 10000)
+
+# Autocorrelation analysis
+plot_acf_U(results, BI = 10000)
 ```
 
 **Main entry point (`src/launcher.cpp`):**
@@ -386,20 +347,23 @@ final_K <- result$K[2001:length(result$K)]  # After burn-in
 mean(final_K)  # Should be close to 2
 ```
 
-### Working with the Example Data
+### Working with Real Data
 
-The project includes pre-made examples:
+The project supports analysis of real-world datasets:
 
 ```bash
-# Generate example datasets
-Rscript R/sim_data_production.R
+# Run analysis on real data (e.g., municipality data)
+Rscript R/launcher.R
 
-# Run analysis on them
-Rscript R/simulation_data.R
-
-# Make plots
-Rscript R/analysis.R
+# Analyze results with geographic visualization
+Rscript R/mcmc_analysis.R
 ```
+
+The framework automatically handles:
+- Distance matrix loading
+- Spatial adjacency matrices
+- Pre-computed hyperparameters
+- Geographic shapefiles for mapping
 
 Each script is well-commented - open them to see exactly what's happening!
 
@@ -416,7 +380,7 @@ The default setup works well for most cases, but you can customize:
 NGGPW process(data, params, likelihood);  // Current choice
 
 // Line ~125: Pick your sampling method  
-SplitMerge_SAMS sampler(...);  // Current choice
+SplitMerge_LSS_SDDS sampler(...);  // Current choice
 ```
 
 After changing, recompile in R:
@@ -441,6 +405,16 @@ param <- new(Params, ...,
   W                 # Your neighbor matrix
 )
 ```
+
+## Modularity & Extensibility
+
+### Sampler or Process Addition
+The codebase is designed to be modular, allowing you to easily add new processes, samplers, or likelihood functions. Each component is encapsulated in its own class, making it straightforward to extend functionality without modifying existing code. 
+To add a new process or sampler, simply create a new class inheriting from the base class `src/utils/Process.hpp` or `src/utils/Sampler.hpp` and implement the required methods. This design promotes code reuse and simplifies maintenance.
+
+### Likelihood addition 
+At the moment there isn't a base class for likelihoods since at the moment I used the one specificied in the paper "Cohesion and Repulsion in Bayesian Distance Clustering" by Natarajan and De Iorio (2023). 
+To add a new likelihood function, you can create a new class that implements the necessary methods for computing likelihoods based on your specific requirements following the same method that I exposed in the existing likelihood class. Following this approach will ensure consistency and integration with the existing framework without any problem.
 
 
 ## 📚 References & Citations
