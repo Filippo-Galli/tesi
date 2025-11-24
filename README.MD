@@ -4,6 +4,8 @@ A flexible and efficient C++ framework for Bayesian nonparametric clustering usi
 
 This repository provides a modular codebase designed for researchers and practitioners. While the current implementation focuses on **distance-based clustering** (Natarajan et al., 2023), the architecture allows for easy extension to other models, likelihoods, and sampling strategies.
 
+[Link to the docs](https://filippo-galli.github.io/tesi/)
+
 ## 🏗️ Architecture
 
 The framework is built around four main logical components:
