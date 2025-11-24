@@ -31,7 +31,7 @@
 #include "samplers/U_sampler/MALA.hpp"
 
 #include "utils/Data.hpp"
-#include "utils/Likelihood.hpp"
+#include "utils/Natarajan_likelihood.hpp"
 #include "utils/Params.hpp"
 
 #include <chrono>
@@ -115,7 +115,7 @@ mcmc(Params &param,
   Data data(param, initial_allocations);
 
   // Initialize likelihood computation object
-  Likelihood likelihood(data, param);
+  Natarajan_likelihood likelihood(data, param);
 
   // Sampler for U parameter if needed by the process
   RWMH U_sampler(param, data, true, 2.0, true);

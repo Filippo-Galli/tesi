@@ -1,17 +1,17 @@
 /**
- * @file Likelihood.cpp
+ * @file Natarajan_likelihood.cpp
  * @brief Fully optimized implementation avoiding all BLAS calls
  */
 
-#include "Likelihood.hpp"
+#include "Natarajan_likelihood.hpp"
 #include <cmath>
 
-double Likelihood::cluster_loglikelihood(int cluster_index) const {
+double Natarajan_likelihood::cluster_loglikelihood(int cluster_index) const {
   auto cls_ass_k = data.get_cluster_assignments_ref(cluster_index);
   return cluster_loglikelihood(cluster_index, cls_ass_k);
 }
 
-double Likelihood::cluster_loglikelihood(
+double Natarajan_likelihood::cluster_loglikelihood(
     int cluster_index,
     const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k) const {
   const int n_k = cls_ass_k.size();
@@ -93,7 +93,7 @@ double Likelihood::cluster_loglikelihood(
   return rep + coh;
 }
 
-double Likelihood::point_loglikelihood_cond(int point_index,
+double Natarajan_likelihood::point_loglikelihood_cond(int point_index,
                                             int cluster_index) const {
   auto cls_ass_k = data.get_cluster_assignments_ref(cluster_index);
   const int n_k = cls_ass_k.size();
@@ -105,7 +105,7 @@ double Likelihood::point_loglikelihood_cond(int point_index,
 }
 
 double
-Likelihood::compute_cohesion(int point_index, int cluster_index,
+Natarajan_likelihood::compute_cohesion(int point_index, int cluster_index,
                              const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k,
                              int n_k) const {
   if (n_k == 0) {
@@ -138,7 +138,7 @@ Likelihood::compute_cohesion(int point_index, int cluster_index,
   return loglik;
 }
 
-double Likelihood::compute_repulsion(
+double Natarajan_likelihood::compute_repulsion(
     int point_index, int cluster_index,
     const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k, int n_k) const {
   const int num_cluster = data.get_K();
