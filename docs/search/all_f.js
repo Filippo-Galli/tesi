@@ -1,18 +1,12 @@
 var searchData=
 [
-  ['n_0',['n',['../structParams.html#afc3333a9305656968c608c907941d52e',1,'Params::n'],['../classU__sampler.html#a2ff0d1829fb23f7e753654355237c77a',1,'U_sampler::n']]],
-  ['neal_2ecpp_1',['neal.cpp',['../neal_8cpp.html',1,'']]],
-  ['neal_2ehpp_2',['neal.hpp',['../neal_8hpp.html',1,'']]],
-  ['neal3_3',['Neal3',['../classNeal3.html',1,'Neal3'],['../classNeal3.html#ad50c5edb8fddcf84043fa2aa1249f9ea',1,'Neal3::Neal3()']]],
-  ['neal3zdnam_4',['Neal3ZDNAM',['../classNeal3ZDNAM.html',1,'Neal3ZDNAM'],['../classNeal3ZDNAM.html#aeff436f6a597dacfea0b31e098481b76',1,'Neal3ZDNAM::Neal3ZDNAM()']]],
-  ['neal_5fzdnam_2ecpp_5',['neal_ZDNAM.cpp',['../neal__ZDNAM_8cpp.html',1,'']]],
-  ['neal_5fzdnam_2ehpp_6',['neal_ZDNAM.hpp',['../neal__ZDNAM_8hpp.html',1,'']]],
-  ['nggp_7',['NGGP',['../classNGGP.html',1,'NGGP'],['../classNGGP.html#a7239a08c3add6e13307e3b35c376580a',1,'NGGP::NGGP()']]],
-  ['nggp_2ecpp_8',['NGGP.cpp',['../NGGP_8cpp.html',1,'']]],
-  ['nggp_2ehpp_9',['NGGP.hpp',['../NGGP_8hpp.html',1,'']]],
-  ['nggpw_10',['NGGPW',['../classNGGPW.html',1,'NGGPW'],['../classNGGPW.html#a7e49df388b7c231cf02503916f157738',1,'NGGPW::NGGPW()']]],
-  ['nggpw_2ecpp_11',['NGGPW.cpp',['../NGGPW_8cpp.html',1,'']]],
-  ['nggpw_2ehpp_12',['NGGPW.hpp',['../NGGPW_8hpp.html',1,'']]],
-  ['ni_13',['NI',['../structParams.html#aad4ced5e851807ada535fae7ec6ebc73',1,'Params']]],
-  ['nonparametric_20clustering_20with_20mcmc_14',['Bayesian Nonparametric Clustering with MCMC',['../index.html',1,'']]]
+  ['tau_0',['tau',['../structParams.html#a9e4aad62277a980bfa8beaa0bd4ea529',1,'Params']]],
+  ['tau_5fpower_5fsigma_1',['tau_power_sigma',['../classU__sampler.html#a74ac9522035e4694f3ce209d250a11f9',1,'U_sampler']]],
+  ['the_20code_2',['Running the Code',['../index.html#autotoc_md10',1,'']]],
+  ['total_5fiterations_3',['total_iterations',['../classU__sampler.html#a1d973e404393789b3799a407bc8d9c03',1,'U_sampler']]],
+  ['tt_4',['tt',['../index.html#autotoc_md5',1,'Likelihood Models (&lt;tt&gt;Likelihood&lt;/tt&gt;)'],['../index.html#autotoc_md6',1,'MCMC Samplers (&lt;tt&gt;Sampler&lt;/tt&gt;)'],['../index.html#autotoc_md4',1,'Stochastic Processes (&lt;tt&gt;Process&lt;/tt&gt;)']]],
+  ['tt_20likelihood_20tt_5',['Likelihood Models (&lt;tt&gt;Likelihood&lt;/tt&gt;)',['../index.html#autotoc_md5',1,'']]],
+  ['tt_20process_20tt_6',['Stochastic Processes (&lt;tt&gt;Process&lt;/tt&gt;)',['../index.html#autotoc_md4',1,'']]],
+  ['tt_20sampler_20tt_7',['MCMC Samplers (&lt;tt&gt;Sampler&lt;/tt&gt;)',['../index.html#autotoc_md6',1,'']]],
+  ['tuning_5fenabled_8',['tuning_enabled',['../classMALA.html#ab76aa610ccc0ef8c33d11c3f85fb2ebc',1,'MALA::tuning_enabled'],['../classRWMH.html#aa803a348282de6fd0144d22f96b59a4d',1,'RWMH::tuning_enabled']]]
 ];

@@ -1,13 +1,12 @@
 var searchData=
 [
-  ['old_5fallocations_0',['old_allocations',['../classProcess.html#a837d783fac7c9f12243cd93b4534e3e4',1,'Process']]],
-  ['old_5fallocations_5fview_1',['old_allocations_view',['../classProcess.html#a914f8d21512e26141f7f79cfe9a16bd5',1,'Process']]],
-  ['old_5fepsilon_2',['old_epsilon',['../classMALA.html#a5438f9284a2dceab88c2c63f59279555',1,'MALA']]],
-  ['option_201_3a_20automatic_20setup_20recommended_3',['Option 1: Automatic Setup (Recommended)',['../index.html#autotoc_md7',1,'']]],
-  ['option_202_3a_20manual_20setup_4',['Option 2: Manual Setup',['../index.html#autotoc_md8',1,'']]],
-  ['options_5',['⚙️ Advanced Options',['../index.html#autotoc_md22',1,'']]],
-  ['or_20process_20addition_6',['Sampler or Process Addition',['../index.html#autotoc_md26',1,'']]],
-  ['original_5fallocations_7',['original_allocations',['../classSplitMerge.html#ad96552c6bbf67fc857911cdf2c2dca81',1,'SplitMerge::original_allocations'],['../classSplitMerge__LSS.html#a8469a38fe1119d98269a4373cc3d2063',1,'SplitMerge_LSS::original_allocations'],['../classSplitMerge__LSS__SDDS.html#a415513c7aa6969479e7c4eb3021203d5',1,'SplitMerge_LSS_SDDS::original_allocations'],['../classSplitMerge__SAMS.html#ab7284d1659fa7c56c2ecfcb63665b0fb',1,'SplitMerge_SAMS::original_allocations']]],
-  ['output_20files_8',['Output Files',['../index.html#autotoc_md13',1,'']]],
-  ['overview_9',['Architecture Overview',['../index.html#autotoc_md18',1,'']]]
+  ['u_0',['U',['../classU__sampler.html#a61dcec6f1695e04c541e6ef00022158f',1,'U_sampler']]],
+  ['u_5fsampler_1',['U_sampler',['../classU__sampler.html',1,'U_sampler'],['../classU__sampler.html#a23ec32a62896472e93d554ca9d74669b',1,'U_sampler::U_sampler()']]],
+  ['u_5fsampler_2ecpp_2',['U_sampler.cpp',['../U__sampler_8cpp.html',1,'']]],
+  ['u_5fsampler_2ehpp_3',['U_sampler.hpp',['../U__sampler_8hpp.html',1,'']]],
+  ['u_5fsampler_5fmethod_4',['U_sampler_method',['../classNGGP.html#a54461db9db11e9d4164754427e265f08',1,'NGGP::U_sampler_method'],['../classNGGPW.html#a991d4ee5fc8cef2cf251c76b2a5e3b75',1,'NGGPW::U_sampler_method']]],
+  ['update_5fparams_5',['update_params',['../classDP.html#a577726382e64c057fcbc889325084ad1',1,'DP::update_params()'],['../classDPW.html#a16a239e120dad65bbe1b55a2771cde60',1,'DPW::update_params()'],['../classNGGP.html#a6c28f93e9b1a28edd8eef383c06447a1',1,'NGGP::update_params()'],['../classNGGPW.html#a46cc6dfe0fa4e2b3a96745e77622a7e4',1,'NGGPW::update_params()'],['../classProcess.html#ac610fb84ed64db2a74fa1447ce5a582e',1,'Process::update_params()']]],
+  ['update_5fu_6',['update_U',['../classMALA.html#a40d442a7e6e66c3853e4014326ee5934',1,'MALA::update_U()'],['../classRWMH.html#a1349180615746681801b1b6b86fe1c4b',1,'RWMH::update_U()'],['../classU__sampler.html#a68c7b18e6183b1bc9a1645ff36e0c82f',1,'U_sampler::update_U()']]],
+  ['usage_7',['🛠️ Installation &amp; Usage',['../index.html#autotoc_md7',1,'']]],
+  ['use_5fv_8',['use_V',['../classMALA.html#aa1bd45a50795023b92ea781a495fa599',1,'MALA::use_V'],['../classRWMH.html#a21b4ed6ad1172dfacec56fb3539141a8',1,'RWMH::use_V']]]
 ];

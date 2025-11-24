@@ -103,73 +103,49 @@ $(function(){initNavTree('classLikelihood.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classLikelihood-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">Likelihood Class Reference</div></div>
+  <div class="headertitle"><div class="title">Likelihood Class Reference<span class="mlabels"><span class="mlabel abstract">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Computes log-likelihood for clusters based on distance-based cohesion and repulsion.  
- <a href="#details">More...</a></p>
-
 <p><code>#include &lt;<a class="el" href="Likelihood_8hpp_source.html">Likelihood.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for Likelihood:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classLikelihood.png" usemap="#Likelihood_map" alt=""/>
+  <map id="Likelihood_map" name="Likelihood_map">
+<area href="classNatarajan__likelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion." alt="Natarajan_likelihood" shape="rect" coords="0,56,127,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a2072dc2858072ebe158613d36631f5c0" id="r_a2072dc2858072ebe158613d36631f5c0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2072dc2858072ebe158613d36631f5c0">Likelihood</a> (const <a class="el" href="classData.html">Data</a> &amp;<a class="el" href="#a5cb2f928da9f5be76c353ea0d9b5f4ce">data</a>, const <a class="el" href="structParams.html">Params</a> &amp;param)</td></tr>
-<tr class="memdesc:a2072dc2858072ebe158613d36631f5c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> object with precomputation.  <br /></td></tr>
 <tr class="separator:a2072dc2858072ebe158613d36631f5c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefb5c3a772c975a5727c7d760d1e58a3" id="r_aefb5c3a772c975a5727c7d760d1e58a3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aefb5c3a772c975a5727c7d760d1e58a3">cluster_loglikelihood</a> (int cluster_index) const</td></tr>
-<tr class="memdesc:aefb5c3a772c975a5727c7d760d1e58a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the full log-likelihood for a cluster.  <br /></td></tr>
-<tr class="separator:aefb5c3a772c975a5727c7d760d1e58a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59ed19db145e978f5f14087a1f0a708b" id="r_a59ed19db145e978f5f14087a1f0a708b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59ed19db145e978f5f14087a1f0a708b">cluster_loglikelihood</a> (int cluster_index, const Eigen::Ref&lt; const Eigen::VectorXi &gt; &amp;cls_ass_k) const</td></tr>
-<tr class="memdesc:a59ed19db145e978f5f14087a1f0a708b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the full log-likelihood for a cluster with given assignments.  <br /></td></tr>
-<tr class="separator:a59ed19db145e978f5f14087a1f0a708b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1af66318d8b64eff5162e5973b4c256" id="r_ab1af66318d8b64eff5162e5973b4c256"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1af66318d8b64eff5162e5973b4c256">point_loglikelihood_cond</a> (int point_index, int cluster_index) const</td></tr>
-<tr class="memdesc:ab1af66318d8b64eff5162e5973b4c256"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the conditional log-likelihood of a point given a cluster.  <br /></td></tr>
-<tr class="separator:ab1af66318d8b64eff5162e5973b4c256"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac57ed984dfebe3b0a95777ae089fa705" id="r_ac57ed984dfebe3b0a95777ae089fa705"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac57ed984dfebe3b0a95777ae089fa705">cluster_loglikelihood</a> (int cluster_index) const =0</td></tr>
+<tr class="memdesc:ac57ed984dfebe3b0a95777ae089fa705"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the log-likelihood for a cluster.  <br /></td></tr>
+<tr class="separator:ac57ed984dfebe3b0a95777ae089fa705"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d8e7d2e0486b0ca07abf06b1a2d83cd" id="r_a8d8e7d2e0486b0ca07abf06b1a2d83cd"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d8e7d2e0486b0ca07abf06b1a2d83cd">cluster_loglikelihood</a> (int cluster_index, const Eigen::Ref&lt; const Eigen::VectorXi &gt; &amp;cls_ass_k) const =0</td></tr>
+<tr class="memdesc:a8d8e7d2e0486b0ca07abf06b1a2d83cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the log-likelihood for a cluster with given assignments.  <br /></td></tr>
+<tr class="separator:a8d8e7d2e0486b0ca07abf06b1a2d83cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0937f6a9a4b48def87b6e644810fb99d" id="r_a0937f6a9a4b48def87b6e644810fb99d"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0937f6a9a4b48def87b6e644810fb99d">point_loglikelihood_cond</a> (int point_index, int cluster_index) const =0</td></tr>
+<tr class="memdesc:a0937f6a9a4b48def87b6e644810fb99d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conditional likelihood of a point if set in a particular cluster.  <br /></td></tr>
+<tr class="separator:a0937f6a9a4b48def87b6e644810fb99d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb9b7ccfc5fcd5145a196308a8a7b1cb" id="r_abb9b7ccfc5fcd5145a196308a8a7b1cb"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb9b7ccfc5fcd5145a196308a8a7b1cb">~Likelihood</a> ()=default</td></tr>
+<tr class="separator:abb9b7ccfc5fcd5145a196308a8a7b1cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ad90a0a04967bd64404cdbaff3187ba39" id="r_ad90a0a04967bd64404cdbaff3187ba39"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad90a0a04967bd64404cdbaff3187ba39">compute_cohesion</a> (int point_index, int cluster_index, const Eigen::Ref&lt; const Eigen::VectorXi &gt; &amp;cls_ass_k, int n_k) const</td></tr>
-<tr class="memdesc:ad90a0a04967bd64404cdbaff3187ba39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the cohesion component of the log-likelihood.  <br /></td></tr>
-<tr class="separator:ad90a0a04967bd64404cdbaff3187ba39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a424810a8eefc9f7b324ba13c990331f6" id="r_a424810a8eefc9f7b324ba13c990331f6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a424810a8eefc9f7b324ba13c990331f6">compute_repulsion</a> (int point_index, int cluster_index, const Eigen::Ref&lt; const Eigen::VectorXi &gt; &amp;cls_ass_k, int n_k) const</td></tr>
-<tr class="memdesc:a424810a8eefc9f7b324ba13c990331f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the repulsion component of the log-likelihood.  <br /></td></tr>
-<tr class="separator:a424810a8eefc9f7b324ba13c990331f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
 <tr class="memitem:a5cb2f928da9f5be76c353ea0d9b5f4ce" id="r_a5cb2f928da9f5be76c353ea0d9b5f4ce"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5cb2f928da9f5be76c353ea0d9b5f4ce">data</a></td></tr>
 <tr class="memdesc:a5cb2f928da9f5be76c353ea0d9b5f4ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to <a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a> object with distances and allocations.  <br /></td></tr>
 <tr class="separator:a5cb2f928da9f5be76c353ea0d9b5f4ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd1795b729f44bd5105979ecb8853642" id="r_afd1795b729f44bd5105979ecb8853642"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structParams.html">Params</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd1795b729f44bd5105979ecb8853642">params</a></td></tr>
 <tr class="memdesc:afd1795b729f44bd5105979ecb8853642"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to model parameters.  <br /></td></tr>
 <tr class="separator:afd1795b729f44bd5105979ecb8853642"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28970d0ed4403a37bf78b86c4a70d208" id="r_a28970d0ed4403a37bf78b86c4a70d208"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28970d0ed4403a37bf78b86c4a70d208">lgamma_delta1</a></td></tr>
-<tr class="memdesc:a28970d0ed4403a37bf78b86c4a70d208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precomputed lgamma(delta1) for cohesion.  <br /></td></tr>
-<tr class="separator:a28970d0ed4403a37bf78b86c4a70d208"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a942bf7c0249d646f6af2a7abaaa0400a" id="r_a942bf7c0249d646f6af2a7abaaa0400a"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a942bf7c0249d646f6af2a7abaaa0400a">log_beta_alpha</a></td></tr>
-<tr class="memdesc:a942bf7c0249d646f6af2a7abaaa0400a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precomputed log(beta) * alpha - lgamma(alpha)  <br /></td></tr>
-<tr class="separator:a942bf7c0249d646f6af2a7abaaa0400a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ea7d5667017aa02f6015b9df05f2544" id="r_a0ea7d5667017aa02f6015b9df05f2544"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ea7d5667017aa02f6015b9df05f2544">lgamma_delta2</a></td></tr>
-<tr class="memdesc:a0ea7d5667017aa02f6015b9df05f2544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precomputed lgamma(delta2) for repulsion.  <br /></td></tr>
-<tr class="separator:a0ea7d5667017aa02f6015b9df05f2544"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a228d5b708b18028550656f106a404c5d" id="r_a228d5b708b18028550656f106a404c5d"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a228d5b708b18028550656f106a404c5d">log_gamma_zeta</a></td></tr>
-<tr class="memdesc:a228d5b708b18028550656f106a404c5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precomputed log(gamma) * zeta - lgamma(zeta)  <br /></td></tr>
-<tr class="separator:a228d5b708b18028550656f106a404c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c5ad185e7455c2694752ac660b7f19c" id="r_a4c5ad185e7455c2694752ac660b7f19c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c5ad185e7455c2694752ac660b7f19c">log_D_data</a></td></tr>
-<tr class="memdesc:a4c5ad185e7455c2694752ac660b7f19c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precomputed log distance matrix (flattened)  <br /></td></tr>
-<tr class="separator:a4c5ad185e7455c2694752ac660b7f19c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a132765b192968453d4c894b9dd5f4474" id="r_a132765b192968453d4c894b9dd5f4474"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a132765b192968453d4c894b9dd5f4474">D_cols</a></td></tr>
-<tr class="memdesc:a132765b192968453d4c894b9dd5f4474"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of columns in distance matrix.  <br /></td></tr>
-<tr class="separator:a132765b192968453d4c894b9dd5f4474"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Computes log-likelihood for clusters based on distance-based cohesion and repulsion. </p>
-<p>This class handles the computation of log-likelihoods for clustering models that incorporate both cohesion (within-cluster similarity) and repulsion (between-cluster dissimilarity) components. It precomputes values for efficiency and provides methods to evaluate both cluster-level and point-level conditional log-likelihoods. reference: Natarajan et al. (2023) "Cohesion and Repulsion in Bayesian Distance Clustering" </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2072dc2858072ebe158613d36631f5c0" name="a2072dc2858072ebe158613d36631f5c0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2072dc2858072ebe158613d36631f5c0">&#9670;&#160;</a></span>Likelihood()</h2>
 
@@ -197,58 +173,82 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Constructs a <a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> object with precomputation. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td>Reference to <a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a> object with distances and allocations </td></tr>
-    <tr><td class="paramname">param</td><td>Reference to model parameters</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>The constructor precomputes several values for computational efficiency:</p><ul>
-<li>Log-gamma values for delta parameters</li>
-<li>Logarithmic combinations of hyperparameters</li>
-<li>Logarithm of the entire distance matrix </li>
-</ul>
+</div>
+</div>
+<a id="abb9b7ccfc5fcd5145a196308a8a7b1cb" name="abb9b7ccfc5fcd5145a196308a8a7b1cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb9b7ccfc5fcd5145a196308a8a7b1cb">&#9670;&#160;</a></span>~Likelihood()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Likelihood::~Likelihood </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel virtual">virtual</span><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aefb5c3a772c975a5727c7d760d1e58a3" name="aefb5c3a772c975a5727c7d760d1e58a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefb5c3a772c975a5727c7d760d1e58a3">&#9670;&#160;</a></span>cluster_loglikelihood() <span class="overload">[1/2]</span></h2>
+<a id="ac57ed984dfebe3b0a95777ae089fa705" name="ac57ed984dfebe3b0a95777ae089fa705"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac57ed984dfebe3b0a95777ae089fa705">&#9670;&#160;</a></span>cluster_loglikelihood() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double Likelihood::cluster_loglikelihood </td>
+          <td class="memname">virtual double Likelihood::cluster_loglikelihood </td>
           <td>(</td>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cluster_index</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Computes the full log-likelihood for a cluster. </p>
+<p>Computes the log-likelihood for a cluster. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cluster_index</td><td>Index of the cluster to evaluate </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Total log-likelihood (cohesion + repulsion)</dd></dl>
-<p>This method computes both the within-cluster cohesion and the between-cluster repulsion contributions for the specified cluster. </p>
+<dl class="section return"><dt>Returns</dt><dd>Total log-likelihood of the cluster </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>this is useful for split-merge algorithms </dd></dl>
+
+<p>Implemented in <a class="el" href="classNatarajan__likelihood.html#a5d72ae7c30c72402b8a3f5799bcf5436">Natarajan_likelihood</a>.</p>
 
 </div>
 </div>
-<a id="a59ed19db145e978f5f14087a1f0a708b" name="a59ed19db145e978f5f14087a1f0a708b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59ed19db145e978f5f14087a1f0a708b">&#9670;&#160;</a></span>cluster_loglikelihood() <span class="overload">[2/2]</span></h2>
+<a id="a8d8e7d2e0486b0ca07abf06b1a2d83cd" name="a8d8e7d2e0486b0ca07abf06b1a2d83cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d8e7d2e0486b0ca07abf06b1a2d83cd">&#9670;&#160;</a></span>cluster_loglikelihood() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double Likelihood::cluster_loglikelihood </td>
+          <td class="memname">virtual double Likelihood::cluster_loglikelihood </td>
           <td>(</td>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cluster_index</em></span>, </td>
         </tr>
@@ -258,9 +258,14 @@ Private Attributes</h2></td></tr>
           <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXi &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>cls_ass_k</em></span>&#160;) const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Computes the full log-likelihood for a cluster with given assignments. </p>
+<p>Computes the log-likelihood for a cluster with given assignments. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cluster_index</td><td>Index of the cluster to evaluate </td></tr>
@@ -268,13 +273,15 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Total log-likelihood (cohesion + repulsion)</dd></dl>
-<p>This overload allows computing the likelihood with a custom set of cluster assignments without modifying the data structure. </p>
+<dl class="section return"><dt>Returns</dt><dd>Total log-likelihood of the cluster </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>this is useful for split-merge algorithms </dd></dl>
+
+<p>Implemented in <a class="el" href="classNatarajan__likelihood.html#afa6d0ced528addb01732bba93e9d224a">Natarajan_likelihood</a>.</p>
 
 </div>
 </div>
-<a id="ad90a0a04967bd64404cdbaff3187ba39" name="ad90a0a04967bd64404cdbaff3187ba39"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad90a0a04967bd64404cdbaff3187ba39">&#9670;&#160;</a></span>compute_cohesion()</h2>
+<a id="a0937f6a9a4b48def87b6e644810fb99d" name="a0937f6a9a4b48def87b6e644810fb99d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0937f6a9a4b48def87b6e644810fb99d">&#9670;&#160;</a></span>point_loglikelihood_cond()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -283,106 +290,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double Likelihood::compute_cohesion </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>point_index</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cluster_index</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXi &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>cls_ass_k</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>n_k</em></span>&#160;) const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Computes the cohesion component of the log-likelihood. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">point_index</td><td>Index of the point being evaluated </td></tr>
-    <tr><td class="paramname">cluster_index</td><td>Index of the cluster </td></tr>
-    <tr><td class="paramname">cls_ass_k</td><td>Vector of point indices in the cluster </td></tr>
-    <tr><td class="paramname">n_k</td><td>Number of points in the cluster </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Cohesion log-likelihood contribution </dd></dl>
-
-</div>
-</div>
-<a id="a424810a8eefc9f7b324ba13c990331f6" name="a424810a8eefc9f7b324ba13c990331f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a424810a8eefc9f7b324ba13c990331f6">&#9670;&#160;</a></span>compute_repulsion()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">double Likelihood::compute_repulsion </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>point_index</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cluster_index</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXi &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>cls_ass_k</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>n_k</em></span>&#160;) const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Computes the repulsion component of the log-likelihood. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">point_index</td><td>Index of the point being evaluated </td></tr>
-    <tr><td class="paramname">cluster_index</td><td>Index of the cluster </td></tr>
-    <tr><td class="paramname">cls_ass_k</td><td>Vector of point indices in the cluster </td></tr>
-    <tr><td class="paramname">n_k</td><td>Number of points in the cluster </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Repulsion log-likelihood contribution </dd></dl>
-
-</div>
-</div>
-<a id="ab1af66318d8b64eff5162e5973b4c256" name="ab1af66318d8b64eff5162e5973b4c256"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1af66318d8b64eff5162e5973b4c256">&#9670;&#160;</a></span>point_loglikelihood_cond()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double Likelihood::point_loglikelihood_cond </td>
+          <td class="memname">virtual double Likelihood::point_loglikelihood_cond </td>
           <td>(</td>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>point_index</em></span>, </td>
         </tr>
@@ -392,46 +300,29 @@ Private Attributes</h2></td></tr>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cluster_index</em></span>&#160;) const</td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-<p>Computes the conditional log-likelihood of a point given a cluster. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">point_index</td><td>Index of the point to evaluate </td></tr>
-    <tr><td class="paramname">cluster_index</td><td>Index of the target cluster </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Conditional log-likelihood of assigning the point to the cluster</dd></dl>
-<p>This method evaluates how well a point fits into a specific cluster, considering both its cohesion with points in that cluster and its repulsion from points in other clusters. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a132765b192968453d4c894b9dd5f4474" name="a132765b192968453d4c894b9dd5f4474"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a132765b192968453d4c894b9dd5f4474">&#9670;&#160;</a></span>D_cols</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const int Likelihood::D_cols</td>
-        </tr>
-      </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Number of columns in distance matrix. </p>
+<p>Conditional likelihood of a point if set in a particular cluster. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">point_index</td><td>point of which compute the likelihood </td></tr>
+    <tr><td class="paramname">cluster_index</td><td>cluster of which computes likelihood </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Conditional likelihood </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>useful for gibbs sampling </dd></dl>
+
+<p>Implemented in <a class="el" href="classNatarajan__likelihood.html#aa326b273c397e83cf1db23006393db62">Natarajan_likelihood</a>.</p>
 
 </div>
 </div>
+<h2 class="groupheader">Member Data Documentation</h2>
 <a id="a5cb2f928da9f5be76c353ea0d9b5f4ce" name="a5cb2f928da9f5be76c353ea0d9b5f4ce"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5cb2f928da9f5be76c353ea0d9b5f4ce">&#9670;&#160;</a></span>data</h2>
 
@@ -447,132 +338,12 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Reference to <a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a> object with distances and allocations. </p>
-
-</div>
-</div>
-<a id="a28970d0ed4403a37bf78b86c4a70d208" name="a28970d0ed4403a37bf78b86c4a70d208"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28970d0ed4403a37bf78b86c4a70d208">&#9670;&#160;</a></span>lgamma_delta1</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const double Likelihood::lgamma_delta1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Precomputed lgamma(delta1) for cohesion. </p>
-
-</div>
-</div>
-<a id="a0ea7d5667017aa02f6015b9df05f2544" name="a0ea7d5667017aa02f6015b9df05f2544"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ea7d5667017aa02f6015b9df05f2544">&#9670;&#160;</a></span>lgamma_delta2</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const double Likelihood::lgamma_delta2</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Precomputed lgamma(delta2) for repulsion. </p>
-
-</div>
-</div>
-<a id="a942bf7c0249d646f6af2a7abaaa0400a" name="a942bf7c0249d646f6af2a7abaaa0400a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a942bf7c0249d646f6af2a7abaaa0400a">&#9670;&#160;</a></span>log_beta_alpha</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const double Likelihood::log_beta_alpha</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Precomputed log(beta) * alpha - lgamma(alpha) </p>
-
-</div>
-</div>
-<a id="a4c5ad185e7455c2694752ac660b7f19c" name="a4c5ad185e7455c2694752ac660b7f19c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c5ad185e7455c2694752ac660b7f19c">&#9670;&#160;</a></span>log_D_data</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;double&gt; Likelihood::log_D_data</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Precomputed log distance matrix (flattened) </p>
-
-</div>
-</div>
-<a id="a228d5b708b18028550656f106a404c5d" name="a228d5b708b18028550656f106a404c5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a228d5b708b18028550656f106a404c5d">&#9670;&#160;</a></span>log_gamma_zeta</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const double Likelihood::log_gamma_zeta</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Precomputed log(gamma) * zeta - lgamma(zeta) </p>
 
 </div>
 </div>
@@ -591,7 +362,7 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -600,9 +371,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/utils/<a class="el" href="Likelihood_8hpp_source.html">Likelihood.hpp</a></li>
-<li>src/utils/<a class="el" href="Likelihood_8cpp.html">Likelihood.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

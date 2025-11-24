@@ -167,7 +167,7 @@ Protected Attributes</h2></td></tr>
 <li><b>Hybrid Approaches</b>: Combinations of different sampling strategies</li>
 </ul>
 <p>Each sampler operates on the same core components but implements different strategies for exploring the posterior distribution of cluster assignments. The composition pattern allows flexible combinations of different data types, likelihood models, process priors, and parameter configurations.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a>, <a class="el" href="structParams.html" title="Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...">Params</a>, <a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a>, <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a>, <a class="el" href="structParams.html" title="Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...">Params</a>, <a class="el" href="classLikelihood.html">Likelihood</a>, <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> </dd>
 <dd>
 <a class="el" href="classNeal3.html" title="Implementation of Neal&#39;s Algorithm 3 for collapsed Gibbs sampling.">Neal3</a>, <a class="el" href="classSplitMerge.html" title="Split-Merge sampler for Bayesian nonparametric mixture models.">SplitMerge</a>, <a class="el" href="classSplitMerge__SAMS.html" title="Sequential Allocation Merge-Split (SAMS) sampler for Bayesian nonparametric models.">SplitMerge_SAMS</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -213,14 +213,14 @@ Protected Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">d</td><td>Reference to <a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a> object containing observations and current cluster assignments </td></tr>
     <tr><td class="paramname">p</td><td>Reference to <a class="el" href="structParams.html" title="Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...">Params</a> object containing hyperparameters and simulation settings </td></tr>
-    <tr><td class="paramname">l</td><td>Reference to <a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> object for evaluating assignment probabilities </td></tr>
+    <tr><td class="paramname">l</td><td>Reference to <a class="el" href="classLikelihood.html">Likelihood</a> object for evaluating assignment probabilities </td></tr>
     <tr><td class="paramname">pr</td><td>Reference to <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> object (<a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a>, <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>, <a class="el" href="classDPW.html" title="Dirichlet Process with spatial Weights class for spatially-aware Bayesian nonparametric clustering.">DPW</a>, or <a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a>) defining the prior</td></tr>
   </table>
   </dd>
 </dl>
 <p>The constructor establishes references to all components needed for MCMC sampling. The specific behavior depends on the concrete implementations of each component:</p><ul>
 <li>Different <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> types (<a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a> vs <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>) yield different clustering behaviors</li>
-<li>Different <a class="el" href="classLikelihood.html" title="Computes log-likelihood for clusters based on distance-based cohesion and repulsion.">Likelihood</a> models handle various data types and distributions</li>
+<li>Different <a class="el" href="classLikelihood.html">Likelihood</a> models handle various data types and distributions</li>
 <li>Parameter settings control burn-in, iterations, and hyperparameter values </li>
 </ul>
 

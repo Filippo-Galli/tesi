@@ -1,16 +1,4 @@
 var searchData=
 [
-  ['params_0',['Params',['../structParams.html',1,'Params'],['../structParams.html#a876866d494a4451d801851527e2daf90',1,'Params::Params()']]],
-  ['params_1',['params',['../classData.html#a49af987ead9e377722a4a95a9b868d2c',1,'Data::params'],['../classLikelihood.html#afd1795b729f44bd5105979ecb8853642',1,'Likelihood::params'],['../classProcess.html#a2793ccf3c3fe37432a7e19ba2de0e885',1,'Process::params'],['../classSampler.html#a82d788501df27a3490c27085e5c6a218',1,'Sampler::params'],['../classU__sampler.html#aae20479c86071657e0fe00d54c9d0d3c',1,'U_sampler::params']]],
-  ['params_2ehpp_2',['Params.hpp',['../Params_8hpp.html',1,'']]],
-  ['point_5floglikelihood_5fcond_3',['point_loglikelihood_cond',['../classLikelihood.html#ab1af66318d8b64eff5162e5973b4c256',1,'Likelihood']]],
-  ['prepare_20your_20data_4',['Step 1: Prepare Your Data',['../index.html#autotoc_md10',1,'']]],
-  ['prior_5fratio_5fmerge_5',['prior_ratio_merge',['../classDP.html#a0e9b5eed61089876ad4fa25440e6fe0a',1,'DP::prior_ratio_merge()'],['../classDPW.html#a75b3b17a4f1353be261598f817dfc151',1,'DPW::prior_ratio_merge()'],['../classNGGP.html#a79e4070dff59378d106d56545ea66a84',1,'NGGP::prior_ratio_merge()'],['../classNGGPW.html#a96acaa9d2dacbac024ffaba9d075249a',1,'NGGPW::prior_ratio_merge()'],['../classProcess.html#a3f839a738e76fc3ab83d3a7bfc228984',1,'Process::prior_ratio_merge()']]],
-  ['prior_5fratio_5fshuffle_6',['prior_ratio_shuffle',['../classDP.html#a124720c8dca0a4ebb401576f3f829624',1,'DP::prior_ratio_shuffle()'],['../classDPW.html#a657ee647610b79bda39db864bee2b6fa',1,'DPW::prior_ratio_shuffle()'],['../classNGGP.html#acd7a5bc6cbe029ec09d9a083c01277ff',1,'NGGP::prior_ratio_shuffle()'],['../classNGGPW.html#a9bc80b5731581b00c33479fd3b16d55d',1,'NGGPW::prior_ratio_shuffle()'],['../classProcess.html#a3bd733b3232c8cf865bc0d6c1a07aea4',1,'Process::prior_ratio_shuffle()']]],
-  ['prior_5fratio_5fsplit_7',['prior_ratio_split',['../classDP.html#add6430ec2928d6260b9a4f78f6a2867a',1,'DP::prior_ratio_split()'],['../classDPW.html#a9ae9225ada0d3d26b9f7e584783e117c',1,'DPW::prior_ratio_split()'],['../classNGGP.html#a6488070ea12d0a9c9454d96e8b5cb719',1,'NGGP::prior_ratio_split()'],['../classNGGPW.html#a73053c1ef8025c03e60ef25f42509bf4',1,'NGGPW::prior_ratio_split()'],['../classProcess.html#a3077b5bf1703a691927ae3779900a734',1,'Process::prior_ratio_split()']]],
-  ['process_8',['Process',['../classProcess.html',1,'Process'],['../classProcess.html#a8bd31d2434ca052d9a7e2b803e346b8e',1,'Process::Process()']]],
-  ['process_9',['process',['../classSampler.html#a8ec54ff9fe8f22c8514496d6f3b998d0',1,'Sampler']]],
-  ['process_20addition_10',['Sampler or Process Addition',['../index.html#autotoc_md26',1,'']]],
-  ['process_2ehpp_11',['Process.hpp',['../Process_8hpp.html',1,'']]],
-  ['proposal_5fsd_12',['proposal_sd',['../classRWMH.html#ab36d78a51cba6fbd0d0287f03ccf3a09',1,'RWMH']]]
+  ['verbosity_5flevel_0',['VERBOSITY_LEVEL',['../Data_8hpp.html#a7be2f72d88f018001011f9a2b031621a',1,'Data.hpp']]]
 ];
