@@ -1,9 +1,7 @@
 var hierarchy =
 [
     [ "Data", "classData.html", null ],
-    [ "Likelihood", "classLikelihood.html", [
-      [ "Natarajan_likelihood", "classNatarajan__likelihood.html", null ]
-    ] ],
+    [ "Likelihood", "classLikelihood.html", null ],
     [ "Params", "structParams.html", null ],
     [ "Process", "classProcess.html", [
       [ "DP", "classDP.html", null ],

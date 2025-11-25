@@ -9,5 +9,5 @@ var searchData=
   ['accepted_5fu_6',['accepted_U',['../classU__sampler.html#acca05886c1b4138a4f42fa1800a4d31a',1,'U_sampler']]],
   ['allocations_7',['allocations',['../classData.html#aa3216ace6edfe6d6a3f522db636d4d49',1,'Data']]],
   ['alpha_8',['alpha',['../structParams.html#a881058e4167b8bbb7715e23975b0d893',1,'Params']]],
-  ['architecture_9',['🏗️ Architecture',['../index.html#autotoc_md1',1,'']]]
+  ['architecture_9',['🏗️ Architecture',['../index.html#autotoc_md6',1,'']]]
 ];

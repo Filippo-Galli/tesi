@@ -4,9 +4,9 @@ var searchData=
   ['sample_5ffrom_5flog_5fprobs_1',['sample_from_log_probs',['../classNeal3.html#a1ca49f482ffc919067a11842ee88e3f1',1,'Neal3::sample_from_log_probs()'],['../classNeal3ZDNAM.html#aa8c30654dbd75413dc6a41fc9a2d2ef6',1,'Neal3ZDNAM::sample_from_log_probs(const std::vector&lt; double &gt; &amp;log_probs)']]],
   ['sample_5ffrom_5flog_5fprobs_5fzdnam_2',['sample_from_log_probs_zdnam',['../classNeal3ZDNAM.html#ae9d4a02085162f18a969d13d134e0474',1,'Neal3ZDNAM']]],
   ['sampler_3',['Sampler',['../classSampler.html',1,'Sampler'],['../classSampler.html#a4800cc1f9d2718968f5957ca99eee5b1',1,'Sampler::Sampler()']]],
-  ['sampler_20tt_4',['MCMC Samplers (&lt;tt&gt;Sampler&lt;/tt&gt;)',['../index.html#autotoc_md6',1,'']]],
+  ['sampler_20tt_4',['MCMC Samplers (&lt;tt&gt;Sampler&lt;/tt&gt;)',['../index.html#autotoc_md11',1,'']]],
   ['sampler_2ehpp_5',['Sampler.hpp',['../Sampler_8hpp.html',1,'']]],
-  ['samplers_20tt_20sampler_20tt_6',['MCMC Samplers (&lt;tt&gt;Sampler&lt;/tt&gt;)',['../index.html#autotoc_md6',1,'']]],
+  ['samplers_20tt_20sampler_20tt_6',['MCMC Samplers (&lt;tt&gt;Sampler&lt;/tt&gt;)',['../index.html#autotoc_md11',1,'']]],
   ['sampling_5fu_7',['sampling_U',['../classMALA.html#a1455a59881092cacc41465bec09cc1c6',1,'MALA::sampling_U()'],['../classRWMH.html#af350f5e44ac4f74c84d41f87f52b1aa5',1,'RWMH::sampling_U()']]],
   ['sampling_5fv_8',['sampling_V',['../classMALA.html#a010edce40e77a91e229e3a138d0dce10',1,'MALA::sampling_V()'],['../classRWMH.html#a0067c5b24f41c79920c43b7f3ae66c76',1,'RWMH::sampling_V()']]],
   ['sequential_5fallocation_9',['sequential_allocation',['../classSplitMerge__LSS.html#ac5252791b0a9a1a9b174421205a33c7d',1,'SplitMerge_LSS::sequential_allocation()'],['../classSplitMerge__LSS__SDDS.html#a62485d23e3d3c5266fa70b7c055e673c',1,'SplitMerge_LSS_SDDS::sequential_allocation()'],['../classSplitMerge__SAMS.html#a1cf7698ea219623995597a45932db97c',1,'SplitMerge_SAMS::sequential_allocation()']]],
@@ -15,7 +15,7 @@ var searchData=
   ['set_5fidx_5fi_12',['set_idx_i',['../classProcess.html#a7ea0be22abcf92f98620c8b81690a76f',1,'Process']]],
   ['set_5fidx_5fj_13',['set_idx_j',['../classProcess.html#a9c638d305db4abae7c8fedca34e71794',1,'Process']]],
   ['set_5fold_5fallocations_14',['set_old_allocations',['../classProcess.html#a6174151176ec3d063ac441e5a80d0c44',1,'Process']]],
-  ['setup_15',['Setup',['../index.html#autotoc_md9',1,'']]],
+  ['setup_15',['Setup',['../index.html#autotoc_md14',1,'']]],
   ['shuffle_16',['shuffle',['../classSplitMerge.html#a2272eee0bd1557aab937c2153eb61a70',1,'SplitMerge::shuffle()'],['../classSplitMerge__LSS.html#aec5dd1754aebe6d9898f31b8f51eade3',1,'SplitMerge_LSS::shuffle()'],['../classSplitMerge__LSS__SDDS.html#aa07752d43ab1d5480b76ac2642f838e7',1,'SplitMerge_LSS_SDDS::shuffle()'],['../classSplitMerge__SAMS.html#ae16402a25ef38853ec04e4c7c88216e0',1,'SplitMerge_SAMS::shuffle()']]],
   ['shuffle_5fbool_17',['shuffle_bool',['../classSplitMerge.html#a2ed6cc2e1bdf63606d13f6ca020d09c5',1,'SplitMerge::shuffle_bool'],['../classSplitMerge__LSS.html#afa850a59ac5189d46ea4f34babcb41e0',1,'SplitMerge_LSS::shuffle_bool'],['../classSplitMerge__LSS__SDDS.html#aa067403728ed88f2b18980e4d0bb0379',1,'SplitMerge_LSS_SDDS::shuffle_bool'],['../classSplitMerge__SAMS.html#a72d799ebddc0c40ce3dda9ac359b9cc2',1,'SplitMerge_SAMS::shuffle_bool']]],
   ['sigma_18',['sigma',['../structParams.html#aae2e11191e0482bdec0fc15482b53e31',1,'Params']]],
@@ -34,7 +34,9 @@ var searchData=
   ['splitmerge_5fsams_31',['SplitMerge_SAMS',['../classSplitMerge__SAMS.html',1,'SplitMerge_SAMS'],['../classSplitMerge__SAMS.html#af812bf4c32fef71ddae082bfa26d1465',1,'SplitMerge_SAMS::SplitMerge_SAMS()']]],
   ['splitmerge_5fsams_2ecpp_32',['splitmerge_SAMS.cpp',['../splitmerge__SAMS_8cpp.html',1,'']]],
   ['splitmerge_5fsams_2ehpp_33',['splitmerge_SAMS.hpp',['../splitmerge__SAMS_8hpp.html',1,'']]],
-  ['step_34',['step',['../classSampler.html#a49153313f42d53d107bfe2b2e9d83fa5',1,'Sampler::step()'],['../classNeal3.html#abfabb9dfe80f6fce1c93ac4151279f86',1,'Neal3::step()'],['../classNeal3ZDNAM.html#a314e75d46d37ad2d1338571ba670953e',1,'Neal3ZDNAM::step()'],['../classSplitMerge.html#a87c7ea9050b7157ae5af7d4e63bb16bf',1,'SplitMerge::step()'],['../classSplitMerge__LSS.html#a766bfa11be282aeb39428556c65e0296',1,'SplitMerge_LSS::step()'],['../classSplitMerge__LSS__SDDS.html#ac6fca16f4078d67f6c77a09853025f60',1,'SplitMerge_LSS_SDDS::step()'],['../classSplitMerge__SAMS.html#a198db7f37403e0f7093771f03ca961e6',1,'SplitMerge_SAMS::step()']]],
-  ['step_5f1_5fobservation_35',['step_1_observation',['../classNeal3.html#ac20cf03f5de473bdc3cf1c7e59137f53',1,'Neal3::step_1_observation()'],['../classNeal3ZDNAM.html#a7863bf31cb68525f13239506b23b34d4',1,'Neal3ZDNAM::step_1_observation()']]],
-  ['stochastic_20processes_20tt_20process_20tt_36',['Stochastic Processes (&lt;tt&gt;Process&lt;/tt&gt;)',['../index.html#autotoc_md4',1,'']]]
+  ['src_34',['src',['../index.html#autotoc_md5',1,'']]],
+  ['step_35',['step',['../classSampler.html#a49153313f42d53d107bfe2b2e9d83fa5',1,'Sampler::step()'],['../classNeal3.html#abfabb9dfe80f6fce1c93ac4151279f86',1,'Neal3::step()'],['../classNeal3ZDNAM.html#a314e75d46d37ad2d1338571ba670953e',1,'Neal3ZDNAM::step()'],['../classSplitMerge.html#a87c7ea9050b7157ae5af7d4e63bb16bf',1,'SplitMerge::step()'],['../classSplitMerge__LSS.html#a766bfa11be282aeb39428556c65e0296',1,'SplitMerge_LSS::step()'],['../classSplitMerge__LSS__SDDS.html#ac6fca16f4078d67f6c77a09853025f60',1,'SplitMerge_LSS_SDDS::step()'],['../classSplitMerge__SAMS.html#a198db7f37403e0f7093771f03ca961e6',1,'SplitMerge_SAMS::step()']]],
+  ['step_5f1_5fobservation_36',['step_1_observation',['../classNeal3.html#ac20cf03f5de473bdc3cf1c7e59137f53',1,'Neal3::step_1_observation()'],['../classNeal3ZDNAM.html#a7863bf31cb68525f13239506b23b34d4',1,'Neal3ZDNAM::step_1_observation()']]],
+  ['stochastic_20processes_20tt_20process_20tt_37',['Stochastic Processes (&lt;tt&gt;Process&lt;/tt&gt;)',['../index.html#autotoc_md9',1,'']]],
+  ['structure_38',['Directory Structure',['../index.html#autotoc_md1',1,'']]]
 ];

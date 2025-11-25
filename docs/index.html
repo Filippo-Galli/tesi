@@ -109,35 +109,60 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 <p>This repository provides a modular codebase designed for researchers and practitioners. While the current implementation focuses on <b>distance-based clustering</b> (Natarajan et al., 2023), the architecture allows for easy extension to other models, likelihoods, and sampling strategies.</p>
 <p><a href="https://filippo-galli.github.io/tesi/">Link to the docs</a></p>
 <h1><a class="anchor" id="autotoc_md1"></a>
+Directory Structure</h1>
+<ul>
+<li><code>R</code>: R interface functions and scripts.</li>
+<li><code>docs</code>: Documentation.</li>
+<li><code>doxygen-theme</code>: Doxygen theme files for documentation generation.</li>
+<li><code>src</code>: C++ source code implementing the core framework.</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md2"></a>
+R</h2>
+<p>This folder contains some helper script to load and run the C++ code from R. The main entry point is in <code>R/launcher.R</code>. There are also some script to do mcmc post-processing and plotting.</p>
+<h2><a class="anchor" id="autotoc_md3"></a>
+docs</h2>
+<p>This folder contains the documentation files generated with Doxygen. You can find here the class diagrams and the detailed documentation of the code. To generate the documentation, you need to have Doxygen installed and run the command <code>doxygen Doxyfile</code> in the root directory.</p>
+<h2><a class="anchor" id="autotoc_md4"></a>
+doxygen-theme</h2>
+<p>This folder contains the theme files for Doxygen to generate the documentation.</p>
+<h2><a class="anchor" id="autotoc_md5"></a>
+src</h2>
+<p>This folder contains the C++ source code implementing the core framework. The main components are organized in subfolders:</p><ul>
+<li><code>processes</code>: Contains the implementations of the stochastic processes (e.g., Dirichlet <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a>, <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>).</li>
+<li><code>likelihoods</code>: Contains the implementations of the likelihood models (e.g., distance-based clustering).</li>
+<li><code>samplers</code>: Contains the implementations of the MCMC samplers (e.g., Neal's Algorithm 3, Split-Merge).</li>
+<li><code>utils</code>: Contains utility functions and classes used throughout the codebase and all the base classes. The entry point for the C++ code is in <code><a class="el" href="launcher_8cpp.html" title="Main launcher file for MCMC simulation with various Bayesian non-parametric processes.">src/launcher.cpp</a></code>, which is exposed to R via Rcpp.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md6"></a>
 🏗️ Architecture</h1>
 <p>The framework is built around four main logical components:</p>
 <ol type="1">
 <li><b><code><a class="el" href="structParams.html" title="Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...">Params</a></code></b>: Manages model hyperparameters and MCMC settings.</li>
-<li><b><code><a class="el" href="classLikelihood.html">Likelihood</a></code></b>: Defines the data observation model.</li>
+<li><b><code><a class="el" href="classLikelihood.html" title="Abstract class with likelihood desiderable interfaces.">Likelihood</a></code></b>: Defines the data observation model.</li>
 <li><b><code><a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a></code></b>: Handles the Bayesian nonparametric prior (e.g., Dirichlet <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a>) and cluster assignments.</li>
 <li><b><code><a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a></code></b>: Implements the MCMC inference engine.</li>
 </ol>
-<h2><a class="anchor" id="autotoc_md2"></a>
+<h2><a class="anchor" id="autotoc_md7"></a>
 Extensibility</h2>
-<p>The code is structured to facilitate the integration of new components. You can implement custom models by extending the base classes (<code><a class="el" href="classLikelihood.html">Likelihood</a></code>, <code><a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a></code>, <code><a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a></code>).</p>
+<p>The code is structured to facilitate the integration of new components. You can implement custom models by extending the base classes (<code><a class="el" href="classLikelihood.html" title="Abstract class with likelihood desiderable interfaces.">Likelihood</a></code>, <code><a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a></code>, <code><a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a></code>).</p>
 <blockquote class="doxtable">
 <p><b>Note</b>: When modifying <code><a class="el" href="structParams.html" title="Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...">Params</a></code> or adding new classes, ensure you update the R bindings in <code><a class="el" href="launcher_8cpp.html" title="Main launcher file for MCMC simulation with various Bayesian non-parametric processes.">src/launcher.cpp</a></code>. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md3"></a>
+<h1><a class="anchor" id="autotoc_md8"></a>
 📦 Implemented Methods</h1>
-<h2><a class="anchor" id="autotoc_md4"></a>
+<h2><a class="anchor" id="autotoc_md9"></a>
 Stochastic Processes (<code>Process</code>)</h2>
 <ul>
 <li><b>Dirichlet <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> (<a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a>)</b></li>
 <li><b>Normalized Generalized Gamma <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> (<a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>)</b></li>
 <li><em>Modules</em>: Support for spatial/geographical constraints via similarity matrices.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md5"></a>
+<h2><a class="anchor" id="autotoc_md10"></a>
 Likelihood Models (<code>Likelihood</code>)</h2>
 <ul>
 <li><b>Distance-based Clustering</b>: Based on "Cohesion and Repulsion in Bayesian Distance Clustering" (Natarajan et al., 2023).</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md11"></a>
 MCMC Samplers (<code>Sampler</code>)</h2>
 <ul>
 <li><b>Neal's Algorithm 3</b>: Conjugate Gibbs sampler (Neal, 2000).</li>
@@ -147,31 +172,31 @@ MCMC Samplers (<code>Sampler</code>)</h2>
 <li><b>LSS Split-Merge</b>: Locality Sensitive Sampling for scalable Split-Merge (Luo et al., 2018).</li>
 <li><b>LSS-SDDS Split-Merge</b>: Smart-Dumb/Dumb-Smart moves with LSS.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<h1><a class="anchor" id="autotoc_md12"></a>
 🛠️ Installation &amp; Usage</h1>
-<h2><a class="anchor" id="autotoc_md8"></a>
+<h2><a class="anchor" id="autotoc_md13"></a>
 Prerequisites</h2>
 <ul>
 <li><b>R</b></li>
 <li><b>C++ Compiler</b> (supporting C++11 or later)</li>
 <li>R Packages: <code>Rcpp</code>, <code>RcppEigen</code></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md9"></a>
+<h2><a class="anchor" id="autotoc_md14"></a>
 Setup</h2>
 <ol type="1">
 <li>Clone the repository: <code>bash git clone <a href="https://github.com/yourusername/repo-name.git">https://github.com/yourusername/repo-name.git</a> cd repo-name </code></li>
 <li>Open the project in R/RStudio.</li>
 <li>Ensure dependencies are installed: <code>R install.packages(c("Rcpp", "RcppEigen")) </code></li>
 </ol>
-<h2><a class="anchor" id="autotoc_md10"></a>
+<h2><a class="anchor" id="autotoc_md15"></a>
 Running the Code</h2>
-<p>The entry point for the C++ code is exposed to R. Currently, the specific combination of <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a>, <a class="el" href="classLikelihood.html">Likelihood</a>, and <a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a> is configured in <code><a class="el" href="launcher_8cpp.html" title="Main launcher file for MCMC simulation with various Bayesian non-parametric processes.">src/launcher.cpp</a></code>.</p>
+<p>The entry point for the C++ code is exposed to R. Currently, the specific combination of <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a>, <a class="el" href="classLikelihood.html" title="Abstract class with likelihood desiderable interfaces.">Likelihood</a>, and <a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a> is configured in <code><a class="el" href="launcher_8cpp.html" title="Main launcher file for MCMC simulation with various Bayesian non-parametric processes.">src/launcher.cpp</a></code>.</p>
 <ol type="1">
 <li>Modify <code><a class="el" href="launcher_8cpp.html" title="Main launcher file for MCMC simulation with various Bayesian non-parametric processes.">src/launcher.cpp</a></code> to select your desired model components.</li>
 <li>Compile and source the code in R (e.g., using <code>Rcpp::sourceCpp</code>).</li>
 <li>Run the provided R functions to start the MCMC chain.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md11"></a>
+<h1><a class="anchor" id="autotoc_md16"></a>
 📚 References</h1>
 <ul>
 <li><b>Natarajan et al. (2023)</b>: <em>Cohesion and Repulsion in Bayesian Distance Clustering</em>.</li>
@@ -181,7 +206,7 @@ Running the Code</h2>
 <li><b>Dahl (2021)</b>: <em>Sequentially-allocated merge-split samplers for conjugate Bayesian nonparametric models</em>.</li>
 <li><b>Luo et al. (2018)</b>: <em>Scaling-up Split-Merge MCMC with Locality Sensitive Sampling (LSS)</em>.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md12"></a>
+<h1><a class="anchor" id="autotoc_md17"></a>
 🤝 Contributing</h1>
 <p>Contributions are welcome! Feel free to submit Pull Requests or open Issues for bugs and feature requests.</p>
 <hr  />
