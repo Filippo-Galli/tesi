@@ -31,7 +31,7 @@
 #include "samplers/U_sampler/MALA.hpp"
 
 #include "utils/Data.hpp"
-#include "utils/Natarajan_likelihood.hpp"
+#include "likelihoods/Natarajan_likelihood.hpp"
 #include "utils/Params.hpp"
 
 #include <chrono>

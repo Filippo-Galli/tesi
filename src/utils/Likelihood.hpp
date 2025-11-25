@@ -8,6 +8,10 @@
 #include "Data.hpp"
 #include "Params.hpp"
 
+/**
+* @brief Abstract class with likelihood desiderable interfaces
+*/
+
 class Likelihood {
 protected:
   const Data &data; ///< Reference to Data object with distances and allocations

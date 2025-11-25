@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Likelihood.hpp"
+#include "../utils/Likelihood.hpp"
 
 /**
  * @class Natarajan_likelihood

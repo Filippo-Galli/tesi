@@ -6,6 +6,31 @@ This repository provides a modular codebase designed for researchers and practit
 
 [Link to the docs](https://filippo-galli.github.io/tesi/)
 
+## Directory Structure
+
+- `R`: R interface functions and scripts.
+- `docs`: Documentation.
+- `doxygen-theme`: Doxygen theme files for documentation generation.
+- `src`: C++ source code implementing the core framework.
+
+### R 
+This folder contains some helper script to load and run the C++ code from R. The main entry point is in `R/launcher.R`.
+There are also some script to do mcmc post-processing and plotting.
+
+### docs
+This folder contains the documentation files generated with Doxygen. You can find here the class diagrams and the detailed documentation of the code. To generate the documentation, you need to have Doxygen installed and run the command `doxygen Doxyfile` in the root directory.
+
+### doxygen-theme
+This folder contains the theme files for Doxygen to generate the documentation.
+
+### src
+This folder contains the C++ source code implementing the core framework. The main components are organized in subfolders:
+- `processes`: Contains the implementations of the stochastic processes (e.g., Dirichlet Process, NGGP).
+- `likelihoods`: Contains the implementations of the likelihood models (e.g., distance-based clustering).
+- `samplers`: Contains the implementations of the MCMC samplers (e.g., Neal's Algorithm 3, Split-Merge).
+- `utils`: Contains utility functions and classes used throughout the codebase and all the base classes.
+The entry point for the C++ code is in `src/launcher.cpp`, which is exposed to R via Rcpp.
+
 ## 🏗️ Architecture
 
 The framework is built around four main logical components:
