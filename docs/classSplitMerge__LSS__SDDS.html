@@ -129,9 +129,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0c36977c3b8be71fbfbfe3056f9630b3" id="r_a0c36977c3b8be71fbfbfe3056f9630b3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c36977c3b8be71fbfbfe3056f9630b3">SplitMerge_LSS_SDDS</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classLikelihood.html">Likelihood</a> &amp;l, <a class="el" href="classProcess.html">Process</a> &amp;pr, bool <a class="el" href="#aa07752d43ab1d5480b76ac2642f838e7">shuffle</a>)</td></tr>
 <tr class="memdesc:a0c36977c3b8be71fbfbfe3056f9630b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for LSS-SDDS (Locality Sensitive Sampling with Smart-split, Dumb-merge, Dumb-split, Smart-merge) Split-Merge sampler.  <br /></td></tr>
 <tr class="separator:a0c36977c3b8be71fbfbfe3056f9630b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6fca16f4078d67f6c77a09853025f60" id="r_ac6fca16f4078d67f6c77a09853025f60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6fca16f4078d67f6c77a09853025f60">step</a> () override</td></tr>
-<tr class="memdesc:ac6fca16f4078d67f6c77a09853025f60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform one iteration of the LSS-SDDS Split-Merge algorithm.  <br /></td></tr>
-<tr class="separator:ac6fca16f4078d67f6c77a09853025f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a114dc38ca26a1152e7d1f845193fa18f" id="r_a114dc38ca26a1152e7d1f845193fa18f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a114dc38ca26a1152e7d1f845193fa18f">step</a> () override final</td></tr>
+<tr class="memdesc:a114dc38ca26a1152e7d1f845193fa18f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform one iteration of the LSS-SDDS Split-Merge algorithm.  <br /></td></tr>
+<tr class="separator:a114dc38ca26a1152e7d1f845193fa18f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a271b4214f6ba3814da718e85bca776d6" id="r_a271b4214f6ba3814da718e85bca776d6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a271b4214f6ba3814da718e85bca776d6">get_accepted_split</a> () const</td></tr>
 <tr class="memdesc:a271b4214f6ba3814da718e85bca776d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of accepted split moves for diagnostics.  <br /></td></tr>
 <tr class="separator:a271b4214f6ba3814da718e85bca776d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -811,8 +811,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ac6fca16f4078d67f6c77a09853025f60" name="ac6fca16f4078d67f6c77a09853025f60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6fca16f4078d67f6c77a09853025f60">&#9670;&#160;</a></span>step()</h2>
+<a id="a114dc38ca26a1152e7d1f845193fa18f" name="a114dc38ca26a1152e7d1f845193fa18f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a114dc38ca26a1152e7d1f845193fa18f">&#9670;&#160;</a></span>step()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -829,7 +829,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel final">final</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

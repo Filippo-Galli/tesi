@@ -15,7 +15,7 @@ var classSplitMerge__LSS__SDDS =
     [ "shuffle", "classSplitMerge__LSS__SDDS.html#aa07752d43ab1d5480b76ac2642f838e7", null ],
     [ "smart_merge_move", "classSplitMerge__LSS__SDDS.html#a5f6145f05bccec4fe241ba11c00acf05", null ],
     [ "smart_split_move", "classSplitMerge__LSS__SDDS.html#aff849ae709df7ffeff92f39bed994ce1", null ],
-    [ "step", "classSplitMerge__LSS__SDDS.html#ac6fca16f4078d67f6c77a09853025f60", null ],
+    [ "step", "classSplitMerge__LSS__SDDS.html#a114dc38ca26a1152e7d1f845193fa18f", null ],
     [ "accepted_merge", "classSplitMerge__LSS__SDDS.html#a39e947266ef985a35f4ef446def9e42e", null ],
     [ "accepted_shuffle", "classSplitMerge__LSS__SDDS.html#ac50b9b7fcb943ede91cf41db39a17ed1", null ],
     [ "accepted_split", "classSplitMerge__LSS__SDDS.html#a5592ec0b6838aa6c33c70a9943df5af7", null ],
