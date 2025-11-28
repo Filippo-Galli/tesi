@@ -32,3 +32,6 @@ results/
 simulation_data/
 real_data/
 input/
+
+# Podman 
+.config/

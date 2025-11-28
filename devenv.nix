@@ -49,8 +49,13 @@ in
   env.LIBRARY_PATH = "${openblas}/lib:${pkgs.openssl.dev}/lib:${pkgs.udunits}/lib:${pkgs.geos}/lib:${pkgs.gdal}/lib:${pkgs.proj}/lib";
   env.OPENBLAS_NUM_THREADS = "1";
 
+  # Podman
+  env.PODMAN_USERNS = "keep-id";
+
   packages = [
     pkgs.git
+    pkgs.podman
+    pkgs.podman-compose
 
     # R development with C++ support
     RWithOpenBlas
@@ -235,6 +240,20 @@ in
 
   enterShell = ''
     setup-clangd
+
+    # Create containers config directory
+    mkdir -p ~/.config/containers
+    
+    # Create a simple permissive policy.json
+    cat > ~/.config/containers/policy.json << 'EOF'
+{
+  "default": [
+    {
+      "type": "insecureAcceptAnything"
+    }
+  ]
+}
+EOF
 
     echo ""
     echo "🚀 R + C++ + Spatial development environment is ready for VS Code!"
