@@ -87,7 +87,7 @@ public:
    * existing cluster.
    */
   [[nodiscard]] double
-  gibbs_prior_existing_cluster(int cls_idx, int obs_idx = 0) const override;
+  gibbs_prior_existing_cluster(int cls_idx, int obs_idx = 0) const override final;
 
   /**
    * @brief Computes the log prior probabilities of assigning a data point to
@@ -99,7 +99,7 @@ public:
    * each existing cluster.
    */
   [[nodiscard]] Eigen::VectorXd
-  gibbs_prior_existing_clusters(int obs_idx) const override;
+  gibbs_prior_existing_clusters(int obs_idx) const override final;
 
   /**
    * @brief Computes the log prior probability of assigning a data point to a
@@ -110,7 +110,7 @@ public:
    * @return The log prior probability of assigning the data point to a new
    * cluster.
    */
-  [[nodiscard]] double gibbs_prior_new_cluster() const override;
+  [[nodiscard]] double gibbs_prior_new_cluster() const override final;
 
   /** @} */
 
@@ -130,7 +130,7 @@ public:
    * @param cj The second cluster index involved in the split.
    * @return The log prior ratio for the split operation.
    */
-  [[nodiscard]] double prior_ratio_split(int ci, int cj) const override;
+  [[nodiscard]] double prior_ratio_split(int ci, int cj) const override final;
 
   /**
    * @brief Computes the prior ratio for a merge operation in a spatially-aware
@@ -144,7 +144,7 @@ public:
    * @return The log prior ratio for the merge operation.
    */
   [[nodiscard]] double prior_ratio_merge(int size_old_ci,
-                                         int size_old_cj) const override;
+                                         int size_old_cj) const override final;
 
   /**
    * @brief Computes the prior ratio for a shuffle operation in a
@@ -160,7 +160,7 @@ public:
    * @return The log prior ratio for the shuffle operation.
    */
   [[nodiscard]] double prior_ratio_shuffle(int size_old_ci, int size_old_cj,
-                                           int ci, int cj) const override;
+                                           int ci, int cj) const override final;
 
   /** @} */
 
@@ -178,7 +178,7 @@ public:
    *
    * @see U_sampler::update_U(), RWMH::update_U(), MALA::update_U()
    */
-  void update_params() override { U_sampler_method.update_U(); };
+  void update_params() override final { U_sampler_method.update_U(); };
 
   /** @} */
 };

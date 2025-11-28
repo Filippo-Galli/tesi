@@ -6,6 +6,7 @@
 #pragma once
 
 #include "../utils/Likelihood.hpp"
+#include <vector>
 
 /**
  * @class Natarajan_likelihood
@@ -26,6 +27,8 @@ private:
   const double log_beta_alpha; ///< Precomputed log(beta) * alpha - lgamma(alpha)
   const double lgamma_delta2; ///< Precomputed lgamma(delta2) for repulsion
   const double log_gamma_zeta; ///< Precomputed log(gamma) * zeta - lgamma(zeta)
+  std::vector<double> lgamma_zeta_mt_cache; ///< Cache for lgamma(zeta_mt) values
+  std::vector<double> lgamma_alpha_mh_cache; ///< Cache for lgamma(alpha_mh) values
 
   std::vector<double> log_D_data;   ///< Precomputed log distance matrix (flattened)
   const int D_cols; ///< Number of columns in distance matrix
@@ -75,10 +78,21 @@ public:
     const int n = params.D.rows() * params.D.cols();
     log_D_data.resize(n);
 
+    // Log distance precomputation
     const double *D_ptr = params.D.data();
     for (int i = 0; i < n; ++i) {
       log_D_data[i] = std::log(D_ptr[i]);
     }
+
+    // Cache lgamma values for efficiency
+    lgamma_alpha_mh_cache.resize(data.get_n() + 1, 0.0);
+    lgamma_zeta_mt_cache.resize(data.get_n() + 1, 0.0);
+
+    for (int val = 0; val <= data.get_n(); ++val) {
+      lgamma_alpha_mh_cache[val] = lgamma(params.alpha + params.delta1 * val);
+      lgamma_zeta_mt_cache[val] = lgamma(params.zeta + params.delta2 * val);
+    }
+
   }
 
   /**
@@ -89,7 +103,7 @@ public:
    * This method computes both the within-cluster cohesion and the
    * between-cluster repulsion contributions for the specified cluster.
    */
-  double cluster_loglikelihood(int cluster_index) const;
+  double cluster_loglikelihood(int cluster_index) const override final;
 
   /**
    * @brief Computes the full log-likelihood for a cluster with given
@@ -103,7 +117,7 @@ public:
    */
   double cluster_loglikelihood(
       int cluster_index,
-      const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k) const;
+      const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k) const override final;
 
   /**
    * @brief Computes the conditional log-likelihood of a point given a cluster
@@ -115,5 +129,5 @@ public:
    * considering both its cohesion with points in that cluster and its
    * repulsion from points in other clusters.
    */
-  double point_loglikelihood_cond(int point_index, int cluster_index) const;
+  double point_loglikelihood_cond(int point_index, int cluster_index) const override final;
 };

@@ -336,7 +336,7 @@ public:
    * by using smart (sequential allocation) moves where they matter most and
    * dumb (simple random) moves elsewhere, while maintaining detailed balance.
    */
-  void step() override;
+  void step() override final;
 
   // ========== Accessor Methods ==========
   /**

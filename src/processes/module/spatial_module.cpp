@@ -33,19 +33,24 @@ void SpatialModule::neighbor_cache_compute() {
 }
 
 int SpatialModule::get_neighbors_cls(int cls_idx, bool old_allo) const {
-  // Select allocation vector based on old_allo flag
-  const Eigen::VectorXi &allocations_reference =
-      (old_allo && old_allocations_provider) ? old_allocations_provider()
-                                             : data_module.get_allocations();
-
-  // Create indicator vector: 1 if observation is in cluster, 0 otherwise
-  Eigen::VectorXi obs_in_cluster = (allocations_reference.array() == cls_idx).cast<int>();
-
-  // Compute internal edges: obs_in_cluster^T * W * obs_in_cluster
-  // This counts edges where both endpoints are in the cluster
-  // Division by 2 corrects for double counting (edge i->j and j->i)
-  const int total_neighbors = obs_in_cluster.dot(params_module.W * obs_in_cluster) / 2;
-
+  const Eigen::VectorXi &allocations = (old_allo && old_allocations_provider) ? old_allocations_provider() : data_module.get_allocations();
+  
+  int total_neighbors = 0;
+  const int N = data_module.get_n();
+  
+  // Only iterate over points in this cluster
+  for (int i = 0; i < N; ++i) {
+    if (allocations(i) != cls_idx) continue;
+    
+    // Count neighbors also in this cluster
+    const std::vector<int>& neighbors = neighbor_cache[i];
+    for (int j : neighbors) {
+      if (allocations(j) == cls_idx && j > i) {  // j > i avoids double counting
+        ++total_neighbors;
+      }
+    }
+  }
+  
   return total_neighbors;
 }
 

@@ -41,10 +41,8 @@ protected:
    * @{
    */
 
-  const Params &params_module; ///< Reference to parameter object containing
-                               ///< adjacency matrix W
-  const Data
-      &data_module; ///< Reference to data object with cluster assignments
+  const Params &params_module; ///< Reference to parameter object containing adjacency matrix W
+  const Data &data_module; ///< Reference to data object with cluster assignments
 
   /**
    * @brief Provider function for accessing old allocation state.
