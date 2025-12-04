@@ -431,75 +431,74 @@ set_hyperparameters <- function(dist_matrix, k_elbow, ground_truth = NULL, plot_
   ))
 }
 
-compute_hist_distances <- function(hist1, hist2, type = "Histogram-Divergence") {
-  # Extract counts from histogram objects
+compute_hist_distances <- function(hist1, hist2, type = "Wasserstein") {
+  # Extract counts and breaks from histogram objects
   counts1 <- hist1$counts
   counts2 <- hist2$counts
-
-  # Get bin widths (important for proper CM and Wasserstein)
   breaks1 <- hist1$breaks
   breaks2 <- hist2$breaks
-
-  # Calculate bin width (assuming equal widths)
-  bin_width1 <- diff(breaks1)[1]
-  bin_width2 <- diff(breaks2)[1]
-  if (abs(bin_width1 - bin_width2) > 1e-10) {
-    warning("Histograms have different bin widths. Results may be inaccurate.")
+  
+  # CRITICAL: Verify histograms have identical breaks
+  if (length(breaks1) != length(breaks2)) {
+    stop("Histograms must have the same number of bins")
   }
-  bin_width <- bin_width1 # Use first histogram's bin width
-
-  # Handle different bin numbers by aligning to common bins
-  max_bins <- max(length(counts1), length(counts2))
-
-  # Pad shorter histogram with zeros if needed
-  if (length(counts1) < max_bins) {
-    counts1 <- c(counts1, rep(0, max_bins - length(counts1)))
+  
+  if (!all.equal(breaks1, breaks2, tolerance = 1e-10)) {
+    warning("Histogram breaks differ. Results may be inaccurate.")
   }
-  if (length(counts2) < max_bins) {
-    counts2 <- c(counts2, rep(0, max_bins - length(counts2)))
-  }
-
+  
   # Normalize to probability distributions (sum to 1)
-  counts1 <- counts1 / sum(counts1)
-  counts2 <- counts2 / sum(counts2)
-
-  if (type == "Histogram-Divergence") {
-    # Compute Histogram Divergence (intersection)
-    divergence <- sum(pmin(counts1, counts2))
-    return(divergence)
+  p1 <- counts1 / sum(counts1)
+  p2 <- counts2 / sum(counts2)
+  
+  # Compute cumulative distributions
+  cum1 <- cumsum(p1)
+  cum2 <- cumsum(p2)
+  
+  # Calculate bin widths (handle non-uniform bins and Inf)
+  bin_widths <- diff(breaks1)
+  # Replace Inf with the previous bin width for last bin
+  if (any(is.infinite(bin_widths))) {
+    last_finite <- max(which(!is.infinite(bin_widths)))
+    bin_widths[is.infinite(bin_widths)] <- bin_widths[last_finite]
+  }
+  
+  if (type == "Wasserstein") {
+    # 1-Wasserstein (Earth Mover's Distance)
+    # For non-uniform bins, weight by bin widths
+    wasserstein_distance <- sum(abs(cum1 - cum2) * bin_widths)
+    return(wasserstein_distance)
+  } else if (type == "CM") {
+    # Alternative: weight by bin widths (less common)
+    cm_distance <- sum((cum1 - cum2)^2 * bin_widths)
+    return(cm_distance)
   } else if (type == "Jeff") {
-    # Compute Jeffrey Divergence
-    temp_1 <- counts1 > 0
-    temp_2 <- counts2 > 0
-    temp_3 <- temp_1 & temp_2
-    kl1 <- sum(counts1[temp_3] * log(counts1[temp_3] / counts2[temp_3]))
-    kl2 <- sum(counts2[temp_3] * log(counts2[temp_3] / counts1[temp_3]))
-
+    # Jeffrey Divergence (symmetric KL divergence)
+    # Only compute where both distributions are non-zero
+    idx <- (p1 > 0) & (p2 > 0)
+    if (sum(idx) == 0) {
+      warning("No overlapping support between distributions")
+      return(Inf)
+    }
+    kl1 <- sum(p1[idx] * log(p1[idx] / p2[idx]))
+    kl2 <- sum(p2[idx] * log(p2[idx] / p1[idx]))
     jeffrey_divergence <- kl1 + kl2
     return(jeffrey_divergence)
   } else if (type == "chi2") {
-    # Compute Chi-squared distance
-    temp_2 <- counts2 > 0
-    chi2_distance <- ((counts1[temp_2] - counts2[temp_2])^2) / counts2[temp_2]
-    return(sum(chi2_distance))
+    # Chi-squared distance
+    idx <- p2 > 0
+    chi2_distance <- sum((p1[idx] - p2[idx])^2 / p2[idx])
+    return(chi2_distance)
   } else if (type == "euclidean") {
-    # Compute Euclidean distance
-    euclidian_distance <- sqrt(sum((counts1 - counts2)^2))
-    return(euclidian_distance)
-  } else if (type == "CM") {
-    # Cramér-von Mises: weight by bin width
-    cum1 <- cumsum(counts1)
-    cum2 <- cumsum(counts2)
-    cm_distance <- bin_width * sum((cum1 - cum2)^2)
-    return(cm_distance)
-  } else if (type == "Wasserstein") {
-    # Wasserstein: weight by bin width
-    cum1 <- cumsum(counts1)
-    cum2 <- cumsum(counts2)
-    wasserstein_distance <- bin_width * sum(abs(cum1 - cum2))
-    return(wasserstein_distance)
+    # Euclidean distance on probability distributions
+    euclidean_distance <- sqrt(sum((p1 - p2)^2))
+    return(euclidean_distance)
+  } else if (type == "Histogram-Divergence") {
+    # Histogram intersection (similarity, not distance)
+    intersection <- sum(pmin(p1, p2))
+    return(1 - intersection)  # Convert to distance
   } else {
-    stop("Unsupported distance type")
+    stop("Unsupported distance type: ", type)
   }
 }
 
