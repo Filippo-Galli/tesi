@@ -78,7 +78,9 @@ point_estimate <- readRDS(file = paste0(folder, "point_estimate.rds"))
 # Extract the pattern after "real_data_" and before the next "_"
 states <- parts[3] # state/regions abbreviation
 
-puma_ids <- sf::st_read(paste0("input/", states, "/counties-pumas/counties-pumas.shp"), quiet = TRUE)[["PUMA"]]
+# Comuni uses COD_MUN, PUMAs use PUMA as the ID column
+id_col <- if (states == "Comuni") "COD_MUN" else "PUMA"
+puma_ids <- sf::st_read(paste0("input/", states, "/counties-pumas/counties-pumas.shp"), quiet = TRUE)[[id_col]]
 # plot_map_prior_mean(
 #   unit_ids = puma_ids,
 #   puma_dir = paste0("input/", states, "/counties-pumas"),
@@ -87,18 +89,19 @@ puma_ids <- sf::st_read(paste0("input/", states, "/counties-pumas/counties-pumas
 #   folder = folder
 # )
 
-# plot_map_cls(
-#   results = results,
-#   BI = BI,
-#   point_estimate = point_estimate,
-#   unit_ids = puma_ids,
-#   puma_dir = paste0("input/", states, "/counties-pumas"),
-#   save = TRUE, folder = folder
-# )
-
-plot_hist_cls_comuni(
+plot_map_cls(
   results = results,
   BI = BI,
   point_estimate = point_estimate,
-  save = TRUE, folder = folder,
+  unit_ids = puma_ids,
+  puma_dir = paste0("input/", states, "/counties-pumas"),
+  id_col = id_col,
+  save = TRUE, folder = folder
 )
+
+# plot_hist_cls_comuni(
+#   results = results,
+#   BI = BI,
+#   point_estimate = point_estimate,
+#   save = TRUE, folder = folder,
+# )
