@@ -18,6 +18,12 @@ cat("  - Loaded geometry.rds\n")
 W <- as.matrix(read.csv("input/Comuni/adj_matrix.csv", row.names = 1))
 cat("  - Loaded adj_matrix.csv:", nrow(W), "x", ncol(W), "\n")
 
+if (!isSymmetric(W)) {
+  warning("Adjacency matrix W is not symmetric!")
+} else {
+  cat("  - Adjacency matrix W is symmetric\n")
+}
+
 cat("Data loading completed successfully!\n")
 
 ##############################################################################
