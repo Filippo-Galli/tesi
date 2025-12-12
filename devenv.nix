@@ -30,16 +30,16 @@ in
   # -ftree-vectorize: auto-vectorize loops (SIMD)
   # -flto: link-time optimization
   env.CXX_STD = "CXX23";
-  env.PKG_CXXFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto";
-  env.CXXFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto";
-  env.PKG_CFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto";
+  env.PKG_CXXFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
+  env.CXXFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
+  env.PKG_CFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
 
   # Eigen specific flags
   env.PKG_CXXFLAGS_EIGEN = "-DEIGEN_NO_DEBUG -DEIGEN_DONT_PARALLELIZE";
 
   # Linker flags for optimization and OpenMP
-  env.PKG_LIBS = "-L${openblas}/lib -lopenblas -flto=auto";
-  env.LDFLAGS = "-L${openblas}/lib -lopenblas -flto=auto";
+  env.PKG_LIBS = "-L${openblas}/lib -lopenblas -flto=auto -fopenmp";
+  env.LDFLAGS = "-L${openblas}/lib -lopenblas -flto=auto -fopenmp";
 
   # Set R environment variables
   env.R_LIBS_USER = "${config.env.DEVENV_STATE}/R";
@@ -125,6 +125,8 @@ in
     pkgs.rPackages.cluster
     pkgs.rPackages.reshape2
     pkgs.rPackages.label_switching
+    pkgs.rPackages.survival
+    pkgs.rPackages.glmnet
 
     # Documentation
     pkgs.doxygen
@@ -239,39 +241,39 @@ in
   '';
 
   enterShell = ''
-    setup-clangd
+        setup-clangd
 
-    # Create containers config directory
-    mkdir -p ~/.config/containers
-    
-    # Create a simple permissive policy.json
-    cat > ~/.config/containers/policy.json << 'EOF'
-{
-  "default": [
+        # Create containers config directory
+        mkdir -p ~/.config/containers
+        
+        # Create a simple permissive policy.json
+        cat > ~/.config/containers/policy.json << 'EOF'
     {
-      "type": "insecureAcceptAnything"
+      "default": [
+        {
+          "type": "insecureAcceptAnything"
+        }
+      ]
     }
-  ]
-}
-EOF
+    EOF
 
-    echo ""
-    echo "🚀 R + C++ + Spatial development environment is ready for VS Code!"
-    echo "   - httpgd: Plot viewing"
-    echo "   - languageserver: IntelliSense and code completion"
-    echo "   - salso: Modern clustering analysis"
-    echo "   - sf/s2/units: Spatial data analysis"
-    echo "   - spdep: Spatial dependence analysis"
-    echo "   - clangd: C++ LSP with correct R/Rcpp paths"
-    echo "   - OpenMP: Parallel computing support enabled"
-    echo ""
-    echo "💡 Run 'install-mcclust-ext' to install mcclust.ext"
-    echo "💡 Run 'clean_o_files' to delete all .o files <=> recompile all"
-    echo "💡 Run 'test-spatial' to verify spatial package installations"
-    echo "💡 Run 'test-openmp' to verify OpenMP is working"
-    echo "💡 Run 'check-r-packages' to check all R packages"
-    echo "💡 Run 'r-setup' to display environment paths"
-    echo ""
+        echo ""
+        echo "🚀 R + C++ + Spatial development environment is ready for VS Code!"
+        echo "   - httpgd: Plot viewing"
+        echo "   - languageserver: IntelliSense and code completion"
+        echo "   - salso: Modern clustering analysis"
+        echo "   - sf/s2/units: Spatial data analysis"
+        echo "   - spdep: Spatial dependence analysis"
+        echo "   - clangd: C++ LSP with correct R/Rcpp paths"
+        echo "   - OpenMP: Parallel computing support enabled"
+        echo ""
+        echo "💡 Run 'install-mcclust-ext' to install mcclust.ext"
+        echo "💡 Run 'clean_o_files' to delete all .o files <=> recompile all"
+        echo "💡 Run 'test-spatial' to verify spatial package installations"
+        echo "💡 Run 'test-openmp' to verify OpenMP is working"
+        echo "💡 Run 'check-r-packages' to check all R packages"
+        echo "💡 Run 'r-setup' to display environment paths"
+        echo ""
   '';
 
   languages.r.enable = true;

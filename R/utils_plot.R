@@ -762,7 +762,13 @@ plot_hist_cls_pumas <- function(results, BI, input_dir = "input/CA/", point_esti
       cat("Range of means:", range(puma_means), "\n")
     } else {
       clusters <- point_estimate
-      data_split <- split(data, as.factor(clusters))
+      # Group data by cluster using indices (split() doesn't work well with lists)
+      data_split <- lapply(unique_clusters, function(cl) {
+        idx <- which(clusters == cl)
+        data[idx]
+      })
+      names(data_split) <- as.character(unique_clusters)
+
       op <- graphics::par(no.readonly = TRUE)
       on.exit(graphics::par(op), add = TRUE)
 
@@ -789,7 +795,23 @@ plot_hist_cls_pumas <- function(results, BI, input_dir = "input/CA/", point_esti
         for (cl in batch_clusters) {
           cluster_data <- data_split[[cl]]
           n_pumas <- length(cluster_data)
-          combined_data <- unlist(cluster_data)
+          combined_data <- unlist(cluster_data, use.names = FALSE)
+
+          # Ensure data is numeric
+          if (!is.numeric(combined_data)) {
+            combined_data <- as.numeric(combined_data)
+          }
+          # Remove NA values
+          combined_data <- combined_data[!is.na(combined_data)]
+
+          # Skip if no valid data
+          if (length(combined_data) == 0) {
+            cat("\nCluster", cl, ": No valid numeric data, skipping...\n")
+            plot.new()
+            title(main = paste("Cluster", cl, "\n(No valid data)"))
+            next
+          }
+
           # Use consistent cluster colors with transparency
           cl_color <- adjustcolor(cluster_colors[cl], alpha.f = 0.7)
           hist(combined_data,
@@ -837,7 +859,22 @@ plot_hist_cls_pumas <- function(results, BI, input_dir = "input/CA/", point_esti
           for (cl in batch_clusters) {
             cluster_data <- data_split[[cl]]
             n_pumas <- length(cluster_data)
-            combined_data <- unlist(cluster_data)
+            combined_data <- unlist(cluster_data, use.names = FALSE)
+
+            # Ensure data is numeric
+            if (!is.numeric(combined_data)) {
+              combined_data <- as.numeric(combined_data)
+            }
+            # Remove NA values
+            combined_data <- combined_data[!is.na(combined_data)]
+
+            # Skip if no valid data
+            if (length(combined_data) == 0) {
+              plot.new()
+              title(main = paste("Cluster", cl, "\n(No valid data)"))
+              next
+            }
+
             cl_color <- adjustcolor(cluster_colors[cl], alpha.f = 0.7)
             hist(combined_data,
               breaks = 30,
@@ -914,12 +951,12 @@ plot_hist_cls_comuni <- function(results, BI, input_dir = "input/Comuni/", point
   # Identify income bracket columns (columns starting with X followed by digits)
   all_cols <- colnames(data)
   income_columns <- all_cols[grep("^X[0-9]", all_cols)]
-  
+
   # Remove X0. if X0.10000 exists (avoid double counting)
   if ("X0." %in% income_columns && "X0.10000" %in% income_columns) {
     income_columns <- income_columns[income_columns != "X0."]
   }
-  
+
   if (length(income_columns) == 0) {
     stop("Could not detect income bracket columns in the data")
   }
@@ -929,9 +966,13 @@ plot_hist_cls_comuni <- function(results, BI, input_dir = "input/Comuni/", point
   # Extract bin breaks from column names (lower bound of each bracket)
   bin_breaks_lower <- sapply(income_columns, function(col) {
     nums <- as.numeric(unlist(regmatches(col, gregexpr("[0-9]+", col))))
-    if (length(nums) > 0) return(nums[1]) else return(NA)
+    if (length(nums) > 0) {
+      return(nums[1])
+    } else {
+      return(NA)
+    }
   })
-  
+
   # Create midpoints for each bracket (one per income column)
   bin_mids <- numeric(n_brackets)
   for (i in seq_len(n_brackets)) {
@@ -944,24 +985,26 @@ plot_hist_cls_comuni <- function(results, BI, input_dir = "input/Comuni/", point
     }
     bin_mids[i] <- (lower + upper) / 2
   }
-  
+
   # Create better labels for x-axis with k suffix for thousands
   bracket_labels <- sapply(seq_along(bin_breaks_lower), function(i) {
     lower <- bin_breaks_lower[i]
-    if (is.na(lower)) return("?")
-    
+    if (is.na(lower)) {
+      return("?")
+    }
+
     # Format with k for thousands
     if (lower >= 1000) {
-      lower_label <- paste0(round(lower/1000), "k")
+      lower_label <- paste0(round(lower / 1000), "k")
     } else {
       lower_label <- as.character(lower)
     }
-    
+
     # Add upper bound for clarity
     if (i < length(bin_breaks_lower)) {
       upper <- bin_breaks_lower[i + 1]
       if (upper >= 1000) {
-        upper_label <- paste0(round(upper/1000), "k")
+        upper_label <- paste0(round(upper / 1000), "k")
       } else {
         upper_label <- as.character(upper)
       }
@@ -1014,20 +1057,20 @@ plot_hist_cls_comuni <- function(results, BI, input_dir = "input/Comuni/", point
         # Get comuni indices in this cluster
         cluster_idx <- which(point_estimate == cl)
         n_comuni <- length(cluster_idx)
-        
+
         # Aggregate counts across all comuni in this cluster
         aggregated_counts <- colSums(income_matrix[cluster_idx, , drop = FALSE], na.rm = TRUE)
         total_count <- sum(aggregated_counts)
-        
+
         # Compute density (normalized counts)
         density_vals <- aggregated_counts / total_count
-        
+
         # Compute weighted mean income for this cluster
         mean_income <- sum(bin_mids * aggregated_counts) / total_count
-        
+
         # Use consistent cluster colors with transparency
         cl_color <- adjustcolor(cluster_colors[as.character(cl)], alpha.f = 0.7)
-        
+
         # Create barplot (histogram-style)
         bp <- barplot(density_vals,
           names.arg = NULL,
@@ -1037,9 +1080,9 @@ plot_hist_cls_comuni <- function(results, BI, input_dir = "input/Comuni/", point
           col = cl_color,
           border = "white",
           space = 0,
-          xaxt = "n"  # Suppress default x-axis
+          xaxt = "n" # Suppress default x-axis
         )
-        
+
         # Add x-axis labels with better spacing
         # Show every label if <= 8 brackets, otherwise show every other label
         if (n_brackets <= 8) {
@@ -1047,9 +1090,11 @@ plot_hist_cls_comuni <- function(results, BI, input_dir = "input/Comuni/", point
         } else {
           label_indices <- seq(1, n_brackets, by = 2)
         }
-        
-        axis(1, at = bp[label_indices], labels = bracket_labels[label_indices], 
-             las = 2, cex.axis = 0.65, padj = 0.5)
+
+        axis(1,
+          at = bp[label_indices], labels = bracket_labels[label_indices],
+          las = 2, cex.axis = 0.65, padj = 0.5
+        )
         mtext("Income Bracket (€)", side = 1, line = 4.5, cex = 0.7)
 
         cat("\nCluster", cl, "statistics:\n")
@@ -1088,7 +1133,7 @@ plot_hist_cls_comuni <- function(results, BI, input_dir = "input/Comuni/", point
           density_vals <- aggregated_counts / total_count
           mean_income <- sum(bin_mids * aggregated_counts) / total_count
           cl_color <- adjustcolor(cluster_colors[as.character(cl)], alpha.f = 0.7)
-          
+
           bp <- barplot(density_vals,
             names.arg = NULL,
             main = paste("Cluster", cl, "\n(n =", n_comuni, "comuni)"),
@@ -1099,18 +1144,20 @@ plot_hist_cls_comuni <- function(results, BI, input_dir = "input/Comuni/", point
             space = 0,
             xaxt = "n"
           )
-          
+
           # Show labels based on number of brackets
           if (n_brackets <= 8) {
             label_indices <- seq_along(bracket_labels)
           } else {
             label_indices <- seq(1, n_brackets, by = 2)
           }
-          
-          axis(1, at = bp[label_indices], labels = bracket_labels[label_indices], 
-               las = 2, cex.axis = 0.65, padj = 0.5)
+
+          axis(1,
+            at = bp[label_indices], labels = bracket_labels[label_indices],
+            las = 2, cex.axis = 0.65, padj = 0.5
+          )
           mtext("Income Bracket (€)", side = 1, line = 4.5, cex = 0.7)
-          
+
           legend("topright",
             legend = c(
               paste("Mean:", format(round(mean_income, 0), big.mark = ",")),
