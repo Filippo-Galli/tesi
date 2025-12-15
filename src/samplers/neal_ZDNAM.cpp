@@ -214,7 +214,7 @@ void Neal3ZDNAM::step_1_observation(int index) {
   // Compute for potential new cluster
   log_likelihoods[data.get_K()] =
       likelihood.point_loglikelihood_cond(index, data.get_K());
-  log_likelihoods[data.get_K()] += process.gibbs_prior_new_cluster();
+  log_likelihoods[data.get_K()] += process.gibbs_prior_new_cluster_obs(index);
 
   // Step 4: Sample new assignment using ZDNAM
   // Pass current_cluster to enable zero self-transition

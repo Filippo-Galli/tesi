@@ -832,7 +832,7 @@ plot_hist_cls_pumas <- function(results, BI, input_dir = "input/CA/", point_esti
           cat("  Mean:", mean(combined_data), "\n")
           cat("  SD:", sd(combined_data), "\n")
 
-          legend("topleft",
+          legend("topright",
             legend = c(
               paste("Mean:", round(mean(combined_data), 2)),
               paste("SD:", round(sd(combined_data), 2)),
@@ -888,7 +888,7 @@ plot_hist_cls_pumas <- function(results, BI, input_dir = "input/CA/", point_esti
             if (length(unique(combined_data)) > 1) {
               lines(density(combined_data), col = "black", lwd = 2)
             }
-            legend("topleft",
+            legend("topright",
               legend = c(
                 paste("Mean:", round(mean(combined_data), 2)),
                 paste("SD:", round(sd(combined_data), 2)),

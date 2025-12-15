@@ -126,6 +126,23 @@ public:
    */
   virtual double gibbs_prior_new_cluster() const = 0;
 
+  /**
+   * @brief Compute prior probability for creating a new cluster for a specific
+   * observation.
+   *
+   * @param obs_idx Index of the observation being (re)assigned.
+   * @return Log prior probability of assigning obs_idx to a new cluster.
+   *
+   * @details
+   * Some models (e.g., PPMx covariate similarity) add an observation-dependent
+   * term to the "new cluster" option. By default, this falls back to the
+   * observation-agnostic prior returned by gibbs_prior_new_cluster().
+   */
+  virtual double gibbs_prior_new_cluster_obs(int obs_idx) const {
+    (void)obs_idx;
+    return gibbs_prior_new_cluster();
+  }
+
   // ========== Split-Merge Algorithm Methods ==========
 
   /**
