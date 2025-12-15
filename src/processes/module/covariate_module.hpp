@@ -1,3 +1,8 @@
+/**
+ * @file covariate_module.hpp
+ * @brief Covariate-related computations for clustering processes.
+ */
+
 #pragma once
 
 #include "../../utils/Data.hpp"

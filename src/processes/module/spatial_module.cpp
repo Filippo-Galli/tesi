@@ -1,3 +1,8 @@
+/**
+ * @file spatial_module.cpp
+ * @brief Implementation of `SpatialModule`.
+ */
+
 #include "spatial_module.hpp"
 
 int SpatialModule::get_neighbors_obs(int obs_idx, int cls_idx) const {

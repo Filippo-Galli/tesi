@@ -1,8 +1,18 @@
+/**
+* @file Covariates.hpp
+* @brief Covariates data structure for clustering processes.
+*/
+
 #pragma once
 
 #include <Eigen/Dense>
 #include <Rcpp.h>
 #include <RcppEigen.h>
+
+/**
+ * @struct Covariates
+ * @brief Data structure to hold covariate information for clustering.
+ */
 
 struct Covariates {
   

@@ -1,3 +1,8 @@
+/**
+* @file covariate_module.cpp
+* @brief Implementation of `CovariatesModule`.
+*/
+
 #include "covariate_module.hpp"
 
 #include <cmath>

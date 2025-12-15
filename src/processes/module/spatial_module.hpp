@@ -1,3 +1,8 @@
+/**
+ * @file spatial_module.hpp
+ * @brief Spatial helper methods for clustering processes.
+ */
+
 #pragma once
 
 #include "../../utils/Data.hpp"

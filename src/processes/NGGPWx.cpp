@@ -1,3 +1,8 @@
+/**
+* @file NGGPWx.cpp
+* @brief Implementation of `NGGPWx` process.
+*/
+
 #include "./NGGPWx.hpp"
 
 double NGGPWx::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) const {
