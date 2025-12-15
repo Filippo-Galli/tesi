@@ -23,7 +23,8 @@
 // #include "processes/DP.hpp"
 // #include "processes/DPW.hpp"
 // #include "processes/NGGP.hpp"
-#include "processes/NGGPW.hpp"
+// #include "processes/NGGPW.hpp"
+#include "processes/NGGPWx.hpp"
 
 #include "samplers/U_sampler/RWMH.hpp"
 //#include "samplers/U_sampler/MALA.hpp"
@@ -62,11 +63,14 @@ RCPP_MODULE(params_module) {
       .field("D", &Params::D, "Distance matrix between points");
   
   Rcpp::class_<Covariates>("Covariates")
-      .constructor<Eigen::MatrixXi, double, Eigen::VectorXi>("Constructor covariates with all parameters")
+      .constructor<Eigen::MatrixXi, double, Eigen::VectorXi, double, double, double>("Constructor covariates with all parameters")
       .constructor("Default constructor")
       .field("W", &Covariates::W, "Adjacency matrix defining spatial neighborhood structure")
       .field("spatial_coefficient", &Covariates::spatial_coefficient, "Coefficient controlling the strength of spatial dependency")
-      .field("ages", &Covariates::ages, "Ages list");
+      .field("ages", &Covariates::ages, "Ages list")
+      .field("B", &Covariates::B, "Prior variance of the means")
+      .field("m", &Covariates::m, "Prior mean of the means")
+      .field("v", &Covariates::v, "Prior variance of the covariates effect");
 }
 
 /**
@@ -130,7 +134,8 @@ mcmc(Params &param,
   //DP process(data, param);      // Dirichlet Process
   //DPW process(data, param, covariates);     // Dirichlet Process with Weights
   //NGGP process(data, param, U_sampler);    // Normalized Generalized Gamma Process
-  NGGPW process(data, param, covariates, U_sampler); // Normalized Generalized Gamma Process with Weights
+  //NGGPW process(data, param, covariates, U_sampler); // Normalized Generalized Gamma Process with Weights
+  NGGPWx process(data, param, covariates, U_sampler); // NGGP with Weights and Covariates
 
   // Initialize sampling algorithms
   Neal3 gibbs(data, param, likelihood,process); // Gibbs sampler (Neal Algorithm 3)

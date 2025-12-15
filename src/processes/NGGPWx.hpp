@@ -1,74 +1,15 @@
-/**
- * @file NGGPW.hpp
- * @brief Normalized Generalized Gamma Process with spatial weights (NGGPW)
- * implementation for spatially-aware Bayesian nonparametric clustering.
- */
-
 #pragma once
 
-#include "../samplers/U_sampler/U_sampler.hpp"
-#include "../utils/Process.hpp"
-#include "module/spatial_module.hpp"
+#include "NGGPW.hpp"
+#include "module/covariate_module.hpp"
 
-/**
- * @class NGGPW
- * @brief Normalized Generalized Gamma Process with spatial Weights class for
- * spatially-aware Bayesian nonparametric clustering.
- *
- * This class extends the Normalized Generalized Gamma Process (NGGP) to
- * incorporate spatial information through an adjacency matrix W. It combines
- * the flexibility of the NGGP in modeling cluster sizes with spatial
- * dependencies between observations.
- */
-class NGGPW : public Process, protected SpatialModule {
-
-protected:
-  /**
-   * @name Private Member Variables
-   * @{
-   */
-
-  /**
-   * @brief Reference to the U_sampler instance for updating the latent variable
-   * U.
-   *
-   * This can be any derived class of U_sampler (e.g., RWMH or MALA) that
-   * implements the MCMC algorithm for sampling U from its conditional
-   * distribution.
-   */
-  U_sampler &U_sampler_method;
-  /** @} */
-
-  /**
-   * @name Random Number Generation
-   * @{
-   */
-
-  /** @brief Random device for seeding. */
-  std::random_device rd;
-
-  /** @brief Mersenne Twister random number generator. */
-  mutable std::mt19937 gen;
-
-  /** @} */
-
+class NGGPWx : public NGGPW, protected CovariatesModule {
 public:
-  /**
-   * @brief Constructor for the Normalized Generalized Gamma Process with
-   * spatial Weights.
-   * @param d Reference to the data object containing observations and cluster
-   * assignments.
-   * @param p Reference to the parameters object containing NGGP parameters (a,
-   * sigma, tau) and spatial information (W, coefficient).
-   * @param mh Reference to a U_sampler instance (e.g., RWMH or MALA) for
-   * updating the latent variable U via MCMC.
-   */
-  NGGPW(Data &d, Params &p, Covariates &c, U_sampler &mh)
-      : Process(d, p), SpatialModule(c, d,
-                                     [this]() -> const Eigen::VectorXi & {
-                                       return this->old_allocations_view();
-                                     }),
-        U_sampler_method(mh), gen(rd()) {};
+  NGGPWx(Data &d, Params &p, Covariates &cov, U_sampler &U_sam)
+      : NGGPW(d, p, cov, U_sam),
+        CovariatesModule(cov, d, [this]() -> const Eigen::VectorXi & {
+          return this->old_allocations_view();
+        }) {}
 
   /**
    * @name Gibbs Sampling Methods
@@ -111,6 +52,12 @@ public:
    * cluster.
    */
   [[nodiscard]] double gibbs_prior_new_cluster() const override;
+
+  /**
+   * @brief Observation-specific new-cluster prior including covariate singleton
+   * similarity.
+   */
+  [[nodiscard]] double gibbs_prior_new_cluster_obs(int obs_idx) const override;
 
   /** @} */
 
@@ -178,7 +125,7 @@ public:
    *
    * @see U_sampler::update_U(), RWMH::update_U(), MALA::update_U()
    */
-  void update_params() override { U_sampler_method.update_U(); };
+  void update_params() override { NGGPW::U_sampler_method.update_U(); };
 
   /** @} */
 };
