@@ -23,98 +23,96 @@
  */
 class SpatialModule {
 protected:
-  /**
-   * @brief Cache storing neighbor indices for each observation.
-   *
-   * neighbor_cache[i] contains a vector of indices j where W(i,j) == 1.
-   * This avoids repeatedly scanning the full adjacency matrix during MCMC
-   * sampling.
-   */
-  std::vector<std::vector<int>> neighbor_cache;
+    /**
+     * @brief Cache storing neighbor indices for each observation.
+     *
+     * neighbor_cache[i] contains a vector of indices j where W(i,j) == 1.
+     * This avoids repeatedly scanning the full adjacency matrix during MCMC
+     * sampling.
+     */
+    std::vector<std::vector<int>> neighbor_cache;
 
-  /**
-   * @brief Precomputes and stores neighbor indices for all observations.
-   *
-   * This method initializes neighbor_cache by extracting non-zero entries
-   * from each row of the adjacency matrix W. Called once during construction
-   * to enable O(neighbors) instead of O(N) lookup time.
-   */
-  void neighbor_cache_compute();
+    /**
+     * @brief Precomputes and stores neighbor indices for all observations.
+     *
+     * This method initializes neighbor_cache by extracting non-zero entries
+     * from each row of the adjacency matrix W. Called once during construction
+     * to enable O(neighbors) instead of O(N) lookup time.
+     */
+    void neighbor_cache_compute();
 
-  /**
-   * @name Spatial Methods
-   * @{
-   */
+    /**
+     * @name Spatial Methods
+     * @{
+     */
 
-  const Covariates &covariates_module; ///< Reference to parameter object containing adjacency matrix W
-  const Data &data_module; ///< Reference to data object with cluster assignments
+    const Covariates &covariates_module; ///< Reference to parameter object containing adjacency matrix W
+    const Data &data_module;             ///< Reference to data object with cluster assignments
 
-  /**
-   * @brief Provider function for accessing old allocation state.
-   *
-   * Used when computing neighbor counts based on previous cluster assignments
-   * (e.g., in split-merge algorithms).
-   */
-  std::function<const Eigen::VectorXi &()> old_allocations_provider;
+    /**
+     * @brief Provider function for accessing old allocation state.
+     *
+     * Used when computing neighbor counts based on previous cluster assignments
+     * (e.g., in split-merge algorithms).
+     */
+    std::function<const Eigen::VectorXi &()> old_allocations_provider;
 
-  /**
-   * @brief Counts neighbors of an observation within a specific cluster.
-   *
-   * Uses the cached neighbor list to efficiently count how many neighbors
-   * of observation obs_idx belong to cluster cls_idx.
-   *
-   * @param obs_idx The index of the observation (0 to N-1).
-   * @param cls_idx The index of the cluster to consider for neighbor counting.
-   * @return The number of neighbors for the observation in the specified
-   * cluster.
-   */
-  int get_neighbors_obs(int obs_idx, int cls_idx) const;
+    /**
+     * @brief Counts neighbors of an observation within a specific cluster.
+     *
+     * Uses the cached neighbor list to efficiently count how many neighbors
+     * of observation obs_idx belong to cluster cls_idx.
+     *
+     * @param obs_idx The index of the observation (0 to N-1).
+     * @param cls_idx The index of the cluster to consider for neighbor counting.
+     * @return The number of neighbors for the observation in the specified
+     * cluster.
+     */
+    int get_neighbors_obs(int obs_idx, int cls_idx) const;
 
-  /**
-   * @brief Counts neighbors of an observation grouped by cluster membership.
-   *
-   * Returns a vector where element k contains the number of neighbors of
-   * obs_idx that belong to cluster k.
-   *
-   * @param obs_idx The index of the observation (0 to N-1).
-   * @return A K-dimensional vector of neighbor counts per cluster.
-   */
-  Eigen::VectorXi get_neighbors_obs(int obs_idx) const;
+    /**
+     * @brief Counts neighbors of an observation grouped by cluster membership.
+     *
+     * Returns a vector where element k contains the number of neighbors of
+     * obs_idx that belong to cluster k.
+     *
+     * @param obs_idx The index of the observation (0 to N-1).
+     * @return A K-dimensional vector of neighbor counts per cluster.
+     */
+    Eigen::VectorXi get_neighbors_obs(int obs_idx) const;
 
-  /**
-   * @brief Counts internal edges within a cluster.
-   *
-   * Computes the number of edges where both endpoints belong to the specified
-   * cluster. This is calculated as: (1/2) * sum_{i,j in cluster} W(i,j).
-   * The division by 2 accounts for the symmetry of W (each edge counted twice).
-   *
-   * @param cls_idx The index of the cluster (0 to K-1).
-   * @param old_allo If true, uses old allocations from
-   * old_allocations_provider; if false, uses current allocations from
-   * data_module (default: false).
-   * @return The total number of internal edges in the cluster.
-   */
-  int get_neighbors_cls(int cls_idx, bool old_allo = false) const;
-  /** @} */
+    /**
+     * @brief Counts internal edges within a cluster.
+     *
+     * Computes the number of edges where both endpoints belong to the specified
+     * cluster. This is calculated as: (1/2) * sum_{i,j in cluster} W(i,j).
+     * The division by 2 accounts for the symmetry of W (each edge counted twice).
+     *
+     * @param cls_idx The index of the cluster (0 to K-1).
+     * @param old_allo If true, uses old allocations from
+     * old_allocations_provider; if false, uses current allocations from
+     * data_module (default: false).
+     * @return The total number of internal edges in the cluster.
+     */
+    int get_neighbors_cls(int cls_idx, bool old_allo = false) const;
+    /** @} */
 
 public:
-  /**
-   * @brief Constructs a SpatialModule with parameter and data references.
-   *
-   * Initializes the neighbor cache by calling neighbor_cache_compute().
-   *
-   * @param covariates_ Reference to the Params object containing W adjacency
-   * matrix.
-   * @param data_ Reference to the Data object with cluster assignments.
-   * @param old_alloc_provider Optional function to access old allocations for
-   * split-merge.
-   */
-  SpatialModule(
-      const Covariates &covariates_, const Data &data_,
-      std::function<const Eigen::VectorXi &()> old_alloc_provider = {})
-      : covariates_module(covariates_), data_module(data_),
-        old_allocations_provider(std::move(old_alloc_provider)) {
+    /**
+     * @brief Constructs a SpatialModule with parameter and data references.
+     *
+     * Initializes the neighbor cache by calling neighbor_cache_compute().
+     *
+     * @param covariates_ Reference to the Params object containing W adjacency
+     * matrix.
+     * @param data_ Reference to the Data object with cluster assignments.
+     * @param old_alloc_provider Optional function to access old allocations for
+     * split-merge.
+     */
+    SpatialModule(const Covariates &covariates_, const Data &data_,
+                  std::function<const Eigen::VectorXi &()> old_alloc_provider = {})
+        : covariates_module(covariates_), data_module(data_), old_allocations_provider(std::move(old_alloc_provider)) {
 
-    neighbor_cache_compute();
-  }
+        neighbor_cache_compute();
+    }
 };

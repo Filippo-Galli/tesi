@@ -1,7 +1,7 @@
 /**
-* @file Covariates.hpp
-* @brief Covariates data structure for clustering processes.
-*/
+ * @file Covariates.hpp
+ * @brief Covariates data structure for clustering processes.
+ */
 
 #pragma once
 
@@ -15,7 +15,7 @@
  */
 
 struct Covariates {
-  
+
     /** @brief Adjacency matrix defining spatial neighborhood structure */
     Eigen::MatrixXi W;
 
@@ -29,15 +29,9 @@ struct Covariates {
     double m; // prior mean of the means
     double v; // prior variance of the covariates effect
 
-    Covariates(Eigen::MatrixXi W = Eigen::MatrixXi(), 
-               double spatial_coefficient = 1,
-               Eigen::VectorXi ages = Eigen::VectorXi(), 
-               double B = 1.0, 
-               double m = 0.0, 
-               double v = 1.0) 
-               : W(W), spatial_coefficient(spatial_coefficient), ages(ages), 
-               B(B), m(m), v(v) {}
-
+    Covariates(Eigen::MatrixXi W = Eigen::MatrixXi(), double spatial_coefficient = 1,
+               Eigen::VectorXi ages = Eigen::VectorXi(), double B = 1.0, double m = 0.0, double v = 1.0)
+        : W(W), spatial_coefficient(spatial_coefficient), ages(ages), B(B), m(m), v(v) {}
 };
 
 // Expose Covariates to R

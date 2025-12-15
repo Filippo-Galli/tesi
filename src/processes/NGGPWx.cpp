@@ -1,7 +1,7 @@
 /**
-* @file NGGPWx.cpp
-* @brief Implementation of `NGGPWx` process.
-*/
+ * @file NGGPWx.cpp
+ * @brief Implementation of `NGGPWx` process.
+ */
 
 #include "./NGGPWx.hpp"
 
@@ -29,9 +29,7 @@ Eigen::VectorXd NGGPWx::gibbs_prior_existing_clusters(int obs_idx) const {
     return log_prior;
 }
 
-double NGGPWx::gibbs_prior_new_cluster() const { 
-    return NGGPW::gibbs_prior_new_cluster(); 
-}
+double NGGPWx::gibbs_prior_new_cluster() const { return NGGPW::gibbs_prior_new_cluster(); }
 
 double NGGPWx::gibbs_prior_new_cluster_obs(int obs_idx) const {
     double log_prior = NGGPW::gibbs_prior_new_cluster();
