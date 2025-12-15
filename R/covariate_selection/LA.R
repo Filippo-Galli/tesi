@@ -365,103 +365,159 @@ y_seq <- dnorm(x_seq, mean = mu, sd = sigma)
 lines(x_seq, y_seq, col = "red", lwd = 2)
 
 # Modify LPINCP in the dataset
-all_covariates$LPINCP <- lpincp_values 
+all_covariates$LPINCP <- lpincp_values
 
 ###########################################################################
 # Linear Regression Analysis for Covariate Importance ====
 ###########################################################################
 
-# Remove identifier and weight columns that shouldn't be predictors
-exclude_cols <- c(
-  "LPINCP", "PINCP", # Response variable and its non-log version
-  "RT", "SERIALNO", "STATE_PUMA", # Identifiers
-  "ADJINC",      # Adjustment factor
-  pums_variables$allocation_flags,
-  grep("^PWGTP", covariate_names, value = TRUE) # Person weights
+# # Remove identifier and weight columns that shouldn't be predictors
+# exclude_cols <- c(
+#   "LPINCP", "PINCP", # Response variable and its non-log version
+#   "RT", "SERIALNO", "STATE_PUMA", # Identifiers
+#   "ADJINC",      # Adjustment factor
+#   pums_variables$allocation_flags,
+#   grep("^PWGTP", covariate_names, value = TRUE) # Person weights
+# )
+
+# # Get potential predictors
+# predictors <- setdiff(covariate_names, exclude_cols)
+
+# # Remove columns with zero or near-zero variance (constants or single-level factors)
+# valid_predictors <- sapply(predictors, function(col) {
+#   x <- all_covariates[[col]]
+#   if (is.factor(x) || is.character(x)) {
+#     # For factors/characters: need at least 2 levels
+#     return(length(unique(x)) >= 2)
+#   } else {
+#     # For numeric: need non-zero variance
+#     return(var(x, na.rm = TRUE) > 0)
+#   }
+# })
+# predictors <- predictors[valid_predictors]
+
+# cat("Number of predictors after filtering:", length(predictors), "\n")
+
+# # Fit a linear model with LPINCP as the response variable
+# # and all other covariates as predictors
+# formula_str <- paste("LPINCP ~", paste(predictors, collapse = " + "))
+# lm_model <- lm(as.formula(formula_str), data = all_covariates)
+
+# # Summary of the linear model
+# summary(lm_model)
+
+# # Extract coefficients, standard errors, t-values, and p-values
+# coef_summary <- summary(lm_model)$coefficients
+# coef_df <- as.data.frame(coef_summary)
+# colnames(coef_df) <- c("Estimate", "Std_Error", "t_value", "p_value")
+# coef_df$Covariate <- rownames(coef_df)
+# coef_df <- coef_df[coef_df$Covariate != "(Intercept)", ]
+
+# # Sort by absolute t-value (importance)
+# coef_df <- coef_df[order(abs(coef_df$t_value), decreasing = TRUE), ]
+
+# # Extract variable names from covariate names (removing level suffixes)
+# extract_base_var <- function(covariate_name) {
+#   # Strategy: Remove numeric+letter suffixes that represent levels
+#   # But preserve the base variable name even if it's all caps
+  
+#   # First, handle specific patterns we know about:
+#   # Pattern 1: Variable ends with digits only (e.g., SCHL22 -> SCHL)
+#   # Pattern 2: Variable ends with digits + letters (e.g., NAICSP221MP -> NAICSP, SOCP1110XX -> SOCP)
+  
+#   # Remove suffix that starts with a digit and ends with optional letters
+#   # This preserves base names like SEX, MAR, DIS, etc.
+#   base <- sub("[0-9]+[A-Z]*$", "", covariate_name)
+  
+#   # If we removed everything (variable was all digits), return original
+#   if (base == "" || nchar(base) == 0) {
+#     return(covariate_name)
+#   }
+  
+#   return(base)
+# }
+
+# # Aggregate coefficient results by base variable
+# coef_df$Base_Var <- sapply(coef_df$Covariate, extract_base_var)
+
+# # For each base variable, summarize:
+# var_importance <- coef_df %>%
+#   group_by(Base_Var) %>%
+#   summarise(
+#     Max_t_value = max(abs(t_value)),
+#     Min_p_value = min(p_value),
+#     n_levels = n(),
+#     Avg_t_value = mean(abs(t_value)),
+#     # Add: how many levels are "significant" (though with your sample size, nearly all will be)
+#     n_sig_levels = sum(p_value < 0.05),
+#     .groups = "drop"
+#   ) %>%
+#   arrange(desc(Max_t_value))
+
+# cat("\n=== Top 40 Most Important Variables (Grouped by Base Variable) ===\n")
+# print(head(var_importance, 40), n = 40)
+
+# # Add a note about interpretation
+# cat("\n=== INTERPRETATION NOTES ===\n")
+# cat("1. Max_t_value: Largest |t-value| among all levels of this variable\n")
+# cat("2. Avg_t_value: Average |t-value| across all levels (useful for multi-level variables)\n")
+# cat("3. n_levels: Number of dummy variables for this categorical variable\n")
+# cat("4. With large sample sizes, focus on t-values (effect sizes) rather than p-values\n")
+# cat("5. For multi-level variables (n_levels > 1), consider both Max and Avg t-values\n")
+# cat("6. Partial R² shows unique variance explained (most reliable importance metric)\n")
+
+
+##########################################################################
+# AGEP Analysis ====
+##########################################################################
+
+# Create a dataset of AGEP and PUMA association
+agep_puma_data <- data.frame(
+  AGEP = all_covariates$AGEP,
+  STATE_PUMA = all_covariates$STATE_PUMA
 )
 
-# Get potential predictors
-predictors <- setdiff(covariate_names, exclude_cols)
+agep_puma_data$STATE_PUMA <- as.factor(agep_puma_data$STATE_PUMA)
 
-# Remove columns with zero or near-zero variance (constants or single-level factors)
-valid_predictors <- sapply(predictors, function(col) {
-  x <- all_covariates[[col]]
-  if (is.factor(x) || is.character(x)) {
-    # For factors/characters: need at least 2 levels
-    return(length(unique(x)) >= 2)
-  } else {
-    # For numeric: need non-zero variance
-    return(var(x, na.rm = TRUE) > 0)
-  }
-})
-predictors <- predictors[valid_predictors]
+# Standardize AGEP
+agep_mean <- mean(agep_puma_data$AGEP)
+agep_sd <- sd(agep_puma_data$AGEP)
+agep_puma_data$AGEP_std <- (agep_puma_data$AGEP - agep_mean) / agep_sd
 
-cat("Number of predictors after filtering:", length(predictors), "\n")
-
-# Fit a linear model with LPINCP as the response variable
-# and all other covariates as predictors
-formula_str <- paste("LPINCP ~", paste(predictors, collapse = " + "))
-lm_model <- lm(as.formula(formula_str), data = all_covariates)
-
-# Summary of the linear model
-summary(lm_model)
-
-# Extract coefficients, standard errors, t-values, and p-values
-coef_summary <- summary(lm_model)$coefficients
-coef_df <- as.data.frame(coef_summary)
-colnames(coef_df) <- c("Estimate", "Std_Error", "t_value", "p_value")
-coef_df$Covariate <- rownames(coef_df)
-coef_df <- coef_df[coef_df$Covariate != "(Intercept)", ]
-
-# Sort by absolute t-value (importance)
-coef_df <- coef_df[order(abs(coef_df$t_value), decreasing = TRUE), ]
-
-# Extract variable names from covariate names (removing level suffixes)
-extract_base_var <- function(covariate_name) {
-  # Strategy: Remove numeric+letter suffixes that represent levels
-  # But preserve the base variable name even if it's all caps
-  
-  # First, handle specific patterns we know about:
-  # Pattern 1: Variable ends with digits only (e.g., SCHL22 -> SCHL)
-  # Pattern 2: Variable ends with digits + letters (e.g., NAICSP221MP -> NAICSP, SOCP1110XX -> SOCP)
-  
-  # Remove suffix that starts with a digit and ends with optional letters
-  # This preserves base names like SEX, MAR, DIS, etc.
-  base <- sub("[0-9]+[A-Z]*$", "", covariate_name)
-  
-  # If we removed everything (variable was all digits), return original
-  if (base == "" || nchar(base) == 0) {
-    return(covariate_name)
-  }
-  
-  return(base)
-}
-
-# Aggregate coefficient results by base variable
-coef_df$Base_Var <- sapply(coef_df$Covariate, extract_base_var)
-
-# For each base variable, summarize:
-var_importance <- coef_df %>%
-  group_by(Base_Var) %>%
+# Extract median standardized AGEP per PUMA and order by STATE_PUMA to ensure consistency with adjacency matrix
+puma_agep_std_mean <- agep_puma_data %>%
+  group_by(STATE_PUMA) %>%
   summarise(
-    Max_t_value = max(abs(t_value)),
-    Min_p_value = min(p_value),
-    n_levels = n(),
-    Avg_t_value = mean(abs(t_value)),
-    # Add: how many levels are "significant" (though with your sample size, nearly all will be)
-    n_sig_levels = sum(p_value < 0.05),
+    Mean_AGEP_std = mean(AGEP_std, na.rm = TRUE),
     .groups = "drop"
   ) %>%
-  arrange(desc(Max_t_value))
+  arrange(STATE_PUMA)
 
-cat("\n=== Top 40 Most Important Variables (Grouped by Base Variable) ===\n")
-print(head(var_importance, 40), n = 40)
+# Plot the distribution of median standardized AGEP across PUMAs
+ggplot(puma_agep_std_mean, aes(x = Mean_AGEP_std)) +
+  geom_histogram(binwidth = 0.2, fill = "lightblue", color = "black") +
+  labs(
+    title = "Distribution of Mean Standardized AGEP Across PUMAs",
+    x = "Mean Standardized AGEP",
+    y = "Number of PUMAs"
+  ) +
+  theme_minimal()
 
-# Add a note about interpretation
-cat("\n=== INTERPRETATION NOTES ===\n")
-cat("1. Max_t_value: Largest |t-value| among all levels of this variable\n")
-cat("2. Avg_t_value: Average |t-value| across all levels (useful for multi-level variables)\n")
-cat("3. n_levels: Number of dummy variables for this categorical variable\n")
-cat("4. With large sample sizes, focus on t-values (effect sizes) rather than p-values\n")
-cat("5. For multi-level variables (n_levels > 1), consider both Max and Avg t-values\n")
-cat("6. Partial R² shows unique variance explained (most reliable importance metric)\n")
+# Check ties in mean standardized AGEP values
+agep_ties <- puma_agep_std_mean %>%
+  group_by(Mean_AGEP_std) %>%
+  summarise(
+    Count = n(),
+    .groups = "drop"
+  ) %>%
+  filter(Count > 1)
+
+if (nrow(agep_ties) > 0) {
+  cat("Ties found in Mean Standardized AGEP values:\n")
+  print(agep_ties)
+} else {
+  cat("No ties found in Mean Standardized AGEP values.\n")
+}
+
+# Save the PUMA AGEP summary for later use
+saveRDS(puma_agep_std_mean, file = "real_data/LA/puma_agep_std_mean.rds")

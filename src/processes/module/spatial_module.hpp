@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../utils/Data.hpp"
-#include "../../utils/Params.hpp"
+#include "../../utils/Covariates.hpp"
 #include "Eigen/Dense"
 #include <functional>
 #include <utility>
@@ -41,7 +41,7 @@ protected:
    * @{
    */
 
-  const Params &params_module; ///< Reference to parameter object containing adjacency matrix W
+  const Covariates &covariates_module; ///< Reference to parameter object containing adjacency matrix W
   const Data &data_module; ///< Reference to data object with cluster assignments
 
   /**
@@ -98,16 +98,16 @@ public:
    *
    * Initializes the neighbor cache by calling neighbor_cache_compute().
    *
-   * @param params_ Reference to the Params object containing W adjacency
+   * @param covariates_ Reference to the Params object containing W adjacency
    * matrix.
    * @param data_ Reference to the Data object with cluster assignments.
    * @param old_alloc_provider Optional function to access old allocations for
    * split-merge.
    */
   SpatialModule(
-      const Params &params_, const Data &data_,
+      const Covariates &covariates_, const Data &data_,
       std::function<const Eigen::VectorXi &()> old_alloc_provider = {})
-      : params_module(params_), data_module(data_),
+      : covariates_module(covariates_), data_module(data_),
         old_allocations_provider(std::move(old_alloc_provider)) {
 
     neighbor_cache_compute();

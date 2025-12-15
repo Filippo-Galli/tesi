@@ -30,9 +30,9 @@ public:
    * @param p Reference to the parameters object containing the adjacency matrix
    * W and spatial coefficient.
    */
-  DPW(Data &d, Params &p) 
+  DPW(Data &d, Params &p, Covariates &c) 
     : Process(d, p), 
-      SpatialModule(p, d, [this]() -> const Eigen::VectorXi& { return this->old_allocations; }) {};
+      SpatialModule(c, d, [this]() -> const Eigen::VectorXi& { return this->old_allocations; }) {};
 
   /**
    * @name Gibbs Sampling Methods

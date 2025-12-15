@@ -36,7 +36,7 @@ Eigen::VectorXd DPW::gibbs_prior_existing_clusters(int obs_idx) const {
     const int cluster_size = data.get_cluster_size(k);
     double prior = cluster_size > 0 ? log(cluster_size)
                                     : std::numeric_limits<double>::lowest();
-    priors(k) = prior + params.coefficient * neighbors(k);
+    priors(k) = prior + covariates_module.spatial_coefficient * neighbors(k);
   }
 
   return priors;
@@ -56,7 +56,7 @@ double DPW::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) const {
    */
 
   const int cluster_size = data.get_cluster_size(cls_idx);
-  double prior = params.coefficient * get_neighbors_obs(obs_idx, cls_idx);
+  double prior = covariates_module.spatial_coefficient * get_neighbors_obs(obs_idx, cls_idx);
   prior = cluster_size > 0 ? prior + log(cluster_size)
                            : std::numeric_limits<double>::lowest();
   return prior;
@@ -93,9 +93,9 @@ double DPW::prior_ratio_split(int ci, int cj) const {
   log_acceptance_ratio += (n_cj > 0) ? lgamma(n_cj) : 0;
   log_acceptance_ratio -= (n_ci + n_cj > 0) ? lgamma(n_ci + n_cj) : 0;
 
-  log_acceptance_ratio += params.coefficient * get_neighbors_cls(ci);
-  log_acceptance_ratio += params.coefficient * get_neighbors_cls(cj);
-  log_acceptance_ratio -= params.coefficient * get_neighbors_cls(ci, true);
+  log_acceptance_ratio += covariates_module.spatial_coefficient * get_neighbors_cls(ci);
+  log_acceptance_ratio += covariates_module.spatial_coefficient * get_neighbors_cls(cj);
+  log_acceptance_ratio -= covariates_module.spatial_coefficient * get_neighbors_cls(ci, true);
 
   return log_acceptance_ratio;
 }
@@ -122,11 +122,11 @@ double DPW::prior_ratio_merge(int size_old_ci, int size_old_cj) const {
   // Spatial part
   const int old_ci = old_allocations[idx_i];
   const int old_cj = old_allocations[idx_j];
-  log_acceptance_ratio -= params.coefficient * get_neighbors_cls(old_ci, true);
-  log_acceptance_ratio -= params.coefficient * get_neighbors_cls(old_cj, true);
+  log_acceptance_ratio -= covariates_module.spatial_coefficient * get_neighbors_cls(old_ci, true);
+  log_acceptance_ratio -= covariates_module.spatial_coefficient * get_neighbors_cls(old_cj, true);
 
   const int new_ci = data.get_allocations()[idx_i];
-  log_acceptance_ratio += params.coefficient * get_neighbors_cls(new_ci);
+  log_acceptance_ratio += covariates_module.spatial_coefficient * get_neighbors_cls(new_ci);
 
   return log_acceptance_ratio;
 }
@@ -157,10 +157,10 @@ double DPW::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci,
   log_acceptance_ratio -= (size_old_cj > 0) ? lgamma(size_old_cj) : 0;
 
   // Spatial part
-  log_acceptance_ratio += params.coefficient * get_neighbors_cls(ci);
-  log_acceptance_ratio += params.coefficient * get_neighbors_cls(cj);
-  log_acceptance_ratio -= params.coefficient * get_neighbors_cls(ci, true);
-  log_acceptance_ratio -= params.coefficient * get_neighbors_cls(cj, true);
+  log_acceptance_ratio += covariates_module.spatial_coefficient * get_neighbors_cls(ci);
+  log_acceptance_ratio += covariates_module.spatial_coefficient * get_neighbors_cls(cj);
+  log_acceptance_ratio -= covariates_module.spatial_coefficient * get_neighbors_cls(ci, true);
+  log_acceptance_ratio -= covariates_module.spatial_coefficient * get_neighbors_cls(cj, true);
 
   return log_acceptance_ratio;
 }

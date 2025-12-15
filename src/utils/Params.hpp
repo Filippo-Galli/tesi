@@ -72,14 +72,6 @@ struct Params {
   /** @brief Third parameter of the NGGP (controls tail behavior) */
   double tau;
 
-  // ========== Spatial Dependency Parameters ==========
-
-  /** @brief Coefficient controlling the strength of spatial dependency */
-  double coefficient;
-
-  /** @brief Adjacency matrix defining spatial neighborhood structure */
-  Eigen::MatrixXi W;
-
   /** @brief Distance matrix */
   Eigen::MatrixXd D; 
 
@@ -100,17 +92,16 @@ struct Params {
    * @param a NGGP total mass parameter (default: 1.0)
    * @param sigma NGGP second parameter (default: 1.0)
    * @param tau NGGP third parameter (default: 1.0)
-   * @param coefficient Spatial dependency coefficient (default: 1)
+   * @param spatial_coefficient Spatial dependency spatial_coefficient (default: 1)
    * @param D Distance matrix (default: empty matrix)
-   * @param W Adjacency matrix (default: empty matrix)
    */
   Params(double delta1 = 0.5, double alpha = 2, double beta = 2,
          double delta2 = 2, double gamma = 2, double zeta = 2, int BI = 1000,
          int NI = 10000, double a = 1.0, double sigma = 1.0, double tau = 1.0,
-         double coefficient = 1, Eigen::MatrixXd D = Eigen::MatrixXd(), Eigen::MatrixXi W = Eigen::MatrixXi())
+         Eigen::MatrixXd D = Eigen::MatrixXd())
       : delta1(delta1), alpha(alpha), beta(beta), delta2(delta2), gamma(gamma),
         zeta(zeta), BI(BI), NI(NI), a(a), sigma(sigma), tau(tau),
-        coefficient(coefficient), D(D), W(W) { n = D.rows(); }
+        D(D) { n = D.rows(); }
 };
 
 // Expose Params to R

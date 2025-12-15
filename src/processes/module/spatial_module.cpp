@@ -21,7 +21,7 @@ void SpatialModule::neighbor_cache_compute() {
 
   // For each observation, store indices of its neighbors (where W(i,j) == 1)
   for (int obs_idx = 0; obs_idx < N; ++obs_idx) {
-    Eigen::RowVectorXi row = params_module.W.row(obs_idx);
+    Eigen::RowVectorXi row = covariates_module.W.row(obs_idx);
     neighbor_cache[obs_idx].reserve(row.sum());
 
     for (int j = 0; j < row.size(); ++j) {

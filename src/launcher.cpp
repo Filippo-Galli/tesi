@@ -14,25 +14,24 @@
 // [[Rcpp::depends(RcppEigen)]]
 
 #include "samplers/neal.hpp"
-#include "samplers/neal_ZDNAM.hpp"
-#include "samplers/splitmerge.hpp"
-#include "samplers/splitmerge_SAMS.hpp"
-#include "samplers/splitmerge_LSS.hpp"
+// #include "samplers/neal_ZDNAM.hpp"
+// #include "samplers/splitmerge.hpp"
+// #include "samplers/splitmerge_SAMS.hpp"
+// #include "samplers/splitmerge_LSS.hpp"
 #include "samplers/splitmerge_LSS_SDDS.hpp"
 
-// #include "splitmerge_SDDS.hpp"
-
-#include "processes/DP.hpp"
-#include "processes/DPW.hpp"
-#include "processes/NGGP.hpp"
+// #include "processes/DP.hpp"
+// #include "processes/DPW.hpp"
+// #include "processes/NGGP.hpp"
 #include "processes/NGGPW.hpp"
 
 #include "samplers/U_sampler/RWMH.hpp"
-#include "samplers/U_sampler/MALA.hpp"
+//#include "samplers/U_sampler/MALA.hpp"
 
 #include "utils/Data.hpp"
 #include "likelihoods/Natarajan_likelihood.hpp"
 #include "utils/Params.hpp"
+#include "utils/Covariates.hpp"
 
 #include <chrono>
 
@@ -47,7 +46,7 @@
 RCPP_MODULE(params_module) {
   Rcpp::class_<Params>("Params")
       .constructor<double, double, double, double, double, double, int, int,
-                   double, double, double, double, Eigen::MatrixXd, Eigen::MatrixXi>("Constructor with W matrix")
+                   double, double, double, Eigen::MatrixXd>("Constructor with all parameters")
       .constructor("Default constructor")
       .field("delta1", &Params::delta1, "Parameter for the first gamma")
       .field("alpha", &Params::alpha, "Parameter for the lambda_k gamma")
@@ -60,10 +59,14 @@ RCPP_MODULE(params_module) {
       .field("a", &Params::a, "Total mass")
       .field("sigma", &Params::sigma, "Second parameter of the NGGP")
       .field("tau", &Params::tau, "Third parameter of the NGGP")
-      .field("coefficient", &Params::coefficient,
-             "Coefficient for the spatial dependency")
-      .field("D", &Params::D, "Distance matrix between points")
-      .field("W", &Params::W, "Adjacency matrix for the points");
+      .field("D", &Params::D, "Distance matrix between points");
+  
+  Rcpp::class_<Covariates>("Covariates")
+      .constructor<Eigen::MatrixXi, double, Eigen::VectorXi>("Constructor covariates with all parameters")
+      .constructor("Default constructor")
+      .field("W", &Covariates::W, "Adjacency matrix defining spatial neighborhood structure")
+      .field("spatial_coefficient", &Covariates::spatial_coefficient, "Coefficient controlling the strength of spatial dependency")
+      .field("ages", &Covariates::ages, "Ages list");
 }
 
 /**
@@ -100,7 +103,8 @@ RCPP_MODULE(params_module) {
 // [[Rcpp::export]]
 Rcpp::List
 mcmc(Params &param,
-     const Rcpp::IntegerVector &initial_allocations_r = Rcpp::IntegerVector()) {
+    Covariates &covariates,
+    const Rcpp::IntegerVector &initial_allocations_r = Rcpp::IntegerVector()) {
 
   std::ios::sync_with_stdio(false); // Disable synchronization for faster I/O and non-blocking output
   
@@ -124,9 +128,9 @@ mcmc(Params &param,
   // Initialize the Bayesian non-parametric process
   // Uncomment the desired process type:
   //DP process(data, param);      // Dirichlet Process
-  //DPW process(data, param);     // Dirichlet Process with Weights
+  //DPW process(data, param, covariates);     // Dirichlet Process with Weights
   //NGGP process(data, param, U_sampler);    // Normalized Generalized Gamma Process
-  NGGPW process(data,param, U_sampler); // Normalized Generalized Gamma Process with Weights
+  NGGPW process(data, param, covariates, U_sampler); // Normalized Generalized Gamma Process with Weights
 
   // Initialize sampling algorithms
   Neal3 gibbs(data, param, likelihood,process); // Gibbs sampler (Neal Algorithm 3)

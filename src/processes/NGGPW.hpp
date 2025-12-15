@@ -63,8 +63,8 @@ public:
    * @param mh Reference to a U_sampler instance (e.g., RWMH or MALA) for
    * updating the latent variable U via MCMC.
    */
-  NGGPW(Data &d, Params &p, U_sampler &mh)
-      : Process(d, p), SpatialModule(p, d,
+  NGGPW(Data &d, Params &p, Covariates &c, U_sampler &mh)
+      : Process(d, p), SpatialModule(c, d,
                                      [this]() -> const Eigen::VectorXi & {
                                        return this->old_allocations_view();
                                      }),
