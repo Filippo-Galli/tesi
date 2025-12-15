@@ -110,20 +110,13 @@ $(function(){initNavTree('launcher_8cpp.html',''); initResizable(true); });
 <p>Main launcher file for MCMC simulation with various Bayesian non-parametric processes.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="neal_8hpp_source.html">samplers/neal.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="neal__ZDNAM_8hpp_source.html">samplers/neal_ZDNAM.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="splitmerge_8hpp_source.html">samplers/splitmerge.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="splitmerge__SAMS_8hpp_source.html">samplers/splitmerge_SAMS.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="splitmerge__LSS_8hpp_source.html">samplers/splitmerge_LSS.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="splitmerge__LSS__SDDS_8hpp_source.html">samplers/splitmerge_LSS_SDDS.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="DP_8hpp_source.html">processes/DP.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="DPW_8hpp_source.html">processes/DPW.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="NGGP_8hpp_source.html">processes/NGGP.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="NGGPW_8hpp_source.html">processes/NGGPW.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="NGGPWx_8hpp_source.html">processes/NGGPWx.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RWMH_8hpp_source.html">samplers/U_sampler/RWMH.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="MALA_8hpp_source.html">samplers/U_sampler/MALA.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Data_8hpp_source.html">utils/Data.hpp</a>&quot;</code><br />
 <code>#include &quot;likelihoods/Natarajan_likelihood.hpp&quot;</code><br />
 <code>#include &quot;<a class="el" href="Params_8hpp_source.html">utils/Params.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Covariates_8hpp_source.html">utils/Covariates.hpp</a>&quot;</code><br />
 <code>#include &lt;chrono&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -131,9 +124,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a740848696136388d950307173a06eb4d" id="r_a740848696136388d950307173a06eb4d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a740848696136388d950307173a06eb4d">RCPP_MODULE</a> (params_module)</td></tr>
 <tr class="memdesc:a740848696136388d950307173a06eb4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rcpp module to expose the <a class="el" href="structParams.html" title="Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...">Params</a> class to R.  <br /></td></tr>
 <tr class="separator:a740848696136388d950307173a06eb4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6272d2af196ebe5de74cf25bc8d1deb9" id="r_a6272d2af196ebe5de74cf25bc8d1deb9"><td class="memItemLeft" align="right" valign="top">Rcpp::List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6272d2af196ebe5de74cf25bc8d1deb9">mcmc</a> (<a class="el" href="structParams.html">Params</a> &amp;param, const Rcpp::IntegerVector &amp;initial_allocations_r=Rcpp::IntegerVector())</td></tr>
-<tr class="memdesc:a6272d2af196ebe5de74cf25bc8d1deb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main MCMC function for Bayesian non-parametric clustering.  <br /></td></tr>
-<tr class="separator:a6272d2af196ebe5de74cf25bc8d1deb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb635dff5eb5787bd77591bbdaed3150" id="r_acb635dff5eb5787bd77591bbdaed3150"><td class="memItemLeft" align="right" valign="top">Rcpp::List&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb635dff5eb5787bd77591bbdaed3150">mcmc</a> (<a class="el" href="structParams.html">Params</a> &amp;param, <a class="el" href="structCovariates.html">Covariates</a> &amp;covariates, const Rcpp::IntegerVector &amp;initial_allocations_r=Rcpp::IntegerVector())</td></tr>
+<tr class="memdesc:acb635dff5eb5787bd77591bbdaed3150"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main MCMC function for Bayesian non-parametric clustering.  <br /></td></tr>
+<tr class="separator:acb635dff5eb5787bd77591bbdaed3150"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main launcher file for MCMC simulation with various Bayesian non-parametric processes. </p>
@@ -141,8 +134,8 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>2025</dd></dl>
 <p>This file contains the main MCMC implementation and R interface for running Bayesian non-parametric clustering using different processes (<a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a>, <a class="el" href="classDPW.html" title="Dirichlet Process with spatial Weights class for spatially-aware Bayesian nonparametric clustering.">DPW</a>, <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>, <a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a>) with various sampling strategies (<a class="el" href="classNeal3.html" title="Implementation of Neal&#39;s Algorithm 3 for collapsed Gibbs sampling.">Neal3</a>, Split-Merge, Split-Merge SAMS). </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a6272d2af196ebe5de74cf25bc8d1deb9" name="a6272d2af196ebe5de74cf25bc8d1deb9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6272d2af196ebe5de74cf25bc8d1deb9">&#9670;&#160;</a></span>mcmc()</h2>
+<a id="acb635dff5eb5787bd77591bbdaed3150" name="acb635dff5eb5787bd77591bbdaed3150"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb635dff5eb5787bd77591bbdaed3150">&#9670;&#160;</a></span>mcmc()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,6 +144,11 @@ Functions</h2></td></tr>
           <td class="memname">Rcpp::List mcmc </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structParams.html">Params</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>param</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structCovariates.html">Covariates</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>covariates</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

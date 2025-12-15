@@ -119,14 +119,15 @@ Inheritance diagram for DPW:</div>
   <img src="classDPW.png" usemap="#DPW_map" alt=""/>
   <map id="DPW_map" name="DPW_map">
 <area href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes." alt="Process" shape="rect" coords="0,0,92,24"/>
+<area href="classSpatialModule.html" title="Module providing spatial methods for processes utilizing spatial information." alt="SpatialModule" shape="rect" coords="102,0,194,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a67159c2948f2f6d3cffbbedd4e6066fb" id="r_a67159c2948f2f6d3cffbbedd4e6066fb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a67159c2948f2f6d3cffbbedd4e6066fb">DPW</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p)</td></tr>
-<tr class="memdesc:a67159c2948f2f6d3cffbbedd4e6066fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the Dirichlet <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> with spatial Weights.  <br /></td></tr>
-<tr class="separator:a67159c2948f2f6d3cffbbedd4e6066fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5543c71b835f7b78dcf5d90c4e8d2db" id="r_aa5543c71b835f7b78dcf5d90c4e8d2db"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa5543c71b835f7b78dcf5d90c4e8d2db">DPW</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="structCovariates.html">Covariates</a> &amp;c)</td></tr>
+<tr class="memdesc:aa5543c71b835f7b78dcf5d90c4e8d2db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the Dirichlet <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> with spatial Weights.  <br /></td></tr>
+<tr class="separator:aa5543c71b835f7b78dcf5d90c4e8d2db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16a239e120dad65bbe1b55a2771cde60" id="r_a16a239e120dad65bbe1b55a2771cde60"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16a239e120dad65bbe1b55a2771cde60">update_params</a> () override</td></tr>
 <tr class="memdesc:a16a239e120dad65bbe1b55a2771cde60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the parameters of the Dirichlet <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> with spatial Weights.  <br /></td></tr>
 <tr class="separator:a16a239e120dad65bbe1b55a2771cde60"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,6 +155,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8bd31d2434ca052d9a7e2b803e346b8e inherit pub_methods_classProcess" id="r_a8bd31d2434ca052d9a7e2b803e346b8e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a8bd31d2434ca052d9a7e2b803e346b8e">Process</a> (<a class="el" href="classData.html">Data</a> &amp;d, const <a class="el" href="structParams.html">Params</a> &amp;p)</td></tr>
 <tr class="memdesc:a8bd31d2434ca052d9a7e2b803e346b8e inherit pub_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor initializing process with data and parameters.  <br /></td></tr>
 <tr class="separator:a8bd31d2434ca052d9a7e2b803e346b8e inherit pub_methods_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a148d3b28cae7acef22b53c184cbcf5df inherit pub_methods_classProcess" id="r_a148d3b28cae7acef22b53c184cbcf5df"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a148d3b28cae7acef22b53c184cbcf5df">gibbs_prior_new_cluster_obs</a> (int obs_idx) const</td></tr>
+<tr class="memdesc:a148d3b28cae7acef22b53c184cbcf5df inherit pub_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute prior probability for creating a new cluster for a specific observation.  <br /></td></tr>
+<tr class="separator:a148d3b28cae7acef22b53c184cbcf5df inherit pub_methods_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6174151176ec3d063ac441e5a80d0c44 inherit pub_methods_classProcess" id="r_a6174151176ec3d063ac441e5a80d0c44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a6174151176ec3d063ac441e5a80d0c44">set_old_allocations</a> (const Eigen::VectorXi &amp;new_allocations)</td></tr>
 <tr class="memdesc:a6174151176ec3d063ac441e5a80d0c44 inherit pub_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store current allocations for potential rollback.  <br /></td></tr>
 <tr class="separator:a6174151176ec3d063ac441e5a80d0c44 inherit pub_methods_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -173,6 +177,22 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a914f8d21512e26141f7f79cfe9a16bd5 inherit pro_methods_classProcess" id="r_a914f8d21512e26141f7f79cfe9a16bd5"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXi &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a914f8d21512e26141f7f79cfe9a16bd5">old_allocations_view</a> () const</td></tr>
 <tr class="memdesc:a914f8d21512e26141f7f79cfe9a16bd5 inherit pro_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides read-only access to the stored previous allocations.  <br /></td></tr>
 <tr class="separator:a914f8d21512e26141f7f79cfe9a16bd5 inherit pro_methods_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classSpatialModule"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_classSpatialModule')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classSpatialModule.html">SpatialModule</a></td></tr>
+<tr class="memitem:a838c7393c68a6670ef16a7fd311b88b9 inherit pro_methods_classSpatialModule" id="r_a838c7393c68a6670ef16a7fd311b88b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a838c7393c68a6670ef16a7fd311b88b9">neighbor_cache_compute</a> ()</td></tr>
+<tr class="memdesc:a838c7393c68a6670ef16a7fd311b88b9 inherit pro_methods_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precomputes and stores neighbor indices for all observations.  <br /></td></tr>
+<tr class="separator:a838c7393c68a6670ef16a7fd311b88b9 inherit pro_methods_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa669ec13448726a559ad0e3137e3702e inherit pro_methods_classSpatialModule" id="r_aa669ec13448726a559ad0e3137e3702e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#aa669ec13448726a559ad0e3137e3702e">get_neighbors_obs</a> (int obs_idx, int cls_idx) const</td></tr>
+<tr class="memdesc:aa669ec13448726a559ad0e3137e3702e inherit pro_methods_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts neighbors of an observation within a specific cluster.  <br /></td></tr>
+<tr class="separator:aa669ec13448726a559ad0e3137e3702e inherit pro_methods_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c93a18ef8a9ecf480a68c3438998f38 inherit pro_methods_classSpatialModule" id="r_a9c93a18ef8a9ecf480a68c3438998f38"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a9c93a18ef8a9ecf480a68c3438998f38">get_neighbors_obs</a> (int obs_idx) const</td></tr>
+<tr class="memdesc:a9c93a18ef8a9ecf480a68c3438998f38 inherit pro_methods_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts neighbors of an observation grouped by cluster membership.  <br /></td></tr>
+<tr class="separator:a9c93a18ef8a9ecf480a68c3438998f38 inherit pro_methods_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57f63d2983418353d324d49e01d712ed inherit pro_methods_classSpatialModule" id="r_a57f63d2983418353d324d49e01d712ed"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a57f63d2983418353d324d49e01d712ed">get_neighbors_cls</a> (int cls_idx, bool old_allo=false) const</td></tr>
+<tr class="memdesc:a57f63d2983418353d324d49e01d712ed inherit pro_methods_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts internal edges within a cluster.  <br /></td></tr>
+<tr class="separator:a57f63d2983418353d324d49e01d712ed inherit pro_methods_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6de7d3edab70bebb909acb9283480fc5 inherit pro_methods_classSpatialModule" id="r_a6de7d3edab70bebb909acb9283480fc5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a6de7d3edab70bebb909acb9283480fc5">SpatialModule</a> (const <a class="el" href="structCovariates.html">Covariates</a> &amp;covariates_, const <a class="el" href="classData.html">Data</a> &amp;data_, std::function&lt; const Eigen::VectorXi &amp;()&gt; old_alloc_provider={})</td></tr>
+<tr class="memdesc:a6de7d3edab70bebb909acb9283480fc5 inherit pro_methods_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classSpatialModule.html" title="Module providing spatial methods for processes utilizing spatial information.">SpatialModule</a> with parameter and data references.  <br /></td></tr>
+<tr class="separator:a6de7d3edab70bebb909acb9283480fc5 inherit pro_methods_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classProcess"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classProcess')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classProcess.html">Process</a></td></tr>
 <tr class="memitem:af8d15d280b7b72defee3438abf1f9c8f inherit pro_attribs_classProcess" id="r_af8d15d280b7b72defee3438abf1f9c8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#af8d15d280b7b72defee3438abf1f9c8f">data</a></td></tr>
 <tr class="memdesc:af8d15d280b7b72defee3438abf1f9c8f inherit pro_attribs_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the data object containing observations and allocations.  <br /></td></tr>
@@ -192,13 +212,26 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a38b41ae4bad9a3a5f4b474f2f5a18561 inherit pro_attribs_classProcess" id="r_a38b41ae4bad9a3a5f4b474f2f5a18561"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a38b41ae4bad9a3a5f4b474f2f5a18561">log_a</a> = log(params.a)</td></tr>
 <tr class="memdesc:a38b41ae4bad9a3a5f4b474f2f5a18561 inherit pro_attribs_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precomputed logarithm of total mass parameter for efficiency.  <br /></td></tr>
 <tr class="separator:a38b41ae4bad9a3a5f4b474f2f5a18561 inherit pro_attribs_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classSpatialModule"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classSpatialModule')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classSpatialModule.html">SpatialModule</a></td></tr>
+<tr class="memitem:a50166acdc6f0c6678279b677903d21e5 inherit pro_attribs_classSpatialModule" id="r_a50166acdc6f0c6678279b677903d21e5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a50166acdc6f0c6678279b677903d21e5">neighbor_cache</a></td></tr>
+<tr class="memdesc:a50166acdc6f0c6678279b677903d21e5 inherit pro_attribs_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cache storing neighbor indices for each observation.  <br /></td></tr>
+<tr class="separator:a50166acdc6f0c6678279b677903d21e5 inherit pro_attribs_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a843ccd6b83d919cffe1d56dcc3f229da inherit pro_attribs_classSpatialModule" id="r_a843ccd6b83d919cffe1d56dcc3f229da"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structCovariates.html">Covariates</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a843ccd6b83d919cffe1d56dcc3f229da">covariates_module</a></td></tr>
+<tr class="memdesc:a843ccd6b83d919cffe1d56dcc3f229da inherit pro_attribs_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to parameter object containing adjacency matrix W.  <br /></td></tr>
+<tr class="separator:a843ccd6b83d919cffe1d56dcc3f229da inherit pro_attribs_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad607b2c05c585c576b7410dd3bef9f1f inherit pro_attribs_classSpatialModule" id="r_ad607b2c05c585c576b7410dd3bef9f1f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#ad607b2c05c585c576b7410dd3bef9f1f">data_module</a></td></tr>
+<tr class="memdesc:ad607b2c05c585c576b7410dd3bef9f1f inherit pro_attribs_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to data object with cluster assignments.  <br /></td></tr>
+<tr class="separator:ad607b2c05c585c576b7410dd3bef9f1f inherit pro_attribs_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad356ea6f80c8553cd8500aeee26d4419 inherit pro_attribs_classSpatialModule" id="r_ad356ea6f80c8553cd8500aeee26d4419"><td class="memItemLeft" align="right" valign="top">std::function&lt; const Eigen::VectorXi &amp;()&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#ad356ea6f80c8553cd8500aeee26d4419">old_allocations_provider</a></td></tr>
+<tr class="memdesc:ad356ea6f80c8553cd8500aeee26d4419 inherit pro_attribs_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provider function for accessing old allocation state.  <br /></td></tr>
+<tr class="separator:ad356ea6f80c8553cd8500aeee26d4419 inherit pro_attribs_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Dirichlet <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> with spatial Weights class for spatially-aware Bayesian nonparametric clustering. </p>
 <p>This class extends the Dirichlet <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> to incorporate spatial information through an adjacency matrix W. It provides methods for Gibbs sampling and split-merge algorithms that account for spatial dependencies between observations in the clustering process. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a67159c2948f2f6d3cffbbedd4e6066fb" name="a67159c2948f2f6d3cffbbedd4e6066fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67159c2948f2f6d3cffbbedd4e6066fb">&#9670;&#160;</a></span>DPW()</h2>
+<a id="aa5543c71b835f7b78dcf5d90c4e8d2db" name="aa5543c71b835f7b78dcf5d90c4e8d2db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5543c71b835f7b78dcf5d90c4e8d2db">&#9670;&#160;</a></span>DPW()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -214,7 +247,12 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structParams.html">Params</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="structParams.html">Params</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structCovariates.html">Covariates</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>c</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -549,7 +587,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Updates the parameters of the Dirichlet <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> with spatial Weights. </p>
-<dl class="section note"><dt>Note</dt><dd>Spatial methods (get_neighbors_obs, get_neighbors_cls) are inherited from SpatialModule with optimized caching implementation. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Spatial methods (get_neighbors_obs, get_neighbors_cls) are inherited from <a class="el" href="classSpatialModule.html" title="Module providing spatial methods for processes utilizing spatial information.">SpatialModule</a> with optimized caching implementation. </dd></dl>
 <p>This is a null implementation as the <a class="el" href="classDPW.html" title="Dirichlet Process with spatial Weights class for spatially-aware Bayesian nonparametric clustering.">DPW</a> has no parameters to update beyond those handled by the base <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> class. </p>
 
 <p>Implements <a class="el" href="classProcess.html#ac610fb84ed64db2a74fa1447ce5a582e">Process</a>.</p>

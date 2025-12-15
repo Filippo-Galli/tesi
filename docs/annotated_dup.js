@@ -1,5 +1,7 @@
 var annotated_dup =
 [
+    [ "Covariates", "structCovariates.html", "structCovariates" ],
+    [ "CovariatesModule", "classCovariatesModule.html", "classCovariatesModule" ],
     [ "Data", "classData.html", "classData" ],
     [ "DP", "classDP.html", "classDP" ],
     [ "DPW", "classDPW.html", "classDPW" ],
@@ -9,10 +11,12 @@ var annotated_dup =
     [ "Neal3ZDNAM", "classNeal3ZDNAM.html", "classNeal3ZDNAM" ],
     [ "NGGP", "classNGGP.html", "classNGGP" ],
     [ "NGGPW", "classNGGPW.html", "classNGGPW" ],
+    [ "NGGPWx", "classNGGPWx.html", "classNGGPWx" ],
     [ "Params", "structParams.html", "structParams" ],
     [ "Process", "classProcess.html", "classProcess" ],
     [ "RWMH", "classRWMH.html", "classRWMH" ],
     [ "Sampler", "classSampler.html", "classSampler" ],
+    [ "SpatialModule", "classSpatialModule.html", "classSpatialModule" ],
     [ "SplitMerge", "classSplitMerge.html", "classSplitMerge" ],
     [ "SplitMerge_LSS", "classSplitMerge__LSS.html", "classSplitMerge__LSS" ],
     [ "SplitMerge_LSS_SDDS", "classSplitMerge__LSS__SDDS.html", "classSplitMerge__LSS__SDDS" ],

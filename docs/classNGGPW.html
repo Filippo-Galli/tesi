@@ -119,42 +119,47 @@ Inheritance diagram for NGGPW:</div>
   <img src="classNGGPW.png" usemap="#NGGPW_map" alt=""/>
   <map id="NGGPW_map" name="NGGPW_map">
 <area href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes." alt="Process" shape="rect" coords="0,0,92,24"/>
+<area href="classSpatialModule.html" title="Module providing spatial methods for processes utilizing spatial information." alt="SpatialModule" shape="rect" coords="102,0,194,24"/>
+<area href="classNGGPWx.html" title="NGGP clustering process with spatial weights and covariates." alt="NGGPWx" shape="rect" coords="51,112,143,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7e49df388b7c231cf02503916f157738" id="r_a7e49df388b7c231cf02503916f157738"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e49df388b7c231cf02503916f157738">NGGPW</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classU__sampler.html">U_sampler</a> &amp;mh)</td></tr>
-<tr class="memdesc:a7e49df388b7c231cf02503916f157738"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the Normalized Generalized Gamma <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> with spatial Weights.  <br /></td></tr>
-<tr class="separator:a7e49df388b7c231cf02503916f157738"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ea30939069f45d6579e352009bb1a67" id="r_a5ea30939069f45d6579e352009bb1a67"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ea30939069f45d6579e352009bb1a67">NGGPW</a> (<a class="el" href="classData.html">Data</a> &amp;d, <a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="structCovariates.html">Covariates</a> &amp;c, <a class="el" href="classU__sampler.html">U_sampler</a> &amp;mh)</td></tr>
+<tr class="memdesc:a5ea30939069f45d6579e352009bb1a67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the Normalized Generalized Gamma <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> with spatial Weights.  <br /></td></tr>
+<tr class="separator:a5ea30939069f45d6579e352009bb1a67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Gibbs Sampling Methods</div></td></tr>
-<tr class="memitem:a53c5e741823d597737547a794343a079" id="r_a53c5e741823d597737547a794343a079"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53c5e741823d597737547a794343a079">gibbs_prior_existing_cluster</a> (int cls_idx, int obs_idx=0) const override final</td></tr>
-<tr class="memdesc:a53c5e741823d597737547a794343a079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the log prior probability of assigning a data point to an existing cluster.  <br /></td></tr>
-<tr class="separator:a53c5e741823d597737547a794343a079"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e26938bc5d9f78ae4c25bbbba49cf31" id="r_a6e26938bc5d9f78ae4c25bbbba49cf31"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e26938bc5d9f78ae4c25bbbba49cf31">gibbs_prior_existing_clusters</a> (int obs_idx) const override final</td></tr>
-<tr class="memdesc:a6e26938bc5d9f78ae4c25bbbba49cf31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the log prior probabilities of assigning a data point to every existing cluster. This method is useful for Gibbs sampling over existing clusters. It returns a vector of log prior probabilities for all existing clusters.  <br /></td></tr>
-<tr class="separator:a6e26938bc5d9f78ae4c25bbbba49cf31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3b3cc0648f719c0c71d16179cfd3d37" id="r_ad3b3cc0648f719c0c71d16179cfd3d37"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad3b3cc0648f719c0c71d16179cfd3d37">gibbs_prior_new_cluster</a> () const override final</td></tr>
-<tr class="memdesc:ad3b3cc0648f719c0c71d16179cfd3d37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the log prior probability of assigning a data point to a new cluster.  <br /></td></tr>
-<tr class="separator:ad3b3cc0648f719c0c71d16179cfd3d37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab426d4cd7024170228d9a1894219e6e5" id="r_ab426d4cd7024170228d9a1894219e6e5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab426d4cd7024170228d9a1894219e6e5">gibbs_prior_existing_cluster</a> (int cls_idx, int obs_idx=0) const override</td></tr>
+<tr class="memdesc:ab426d4cd7024170228d9a1894219e6e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the log prior probability of assigning a data point to an existing cluster.  <br /></td></tr>
+<tr class="separator:ab426d4cd7024170228d9a1894219e6e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d306324be933acde8d129a71ec4f524" id="r_a4d306324be933acde8d129a71ec4f524"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d306324be933acde8d129a71ec4f524">gibbs_prior_existing_clusters</a> (int obs_idx) const override</td></tr>
+<tr class="memdesc:a4d306324be933acde8d129a71ec4f524"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the log prior probabilities of assigning a data point to every existing cluster. This method is useful for Gibbs sampling over existing clusters. It returns a vector of log prior probabilities for all existing clusters.  <br /></td></tr>
+<tr class="separator:a4d306324be933acde8d129a71ec4f524"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ca86eefba6ef5c6b9505589aaff0a8a" id="r_a7ca86eefba6ef5c6b9505589aaff0a8a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ca86eefba6ef5c6b9505589aaff0a8a">gibbs_prior_new_cluster</a> () const override</td></tr>
+<tr class="memdesc:a7ca86eefba6ef5c6b9505589aaff0a8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the log prior probability of assigning a data point to a new cluster.  <br /></td></tr>
+<tr class="separator:a7ca86eefba6ef5c6b9505589aaff0a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Split-Merge Algorithm Methods</div></td></tr>
-<tr class="memitem:aa0511884c903b42ec0cfd6477788e491" id="r_aa0511884c903b42ec0cfd6477788e491"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa0511884c903b42ec0cfd6477788e491">prior_ratio_split</a> (int ci, int cj) const override final</td></tr>
-<tr class="memdesc:aa0511884c903b42ec0cfd6477788e491"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the prior ratio for a split operation in a spatially-aware NGGP-based split-merge MCMC algorithm.  <br /></td></tr>
-<tr class="separator:aa0511884c903b42ec0cfd6477788e491"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b8f380ba2fb11405fc4b4617fc84190" id="r_a6b8f380ba2fb11405fc4b4617fc84190"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b8f380ba2fb11405fc4b4617fc84190">prior_ratio_merge</a> (int size_old_ci, int size_old_cj) const override final</td></tr>
-<tr class="memdesc:a6b8f380ba2fb11405fc4b4617fc84190"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the prior ratio for a merge operation in a spatially-aware NGGP-based split-merge MCMC algorithm.  <br /></td></tr>
-<tr class="separator:a6b8f380ba2fb11405fc4b4617fc84190"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6996a02dcab67261056b4b2f4a6a072" id="r_ac6996a02dcab67261056b4b2f4a6a072"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6996a02dcab67261056b4b2f4a6a072">prior_ratio_shuffle</a> (int size_old_ci, int size_old_cj, int ci, int cj) const override final</td></tr>
-<tr class="memdesc:ac6996a02dcab67261056b4b2f4a6a072"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the prior ratio for a shuffle operation in a spatially-aware NGGP-based split-merge MCMC algorithm.  <br /></td></tr>
-<tr class="separator:ac6996a02dcab67261056b4b2f4a6a072"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73053c1ef8025c03e60ef25f42509bf4" id="r_a73053c1ef8025c03e60ef25f42509bf4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73053c1ef8025c03e60ef25f42509bf4">prior_ratio_split</a> (int ci, int cj) const override</td></tr>
+<tr class="memdesc:a73053c1ef8025c03e60ef25f42509bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the prior ratio for a split operation in a spatially-aware NGGP-based split-merge MCMC algorithm.  <br /></td></tr>
+<tr class="separator:a73053c1ef8025c03e60ef25f42509bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96acaa9d2dacbac024ffaba9d075249a" id="r_a96acaa9d2dacbac024ffaba9d075249a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96acaa9d2dacbac024ffaba9d075249a">prior_ratio_merge</a> (int size_old_ci, int size_old_cj) const override</td></tr>
+<tr class="memdesc:a96acaa9d2dacbac024ffaba9d075249a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the prior ratio for a merge operation in a spatially-aware NGGP-based split-merge MCMC algorithm.  <br /></td></tr>
+<tr class="separator:a96acaa9d2dacbac024ffaba9d075249a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bc80b5731581b00c33479fd3b16d55d" id="r_a9bc80b5731581b00c33479fd3b16d55d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9bc80b5731581b00c33479fd3b16d55d">prior_ratio_shuffle</a> (int size_old_ci, int size_old_cj, int ci, int cj) const override</td></tr>
+<tr class="memdesc:a9bc80b5731581b00c33479fd3b16d55d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the prior ratio for a shuffle operation in a spatially-aware NGGP-based split-merge MCMC algorithm.  <br /></td></tr>
+<tr class="separator:a9bc80b5731581b00c33479fd3b16d55d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Parameter Update Methods</div></td></tr>
-<tr class="memitem:a7220554410d8a0621925a47a4125f8e8" id="r_a7220554410d8a0621925a47a4125f8e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7220554410d8a0621925a47a4125f8e8">update_params</a> () override final</td></tr>
-<tr class="memdesc:a7220554410d8a0621925a47a4125f8e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the <a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a> parameters by updating the latent variable U.  <br /></td></tr>
-<tr class="separator:a7220554410d8a0621925a47a4125f8e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46cc6dfe0fa4e2b3a96745e77622a7e4" id="r_a46cc6dfe0fa4e2b3a96745e77622a7e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46cc6dfe0fa4e2b3a96745e77622a7e4">update_params</a> () override</td></tr>
+<tr class="memdesc:a46cc6dfe0fa4e2b3a96745e77622a7e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the <a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a> parameters by updating the latent variable U.  <br /></td></tr>
+<tr class="separator:a46cc6dfe0fa4e2b3a96745e77622a7e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classProcess"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classProcess')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classProcess.html">Process</a></td></tr>
 <tr class="memitem:a8bd31d2434ca052d9a7e2b803e346b8e inherit pub_methods_classProcess" id="r_a8bd31d2434ca052d9a7e2b803e346b8e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a8bd31d2434ca052d9a7e2b803e346b8e">Process</a> (<a class="el" href="classData.html">Data</a> &amp;d, const <a class="el" href="structParams.html">Params</a> &amp;p)</td></tr>
 <tr class="memdesc:a8bd31d2434ca052d9a7e2b803e346b8e inherit pub_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor initializing process with data and parameters.  <br /></td></tr>
 <tr class="separator:a8bd31d2434ca052d9a7e2b803e346b8e inherit pub_methods_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a148d3b28cae7acef22b53c184cbcf5df inherit pub_methods_classProcess" id="r_a148d3b28cae7acef22b53c184cbcf5df"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a148d3b28cae7acef22b53c184cbcf5df">gibbs_prior_new_cluster_obs</a> (int obs_idx) const</td></tr>
+<tr class="memdesc:a148d3b28cae7acef22b53c184cbcf5df inherit pub_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute prior probability for creating a new cluster for a specific observation.  <br /></td></tr>
+<tr class="separator:a148d3b28cae7acef22b53c184cbcf5df inherit pub_methods_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6174151176ec3d063ac441e5a80d0c44 inherit pub_methods_classProcess" id="r_a6174151176ec3d063ac441e5a80d0c44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a6174151176ec3d063ac441e5a80d0c44">set_old_allocations</a> (const Eigen::VectorXi &amp;new_allocations)</td></tr>
 <tr class="memdesc:a6174151176ec3d063ac441e5a80d0c44 inherit pub_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store current allocations for potential rollback.  <br /></td></tr>
 <tr class="separator:a6174151176ec3d063ac441e5a80d0c44 inherit pub_methods_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -168,8 +173,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a7ff358c1d3b155bc09e1271266cdce7d inherit pub_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor for proper cleanup of derived classes.  <br /></td></tr>
 <tr class="separator:a7ff358c1d3b155bc09e1271266cdce7d inherit pub_methods_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Private Member Variables</div></td></tr>
 <tr class="memitem:a991d4ee5fc8cef2cf251c76b2a5e3b75" id="r_a991d4ee5fc8cef2cf251c76b2a5e3b75"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classU__sampler.html">U_sampler</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a991d4ee5fc8cef2cf251c76b2a5e3b75">U_sampler_method</a></td></tr>
 <tr class="memdesc:a991d4ee5fc8cef2cf251c76b2a5e3b75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the <a class="el" href="classU__sampler.html" title="Abstract base class for MCMC sampling of the latent variable U.">U_sampler</a> instance for updating the latent variable U.  <br /></td></tr>
@@ -181,13 +186,6 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ae1c12276c0588a8d2f6687d82630a523" id="r_ae1c12276c0588a8d2f6687d82630a523"><td class="memItemLeft" align="right" valign="top">std::mt19937&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae1c12276c0588a8d2f6687d82630a523">gen</a></td></tr>
 <tr class="memdesc:ae1c12276c0588a8d2f6687d82630a523"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mersenne Twister random number generator.  <br /></td></tr>
 <tr class="separator:ae1c12276c0588a8d2f6687d82630a523"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_methods_classProcess"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_classProcess')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classProcess.html">Process</a></td></tr>
-<tr class="memitem:a914f8d21512e26141f7f79cfe9a16bd5 inherit pro_methods_classProcess" id="r_a914f8d21512e26141f7f79cfe9a16bd5"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXi &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a914f8d21512e26141f7f79cfe9a16bd5">old_allocations_view</a> () const</td></tr>
-<tr class="memdesc:a914f8d21512e26141f7f79cfe9a16bd5 inherit pro_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides read-only access to the stored previous allocations.  <br /></td></tr>
-<tr class="separator:a914f8d21512e26141f7f79cfe9a16bd5 inherit pro_methods_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classProcess"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classProcess')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classProcess.html">Process</a></td></tr>
 <tr class="memitem:af8d15d280b7b72defee3438abf1f9c8f inherit pro_attribs_classProcess" id="r_af8d15d280b7b72defee3438abf1f9c8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#af8d15d280b7b72defee3438abf1f9c8f">data</a></td></tr>
 <tr class="memdesc:af8d15d280b7b72defee3438abf1f9c8f inherit pro_attribs_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the data object containing observations and allocations.  <br /></td></tr>
@@ -207,13 +205,49 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a38b41ae4bad9a3a5f4b474f2f5a18561 inherit pro_attribs_classProcess" id="r_a38b41ae4bad9a3a5f4b474f2f5a18561"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a38b41ae4bad9a3a5f4b474f2f5a18561">log_a</a> = log(params.a)</td></tr>
 <tr class="memdesc:a38b41ae4bad9a3a5f4b474f2f5a18561 inherit pro_attribs_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precomputed logarithm of total mass parameter for efficiency.  <br /></td></tr>
 <tr class="separator:a38b41ae4bad9a3a5f4b474f2f5a18561 inherit pro_attribs_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classSpatialModule"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classSpatialModule')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classSpatialModule.html">SpatialModule</a></td></tr>
+<tr class="memitem:a50166acdc6f0c6678279b677903d21e5 inherit pro_attribs_classSpatialModule" id="r_a50166acdc6f0c6678279b677903d21e5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a50166acdc6f0c6678279b677903d21e5">neighbor_cache</a></td></tr>
+<tr class="memdesc:a50166acdc6f0c6678279b677903d21e5 inherit pro_attribs_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cache storing neighbor indices for each observation.  <br /></td></tr>
+<tr class="separator:a50166acdc6f0c6678279b677903d21e5 inherit pro_attribs_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a843ccd6b83d919cffe1d56dcc3f229da inherit pro_attribs_classSpatialModule" id="r_a843ccd6b83d919cffe1d56dcc3f229da"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structCovariates.html">Covariates</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a843ccd6b83d919cffe1d56dcc3f229da">covariates_module</a></td></tr>
+<tr class="memdesc:a843ccd6b83d919cffe1d56dcc3f229da inherit pro_attribs_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to parameter object containing adjacency matrix W.  <br /></td></tr>
+<tr class="separator:a843ccd6b83d919cffe1d56dcc3f229da inherit pro_attribs_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad607b2c05c585c576b7410dd3bef9f1f inherit pro_attribs_classSpatialModule" id="r_ad607b2c05c585c576b7410dd3bef9f1f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#ad607b2c05c585c576b7410dd3bef9f1f">data_module</a></td></tr>
+<tr class="memdesc:ad607b2c05c585c576b7410dd3bef9f1f inherit pro_attribs_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to data object with cluster assignments.  <br /></td></tr>
+<tr class="separator:ad607b2c05c585c576b7410dd3bef9f1f inherit pro_attribs_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad356ea6f80c8553cd8500aeee26d4419 inherit pro_attribs_classSpatialModule" id="r_ad356ea6f80c8553cd8500aeee26d4419"><td class="memItemLeft" align="right" valign="top">std::function&lt; const Eigen::VectorXi &amp;()&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#ad356ea6f80c8553cd8500aeee26d4419">old_allocations_provider</a></td></tr>
+<tr class="memdesc:ad356ea6f80c8553cd8500aeee26d4419 inherit pro_attribs_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provider function for accessing old allocation state.  <br /></td></tr>
+<tr class="separator:ad356ea6f80c8553cd8500aeee26d4419 inherit pro_attribs_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_classProcess"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_classProcess')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classProcess.html">Process</a></td></tr>
+<tr class="memitem:a914f8d21512e26141f7f79cfe9a16bd5 inherit pro_methods_classProcess" id="r_a914f8d21512e26141f7f79cfe9a16bd5"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXi &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a914f8d21512e26141f7f79cfe9a16bd5">old_allocations_view</a> () const</td></tr>
+<tr class="memdesc:a914f8d21512e26141f7f79cfe9a16bd5 inherit pro_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides read-only access to the stored previous allocations.  <br /></td></tr>
+<tr class="separator:a914f8d21512e26141f7f79cfe9a16bd5 inherit pro_methods_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classSpatialModule"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_classSpatialModule')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classSpatialModule.html">SpatialModule</a></td></tr>
+<tr class="memitem:a838c7393c68a6670ef16a7fd311b88b9 inherit pro_methods_classSpatialModule" id="r_a838c7393c68a6670ef16a7fd311b88b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a838c7393c68a6670ef16a7fd311b88b9">neighbor_cache_compute</a> ()</td></tr>
+<tr class="memdesc:a838c7393c68a6670ef16a7fd311b88b9 inherit pro_methods_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precomputes and stores neighbor indices for all observations.  <br /></td></tr>
+<tr class="separator:a838c7393c68a6670ef16a7fd311b88b9 inherit pro_methods_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa669ec13448726a559ad0e3137e3702e inherit pro_methods_classSpatialModule" id="r_aa669ec13448726a559ad0e3137e3702e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#aa669ec13448726a559ad0e3137e3702e">get_neighbors_obs</a> (int obs_idx, int cls_idx) const</td></tr>
+<tr class="memdesc:aa669ec13448726a559ad0e3137e3702e inherit pro_methods_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts neighbors of an observation within a specific cluster.  <br /></td></tr>
+<tr class="separator:aa669ec13448726a559ad0e3137e3702e inherit pro_methods_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c93a18ef8a9ecf480a68c3438998f38 inherit pro_methods_classSpatialModule" id="r_a9c93a18ef8a9ecf480a68c3438998f38"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a9c93a18ef8a9ecf480a68c3438998f38">get_neighbors_obs</a> (int obs_idx) const</td></tr>
+<tr class="memdesc:a9c93a18ef8a9ecf480a68c3438998f38 inherit pro_methods_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts neighbors of an observation grouped by cluster membership.  <br /></td></tr>
+<tr class="separator:a9c93a18ef8a9ecf480a68c3438998f38 inherit pro_methods_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57f63d2983418353d324d49e01d712ed inherit pro_methods_classSpatialModule" id="r_a57f63d2983418353d324d49e01d712ed"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a57f63d2983418353d324d49e01d712ed">get_neighbors_cls</a> (int cls_idx, bool old_allo=false) const</td></tr>
+<tr class="memdesc:a57f63d2983418353d324d49e01d712ed inherit pro_methods_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts internal edges within a cluster.  <br /></td></tr>
+<tr class="separator:a57f63d2983418353d324d49e01d712ed inherit pro_methods_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6de7d3edab70bebb909acb9283480fc5 inherit pro_methods_classSpatialModule" id="r_a6de7d3edab70bebb909acb9283480fc5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a6de7d3edab70bebb909acb9283480fc5">SpatialModule</a> (const <a class="el" href="structCovariates.html">Covariates</a> &amp;covariates_, const <a class="el" href="classData.html">Data</a> &amp;data_, std::function&lt; const Eigen::VectorXi &amp;()&gt; old_alloc_provider={})</td></tr>
+<tr class="memdesc:a6de7d3edab70bebb909acb9283480fc5 inherit pro_methods_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classSpatialModule.html" title="Module providing spatial methods for processes utilizing spatial information.">SpatialModule</a> with parameter and data references.  <br /></td></tr>
+<tr class="separator:a6de7d3edab70bebb909acb9283480fc5 inherit pro_methods_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Normalized Generalized Gamma <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> with spatial Weights class for spatially-aware Bayesian nonparametric clustering. </p>
 <p>This class extends the Normalized Generalized Gamma <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> (<a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>) to incorporate spatial information through an adjacency matrix W. It combines the flexibility of the <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> in modeling cluster sizes with spatial dependencies between observations. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a7e49df388b7c231cf02503916f157738" name="a7e49df388b7c231cf02503916f157738"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e49df388b7c231cf02503916f157738">&#9670;&#160;</a></span>NGGPW()</h2>
+<a id="a5ea30939069f45d6579e352009bb1a67" name="a5ea30939069f45d6579e352009bb1a67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ea30939069f45d6579e352009bb1a67">&#9670;&#160;</a></span>NGGPW()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -230,6 +264,11 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structParams.html">Params</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structCovariates.html">Covariates</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>c</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -257,8 +296,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a53c5e741823d597737547a794343a079" name="a53c5e741823d597737547a794343a079"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53c5e741823d597737547a794343a079">&#9670;&#160;</a></span>gibbs_prior_existing_cluster()</h2>
+<a id="ab426d4cd7024170228d9a1894219e6e5" name="ab426d4cd7024170228d9a1894219e6e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab426d4cd7024170228d9a1894219e6e5">&#9670;&#160;</a></span>gibbs_prior_existing_cluster()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -279,7 +318,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel final">final</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -305,10 +344,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classProcess.html#a17d00dd1cdddc0c2c8b3d4155afcb54c">Process</a>.</p>
 
+<p>Reimplemented in <a class="el" href="classNGGPWx.html#a1711bab909aa48aa2984a0a9de06cedd">NGGPWx</a>.</p>
+
 </div>
 </div>
-<a id="a6e26938bc5d9f78ae4c25bbbba49cf31" name="a6e26938bc5d9f78ae4c25bbbba49cf31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e26938bc5d9f78ae4c25bbbba49cf31">&#9670;&#160;</a></span>gibbs_prior_existing_clusters()</h2>
+<a id="a4d306324be933acde8d129a71ec4f524" name="a4d306324be933acde8d129a71ec4f524"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d306324be933acde8d129a71ec4f524">&#9670;&#160;</a></span>gibbs_prior_existing_clusters()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -325,7 +366,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel final">final</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -349,10 +390,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classProcess.html#aa217cf47b5d0293b0f7d4875f130cef6">Process</a>.</p>
 
+<p>Reimplemented in <a class="el" href="classNGGPWx.html#ae3c1bb4d8cd526f42e8672602334ebc9">NGGPWx</a>.</p>
+
 </div>
 </div>
-<a id="ad3b3cc0648f719c0c71d16179cfd3d37" name="ad3b3cc0648f719c0c71d16179cfd3d37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3b3cc0648f719c0c71d16179cfd3d37">&#9670;&#160;</a></span>gibbs_prior_new_cluster()</h2>
+<a id="a7ca86eefba6ef5c6b9505589aaff0a8a" name="a7ca86eefba6ef5c6b9505589aaff0a8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ca86eefba6ef5c6b9505589aaff0a8a">&#9670;&#160;</a></span>gibbs_prior_new_cluster()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -369,7 +412,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel final">final</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -381,10 +424,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classProcess.html#af0620ca38fdd6c3fb09b6d008cfe728d">Process</a>.</p>
 
+<p>Reimplemented in <a class="el" href="classNGGPWx.html#afdf9810e60b417780841514003810c84">NGGPWx</a>.</p>
+
 </div>
 </div>
-<a id="a6b8f380ba2fb11405fc4b4617fc84190" name="a6b8f380ba2fb11405fc4b4617fc84190"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b8f380ba2fb11405fc4b4617fc84190">&#9670;&#160;</a></span>prior_ratio_merge()</h2>
+<a id="a96acaa9d2dacbac024ffaba9d075249a" name="a96acaa9d2dacbac024ffaba9d075249a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96acaa9d2dacbac024ffaba9d075249a">&#9670;&#160;</a></span>prior_ratio_merge()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -405,7 +450,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel final">final</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -431,10 +476,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classProcess.html#a3f839a738e76fc3ab83d3a7bfc228984">Process</a>.</p>
 
+<p>Reimplemented in <a class="el" href="classNGGPWx.html#a38a880748c66b8153f42209394596adf">NGGPWx</a>.</p>
+
 </div>
 </div>
-<a id="ac6996a02dcab67261056b4b2f4a6a072" name="ac6996a02dcab67261056b4b2f4a6a072"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6996a02dcab67261056b4b2f4a6a072">&#9670;&#160;</a></span>prior_ratio_shuffle()</h2>
+<a id="a9bc80b5731581b00c33479fd3b16d55d" name="a9bc80b5731581b00c33479fd3b16d55d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bc80b5731581b00c33479fd3b16d55d">&#9670;&#160;</a></span>prior_ratio_shuffle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -465,7 +512,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel final">final</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -495,10 +542,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classProcess.html#a3bd733b3232c8cf865bc0d6c1a07aea4">Process</a>.</p>
 
+<p>Reimplemented in <a class="el" href="classNGGPWx.html#afbd5944c9feddb1b516060857a154b98">NGGPWx</a>.</p>
+
 </div>
 </div>
-<a id="aa0511884c903b42ec0cfd6477788e491" name="aa0511884c903b42ec0cfd6477788e491"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0511884c903b42ec0cfd6477788e491">&#9670;&#160;</a></span>prior_ratio_split()</h2>
+<a id="a73053c1ef8025c03e60ef25f42509bf4" name="a73053c1ef8025c03e60ef25f42509bf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73053c1ef8025c03e60ef25f42509bf4">&#9670;&#160;</a></span>prior_ratio_split()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -519,7 +568,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel final">final</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -545,10 +594,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classProcess.html#a3077b5bf1703a691927ae3779900a734">Process</a>.</p>
 
+<p>Reimplemented in <a class="el" href="classNGGPWx.html#a207fa694f990bbb0415702a999aa7ae5">NGGPWx</a>.</p>
+
 </div>
 </div>
-<a id="a7220554410d8a0621925a47a4125f8e8" name="a7220554410d8a0621925a47a4125f8e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7220554410d8a0621925a47a4125f8e8">&#9670;&#160;</a></span>update_params()</h2>
+<a id="a46cc6dfe0fa4e2b3a96745e77622a7e4" name="a46cc6dfe0fa4e2b3a96745e77622a7e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46cc6dfe0fa4e2b3a96745e77622a7e4">&#9670;&#160;</a></span>update_params()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -565,7 +616,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel final">final</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -575,6 +626,8 @@ Additional Inherited Members</h2></td></tr>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classU__sampler.html#a68c7b18e6183b1bc9a1645ff36e0c82f" title="Pure virtual method to update the latent variable U.">U_sampler::update_U()</a>, <a class="el" href="classRWMH.html#a1349180615746681801b1b6b86fe1c4b" title="Updates the latent variable U using Random Walk Metropolis-Hastings.">RWMH::update_U()</a>, <a class="el" href="classMALA.html#a40d442a7e6e66c3853e4014326ee5934" title="Performs one MALA update step for the latent variable U.">MALA::update_U()</a> </dd></dl>
 
 <p>Implements <a class="el" href="classProcess.html#ac610fb84ed64db2a74fa1447ce5a582e">Process</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classNGGPWx.html#a20ded7fbf8678c099577a37f31ad4c0a">NGGPWx</a>.</p>
 
 </div>
 </div>
@@ -594,7 +647,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel protected">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -618,7 +671,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -642,7 +695,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

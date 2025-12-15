@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['u_0',['U',['../classU__sampler.html#a61dcec6f1695e04c541e6ef00022158f',1,'U_sampler']]],
-  ['u_5fsampler_5fmethod_1',['U_sampler_method',['../classNGGP.html#a54461db9db11e9d4164754427e265f08',1,'NGGP::U_sampler_method'],['../classNGGPW.html#a991d4ee5fc8cef2cf251c76b2a5e3b75',1,'NGGPW::U_sampler_method']]],
-  ['use_5fv_2',['use_V',['../classMALA.html#aa1bd45a50795023b92ea781a495fa599',1,'MALA::use_V'],['../classRWMH.html#a21b4ed6ad1172dfacec56fb3539141a8',1,'RWMH::use_V']]]
+  ['tau_0',['tau',['../structParams.html#a9e4aad62277a980bfa8beaa0bd4ea529',1,'Params']]],
+  ['tau_5fpower_5fsigma_1',['tau_power_sigma',['../classU__sampler.html#a74ac9522035e4694f3ce209d250a11f9',1,'U_sampler']]],
+  ['total_5fiterations_2',['total_iterations',['../classU__sampler.html#a1d973e404393789b3799a407bc8d9c03',1,'U_sampler']]],
+  ['tuning_5fenabled_3',['tuning_enabled',['../classMALA.html#ab76aa610ccc0ef8c33d11c3f85fb2ebc',1,'MALA::tuning_enabled'],['../classRWMH.html#aa803a348282de6fd0144d22f96b59a4d',1,'RWMH::tuning_enabled']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mala_0',['MALA',['../classMALA.html',1,'']]]
+  ['likelihood_0',['Likelihood',['../classLikelihood.html',1,'']]]
 ];

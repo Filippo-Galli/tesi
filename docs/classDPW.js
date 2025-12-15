@@ -1,6 +1,6 @@
 var classDPW =
 [
-    [ "DPW", "classDPW.html#a67159c2948f2f6d3cffbbedd4e6066fb", null ],
+    [ "DPW", "classDPW.html#aa5543c71b835f7b78dcf5d90c4e8d2db", null ],
     [ "gibbs_prior_existing_cluster", "classDPW.html#aeaf93fc39436113b77d0a47b4e8b44f6", null ],
     [ "gibbs_prior_existing_clusters", "classDPW.html#ad3ff8c4e6d339973c697846e75bc5402", null ],
     [ "gibbs_prior_new_cluster", "classDPW.html#a45df971d1f01be2086ff0e0d570996fa", null ],
