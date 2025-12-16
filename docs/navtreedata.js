@@ -41,6 +41,7 @@ var NAVTREE =
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
         [ "Functions", "globals_func.html", null ],
+        [ "Typedefs", "globals_type.html", null ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ]
@@ -50,7 +51,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "Covariates_8hpp.html",
-"classSplitMerge__LSS__SDDS.html#a2c1a640715782e4cf48f15489e7e4624"
+"classSplitMerge__LSS.html#a4feef4466a3f38f2514e757dd549c01f"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

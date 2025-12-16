@@ -102,6 +102,7 @@ $(document).ready(function(){initNavTree('classData.html',''); initResizable(); 
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classData-members.html">List of all members</a>  </div>
@@ -119,8 +120,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6483ab171a3c41a07758f279da16ca85" id="r_a6483ab171a3c41a07758f279da16ca85"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classData.html#a6483ab171a3c41a07758f279da16ca85">Data</a> (const <a class="el" href="structParams.html">Params</a> &amp;p, const Eigen::VectorXi &amp;initial_allocations=Eigen::VectorXi())</td></tr>
 <tr class="memdesc:a6483ab171a3c41a07758f279da16ca85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a> object with a distance matrix.  <br /></td></tr>
 <tr class="separator:a6483ab171a3c41a07758f279da16ca85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
 <tr class="memitem:ad7e997f17eb2f794c0dfc9b6b73260b0" id="r_ad7e997f17eb2f794c0dfc9b6b73260b0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classData.html#ad7e997f17eb2f794c0dfc9b6b73260b0">get_distance</a> (int i, int j) const</td></tr>
-<tr class="memdesc:ad7e997f17eb2f794c0dfc9b6b73260b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the distance between two points.  <br /></td></tr>
+<tr class="memdesc:ad7e997f17eb2f794c0dfc9b6b73260b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getters.  <br /></td></tr>
 <tr class="separator:ad7e997f17eb2f794c0dfc9b6b73260b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11ff2cd14f9af453675c46bcb0107d3b" id="r_a11ff2cd14f9af453675c46bcb0107d3b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classData.html#a11ff2cd14f9af453675c46bcb0107d3b">get_n</a> () const</td></tr>
 <tr class="memdesc:a11ff2cd14f9af453675c46bcb0107d3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the total number of points.  <br /></td></tr>
@@ -143,12 +145,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac7f783945481fdf95a9f0d56b7de116f" id="r_ac7f783945481fdf95a9f0d56b7de116f"><td class="memItemLeft" align="right" valign="top">Eigen::Map&lt; const Eigen::VectorXi &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classData.html#ac7f783945481fdf95a9f0d56b7de116f">get_cluster_assignments_ref</a> (int cluster) const</td></tr>
 <tr class="memdesc:ac7f783945481fdf95a9f0d56b7de116f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all point indices assigned to a specific cluster (map form)  <br /></td></tr>
 <tr class="separator:ac7f783945481fdf95a9f0d56b7de116f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
 <tr class="memitem:a010f0f017f255c52592cf2794abb53ab" id="r_a010f0f017f255c52592cf2794abb53ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classData.html#a010f0f017f255c52592cf2794abb53ab">set_allocation</a> (int index, int cluster)</td></tr>
-<tr class="memdesc:a010f0f017f255c52592cf2794abb53ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns a point to a cluster.  <br /></td></tr>
+<tr class="memdesc:a010f0f017f255c52592cf2794abb53ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setters.  <br /></td></tr>
 <tr class="separator:a010f0f017f255c52592cf2794abb53ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad766a335e9d89cd7b6de8c2ab9a8d165" id="r_ad766a335e9d89cd7b6de8c2ab9a8d165"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classData.html#ad766a335e9d89cd7b6de8c2ab9a8d165">set_allocations</a> (const Eigen::VectorXi &amp;new_allocations)</td></tr>
 <tr class="memdesc:ad766a335e9d89cd7b6de8c2ab9a8d165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets all cluster allocations at once.  <br /></td></tr>
 <tr class="separator:ad766a335e9d89cd7b6de8c2ab9a8d165"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:abf5d07171d0a209bd15031e73485ef9b" id="r_abf5d07171d0a209bd15031e73485ef9b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="Data_8hpp.html#a8f90141b8e17ab0d4b572a5dde8c096d">unit_history</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classData.html#abf5d07171d0a209bd15031e73485ef9b">changed_clusters</a></td></tr>
+<tr class="memdesc:abf5d07171d0a209bd15031e73485ef9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracks changes to clusters during operations.  <br /></td></tr>
+<tr class="separator:abf5d07171d0a209bd15031e73485ef9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -448,8 +457,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Gets the distance between two points. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Getters. </p>
+<p>Gets the distance between two points </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">i</td><td>Index of first point </td></tr>
     <tr><td class="paramname">j</td><td>Index of second point </td></tr>
@@ -542,8 +551,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Assigns a point to a cluster. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Setters. </p>
+<p>Assigns a point to a cluster </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">index</td><td>Index of the point to reassign </td></tr>
     <tr><td class="paramname">cluster</td><td>Target cluster index (K for new cluster, -1 for unallocated) </td></tr>
@@ -613,6 +622,29 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Cluster allocation for each point. </p>
+
+</div>
+</div>
+<a id="abf5d07171d0a209bd15031e73485ef9b" name="abf5d07171d0a209bd15031e73485ef9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf5d07171d0a209bd15031e73485ef9b">&#9670;&#160;</a></span>changed_clusters</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="Data_8hpp.html#a8f90141b8e17ab0d4b572a5dde8c096d">unit_history</a>&gt; Data::changed_clusters</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tracks changes to clusters during operations. </p>
+<dl class="section note"><dt>Note</dt><dd>Each entry contains 3 elements: [index, old_cluster, new_cluster]<ul>
+<li>if index &gt;= 0: point <code>index</code> moved from old_cluster to new_cluster (either can be -1)</li>
+<li>if index == -1 and new_cluster &gt;= 0: cluster relabel due to compaction (new_cluster -&gt; old_cluster)</li>
+<li>if index == -1 and new_cluster == -1: cluster deletion due to compaction (old_cluster removed)</li>
+<li>if index == -2: full reallocation occurred, caches should be completely invalidated </li>
+</ul>
+</dd></dl>
 
 </div>
 </div>

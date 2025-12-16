@@ -102,6 +102,7 @@ $(document).ready(function(){initNavTree('classNGGPWx.html',''); initResizable()
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classNGGPWx-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">NGGPWx Class Reference</div></div>
 </div><!--header-->
@@ -118,7 +119,9 @@ Inheritance diagram for NGGPWx:</div>
   <img src="classNGGPWx.png" usemap="#NGGPWx_map" alt=""/>
   <map id="NGGPWx_map" name="NGGPWx_map">
 <area href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam..." alt="NGGPW" shape="rect" coords="62,56,177,80"/>
+<area href="classCovariatesModule.html" title="Module for covariate-related computations within clustering processes." alt="CovariatesModule" shape="rect" coords="187,56,302,80"/>
 <area href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes." alt="Process" shape="rect" coords="0,0,115,24"/>
+<area href="classSpatialModule.html" title="Module providing spatial methods for processes utilizing spatial information." alt="SpatialModule" shape="rect" coords="125,0,240,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -175,12 +178,52 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a7ff358c1d3b155bc09e1271266cdce7d inherit pub_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor for proper cleanup of derived classes.  <br /></td></tr>
 <tr class="separator:a7ff358c1d3b155bc09e1271266cdce7d inherit pub_methods_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a3641af2cf691baca03aef6727f0cce24" id="r_a3641af2cf691baca03aef6727f0cce24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNGGPWx.html#a3641af2cf691baca03aef6727f0cce24">adjusted_cluster_statistics_cache</a> () const</td></tr>
+<tr class="separator:a3641af2cf691baca03aef6727f0cce24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classProcess"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classProcess')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classProcess.html">Process</a></td></tr>
 <tr class="memitem:a914f8d21512e26141f7f79cfe9a16bd5 inherit pro_methods_classProcess" id="r_a914f8d21512e26141f7f79cfe9a16bd5"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXi &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a914f8d21512e26141f7f79cfe9a16bd5">old_allocations_view</a> () const</td></tr>
 <tr class="memdesc:a914f8d21512e26141f7f79cfe9a16bd5 inherit pro_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides read-only access to the stored previous allocations.  <br /></td></tr>
 <tr class="separator:a914f8d21512e26141f7f79cfe9a16bd5 inherit pro_methods_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classSpatialModule"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classSpatialModule')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classSpatialModule.html">SpatialModule</a></td></tr>
+<tr class="memitem:a838c7393c68a6670ef16a7fd311b88b9 inherit pro_methods_classSpatialModule" id="r_a838c7393c68a6670ef16a7fd311b88b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a838c7393c68a6670ef16a7fd311b88b9">neighbor_cache_compute</a> ()</td></tr>
+<tr class="memdesc:a838c7393c68a6670ef16a7fd311b88b9 inherit pro_methods_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precomputes and stores neighbor indices for all observations.  <br /></td></tr>
+<tr class="separator:a838c7393c68a6670ef16a7fd311b88b9 inherit pro_methods_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa669ec13448726a559ad0e3137e3702e inherit pro_methods_classSpatialModule" id="r_aa669ec13448726a559ad0e3137e3702e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#aa669ec13448726a559ad0e3137e3702e">get_neighbors_obs</a> (int obs_idx, int cls_idx) const</td></tr>
+<tr class="memdesc:aa669ec13448726a559ad0e3137e3702e inherit pro_methods_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts neighbors of an observation within a specific cluster.  <br /></td></tr>
+<tr class="separator:aa669ec13448726a559ad0e3137e3702e inherit pro_methods_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c93a18ef8a9ecf480a68c3438998f38 inherit pro_methods_classSpatialModule" id="r_a9c93a18ef8a9ecf480a68c3438998f38"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a9c93a18ef8a9ecf480a68c3438998f38">get_neighbors_obs</a> (int obs_idx) const</td></tr>
+<tr class="memdesc:a9c93a18ef8a9ecf480a68c3438998f38 inherit pro_methods_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts neighbors of an observation grouped by cluster membership.  <br /></td></tr>
+<tr class="separator:a9c93a18ef8a9ecf480a68c3438998f38 inherit pro_methods_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57f63d2983418353d324d49e01d712ed inherit pro_methods_classSpatialModule" id="r_a57f63d2983418353d324d49e01d712ed"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a57f63d2983418353d324d49e01d712ed">get_neighbors_cls</a> (int cls_idx, bool old_allo=false) const</td></tr>
+<tr class="memdesc:a57f63d2983418353d324d49e01d712ed inherit pro_methods_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts internal edges within a cluster.  <br /></td></tr>
+<tr class="separator:a57f63d2983418353d324d49e01d712ed inherit pro_methods_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6de7d3edab70bebb909acb9283480fc5 inherit pro_methods_classSpatialModule" id="r_a6de7d3edab70bebb909acb9283480fc5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a6de7d3edab70bebb909acb9283480fc5">SpatialModule</a> (const <a class="el" href="structCovariates.html">Covariates</a> &amp;covariates_, const <a class="el" href="classData.html">Data</a> &amp;data_, std::function&lt; const Eigen::VectorXi &amp;()&gt; old_alloc_provider={})</td></tr>
+<tr class="memdesc:a6de7d3edab70bebb909acb9283480fc5 inherit pro_methods_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classSpatialModule.html" title="Module providing spatial methods for processes utilizing spatial information.">SpatialModule</a> with parameter and data references.  <br /></td></tr>
+<tr class="separator:a6de7d3edab70bebb909acb9283480fc5 inherit pro_methods_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classCovariatesModule"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classCovariatesModule')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classCovariatesModule.html">CovariatesModule</a></td></tr>
+<tr class="memitem:a96dc851067bcb92824aed0430a96128c inherit pro_methods_classCovariatesModule" id="r_a96dc851067bcb92824aed0430a96128c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structCovariatesModule_1_1ClusterStats.html">ClusterStats</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a96dc851067bcb92824aed0430a96128c">compute_cluster_statistics</a> (const std::vector&lt; int &gt; &amp;obs) const</td></tr>
+<tr class="memdesc:a96dc851067bcb92824aed0430a96128c inherit pro_methods_classCovariatesModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute cluster statistics for covariate similarity.  <br /></td></tr>
+<tr class="separator:a96dc851067bcb92824aed0430a96128c inherit pro_methods_classCovariatesModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9eed2229c9e70b6a390f875e5538620 inherit pro_methods_classCovariatesModule" id="r_ab9eed2229c9e70b6a390f875e5538620"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#ab9eed2229c9e70b6a390f875e5538620">compute_log_marginal_likelihood_NN</a> (const <a class="el" href="structCovariatesModule_1_1ClusterStats.html">ClusterStats</a> &amp;stats) const __attribute__((hot))</td></tr>
+<tr class="memdesc:ab9eed2229c9e70b6a390f875e5538620 inherit pro_methods_classCovariatesModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log marginal likelihood for cluster given covariates.  <br /></td></tr>
+<tr class="separator:ab9eed2229c9e70b6a390f875e5538620 inherit pro_methods_classCovariatesModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e09686ea762a5b180208f6b9a63c604 inherit pro_methods_classCovariatesModule" id="r_a4e09686ea762a5b180208f6b9a63c604"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a4e09686ea762a5b180208f6b9a63c604">compute_log_marginal_likelihood_NNIG</a> (const <a class="el" href="structCovariatesModule_1_1ClusterStats.html">ClusterStats</a> &amp;stats) const</td></tr>
+<tr class="memdesc:a4e09686ea762a5b180208f6b9a63c604 inherit pro_methods_classCovariatesModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log marginal likelihood for cluster given covariates.  <br /></td></tr>
+<tr class="separator:a4e09686ea762a5b180208f6b9a63c604 inherit pro_methods_classCovariatesModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ddada04e54c1e69854a6f7dc82067b3 inherit pro_methods_classCovariatesModule" id="r_a9ddada04e54c1e69854a6f7dc82067b3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a9ddada04e54c1e69854a6f7dc82067b3">CovariatesModule</a> (const <a class="el" href="structCovariates.html">Covariates</a> &amp;covariates_, const <a class="el" href="classData.html">Data</a> &amp;data_, std::function&lt; const Eigen::VectorXi &amp;()&gt; old_alloc_provider={})</td></tr>
+<tr class="memdesc:a9ddada04e54c1e69854a6f7dc82067b3 inherit pro_methods_classCovariatesModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="classCovariatesModule.html" title="Module for covariate-related computations within clustering processes.">CovariatesModule</a>.  <br /></td></tr>
+<tr class="separator:a9ddada04e54c1e69854a6f7dc82067b3 inherit pro_methods_classCovariatesModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7726cf5c9f1a137c6e3d420ccfe6f1b inherit pro_methods_classCovariatesModule" id="r_ab7726cf5c9f1a137c6e3d420ccfe6f1b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#ab7726cf5c9f1a137c6e3d420ccfe6f1b">compute_similarity_cls</a> (int cls_idx, bool old_allo=false) const</td></tr>
+<tr class="memdesc:ab7726cf5c9f1a137c6e3d420ccfe6f1b inherit pro_methods_classCovariatesModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute covariate similarity contribution for a cluster.  <br /></td></tr>
+<tr class="separator:ab7726cf5c9f1a137c6e3d420ccfe6f1b inherit pro_methods_classCovariatesModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9de3e390e30aa6b59396f2f7cd126481 inherit pro_methods_classCovariatesModule" id="r_a9de3e390e30aa6b59396f2f7cd126481"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a9de3e390e30aa6b59396f2f7cd126481">compute_similarity_obs</a> (int obs_idx, int cls_idx) const __attribute__((hot))</td></tr>
+<tr class="memdesc:a9de3e390e30aa6b59396f2f7cd126481 inherit pro_methods_classCovariatesModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute covariate similarity for a single observation in a cluster.  <br /></td></tr>
+<tr class="separator:a9de3e390e30aa6b59396f2f7cd126481 inherit pro_methods_classCovariatesModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_classNGGPW"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classNGGPW')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classNGGPW.html">NGGPW</a></td></tr>
 <tr class="memitem:a991d4ee5fc8cef2cf251c76b2a5e3b75 inherit pro_attribs_classNGGPW" id="r_a991d4ee5fc8cef2cf251c76b2a5e3b75"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classU__sampler.html">U_sampler</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNGGPW.html#a991d4ee5fc8cef2cf251c76b2a5e3b75">U_sampler_method</a></td></tr>
 <tr class="memdesc:a991d4ee5fc8cef2cf251c76b2a5e3b75 inherit pro_attribs_classNGGPW"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the <a class="el" href="classU__sampler.html" title="Abstract base class for MCMC sampling of the latent variable U.">U_sampler</a> instance for updating the latent variable U.  <br /></td></tr>
@@ -210,10 +253,51 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a38b41ae4bad9a3a5f4b474f2f5a18561 inherit pro_attribs_classProcess" id="r_a38b41ae4bad9a3a5f4b474f2f5a18561"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a38b41ae4bad9a3a5f4b474f2f5a18561">log_a</a> = log(params.a)</td></tr>
 <tr class="memdesc:a38b41ae4bad9a3a5f4b474f2f5a18561 inherit pro_attribs_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precomputed logarithm of total mass parameter for efficiency.  <br /></td></tr>
 <tr class="separator:a38b41ae4bad9a3a5f4b474f2f5a18561 inherit pro_attribs_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classSpatialModule"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classSpatialModule')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classSpatialModule.html">SpatialModule</a></td></tr>
+<tr class="memitem:a50166acdc6f0c6678279b677903d21e5 inherit pro_attribs_classSpatialModule" id="r_a50166acdc6f0c6678279b677903d21e5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a50166acdc6f0c6678279b677903d21e5">neighbor_cache</a></td></tr>
+<tr class="memdesc:a50166acdc6f0c6678279b677903d21e5 inherit pro_attribs_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cache storing neighbor indices for each observation.  <br /></td></tr>
+<tr class="separator:a50166acdc6f0c6678279b677903d21e5 inherit pro_attribs_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a843ccd6b83d919cffe1d56dcc3f229da inherit pro_attribs_classSpatialModule" id="r_a843ccd6b83d919cffe1d56dcc3f229da"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structCovariates.html">Covariates</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#a843ccd6b83d919cffe1d56dcc3f229da">covariates_module</a></td></tr>
+<tr class="memdesc:a843ccd6b83d919cffe1d56dcc3f229da inherit pro_attribs_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to parameter object containing adjacency matrix W.  <br /></td></tr>
+<tr class="separator:a843ccd6b83d919cffe1d56dcc3f229da inherit pro_attribs_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad607b2c05c585c576b7410dd3bef9f1f inherit pro_attribs_classSpatialModule" id="r_ad607b2c05c585c576b7410dd3bef9f1f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#ad607b2c05c585c576b7410dd3bef9f1f">data_module</a></td></tr>
+<tr class="memdesc:ad607b2c05c585c576b7410dd3bef9f1f inherit pro_attribs_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to data object with cluster assignments.  <br /></td></tr>
+<tr class="separator:ad607b2c05c585c576b7410dd3bef9f1f inherit pro_attribs_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad356ea6f80c8553cd8500aeee26d4419 inherit pro_attribs_classSpatialModule" id="r_ad356ea6f80c8553cd8500aeee26d4419"><td class="memItemLeft" align="right" valign="top">std::function&lt; const Eigen::VectorXi &amp;()&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSpatialModule.html#ad356ea6f80c8553cd8500aeee26d4419">old_allocations_provider</a></td></tr>
+<tr class="memdesc:ad356ea6f80c8553cd8500aeee26d4419 inherit pro_attribs_classSpatialModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provider function for accessing old allocation state.  <br /></td></tr>
+<tr class="separator:ad356ea6f80c8553cd8500aeee26d4419 inherit pro_attribs_classSpatialModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classCovariatesModule"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classCovariatesModule')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classCovariatesModule.html">CovariatesModule</a></td></tr>
+<tr class="memitem:ac7e326010d4516a797a4b68780bedbf1 inherit pro_attribs_classCovariatesModule" id="r_ac7e326010d4516a797a4b68780bedbf1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structCovariates.html">Covariates</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#ac7e326010d4516a797a4b68780bedbf1">covariates_data</a></td></tr>
+<tr class="memdesc:ac7e326010d4516a797a4b68780bedbf1 inherit pro_attribs_classCovariatesModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to covariates data containing ages and prior parameters.  <br /></td></tr>
+<tr class="separator:ac7e326010d4516a797a4b68780bedbf1 inherit pro_attribs_classCovariatesModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae63056f0158abbe7c7d676e90ea00a3a inherit pro_attribs_classCovariatesModule" id="r_ae63056f0158abbe7c7d676e90ea00a3a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#ae63056f0158abbe7c7d676e90ea00a3a">data</a></td></tr>
+<tr class="memdesc:ae63056f0158abbe7c7d676e90ea00a3a inherit pro_attribs_classCovariatesModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to data object with cluster assignments.  <br /></td></tr>
+<tr class="separator:ae63056f0158abbe7c7d676e90ea00a3a inherit pro_attribs_classCovariatesModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a42552d8755abc48b50a4e7c59c4374 inherit pro_attribs_classCovariatesModule" id="r_a3a42552d8755abc48b50a4e7c59c4374"><td class="memItemLeft" align="right" valign="top">std::function&lt; const Eigen::VectorXi &amp;()&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a3a42552d8755abc48b50a4e7c59c4374">old_allocations_provider</a></td></tr>
+<tr class="memdesc:a3a42552d8755abc48b50a4e7c59c4374 inherit pro_attribs_classCovariatesModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provider function for accessing old allocation state.  <br /></td></tr>
+<tr class="separator:a3a42552d8755abc48b50a4e7c59c4374 inherit pro_attribs_classCovariatesModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa840620dfbf0a42c23ef340a7f6804e1 inherit pro_attribs_classCovariatesModule" id="r_aa840620dfbf0a42c23ef340a7f6804e1"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#aa840620dfbf0a42c23ef340a7f6804e1">Bv</a> = covariates_data.B * covariates_data.v</td></tr>
+<tr class="memdesc:aa840620dfbf0a42c23ef340a7f6804e1 inherit pro_attribs_classCovariatesModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Product of prior variance and observation variance.  <br /></td></tr>
+<tr class="separator:aa840620dfbf0a42c23ef340a7f6804e1 inherit pro_attribs_classCovariatesModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e8273b97531b5cbf4b90c4561ea73bc inherit pro_attribs_classCovariatesModule" id="r_a4e8273b97531b5cbf4b90c4561ea73bc"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a4e8273b97531b5cbf4b90c4561ea73bc">log_B</a> = std::log(covariates_data.B)</td></tr>
+<tr class="memdesc:a4e8273b97531b5cbf4b90c4561ea73bc inherit pro_attribs_classCovariatesModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log of prior variance.  <br /></td></tr>
+<tr class="separator:a4e8273b97531b5cbf4b90c4561ea73bc inherit pro_attribs_classCovariatesModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d0e6c427ba6efb549c460e24218f891 inherit pro_attribs_classCovariatesModule" id="r_a4d0e6c427ba6efb549c460e24218f891"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a4d0e6c427ba6efb549c460e24218f891">log_v</a> = std::log(covariates_data.v)</td></tr>
+<tr class="memdesc:a4d0e6c427ba6efb549c460e24218f891 inherit pro_attribs_classCovariatesModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log of observation variance.  <br /></td></tr>
+<tr class="separator:a4d0e6c427ba6efb549c460e24218f891 inherit pro_attribs_classCovariatesModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc6691bb941250a794b84273bf130ef6 inherit pro_attribs_classCovariatesModule" id="r_afc6691bb941250a794b84273bf130ef6"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#afc6691bb941250a794b84273bf130ef6">const_term</a> = -0.5 * std::log(2.0 * M_PI)</td></tr>
+<tr class="memdesc:afc6691bb941250a794b84273bf130ef6 inherit pro_attribs_classCovariatesModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constant term in log likelihood.  <br /></td></tr>
+<tr class="separator:afc6691bb941250a794b84273bf130ef6 inherit pro_attribs_classCovariatesModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60dc113c21f52f4921b4c98d2ae5d011 inherit pro_attribs_classCovariatesModule" id="r_a60dc113c21f52f4921b4c98d2ae5d011"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structCovariatesModule_1_1ClusterStats.html">ClusterStats</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a60dc113c21f52f4921b4c98d2ae5d011">empty_stats</a></td></tr>
+<tr class="memdesc:a60dc113c21f52f4921b4c98d2ae5d011 inherit pro_attribs_classCovariatesModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty cluster statistics.  <br /></td></tr>
+<tr class="separator:a60dc113c21f52f4921b4c98d2ae5d011 inherit pro_attribs_classCovariatesModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e48ee9559b72113b03136aab19a10e2 inherit pro_attribs_classCovariatesModule" id="r_a1e48ee9559b72113b03136aab19a10e2"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; int, <a class="el" href="structCovariatesModule_1_1ClusterStats.html">ClusterStats</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a1e48ee9559b72113b03136aab19a10e2">cluster_stats_cache</a></td></tr>
+<tr class="memdesc:a1e48ee9559b72113b03136aab19a10e2 inherit pro_attribs_classCovariatesModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cache for cluster statistics.  <br /></td></tr>
+<tr class="separator:a1e48ee9559b72113b03136aab19a10e2 inherit pro_attribs_classCovariatesModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> clustering process with spatial weights and covariates. </p>
-<p><code><a class="el" href="classNGGPWx.html" title="NGGP clustering process with spatial weights and covariates.">NGGPWx</a></code> inherits the spatially-weighted <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> prior from <code><a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a></code> and augments Gibbs and split-merge moves with covariate contributions computed by <code>CovariatesModule</code>. </p>
+<p><code><a class="el" href="classNGGPWx.html" title="NGGP clustering process with spatial weights and covariates.">NGGPWx</a></code> inherits the spatially-weighted <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> prior from <code><a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a></code> and augments Gibbs and split-merge moves with covariate contributions computed by <code><a class="el" href="classCovariatesModule.html" title="Module for covariate-related computations within clustering processes.">CovariatesModule</a></code>. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2160277ef8e9e85cb44727db4d2f32ee" name="a2160277ef8e9e85cb44727db4d2f32ee"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2160277ef8e9e85cb44727db4d2f32ee">&#9670;&#160;</a></span>NGGPWx()</h2>
@@ -275,6 +359,31 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3641af2cf691baca03aef6727f0cce24" name="a3641af2cf691baca03aef6727f0cce24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3641af2cf691baca03aef6727f0cce24">&#9670;&#160;</a></span>adjusted_cluster_statistics_cache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NGGPWx::adjusted_cluster_statistics_cache </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1711bab909aa48aa2984a0a9de06cedd" name="a1711bab909aa48aa2984a0a9de06cedd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1711bab909aa48aa2984a0a9de06cedd">&#9670;&#160;</a></span>gibbs_prior_existing_cluster()</h2>
 
@@ -465,7 +574,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Computes the prior ratio for a merge operation in a spatially-aware NGGP-based split-merge MCMC algorithm. </p>
-<p>Accounts for the <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> prior and spatial/covariate contributions (as implemented by <code><a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a></code> and <code>CovariatesModule</code>).</p>
+<p>Accounts for the <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> prior and spatial/covariate contributions (as implemented by <code><a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a></code> and <code><a class="el" href="classCovariatesModule.html" title="Module for covariate-related computations within clustering processes.">CovariatesModule</a></code>).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">size_old_ci</td><td>Size of the first cluster before the merge. </td></tr>
@@ -526,7 +635,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Computes the prior ratio for a shuffle operation in a spatially-aware NGGP-based split-merge MCMC algorithm. </p>
-<p>Accounts for the <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> prior and spatial/covariate contributions (as implemented by <code><a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a></code> and <code>CovariatesModule</code>).</p>
+<p>Accounts for the <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> prior and spatial/covariate contributions (as implemented by <code><a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a></code> and <code><a class="el" href="classCovariatesModule.html" title="Module for covariate-related computations within clustering processes.">CovariatesModule</a></code>).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">size_old_ci</td><td>Size of the first cluster before the shuffle. </td></tr>
@@ -577,7 +686,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Computes the prior ratio for a split operation in a spatially-aware NGGP-based split-merge MCMC algorithm. </p>
-<p>Accounts for the <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> prior and spatial/covariate contributions (as implemented by <code><a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a></code> and <code>CovariatesModule</code>).</p>
+<p>Accounts for the <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a> prior and spatial/covariate contributions (as implemented by <code><a class="el" href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam...">NGGPW</a></code> and <code><a class="el" href="classCovariatesModule.html" title="Module for covariate-related computations within clustering processes.">CovariatesModule</a></code>).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ci</td><td>Index of the first (proposed) split cluster. </td></tr>

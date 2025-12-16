@@ -13,6 +13,7 @@ var classData =
     [ "set_allocation", "classData.html#a010f0f017f255c52592cf2794abb53ab", null ],
     [ "set_allocations", "classData.html#ad766a335e9d89cd7b6de8c2ab9a8d165", null ],
     [ "allocations", "classData.html#aa3216ace6edfe6d6a3f522db636d4d49", null ],
+    [ "changed_clusters", "classData.html#abf5d07171d0a209bd15031e73485ef9b", null ],
     [ "cluster_members", "classData.html#a5cc015bc58a769616d92318242712825", null ],
     [ "K", "classData.html#aea3f372f41512f19256c760098f6a1fc", null ],
     [ "params", "classData.html#a49af987ead9e377722a4a95a9b868d2c", null ]

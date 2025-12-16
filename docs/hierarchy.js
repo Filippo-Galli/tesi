@@ -1,7 +1,8 @@
 var hierarchy =
 [
+    [ "CovariatesModule::ClusterStats", "structCovariatesModule_1_1ClusterStats.html", null ],
     [ "Covariates", "structCovariates.html", null ],
-    [ "CovariatesModule", null, [
+    [ "CovariatesModule", "classCovariatesModule.html", [
       [ "NGGPWx", "classNGGPWx.html", null ]
     ] ],
     [ "Data", "classData.html", null ],
@@ -23,7 +24,7 @@ var hierarchy =
       [ "SplitMerge_LSS_SDDS", "classSplitMerge__LSS__SDDS.html", null ],
       [ "SplitMerge_SAMS", "classSplitMerge__SAMS.html", null ]
     ] ],
-    [ "SpatialModule", null, [
+    [ "SpatialModule", "classSpatialModule.html", [
       [ "DPW", "classDPW.html", null ],
       [ "NGGPW", "classNGGPW.html", null ]
     ] ],
