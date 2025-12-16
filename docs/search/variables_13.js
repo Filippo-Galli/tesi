@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['zeta_0',['zeta',['../structParams.html#a38c8348b7c7a18470a4b19a6b67872d9',1,'Params']]]
+  ['w_0',['W',['../structCovariates.html#a9e8a5118abb35b7abb137f8ce55e095b',1,'Covariates']]]
 ];

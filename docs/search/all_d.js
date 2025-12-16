@@ -1,16 +1,15 @@
 var searchData=
 [
-  ['r_0',['R',['../index.html#autotoc_md2',1,'']]],
-  ['rand_5fsplit_5fprob_1',['rand_split_prob',['../classSplitMerge__LSS__SDDS.html#a703cfdea33d5b09e8ad73128f9153a87',1,'SplitMerge_LSS_SDDS']]],
-  ['rcpp_5fexposed_5fclass_2',['RCPP_EXPOSED_CLASS',['../Covariates_8hpp.html#aa1054bc57f0a3a86d908e4c81f0d37f9',1,'RCPP_EXPOSED_CLASS(Covariates):&#160;Covariates.hpp'],['../Params_8hpp.html#a0adfe6efaa5f8a9a923761f32f0f4451',1,'RCPP_EXPOSED_CLASS(Params):&#160;Params.hpp']]],
-  ['rcpp_5fmodule_3',['RCPP_MODULE',['../launcher_8cpp.html#a740848696136388d950307173a06eb4d',1,'launcher.cpp']]],
-  ['rd_4',['rd',['../classNGGP.html#afb1effc5294139fbcfe2c0aeb67d346e',1,'NGGP::rd'],['../classNGGPW.html#a410d13fc348ec3740a2ef63338142a62',1,'NGGPW::rd'],['../classSampler.html#abec9d161c1e486904e6d2869890c4be3',1,'Sampler::rd'],['../classU__sampler.html#a25806348f421eaab938a458b18106c0b',1,'U_sampler::rd']]],
-  ['readme_2emd_5',['README.MD',['../README_8MD.html',1,'']]],
-  ['references_6',['📚 References',['../index.html#autotoc_md16',1,'']]],
-  ['restricted_5fgibbs_7',['restricted_gibbs',['../classSplitMerge.html#ad3e2149688f6e7e5625488bab6bace42',1,'SplitMerge']]],
-  ['robbins_5fmonro_5ftuning_8',['Robbins_Monro_tuning',['../classMALA.html#a6377f0f9540fdd0b9098bc640b401c4a',1,'MALA::Robbins_Monro_tuning()'],['../classRWMH.html#a81e2b14edfbb27123b3a291ae7057fb4',1,'RWMH::Robbins_Monro_tuning()']]],
-  ['running_20the_20code_9',['Running the Code',['../index.html#autotoc_md15',1,'']]],
-  ['rwmh_10',['RWMH',['../classRWMH.html',1,'RWMH'],['../classRWMH.html#abd3f2472d65d54f0ff47ef63488c91d9',1,'RWMH::RWMH()']]],
-  ['rwmh_2ecpp_11',['RWMH.cpp',['../RWMH_8cpp.html',1,'']]],
-  ['rwmh_2ehpp_12',['RWMH.hpp',['../RWMH_8hpp.html',1,'']]]
+  ['params_0',['params',['../structParams.html',1,'Params'],['../classData.html#a49af987ead9e377722a4a95a9b868d2c',1,'Data::params'],['../classLikelihood.html#afd1795b729f44bd5105979ecb8853642',1,'Likelihood::params'],['../classProcess.html#a2793ccf3c3fe37432a7e19ba2de0e885',1,'Process::params'],['../classSampler.html#a82d788501df27a3490c27085e5c6a218',1,'Sampler::params'],['../classU__sampler.html#aae20479c86071657e0fe00d54c9d0d3c',1,'U_sampler::params'],['../structParams.html#a47b5fb56b2cd7b50dbd6c323c62bbf82',1,'Params::Params()']]],
+  ['params_2ehpp_1',['Params.hpp',['../Params_8hpp.html',1,'']]],
+  ['point_5floglikelihood_5fcond_2',['point_loglikelihood_cond',['../classLikelihood.html#a0937f6a9a4b48def87b6e644810fb99d',1,'Likelihood']]],
+  ['prerequisites_3',['Prerequisites',['../index.html#autotoc_md13',1,'']]],
+  ['prior_5fratio_5fmerge_4',['prior_ratio_merge',['../classDP.html#a0e9b5eed61089876ad4fa25440e6fe0a',1,'DP::prior_ratio_merge()'],['../classDPW.html#a75b3b17a4f1353be261598f817dfc151',1,'DPW::prior_ratio_merge()'],['../classNGGP.html#a79e4070dff59378d106d56545ea66a84',1,'NGGP::prior_ratio_merge()'],['../classNGGPW.html#a96acaa9d2dacbac024ffaba9d075249a',1,'NGGPW::prior_ratio_merge()'],['../classNGGPWx.html#a38a880748c66b8153f42209394596adf',1,'NGGPWx::prior_ratio_merge()'],['../classProcess.html#a3f839a738e76fc3ab83d3a7bfc228984',1,'Process::prior_ratio_merge(int size_old_ci, int size_old_cj) const =0']]],
+  ['prior_5fratio_5fshuffle_5',['prior_ratio_shuffle',['../classProcess.html#a3bd733b3232c8cf865bc0d6c1a07aea4',1,'Process::prior_ratio_shuffle()'],['../classDP.html#a124720c8dca0a4ebb401576f3f829624',1,'DP::prior_ratio_shuffle()'],['../classNGGPWx.html#afbd5944c9feddb1b516060857a154b98',1,'NGGPWx::prior_ratio_shuffle()'],['../classNGGPW.html#a9bc80b5731581b00c33479fd3b16d55d',1,'NGGPW::prior_ratio_shuffle()'],['../classNGGP.html#acd7a5bc6cbe029ec09d9a083c01277ff',1,'NGGP::prior_ratio_shuffle()'],['../classDPW.html#a657ee647610b79bda39db864bee2b6fa',1,'DPW::prior_ratio_shuffle()']]],
+  ['prior_5fratio_5fsplit_6',['prior_ratio_split',['../classDP.html#add6430ec2928d6260b9a4f78f6a2867a',1,'DP::prior_ratio_split()'],['../classDPW.html#a9ae9225ada0d3d26b9f7e584783e117c',1,'DPW::prior_ratio_split()'],['../classNGGP.html#a6488070ea12d0a9c9454d96e8b5cb719',1,'NGGP::prior_ratio_split()'],['../classNGGPW.html#a73053c1ef8025c03e60ef25f42509bf4',1,'NGGPW::prior_ratio_split()'],['../classNGGPWx.html#a207fa694f990bbb0415702a999aa7ae5',1,'NGGPWx::prior_ratio_split()'],['../classProcess.html#a3077b5bf1703a691927ae3779900a734',1,'Process::prior_ratio_split(int ci, int cj) const =0']]],
+  ['process_7',['process',['../classProcess.html#a8bd31d2434ca052d9a7e2b803e346b8e',1,'Process::Process()'],['../classSampler.html#a8ec54ff9fe8f22c8514496d6f3b998d0',1,'Sampler::process'],['../classProcess.html',1,'Process']]],
+  ['process_20tt_8',['Stochastic Processes (&lt;tt&gt;Process&lt;/tt&gt;)',['../index.html#autotoc_md9',1,'']]],
+  ['process_2ehpp_9',['Process.hpp',['../Process_8hpp.html',1,'']]],
+  ['processes_20tt_20process_20tt_10',['Stochastic Processes (&lt;tt&gt;Process&lt;/tt&gt;)',['../index.html#autotoc_md9',1,'']]],
+  ['proposal_5fsd_11',['proposal_sd',['../classRWMH.html#ab36d78a51cba6fbd0d0287f03ccf3a09',1,'RWMH']]]
 ];

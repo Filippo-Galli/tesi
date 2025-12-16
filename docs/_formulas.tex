@@ -1,10 +1,8 @@
 \documentclass{article}
-\usepackage{iftex}
 \usepackage{ifthen}
 \usepackage{epsfig}
 \usepackage[utf8]{inputenc}
 \usepackage{xcolor}
-\ifPDFTeX
 \usepackage{newunicodechar}
   \makeatletter
     \def\doxynewunicodechar#1#2{%
@@ -25,10 +23,10 @@
   \doxynewunicodechar{²}{${}^{2}$}% Superscript two
   \doxynewunicodechar{³}{${}^{3}$}% Superscript three
 
-\fi
 \pagestyle{empty}
 \begin{document}
-\[U' \sim \mathcal{N}(U_{\text{current}}, \sigma_{\text{prop}}^2) \quad
+\[
+U' \sim \mathcal{N}(U_{\text{current}}, \sigma_{\text{prop}}^2) \quad
 \text{truncated to } (0, \infty) \]
 \pagebreak
 
@@ -39,15 +37,18 @@
 $q(U'|U)$
 \pagebreak
 
-\[V' \sim \mathcal{N}(V_{\text{current}}, \sigma_{\text{prop}}^2)
+\[
+V' \sim \mathcal{N}(V_{\text{current}}, \sigma_{\text{prop}}^2)
 \]
 \pagebreak
 
-\[\alpha = \min\left(1, \frac{f(V')}{f(V)}\right)
+\[
+\alpha = \min\left(1, \frac{f(V')}{f(V)}\right)
 \]
 \pagebreak
 
-\[\log(\sigma_{\text{prop}}^{(t+1)}) = \log(\sigma_{\text{prop}}^{(t)})
+\[
+\log(\sigma_{\text{prop}}^{(t+1)}) = \log(\sigma_{\text{prop}}^{(t)})
 + \frac{c}{t} \cdot \delta_t
 \]
 \pagebreak
@@ -64,7 +65,8 @@ $\alpha_{\text{target}} = 0.44$
 $t$
 \pagebreak
 
-\[f_{U|\pi}(u) \propto u^{n-1} \cdot (u + \tau)^{-(n-\sigma|\pi|)}
+\[
+f_{U|\pi}(u) \propto u^{n-1} \cdot (u + \tau)^{-(n-\sigma|\pi|)}
 \cdot \exp\left(-\frac{a}{\sigma}\left((u+\tau)^\sigma -
 \tau^\sigma\right)\right) \]
 \pagebreak
@@ -87,12 +89,14 @@ $-(n - \sigma K) \log(u + \tau)$
 $-\frac{a}{\sigma}\left((u+\tau)^\sigma - \tau^\sigma\right)$
 \pagebreak
 
-\[f_{V|\pi}(v) = f_{U|\pi}(e^v) \cdot \left|\frac{dU}{dV}\right|
+\[
+f_{V|\pi}(v) = f_{U|\pi}(e^v) \cdot \left|\frac{dU}{dV}\right|
 = f_{U|\pi}(u) \cdot u
 \]
 \pagebreak
 
-\[\log f_{V|\pi}(v) = \log f_{U|\pi}(e^v) + \log(e^v) = \log f_{U|\pi}(u) + v
+\[
+\log f_{V|\pi}(v) = \log f_{U|\pi}(e^v) + \log(e^v) = \log f_{U|\pi}(u) + v
 \]
 \pagebreak
 

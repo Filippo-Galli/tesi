@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['w_0',['W',['../structCovariates.html#a9e8a5118abb35b7abb137f8ce55e095b',1,'Covariates']]],
-  ['with_20mcmc_1',['Bayesian Nonparametric Clustering with MCMC',['../index.html',1,'']]]
+  ['v_0',['v',['../structCovariates.html#a5e88b99ab218d6765563b0122cb80a68',1,'Covariates']]],
+  ['verbosity_5flevel_1',['VERBOSITY_LEVEL',['../Data_8hpp.html#a7be2f72d88f018001011f9a2b031621a',1,'Data.hpp']]]
 ];

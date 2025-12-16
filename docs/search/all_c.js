@@ -1,17 +1,7 @@
 var searchData=
 [
-  ['params_0',['Params',['../structParams.html',1,'Params'],['../structParams.html#a47b5fb56b2cd7b50dbd6c323c62bbf82',1,'Params::Params()']]],
-  ['params_1',['params',['../classData.html#a49af987ead9e377722a4a95a9b868d2c',1,'Data::params'],['../classLikelihood.html#afd1795b729f44bd5105979ecb8853642',1,'Likelihood::params'],['../classProcess.html#a2793ccf3c3fe37432a7e19ba2de0e885',1,'Process::params'],['../classSampler.html#a82d788501df27a3490c27085e5c6a218',1,'Sampler::params'],['../classU__sampler.html#aae20479c86071657e0fe00d54c9d0d3c',1,'U_sampler::params']]],
-  ['params_2ehpp_2',['Params.hpp',['../Params_8hpp.html',1,'']]],
-  ['point_5floglikelihood_5fcond_3',['point_loglikelihood_cond',['../classLikelihood.html#a0937f6a9a4b48def87b6e644810fb99d',1,'Likelihood']]],
-  ['prerequisites_4',['Prerequisites',['../index.html#autotoc_md13',1,'']]],
-  ['prior_5fratio_5fmerge_5',['prior_ratio_merge',['../classDP.html#a0e9b5eed61089876ad4fa25440e6fe0a',1,'DP::prior_ratio_merge()'],['../classDPW.html#a75b3b17a4f1353be261598f817dfc151',1,'DPW::prior_ratio_merge()'],['../classNGGP.html#a79e4070dff59378d106d56545ea66a84',1,'NGGP::prior_ratio_merge()'],['../classNGGPW.html#a96acaa9d2dacbac024ffaba9d075249a',1,'NGGPW::prior_ratio_merge()'],['../classNGGPWx.html#a38a880748c66b8153f42209394596adf',1,'NGGPWx::prior_ratio_merge()'],['../classProcess.html#a3f839a738e76fc3ab83d3a7bfc228984',1,'Process::prior_ratio_merge()']]],
-  ['prior_5fratio_5fshuffle_6',['prior_ratio_shuffle',['../classDP.html#a124720c8dca0a4ebb401576f3f829624',1,'DP::prior_ratio_shuffle()'],['../classDPW.html#a657ee647610b79bda39db864bee2b6fa',1,'DPW::prior_ratio_shuffle()'],['../classNGGP.html#acd7a5bc6cbe029ec09d9a083c01277ff',1,'NGGP::prior_ratio_shuffle()'],['../classNGGPW.html#a9bc80b5731581b00c33479fd3b16d55d',1,'NGGPW::prior_ratio_shuffle()'],['../classNGGPWx.html#afbd5944c9feddb1b516060857a154b98',1,'NGGPWx::prior_ratio_shuffle()'],['../classProcess.html#a3bd733b3232c8cf865bc0d6c1a07aea4',1,'Process::prior_ratio_shuffle()']]],
-  ['prior_5fratio_5fsplit_7',['prior_ratio_split',['../classDP.html#add6430ec2928d6260b9a4f78f6a2867a',1,'DP::prior_ratio_split()'],['../classDPW.html#a9ae9225ada0d3d26b9f7e584783e117c',1,'DPW::prior_ratio_split()'],['../classNGGP.html#a6488070ea12d0a9c9454d96e8b5cb719',1,'NGGP::prior_ratio_split()'],['../classNGGPW.html#a73053c1ef8025c03e60ef25f42509bf4',1,'NGGPW::prior_ratio_split()'],['../classNGGPWx.html#a207fa694f990bbb0415702a999aa7ae5',1,'NGGPWx::prior_ratio_split()'],['../classProcess.html#a3077b5bf1703a691927ae3779900a734',1,'Process::prior_ratio_split()']]],
-  ['process_8',['Process',['../classProcess.html',1,'Process'],['../classProcess.html#a8bd31d2434ca052d9a7e2b803e346b8e',1,'Process::Process()']]],
-  ['process_9',['process',['../classSampler.html#a8ec54ff9fe8f22c8514496d6f3b998d0',1,'Sampler']]],
-  ['process_20tt_10',['Stochastic Processes (&lt;tt&gt;Process&lt;/tt&gt;)',['../index.html#autotoc_md9',1,'']]],
-  ['process_2ehpp_11',['Process.hpp',['../Process_8hpp.html',1,'']]],
-  ['processes_20tt_20process_20tt_12',['Stochastic Processes (&lt;tt&gt;Process&lt;/tt&gt;)',['../index.html#autotoc_md9',1,'']]],
-  ['proposal_5fsd_13',['proposal_sd',['../classRWMH.html#ab36d78a51cba6fbd0d0287f03ccf3a09',1,'RWMH']]]
+  ['old_5fallocations_0',['old_allocations',['../classProcess.html#a837d783fac7c9f12243cd93b4534e3e4',1,'Process']]],
+  ['old_5fallocations_5fview_1',['old_allocations_view',['../classProcess.html#a914f8d21512e26141f7f79cfe9a16bd5',1,'Process']]],
+  ['old_5fepsilon_2',['old_epsilon',['../classMALA.html#a5438f9284a2dceab88c2c63f59279555',1,'MALA']]],
+  ['original_5fallocations_3',['original_allocations',['../classSplitMerge.html#ad96552c6bbf67fc857911cdf2c2dca81',1,'SplitMerge::original_allocations'],['../classSplitMerge__LSS.html#a8469a38fe1119d98269a4373cc3d2063',1,'SplitMerge_LSS::original_allocations'],['../classSplitMerge__LSS__SDDS.html#a415513c7aa6969479e7c4eb3021203d5',1,'SplitMerge_LSS_SDDS::original_allocations'],['../classSplitMerge__SAMS.html#ab7284d1659fa7c56c2ecfcb63665b0fb',1,'SplitMerge_SAMS::original_allocations']]]
 ];

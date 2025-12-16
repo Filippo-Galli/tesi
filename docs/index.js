@@ -10,9 +10,9 @@ var index =
       [ "Extensibility", "index.html#autotoc_md7", null ]
     ] ],
     [ "📦 Implemented Methods", "index.html#autotoc_md8", [
-      [ "Stochastic Processes (Process)", "index.html#autotoc_md9", null ],
-      [ "Likelihood Models (Likelihood)", "index.html#autotoc_md10", null ],
-      [ "MCMC Samplers (Sampler)", "index.html#autotoc_md11", null ]
+      [ "Stochastic Processes (<tt>Process</tt>)", "index.html#autotoc_md9", null ],
+      [ "Likelihood Models (<tt>Likelihood</tt>)", "index.html#autotoc_md10", null ],
+      [ "MCMC Samplers (<tt>Sampler</tt>)", "index.html#autotoc_md11", null ]
     ] ],
     [ "🛠️ Installation & Usage", "index.html#autotoc_md12", [
       [ "Prerequisites", "index.html#autotoc_md13", null ],

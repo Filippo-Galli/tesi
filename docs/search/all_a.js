@@ -1,23 +1,12 @@
 var searchData=
 [
-  ['n_0',['n',['../structParams.html#afc3333a9305656968c608c907941d52e',1,'Params::n'],['../classU__sampler.html#a2ff0d1829fb23f7e753654355237c77a',1,'U_sampler::n'],['../structCovariatesModule_1_1ClusterStats.html#aad74ff5e02710c969a3ca245f4f3e80f',1,'CovariatesModule::ClusterStats::n']]],
-  ['neal_2ecpp_1',['neal.cpp',['../neal_8cpp.html',1,'']]],
-  ['neal_2ehpp_2',['neal.hpp',['../neal_8hpp.html',1,'']]],
-  ['neal3_3',['Neal3',['../classNeal3.html',1,'Neal3'],['../classNeal3.html#ad50c5edb8fddcf84043fa2aa1249f9ea',1,'Neal3::Neal3()']]],
-  ['neal3zdnam_4',['Neal3ZDNAM',['../classNeal3ZDNAM.html',1,'Neal3ZDNAM'],['../classNeal3ZDNAM.html#aeff436f6a597dacfea0b31e098481b76',1,'Neal3ZDNAM::Neal3ZDNAM()']]],
-  ['neal_5fzdnam_2ecpp_5',['neal_ZDNAM.cpp',['../neal__ZDNAM_8cpp.html',1,'']]],
-  ['neal_5fzdnam_2ehpp_6',['neal_ZDNAM.hpp',['../neal__ZDNAM_8hpp.html',1,'']]],
-  ['neighbor_5fcache_7',['neighbor_cache',['../classSpatialModule.html#a50166acdc6f0c6678279b677903d21e5',1,'SpatialModule']]],
-  ['neighbor_5fcache_5fcompute_8',['neighbor_cache_compute',['../classSpatialModule.html#a838c7393c68a6670ef16a7fd311b88b9',1,'SpatialModule']]],
-  ['nggp_9',['NGGP',['../classNGGP.html',1,'NGGP'],['../classNGGP.html#a7239a08c3add6e13307e3b35c376580a',1,'NGGP::NGGP()']]],
-  ['nggp_2ecpp_10',['NGGP.cpp',['../NGGP_8cpp.html',1,'']]],
-  ['nggp_2ehpp_11',['NGGP.hpp',['../NGGP_8hpp.html',1,'']]],
-  ['nggpw_12',['NGGPW',['../classNGGPW.html',1,'NGGPW'],['../classNGGPW.html#a5ea30939069f45d6579e352009bb1a67',1,'NGGPW::NGGPW()']]],
-  ['nggpw_2ecpp_13',['NGGPW.cpp',['../NGGPW_8cpp.html',1,'']]],
-  ['nggpw_2ehpp_14',['NGGPW.hpp',['../NGGPW_8hpp.html',1,'']]],
-  ['nggpwx_15',['NGGPWx',['../classNGGPWx.html',1,'NGGPWx'],['../classNGGPWx.html#a2160277ef8e9e85cb44727db4d2f32ee',1,'NGGPWx::NGGPWx()']]],
-  ['nggpwx_2ecpp_16',['NGGPWx.cpp',['../NGGPWx_8cpp.html',1,'']]],
-  ['nggpwx_2ehpp_17',['NGGPWx.hpp',['../NGGPWx_8hpp.html',1,'']]],
-  ['ni_18',['NI',['../structParams.html#aad4ced5e851807ada535fae7ec6ebc73',1,'Params']]],
-  ['nonparametric_20clustering_20with_20mcmc_19',['Bayesian Nonparametric Clustering with MCMC',['../index.html',1,'']]]
+  ['m_0',['m',['../structCovariates.html#a05f839e331694224df90ef460ecbc334',1,'Covariates']]],
+  ['mala_1',['mala',['../classMALA.html',1,'MALA'],['../classMALA.html#a7721443577ca4639c17e298b2c1d56b2',1,'MALA::MALA()']]],
+  ['mala_2ecpp_2',['MALA.cpp',['../MALA_8cpp.html',1,'']]],
+  ['mala_2ehpp_3',['MALA.hpp',['../MALA_8hpp.html',1,'']]],
+  ['mcmc_4',['mcmc',['../index.html',1,'Bayesian Nonparametric Clustering with MCMC'],['../launcher_8cpp.html#acb635dff5eb5787bd77591bbdaed3150',1,'mcmc(Params &amp;param, Covariates &amp;covariates, const Rcpp::IntegerVector &amp;initial_allocations_r=Rcpp::IntegerVector()):&#160;launcher.cpp']]],
+  ['mcmc_20samplers_20tt_20sampler_20tt_5',['MCMC Samplers (&lt;tt&gt;Sampler&lt;/tt&gt;)',['../index.html#autotoc_md11',1,'']]],
+  ['merge_5fmove_6',['merge_move',['../classSplitMerge.html#a81747132bb2e0601a4e20c12d26197aa',1,'SplitMerge::merge_move()'],['../classSplitMerge__LSS.html#a592b28bad845e868b2baef627472a8c3',1,'SplitMerge_LSS::merge_move()'],['../classSplitMerge__SAMS.html#a6f774a8523fa9cd09826aecd6a177d11',1,'SplitMerge_SAMS::merge_move()']]],
+  ['methods_7',['📦 Implemented Methods',['../index.html#autotoc_md8',1,'']]],
+  ['models_20tt_20likelihood_20tt_8',['Likelihood Models (&lt;tt&gt;Likelihood&lt;/tt&gt;)',['../index.html#autotoc_md10',1,'']]]
 ];
