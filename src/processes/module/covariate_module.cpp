@@ -27,7 +27,7 @@ CovariatesModule::ClusterStats CovariatesModule::compute_cluster_statistics(int 
     return stats;
 }
 
-double CovariatesModule::compute_log_marginal_likelihood(const ClusterStats &stats) const {
+double CovariatesModule::compute_log_marginal_likelihood_NN(const ClusterStats &stats) const {
     if (stats.n == 0) {
         return 0.0;
     }
@@ -37,19 +37,27 @@ double CovariatesModule::compute_log_marginal_likelihood(const ClusterStats &sta
     const double xbar = stats.sum / static_cast<double>(n);
     const double ss = stats.sumsq - static_cast<double>(n) * xbar * xbar;
 
-    const double v_nB = v + static_cast<double>(n) * B;
+    const double v_nB = covariates_data.v + static_cast<double>(n) * covariates_data.B;
     const double tau_j = Bv / v_nB;
 
     double log_ml = 0.0;
     log_ml += static_cast<double>(n) * const_term;
     log_ml += -0.5 * static_cast<double>(n) * log_v;
     log_ml += 0.5 * (std::log(tau_j) - log_B);
-    log_ml -= 0.5 * ss / v;
+    log_ml -= 0.5 * ss / covariates_data.v;
 
-    const double prior_deviation = static_cast<double>(n) * (xbar - m) * (xbar - m) / v_nB;
+    const double prior_deviation = static_cast<double>(n) * (xbar - covariates_data.m) * (xbar - covariates_data.m) / v_nB;
     log_ml -= 0.5 * prior_deviation;
 
     return log_ml;
+}
+
+double CovariatesModule::compute_log_marginal_likelihood_NNIG(const ClusterStats &stats) const {
+    if (stats.n == 0) {
+        return 0.0;
+    }
+
+    return 0;
 }
 
 double CovariatesModule::compute_similarity_cls(int cls_idx, bool old_allo) const {
@@ -57,7 +65,12 @@ double CovariatesModule::compute_similarity_cls(int cls_idx, bool old_allo) cons
         (old_allo && old_allocations_provider) ? old_allocations_provider() : data.get_allocations();
 
     const ClusterStats stats = compute_cluster_statistics(cls_idx, allocations);
-    return compute_log_marginal_likelihood(stats);
+
+    if(covariates_data.fixed_v) {
+        return compute_log_marginal_likelihood_NN(stats);
+    }
+
+    return compute_log_marginal_likelihood_NNIG(stats);
 }
 
 double CovariatesModule::compute_similarity_obs(int obs_idx, int cls_idx, bool old_allo) const {
@@ -67,13 +80,15 @@ double CovariatesModule::compute_similarity_obs(int obs_idx, int cls_idx, bool o
     const ClusterStats base_stats = compute_cluster_statistics(cls_idx, allocations);
     const double obs_age = covariates_data.ages(obs_idx);
 
-    const double log_ml_without = compute_log_marginal_likelihood(base_stats);
+    const double log_ml_without = covariates_data.fixed_v ? compute_log_marginal_likelihood_NN(base_stats) : 
+        compute_log_marginal_likelihood_NNIG(base_stats);
 
-    ClusterStats with_stats = base_stats;
-    with_stats.n += 1;
-    with_stats.sum += obs_age;
-    with_stats.sumsq += obs_age * obs_age;
+    ClusterStats with_obs = base_stats;
+    with_obs.n += 1;
+    with_obs.sum += obs_age;
+    with_obs.sumsq += obs_age * obs_age;
 
-    const double log_ml_with = compute_log_marginal_likelihood(with_stats);
+    const double log_ml_with = covariates_data.fixed_v ? compute_log_marginal_likelihood_NN(with_obs) : 
+        compute_log_marginal_likelihood_NNIG(with_obs);;
     return log_ml_with - log_ml_without;
 }

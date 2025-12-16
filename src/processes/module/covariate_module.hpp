@@ -50,11 +50,7 @@ protected:
     /**
      * @name Precomputed values
      * @{
-     */
-
-    const double B = covariates_data.B; ///< Prior variance on cluster mean
-    const double v = covariates_data.v; ///< Known variance of observations
-    const double m = covariates_data.m; ///< Prior mean
+     */    
 
     const double Bv = covariates_data.B * covariates_data.v; ///< Product of prior variance and observation variance
 
@@ -97,7 +93,19 @@ protected:
      * @param stats Sufficient statistics (n, sum, sum of squares)
      * @return Log marginal likelihood contribution
      */
-    double compute_log_marginal_likelihood(const ClusterStats &stats) const;
+    double compute_log_marginal_likelihood_NN(const ClusterStats &stats) const;
+
+    /**
+     * @brief Compute log marginal likelihood for cluster given covariates
+     *
+     * Implements the Normal-InverseGamma conjugate prior model:
+     * - Prior on mean μ: N(m, B)
+     * - Prior on variance σ²: IG(nu, S0)
+     *
+     * @param stats Sufficient statistics (n, sum, sum of squares)
+     * @return Log marginal likelihood contribution
+     */
+    double compute_log_marginal_likelihood_NNIG(const ClusterStats &stats) const;
 
     /** @} */
 
