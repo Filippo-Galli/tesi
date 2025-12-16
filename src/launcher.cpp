@@ -23,7 +23,7 @@
 // #include "processes/DP.hpp"
 // #include "processes/DPW.hpp"
 // #include "processes/NGGP.hpp"
-// #include "processes/NGGPW.hpp"
+#include "processes/NGGPW.hpp"
 #include "processes/NGGPWx.hpp"
 
 #include "samplers/U_sampler/RWMH.hpp"

@@ -9,6 +9,7 @@
 #include "../../utils/Covariates.hpp"
 #include "Eigen/Dense"
 #include <functional>
+#include <unordered_map>
 #include <utility>
 #include <cmath>
 
@@ -50,7 +51,7 @@ protected:
     /**
      * @name Precomputed values
      * @{
-     */    
+     */
 
     const double Bv = covariates_data.B * covariates_data.v; ///< Product of prior variance and observation variance
 
@@ -73,7 +74,16 @@ protected:
         int n = 0;
         double sum = 0.0;
         double sumsq = 0.0;
+        mutable double cached_log_ml = 0.0; ///< Cached log marginal likelihood
+        mutable bool log_ml_valid = false;  ///< Whether cached log ML is valid
+
+        // Pre-compute expensive operations for incremental update
+        inline void invalidate() { log_ml_valid = false; }
     };
+
+    mutable ClusterStats empty_stats; ///< Empty cluster statistics
+
+    mutable std::unordered_map<int, ClusterStats> cluster_stats_cache; ///< Cache for cluster statistics
 
     /**
      * @brief Compute cluster statistics for covariate similarity
@@ -82,18 +92,46 @@ protected:
      * @param allocations Current allocation vector
      * @return Sufficient statistics (n, sum, sum of squares)
      */
-    ClusterStats compute_cluster_statistics(int cls_idx, const Eigen::VectorXi &allocations) const;
+    ClusterStats compute_cluster_statistics(const std::vector<int> &obs) const;
 
     /**
      * @brief Compute log marginal likelihood for cluster given covariates
      *
      * Implements the Normal conjugate prior model:
      * - Prior on mean μ: N(m, B)
+     * - Known variance v
      *
      * @param stats Sufficient statistics (n, sum, sum of squares)
      * @return Log marginal likelihood contribution
+     *
+     * @details Following Müller et al. (2011), the marginal likelihood is:
+     * log g(S) = -n/2 log(2π) - n/2 log(v) + 1/2 log(B) - 1/2 log(B + nv)
+     *            - SS/(2v) - n(x̄ - m)²/(2(B + nv))
+     * where SS = Σ(xᵢ - x̄)²
      */
-    double compute_log_marginal_likelihood_NN(const ClusterStats &stats) const;
+    inline double compute_log_marginal_likelihood_NN(const ClusterStats &stats) const __attribute__((hot)) {
+        if (stats.n == 0) {
+            return 0.0;
+        }
+
+        const double n_dbl = static_cast<double>(stats.n);
+        const double inv_n = 1.0 / n_dbl;
+        const double xbar = stats.sum * inv_n;
+
+        // Centered sum of squares: SS = Σ(xᵢ - x̄)²
+        const double ss = stats.sumsq - n_dbl * xbar * xbar;
+
+        // Posterior variance parameter: B + nv (NOT v + nB!)
+        const double B_nv = covariates_data.B + n_dbl * covariates_data.v;
+
+        // Deviation from prior mean
+        const double dev = xbar - covariates_data.m;
+
+        // log g(S) = -n/2 log(2π) - n/2 log(v) + 1/2 log(B) - 1/2 log(B + nv)
+        //            - SS/(2v) - n(x̄ - m)²/(2(B + nv))
+        return n_dbl * (const_term - 0.5 * log_v) + 0.5 * (log_B - std::log(B_nv)) -
+               0.5 * (ss / covariates_data.v + n_dbl * dev * dev / B_nv);
+    }
 
     /**
      * @brief Compute log marginal likelihood for cluster given covariates
@@ -162,7 +200,7 @@ public:
      * @details Used in Gibbs sampling to compute the probability of assigning
      * an observation to a cluster based on covariate similarity.
      */
-    double compute_similarity_obs(int obs_idx, int cls_idx, bool old_allo = false) const;
+    double compute_similarity_obs(int obs_idx, int cls_idx) const __attribute__((hot));
 
     /** @} */
 };

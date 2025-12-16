@@ -16,6 +16,8 @@
 #define VERBOSITY_LEVEL 0
 #endif
 
+typedef std::array<int, 3> unit_history;
+
 /**
  * @class Data
  * @brief Manages distance matrices and cluster allocations for points
@@ -26,113 +28,130 @@
  */
 class Data {
 private:
+    const Params &params; ///< Reference to model parameters
 
-  const Params& params; ///< Reference to model parameters
+    Eigen::VectorXi allocations; ///< Cluster allocation for each point
+    int K;                       ///< Current number of clusters
 
-  Eigen::VectorXi allocations; ///< Cluster allocation for each point
-  int K;                       ///< Current number of clusters
+    /// Maps cluster indices to vectors of point indices in that cluster
+    std::unordered_map<int, std::vector<int>> cluster_members;
 
-  /// Maps cluster indices to vectors of point indices in that cluster
-  std::unordered_map<int, std::vector<int>> cluster_members;
-
-  /**
-   * @brief Removes an empty cluster and compacts cluster indices
-   * @param old_cluster Index of the cluster to remove
-   */
-  void compact_cluster(int old_cluster);
+    /**
+     * @brief Removes an empty cluster and compacts cluster indices
+     * @param old_cluster Index of the cluster to remove
+     */
+    void compact_cluster(int old_cluster);
 
 public:
-  /**
-   * @brief Constructs a Data object with a distance matrix
-   * @param initial_allocations Optional initial cluster assignments (default:
-   * all in one cluster)
-   * @throws std::invalid_argument if distance matrix is not square
-   */
-  Data(const Params& p, const Eigen::VectorXi &initial_allocations = Eigen::VectorXi());
+    /**
+     * @brief Tracks changes to clusters during operations
+     * @note Each entry contains 3 elements: [index, old_cluster, new_cluster]
+     * - if index >= 0: point `index` moved from old_cluster to new_cluster (either can be -1)
+     * - if index == -1 and new_cluster >= 0: cluster relabel due to compaction (new_cluster -> old_cluster)
+     * - if index == -1 and new_cluster == -1: cluster deletion due to compaction (old_cluster removed)
+     * - if index == -2: full reallocation occurred, caches should be completely invalidated
+     */
+    std::vector<unit_history> changed_clusters;
 
-  // Getters
+    /**
+     * @brief Constructs a Data object with a distance matrix
+     * @param initial_allocations Optional initial cluster assignments (default:
+     * all in one cluster)
+     * @throws std::invalid_argument if distance matrix is not square
+     */
+    Data(const Params &p, const Eigen::VectorXi &initial_allocations = Eigen::VectorXi());
 
-  /**
-   * @brief Gets the distance between two points
-   * @param i Index of first point
-   * @param j Index of second point
-   * @return Distance between points i and j
-   */
-  double get_distance(int i, int j) const;
+    /**
+     * @brief Getters
+     * @{
+     */
 
-  /**
-   * @brief Gets the total number of points
-   * @return Number of points
-   */
-  int get_n() const { return params.n; }
+    /**
+     * @brief Gets the distance between two points
+     * @param i Index of first point
+     * @param j Index of second point
+     * @return Distance between points i and j
+     */
+    double get_distance(int i, int j) const;
 
-  /**
-   * @brief Gets the current number of clusters
-   * @return Number of clusters
-   */
-  int get_K() const { return K; }
+    /**
+     * @brief Gets the total number of points
+     * @return Number of points
+     */
+    int get_n() const { return params.n; }
 
-  /**
-   * @brief Gets the cluster allocations vector
-   * @return Reference to the allocations vector
-   */
-  const Eigen::VectorXi &get_allocations() const { return allocations; }
+    /**
+     * @brief Gets the current number of clusters
+     * @return Number of clusters
+     */
+    int get_K() const { return K; }
 
-  /**
-   * @brief Gets the size of a specific cluster
-   * @param cluster_index Index of the cluster
-   * @return Number of points in the cluster (0 if cluster doesn't exist)
-   */
-  int get_cluster_size(unsigned cluster_index) const {
-    auto it = cluster_members.find(cluster_index);
-    return (cluster_index < K && it != cluster_members.end())
-               ? it->second.size()
-               : 0;
-  }
+    /**
+     * @brief Gets the cluster allocations vector
+     * @return Reference to the allocations vector
+     */
+    const Eigen::VectorXi &get_allocations() const { return allocations; }
 
-  /**
-   * @brief Gets the cluster assignment of a specific point
-   * @param index Index of the point
-   * @return Cluster index the point is assigned to
-   * @throws std::out_of_range if index is out of bounds
-   */
-  int get_cluster_assignment(int index) const {
-    if (index < 0 || index >= params.n) {
-      throw std::out_of_range("Index out of bounds in get_cluster_assignment");
+    /**
+     * @brief Gets the size of a specific cluster
+     * @param cluster_index Index of the cluster
+     * @return Number of points in the cluster (0 if cluster doesn't exist)
+     */
+    int get_cluster_size(unsigned cluster_index) const {
+        auto it = cluster_members.find(cluster_index);
+        return (cluster_index < K && it != cluster_members.end()) ? it->second.size() : 0;
     }
-    return allocations(index);
-  }
 
-  /**
-   * @brief Gets all point indices assigned to a specific cluster
-   * @param cluster Index of the cluster
-   * @return Vector of point indices in the cluster
-   * @throws std::out_of_range if cluster index is invalid
-   */
-  Eigen::VectorXi get_cluster_assignments(int cluster) const;
+    /**
+     * @brief Gets the cluster assignment of a specific point
+     * @param index Index of the point
+     * @return Cluster index the point is assigned to
+     * @throws std::out_of_range if index is out of bounds
+     */
+    int get_cluster_assignment(int index) const {
+        if (index < 0 || index >= params.n) {
+            throw std::out_of_range("Index out of bounds in get_cluster_assignment");
+        }
+        return allocations(index);
+    }
 
-  /**
-   * @brief Gets all point indices assigned to a specific cluster (map form)
-   * @param cluster Index of the cluster
-   * @return Map to vector of point indices in the cluster
-   * @throws std::out_of_range if cluster index is invalid
-   */
-  Eigen::Map<const Eigen::VectorXi> get_cluster_assignments_ref(int cluster) const;
+    /**
+     * @brief Gets all point indices assigned to a specific cluster
+     * @param cluster Index of the cluster
+     * @return Vector of point indices in the cluster
+     * @throws std::out_of_range if cluster index is invalid
+     */
+    Eigen::VectorXi get_cluster_assignments(int cluster) const;
 
-  // Setters
+    /**
+     * @brief Gets all point indices assigned to a specific cluster (map form)
+     * @param cluster Index of the cluster
+     * @return Map to vector of point indices in the cluster
+     * @throws std::out_of_range if cluster index is invalid
+     */
+    Eigen::Map<const Eigen::VectorXi> get_cluster_assignments_ref(int cluster) const;
 
-  /**
-   * @brief Assigns a point to a cluster
-   * @param index Index of the point to reassign
-   * @param cluster Target cluster index (K for new cluster, -1 for unallocated)
-   * @throws std::out_of_range if index or cluster is invalid
-   */
-  void set_allocation(int index, int cluster);
+    /** @} */
 
-  /**
-   * @brief Sets all cluster allocations at once
-   * @param new_allocations Vector of cluster assignments for all points
-   * @throws std::invalid_argument if vector size doesn't match number of points
-   */
-  void set_allocations(const Eigen::VectorXi &new_allocations);
+    /**
+     * @brief Setters
+     * @{
+     */
+
+    /**
+     * @brief Assigns a point to a cluster
+     * @param index Index of the point to reassign
+     * @param cluster Target cluster index (K for new cluster, -1 for unallocated)
+     * @throws std::out_of_range if index or cluster is invalid
+     */
+    void set_allocation(int index, int cluster);
+
+    /**
+     * @brief Sets all cluster allocations at once
+     * @param new_allocations Vector of cluster assignments for all points
+     * @throws std::invalid_argument if vector size doesn't match number of points
+     */
+    void set_allocations(const Eigen::VectorXi &new_allocations);
+
+    /** @} */
 };

@@ -7,49 +7,17 @@
 
 #include <cmath>
 
-CovariatesModule::ClusterStats CovariatesModule::compute_cluster_statistics(int cls_idx,
-                                                                            const Eigen::VectorXi &allocations) const {
+CovariatesModule::ClusterStats CovariatesModule::compute_cluster_statistics(const std::vector<int> &obs) const {
     ClusterStats stats;
 
-    if (cls_idx == -1) {
-        return stats;
-    }
-
-    for (int i = 0; i < data.get_n(); ++i) {
-        if (allocations(i) == cls_idx) {
-            const double age = covariates_data.ages(i);
-            stats.n += 1;
-            stats.sum += age;
-            stats.sumsq += age * age;
-        }
+    for (const auto &i : obs) {
+        const double age = covariates_data.ages(i);
+        stats.n += 1;
+        stats.sum += age;
+        stats.sumsq += age * age;
     }
 
     return stats;
-}
-
-double CovariatesModule::compute_log_marginal_likelihood_NN(const ClusterStats &stats) const {
-    if (stats.n == 0) {
-        return 0.0;
-    }
-
-    const int n = stats.n;
-
-    const double xbar = stats.sum / static_cast<double>(n);
-    const double ss = stats.sumsq - static_cast<double>(n) * xbar * xbar;
-
-    const double v_nB = covariates_data.v + static_cast<double>(n) * covariates_data.B;
-    const double tau_j = Bv / v_nB;
-
-    double log_ml = 0.0;
-    log_ml += static_cast<double>(n) * const_term;
-    log_ml += -0.5 * static_cast<double>(n) * log_v;
-    log_ml += 0.5 * (std::log(tau_j) - log_B);
-    log_ml -= 0.5 * ss / covariates_data.v;
-
-    const double prior_deviation = static_cast<double>(n) * (xbar - covariates_data.m) * (xbar - covariates_data.m) / v_nB;
-    log_ml -= 0.5 * prior_deviation;
-
-    return log_ml;
 }
 
 double CovariatesModule::compute_log_marginal_likelihood_NNIG(const ClusterStats &stats) const {
@@ -61,34 +29,84 @@ double CovariatesModule::compute_log_marginal_likelihood_NNIG(const ClusterStats
 }
 
 double CovariatesModule::compute_similarity_cls(int cls_idx, bool old_allo) const {
-    const Eigen::VectorXi &allocations =
-        (old_allo && old_allocations_provider) ? old_allocations_provider() : data.get_allocations();
 
-    const ClusterStats stats = compute_cluster_statistics(cls_idx, allocations);
-
-    if(covariates_data.fixed_v) {
-        return compute_log_marginal_likelihood_NN(stats);
+    // Try to use cache first (only for current allocations, not old)
+    if (!old_allo) {
+        auto it = cluster_stats_cache.find(cls_idx);
+        if (it != cluster_stats_cache.end()) {
+            // Cache hit - check if log ML is already computed
+            ClusterStats &stats = it->second;
+            if (!stats.log_ml_valid) {
+                stats.cached_log_ml = covariates_data.fixed_v ? compute_log_marginal_likelihood_NN(stats)
+                                                              : compute_log_marginal_likelihood_NNIG(stats);
+                stats.log_ml_valid = true;
+            }
+            return stats.cached_log_ml;
+        }
     }
 
-    return compute_log_marginal_likelihood_NNIG(stats);
+    // Cache miss or old allocations requested - compute from scratch
+    ClusterStats stats;
+
+    if (old_allo && old_allocations_provider) {
+        // Use old allocations from provider
+        const Eigen::VectorXi &old_allocs = old_allocations_provider();
+        for (int i = 0; i < old_allocs.size(); ++i) {
+            if (old_allocs(i) == cls_idx) {
+                const double age = covariates_data.ages(i);
+                stats.n += 1;
+                stats.sum += age;
+                stats.sumsq += age * age;
+            }
+        }
+    } else {
+        // Use current allocations from data
+        const auto &assignments = data.get_cluster_assignments_ref(cls_idx);
+        for (int i = 0; i < assignments.size(); ++i) {
+            const double age = covariates_data.ages(assignments(i));
+            stats.n += 1;
+            stats.sum += age;
+            stats.sumsq += age * age;
+        }
+    }
+
+    return covariates_data.fixed_v ? compute_log_marginal_likelihood_NN(stats)
+                                   : compute_log_marginal_likelihood_NNIG(stats);
 }
 
-double CovariatesModule::compute_similarity_obs(int obs_idx, int cls_idx, bool old_allo) const {
-    const Eigen::VectorXi &allocations =
-        (old_allo && old_allocations_provider) ? old_allocations_provider() : data.get_allocations();
+double CovariatesModule::compute_similarity_obs(int obs_idx, int cls_idx) const {
 
-    const ClusterStats base_stats = compute_cluster_statistics(cls_idx, allocations);
     const double obs_age = covariates_data.ages(obs_idx);
+    const double obs_age_sq = obs_age * obs_age;
 
-    const double log_ml_without = covariates_data.fixed_v ? compute_log_marginal_likelihood_NN(base_stats) : 
-        compute_log_marginal_likelihood_NNIG(base_stats);
+    // Single cache lookup
+    auto it = cluster_stats_cache.find(cls_idx);
+    if (it != cluster_stats_cache.end()) {
+        // Cache hit - ensure log ML is computed
+        ClusterStats &stats = it->second;
+        if (!stats.log_ml_valid) {
+            stats.cached_log_ml = covariates_data.fixed_v ? compute_log_marginal_likelihood_NN(stats)
+                                                          : compute_log_marginal_likelihood_NNIG(stats);
+            stats.log_ml_valid = true;
+        }
 
-    ClusterStats with_obs = base_stats;
-    with_obs.n += 1;
-    with_obs.sum += obs_age;
-    with_obs.sumsq += obs_age * obs_age;
+        // Compute stats with observation added (inline for speed)
+        ClusterStats stats_with;
+        stats_with.n = stats.n + 1;
+        stats_with.sum = stats.sum + obs_age;
+        stats_with.sumsq = stats.sumsq + obs_age_sq;
 
-    const double log_ml_with = covariates_data.fixed_v ? compute_log_marginal_likelihood_NN(with_obs) : 
-        compute_log_marginal_likelihood_NNIG(with_obs);;
-    return log_ml_with - log_ml_without;
+        const double log_ml_with = covariates_data.fixed_v ? compute_log_marginal_likelihood_NN(stats_with)
+                                                           : compute_log_marginal_likelihood_NNIG(stats_with);
+        return log_ml_with - stats.cached_log_ml;
+    }
+
+    // Cache miss - singleton cluster (log_ml_without = 0)
+    ClusterStats stats_with;
+    stats_with.n = 1;
+    stats_with.sum = obs_age;
+    stats_with.sumsq = obs_age_sq;
+
+    return covariates_data.fixed_v ? compute_log_marginal_likelihood_NN(stats_with)
+                                   : compute_log_marginal_likelihood_NNIG(stats_with);
 }
