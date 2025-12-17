@@ -87,7 +87,6 @@ void Data::compact_cluster(int old_cluster) {
     // If compacting the last cluster (or the only cluster), this is a pure deletion.
     if (K <= 1 || old_cluster == last_cluster) {
         cluster_members.erase(old_cluster);
-        changed_clusters.push_back({-1, old_cluster, -1});
         K--;
         return;
     }
@@ -106,11 +105,6 @@ void Data::compact_cluster(int old_cluster) {
     } else {
         // Last cluster is empty or doesn't exist, just clear the old cluster
         cluster_members[old_cluster].clear();
-    }
-
-    // Record relabel event for incremental updaters: last_cluster -> old_cluster
-    if (last_cluster_exists) {
-        changed_clusters.push_back({-1, old_cluster, last_cluster});
     }
 
     // Remove the last cluster
@@ -186,9 +180,6 @@ void Data::set_allocation(int index, int cluster) {
         }
     }
 
-    // Update changed_clusters tracking
-    changed_clusters.push_back({index, old_cluster, allocations(index)});
-
     // Check if old cluster became empty and needs compaction
     if (old_cluster_exists && old_cluster_it->second.empty()) {
         compact_cluster(old_cluster);
@@ -211,9 +202,4 @@ void Data::set_allocations(const Eigen::VectorXi &new_allocations) {
 
     // Update K based on the new allocations
     K = allocations.maxCoeff() + 1;
-
-    // Clear any pending changes since they're now invalid
-    // Then signal cache invalidation by using a special marker
-    changed_clusters.clear();
-    changed_clusters.push_back({-2, -1, -1});
 }

@@ -30,9 +30,9 @@ in
   # -ftree-vectorize: auto-vectorize loops (SIMD)
   # -flto: link-time optimization
   env.CXX_STD = "CXX17";
-  env.PKG_CXXFLAGS = "-O3 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
-  env.CXXFLAGS = "-O3 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
-  env.PKG_CFLAGS = "-O3 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
+  env.PKG_CXXFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
+  env.CXXFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
+  env.PKG_CFLAGS = "-O2 -g -march=native -mtune=native -ffast-math -funroll-loops -ftree-vectorize -flto=auto -fopenmp";
 
   # Eigen specific flags
   env.PKG_CXXFLAGS_EIGEN = "-DEIGEN_NO_DEBUG -DEIGEN_DONT_PARALLELIZE";

@@ -22,9 +22,6 @@
  */
 class NGGPWx : public NGGPW, protected CovariatesModule {
 
-protected:
-    void adjusted_cluster_statistics_cache() const;
-
 public:
     /**
      * @brief Construct an `NGGPWx` process.

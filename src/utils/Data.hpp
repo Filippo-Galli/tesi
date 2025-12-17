@@ -16,8 +16,6 @@
 #define VERBOSITY_LEVEL 0
 #endif
 
-typedef std::array<int, 3> unit_history;
-
 /**
  * @class Data
  * @brief Manages distance matrices and cluster allocations for points
@@ -43,15 +41,6 @@ private:
     void compact_cluster(int old_cluster);
 
 public:
-    /**
-     * @brief Tracks changes to clusters during operations
-     * @note Each entry contains 3 elements: [index, old_cluster, new_cluster]
-     * - if index >= 0: point `index` moved from old_cluster to new_cluster (either can be -1)
-     * - if index == -1 and new_cluster >= 0: cluster relabel due to compaction (new_cluster -> old_cluster)
-     * - if index == -1 and new_cluster == -1: cluster deletion due to compaction (old_cluster removed)
-     * - if index == -2: full reallocation occurred, caches should be completely invalidated
-     */
-    std::vector<unit_history> changed_clusters;
 
     /**
      * @brief Constructs a Data object with a distance matrix
