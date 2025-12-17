@@ -95,10 +95,29 @@ private:
     /** @brief Indices of observations in clusters ci and cj */
     Eigen::VectorXi S;
 
+    /** @brief Size of the launch state and S vectors */
+    int launch_state_size;
+
     /** @brief Original cluster assignments before move proposal */
     Eigen::VectorXi original_allocations;
 
     // ========== Proposal Probabilities ==========
+
+    /** @brief uniform distribution between 0 and 1  
+    */
+    std::uniform_real_distribution<> dis_real;
+
+    /** @brief uniform integer distribution for general use */
+    std::uniform_int_distribution<> dis_int;
+
+    /**
+    * @brief Log probabilities of allocating a point to clusters ci and cj
+    */
+    Eigen::Vector2d log_probs;
+
+    /** @brief Probabilities of allocating a point to clusters ci and cj
+    */
+    Eigen::Vector2d probs;
 
     /** @brief Log probability of generating current state via sequential
      * allocation (split direction) */
@@ -302,7 +321,7 @@ public:
      * intelligently balancing computational cost with proposal quality.
      */
     SplitMerge_LSS_SDDS(Data &d, Params &p, Likelihood &l, Process &pr, bool shuffle)
-        : Sampler(d, p, l, pr), shuffle_bool(shuffle), gen(rd()) {};
+        : Sampler(d, p, l, pr), shuffle_bool(shuffle), gen(rd()), dis_real(0.0, 1.0), dis_int(0, 1) {};
 
     // ========== MCMC Interface ==========
 

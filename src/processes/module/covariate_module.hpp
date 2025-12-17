@@ -9,7 +9,6 @@
 #include "../../utils/Covariates.hpp"
 #include "Eigen/Dense"
 #include <functional>
-#include <unordered_map>
 #include <utility>
 #include <cmath>
 
@@ -49,24 +48,6 @@ protected:
     /** @} */
 
     /**
-     * @name Precomputed values
-     * @{
-     */
-
-    const double Bv = covariates_data.B * covariates_data.v; ///< Product of prior variance and observation variance
-
-    const double log_B = std::log(covariates_data.B); ///< Log of prior variance
-    const double log_v = std::log(covariates_data.v); ///< Log of observation variance
-
-    const double const_term = -0.5 * std::log(2.0 * M_PI); ///< Constant term in log likelihood
-
-    const double lgamma_nu = std::lgamma(covariates_data.nu); ///< log Gamma(ν) for NNIG model (v ~ IG(ν, S₀))
-    const double nu_logS0 =
-        covariates_data.nu * std::log(covariates_data.S0); ///< ν log(S₀) for NNIG model (v ~ IG(ν, S₀))
-
-    /** @} */
-
-    /**
      * @name Helper Methods
      * @{
      */
@@ -78,16 +59,7 @@ protected:
         int n = 0;
         double sum = 0.0;
         double sumsq = 0.0;
-        mutable double cached_log_ml = 0.0; ///< Cached log marginal likelihood
-        mutable bool log_ml_valid = false;  ///< Whether cached log ML is valid
-
-        // Pre-compute expensive operations for incremental update
-        inline void invalidate() { log_ml_valid = false; }
     };
-
-    mutable ClusterStats empty_stats; ///< Empty cluster statistics
-
-    mutable std::unordered_map<int, ClusterStats> cluster_stats_cache; ///< Cache for cluster statistics
 
     /**
      * @brief Compute cluster statistics for covariate similarity
@@ -96,23 +68,39 @@ protected:
      * @param allocations Current allocation vector
      * @return Sufficient statistics (n, sum, sum of squares)
      */
-    ClusterStats compute_cluster_statistics(const std::vector<int> &obs) const;
+    ClusterStats compute_cluster_statistics(const Eigen::Ref<const Eigen::VectorXi> obs) const;
 
     /**
      * @brief Compute log marginal likelihood for cluster given covariates
      *
-     * Implements the Normal conjugate prior model:
-     * - x ~ N(μ, v)
-     * - Prior on mean μ: N(m, B)
-     * - Known variance v
+     * Implements the Normal-Normal conjugate prior model:
+     * - x_i ~ N(μ_j, v)  for i ∈ S_j
+     * - Prior on mean μ_j: N(m, B)
+     * - Observation variance v is known and fixed
      *
-     * @param stats Sufficient statistics (n, sum, sum of squares)
-     * @return Log marginal likelihood contribution
+     * @details The marginal likelihood integrates out the cluster-specific mean μ_j.
+     * With sufficient statistics:
+     * - n_j = |S_j| (cluster size)
+     * - x̄_j = (1/n_j) Σ_{i ∈ S_j} x_i (sample mean)
+     * - SS = Σ_{i ∈ S_j} (x_i - x̄_j)² (centered sum of squares)
      *
-     * @details Following Müller et al. (2011), the marginal likelihood is:
-     * log g(S) = -n/2 log(2π) - n/2 log(v) + 1/2 log(B) - 1/2 log(B + nv)
-     *            - SS/(2v) - n(x̄ - m)²/(2(B + nv))
-     * where SS = Σ(xᵢ - x̄)²
+     * The posterior distribution of μ_j is N(m̂_j, τ_j) where:
+     * - τ_j = Bv / (v + n_j B)  (posterior variance)
+     * - m̂_j = τ_j (n_j x̄_j / v + m / B)  (posterior mean)
+     *
+     * The log marginal likelihood is:
+     *
+     * log q(x_j) = -n_j/2 log(2π) - n_j/2 log(v) - 1/2 log(B) + 1/2 log(τ_j)
+     *              - SS/(2v) - n_j(x̄_j - m)² / (2(v + n_j B))
+     *
+     * where log(τ_j) = log(B) + log(v) - log(v + n_j B)
+     *
+     *
+     * @param stats Sufficient statistics for the cluster
+     * @return Log marginal likelihood value
+     *
+     * @note This is marked as __attribute__((hot)) for performance optimization
+     *       as it is called frequently in the MCMC sampling loop.
      */
     inline double compute_log_marginal_likelihood_NN(const ClusterStats &stats) const __attribute__((hot)) {
         if (stats.n == 0) {
@@ -123,19 +111,23 @@ protected:
         const double inv_n = 1.0 / n_dbl;
         const double xbar = stats.sum * inv_n;
 
-        // Centered sum of squares: SS = Σ(xᵢ - x̄)²
+        // Centered sum of squares: SS = Σ(x_i - x̄)²
         const double ss = stats.sumsq - n_dbl * xbar * xbar;
 
-        // Posterior variance parameter: B + nv (NOT v + nB!)
-        const double B_nv = covariates_data.B + n_dbl * covariates_data.v;
+        // v + n_j B term from integrating μ_j ~ N(m, B)
+        const double v_plus_nB = covariates_data.v + n_dbl * covariates_data.B;
 
-        // Deviation from prior mean
+        // Mean deviation from prior mean
         const double dev = xbar - covariates_data.m;
 
-        // log g(S) = -n/2 log(2π) - n/2 log(v) + 1/2 log(B) - 1/2 log(B + nv)
-        //            - SS/(2v) - n(x̄ - m)²/(2(B + nv))
-        return n_dbl * (const_term - 0.5 * log_v) + 0.5 * (log_B - std::log(B_nv)) -
-               0.5 * (ss / covariates_data.v + n_dbl * dev * dev / B_nv);
+        // Log of posterior variance: log(τ_j) = log(B) + log(v) - log(v + n_j B)
+        const double log_tau_j = log_B + log_v - std::log(v_plus_nB);
+
+        // Compute log marginal likelihood using posterior variance form:
+        // log q(x_j) = -n_j/2 log(2π) - n_j/2 log(v) - 1/2 log(B) + 1/2 log(τ_j)
+        //              - SS/(2v) - n_j(x̄_j - m)² / (2(v + n_j B))
+        return n_dbl * const_term - 0.5 * n_dbl * log_v - 0.5 * log_B + 0.5 * log_tau_j -
+               0.5 * (ss / covariates_data.v + n_dbl * dev * dev / v_plus_nB);
     }
 
     /**
@@ -151,7 +143,7 @@ protected:
      *
      * @details The marginal likelihood for the NNIG model is:
      * log g(S) = log Γ(ν + n/2) - log Γ(ν) - n/2 log(2π)
-     *            - 1/2 log(1 + nB) + ν log(S₀)              ← Fix: remove /2
+     *            - 1/2 log(1 + nB) + ν log(S₀)
      *            - (ν + n/2) log(S₀ + SS/2 + n/(2(1+nB)) (x̄-m)²)
      */
     inline double compute_log_marginal_likelihood_NNIG(const ClusterStats &stats) const __attribute__((hot)) {
@@ -186,6 +178,26 @@ protected:
 
     /** @} */
 
+       /**
+     * @name Precomputed values
+     * @{
+     */
+
+    const double Bv = covariates_data.B * covariates_data.v; ///< Product of prior variance and observation variance
+
+    const double log_B = std::log(covariates_data.B); ///< Log of prior variance
+    const double log_v = std::log(covariates_data.v); ///< Log of observation variance
+
+    const double const_term = -0.5 * std::log(2.0 * M_PI); ///< Constant term in log likelihood
+
+    const double lgamma_nu = std::lgamma(covariates_data.nu); ///< log Gamma(ν) for NNIG model (v ~ IG(ν, S₀))
+    const double nu_logS0 =
+        covariates_data.nu * std::log(covariates_data.S0); ///< ν log(S₀) for NNIG model (v ~ IG(ν, S₀))
+
+    std::function<double(const CovariatesModule::ClusterStats &)> log_marginal_likelihood_function; ///< Pointer to log marginal likelihood function
+
+    /** @} */
+
 public:
     /**
      * @brief Constructor for CovariatesModule
@@ -196,7 +208,10 @@ public:
      */
     CovariatesModule(const Covariates &covariates_, const Data &data_,
                      std::function<const Eigen::VectorXi &()> old_alloc_provider = {})
-        : covariates_data(covariates_), data(data_), old_allocations_provider(std::move(old_alloc_provider)) {}
+        : covariates_data(covariates_), data(data_), old_allocations_provider(std::move(old_alloc_provider)), 
+        log_marginal_likelihood_function(covariates_.fixed_v
+        ? std::function<double(const ClusterStats &)>([this](const ClusterStats &stats) { return compute_log_marginal_likelihood_NN(stats); })
+        : std::function<double(const ClusterStats &)>([this](const ClusterStats &stats) { return compute_log_marginal_likelihood_NNIG(stats); })) {}
 
     /**
      * @name Similarity Computation Methods
@@ -240,6 +255,17 @@ public:
      * an observation to a cluster based on covariate similarity.
      */
     double compute_similarity_obs(int obs_idx, int cls_idx) const __attribute__((hot));
+
+    /**
+     * @brief Compute covariate similarity contributions for all existing clusters
+     *
+     * Computes the predictive contributions for adding observation obs_idx
+     * to each existing cluster, considering covariate values.
+     *
+     * @param obs_idx Index of the observation
+     * @return Vector of log predictive density contributions for each cluster
+     */
+    Eigen::VectorXd compute_similarity_obs(int obs_idx) const;
 
     /** @} */
 };

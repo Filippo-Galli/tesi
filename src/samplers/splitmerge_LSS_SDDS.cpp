@@ -60,8 +60,7 @@ void SplitMerge_LSS_SDDS::choose_indeces(bool similarity) {
 
     // Initialize launch_state with current allocations of points in clusters ci
     // and cj while S with their indices
-    size_t launch_state_size =
-        ci == cj ? size_ci - 2 : size_ci + size_cj - 2; // Exclude points i and j from the launch state
+    launch_state_size = ci == cj ? size_ci - 2 : size_ci + size_cj - 2; // Exclude points i and j from the launch state
 
     launch_state.resize(launch_state_size);
     S.resize(launch_state_size);
@@ -104,17 +103,15 @@ void SplitMerge_LSS_SDDS::choose_indeces(bool similarity) {
 
 void SplitMerge_LSS_SDDS::sequential_allocation(int iterations, bool only_probabilities, bool sequential) {
 
-    const int S_size = S.size();
-
     for (int i = 0; i < iterations; ++i) {
 
         // Unallocate all points in S
-        for (int idx = 0; idx < S_size && sequential; ++idx) {
+        for (int idx = 0; idx < launch_state_size && sequential; ++idx) {
             data.set_allocation(S(idx), -1); // Unallocate point
         }
 
         // Allocate each point in S using RGSM or sequential allocation
-        for (int idx = 0; idx < S_size; ++idx) {
+        for (int idx = 0; idx < launch_state_size; ++idx) {
             int point_idx = S(idx);
             int current_cluster = launch_state(idx);
 
@@ -124,9 +121,8 @@ void SplitMerge_LSS_SDDS::sequential_allocation(int iterations, bool only_probab
                 data.set_allocation(point_idx, -1);
             }
 
+            
             // Compute probabilities for each cluster (ci and cj)
-            Eigen::Vector2d log_probs;
-
             log_probs(0) = likelihood.point_loglikelihood_cond(point_idx, ci);
             log_probs(1) = likelihood.point_loglikelihood_cond(point_idx, cj);
 
@@ -139,7 +135,7 @@ void SplitMerge_LSS_SDDS::sequential_allocation(int iterations, bool only_probab
 
             if (!only_probabilities) {
                 // Compute normalized probabilities only for sampling
-                Eigen::Vector2d probs = (log_probs.array() - max_log_prob).exp();
+                probs = (log_probs.array() - max_log_prob).exp();
 
                 // Sample new cluster based on computed probabilities
                 std::discrete_distribution<int> dist(probs.data(), probs.data() + probs.size());
@@ -195,16 +191,15 @@ void SplitMerge_LSS_SDDS::smart_merge_move() {
     data.set_allocation(idx_j, ci);
 
     // Initially assign all points from both clusters to ci
-    for (int idx = 0; idx < launch_state.size(); ++idx) {
-        data.set_allocation(S(idx), ci);
+    for (const auto &idx : S) {
+        data.set_allocation(idx, ci);
     }
 
     // Compute acceptance ratio
     double acceptance_ratio = compute_acceptance_ratio_merge(likelihood_old_ci, likelihood_old_cj);
 
     // Accept or reject the move
-    std::uniform_real_distribution<> dis(0.0, 1.0);
-    if (log(dis(gen)) > acceptance_ratio) // move not accepted
+    if (log(dis_real(gen)) > acceptance_ratio) // move not accepted
         data.set_allocations(original_allocations);
     else
         accepted_merge++;
@@ -221,7 +216,7 @@ void SplitMerge_LSS_SDDS::dumb_merge_move() {
 
     // Direct merge: assign all points to ci
     data.set_allocation(idx_j, ci);
-    for (int idx = 0; idx < launch_state.size(); ++idx) {
+    for (int idx = 0; idx < launch_state_size; ++idx) {
         if (launch_state(idx) == cj) {
             data.set_allocation(S(idx), ci); // Merge cj into ci
         }
@@ -231,8 +226,7 @@ void SplitMerge_LSS_SDDS::dumb_merge_move() {
     double acceptance_ratio = compute_acceptance_ratio_merge(likelihood_old_ci, likelihood_old_cj);
 
     // Accept or reject the move
-    std::uniform_real_distribution<> dis(0.0, 1.0);
-    if (log(dis(gen)) > acceptance_ratio) // move not accepted
+    if (log(dis_real(gen)) > acceptance_ratio) // move not accepted
         data.set_allocations(original_allocations);
     else
         accepted_merge++;
@@ -248,10 +242,9 @@ void SplitMerge_LSS_SDDS::smart_split_move() {
     cj = data.get_cluster_assignment(idx_j);  // Update cj to the new cluster index
 
     // Allocate randomly points in S to either ci or cj
-    std::uniform_int_distribution<> dis(0, 1);
-    for (int idx = 0; idx < launch_state.size(); ++idx) {
-        int new_cluster = (dis(gen) == 0) ? ci : cj;
-        data.set_allocation(S(idx), new_cluster);
+    for (const auto &idx : S) {
+        int new_cluster = (dis_int(gen) == 0) ? ci : cj;
+        data.set_allocation(idx, new_cluster);
     }
 
     // Perform sequential allocation to refine the allocations
@@ -261,8 +254,7 @@ void SplitMerge_LSS_SDDS::smart_split_move() {
     double acceptance_ratio = compute_acceptance_ratio_split(likelihood_old_cluster);
 
     // Accept or reject the move
-    std::uniform_real_distribution<> dis2(0.0, 1.0);
-    if (log(dis2(gen)) > acceptance_ratio) // move not accepted
+    if (log(dis_real(gen)) > acceptance_ratio) // move not accepted
         data.set_allocations(original_allocations);
     else
         accepted_split++;
@@ -278,10 +270,9 @@ void SplitMerge_LSS_SDDS::dumb_split_move() {
     cj = data.get_cluster_assignment(idx_j);  // Update cj to the new cluster index
 
     // Randomly allocate points in S to either ci or cj
-    std::uniform_int_distribution<> dis(0, 1);
-    for (int idx = 0; idx < launch_state.size(); ++idx) {
-        int new_cluster = (dis(gen) == 0) ? ci : cj;
-        data.set_allocation(S(idx), new_cluster);
+    for (const auto &idx : S) {
+        int new_cluster = (dis_int(gen) == 0) ? ci : cj;
+        data.set_allocation(idx, new_cluster);
     }
 
     // Random split proposal probability
@@ -291,8 +282,7 @@ void SplitMerge_LSS_SDDS::dumb_split_move() {
     double acceptance_ratio = compute_acceptance_ratio_split(likelihood_old_cluster);
 
     // Accept or reject the move
-    std::uniform_real_distribution<> dis2(0.0, 1.0);
-    if (log(dis2(gen)) > acceptance_ratio) // move not accepted
+    if (log(dis_real(gen)) > acceptance_ratio) // move not accepted
         data.set_allocations(original_allocations);
     else
         accepted_split++;
@@ -336,8 +326,7 @@ void SplitMerge_LSS_SDDS::shuffle() {
         compute_acceptance_ratio_shuffle(likelihood_old_ci, likelihood_old_cj, old_ci_size, old_cj_size);
 
     // Accept or reject the move
-    std::uniform_real_distribution<> acceptance_ratio_dis(0.0, 1.0);
-    if (log(acceptance_ratio_dis(gen)) > log_acceptance_ratio) // move not accepted
+    if (log(dis_real(gen)) > log_acceptance_ratio) // move not accepted
         data.set_allocations(original_allocations);
     else
         accepted_shuffle++;
@@ -389,7 +378,7 @@ void SplitMerge_LSS_SDDS::choose_clusters_shuffle() {
     // Pre-allocate launch_state and S
     const int size_ci = data.get_cluster_size(ci);
     const int size_cj = data.get_cluster_size(cj);
-    const int launch_state_size = size_ci + size_cj - 2; // Exclude points i and j from the launch state
+    launch_state_size = size_ci + size_cj - 2; // Exclude points i and j from the launch state
     launch_state.resize(launch_state_size);
     S.resize(launch_state_size);
 
