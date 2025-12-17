@@ -60,6 +60,10 @@ protected:
 
     const double const_term = -0.5 * std::log(2.0 * M_PI); ///< Constant term in log likelihood
 
+    const double lgamma_nu = std::lgamma(covariates_data.nu); ///< log Gamma(ν) for NNIG model (v ~ IG(ν, S₀))
+    const double nu_logS0 =
+        covariates_data.nu * std::log(covariates_data.S0); ///< ν log(S₀) for NNIG model (v ~ IG(ν, S₀))
+
     /** @} */
 
     /**
@@ -98,6 +102,7 @@ protected:
      * @brief Compute log marginal likelihood for cluster given covariates
      *
      * Implements the Normal conjugate prior model:
+     * - x ~ N(μ, v)
      * - Prior on mean μ: N(m, B)
      * - Known variance v
      *
@@ -137,13 +142,47 @@ protected:
      * @brief Compute log marginal likelihood for cluster given covariates
      *
      * Implements the Normal-InverseGamma conjugate prior model:
-     * - Prior on mean μ: N(m, B)
-     * - Prior on variance σ²: IG(nu, S0)
+     * x ~ N(μ, v_j)
+     * - Prior on mean μ: N(m, B*v_j)
+     * - Prior on variance v_j: IG(nu, S0)
      *
      * @param stats Sufficient statistics (n, sum, sum of squares)
      * @return Log marginal likelihood contribution
+     *
+     * @details The marginal likelihood for the NNIG model is:
+     * log g(S) = log Γ(ν + n/2) - log Γ(ν) - n/2 log(2π)
+     *            - 1/2 log(1 + nB) + ν log(S₀)              ← Fix: remove /2
+     *            - (ν + n/2) log(S₀ + SS/2 + n/(2(1+nB)) (x̄-m)²)
      */
-    double compute_log_marginal_likelihood_NNIG(const ClusterStats &stats) const;
+    inline double compute_log_marginal_likelihood_NNIG(const ClusterStats &stats) const __attribute__((hot)) {
+        if (stats.n == 0) {
+            return 0.0;
+        }
+
+        const double n_dbl = static_cast<double>(stats.n);
+        const double inv_n = 1.0 / n_dbl;
+        const double xbar = stats.sum * inv_n;
+
+        // Centered sum of squares: SS = Σ(xᵢ - x̄)²
+        const double ss = stats.sumsq - n_dbl * xbar * xbar;
+
+        // Posterior parameters
+        // Prior: v ~ IG(ν, S0) and μ|v ~ N(m, B v) with B interpreted as a variance multiplier.
+        const double nu_n = covariates_data.nu + 0.5 * n_dbl;
+
+        // Deviation from prior mean
+        const double dev = xbar - covariates_data.m;
+
+        // Posterior scale parameter:
+        // S_n = S₀ + SS/2 + n/(2(1+nB)) (x̄-m)²
+        const double one_plus_nB = 1.0 + n_dbl * covariates_data.B;
+        const double S_n = covariates_data.S0 + 0.5 * ss + 0.5 * (n_dbl / one_plus_nB) * dev * dev;
+
+        // log g(S) = log Γ(ν + n/2) - log Γ(ν) - n/2 log(2π)
+        //            - 1/2 log(1+nB) + ν log(S₀) - (ν + n/2) log(S_n)
+        return std::lgamma(nu_n) - lgamma_nu + n_dbl * const_term - 0.5 * std::log(one_plus_nB) + nu_logS0 -
+               nu_n * std::log(S_n);
+    }
 
     /** @} */
 

@@ -34,7 +34,7 @@ struct Covariates {
     */
 
     bool fixed_v; ///< Flag indicating if variance v is fixed
-    double B; ///< prior variance of the means
+    double B; ///< prior variance of the means or variance multiplier (higher B means diffuse prior)
     double m; ///< prior mean of the means
     double v; ///< prior variance of the covariates effect
     double nu; ///< degrees of freedom for the variance prior

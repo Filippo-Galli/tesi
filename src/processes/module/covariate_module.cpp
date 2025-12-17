@@ -20,14 +20,6 @@ CovariatesModule::ClusterStats CovariatesModule::compute_cluster_statistics(cons
     return stats;
 }
 
-double CovariatesModule::compute_log_marginal_likelihood_NNIG(const ClusterStats &stats) const {
-    if (stats.n == 0) {
-        return 0.0;
-    }
-
-    return 0;
-}
-
 double CovariatesModule::compute_similarity_cls(int cls_idx, bool old_allo) const {
 
     // Try to use cache first (only for current allocations, not old)
