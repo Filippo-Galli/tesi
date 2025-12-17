@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['neal3_0',['Neal3',['../classNeal3.html#ad50c5edb8fddcf84043fa2aa1249f9ea',1,'Neal3']]],
-  ['neal3zdnam_1',['Neal3ZDNAM',['../classNeal3ZDNAM.html#aeff436f6a597dacfea0b31e098481b76',1,'Neal3ZDNAM']]],
-  ['neighbor_5fcache_5fcompute_2',['neighbor_cache_compute',['../classSpatialModule.html#a838c7393c68a6670ef16a7fd311b88b9',1,'SpatialModule']]],
-  ['nggp_3',['NGGP',['../classNGGP.html#a7239a08c3add6e13307e3b35c376580a',1,'NGGP']]],
-  ['nggpw_4',['NGGPW',['../classNGGPW.html#a5ea30939069f45d6579e352009bb1a67',1,'NGGPW']]],
-  ['nggpwx_5',['NGGPWx',['../classNGGPWx.html#a2160277ef8e9e85cb44727db4d2f32ee',1,'NGGPWx']]]
+  ['params_0',['Params',['../structParams.html#a47b5fb56b2cd7b50dbd6c323c62bbf82',1,'Params']]],
+  ['point_5floglikelihood_5fcond_1',['point_loglikelihood_cond',['../classLikelihood.html#a0937f6a9a4b48def87b6e644810fb99d',1,'Likelihood']]],
+  ['prior_5fratio_5fmerge_2',['prior_ratio_merge',['../classDP.html#a0e9b5eed61089876ad4fa25440e6fe0a',1,'DP::prior_ratio_merge()'],['../classDPW.html#a75b3b17a4f1353be261598f817dfc151',1,'DPW::prior_ratio_merge()'],['../classNGGP.html#a79e4070dff59378d106d56545ea66a84',1,'NGGP::prior_ratio_merge()'],['../classNGGPW.html#a96acaa9d2dacbac024ffaba9d075249a',1,'NGGPW::prior_ratio_merge()'],['../classNGGPWx.html#a38a880748c66b8153f42209394596adf',1,'NGGPWx::prior_ratio_merge()'],['../classProcess.html#a3f839a738e76fc3ab83d3a7bfc228984',1,'Process::prior_ratio_merge()']]],
+  ['prior_5fratio_5fshuffle_3',['prior_ratio_shuffle',['../classNGGP.html#acd7a5bc6cbe029ec09d9a083c01277ff',1,'NGGP::prior_ratio_shuffle()'],['../classProcess.html#a3bd733b3232c8cf865bc0d6c1a07aea4',1,'Process::prior_ratio_shuffle()'],['../classNGGPWx.html#afbd5944c9feddb1b516060857a154b98',1,'NGGPWx::prior_ratio_shuffle()'],['../classNGGPW.html#a9bc80b5731581b00c33479fd3b16d55d',1,'NGGPW::prior_ratio_shuffle()'],['../classDPW.html#a657ee647610b79bda39db864bee2b6fa',1,'DPW::prior_ratio_shuffle()'],['../classDP.html#a124720c8dca0a4ebb401576f3f829624',1,'DP::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci, int cj) const override']]],
+  ['prior_5fratio_5fsplit_4',['prior_ratio_split',['../classDP.html#add6430ec2928d6260b9a4f78f6a2867a',1,'DP::prior_ratio_split()'],['../classDPW.html#a9ae9225ada0d3d26b9f7e584783e117c',1,'DPW::prior_ratio_split()'],['../classNGGP.html#a6488070ea12d0a9c9454d96e8b5cb719',1,'NGGP::prior_ratio_split()'],['../classNGGPW.html#a73053c1ef8025c03e60ef25f42509bf4',1,'NGGPW::prior_ratio_split()'],['../classNGGPWx.html#a207fa694f990bbb0415702a999aa7ae5',1,'NGGPWx::prior_ratio_split()'],['../classProcess.html#a3077b5bf1703a691927ae3779900a734',1,'Process::prior_ratio_split(int ci, int cj) const =0']]],
+  ['process_5',['Process',['../classProcess.html#a8bd31d2434ca052d9a7e2b803e346b8e',1,'Process']]]
 ];

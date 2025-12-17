@@ -1,7 +1,6 @@
 var classNGGPWx =
 [
     [ "NGGPWx", "classNGGPWx.html#a2160277ef8e9e85cb44727db4d2f32ee", null ],
-    [ "adjusted_cluster_statistics_cache", "classNGGPWx.html#a3641af2cf691baca03aef6727f0cce24", null ],
     [ "gibbs_prior_existing_cluster", "classNGGPWx.html#a1711bab909aa48aa2984a0a9de06cedd", null ],
     [ "gibbs_prior_existing_clusters", "classNGGPWx.html#ae3c1bb4d8cd526f42e8672602334ebc9", null ],
     [ "gibbs_prior_new_cluster", "classNGGPWx.html#afdf9810e60b417780841514003810c84", null ],

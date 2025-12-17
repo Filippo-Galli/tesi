@@ -210,9 +210,25 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ab89d3b1669dc604e8eacb2ee938a93a0" id="r_ab89d3b1669dc604e8eacb2ee938a93a0"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSplitMerge__LSS__SDDS.html#ab89d3b1669dc604e8eacb2ee938a93a0">S</a></td></tr>
 <tr class="memdesc:ab89d3b1669dc604e8eacb2ee938a93a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indices of observations in clusters ci and cj.  <br /></td></tr>
 <tr class="separator:ab89d3b1669dc604e8eacb2ee938a93a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbb421cdade2153f9bf27b9c7eb181da" id="r_afbb421cdade2153f9bf27b9c7eb181da"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSplitMerge__LSS__SDDS.html#afbb421cdade2153f9bf27b9c7eb181da">launch_state_size</a></td></tr>
+<tr class="memdesc:afbb421cdade2153f9bf27b9c7eb181da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the launch state and S vectors.  <br /></td></tr>
+<tr class="separator:afbb421cdade2153f9bf27b9c7eb181da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a415513c7aa6969479e7c4eb3021203d5" id="r_a415513c7aa6969479e7c4eb3021203d5"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSplitMerge__LSS__SDDS.html#a415513c7aa6969479e7c4eb3021203d5">original_allocations</a></td></tr>
 <tr class="memdesc:a415513c7aa6969479e7c4eb3021203d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Original cluster assignments before move proposal.  <br /></td></tr>
 <tr class="separator:a415513c7aa6969479e7c4eb3021203d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bb6e4523eef07a70092ea5f8debbf58" id="r_a1bb6e4523eef07a70092ea5f8debbf58"><td class="memItemLeft" align="right" valign="top">std::uniform_real_distribution&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSplitMerge__LSS__SDDS.html#a1bb6e4523eef07a70092ea5f8debbf58">dis_real</a></td></tr>
+<tr class="memdesc:a1bb6e4523eef07a70092ea5f8debbf58"><td class="mdescLeft">&#160;</td><td class="mdescRight">uniform distribution between 0 and 1 <br  />
+  <br /></td></tr>
+<tr class="separator:a1bb6e4523eef07a70092ea5f8debbf58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c68b5f0e490352d84de34e21ddcde8e" id="r_a0c68b5f0e490352d84de34e21ddcde8e"><td class="memItemLeft" align="right" valign="top">std::uniform_int_distribution&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSplitMerge__LSS__SDDS.html#a0c68b5f0e490352d84de34e21ddcde8e">dis_int</a></td></tr>
+<tr class="memdesc:a0c68b5f0e490352d84de34e21ddcde8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">uniform integer distribution for general use  <br /></td></tr>
+<tr class="separator:a0c68b5f0e490352d84de34e21ddcde8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b3286bccb91d69fcd8c42fd549b9172" id="r_a2b3286bccb91d69fcd8c42fd549b9172"><td class="memItemLeft" align="right" valign="top">Eigen::Vector2d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSplitMerge__LSS__SDDS.html#a2b3286bccb91d69fcd8c42fd549b9172">log_probs</a></td></tr>
+<tr class="memdesc:a2b3286bccb91d69fcd8c42fd549b9172"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log probabilities of allocating a point to clusters ci and cj.  <br /></td></tr>
+<tr class="separator:a2b3286bccb91d69fcd8c42fd549b9172"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72368dd573af97e4d3b4ea321805eb1e" id="r_a72368dd573af97e4d3b4ea321805eb1e"><td class="memItemLeft" align="right" valign="top">Eigen::Vector2d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSplitMerge__LSS__SDDS.html#a72368dd573af97e4d3b4ea321805eb1e">probs</a></td></tr>
+<tr class="memdesc:a72368dd573af97e4d3b4ea321805eb1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Probabilities of allocating a point to clusters ci and cj.  <br /></td></tr>
+<tr class="separator:a72368dd573af97e4d3b4ea321805eb1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae11d1391d015b667789491845f9a95e1" id="r_ae11d1391d015b667789491845f9a95e1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSplitMerge__LSS__SDDS.html#ae11d1391d015b667789491845f9a95e1">log_split_gibbs_prob</a> = 0</td></tr>
 <tr class="memdesc:ae11d1391d015b667789491845f9a95e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log probability of generating current state via sequential allocation (split direction)  <br /></td></tr>
 <tr class="separator:ae11d1391d015b667789491845f9a95e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1012,6 +1028,55 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a0c68b5f0e490352d84de34e21ddcde8e" name="a0c68b5f0e490352d84de34e21ddcde8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c68b5f0e490352d84de34e21ddcde8e">&#9670;&#160;</a></span>dis_int</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uniform_int_distribution SplitMerge_LSS_SDDS::dis_int</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>uniform integer distribution for general use </p>
+
+</div>
+</div>
+<a id="a1bb6e4523eef07a70092ea5f8debbf58" name="a1bb6e4523eef07a70092ea5f8debbf58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bb6e4523eef07a70092ea5f8debbf58">&#9670;&#160;</a></span>dis_real</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uniform_real_distribution SplitMerge_LSS_SDDS::dis_real</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>uniform distribution between 0 and 1 <br  />
+ </p>
+
+</div>
+</div>
 <a id="a9f4244224661c3cca30e8c2d4f6f035a" name="a9f4244224661c3cca30e8c2d4f6f035a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9f4244224661c3cca30e8c2d4f6f035a">&#9670;&#160;</a></span>gen</h2>
 
@@ -1108,6 +1173,30 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="afbb421cdade2153f9bf27b9c7eb181da" name="afbb421cdade2153f9bf27b9c7eb181da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbb421cdade2153f9bf27b9c7eb181da">&#9670;&#160;</a></span>launch_state_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int SplitMerge_LSS_SDDS::launch_state_size</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Size of the launch state and S vectors. </p>
+
+</div>
+</div>
 <a id="ada77f2fce6d6778a9829447a663bf3c8" name="ada77f2fce6d6778a9829447a663bf3c8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ada77f2fce6d6778a9829447a663bf3c8">&#9670;&#160;</a></span>log_merge_gibbs_prob</h2>
 
@@ -1129,6 +1218,30 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Log probability of generating current state via sequential allocation (merge direction) </p>
+
+</div>
+</div>
+<a id="a2b3286bccb91d69fcd8c42fd549b9172" name="a2b3286bccb91d69fcd8c42fd549b9172"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b3286bccb91d69fcd8c42fd549b9172">&#9670;&#160;</a></span>log_probs</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::Vector2d SplitMerge_LSS_SDDS::log_probs</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Log probabilities of allocating a point to clusters ci and cj. </p>
 
 </div>
 </div>
@@ -1177,6 +1290,30 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Original cluster assignments before move proposal. </p>
+
+</div>
+</div>
+<a id="a72368dd573af97e4d3b4ea321805eb1e" name="a72368dd573af97e4d3b4ea321805eb1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72368dd573af97e4d3b4ea321805eb1e">&#9670;&#160;</a></span>probs</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::Vector2d SplitMerge_LSS_SDDS::probs</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Probabilities of allocating a point to clusters ci and cj. </p>
 
 </div>
 </div>

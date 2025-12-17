@@ -20,5 +20,6 @@ var searchData=
   ['nggpwx_2ehpp_17',['NGGPWx.hpp',['../NGGPWx_8hpp.html',1,'']]],
   ['ni_18',['NI',['../structParams.html#aad4ced5e851807ada535fae7ec6ebc73',1,'Params']]],
   ['nonparametric_20clustering_20with_20mcmc_19',['Bayesian Nonparametric Clustering with MCMC',['../index.html',1,'']]],
-  ['nu_20',['nu',['../structCovariates.html#a6e58fc16d5dffad406a7651a59956fe7',1,'Covariates']]]
+  ['nu_20',['nu',['../structCovariates.html#a6e58fc16d5dffad406a7651a59956fe7',1,'Covariates']]],
+  ['nu_5flogs0_21',['nu_logS0',['../classCovariatesModule.html#a2cbfc3e92f10ff10e6a48f10d30192dc',1,'CovariatesModule']]]
 ];

@@ -1,25 +1,7 @@
 var searchData=
 [
-  ['sample_5ffrom_5flog_5fprobs_0',['sample_from_log_probs',['../classNeal3ZDNAM.html#aa8c30654dbd75413dc6a41fc9a2d2ef6',1,'Neal3ZDNAM::sample_from_log_probs()'],['../classNeal3.html#a1ca49f482ffc919067a11842ee88e3f1',1,'Neal3::sample_from_log_probs()']]],
-  ['sample_5ffrom_5flog_5fprobs_5fzdnam_1',['sample_from_log_probs_zdnam',['../classNeal3ZDNAM.html#ae9d4a02085162f18a969d13d134e0474',1,'Neal3ZDNAM']]],
-  ['sampler_2',['Sampler',['../classSampler.html#a4800cc1f9d2718968f5957ca99eee5b1',1,'Sampler']]],
-  ['sampling_5fu_3',['sampling_u',['../classMALA.html#a1455a59881092cacc41465bec09cc1c6',1,'MALA::sampling_U()'],['../classRWMH.html#af350f5e44ac4f74c84d41f87f52b1aa5',1,'RWMH::sampling_U()']]],
-  ['sampling_5fv_4',['sampling_v',['../classMALA.html#a010edce40e77a91e229e3a138d0dce10',1,'MALA::sampling_V()'],['../classRWMH.html#a0067c5b24f41c79920c43b7f3ae66c76',1,'RWMH::sampling_V()']]],
-  ['sequential_5fallocation_5',['sequential_allocation',['../classSplitMerge__LSS__SDDS.html#a62485d23e3d3c5266fa70b7c055e673c',1,'SplitMerge_LSS_SDDS::sequential_allocation()'],['../classSplitMerge__SAMS.html#a1cf7698ea219623995597a45932db97c',1,'SplitMerge_SAMS::sequential_allocation()'],['../classSplitMerge__LSS.html#ac5252791b0a9a1a9b174421205a33c7d',1,'SplitMerge_LSS::sequential_allocation()']]],
-  ['set_5fallocation_6',['set_allocation',['../classData.html#a010f0f017f255c52592cf2794abb53ab',1,'Data']]],
-  ['set_5fallocations_7',['set_allocations',['../classData.html#ad766a335e9d89cd7b6de8c2ab9a8d165',1,'Data']]],
-  ['set_5fidx_5fi_8',['set_idx_i',['../classProcess.html#a7ea0be22abcf92f98620c8b81690a76f',1,'Process']]],
-  ['set_5fidx_5fj_9',['set_idx_j',['../classProcess.html#a9c638d305db4abae7c8fedca34e71794',1,'Process']]],
-  ['set_5fold_5fallocations_10',['set_old_allocations',['../classProcess.html#a6174151176ec3d063ac441e5a80d0c44',1,'Process']]],
-  ['shuffle_11',['shuffle',['../classSplitMerge__SAMS.html#ae16402a25ef38853ec04e4c7c88216e0',1,'SplitMerge_SAMS::shuffle()'],['../classSplitMerge__LSS__SDDS.html#aa07752d43ab1d5480b76ac2642f838e7',1,'SplitMerge_LSS_SDDS::shuffle()'],['../classSplitMerge.html#a2272eee0bd1557aab937c2153eb61a70',1,'SplitMerge::shuffle()'],['../classSplitMerge__LSS.html#aec5dd1754aebe6d9898f31b8f51eade3',1,'SplitMerge_LSS::shuffle()']]],
-  ['smart_5fmerge_5fmove_12',['smart_merge_move',['../classSplitMerge__LSS__SDDS.html#a5f6145f05bccec4fe241ba11c00acf05',1,'SplitMerge_LSS_SDDS']]],
-  ['smart_5fsplit_5fmove_13',['smart_split_move',['../classSplitMerge__LSS__SDDS.html#aff849ae709df7ffeff92f39bed994ce1',1,'SplitMerge_LSS_SDDS']]],
-  ['spatialmodule_14',['SpatialModule',['../classSpatialModule.html#a6de7d3edab70bebb909acb9283480fc5',1,'SpatialModule']]],
-  ['split_5fmove_15',['split_move',['../classSplitMerge.html#a974d26fdaa24bc930a60a2cc91ce18b0',1,'SplitMerge::split_move()'],['../classSplitMerge__LSS.html#a6aed8447d79a5834366538cfe55371f4',1,'SplitMerge_LSS::split_move()'],['../classSplitMerge__SAMS.html#a2dd087d9385e3bea847afe311d121b72',1,'SplitMerge_SAMS::split_move()']]],
-  ['splitmerge_16',['SplitMerge',['../classSplitMerge.html#a6c697d29cdb44012ebe037e19745ed8e',1,'SplitMerge']]],
-  ['splitmerge_5flss_17',['SplitMerge_LSS',['../classSplitMerge__LSS.html#a595c757322a9ad77de02a683f1617377',1,'SplitMerge_LSS']]],
-  ['splitmerge_5flss_5fsdds_18',['SplitMerge_LSS_SDDS',['../classSplitMerge__LSS__SDDS.html#a0c36977c3b8be71fbfbfe3056f9630b3',1,'SplitMerge_LSS_SDDS']]],
-  ['splitmerge_5fsams_19',['SplitMerge_SAMS',['../classSplitMerge__SAMS.html#af812bf4c32fef71ddae082bfa26d1465',1,'SplitMerge_SAMS']]],
-  ['step_20',['step',['../classSampler.html#a49153313f42d53d107bfe2b2e9d83fa5',1,'Sampler::step()'],['../classNeal3.html#abfabb9dfe80f6fce1c93ac4151279f86',1,'Neal3::step()'],['../classNeal3ZDNAM.html#a314e75d46d37ad2d1338571ba670953e',1,'Neal3ZDNAM::step()'],['../classSplitMerge.html#a87c7ea9050b7157ae5af7d4e63bb16bf',1,'SplitMerge::step()'],['../classSplitMerge__LSS.html#a766bfa11be282aeb39428556c65e0296',1,'SplitMerge_LSS::step()'],['../classSplitMerge__LSS__SDDS.html#a114dc38ca26a1152e7d1f845193fa18f',1,'SplitMerge_LSS_SDDS::step()'],['../classSplitMerge__SAMS.html#a198db7f37403e0f7093771f03ca961e6',1,'SplitMerge_SAMS::step()']]],
-  ['step_5f1_5fobservation_21',['step_1_observation',['../classNeal3.html#ac20cf03f5de473bdc3cf1c7e59137f53',1,'Neal3::step_1_observation()'],['../classNeal3ZDNAM.html#a7863bf31cb68525f13239506b23b34d4',1,'Neal3ZDNAM::step_1_observation()']]]
+  ['_7elikelihood_0',['~Likelihood',['../classLikelihood.html#abb9b7ccfc5fcd5145a196308a8a7b1cb',1,'Likelihood']]],
+  ['_7eprocess_1',['~Process',['../classProcess.html#a7ff358c1d3b155bc09e1271266cdce7d',1,'Process']]],
+  ['_7esampler_2',['~Sampler',['../classSampler.html#a211a2f7cb64b2adf3a8c66f92abf8f7d',1,'Sampler']]],
+  ['_7eu_5fsampler_3',['~U_sampler',['../classU__sampler.html#a1f1b535ec7cad2be0aa24c7535c084d1',1,'U_sampler']]]
 ];

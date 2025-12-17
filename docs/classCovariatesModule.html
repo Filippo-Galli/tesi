@@ -140,6 +140,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9de3e390e30aa6b59396f2f7cd126481" id="r_a9de3e390e30aa6b59396f2f7cd126481"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a9de3e390e30aa6b59396f2f7cd126481">compute_similarity_obs</a> (int obs_idx, int cls_idx) const __attribute__((hot))</td></tr>
 <tr class="memdesc:a9de3e390e30aa6b59396f2f7cd126481"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute covariate similarity for a single observation in a cluster.  <br /></td></tr>
 <tr class="separator:a9de3e390e30aa6b59396f2f7cd126481"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a556a7ac667df9a76436e8aed65f540bc" id="r_a556a7ac667df9a76436e8aed65f540bc"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a556a7ac667df9a76436e8aed65f540bc">compute_similarity_obs</a> (int obs_idx) const</td></tr>
+<tr class="memdesc:a556a7ac667df9a76436e8aed65f540bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute covariate similarity contributions for all existing clusters.  <br /></td></tr>
+<tr class="separator:a556a7ac667df9a76436e8aed65f540bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Helper Methods</div></td></tr>
+<tr class="memitem:ac59a532a653f2522f249ee4734566630" id="r_ac59a532a653f2522f249ee4734566630"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structCovariatesModule_1_1ClusterStats.html">ClusterStats</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#ac59a532a653f2522f249ee4734566630">compute_cluster_statistics</a> (const Eigen::Ref&lt; const Eigen::VectorXi &gt; obs) const</td></tr>
+<tr class="memdesc:ac59a532a653f2522f249ee4734566630"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute cluster statistics for covariate similarity.  <br /></td></tr>
+<tr class="separator:ac59a532a653f2522f249ee4734566630"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9eed2229c9e70b6a390f875e5538620" id="r_ab9eed2229c9e70b6a390f875e5538620"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#ab9eed2229c9e70b6a390f875e5538620">compute_log_marginal_likelihood_NN</a> (const <a class="el" href="structCovariatesModule_1_1ClusterStats.html">ClusterStats</a> &amp;stats) const __attribute__((hot))</td></tr>
+<tr class="memdesc:ab9eed2229c9e70b6a390f875e5538620"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log marginal likelihood for cluster given covariates.  <br /></td></tr>
+<tr class="separator:ab9eed2229c9e70b6a390f875e5538620"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f13cbee1a1f82f645fb4436a625ae28" id="r_a9f13cbee1a1f82f645fb4436a625ae28"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a9f13cbee1a1f82f645fb4436a625ae28">compute_log_marginal_likelihood_NNIG</a> (const <a class="el" href="structCovariatesModule_1_1ClusterStats.html">ClusterStats</a> &amp;stats) const __attribute__((hot))</td></tr>
+<tr class="memdesc:a9f13cbee1a1f82f645fb4436a625ae28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log marginal likelihood for cluster given covariates.  <br /></td></tr>
+<tr class="separator:a9f13cbee1a1f82f645fb4436a625ae28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -166,23 +182,15 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:afc6691bb941250a794b84273bf130ef6" id="r_afc6691bb941250a794b84273bf130ef6"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#afc6691bb941250a794b84273bf130ef6">const_term</a> = -0.5 * std::log(2.0 * M_PI)</td></tr>
 <tr class="memdesc:afc6691bb941250a794b84273bf130ef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constant term in log likelihood.  <br /></td></tr>
 <tr class="separator:afc6691bb941250a794b84273bf130ef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader">Helper Methods</h2></td></tr>
-<tr class="memitem:a60dc113c21f52f4921b4c98d2ae5d011" id="r_a60dc113c21f52f4921b4c98d2ae5d011"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structCovariatesModule_1_1ClusterStats.html">ClusterStats</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a60dc113c21f52f4921b4c98d2ae5d011">empty_stats</a></td></tr>
-<tr class="memdesc:a60dc113c21f52f4921b4c98d2ae5d011"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty cluster statistics.  <br /></td></tr>
-<tr class="separator:a60dc113c21f52f4921b4c98d2ae5d011"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e48ee9559b72113b03136aab19a10e2" id="r_a1e48ee9559b72113b03136aab19a10e2"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; int, <a class="el" href="structCovariatesModule_1_1ClusterStats.html">ClusterStats</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a1e48ee9559b72113b03136aab19a10e2">cluster_stats_cache</a></td></tr>
-<tr class="memdesc:a1e48ee9559b72113b03136aab19a10e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cache for cluster statistics.  <br /></td></tr>
-<tr class="separator:a1e48ee9559b72113b03136aab19a10e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96dc851067bcb92824aed0430a96128c" id="r_a96dc851067bcb92824aed0430a96128c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structCovariatesModule_1_1ClusterStats.html">ClusterStats</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a96dc851067bcb92824aed0430a96128c">compute_cluster_statistics</a> (const std::vector&lt; int &gt; &amp;obs) const</td></tr>
-<tr class="memdesc:a96dc851067bcb92824aed0430a96128c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute cluster statistics for covariate similarity.  <br /></td></tr>
-<tr class="separator:a96dc851067bcb92824aed0430a96128c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9eed2229c9e70b6a390f875e5538620" id="r_ab9eed2229c9e70b6a390f875e5538620"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#ab9eed2229c9e70b6a390f875e5538620">compute_log_marginal_likelihood_NN</a> (const <a class="el" href="structCovariatesModule_1_1ClusterStats.html">ClusterStats</a> &amp;stats) const __attribute__((hot))</td></tr>
-<tr class="memdesc:ab9eed2229c9e70b6a390f875e5538620"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log marginal likelihood for cluster given covariates.  <br /></td></tr>
-<tr class="separator:ab9eed2229c9e70b6a390f875e5538620"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e09686ea762a5b180208f6b9a63c604" id="r_a4e09686ea762a5b180208f6b9a63c604"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a4e09686ea762a5b180208f6b9a63c604">compute_log_marginal_likelihood_NNIG</a> (const <a class="el" href="structCovariatesModule_1_1ClusterStats.html">ClusterStats</a> &amp;stats) const</td></tr>
-<tr class="memdesc:a4e09686ea762a5b180208f6b9a63c604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log marginal likelihood for cluster given covariates.  <br /></td></tr>
-<tr class="separator:a4e09686ea762a5b180208f6b9a63c604"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f5b2eb9d0d800f44e1fd13579387dab" id="r_a3f5b2eb9d0d800f44e1fd13579387dab"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a3f5b2eb9d0d800f44e1fd13579387dab">lgamma_nu</a> = std::lgamma(covariates_data.nu)</td></tr>
+<tr class="memdesc:a3f5b2eb9d0d800f44e1fd13579387dab"><td class="mdescLeft">&#160;</td><td class="mdescRight">log Gamma(ν) for NNIG model (v ~ IG(ν, S₀))  <br /></td></tr>
+<tr class="separator:a3f5b2eb9d0d800f44e1fd13579387dab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cbfc3e92f10ff10e6a48f10d30192dc" id="r_a2cbfc3e92f10ff10e6a48f10d30192dc"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a2cbfc3e92f10ff10e6a48f10d30192dc">nu_logS0</a></td></tr>
+<tr class="memdesc:a2cbfc3e92f10ff10e6a48f10d30192dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">ν log(S₀) for NNIG model (v ~ IG(ν, S₀))  <br /></td></tr>
+<tr class="separator:a2cbfc3e92f10ff10e6a48f10d30192dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a643b234208207f0ce8f8d8bf9a4903c7" id="r_a643b234208207f0ce8f8d8bf9a4903c7"><td class="memItemLeft" align="right" valign="top">std::function&lt; double(const <a class="el" href="structCovariatesModule_1_1ClusterStats.html">CovariatesModule::ClusterStats</a> &amp;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a643b234208207f0ce8f8d8bf9a4903c7">log_marginal_likelihood_function</a></td></tr>
+<tr class="memdesc:a643b234208207f0ce8f8d8bf9a4903c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to log marginal likelihood function.  <br /></td></tr>
+<tr class="separator:a643b234208207f0ce8f8d8bf9a4903c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Module for covariate-related computations within clustering processes. </p>
@@ -242,8 +250,8 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a96dc851067bcb92824aed0430a96128c" name="a96dc851067bcb92824aed0430a96128c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96dc851067bcb92824aed0430a96128c">&#9670;&#160;</a></span>compute_cluster_statistics()</h2>
+<a id="ac59a532a653f2522f249ee4734566630" name="ac59a532a653f2522f249ee4734566630"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac59a532a653f2522f249ee4734566630">&#9670;&#160;</a></span>compute_cluster_statistics()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -254,7 +262,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="structCovariatesModule_1_1ClusterStats.html">CovariatesModule::ClusterStats</a> CovariatesModule::compute_cluster_statistics </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramtype">const Eigen::Ref&lt; const Eigen::VectorXi &gt;&#160;</td>
           <td class="paramname"><em>obs</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -303,25 +311,38 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Compute log marginal likelihood for cluster given covariates. </p>
-<p>Implements the Normal conjugate prior model:</p><ul>
-<li>Prior on mean μ: N(m, B)</li>
-<li>Known variance v</li>
+<p>Implements the Normal-Normal conjugate prior model:</p><ul>
+<li>x_i ~ N(μ_j, v) for i ∈ S_j</li>
+<li>Prior on mean μ_j: N(m, B)</li>
+<li><p class="startli">Observation variance v is known and fixed</p>
+<p class="startli">The marginal likelihood integrates out the cluster-specific mean μ_j. With sufficient statistics:</p>
+</li>
+<li>n_j = |S_j| (cluster size)</li>
+<li>x̄_j = (1/n_j) Σ_{i ∈ S_j} x_i (sample mean)</li>
+<li>SS = Σ_{i ∈ S_j} (x_i - x̄_j)² (centered sum of squares)</li>
 </ul>
+<p>The posterior distribution of μ_j is N(m̂_j, τ_j) where:</p><ul>
+<li>τ_j = Bv / (v + n_j B) (posterior variance)</li>
+<li>m̂_j = τ_j (n_j x̄_j / v + m / B) (posterior mean)</li>
+</ul>
+<p>The log marginal likelihood is:</p>
+<p>log q(x_j) = -n_j/2 log(2π) - n_j/2 log(v) - 1/2 log(B) + 1/2 log(τ_j)</p><ul>
+<li>SS/(2v) - n_j(x̄_j - m)² / (2(v + n_j B))</li>
+</ul>
+<p>where log(τ_j) = log(B) + log(v) - log(v + n_j B)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">stats</td><td>Sufficient statistics (n, sum, sum of squares) </td></tr>
+    <tr><td class="paramname">stats</td><td>Sufficient statistics for the cluster </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Log marginal likelihood contribution</dd></dl>
-<p>Following Müller et al. (2011), the marginal likelihood is: log g(S) = -n/2 log(2π) - n/2 log(v) + 1/2 log(B) - 1/2 log(B + nv)</p><ul>
-<li>SS/(2v) - n(x̄ - m)²/(2(B + nv)) where SS = Σ(xᵢ - x̄)² </li>
-</ul>
+<dl class="section return"><dt>Returns</dt><dd>Log marginal likelihood value</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is marked as <b>attribute</b>((hot)) for performance optimization as it is called frequently in the MCMC sampling loop. </dd></dl>
 
 </div>
 </div>
-<a id="a4e09686ea762a5b180208f6b9a63c604" name="a4e09686ea762a5b180208f6b9a63c604"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e09686ea762a5b180208f6b9a63c604">&#9670;&#160;</a></span>compute_log_marginal_likelihood_NNIG()</h2>
+<a id="a9f13cbee1a1f82f645fb4436a625ae28" name="a9f13cbee1a1f82f645fb4436a625ae28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f13cbee1a1f82f645fb4436a625ae28">&#9670;&#160;</a></span>compute_log_marginal_likelihood_NNIG()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -339,15 +360,15 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Compute log marginal likelihood for cluster given covariates. </p>
-<p>Implements the Normal-InverseGamma conjugate prior model:</p><ul>
-<li>Prior on mean μ: N(m, B)</li>
-<li>Prior on variance σ²: IG(nu, S0)</li>
+<p>Implements the Normal-InverseGamma conjugate prior model: x ~ N(μ, v_j)</p><ul>
+<li>Prior on mean μ: N(m, B*v_j)</li>
+<li>Prior on variance v_j: IG(nu, S0)</li>
 </ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -355,7 +376,11 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Log marginal likelihood contribution </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Log marginal likelihood contribution</dd></dl>
+<p>The marginal likelihood for the NNIG model is: log g(S) = log Γ(ν + n/2) - log Γ(ν) - n/2 log(2π)</p><ul>
+<li>1/2 log(1 + nB) + ν log(S₀)</li>
+<li>(ν + n/2) log(S₀ + SS/2 + n/(2(1+nB)) (x̄-m)²) </li>
+</ul>
 
 </div>
 </div>
@@ -404,8 +429,36 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a556a7ac667df9a76436e8aed65f540bc" name="a556a7ac667df9a76436e8aed65f540bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a556a7ac667df9a76436e8aed65f540bc">&#9670;&#160;</a></span>compute_similarity_obs() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd CovariatesModule::compute_similarity_obs </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>obs_idx</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compute covariate similarity contributions for all existing clusters. </p>
+<p>Computes the predictive contributions for adding observation obs_idx to each existing cluster, considering covariate values.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obs_idx</td><td>Index of the observation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Vector of log predictive density contributions for each cluster </dd></dl>
+
+</div>
+</div>
 <a id="a9de3e390e30aa6b59396f2f7cd126481" name="a9de3e390e30aa6b59396f2f7cd126481"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9de3e390e30aa6b59396f2f7cd126481">&#9670;&#160;</a></span>compute_similarity_obs()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9de3e390e30aa6b59396f2f7cd126481">&#9670;&#160;</a></span>compute_similarity_obs() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -467,30 +520,6 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Product of prior variance and observation variance. </p>
-
-</div>
-</div>
-<a id="a1e48ee9559b72113b03136aab19a10e2" name="a1e48ee9559b72113b03136aab19a10e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e48ee9559b72113b03136aab19a10e2">&#9670;&#160;</a></span>cluster_stats_cache</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::unordered_map&lt;int, <a class="el" href="structCovariatesModule_1_1ClusterStats.html">ClusterStats</a>&gt; CovariatesModule::cluster_stats_cache</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Cache for cluster statistics. </p>
 
 </div>
 </div>
@@ -566,8 +595,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a60dc113c21f52f4921b4c98d2ae5d011" name="a60dc113c21f52f4921b4c98d2ae5d011"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60dc113c21f52f4921b4c98d2ae5d011">&#9670;&#160;</a></span>empty_stats</h2>
+<a id="a3f5b2eb9d0d800f44e1fd13579387dab" name="a3f5b2eb9d0d800f44e1fd13579387dab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f5b2eb9d0d800f44e1fd13579387dab">&#9670;&#160;</a></span>lgamma_nu</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -576,17 +605,17 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structCovariatesModule_1_1ClusterStats.html">ClusterStats</a> CovariatesModule::empty_stats</td>
+          <td class="memname">const double CovariatesModule::lgamma_nu = std::lgamma(covariates_data.nu)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Empty cluster statistics. </p>
+<p>log Gamma(ν) for NNIG model (v ~ IG(ν, S₀)) </p>
 
 </div>
 </div>
@@ -614,6 +643,30 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a643b234208207f0ce8f8d8bf9a4903c7" name="a643b234208207f0ce8f8d8bf9a4903c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a643b234208207f0ce8f8d8bf9a4903c7">&#9670;&#160;</a></span>log_marginal_likelihood_function</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::function&lt;double(const <a class="el" href="structCovariatesModule_1_1ClusterStats.html">CovariatesModule::ClusterStats</a> &amp;)&gt; CovariatesModule::log_marginal_likelihood_function</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pointer to log marginal likelihood function. </p>
+
+</div>
+</div>
 <a id="a4d0e6c427ba6efb549c460e24218f891" name="a4d0e6c427ba6efb549c460e24218f891"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4d0e6c427ba6efb549c460e24218f891">&#9670;&#160;</a></span>log_v</h2>
 
@@ -635,6 +688,35 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Log of observation variance. </p>
+
+</div>
+</div>
+<a id="a2cbfc3e92f10ff10e6a48f10d30192dc" name="a2cbfc3e92f10ff10e6a48f10d30192dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cbfc3e92f10ff10e6a48f10d30192dc">&#9670;&#160;</a></span>nu_logS0</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double CovariatesModule::nu_logS0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">        <a class="code hl_variable" href="classCovariatesModule.html#ac7e326010d4516a797a4b68780bedbf1">covariates_data</a>.<a class="code hl_variable" href="structCovariates.html#a6e58fc16d5dffad406a7651a59956fe7">nu</a> * std::log(<a class="code hl_variable" href="classCovariatesModule.html#ac7e326010d4516a797a4b68780bedbf1">covariates_data</a>.<a class="code hl_variable" href="structCovariates.html#ac311420bda67d5aaec1be671f52874a7">S0</a>)</div>
+<div class="ttc" id="aclassCovariatesModule_html_ac7e326010d4516a797a4b68780bedbf1"><div class="ttname"><a href="classCovariatesModule.html#ac7e326010d4516a797a4b68780bedbf1">CovariatesModule::covariates_data</a></div><div class="ttdeci">const Covariates &amp; covariates_data</div><div class="ttdoc">Reference to covariates data containing ages and prior parameters.</div><div class="ttdef"><b>Definition</b> covariate_module.hpp:35</div></div>
+<div class="ttc" id="astructCovariates_html_a6e58fc16d5dffad406a7651a59956fe7"><div class="ttname"><a href="structCovariates.html#a6e58fc16d5dffad406a7651a59956fe7">Covariates::nu</a></div><div class="ttdeci">double nu</div><div class="ttdoc">degrees of freedom for the variance prior</div><div class="ttdef"><b>Definition</b> Covariates.hpp:40</div></div>
+<div class="ttc" id="astructCovariates_html_ac311420bda67d5aaec1be671f52874a7"><div class="ttname"><a href="structCovariates.html#ac311420bda67d5aaec1be671f52874a7">Covariates::S0</a></div><div class="ttdeci">double S0</div><div class="ttdoc">scale parameter for the variance prior</div><div class="ttdef"><b>Definition</b> Covariates.hpp:41</div></div>
+</div><!-- fragment -->
+<p>ν log(S₀) for NNIG model (v ~ IG(ν, S₀)) </p>
 
 </div>
 </div>
