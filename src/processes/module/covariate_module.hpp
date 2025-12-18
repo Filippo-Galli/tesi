@@ -11,6 +11,7 @@
 #include <functional>
 #include <utility>
 #include <cmath>
+#include <vector>
 
 /**
  * @class CovariatesModule
@@ -126,6 +127,8 @@ protected:
         // Log of posterior variance: log(τ_j) = log(B) + log(v) - log(v + n_j B)
         const double log_tau_j = log_B + log_v - std::log(v_plus_nB);
 
+        const double temp_log_v_plus_nB = log_v_plus_nB[stats.n];
+
         // Compute log marginal likelihood using posterior variance form:
         // log q(x_j) = -n_j/2 log(2π) - n_j/2 log(v) - 1/2 log(B) + 1/2 log(τ_j)
         //              - SS/(2v) - n_j(x̄_j - m)² / (2(v + n_j B))
@@ -173,15 +176,17 @@ protected:
         const double one_plus_nB = 1.0 + n_dbl * covariates_data.B;
         const double S_n = covariates_data.S0 + 0.5 * ss + 0.5 * (n_dbl / one_plus_nB) * dev * dev;
 
+        const double temp_lgamma_nu_n = lgamma_nu_n[stats.n];
+
         // log g(S) = log Γ(ν + n/2) - log Γ(ν) - n/2 log(2π)
         //            - 1/2 log(1+nB) + ν log(S₀) - (ν + n/2) log(S_n)
-        return std::lgamma(nu_n) - lgamma_nu + n_dbl * const_term - 0.5 * std::log(one_plus_nB) + nu_logS0 -
+        return temp_lgamma_nu_n - lgamma_nu + n_dbl * const_term - 0.5 * std::log(one_plus_nB) + nu_logS0 -
                nu_n * std::log(S_n);
     }
 
     /** @} */
 
-       /**
+    /**
      * @name Precomputed values
      * @{
      */
@@ -197,7 +202,11 @@ protected:
     const double nu_logS0 =
         covariates_data.nu * std::log(covariates_data.S0); ///< ν log(S₀) for NNIG model (v ~ IG(ν, S₀))
 
-    std::function<double(const CovariatesModule::ClusterStats &)> log_marginal_likelihood_function; ///< Pointer to log marginal likelihood function
+    std::vector<double> log_v_plus_nB; ///< Cache for log(v_plus_nB) for NN
+    std::vector<double> lgamma_nu_n;   ///< Cache for lgamma(nu_n) for NNIG
+
+    std::function<double(const CovariatesModule::ClusterStats &)>
+        log_marginal_likelihood_function; ///< Pointer to log marginal likelihood function
 
     /** @} */
 
@@ -209,14 +218,32 @@ public:
      * @param data_ Reference to Data object with cluster assignments
      * @param old_alloc_provider Optional function to access old allocations
      */
-    CovariatesModule(const Covariates &covariates_, const Data &data_,
-                     std::function<const Eigen::VectorXi &()> old_alloc_provider = {}, 
-                     std::function<const std::unordered_map<int, std::vector<int>> &()> old_cluster_members_provider_ = {})
-        : covariates_data(covariates_), data(data_), old_allocations_provider(std::move(old_alloc_provider)), 
-        old_cluster_members_provider(std::move(old_cluster_members_provider_)),
-        log_marginal_likelihood_function(covariates_.fixed_v
-        ? std::function<double(const ClusterStats &)>([this](const ClusterStats &stats) { return compute_log_marginal_likelihood_NN(stats); })
-        : std::function<double(const ClusterStats &)>([this](const ClusterStats &stats) { return compute_log_marginal_likelihood_NNIG(stats); })) {}
+    CovariatesModule(
+        const Covariates &covariates_, const Data &data_,
+        std::function<const Eigen::VectorXi &()> old_alloc_provider = {},
+        std::function<const std::unordered_map<int, std::vector<int>> &()> old_cluster_members_provider_ = {})
+        : covariates_data(covariates_), data(data_), old_allocations_provider(std::move(old_alloc_provider)),
+          old_cluster_members_provider(std::move(old_cluster_members_provider_)),
+          log_marginal_likelihood_function(
+            covariates_.fixed_v ? std::function<double(const ClusterStats &)>([this](const ClusterStats &stats) {
+                return compute_log_marginal_likelihood_NN(stats);
+            })
+            : std::function<double(const ClusterStats &)>([this](const ClusterStats &stats) {
+                return compute_log_marginal_likelihood_NNIG(stats);
+            })) {
+        // Precompute caches for efficiency if needed
+        if (covariates_data.fixed_v) {
+            log_v_plus_nB.reserve(data_.get_n() + 1);
+            for (int n = 0; n <= data_.get_n(); ++n) {
+                log_v_plus_nB.push_back(std::log(covariates_data.v + n * covariates_data.B));
+            }
+        } else {
+            lgamma_nu_n.reserve(data_.get_n() + 1);
+            for (int n = 0; n <= data_.get_n(); ++n) {
+                lgamma_nu_n.push_back(std::lgamma(covariates_data.nu + 0.5 * static_cast<double>(n)));
+            }
+        }
+    }
 
     /**
      * @name Similarity Computation Methods
