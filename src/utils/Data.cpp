@@ -203,3 +203,16 @@ void Data::set_allocations(const Eigen::VectorXi &new_allocations) {
     // Update K based on the new allocations
     K = allocations.maxCoeff() + 1;
 }
+
+void Data::restore_state(Eigen::VectorXi &old_allocations,
+                         std::unordered_map<int, std::vector<int>> &old_cluster_members, int old_K) {
+#if VERBOSITY_LEVEL >= 1
+    if (old_allocations.size() != allocations.size()) {
+        throw std::invalid_argument("Saved allocations size mismatch in restore_state");
+    }
+#endif
+
+    allocations.swap(old_allocations);
+    cluster_members.swap(old_cluster_members);
+    K = old_K;
+}

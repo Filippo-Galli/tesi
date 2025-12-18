@@ -39,11 +39,6 @@ void SplitMerge_LSS_SDDS::choose_indeces(bool similarity) {
         distance_sum += probs[idx];
     }
 
-    // Normalize probabilities
-    for (auto idx = 0; idx < data.get_n(); ++idx) {
-        probs[idx] /= distance_sum;
-    }
-
     // Select second index idx_j based on computed probabilities
     std::discrete_distribution<> dis1(probs.begin(), probs.end());
     do {
@@ -64,7 +59,6 @@ void SplitMerge_LSS_SDDS::choose_indeces(bool similarity) {
 
     launch_state.resize(launch_state_size);
     S.resize(launch_state_size);
-    original_allocations = data.get_allocations(); // Store original allocations in case of rejection
 
     // Properly collect all points from clusters ci and cj
     int s_idx = 0;
@@ -121,7 +115,6 @@ void SplitMerge_LSS_SDDS::sequential_allocation(int iterations, bool only_probab
                 data.set_allocation(point_idx, -1);
             }
 
-            
             // Compute probabilities for each cluster (ci and cj)
             log_probs(0) = likelihood.point_loglikelihood_cond(point_idx, ci);
             log_probs(1) = likelihood.point_loglikelihood_cond(point_idx, cj);
@@ -200,7 +193,7 @@ void SplitMerge_LSS_SDDS::smart_merge_move() {
 
     // Accept or reject the move
     if (log(dis_real(gen)) > acceptance_ratio) // move not accepted
-        data.set_allocations(original_allocations);
+        process.restore_state();
     else
         accepted_merge++;
 }
@@ -227,7 +220,7 @@ void SplitMerge_LSS_SDDS::dumb_merge_move() {
 
     // Accept or reject the move
     if (log(dis_real(gen)) > acceptance_ratio) // move not accepted
-        data.set_allocations(original_allocations);
+        process.restore_state();
     else
         accepted_merge++;
 }
@@ -255,7 +248,7 @@ void SplitMerge_LSS_SDDS::smart_split_move() {
 
     // Accept or reject the move
     if (log(dis_real(gen)) > acceptance_ratio) // move not accepted
-        data.set_allocations(original_allocations);
+        process.restore_state();
     else
         accepted_split++;
 }
@@ -283,7 +276,7 @@ void SplitMerge_LSS_SDDS::dumb_split_move() {
 
     // Accept or reject the move
     if (log(dis_real(gen)) > acceptance_ratio) // move not accepted
-        data.set_allocations(original_allocations);
+        process.restore_state();
     else
         accepted_split++;
 }
@@ -327,7 +320,7 @@ void SplitMerge_LSS_SDDS::shuffle() {
 
     // Accept or reject the move
     if (log(dis_real(gen)) > log_acceptance_ratio) // move not accepted
-        data.set_allocations(original_allocations);
+        process.restore_state();
     else
         accepted_shuffle++;
 }
@@ -372,9 +365,6 @@ void SplitMerge_LSS_SDDS::choose_clusters_shuffle() {
     std::uniform_int_distribution<> dis_idx_j(0, data.get_cluster_size(cj) - 1);
     idx_j = data.get_cluster_assignments(cj)[dis_idx_j(gen)];
 
-    // Store original allocations in case of rejection
-    original_allocations = data.get_allocations();
-
     // Pre-allocate launch_state and S
     const int size_ci = data.get_cluster_size(ci);
     const int size_cj = data.get_cluster_size(cj);
@@ -400,9 +390,11 @@ void SplitMerge_LSS_SDDS::choose_clusters_shuffle() {
 void SplitMerge_LSS_SDDS::step() {
 
     std::discrete_distribution<> dist({0.5, 0.5});
-    const int similarity_dist = dist(gen); // 0 for dissimilarity (split), 1 for similarity (merge)
+    const int similarity_dist = dist(gen);                   // 0 for dissimilarity (split), 1 for similarity (merge)
+    process.set_old_cluster_members(data.get_cluster_map()); // Update old cluster members in the process
+    process.set_old_allocations(data.get_allocations());     // Update old allocations in the process
+    process.set_old_K(data.get_K());                         // Cache number of clusters for rollback
     choose_indeces(similarity_dist);
-    process.set_old_allocations(data.get_allocations()); // Update old allocations in the process
     process.set_idx_i(idx_i);
     process.set_idx_j(idx_j);
 
@@ -432,8 +424,10 @@ void SplitMerge_LSS_SDDS::step() {
     log_merge_gibbs_prob = 0;
 
     if (shuffle_bool) {
+        process.set_old_allocations(data.get_allocations());     // Update old allocations in the process
+        process.set_old_cluster_members(data.get_cluster_map()); // Update old cluster members in the process
+        process.set_old_K(data.get_K());                         // Cache number of clusters for rollback
         choose_clusters_shuffle();
-        process.set_old_allocations(data.get_allocations()); // Update old allocations in the process
         process.set_idx_i(idx_i);
         process.set_idx_j(idx_j);
         shuffle();

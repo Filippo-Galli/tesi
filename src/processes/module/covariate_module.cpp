@@ -23,17 +23,10 @@ CovariatesModule::compute_cluster_statistics(const Eigen::Ref<const Eigen::Vecto
 double CovariatesModule::compute_similarity_cls(int cls_idx, bool old_allo) const {
     ClusterStats stats;
 
-    if (old_allo && old_allocations_provider) {
-        const Eigen::VectorXi &allocations = old_allocations_provider();
+    if (old_allo) {
+        const auto & old_cls_allo = old_cluster_members_provider().at(cls_idx);
+        stats = compute_cluster_statistics(Eigen::Map<const Eigen::VectorXi>(old_cls_allo.data(), old_cls_allo.size()));
 
-        for (int i = 0; i < allocations.size(); ++i) {
-            if (allocations(i) == cls_idx) {
-                stats.n += 1;
-                const double age = covariates_data.ages(i);
-                stats.sum += age;
-                stats.sumsq += age * age;
-            }
-        }
     } else {
         const Eigen::VectorXi &obs = data.get_cluster_assignments_ref(cls_idx);
         stats = compute_cluster_statistics(obs);

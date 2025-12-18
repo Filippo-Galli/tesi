@@ -41,7 +41,6 @@ private:
     void compact_cluster(int old_cluster);
 
 public:
-
     /**
      * @brief Constructs a Data object with a distance matrix
      * @param initial_allocations Optional initial cluster assignments (default:
@@ -87,8 +86,7 @@ public:
      * @return Number of points in the cluster (0 if cluster doesn't exist)
      */
     int get_cluster_size(unsigned cluster_index) const {
-        auto it = cluster_members.find(cluster_index);
-        return (cluster_index < K && it != cluster_members.end()) ? it->second.size() : 0;
+        return (cluster_index < K ) ? cluster_members.at(cluster_index).size() : 0;
     }
 
     /**
@@ -120,6 +118,12 @@ public:
      */
     Eigen::Map<const Eigen::VectorXi> get_cluster_assignments_ref(int cluster) const;
 
+    /**
+     * @brief Gets the full mapping of clusters to their member points
+     * @return Unordered map of cluster indices to vectors of point indices
+     */
+    std::unordered_map<int, std::vector<int>> get_cluster_map_copy() const { return cluster_members; }
+
     /** @} */
 
     /**
@@ -141,6 +145,22 @@ public:
      * @throws std::invalid_argument if vector size doesn't match number of points
      */
     void set_allocations(const Eigen::VectorXi &new_allocations);
+
+    /**
+     * @brief Restores allocations, cluster memberships, and cluster count from a saved state
+     *
+     * @param old_allocations Vector holding the saved allocations (swapped into place)
+     * @param old_cluster_members Map of saved cluster memberships (swapped into place)
+     * @param old_K Number of clusters in the saved state
+     */
+    void restore_state(Eigen::VectorXi &old_allocations, std::unordered_map<int, std::vector<int>> &old_cluster_members,
+                       int old_K);
+
+    /**
+     * @brief Gets the full mapping of clusters to their member points
+     * @return Reference to the vector of cluster members
+     */
+    const std::unordered_map<int, std::vector<int>> &get_cluster_map() const { return cluster_members; }
 
     /** @} */
 };

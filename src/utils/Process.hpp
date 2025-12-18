@@ -16,7 +16,7 @@
 #include "Data.hpp"
 #include "Params.hpp"
 #include <Eigen/Dense>
-#include <random>
+#include <unordered_map>
 
 /**
  * @brief Abstract base class for Bayesian nonparametric processes
@@ -52,12 +52,21 @@ protected:
      * rejection or for computation requiring it*/
     Eigen::VectorXi old_allocations;
 
+    /** @brief Storage for previous cluster members to enable rollback in case of
+     * rejection or for computation requiring it*/
+    std::unordered_map<int, std::vector<int>> old_cluster_members;
+
+    /** @brief Number of clusters associated with the stored previous state */
+    int old_K = 0;
+
     /**
-     * @brief Provides read-only access to the stored previous allocations.
+     * @brief Provides read-only access to the stored previous cluster members.
      *
-     * @return Const reference to the vector of previous allocations.
+     * @return Const reference to the unordered map of previous cluster members.
      */
-    [[nodiscard]] const Eigen::VectorXi &old_allocations_view() const { return old_allocations; }
+    [[nodiscard]] const std::unordered_map<int, std::vector<int>> &old_cluster_members_view() const {
+        return old_cluster_members;
+    }
 
     /** @brief Index of first observation involved in split-merge move */
     int idx_i;
@@ -79,7 +88,11 @@ public:
      * @details Initializes the process and stores a copy of current allocations
      * for potential rollback operations during split-merge moves.
      */
-    Process(Data &d, const Params &p) : data(d), params(p) { old_allocations = data.get_allocations(); };
+    Process(Data &d, const Params &p) : data(d), params(p) {
+        old_allocations = data.get_allocations();
+        old_cluster_members = data.get_cluster_map();
+        old_K = data.get_K();
+    };
 
     // ========== Gibbs Sampling Methods ==========
 
@@ -191,6 +204,37 @@ public:
      * a split-merge move, enabling rollback if the move is rejected.
      */
     void set_old_allocations(const Eigen::VectorXi &new_allocations) { old_allocations = new_allocations; };
+
+    /**
+     * @brief Store current cluster members for potential rollback
+     *
+     * @param new_cluster_members Current cluster members map to store
+     *
+     * @details Saves the current state of cluster members before attempting
+     * a split-merge move, enabling rollback if the move is rejected.
+     */
+    void set_old_cluster_members(const std::unordered_map<int, std::vector<int>> &new_cluster_members) {
+        old_cluster_members = new_cluster_members;
+    };
+
+    /**
+     * @brief Store current number of clusters for potential rollback
+     *
+     * @param new_K Number of clusters to cache
+     */
+    void set_old_K(int new_K) { old_K = new_K; }
+
+    /**
+     * @brief Restores the cached state into the data object
+     */
+    void restore_state() { data.restore_state(old_allocations, old_cluster_members, old_K); }
+
+    /**
+     * @brief Provides read-only access to the stored previous allocations.
+     *
+     * @return Const reference to the vector of previous allocations.
+     */
+    [[nodiscard]] const Eigen::VectorXi &old_allocations_view() const { return old_allocations; }
 
     /**
      * @brief Set index of first observation in split-merge pair

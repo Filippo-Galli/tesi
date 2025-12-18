@@ -45,6 +45,9 @@ protected:
      */
     std::function<const Eigen::VectorXi &()> old_allocations_provider;
 
+    /** @brief Provider function for accessing old cluster members map */
+    std::function<const std::unordered_map<int, std::vector<int>> &()> old_cluster_members_provider;
+
     /** @} */
 
     /**
@@ -207,8 +210,10 @@ public:
      * @param old_alloc_provider Optional function to access old allocations
      */
     CovariatesModule(const Covariates &covariates_, const Data &data_,
-                     std::function<const Eigen::VectorXi &()> old_alloc_provider = {})
+                     std::function<const Eigen::VectorXi &()> old_alloc_provider = {}, 
+                     std::function<const std::unordered_map<int, std::vector<int>> &()> old_cluster_members_provider_ = {})
         : covariates_data(covariates_), data(data_), old_allocations_provider(std::move(old_alloc_provider)), 
+        old_cluster_members_provider(std::move(old_cluster_members_provider_)),
         log_marginal_likelihood_function(covariates_.fixed_v
         ? std::function<double(const ClusterStats &)>([this](const ClusterStats &stats) { return compute_log_marginal_likelihood_NN(stats); })
         : std::function<double(const ClusterStats &)>([this](const ClusterStats &stats) { return compute_log_marginal_likelihood_NNIG(stats); })) {}
