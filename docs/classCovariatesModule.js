@@ -1,7 +1,7 @@
 var classCovariatesModule =
 [
     [ "ClusterStats", "structCovariatesModule_1_1ClusterStats.html", "structCovariatesModule_1_1ClusterStats" ],
-    [ "CovariatesModule", "classCovariatesModule.html#a9ddada04e54c1e69854a6f7dc82067b3", null ],
+    [ "CovariatesModule", "classCovariatesModule.html#ac52186a2427f599fc8fd5c70555119dc", null ],
     [ "compute_cluster_statistics", "classCovariatesModule.html#ac59a532a653f2522f249ee4734566630", null ],
     [ "compute_log_marginal_likelihood_NN", "classCovariatesModule.html#ab9eed2229c9e70b6a390f875e5538620", null ],
     [ "compute_log_marginal_likelihood_NNIG", "classCovariatesModule.html#a9f13cbee1a1f82f645fb4436a625ae28", null ],
@@ -17,5 +17,6 @@ var classCovariatesModule =
     [ "log_marginal_likelihood_function", "classCovariatesModule.html#a643b234208207f0ce8f8d8bf9a4903c7", null ],
     [ "log_v", "classCovariatesModule.html#a4d0e6c427ba6efb549c460e24218f891", null ],
     [ "nu_logS0", "classCovariatesModule.html#a2cbfc3e92f10ff10e6a48f10d30192dc", null ],
-    [ "old_allocations_provider", "classCovariatesModule.html#a3a42552d8755abc48b50a4e7c59c4374", null ]
+    [ "old_allocations_provider", "classCovariatesModule.html#a3a42552d8755abc48b50a4e7c59c4374", null ],
+    [ "old_cluster_members_provider", "classCovariatesModule.html#af1ae2cc7f6901113d145818dc334f4ba", null ]
 ];

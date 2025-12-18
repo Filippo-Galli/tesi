@@ -11,9 +11,10 @@ var hierarchy =
     [ "Process", "classProcess.html", [
       [ "DP", "classDP.html", null ],
       [ "DPW", "classDPW.html", null ],
-      [ "NGGP", "classNGGP.html", null ],
-      [ "NGGPW", "classNGGPW.html", [
-        [ "NGGPWx", "classNGGPWx.html", null ]
+      [ "NGGP", "classNGGP.html", [
+        [ "NGGPW", "classNGGPW.html", [
+          [ "NGGPWx", "classNGGPWx.html", null ]
+        ] ]
       ] ]
     ] ],
     [ "Sampler", "classSampler.html", [

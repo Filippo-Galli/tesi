@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['params_0',['params',['../structParams.html',1,'Params'],['../classData.html#a49af987ead9e377722a4a95a9b868d2c',1,'Data::params'],['../classLikelihood.html#afd1795b729f44bd5105979ecb8853642',1,'Likelihood::params'],['../classProcess.html#a2793ccf3c3fe37432a7e19ba2de0e885',1,'Process::params'],['../classSampler.html#a82d788501df27a3490c27085e5c6a218',1,'Sampler::params'],['../classU__sampler.html#aae20479c86071657e0fe00d54c9d0d3c',1,'U_sampler::params'],['../structParams.html#a47b5fb56b2cd7b50dbd6c323c62bbf82',1,'Params::Params()']]],
+  ['params_0',['params',['../structParams.html',1,'Params'],['../structParams.html#a47b5fb56b2cd7b50dbd6c323c62bbf82',1,'Params::Params()'],['../classData.html#a49af987ead9e377722a4a95a9b868d2c',1,'Data::params'],['../classLikelihood.html#afd1795b729f44bd5105979ecb8853642',1,'Likelihood::params'],['../classProcess.html#a2793ccf3c3fe37432a7e19ba2de0e885',1,'Process::params'],['../classSampler.html#a82d788501df27a3490c27085e5c6a218',1,'Sampler::params'],['../classU__sampler.html#aae20479c86071657e0fe00d54c9d0d3c',1,'U_sampler::params']]],
   ['params_2ehpp_1',['Params.hpp',['../Params_8hpp.html',1,'']]],
   ['point_5floglikelihood_5fcond_2',['point_loglikelihood_cond',['../classLikelihood.html#a0937f6a9a4b48def87b6e644810fb99d',1,'Likelihood']]],
   ['prerequisites_3',['Prerequisites',['../index.html#autotoc_md13',1,'']]],

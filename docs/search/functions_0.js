@@ -14,5 +14,5 @@ var searchData=
   ['compute_5fsimilarity_5fobs_11',['compute_similarity_obs',['../classCovariatesModule.html#a9de3e390e30aa6b59396f2f7cd126481',1,'CovariatesModule::compute_similarity_obs(int obs_idx, int cls_idx) const __attribute__((hot))'],['../classCovariatesModule.html#a556a7ac667df9a76436e8aed65f540bc',1,'CovariatesModule::compute_similarity_obs(int obs_idx) const']]],
   ['compute_5fzdnam_5fprobabilities_12',['compute_zdnam_probabilities',['../classNeal3ZDNAM.html#ad93280ed4c7c0922f16f620dcd2076e2',1,'Neal3ZDNAM']]],
   ['covariates_13',['Covariates',['../structCovariates.html#a115b16a816c0dab2c02a98b218f3b9f6',1,'Covariates']]],
-  ['covariatesmodule_14',['CovariatesModule',['../classCovariatesModule.html#a9ddada04e54c1e69854a6f7dc82067b3',1,'CovariatesModule']]]
+  ['covariatesmodule_14',['CovariatesModule',['../classCovariatesModule.html#ac52186a2427f599fc8fd5c70555119dc',1,'CovariatesModule']]]
 ];

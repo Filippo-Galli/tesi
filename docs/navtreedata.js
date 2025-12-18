@@ -50,7 +50,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "Covariates_8hpp.html",
-"classSplitMerge__LSS.html#a592b28bad845e868b2baef627472a8c3"
+"classSplitMerge.html#aef1773371d9b543fcefc8c2cd02eba49"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

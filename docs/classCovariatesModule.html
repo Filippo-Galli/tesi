@@ -130,9 +130,9 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9ddada04e54c1e69854a6f7dc82067b3" id="r_a9ddada04e54c1e69854a6f7dc82067b3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a9ddada04e54c1e69854a6f7dc82067b3">CovariatesModule</a> (const <a class="el" href="structCovariates.html">Covariates</a> &amp;covariates_, const <a class="el" href="classData.html">Data</a> &amp;data_, std::function&lt; const Eigen::VectorXi &amp;()&gt; old_alloc_provider={})</td></tr>
-<tr class="memdesc:a9ddada04e54c1e69854a6f7dc82067b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="classCovariatesModule.html" title="Module for covariate-related computations within clustering processes.">CovariatesModule</a>.  <br /></td></tr>
-<tr class="separator:a9ddada04e54c1e69854a6f7dc82067b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac52186a2427f599fc8fd5c70555119dc" id="r_ac52186a2427f599fc8fd5c70555119dc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#ac52186a2427f599fc8fd5c70555119dc">CovariatesModule</a> (const <a class="el" href="structCovariates.html">Covariates</a> &amp;covariates_, const <a class="el" href="classData.html">Data</a> &amp;data_, std::function&lt; const Eigen::VectorXi &amp;()&gt; old_alloc_provider={}, std::function&lt; const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; &amp;()&gt; old_cluster_members_provider_={})</td></tr>
+<tr class="memdesc:ac52186a2427f599fc8fd5c70555119dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="classCovariatesModule.html" title="Module for covariate-related computations within clustering processes.">CovariatesModule</a>.  <br /></td></tr>
+<tr class="separator:ac52186a2427f599fc8fd5c70555119dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Similarity Computation Methods</div></td></tr>
 <tr class="memitem:ab7726cf5c9f1a137c6e3d420ccfe6f1b" id="r_ab7726cf5c9f1a137c6e3d420ccfe6f1b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#ab7726cf5c9f1a137c6e3d420ccfe6f1b">compute_similarity_cls</a> (int cls_idx, bool old_allo=false) const</td></tr>
 <tr class="memdesc:ab7726cf5c9f1a137c6e3d420ccfe6f1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute covariate similarity contribution for a cluster.  <br /></td></tr>
@@ -169,6 +169,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a3a42552d8755abc48b50a4e7c59c4374" id="r_a3a42552d8755abc48b50a4e7c59c4374"><td class="memItemLeft" align="right" valign="top">std::function&lt; const Eigen::VectorXi &amp;()&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#a3a42552d8755abc48b50a4e7c59c4374">old_allocations_provider</a></td></tr>
 <tr class="memdesc:a3a42552d8755abc48b50a4e7c59c4374"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provider function for accessing old allocation state.  <br /></td></tr>
 <tr class="separator:a3a42552d8755abc48b50a4e7c59c4374"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1ae2cc7f6901113d145818dc334f4ba" id="r_af1ae2cc7f6901113d145818dc334f4ba"><td class="memItemLeft" align="right" valign="top">std::function&lt; const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; &amp;()&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#af1ae2cc7f6901113d145818dc334f4ba">old_cluster_members_provider</a></td></tr>
+<tr class="memdesc:af1ae2cc7f6901113d145818dc334f4ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provider function for accessing old cluster members map.  <br /></td></tr>
+<tr class="separator:af1ae2cc7f6901113d145818dc334f4ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Precomputed values</div></td></tr>
 <tr class="memitem:aa840620dfbf0a42c23ef340a7f6804e1" id="r_aa840620dfbf0a42c23ef340a7f6804e1"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCovariatesModule.html#aa840620dfbf0a42c23ef340a7f6804e1">Bv</a> = covariates_data.B * covariates_data.v</td></tr>
 <tr class="memdesc:aa840620dfbf0a42c23ef340a7f6804e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Product of prior variance and observation variance.  <br /></td></tr>
@@ -197,8 +200,8 @@ Protected Attributes</h2></td></tr>
 <p>This class implements the product partition model with regression on covariates as described in Müller et al. (2011). It computes similarity measures based on how well observations within a cluster can be explained by a common covariate distribution (Normal conjugate prior).</p>
 <p>Reference: Müller, P., Quintana, F. (2011) "A Product Partition Model With Regression on Covariates" </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a9ddada04e54c1e69854a6f7dc82067b3" name="a9ddada04e54c1e69854a6f7dc82067b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ddada04e54c1e69854a6f7dc82067b3">&#9670;&#160;</a></span>CovariatesModule()</h2>
+<a id="ac52186a2427f599fc8fd5c70555119dc" name="ac52186a2427f599fc8fd5c70555119dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac52186a2427f599fc8fd5c70555119dc">&#9670;&#160;</a></span>CovariatesModule()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -222,7 +225,13 @@ Protected Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::function&lt; const Eigen::VectorXi &amp;()&gt;&#160;</td>
-          <td class="paramname"><em>old_alloc_provider</em> = <code>{}</code>&#160;</td>
+          <td class="paramname"><em>old_alloc_provider</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::function&lt; const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; &amp;()&gt;&#160;</td>
+          <td class="paramname"><em>old_cluster_members_provider_</em> = <code>{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -742,6 +751,30 @@ Protected Attributes</h2></td></tr>
 
 <p>Provider function for accessing old allocation state. </p>
 <p>Used when computing similarity based on previous cluster assignments (e.g., in split-merge algorithms). </p>
+
+</div>
+</div>
+<a id="af1ae2cc7f6901113d145818dc334f4ba" name="af1ae2cc7f6901113d145818dc334f4ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1ae2cc7f6901113d145818dc334f4ba">&#9670;&#160;</a></span>old_cluster_members_provider</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::function&lt;const std::unordered_map&lt;int, std::vector&lt;int&gt; &gt; &amp;()&gt; CovariatesModule::old_cluster_members_provider</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Provider function for accessing old cluster members map. </p>
 
 </div>
 </div>

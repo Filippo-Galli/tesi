@@ -27,5 +27,5 @@ var searchData=
   ['covariates_2ehpp_24',['Covariates.hpp',['../Covariates_8hpp.html',1,'']]],
   ['covariates_5fdata_25',['covariates_data',['../classCovariatesModule.html#ac7e326010d4516a797a4b68780bedbf1',1,'CovariatesModule']]],
   ['covariates_5fmodule_26',['covariates_module',['../classSpatialModule.html#a843ccd6b83d919cffe1d56dcc3f229da',1,'SpatialModule']]],
-  ['covariatesmodule_27',['covariatesmodule',['../classCovariatesModule.html#a9ddada04e54c1e69854a6f7dc82067b3',1,'CovariatesModule::CovariatesModule()'],['../classCovariatesModule.html',1,'CovariatesModule']]]
+  ['covariatesmodule_27',['covariatesmodule',['../classCovariatesModule.html#ac52186a2427f599fc8fd5c70555119dc',1,'CovariatesModule::CovariatesModule()'],['../classCovariatesModule.html',1,'CovariatesModule']]]
 ];

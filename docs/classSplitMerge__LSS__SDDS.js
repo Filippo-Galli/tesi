@@ -31,7 +31,7 @@ var classSplitMerge__LSS__SDDS =
     [ "log_merge_gibbs_prob", "classSplitMerge__LSS__SDDS.html#ada77f2fce6d6778a9829447a663bf3c8", null ],
     [ "log_probs", "classSplitMerge__LSS__SDDS.html#a2b3286bccb91d69fcd8c42fd549b9172", null ],
     [ "log_split_gibbs_prob", "classSplitMerge__LSS__SDDS.html#ae11d1391d015b667789491845f9a95e1", null ],
-    [ "original_allocations", "classSplitMerge__LSS__SDDS.html#a415513c7aa6969479e7c4eb3021203d5", null ],
+    [ "original_allocations", "classSplitMerge__LSS__SDDS.html#a77fd0be8af2fef90083898469a27599b", null ],
     [ "probs", "classSplitMerge__LSS__SDDS.html#a72368dd573af97e4d3b4ea321805eb1e", null ],
     [ "rand_split_prob", "classSplitMerge__LSS__SDDS.html#a703cfdea33d5b09e8ad73128f9153a87", null ],
     [ "S", "classSplitMerge__LSS__SDDS.html#ab89d3b1669dc604e8eacb2ee938a93a0", null ],

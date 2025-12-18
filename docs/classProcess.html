@@ -122,8 +122,8 @@ Inheritance diagram for Process:</div>
 <area href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering." alt="DP" shape="rect" coords="0,56,64,80"/>
 <area href="classDPW.html" title="Dirichlet Process with spatial Weights class for spatially-aware Bayesian nonparametric clustering." alt="DPW" shape="rect" coords="74,56,138,80"/>
 <area href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering." alt="NGGP" shape="rect" coords="148,56,212,80"/>
-<area href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam..." alt="NGGPW" shape="rect" coords="222,56,286,80"/>
-<area href="classNGGPWx.html" title="NGGP clustering process with spatial weights and covariates." alt="NGGPWx" shape="rect" coords="222,112,286,136"/>
+<area href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam..." alt="NGGPW" shape="rect" coords="148,112,212,136"/>
+<area href="classNGGPWx.html" title="NGGP clustering process with spatial weights and covariates." alt="NGGPWx" shape="rect" coords="148,168,212,192"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -156,6 +156,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6174151176ec3d063ac441e5a80d0c44" id="r_a6174151176ec3d063ac441e5a80d0c44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a6174151176ec3d063ac441e5a80d0c44">set_old_allocations</a> (const Eigen::VectorXi &amp;new_allocations)</td></tr>
 <tr class="memdesc:a6174151176ec3d063ac441e5a80d0c44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store current allocations for potential rollback.  <br /></td></tr>
 <tr class="separator:a6174151176ec3d063ac441e5a80d0c44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a347d772b7e2eb4822c7e3302dc7538cf" id="r_a347d772b7e2eb4822c7e3302dc7538cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a347d772b7e2eb4822c7e3302dc7538cf">set_old_cluster_members</a> (const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; &amp;new_cluster_members)</td></tr>
+<tr class="memdesc:a347d772b7e2eb4822c7e3302dc7538cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store current cluster members for potential rollback.  <br /></td></tr>
+<tr class="separator:a347d772b7e2eb4822c7e3302dc7538cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00ec4d1dd731db745716e340c24ca4a0" id="r_a00ec4d1dd731db745716e340c24ca4a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a00ec4d1dd731db745716e340c24ca4a0">set_old_K</a> (int new_K)</td></tr>
+<tr class="memdesc:a00ec4d1dd731db745716e340c24ca4a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store current number of clusters for potential rollback.  <br /></td></tr>
+<tr class="separator:a00ec4d1dd731db745716e340c24ca4a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03edd1e089f7dd86bf08e05310f48521" id="r_a03edd1e089f7dd86bf08e05310f48521"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a03edd1e089f7dd86bf08e05310f48521">restore_state</a> ()</td></tr>
+<tr class="memdesc:a03edd1e089f7dd86bf08e05310f48521"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores the cached state into the data object.  <br /></td></tr>
+<tr class="separator:a03edd1e089f7dd86bf08e05310f48521"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a914f8d21512e26141f7f79cfe9a16bd5" id="r_a914f8d21512e26141f7f79cfe9a16bd5"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXi &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a914f8d21512e26141f7f79cfe9a16bd5">old_allocations_view</a> () const</td></tr>
+<tr class="memdesc:a914f8d21512e26141f7f79cfe9a16bd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides read-only access to the stored previous allocations.  <br /></td></tr>
+<tr class="separator:a914f8d21512e26141f7f79cfe9a16bd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ea0be22abcf92f98620c8b81690a76f" id="r_a7ea0be22abcf92f98620c8b81690a76f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a7ea0be22abcf92f98620c8b81690a76f">set_idx_i</a> (int i)</td></tr>
 <tr class="memdesc:a7ea0be22abcf92f98620c8b81690a76f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set index of first observation in split-merge pair.  <br /></td></tr>
 <tr class="separator:a7ea0be22abcf92f98620c8b81690a76f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,9 +183,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a914f8d21512e26141f7f79cfe9a16bd5" id="r_a914f8d21512e26141f7f79cfe9a16bd5"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXi &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a914f8d21512e26141f7f79cfe9a16bd5">old_allocations_view</a> () const</td></tr>
-<tr class="memdesc:a914f8d21512e26141f7f79cfe9a16bd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides read-only access to the stored previous allocations.  <br /></td></tr>
-<tr class="separator:a914f8d21512e26141f7f79cfe9a16bd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae1874026daaa8ac3fbd94e269ef6d36" id="r_aae1874026daaa8ac3fbd94e269ef6d36"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#aae1874026daaa8ac3fbd94e269ef6d36">old_cluster_members_view</a> () const</td></tr>
+<tr class="memdesc:aae1874026daaa8ac3fbd94e269ef6d36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides read-only access to the stored previous cluster members.  <br /></td></tr>
+<tr class="separator:aae1874026daaa8ac3fbd94e269ef6d36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -186,6 +198,12 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a837d783fac7c9f12243cd93b4534e3e4" id="r_a837d783fac7c9f12243cd93b4534e3e4"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a837d783fac7c9f12243cd93b4534e3e4">old_allocations</a></td></tr>
 <tr class="memdesc:a837d783fac7c9f12243cd93b4534e3e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage for previous allocations to enable rollback in case of rejection or for computation requiring it.  <br /></td></tr>
 <tr class="separator:a837d783fac7c9f12243cd93b4534e3e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4155440e49ade154fd118db2cfdb36c9" id="r_a4155440e49ade154fd118db2cfdb36c9"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; int, std::vector&lt; int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a4155440e49ade154fd118db2cfdb36c9">old_cluster_members</a></td></tr>
+<tr class="memdesc:a4155440e49ade154fd118db2cfdb36c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage for previous cluster members to enable rollback in case of rejection or for computation requiring it.  <br /></td></tr>
+<tr class="separator:a4155440e49ade154fd118db2cfdb36c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25b31fde5e8cd40db71ea6a6fd12252b" id="r_a25b31fde5e8cd40db71ea6a6fd12252b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a25b31fde5e8cd40db71ea6a6fd12252b">old_K</a> = 0</td></tr>
+<tr class="memdesc:a25b31fde5e8cd40db71ea6a6fd12252b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of clusters associated with the stored previous state.  <br /></td></tr>
+<tr class="separator:a25b31fde5e8cd40db71ea6a6fd12252b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86e6ee0bfe7bcbfc5da6e8e54dc827a9" id="r_a86e6ee0bfe7bcbfc5da6e8e54dc827a9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a86e6ee0bfe7bcbfc5da6e8e54dc827a9">idx_i</a></td></tr>
 <tr class="memdesc:a86e6ee0bfe7bcbfc5da6e8e54dc827a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index of first observation involved in split-merge move.  <br /></td></tr>
 <tr class="separator:a86e6ee0bfe7bcbfc5da6e8e54dc827a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -456,13 +474,41 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Provides read-only access to the stored previous allocations. </p>
 <dl class="section return"><dt>Returns</dt><dd>Const reference to the vector of previous allocations. </dd></dl>
+
+</div>
+</div>
+<a id="aae1874026daaa8ac3fbd94e269ef6d36" name="aae1874026daaa8ac3fbd94e269ef6d36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae1874026daaa8ac3fbd94e269ef6d36">&#9670;&#160;</a></span>old_cluster_members_view()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; &amp; Process::old_cluster_members_view </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Provides read-only access to the stored previous cluster members. </p>
+<dl class="section return"><dt>Returns</dt><dd>Const reference to the unordered map of previous cluster members. </dd></dl>
 
 </div>
 </div>
@@ -627,6 +673,33 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a03edd1e089f7dd86bf08e05310f48521" name="a03edd1e089f7dd86bf08e05310f48521"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03edd1e089f7dd86bf08e05310f48521">&#9670;&#160;</a></span>restore_state()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Process::restore_state </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Restores the cached state into the data object. </p>
+
+</div>
+</div>
 <a id="a7ea0be22abcf92f98620c8b81690a76f" name="a7ea0be22abcf92f98620c8b81690a76f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7ea0be22abcf92f98620c8b81690a76f">&#9670;&#160;</a></span>set_idx_i()</h2>
 
@@ -727,6 +800,75 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 <p>Saves the current state of cluster allocations before attempting a split-merge move, enabling rollback if the move is rejected. </p>
+
+</div>
+</div>
+<a id="a347d772b7e2eb4822c7e3302dc7538cf" name="a347d772b7e2eb4822c7e3302dc7538cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a347d772b7e2eb4822c7e3302dc7538cf">&#9670;&#160;</a></span>set_old_cluster_members()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Process::set_old_cluster_members </td>
+          <td>(</td>
+          <td class="paramtype">const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>new_cluster_members</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store current cluster members for potential rollback. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">new_cluster_members</td><td>Current cluster members map to store</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Saves the current state of cluster members before attempting a split-merge move, enabling rollback if the move is rejected. </p>
+
+</div>
+</div>
+<a id="a00ec4d1dd731db745716e340c24ca4a0" name="a00ec4d1dd731db745716e340c24ca4a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00ec4d1dd731db745716e340c24ca4a0">&#9670;&#160;</a></span>set_old_K()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Process::set_old_K </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>new_K</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store current number of clusters for potential rollback. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">new_K</td><td>Number of clusters to cache </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -878,6 +1020,54 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Storage for previous allocations to enable rollback in case of rejection or for computation requiring it. </p>
+
+</div>
+</div>
+<a id="a4155440e49ade154fd118db2cfdb36c9" name="a4155440e49ade154fd118db2cfdb36c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4155440e49ade154fd118db2cfdb36c9">&#9670;&#160;</a></span>old_cluster_members</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt;int, std::vector&lt;int&gt; &gt; Process::old_cluster_members</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Storage for previous cluster members to enable rollback in case of rejection or for computation requiring it. </p>
+
+</div>
+</div>
+<a id="a25b31fde5e8cd40db71ea6a6fd12252b" name="a25b31fde5e8cd40db71ea6a6fd12252b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25b31fde5e8cd40db71ea6a6fd12252b">&#9670;&#160;</a></span>old_K</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Process::old_K = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Number of clusters associated with the stored previous state. </p>
 
 </div>
 </div>

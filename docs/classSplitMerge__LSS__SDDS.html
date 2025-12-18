@@ -213,12 +213,11 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:afbb421cdade2153f9bf27b9c7eb181da" id="r_afbb421cdade2153f9bf27b9c7eb181da"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSplitMerge__LSS__SDDS.html#afbb421cdade2153f9bf27b9c7eb181da">launch_state_size</a></td></tr>
 <tr class="memdesc:afbb421cdade2153f9bf27b9c7eb181da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the launch state and S vectors.  <br /></td></tr>
 <tr class="separator:afbb421cdade2153f9bf27b9c7eb181da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a415513c7aa6969479e7c4eb3021203d5" id="r_a415513c7aa6969479e7c4eb3021203d5"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSplitMerge__LSS__SDDS.html#a415513c7aa6969479e7c4eb3021203d5">original_allocations</a></td></tr>
-<tr class="memdesc:a415513c7aa6969479e7c4eb3021203d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Original cluster assignments before move proposal.  <br /></td></tr>
-<tr class="separator:a415513c7aa6969479e7c4eb3021203d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77fd0be8af2fef90083898469a27599b" id="r_a77fd0be8af2fef90083898469a27599b"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXi &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSplitMerge__LSS__SDDS.html#a77fd0be8af2fef90083898469a27599b">original_allocations</a></td></tr>
+<tr class="memdesc:a77fd0be8af2fef90083898469a27599b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cached reference to original allocations stored in the process.  <br /></td></tr>
+<tr class="separator:a77fd0be8af2fef90083898469a27599b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bb6e4523eef07a70092ea5f8debbf58" id="r_a1bb6e4523eef07a70092ea5f8debbf58"><td class="memItemLeft" align="right" valign="top">std::uniform_real_distribution&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSplitMerge__LSS__SDDS.html#a1bb6e4523eef07a70092ea5f8debbf58">dis_real</a></td></tr>
-<tr class="memdesc:a1bb6e4523eef07a70092ea5f8debbf58"><td class="mdescLeft">&#160;</td><td class="mdescRight">uniform distribution between 0 and 1 <br  />
-  <br /></td></tr>
+<tr class="memdesc:a1bb6e4523eef07a70092ea5f8debbf58"><td class="mdescLeft">&#160;</td><td class="mdescRight">uniform distribution between 0 and 1  <br /></td></tr>
 <tr class="separator:a1bb6e4523eef07a70092ea5f8debbf58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c68b5f0e490352d84de34e21ddcde8e" id="r_a0c68b5f0e490352d84de34e21ddcde8e"><td class="memItemLeft" align="right" valign="top">std::uniform_int_distribution&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSplitMerge__LSS__SDDS.html#a0c68b5f0e490352d84de34e21ddcde8e">dis_int</a></td></tr>
 <tr class="memdesc:a0c68b5f0e490352d84de34e21ddcde8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">uniform integer distribution for general use  <br /></td></tr>
@@ -1072,8 +1071,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>uniform distribution between 0 and 1 <br  />
- </p>
+<p>uniform distribution between 0 and 1 </p>
 
 </div>
 </div>
@@ -1269,8 +1267,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a415513c7aa6969479e7c4eb3021203d5" name="a415513c7aa6969479e7c4eb3021203d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a415513c7aa6969479e7c4eb3021203d5">&#9670;&#160;</a></span>original_allocations</h2>
+<a id="a77fd0be8af2fef90083898469a27599b" name="a77fd0be8af2fef90083898469a27599b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77fd0be8af2fef90083898469a27599b">&#9670;&#160;</a></span>original_allocations</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1279,7 +1277,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::VectorXi SplitMerge_LSS_SDDS::original_allocations</td>
+          <td class="memname">const Eigen::VectorXi&amp; SplitMerge_LSS_SDDS::original_allocations</td>
         </tr>
       </table>
   </td>
@@ -1289,7 +1287,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Original cluster assignments before move proposal. </p>
+<p>Cached reference to original allocations stored in the process. </p>
 
 </div>
 </div>

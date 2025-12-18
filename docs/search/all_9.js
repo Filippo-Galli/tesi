@@ -4,7 +4,7 @@ var searchData=
   ['launch_5fstate_5fsize_1',['launch_state_size',['../classSplitMerge__LSS__SDDS.html#afbb421cdade2153f9bf27b9c7eb181da',1,'SplitMerge_LSS_SDDS']]],
   ['launcher_2ecpp_2',['launcher.cpp',['../launcher_8cpp.html',1,'']]],
   ['lgamma_5fnu_3',['lgamma_nu',['../classCovariatesModule.html#a3f5b2eb9d0d800f44e1fd13579387dab',1,'CovariatesModule']]],
-  ['likelihood_4',['likelihood',['../classLikelihood.html',1,'Likelihood'],['../classSampler.html#a1572ed0ff1a7ace0f1c6b60954200d8c',1,'Sampler::likelihood'],['../classLikelihood.html#a2072dc2858072ebe158613d36631f5c0',1,'Likelihood::Likelihood()']]],
+  ['likelihood_4',['likelihood',['../classLikelihood.html',1,'Likelihood'],['../classLikelihood.html#a2072dc2858072ebe158613d36631f5c0',1,'Likelihood::Likelihood()'],['../classSampler.html#a1572ed0ff1a7ace0f1c6b60954200d8c',1,'Sampler::likelihood']]],
   ['likelihood_20models_20tt_20likelihood_20tt_5',['Likelihood Models (&lt;tt&gt;Likelihood&lt;/tt&gt;)',['../index.html#autotoc_md10',1,'']]],
   ['likelihood_2ehpp_6',['Likelihood.hpp',['../Likelihood_8hpp.html',1,'']]],
   ['log_5fa_7',['log_a',['../classProcess.html#a38b41ae4bad9a3a5f4b474f2f5a18561',1,'Process']]],
