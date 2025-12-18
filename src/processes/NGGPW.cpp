@@ -12,6 +12,7 @@
  */
 
 #include "NGGPW.hpp"
+#include "NGGP.hpp"
 
 Eigen::VectorXd NGGPW::gibbs_prior_existing_clusters(int obs_idx) const {
   /**
@@ -25,15 +26,13 @@ Eigen::VectorXd NGGPW::gibbs_prior_existing_clusters(int obs_idx) const {
    * each existing cluster.
    */
 
-  Eigen::VectorXd priors = Eigen::VectorXd::Zero(data.get_K());
+  Eigen::VectorXd priors = NGGP::gibbs_prior_existing_clusters(obs_idx);
   Eigen::VectorXi neighbors = get_neighbors_obs(obs_idx);
 
   // Compute prior for each existing cluster
   for (int k = 0; k < data.get_K(); ++k) {
     const int cluster_size = data.get_cluster_size(k);
-    double prior = cluster_size  - params.sigma > 0 ? log(cluster_size - params.sigma)
-                                    : std::numeric_limits<double>::lowest();
-    priors(k) = prior + covariates_module.spatial_coefficient * neighbors(k);
+    priors(k) += covariates_module.spatial_coefficient * neighbors(k);
   }
 
   return priors;
@@ -52,9 +51,9 @@ double NGGPW::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) const {
    * existing cluster.
    */
 
-  const int cluster_size = data.get_cluster_size(cls_idx);
   double prior = covariates_module.spatial_coefficient * get_neighbors_obs(obs_idx, cls_idx);
-  prior = cluster_size - params.sigma > 0 ? prior + log(cluster_size - params.sigma) : std::numeric_limits<double>::lowest();
+  prior += NGGP::gibbs_prior_existing_cluster(cls_idx, obs_idx);
+
   return prior;
 }
 
@@ -69,7 +68,7 @@ double NGGPW::gibbs_prior_new_cluster() const {
    * cluster.
    */
 
-  return log_a + params.sigma * log(params.tau + U_sampler_method.get_U());
+  return NGGP::gibbs_prior_new_cluster();
 }
 
 double NGGPW::prior_ratio_split(int ci, int cj) const {
@@ -89,12 +88,7 @@ double NGGPW::prior_ratio_split(int ci, int cj) const {
   const int n_cj = data.get_cluster_size(cj);
 
   // NGGP prior part
-  double log_acceptance_ratio = 0.0;
-  log_acceptance_ratio += log_a;
-  log_acceptance_ratio += params.sigma * log(params.tau + U_sampler_method.get_U());
-  log_acceptance_ratio -= n_ci + n_cj - params.sigma > 0 ? lgamma(n_ci + n_cj - params.sigma) : 0;
-  log_acceptance_ratio += n_ci - params.sigma > 0 ? lgamma(n_ci - params.sigma) : 0;
-  log_acceptance_ratio += n_cj - params.sigma > 0 ? lgamma(n_cj - params.sigma) : 0;
+  double log_acceptance_ratio = NGGP::prior_ratio_split(ci, cj);
 
   // Spatial part: add new clusters, subtract old merged cluster
   log_acceptance_ratio += covariates_module.spatial_coefficient * get_neighbors_cls(ci);
@@ -120,11 +114,7 @@ double NGGPW::prior_ratio_merge(int size_old_ci, int size_old_cj) const {
   const int size_merge = size_old_ci + size_old_cj;
 
   // NGGP prior part
-  double log_acceptance_ratio = -log_a;
-  log_acceptance_ratio -= params.sigma * log(params.tau + U_sampler_method.get_U());
-  log_acceptance_ratio += size_merge - params.sigma > 0 ? lgamma(size_merge - params.sigma) : 0;
-  log_acceptance_ratio -= size_old_ci - params.sigma > 0 ? lgamma(size_old_ci - params.sigma) : 0;
-  log_acceptance_ratio -= size_old_cj - params.sigma > 0 ? lgamma(size_old_cj - params.sigma) : 0;
+  double log_acceptance_ratio = NGGP::prior_ratio_merge(size_old_ci, size_old_cj);
 
   // Spatial part
   const int old_ci = old_allocations[idx_i];
@@ -157,11 +147,7 @@ double NGGPW::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci,
   const int n_ci = data.get_cluster_size(ci);
   const int n_cj = data.get_cluster_size(cj);
 
-  double log_acceptance_ratio = 0.0;
-  log_acceptance_ratio += n_ci - params.sigma > 0 ? lgamma(n_ci - params.sigma) : 0;
-  log_acceptance_ratio += n_cj - params.sigma > 0 ? lgamma(n_cj - params.sigma) : 0;
-  log_acceptance_ratio -= size_old_ci - params.sigma > 0 ? lgamma(size_old_ci - params.sigma) : 0;
-  log_acceptance_ratio -= size_old_cj - params.sigma > 0 ? lgamma(size_old_cj - params.sigma) : 0;
+  double log_acceptance_ratio = NGGP::prior_ratio_shuffle(size_old_ci, size_old_cj, ci, cj);
 
   // Spatial part
   log_acceptance_ratio += covariates_module.spatial_coefficient * get_neighbors_cls(ci);

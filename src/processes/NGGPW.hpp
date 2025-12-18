@@ -7,7 +7,7 @@
 #pragma once
 
 #include "../samplers/U_sampler/U_sampler.hpp"
-#include "../utils/Process.hpp"
+#include "../processes/NGGP.hpp"
 #include "module/spatial_module.hpp"
 
 /**
@@ -20,7 +20,7 @@
  * the flexibility of the NGGP in modeling cluster sizes with spatial
  * dependencies between observations.
  */
-class NGGPW : public Process, protected SpatialModule {
+class NGGPW : public NGGP, protected SpatialModule {
 
 protected:
   /**
@@ -64,7 +64,7 @@ public:
    * updating the latent variable U via MCMC.
    */
   NGGPW(Data &d, Params &p, Covariates &c, U_sampler &mh)
-      : Process(d, p), SpatialModule(c, d,
+      : NGGP(d, p, mh), SpatialModule(c, d,
                                      [this]() -> const Eigen::VectorXi & {
                                        return this->old_allocations_view();
                                      }),
