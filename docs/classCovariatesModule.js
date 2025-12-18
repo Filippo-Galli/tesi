@@ -13,9 +13,11 @@ var classCovariatesModule =
     [ "covariates_data", "classCovariatesModule.html#ac7e326010d4516a797a4b68780bedbf1", null ],
     [ "data", "classCovariatesModule.html#ae63056f0158abbe7c7d676e90ea00a3a", null ],
     [ "lgamma_nu", "classCovariatesModule.html#a3f5b2eb9d0d800f44e1fd13579387dab", null ],
+    [ "lgamma_nu_n", "classCovariatesModule.html#adfdb1fc6a5d4bd188e47d4bc2c6aec43", null ],
     [ "log_B", "classCovariatesModule.html#a4e8273b97531b5cbf4b90c4561ea73bc", null ],
     [ "log_marginal_likelihood_function", "classCovariatesModule.html#a643b234208207f0ce8f8d8bf9a4903c7", null ],
     [ "log_v", "classCovariatesModule.html#a4d0e6c427ba6efb549c460e24218f891", null ],
+    [ "log_v_plus_nB", "classCovariatesModule.html#a16ec0d59071fe5fae2b5ad4921ca4651", null ],
     [ "nu_logS0", "classCovariatesModule.html#a2cbfc3e92f10ff10e6a48f10d30192dc", null ],
     [ "old_allocations_provider", "classCovariatesModule.html#a3a42552d8755abc48b50a4e7c59c4374", null ],
     [ "old_cluster_members_provider", "classCovariatesModule.html#af1ae2cc7f6901113d145818dc334f4ba", null ]

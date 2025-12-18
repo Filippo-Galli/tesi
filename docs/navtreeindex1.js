@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"classSplitMerge.html#ad3e2149688f6e7e5625488bab6bace42":[1,0,17,10],
+"classSplitMerge.html#ad96552c6bbf67fc857911cdf2c2dca81":[1,0,17,25],
 "classSplitMerge.html#aef1773371d9b543fcefc8c2cd02eba49":[1,0,17,4],
 "classSplitMerge.html#af711a9a7ca43c343a28bda7c9cc7ae3e":[1,0,17,7],
 "classSplitMerge.html#afefac12e75094f3e256a9c6c2adda20f":[1,0,17,24],
@@ -156,8 +158,8 @@ var NAVTREEINDEX1 =
 "globals_defs.html":[2,1,2],
 "globals_func.html":[2,1,1],
 "hierarchy.html":[1,2],
-"index.html":[],
 "index.html":[0],
+"index.html":[],
 "index.html#autotoc_md1":[0,0],
 "index.html#autotoc_md10":[0,2,1],
 "index.html#autotoc_md11":[0,2,2],
