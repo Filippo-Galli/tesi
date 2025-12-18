@@ -47,14 +47,13 @@ Eigen::VectorXi Data::get_cluster_assignments(int cluster) const {
     }
 #endif
 
-    auto it = cluster_members.find(cluster);
-
     // Check if the cluster exists in the map before accessing it
-    if (it == cluster_members.end()) {
+    if (cluster >= K || cluster < 0) {
         return Eigen::VectorXi::Zero(0); // Return empty vector for non-existent clusters
     }
 
-    return Eigen::Map<const Eigen::VectorXi>(it->second.data(), it->second.size());
+    const auto &it = cluster_members.at(cluster);
+    return Eigen::Map<const Eigen::VectorXi>(it.data(), static_cast<Eigen::Index>(it.size()));
 }
 
 Eigen::Map<const Eigen::VectorXi> Data::get_cluster_assignments_ref(int cluster) const {
@@ -64,15 +63,14 @@ Eigen::Map<const Eigen::VectorXi> Data::get_cluster_assignments_ref(int cluster)
     }
 #endif
 
-    auto it = cluster_members.find(cluster);
-
     // Check if the cluster exists in the map before accessing it
-    if (it == cluster_members.end()) {
+    if (cluster >= K || cluster < 0) {
         static const int dummy_value = 0;
         return Eigen::Map<const Eigen::VectorXi>(&dummy_value, 0);
     }
+    const auto &it = cluster_members.at(cluster);
 
-    return Eigen::Map<const Eigen::VectorXi>(it->second.data(), static_cast<Eigen::Index>(it->second.size()));
+    return Eigen::Map<const Eigen::VectorXi>(it.data(), static_cast<Eigen::Index>(it.size()));
 }
 
 void Data::compact_cluster(int old_cluster) {
