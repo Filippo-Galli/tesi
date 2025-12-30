@@ -3,7 +3,7 @@ source("R/utils_plot.R")
 files <- list.files("results/")
 files
 
-file_chosen <- files[10]
+file_chosen <- files[3]
 
 ##############################################################################
 # Load Results ====

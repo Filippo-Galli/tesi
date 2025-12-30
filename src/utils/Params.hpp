@@ -33,76 +33,73 @@
  * - Spatial dependency parameters (coefficient, W)
  */
 struct Params {
-  // ========== Distribution Hyperparameters ==========
+    // ========== Distribution Hyperparameters ==========
 
-  /** @brief Shape parameter for the first gamma distribution prior */
-  double delta1;
+    /** @brief Shape parameter for the first gamma distribution prior */
+    double delta1;
 
-  /** @brief Shape parameter for the lambda_k gamma distribution */
-  double alpha;
+    /** @brief Shape parameter for the lambda_k gamma distribution */
+    double alpha;
 
-  /** @brief Rate parameter for the lambda_k gamma distribution */
-  double beta;
+    /** @brief Rate parameter for the lambda_k gamma distribution */
+    double beta;
 
-  /** @brief Shape parameter for the second gamma distribution prior */
-  double delta2;
+    /** @brief Shape parameter for the second gamma distribution prior */
+    double delta2;
 
-  /** @brief Shape parameter for the theta_kt gamma distribution */
-  double gamma;
+    /** @brief Shape parameter for the theta_kt gamma distribution */
+    double gamma;
 
-  /** @brief Rate parameter for the theta_kt gamma distribution */
-  double zeta;
+    /** @brief Rate parameter for the theta_kt gamma distribution */
+    double zeta;
 
-  // ========== Simulation Control Parameters ==========
+    // ========== Simulation Control Parameters ==========
 
-  /** @brief Number of burn-in iterations to discard for chain convergence */
-  int BI;
+    /** @brief Number of burn-in iterations to discard for chain convergence */
+    int BI;
 
-  /** @brief Number of iterations after burn-in for posterior sampling */
-  int NI;
+    /** @brief Number of iterations after burn-in for posterior sampling */
+    int NI;
 
-  // ========== NGGP Process Parameters ==========
+    // ========== NGGP Process Parameters ==========
 
-  /** @brief Total mass parameter of the NGGP (controls number of clusters) */
-  double a;
+    /** @brief Total mass parameter of the NGGP (controls number of clusters) */
+    double a;
 
-  /** @brief Second parameter of the NGGP (controls cluster sizes) */
-  double sigma;
+    /** @brief Second parameter of the NGGP (controls cluster sizes) */
+    double sigma;
 
-  /** @brief Third parameter of the NGGP (controls tail behavior) */
-  double tau;
+    /** @brief Third parameter of the NGGP (controls tail behavior) */
+    double tau;
 
-  /** @brief Distance matrix */
-  Eigen::MatrixXd D; 
+    /** @brief Distance matrix */
+    Eigen::MatrixXd D;
 
-  /** @brief Number of points */
-  int n;
+    /** @brief Number of points */
+    int n;
 
-  /**
-   * @brief Constructor with default parameter values
-   *
-   * @param delta1 Shape parameter for first gamma prior (default: 0.5)
-   * @param alpha Shape parameter for lambda_k gamma distribution (default: 2)
-   * @param beta Rate parameter for lambda_k gamma distribution (default: 2)
-   * @param delta2 Shape parameter for second gamma prior (default: 2)
-   * @param gamma Shape parameter for theta_kt gamma distribution (default: 2)
-   * @param zeta Rate parameter for theta_kt gamma distribution (default: 2)
-   * @param BI Number of burn-in iterations (default: 1000)
-   * @param NI Number of post burn-in iterations (default: 10000)
-   * @param a NGGP total mass parameter (default: 1.0)
-   * @param sigma NGGP second parameter (default: 1.0)
-   * @param tau NGGP third parameter (default: 1.0)
-   * @param spatial_coefficient Spatial dependency spatial_coefficient (default: 1)
-   * @param D Distance matrix (default: empty matrix)
-   */
-  Params(double delta1 = 0.5, double alpha = 2, double beta = 2,
-         double delta2 = 2, double gamma = 2, double zeta = 2, int BI = 1000,
-         int NI = 10000, double a = 1.0, double sigma = 1.0, double tau = 1.0,
-         Eigen::MatrixXd D = Eigen::MatrixXd())
-      : delta1(delta1), alpha(alpha), beta(beta), delta2(delta2), gamma(gamma),
-        zeta(zeta), BI(BI), NI(NI), a(a), sigma(sigma), tau(tau),
-        D(D) { n = D.rows(); }
+    /**
+     * @brief Constructor with default parameter values
+     *
+     * @param delta1 Shape parameter for first gamma prior (default: 0.5)
+     * @param alpha Shape parameter for lambda_k gamma distribution (default: 2)
+     * @param beta Rate parameter for lambda_k gamma distribution (default: 2)
+     * @param delta2 Shape parameter for second gamma prior (default: 2)
+     * @param gamma Shape parameter for theta_kt gamma distribution (default: 2)
+     * @param zeta Rate parameter for theta_kt gamma distribution (default: 2)
+     * @param BI Number of burn-in iterations (default: 1000)
+     * @param NI Number of post burn-in iterations (default: 10000)
+     * @param a NGGP total mass parameter (default: 1.0)
+     * @param sigma NGGP second parameter (default: 1.0)
+     * @param tau NGGP third parameter (default: 1.0)
+     * @param spatial_coefficient Spatial dependency spatial_coefficient (default: 1)
+     * @param D Distance matrix (default: empty matrix)
+     */
+    Params(double delta1 = 0.5, double alpha = 2, double beta = 2, double delta2 = 2, double gamma = 2, double zeta = 2,
+           int BI = 1000, int NI = 10000, double a = 1.0, double sigma = 1.0, double tau = 1.0,
+           Eigen::MatrixXd D = Eigen::MatrixXd())
+        : delta1(delta1), alpha(alpha), beta(beta), delta2(delta2), gamma(gamma), zeta(zeta), BI(BI), NI(NI), a(a),
+          sigma(sigma), tau(tau), D(D) {
+        n = D.rows();
+    }
 };
-
-// Expose Params to R
-RCPP_EXPOSED_CLASS(Params);
