@@ -67,8 +67,9 @@ run_mcmc <- function(params, covariates, initial_allocations = integer(0)) {
         }
     }
 
+    elapsed_time <- as.numeric(difftime(Sys.time(), start_time, units = "secs"))
     cat("MCMC completed.\n")
-    cat("Total time (secs):", as.numeric(difftime(Sys.time(), start_time, units = "secs")), "\n")
+    cat("Total time (secs):", elapsed_time, "\n")
     cat("U acceptance rate:", u_sampler_get_acceptance_rate(u_sampler) * 100, "%\n")
 
     return(list(
@@ -76,6 +77,7 @@ run_mcmc <- function(params, covariates, initial_allocations = integer(0)) {
         K = K_out,
         U = U_out,
         BI = BI,
-        NI = NI
+        NI = NI, 
+        elapsed_time = elapsed_time
     ))
 }

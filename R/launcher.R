@@ -126,10 +126,8 @@ if (file.exists(log_file)) {
     file.remove(log_file) # Remove previous log file
 }
 
-start_time <- Sys.time()
 mcmc_result <- run_mcmc(param, covariates, hyperparams$initial_clusters)
-end_time <- Sys.time()
-elapsed_time <- as.numeric(difftime(end_time, start_time, units = "secs"))
+elapsed_time <- mcmc_result$elapsed_time
 
 ##############################################################################
 # Save Results (Optional) ====
