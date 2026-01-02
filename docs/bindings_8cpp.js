@@ -1,6 +1,6 @@
 var bindings_8cpp =
 [
-    [ "create_Covariates", "bindings_8cpp.html#ac9c8c78cf917afdf6a1b2ea51d842a4e", null ],
+    [ "create_Covariates", "bindings_8cpp.html#a8f0368d6a864aea5aa409af5fa33f573", null ],
     [ "create_Data", "bindings_8cpp.html#ac0ddd038caef50f4affae93c691afb3b", null ],
     [ "create_DP", "bindings_8cpp.html#a2458b52201373797ca56c3923b4405aa", null ],
     [ "create_DPW", "bindings_8cpp.html#ab854bbb781e685667b167387f7312a7a", null ],

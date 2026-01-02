@@ -54,5 +54,5 @@ var NAVTREEINDEX =
 "structParams.html#a9e4aad62277a980bfa8beaa0bd4ea529"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'click to disable panel synchronization';
+var SYNCOFFMSG = 'click to enable panel synchronization';

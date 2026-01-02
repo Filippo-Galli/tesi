@@ -1,7 +1,7 @@
 var structCovariates =
 [
-    [ "Covariates", "structCovariates.html#a115b16a816c0dab2c02a98b218f3b9f6", null ],
-    [ "ages", "structCovariates.html#a3f4bbf42dcb95dc426c648f4afe730c8", null ],
+    [ "Covariates", "structCovariates.html#a1e0d42540b852458e0fe96e47094debd", null ],
+    [ "ages", "structCovariates.html#aaeca07dc2802fb2d864649cf3aee39ed", null ],
     [ "B", "structCovariates.html#a4aab62d58b7992e5be5d89ef2cef2025", null ],
     [ "fixed_v", "structCovariates.html#af3385a609e9c7a4047ef7b6861125692", null ],
     [ "m", "structCovariates.html#a05f839e331694224df90ef460ecbc334", null ],
