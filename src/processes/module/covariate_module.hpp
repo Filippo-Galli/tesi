@@ -107,6 +107,7 @@ protected:
      *       as it is called frequently in the MCMC sampling loop.
      */
     inline double compute_log_marginal_likelihood_NN(const ClusterStats &stats) const __attribute__((hot)) {
+        
         if (stats.n == 0) {
             return 0.0;
         }
@@ -125,7 +126,14 @@ protected:
         const double dev = xbar - covariates_data.m;
 
         // Log of posterior variance: log(τ_j) = log(B) + log(v) - log(v + n_j B)
-        const double log_tau_j = log_B + log_v - log_v_plus_nB[stats.n];
+        double log_v_plus_nB_temp;
+        if (stats.n <= log_v_plus_nB.size() - 1) {
+            log_v_plus_nB_temp = log_v_plus_nB[stats.n];
+        } else {
+            log_v_plus_nB_temp = std::log(covariates_data.v + n_dbl * covariates_data.B);
+        }
+
+        const double log_tau_j = log_B + log_v - log_v_plus_nB_temp;
 
         // Compute log marginal likelihood using posterior variance form:
         // log q(x_j) = -n_j/2 log(2π) - n_j/2 log(v) - 1/2 log(B) + 1/2 log(τ_j)
@@ -174,9 +182,16 @@ protected:
         const double one_plus_nB = 1.0 + n_dbl * covariates_data.B;
         const double S_n = covariates_data.S0 + 0.5 * ss + 0.5 * (n_dbl / one_plus_nB) * dev * dev;
 
+        double lgamma_nu_n_temp;
+        if (stats.n <= lgamma_nu_n.size() - 1) {
+            lgamma_nu_n_temp = lgamma_nu_n[stats.n];
+        } else {
+            lgamma_nu_n_temp = std::lgamma(covariates_data.nu + 0.5 * n_dbl);
+        }
+
         // log g(S) = log Γ(ν + n/2) - log Γ(ν) - n/2 log(2π)
         //            - 1/2 log(1+nB) + ν log(S₀) - (ν + n/2) log(S_n)
-        return lgamma_nu_n[stats.n] - lgamma_nu + n_dbl * const_term - 0.5 * std::log(one_plus_nB) + nu_logS0 -
+        return lgamma_nu_n_temp - lgamma_nu + n_dbl * const_term - 0.5 * std::log(one_plus_nB) + nu_logS0 -
                nu_n * std::log(S_n);
     }
 
@@ -187,16 +202,15 @@ protected:
      * @{
      */
 
-    const double Bv = covariates_data.B * covariates_data.v; ///< Product of prior variance and observation variance
+    const double Bv; ///< Product of prior variance and observation variance
 
-    const double log_B = std::log(covariates_data.B); ///< Log of prior variance
-    const double log_v = std::log(covariates_data.v); ///< Log of observation variance
+    const double log_B; ///< Log of prior variance
+    const double log_v; ///< Log of observation variance
 
-    const double const_term = -0.5 * std::log(2.0 * M_PI); ///< Constant term in log likelihood
+    const double const_term; ///< Constant term in log likelihood
 
-    const double lgamma_nu = std::lgamma(covariates_data.nu); ///< log Gamma(ν) for NNIG model (v ~ IG(ν, S₀))
-    const double nu_logS0 =
-        covariates_data.nu * std::log(covariates_data.S0); ///< ν log(S₀) for NNIG model (v ~ IG(ν, S₀))
+    const double lgamma_nu; ///< log Gamma(ν) for NNIG model (v ~ IG(ν, S₀))
+    const double nu_logS0; ///< ν log(S₀) for NNIG model (v ~ IG(ν, S₀))
 
     std::vector<double> log_v_plus_nB; ///< Cache for log(v_plus_nB) for NN
     std::vector<double> lgamma_nu_n;   ///< Cache for lgamma(nu_n) for NNIG
@@ -220,6 +234,13 @@ public:
         std::function<const std::unordered_map<int, std::vector<int>> &()> old_cluster_members_provider_ = {})
         : covariates_data(covariates_), data(data_), old_allocations_provider(std::move(old_alloc_provider)),
           old_cluster_members_provider(std::move(old_cluster_members_provider_)),
+          // Initialize constants here in the list
+          Bv(covariates_.B * covariates_.v),
+          log_B(std::log(covariates_.B)),
+          log_v(std::log(covariates_.v)),
+          const_term(-0.5 * std::log(2.0 * M_PI)),
+          lgamma_nu(std::lgamma(covariates_.nu)),
+          nu_logS0(covariates_.nu * std::log(covariates_.S0)),
           log_marginal_likelihood_function(
             covariates_.fixed_v ? std::function<double(const ClusterStats &)>([this](const ClusterStats &stats) {
                 return compute_log_marginal_likelihood_NN(stats);

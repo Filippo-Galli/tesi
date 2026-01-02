@@ -24,7 +24,7 @@ double CovariatesModule::compute_similarity_cls(int cls_idx, bool old_allo) cons
     ClusterStats stats;
 
     if (old_allo) {
-        const auto & old_cls_allo = old_cluster_members_provider().at(cls_idx);
+        const auto &old_cls_allo = old_cluster_members_provider().at(cls_idx);
         stats = compute_cluster_statistics(Eigen::Map<const Eigen::VectorXi>(old_cls_allo.data(), old_cls_allo.size()));
 
     } else {
@@ -37,7 +37,12 @@ double CovariatesModule::compute_similarity_cls(int cls_idx, bool old_allo) cons
 
 double CovariatesModule::compute_similarity_obs(int obs_idx, int cls_idx) const {
 
-    ClusterStats base_stats = compute_cluster_statistics(data.get_cluster_assignments_ref(cls_idx));
+    ClusterStats base_stats;
+
+    // Handle new cluster case
+    if (cls_idx > -1) 
+        base_stats = compute_cluster_statistics(data.get_cluster_assignments_ref(cls_idx));
+
     const double obs_age = covariates_data.ages(obs_idx);
 
     const double log_ml_without = log_marginal_likelihood_function(base_stats);
@@ -58,6 +63,8 @@ Eigen::VectorXd CovariatesModule::compute_similarity_obs(int obs_idx) const {
     std::vector<ClusterStats> all_stats(num_clusters);
     for (int i = 0; i < allocations.size(); ++i) {
         int k = allocations(i);
+        if (k < 0)
+            continue;
         double val = covariates_data.ages(i);
         all_stats[k].n++;
         all_stats[k].sum += val;
