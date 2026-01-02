@@ -125,9 +125,7 @@ protected:
         const double dev = xbar - covariates_data.m;
 
         // Log of posterior variance: log(τ_j) = log(B) + log(v) - log(v + n_j B)
-        const double log_tau_j = log_B + log_v - std::log(v_plus_nB);
-
-        const double temp_log_v_plus_nB = log_v_plus_nB[stats.n];
+        const double log_tau_j = log_B + log_v - log_v_plus_nB[stats.n];
 
         // Compute log marginal likelihood using posterior variance form:
         // log q(x_j) = -n_j/2 log(2π) - n_j/2 log(v) - 1/2 log(B) + 1/2 log(τ_j)
@@ -176,11 +174,9 @@ protected:
         const double one_plus_nB = 1.0 + n_dbl * covariates_data.B;
         const double S_n = covariates_data.S0 + 0.5 * ss + 0.5 * (n_dbl / one_plus_nB) * dev * dev;
 
-        const double temp_lgamma_nu_n = lgamma_nu_n[stats.n];
-
         // log g(S) = log Γ(ν + n/2) - log Γ(ν) - n/2 log(2π)
         //            - 1/2 log(1+nB) + ν log(S₀) - (ν + n/2) log(S_n)
-        return temp_lgamma_nu_n - lgamma_nu + n_dbl * const_term - 0.5 * std::log(one_plus_nB) + nu_logS0 -
+        return lgamma_nu_n[stats.n] - lgamma_nu + n_dbl * const_term - 0.5 * std::log(one_plus_nB) + nu_logS0 -
                nu_n * std::log(S_n);
     }
 

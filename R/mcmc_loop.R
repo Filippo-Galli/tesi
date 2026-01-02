@@ -26,6 +26,8 @@ run_mcmc <- function(params, covariates, initial_allocations = integer(0)) {
     # Constructor: Data&, Params&, Likelihood&, Process&, bool shuffle
     sampler <- create_SplitMerge_LSS_SDDS(data, params, likelihood, process, TRUE)
 
+    neal3 <- create_Neal3(data, params, likelihood, process)
+
     # Get parameters for loop using getter functions
     BI <- params_get_BI(params)
     NI <- params_get_NI(params)
@@ -47,6 +49,10 @@ run_mcmc <- function(params, covariates, initial_allocations = integer(0)) {
         # MCMC Step
         sampler_step(sampler)
 
+        # Neal3 Step
+        if ( i %% 25 == 0 ) {
+            sampler_step(neal3)
+        }
         # Store results
         allocations_out[[i]] <- data_get_allocations(data)
         K_out[i] <- data_get_K(data)
