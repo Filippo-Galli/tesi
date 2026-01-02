@@ -110,8 +110,8 @@ void Data::compact_cluster(int old_cluster) {
     K--; // Decrease the number of clusters
 }
 
-void Data::set_allocation(int index, int cluster) {
-// Bounds checking for index
+void Data::set_allocation_wo_compaction(int index, int cluster) {
+    // Bounds checking for index
 #if VERBOSITY_LEVEL >= 1
     if (index < 0 || index >= params.n) {
         throw std::out_of_range("Index out of bounds in set_allocation");
@@ -177,9 +177,17 @@ void Data::set_allocation(int index, int cluster) {
             cluster_members[cluster].push_back(index);
         }
     }
+}
+
+void Data::set_allocation(int index, int cluster) {
+
+    int old_cluster = allocations(index);
+    auto old_cluster_it = cluster_members.find(old_cluster);
+
+    set_allocation_wo_compaction(index, cluster);
 
     // Check if old cluster became empty and needs compaction
-    if (old_cluster_exists && old_cluster_it->second.empty()) {
+    if (old_cluster_it != cluster_members.end() && old_cluster_it->second.empty()) {
         compact_cluster(old_cluster);
     }
 }

@@ -25,7 +25,7 @@
  * cluster allocations, and maintain cluster membership information.
  */
 class Data {
-private:
+protected:
     const Params &params; ///< Reference to model parameters
 
     Eigen::VectorXi allocations; ///< Cluster allocation for each point
@@ -39,6 +39,14 @@ private:
      * @param old_cluster Index of the cluster to remove
      */
     void compact_cluster(int old_cluster);
+
+    /**
+     * @brief Assigns a point to a cluster without compaction
+     * @param index Index of the point to reassign
+     * @param cluster Target cluster index (K for new cluster, -1 for unallocated)
+     * @throws std::out_of_range if index or cluster is invalid
+     */
+    void set_allocation_wo_compaction(int index, int cluster);
 
 public:
     /**
@@ -86,7 +94,7 @@ public:
      * @return Number of points in the cluster (0 if cluster doesn't exist)
      */
     int get_cluster_size(unsigned cluster_index) const {
-        return (cluster_index < K ) ? cluster_members.at(cluster_index).size() : 0;
+        return (cluster_index < K) ? cluster_members.at(cluster_index).size() : 0;
     }
 
     /**
@@ -137,14 +145,14 @@ public:
      * @param cluster Target cluster index (K for new cluster, -1 for unallocated)
      * @throws std::out_of_range if index or cluster is invalid
      */
-    void set_allocation(int index, int cluster);
+    virtual void set_allocation(int index, int cluster);
 
     /**
      * @brief Sets all cluster allocations at once
      * @param new_allocations Vector of cluster assignments for all points
      * @throws std::invalid_argument if vector size doesn't match number of points
      */
-    void set_allocations(const Eigen::VectorXi &new_allocations);
+    virtual void set_allocations(const Eigen::VectorXi &new_allocations);
 
     /**
      * @brief Restores allocations, cluster memberships, and cluster count from a saved state
@@ -153,8 +161,8 @@ public:
      * @param old_cluster_members Map of saved cluster memberships (swapped into place)
      * @param old_K Number of clusters in the saved state
      */
-    void restore_state(Eigen::VectorXi &old_allocations, std::unordered_map<int, std::vector<int>> &old_cluster_members,
-                       int old_K);
+    virtual void restore_state(Eigen::VectorXi &old_allocations,
+                               std::unordered_map<int, std::vector<int>> &old_cluster_members, int old_K);
 
     /**
      * @brief Gets the full mapping of clusters to their member points
@@ -163,4 +171,6 @@ public:
     const std::unordered_map<int, std::vector<int>> &get_cluster_map() const { return cluster_members; }
 
     /** @} */
+
+    virtual ~Data() = default;
 };
