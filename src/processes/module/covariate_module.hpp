@@ -106,41 +106,7 @@ protected:
      * @note This is marked as __attribute__((hot)) for performance optimization
      *       as it is called frequently in the MCMC sampling loop.
      */
-    inline double compute_log_marginal_likelihood_NN(const ClusterStats &stats) const __attribute__((hot)) {
-        
-        if (stats.n == 0) {
-            return 0.0;
-        }
-
-        const double n_dbl = static_cast<double>(stats.n);
-        const double inv_n = 1.0 / n_dbl;
-        const double xbar = stats.sum * inv_n;
-
-        // Centered sum of squares: SS = Σ(x_i - x̄)²
-        const double ss = stats.sumsq - n_dbl * xbar * xbar;
-
-        // v + n_j B term from integrating μ_j ~ N(m, B)
-        const double v_plus_nB = covariates_data.v + n_dbl * covariates_data.B;
-
-        // Mean deviation from prior mean
-        const double dev = xbar - covariates_data.m;
-
-        // Log of posterior variance: log(τ_j) = log(B) + log(v) - log(v + n_j B)
-        double log_v_plus_nB_temp;
-        if (stats.n <= log_v_plus_nB.size() - 1) {
-            log_v_plus_nB_temp = log_v_plus_nB[stats.n];
-        } else {
-            log_v_plus_nB_temp = std::log(covariates_data.v + n_dbl * covariates_data.B);
-        }
-
-        const double log_tau_j = log_B + log_v - log_v_plus_nB_temp;
-
-        // Compute log marginal likelihood using posterior variance form:
-        // log q(x_j) = -n_j/2 log(2π) - n_j/2 log(v) - 1/2 log(B) + 1/2 log(τ_j)
-        //              - SS/(2v) - n_j(x̄_j - m)² / (2(v + n_j B))
-        return n_dbl * const_term - 0.5 * n_dbl * log_v - 0.5 * log_B + 0.5 * log_tau_j -
-               0.5 * (ss / covariates_data.v + n_dbl * dev * dev / v_plus_nB);
-    }
+    double compute_log_marginal_likelihood_NN(const ClusterStats &stats) const __attribute__((hot));
 
     /**
      * @brief Compute log marginal likelihood for cluster given covariates
@@ -158,41 +124,22 @@ protected:
      *            - 1/2 log(1 + nB) + ν log(S₀)
      *            - (ν + n/2) log(S₀ + SS/2 + n/(2(1+nB)) (x̄-m)²)
      */
-    inline double compute_log_marginal_likelihood_NNIG(const ClusterStats &stats) const __attribute__((hot)) {
-        if (stats.n == 0) {
-            return 0.0;
-        }
+    double compute_log_marginal_likelihood_NNIG(const ClusterStats &stats) const __attribute__((hot));
 
-        const double n_dbl = static_cast<double>(stats.n);
-        const double inv_n = 1.0 / n_dbl;
-        const double xbar = stats.sum * inv_n;
-
-        // Centered sum of squares: SS = Σ(xᵢ - x̄)²
-        const double ss = stats.sumsq - n_dbl * xbar * xbar;
-
-        // Posterior parameters
-        // Prior: v ~ IG(ν, S0) and μ|v ~ N(m, B v) with B interpreted as a variance multiplier.
-        const double nu_n = covariates_data.nu + 0.5 * n_dbl;
-
-        // Deviation from prior mean
-        const double dev = xbar - covariates_data.m;
-
-        // Posterior scale parameter:
-        // S_n = S₀ + SS/2 + n/(2(1+nB)) (x̄-m)²
-        const double one_plus_nB = 1.0 + n_dbl * covariates_data.B;
-        const double S_n = covariates_data.S0 + 0.5 * ss + 0.5 * (n_dbl / one_plus_nB) * dev * dev;
-
-        double lgamma_nu_n_temp;
-        if (stats.n <= lgamma_nu_n.size() - 1) {
-            lgamma_nu_n_temp = lgamma_nu_n[stats.n];
+    /**
+     * @brief Compute log marginal likelihood based on model type
+     *
+     * Chooses between NN and NNIG models based on covariates_data.fixed_v.
+     *
+     * @param stats Sufficient statistics for the cluster
+     * @return Log marginal likelihood value
+     */
+    inline double compute_log_marginal_likelihood(const ClusterStats &stats) const __attribute__((hot)) {
+        if (covariates_data.fixed_v) {
+            return compute_log_marginal_likelihood_NN(stats);
         } else {
-            lgamma_nu_n_temp = std::lgamma(covariates_data.nu + 0.5 * n_dbl);
+            return compute_log_marginal_likelihood_NNIG(stats);
         }
-
-        // log g(S) = log Γ(ν + n/2) - log Γ(ν) - n/2 log(2π)
-        //            - 1/2 log(1+nB) + ν log(S₀) - (ν + n/2) log(S_n)
-        return lgamma_nu_n_temp - lgamma_nu + n_dbl * const_term - 0.5 * std::log(one_plus_nB) + nu_logS0 -
-               nu_n * std::log(S_n);
     }
 
     /** @} */
@@ -210,13 +157,10 @@ protected:
     const double const_term; ///< Constant term in log likelihood
 
     const double lgamma_nu; ///< log Gamma(ν) for NNIG model (v ~ IG(ν, S₀))
-    const double nu_logS0; ///< ν log(S₀) for NNIG model (v ~ IG(ν, S₀))
+    const double nu_logS0;  ///< ν log(S₀) for NNIG model (v ~ IG(ν, S₀))
 
     std::vector<double> log_v_plus_nB; ///< Cache for log(v_plus_nB) for NN
     std::vector<double> lgamma_nu_n;   ///< Cache for lgamma(nu_n) for NNIG
-
-    std::function<double(const CovariatesModule::ClusterStats &)>
-        log_marginal_likelihood_function; ///< Pointer to log marginal likelihood function
 
     /** @} */
 
@@ -235,19 +179,10 @@ public:
         : covariates_data(covariates_), data(data_), old_allocations_provider(std::move(old_alloc_provider)),
           old_cluster_members_provider(std::move(old_cluster_members_provider_)),
           // Initialize constants here in the list
-          Bv(covariates_.B * covariates_.v),
-          log_B(std::log(covariates_.B)),
-          log_v(std::log(covariates_.v)),
-          const_term(-0.5 * std::log(2.0 * M_PI)),
-          lgamma_nu(std::lgamma(covariates_.nu)),
-          nu_logS0(covariates_.nu * std::log(covariates_.S0)),
-          log_marginal_likelihood_function(
-            covariates_.fixed_v ? std::function<double(const ClusterStats &)>([this](const ClusterStats &stats) {
-                return compute_log_marginal_likelihood_NN(stats);
-            })
-            : std::function<double(const ClusterStats &)>([this](const ClusterStats &stats) {
-                return compute_log_marginal_likelihood_NNIG(stats);
-            })) {
+          Bv(covariates_.B * covariates_.v), log_B(std::log(covariates_.B)), log_v(std::log(covariates_.v)),
+          const_term(-0.5 * std::log(2.0 * M_PI)), lgamma_nu(std::lgamma(covariates_.nu)),
+          nu_logS0(covariates_.nu * std::log(covariates_.S0)){
+            
         // Precompute caches for efficiency if needed
         if (covariates_data.fixed_v) {
             log_v_plus_nB.reserve(data_.get_n() + 1);
