@@ -117,7 +117,7 @@ public:
    */
   double cluster_loglikelihood(
       int cluster_index,
-      const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k) const override final;
+      const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k) const override final __attribute__((hot));
 
   /**
    * @brief Computes the conditional log-likelihood of a point given a cluster
@@ -129,5 +129,5 @@ public:
    * considering both its cohesion with points in that cluster and its
    * repulsion from points in other clusters.
    */
-  double point_loglikelihood_cond(int point_index, int cluster_index) const override final;
+  double point_loglikelihood_cond(int point_index, int cluster_index) const override final __attribute__((hot));
 };
