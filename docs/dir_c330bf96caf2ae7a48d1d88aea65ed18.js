@@ -10,5 +10,7 @@ var dir_c330bf96caf2ae7a48d1d88aea65ed18 =
     [ "NGGPW.cpp", "NGGPW_8cpp.html", null ],
     [ "NGGPW.hpp", "NGGPW_8hpp.html", "NGGPW_8hpp" ],
     [ "NGGPWx.cpp", "NGGPWx_8cpp.html", null ],
-    [ "NGGPWx.hpp", "NGGPWx_8hpp.html", "NGGPWx_8hpp" ]
+    [ "NGGPWx.hpp", "NGGPWx_8hpp.html", "NGGPWx_8hpp" ],
+    [ "NGGPWxCache.cpp", "NGGPWxCache_8cpp.html", null ],
+    [ "NGGPWxCache.hpp", "NGGPWxCache_8hpp.html", "NGGPWxCache_8hpp" ]
 ];

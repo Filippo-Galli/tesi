@@ -18,8 +18,11 @@ var searchData=
   ['nggpwx_15',['NGGPWx',['../classNGGPWx.html',1,'NGGPWx'],['../classNGGPWx.html#a2160277ef8e9e85cb44727db4d2f32ee',1,'NGGPWx::NGGPWx()']]],
   ['nggpwx_2ecpp_16',['NGGPWx.cpp',['../NGGPWx_8cpp.html',1,'']]],
   ['nggpwx_2ehpp_17',['NGGPWx.hpp',['../NGGPWx_8hpp.html',1,'']]],
-  ['ni_18',['NI',['../structParams.html#aad4ced5e851807ada535fae7ec6ebc73',1,'Params']]],
-  ['nonparametric_20clustering_20with_20mcmc_19',['Bayesian Nonparametric Clustering with MCMC',['../index.html',1,'']]],
-  ['nu_20',['nu',['../structCovariates.html#a6e58fc16d5dffad406a7651a59956fe7',1,'Covariates']]],
-  ['nu_5flogs0_21',['nu_logS0',['../classCovariatesModule.html#a2cbfc3e92f10ff10e6a48f10d30192dc',1,'CovariatesModule']]]
+  ['nggpwxcache_18',['NGGPWxCache',['../classNGGPWxCache.html',1,'NGGPWxCache'],['../classNGGPWxCache.html#a653c6b2f2a27382ca7d2f4db4ba96918',1,'NGGPWxCache::NGGPWxCache()']]],
+  ['nggpwxcache_2ecpp_19',['NGGPWxCache.cpp',['../NGGPWxCache_8cpp.html',1,'']]],
+  ['nggpwxcache_2ehpp_20',['NGGPWxCache.hpp',['../NGGPWxCache_8hpp.html',1,'']]],
+  ['ni_21',['NI',['../structParams.html#aad4ced5e851807ada535fae7ec6ebc73',1,'Params']]],
+  ['nonparametric_20clustering_20with_20mcmc_22',['Bayesian Nonparametric Clustering with MCMC',['../index.html',1,'']]],
+  ['nu_23',['nu',['../structCovariates.html#a6e58fc16d5dffad406a7651a59956fe7',1,'Covariates']]],
+  ['nu_5flogs0_24',['nu_logS0',['../classCovariatesModule.html#a2cbfc3e92f10ff10e6a48f10d30192dc',1,'CovariatesModule::nu_logS0'],['../classCovariatesModuleCache.html#a49f1976852f0f5942009bde8c75bcd85',1,'CovariatesModuleCache::nu_logS0']]]
 ];

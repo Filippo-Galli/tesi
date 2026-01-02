@@ -4,5 +4,5 @@ var searchData=
   ['neighbor_5fcache_1',['neighbor_cache',['../classSpatialModule.html#a50166acdc6f0c6678279b677903d21e5',1,'SpatialModule']]],
   ['ni_2',['NI',['../structParams.html#aad4ced5e851807ada535fae7ec6ebc73',1,'Params']]],
   ['nu_3',['nu',['../structCovariates.html#a6e58fc16d5dffad406a7651a59956fe7',1,'Covariates']]],
-  ['nu_5flogs0_4',['nu_logS0',['../classCovariatesModule.html#a2cbfc3e92f10ff10e6a48f10d30192dc',1,'CovariatesModule']]]
+  ['nu_5flogs0_4',['nu_logS0',['../classCovariatesModule.html#a2cbfc3e92f10ff10e6a48f10d30192dc',1,'CovariatesModule::nu_logS0'],['../classCovariatesModuleCache.html#a49f1976852f0f5942009bde8c75bcd85',1,'CovariatesModuleCache::nu_logS0']]]
 ];

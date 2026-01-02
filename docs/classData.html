@@ -103,8 +103,8 @@ $(function(){initNavTree('classData.html',''); initResizable(true); });
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classData-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Data Class Reference</div></div>
 </div><!--header-->
@@ -114,12 +114,23 @@ $(function(){initNavTree('classData.html',''); initResizable(true); });
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="Data_8hpp_source.html">Data.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for Data:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classData.png" usemap="#Data_map" alt=""/>
+  <map id="Data_map" name="Data_map">
+<area href="classData__wClusterInfo.html" alt="Data_wClusterInfo" shape="rect" coords="0,56,115,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a6483ab171a3c41a07758f279da16ca85" id="r_a6483ab171a3c41a07758f279da16ca85"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6483ab171a3c41a07758f279da16ca85">Data</a> (const <a class="el" href="structParams.html">Params</a> &amp;p, const Eigen::VectorXi &amp;initial_allocations=Eigen::VectorXi())</td></tr>
 <tr class="memdesc:a6483ab171a3c41a07758f279da16ca85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a> object with a distance matrix.  <br /></td></tr>
 <tr class="separator:a6483ab171a3c41a07758f279da16ca85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3635432c142836f46f99fbdf6273d135" id="r_a3635432c142836f46f99fbdf6273d135"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3635432c142836f46f99fbdf6273d135">~Data</a> ()=default</td></tr>
+<tr class="separator:a3635432c142836f46f99fbdf6273d135"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
 <tr class="memitem:ad7e997f17eb2f794c0dfc9b6b73260b0" id="r_ad7e997f17eb2f794c0dfc9b6b73260b0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad7e997f17eb2f794c0dfc9b6b73260b0">get_distance</a> (int i, int j) const</td></tr>
 <tr class="memdesc:ad7e997f17eb2f794c0dfc9b6b73260b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getters.  <br /></td></tr>
@@ -149,27 +160,30 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2cc3000cdcf05d51791934abf53cca14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the full mapping of clusters to their member points.  <br /></td></tr>
 <tr class="separator:a2cc3000cdcf05d51791934abf53cca14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
-<tr class="memitem:a010f0f017f255c52592cf2794abb53ab" id="r_a010f0f017f255c52592cf2794abb53ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a010f0f017f255c52592cf2794abb53ab">set_allocation</a> (int index, int cluster)</td></tr>
+<tr class="memitem:a010f0f017f255c52592cf2794abb53ab" id="r_a010f0f017f255c52592cf2794abb53ab"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a010f0f017f255c52592cf2794abb53ab">set_allocation</a> (int index, int cluster)</td></tr>
 <tr class="memdesc:a010f0f017f255c52592cf2794abb53ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setters.  <br /></td></tr>
 <tr class="separator:a010f0f017f255c52592cf2794abb53ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad766a335e9d89cd7b6de8c2ab9a8d165" id="r_ad766a335e9d89cd7b6de8c2ab9a8d165"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad766a335e9d89cd7b6de8c2ab9a8d165">set_allocations</a> (const Eigen::VectorXi &amp;new_allocations)</td></tr>
+<tr class="memitem:ad766a335e9d89cd7b6de8c2ab9a8d165" id="r_ad766a335e9d89cd7b6de8c2ab9a8d165"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad766a335e9d89cd7b6de8c2ab9a8d165">set_allocations</a> (const Eigen::VectorXi &amp;new_allocations)</td></tr>
 <tr class="memdesc:ad766a335e9d89cd7b6de8c2ab9a8d165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets all cluster allocations at once.  <br /></td></tr>
 <tr class="separator:ad766a335e9d89cd7b6de8c2ab9a8d165"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b7c10b187a827f8bf1451997860e274" id="r_a9b7c10b187a827f8bf1451997860e274"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b7c10b187a827f8bf1451997860e274">restore_state</a> (Eigen::VectorXi &amp;old_allocations, std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; &amp;old_cluster_members, int old_K)</td></tr>
+<tr class="memitem:a9b7c10b187a827f8bf1451997860e274" id="r_a9b7c10b187a827f8bf1451997860e274"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b7c10b187a827f8bf1451997860e274">restore_state</a> (Eigen::VectorXi &amp;old_allocations, std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; &amp;old_cluster_members, int old_K)</td></tr>
 <tr class="memdesc:a9b7c10b187a827f8bf1451997860e274"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores allocations, cluster memberships, and cluster count from a saved state.  <br /></td></tr>
 <tr class="separator:a9b7c10b187a827f8bf1451997860e274"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0227e3d4ce6e235b9ad0381ace11ab70" id="r_a0227e3d4ce6e235b9ad0381ace11ab70"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0227e3d4ce6e235b9ad0381ace11ab70">get_cluster_map</a> () const</td></tr>
 <tr class="memdesc:a0227e3d4ce6e235b9ad0381ace11ab70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the full mapping of clusters to their member points.  <br /></td></tr>
 <tr class="separator:a0227e3d4ce6e235b9ad0381ace11ab70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
 <tr class="memitem:a084c9582515b320c586462db84fe9788" id="r_a084c9582515b320c586462db84fe9788"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a084c9582515b320c586462db84fe9788">compact_cluster</a> (int old_cluster)</td></tr>
 <tr class="memdesc:a084c9582515b320c586462db84fe9788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an empty cluster and compacts cluster indices.  <br /></td></tr>
 <tr class="separator:a084c9582515b320c586462db84fe9788"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a515215b9e507e7d4aa8bd155759fb247" id="r_a515215b9e507e7d4aa8bd155759fb247"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a515215b9e507e7d4aa8bd155759fb247">set_allocation_wo_compaction</a> (int index, int cluster)</td></tr>
+<tr class="memdesc:a515215b9e507e7d4aa8bd155759fb247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns a point to a cluster without compaction.  <br /></td></tr>
+<tr class="separator:a515215b9e507e7d4aa8bd155759fb247"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
 <tr class="memitem:a49af987ead9e377722a4a95a9b868d2c" id="r_a49af987ead9e377722a4a95a9b868d2c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structParams.html">Params</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a49af987ead9e377722a4a95a9b868d2c">params</a></td></tr>
 <tr class="memdesc:a49af987ead9e377722a4a95a9b868d2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to model parameters.  <br /></td></tr>
 <tr class="separator:a49af987ead9e377722a4a95a9b868d2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -222,6 +236,31 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a3635432c142836f46f99fbdf6273d135" name="a3635432c142836f46f99fbdf6273d135"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3635432c142836f46f99fbdf6273d135">&#9670;&#160;</a></span>~Data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Data::~Data </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel virtual">virtual</span><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a084c9582515b320c586462db84fe9788" name="a084c9582515b320c586462db84fe9788"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a084c9582515b320c586462db84fe9788">&#9670;&#160;</a></span>compact_cluster()</h2>
@@ -241,7 +280,7 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -570,6 +609,9 @@ Private Attributes</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Data::restore_state </td>
@@ -587,6 +629,11 @@ Private Attributes</h2></td></tr>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>old_K</em></span>&#160;)</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Restores allocations, cluster memberships, and cluster count from a saved state. </p>
@@ -599,6 +646,8 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Reimplemented in <a class="el" href="classData__wClusterInfo.html#ac6cd1b029bfa3e03b749ddeff95cb547">Data_wClusterInfo</a>.</p>
+
 </div>
 </div>
 <a id="a010f0f017f255c52592cf2794abb53ab" name="a010f0f017f255c52592cf2794abb53ab"></a>
@@ -606,6 +655,9 @@ Private Attributes</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Data::set_allocation </td>
@@ -618,10 +670,61 @@ Private Attributes</h2></td></tr>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cluster</em></span>&#160;)</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Setters. </p>
 <p>Assigns a point to a cluster </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>Index of the point to reassign </td></tr>
+    <tr><td class="paramname">cluster</td><td>Target cluster index (K for new cluster, -1 for unallocated) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::out_of_range</td><td>if index or cluster is invalid </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="classData__wClusterInfo.html#a604d68ae1c027cb34b6abdb929d1de4b">Data_wClusterInfo</a>.</p>
+
+</div>
+</div>
+<a id="a515215b9e507e7d4aa8bd155759fb247" name="a515215b9e507e7d4aa8bd155759fb247"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a515215b9e507e7d4aa8bd155759fb247">&#9670;&#160;</a></span>set_allocation_wo_compaction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Data::set_allocation_wo_compaction </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cluster</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Assigns a point to a cluster without compaction. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">index</td><td>Index of the point to reassign </td></tr>
     <tr><td class="paramname">cluster</td><td>Target cluster index (K for new cluster, -1 for unallocated) </td></tr>
@@ -642,6 +745,9 @@ Private Attributes</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Data::set_allocations </td>
@@ -650,6 +756,11 @@ Private Attributes</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets all cluster allocations at once. </p>
@@ -665,6 +776,8 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p>Reimplemented in <a class="el" href="classData__wClusterInfo.html#af2bf0fd396b34aa457aff8a743d5aa6c">Data_wClusterInfo</a>.</p>
 
 </div>
 </div>
@@ -684,7 +797,7 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -708,7 +821,7 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -732,7 +845,7 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -756,7 +869,7 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

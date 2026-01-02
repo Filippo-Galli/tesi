@@ -131,7 +131,7 @@ src</h2>
 <li><code>processes</code>: Contains the implementations of the stochastic processes (e.g., Dirichlet <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a>, <a class="el" href="classNGGP.html" title="Normalized Generalized Gamma Process class for Bayesian nonparametric clustering.">NGGP</a>).</li>
 <li><code>likelihoods</code>: Contains the implementations of the likelihood models (e.g., distance-based clustering).</li>
 <li><code>samplers</code>: Contains the implementations of the MCMC samplers (e.g., Neal's Algorithm 3, Split-Merge).</li>
-<li><code>utils</code>: Contains utility functions and classes used throughout the codebase and all the base classes. The entry point for the C++ code is in <code><a class="el" href="launcher_8cpp.html" title="Main launcher file for MCMC simulation with various Bayesian non-parametric processes.">src/launcher.cpp</a></code>, which is exposed to R via Rcpp.</li>
+<li><code>utils</code>: Contains utility functions and classes used throughout the codebase and all the base classes. The entry point for the C++ code is in <code>src/launcher.cpp</code>, which is exposed to R via Rcpp.</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md6"></a>
 🏗️ Architecture</h1>
@@ -146,7 +146,7 @@ src</h2>
 Extensibility</h2>
 <p>The code is structured to facilitate the integration of new components. You can implement custom models by extending the base classes (<code><a class="el" href="classLikelihood.html" title="Abstract class with likelihood desiderable interfaces.">Likelihood</a></code>, <code><a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a></code>, <code><a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a></code>).</p>
 <blockquote class="doxtable">
-<p><b>Note</b>: When modifying <code><a class="el" href="structParams.html" title="Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...">Params</a></code> or adding new classes, ensure you update the R bindings in <code><a class="el" href="launcher_8cpp.html" title="Main launcher file for MCMC simulation with various Bayesian non-parametric processes.">src/launcher.cpp</a></code>. </p>
+<p><b>Note</b>: When modifying <code><a class="el" href="structParams.html" title="Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...">Params</a></code> or adding new classes, ensure you update the R bindings in <code>src/launcher.cpp</code>. </p>
 </blockquote>
 <h1><a class="anchor" id="autotoc_md8"></a>
 📦 Implemented Methods</h1>
@@ -190,9 +190,9 @@ Setup</h2>
 </ol>
 <h2><a class="anchor" id="autotoc_md15"></a>
 Running the Code</h2>
-<p>The entry point for the C++ code is exposed to R. Currently, the specific combination of <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a>, <a class="el" href="classLikelihood.html" title="Abstract class with likelihood desiderable interfaces.">Likelihood</a>, and <a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a> is configured in <code><a class="el" href="launcher_8cpp.html" title="Main launcher file for MCMC simulation with various Bayesian non-parametric processes.">src/launcher.cpp</a></code>.</p>
+<p>The entry point for the C++ code is exposed to R. Currently, the specific combination of <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a>, <a class="el" href="classLikelihood.html" title="Abstract class with likelihood desiderable interfaces.">Likelihood</a>, and <a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a> is configured in <code>src/launcher.cpp</code>.</p>
 <ol type="1">
-<li>Modify <code><a class="el" href="launcher_8cpp.html" title="Main launcher file for MCMC simulation with various Bayesian non-parametric processes.">src/launcher.cpp</a></code> to select your desired model components.</li>
+<li>Modify <code>src/launcher.cpp</code> to select your desired model components.</li>
 <li>Compile and source the code in R (e.g., using <code>Rcpp::sourceCpp</code>).</li>
 <li>Run the provided R functions to start the MCMC chain.</li>
 </ol>

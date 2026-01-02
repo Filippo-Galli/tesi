@@ -110,6 +110,8 @@ $(function(){initNavTree('bindings_8cpp.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="Params_8hpp_source.html">utils/Params.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Covariates_8hpp_source.html">utils/Covariates.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Data_8hpp_source.html">utils/Data.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Data__wClusterInfo_8hpp_source.html">utils/Data_wClusterInfo.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ClusterInfo_8hpp_source.html">utils/ClusterInfo.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Likelihood_8hpp_source.html">utils/Likelihood.hpp</a>&quot;</code><br />
 <code>#include &quot;likelihoods/Natarajan_likelihood.hpp&quot;</code><br />
 <code>#include &quot;<a class="el" href="Process_8hpp_source.html">utils/Process.hpp</a>&quot;</code><br />
@@ -118,6 +120,8 @@ $(function(){initNavTree('bindings_8cpp.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="NGGP_8hpp_source.html">processes/NGGP.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="NGGPW_8hpp_source.html">processes/NGGPW.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="NGGPWx_8hpp_source.html">processes/NGGPWx.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="NGGPWxCache_8hpp_source.html">processes/NGGPWxCache.hpp</a>&quot;</code><br />
+<code>#include &quot;processes/caches/Covariate_cache.hpp&quot;</code><br />
 <code>#include &quot;<a class="el" href="U__sampler_8hpp_source.html">samplers/U_sampler/U_sampler.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RWMH_8hpp_source.html">samplers/U_sampler/RWMH.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MALA_8hpp_source.html">samplers/U_sampler/MALA.hpp</a>&quot;</code><br />
@@ -131,48 +135,58 @@ $(function(){initNavTree('bindings_8cpp.html',''); initResizable(true); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a0b90b94c00df80e382f7e4ef384457d9" id="r_a0b90b94c00df80e382f7e4ef384457d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classData.html">Data</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0b90b94c00df80e382f7e4ef384457d9">get_data_ptr</a> (SEXP sexp)</td></tr>
+<tr class="separator:a0b90b94c00df80e382f7e4ef384457d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6420f6878380ebad2290d874c42b0a3" id="r_af6420f6878380ebad2290d874c42b0a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classClusterInfo.html">ClusterInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6420f6878380ebad2290d874c42b0a3">get_cluster_info_ptr</a> (SEXP sexp)</td></tr>
+<tr class="separator:af6420f6878380ebad2290d874c42b0a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acdf60c21ba9cbd9728015f180e4ad332" id="r_acdf60c21ba9cbd9728015f180e4ad332"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acdf60c21ba9cbd9728015f180e4ad332">create_Params</a> (double delta1, double alpha, double beta, double delta2, double gamma, double zeta, int BI, int NI, double a, double sigma, double tau, Eigen::MatrixXd D)</td></tr>
 <tr class="separator:acdf60c21ba9cbd9728015f180e4ad332"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f0368d6a864aea5aa409af5fa33f573" id="r_a8f0368d6a864aea5aa409af5fa33f573"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f0368d6a864aea5aa409af5fa33f573">create_Covariates</a> (Eigen::MatrixXi W, double spatial_coefficient, Eigen::VectorXd ages, double B, double m, double v, bool fixed_v, double nu, double S0)</td></tr>
 <tr class="separator:a8f0368d6a864aea5aa409af5fa33f573"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0ddd038caef50f4affae93c691afb3b" id="r_ac0ddd038caef50f4affae93c691afb3b"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0ddd038caef50f4affae93c691afb3b">create_Data</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Eigen::VectorXi initial_allocations)</td></tr>
 <tr class="separator:ac0ddd038caef50f4affae93c691afb3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a200a43003253af134065f6eb6cc54f97" id="r_a200a43003253af134065f6eb6cc54f97"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; Natarajan_likelihood &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a200a43003253af134065f6eb6cc54f97">create_Natarajan_likelihood</a> (Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt; data, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params)</td></tr>
-<tr class="separator:a200a43003253af134065f6eb6cc54f97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc67b4b29aafcdc526ce843390a3e4e4" id="r_adc67b4b29aafcdc526ce843390a3e4e4"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classRWMH.html">RWMH</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc67b4b29aafcdc526ce843390a3e4e4">create_RWMH</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt; data, bool use_V, double proposal_sd, bool tuning_enabled)</td></tr>
-<tr class="separator:adc67b4b29aafcdc526ce843390a3e4e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad96a18bca8e940c4b98c244ff6a572b7" id="r_ad96a18bca8e940c4b98c244ff6a572b7"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classMALA.html">MALA</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad96a18bca8e940c4b98c244ff6a572b7">create_MALA</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt; data, bool use_V, double proposal_sd, bool tuning_enabled)</td></tr>
-<tr class="separator:ad96a18bca8e940c4b98c244ff6a572b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2458b52201373797ca56c3923b4405aa" id="r_a2458b52201373797ca56c3923b4405aa"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classDP.html">DP</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2458b52201373797ca56c3923b4405aa">create_DP</a> (Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt; data, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params)</td></tr>
-<tr class="separator:a2458b52201373797ca56c3923b4405aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab854bbb781e685667b167387f7312a7a" id="r_ab854bbb781e685667b167387f7312a7a"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classDPW.html">DPW</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab854bbb781e685667b167387f7312a7a">create_DPW</a> (Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt; data, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt; covariates)</td></tr>
-<tr class="separator:ab854bbb781e685667b167387f7312a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a096411f1b4bc398eeebaf478d1475c01" id="r_a096411f1b4bc398eeebaf478d1475c01"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classNGGP.html">NGGP</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a096411f1b4bc398eeebaf478d1475c01">create_NGGP</a> (Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt; data, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classU__sampler.html">U_sampler</a> &gt; u_sampler)</td></tr>
-<tr class="separator:a096411f1b4bc398eeebaf478d1475c01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac00c076af503fdab829e7c9a345b7756" id="r_ac00c076af503fdab829e7c9a345b7756"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classNGGPW.html">NGGPW</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac00c076af503fdab829e7c9a345b7756">create_NGGPW</a> (Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt; data, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt; covariates, Rcpp::XPtr&lt; <a class="el" href="classU__sampler.html">U_sampler</a> &gt; u_sampler)</td></tr>
-<tr class="separator:ac00c076af503fdab829e7c9a345b7756"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad39945deb6a8a1296a7cf5def0edf10e" id="r_ad39945deb6a8a1296a7cf5def0edf10e"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classNGGPWx.html">NGGPWx</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad39945deb6a8a1296a7cf5def0edf10e">create_NGGPWx</a> (Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt; data, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt; covariates, Rcpp::XPtr&lt; <a class="el" href="classU__sampler.html">U_sampler</a> &gt; u_sampler)</td></tr>
-<tr class="separator:ad39945deb6a8a1296a7cf5def0edf10e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac49e59d01757e9dd089aacc2160658b3" id="r_ac49e59d01757e9dd089aacc2160658b3"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classNeal3.html">Neal3</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac49e59d01757e9dd089aacc2160658b3">create_Neal3</a> (Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt; data, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classLikelihood.html">Likelihood</a> &gt; likelihood, Rcpp::XPtr&lt; <a class="el" href="classProcess.html">Process</a> &gt; process)</td></tr>
-<tr class="separator:ac49e59d01757e9dd089aacc2160658b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9a712e526c17b78e29944b699c53bb0" id="r_ae9a712e526c17b78e29944b699c53bb0"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classNeal3ZDNAM.html">Neal3ZDNAM</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9a712e526c17b78e29944b699c53bb0">create_Neal3ZDNAM</a> (Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt; data, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classLikelihood.html">Likelihood</a> &gt; likelihood, Rcpp::XPtr&lt; <a class="el" href="classProcess.html">Process</a> &gt; process)</td></tr>
-<tr class="separator:ae9a712e526c17b78e29944b699c53bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac968f3300ad0717e22a77ee9664e52b5" id="r_ac968f3300ad0717e22a77ee9664e52b5"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classSplitMerge.html">SplitMerge</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac968f3300ad0717e22a77ee9664e52b5">create_SplitMerge</a> (Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt; data, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classLikelihood.html">Likelihood</a> &gt; likelihood, Rcpp::XPtr&lt; <a class="el" href="classProcess.html">Process</a> &gt; process, bool shuffle)</td></tr>
-<tr class="separator:ac968f3300ad0717e22a77ee9664e52b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5905560e89e29a4d3ab43392a955dd4" id="r_af5905560e89e29a4d3ab43392a955dd4"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classSplitMerge__SAMS.html">SplitMerge_SAMS</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5905560e89e29a4d3ab43392a955dd4">create_SplitMerge_SAMS</a> (Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt; data, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classLikelihood.html">Likelihood</a> &gt; likelihood, Rcpp::XPtr&lt; <a class="el" href="classProcess.html">Process</a> &gt; process, bool shuffle)</td></tr>
-<tr class="separator:af5905560e89e29a4d3ab43392a955dd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6c194d1eb95cb46b2f870c790bce8d9" id="r_ac6c194d1eb95cb46b2f870c790bce8d9"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classSplitMerge__LSS.html">SplitMerge_LSS</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6c194d1eb95cb46b2f870c790bce8d9">create_SplitMerge_LSS</a> (Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt; data, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classLikelihood.html">Likelihood</a> &gt; likelihood, Rcpp::XPtr&lt; <a class="el" href="classProcess.html">Process</a> &gt; process, bool shuffle)</td></tr>
-<tr class="separator:ac6c194d1eb95cb46b2f870c790bce8d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa38d7f1fe80224be302eac998cafbf32" id="r_aa38d7f1fe80224be302eac998cafbf32"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classSplitMerge__LSS__SDDS.html">SplitMerge_LSS_SDDS</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa38d7f1fe80224be302eac998cafbf32">create_SplitMerge_LSS_SDDS</a> (Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt; data, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classLikelihood.html">Likelihood</a> &gt; likelihood, Rcpp::XPtr&lt; <a class="el" href="classProcess.html">Process</a> &gt; process, bool shuffle)</td></tr>
-<tr class="separator:aa38d7f1fe80224be302eac998cafbf32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3522e6505de0a778b35af888e0a01cb0" id="r_a3522e6505de0a778b35af888e0a01cb0"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; Covariate_cache &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3522e6505de0a778b35af888e0a01cb0">create_Covariate_cache</a> (Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt; covariates, Eigen::VectorXi &amp;initial_allocations)</td></tr>
+<tr class="separator:a3522e6505de0a778b35af888e0a01cb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2956832fd6a2e4a6903fcd1100c63c81" id="r_a2956832fd6a2e4a6903fcd1100c63c81"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classData__wClusterInfo.html">Data_wClusterInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2956832fd6a2e4a6903fcd1100c63c81">create_Data_wClusterInfo</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, SEXP cluster_info_sexp, Eigen::VectorXi initial_allocations)</td></tr>
+<tr class="separator:a2956832fd6a2e4a6903fcd1100c63c81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9213031e65c5de4995d4c81fdc39b8ee" id="r_a9213031e65c5de4995d4c81fdc39b8ee"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; Natarajan_likelihood &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9213031e65c5de4995d4c81fdc39b8ee">create_Natarajan_likelihood</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params)</td></tr>
+<tr class="separator:a9213031e65c5de4995d4c81fdc39b8ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a111ab9a191c1e9e025ebbddeec1eec38" id="r_a111ab9a191c1e9e025ebbddeec1eec38"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classRWMH.html">RWMH</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a111ab9a191c1e9e025ebbddeec1eec38">create_RWMH</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, SEXP data_sexp, bool use_V, double proposal_sd, bool tuning_enabled)</td></tr>
+<tr class="separator:a111ab9a191c1e9e025ebbddeec1eec38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7757a3fc43dd161fbbe4fc332f4d862" id="r_ab7757a3fc43dd161fbbe4fc332f4d862"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classMALA.html">MALA</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7757a3fc43dd161fbbe4fc332f4d862">create_MALA</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, SEXP data_sexp, bool use_V, double proposal_sd, bool tuning_enabled)</td></tr>
+<tr class="separator:ab7757a3fc43dd161fbbe4fc332f4d862"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a596ab200c34dff954c7d202a8e41544b" id="r_a596ab200c34dff954c7d202a8e41544b"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classDP.html">DP</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a596ab200c34dff954c7d202a8e41544b">create_DP</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params)</td></tr>
+<tr class="separator:a596ab200c34dff954c7d202a8e41544b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa95e4a8144b80275d442832452899c2e" id="r_aa95e4a8144b80275d442832452899c2e"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classDPW.html">DPW</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa95e4a8144b80275d442832452899c2e">create_DPW</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt; covariates)</td></tr>
+<tr class="separator:aa95e4a8144b80275d442832452899c2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6be22cfc427559d5e610ac93b8f5e403" id="r_a6be22cfc427559d5e610ac93b8f5e403"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classNGGP.html">NGGP</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6be22cfc427559d5e610ac93b8f5e403">create_NGGP</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classU__sampler.html">U_sampler</a> &gt; u_sampler)</td></tr>
+<tr class="separator:a6be22cfc427559d5e610ac93b8f5e403"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a714670a644128856f226594c1d6a5be4" id="r_a714670a644128856f226594c1d6a5be4"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classNGGPW.html">NGGPW</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a714670a644128856f226594c1d6a5be4">create_NGGPW</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt; covariates, Rcpp::XPtr&lt; <a class="el" href="classU__sampler.html">U_sampler</a> &gt; u_sampler)</td></tr>
+<tr class="separator:a714670a644128856f226594c1d6a5be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3415e8f53296221693ab0a6381258767" id="r_a3415e8f53296221693ab0a6381258767"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classNGGPWx.html">NGGPWx</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3415e8f53296221693ab0a6381258767">create_NGGPWx</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt; covariates, Rcpp::XPtr&lt; <a class="el" href="classU__sampler.html">U_sampler</a> &gt; u_sampler)</td></tr>
+<tr class="separator:a3415e8f53296221693ab0a6381258767"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e88dc58e41596574e8bbe2523031ef0" id="r_a5e88dc58e41596574e8bbe2523031ef0"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classNGGPWxCache.html">NGGPWxCache</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e88dc58e41596574e8bbe2523031ef0">create_NGGPWxCache</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt; covariates, Rcpp::XPtr&lt; <a class="el" href="classU__sampler.html">U_sampler</a> &gt; u_sampler, SEXP cov_cache_sexp)</td></tr>
+<tr class="separator:a5e88dc58e41596574e8bbe2523031ef0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68330117dc20c6a6d2391a21f3a84b47" id="r_a68330117dc20c6a6d2391a21f3a84b47"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classNeal3.html">Neal3</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68330117dc20c6a6d2391a21f3a84b47">create_Neal3</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classLikelihood.html">Likelihood</a> &gt; likelihood, Rcpp::XPtr&lt; <a class="el" href="classProcess.html">Process</a> &gt; process)</td></tr>
+<tr class="separator:a68330117dc20c6a6d2391a21f3a84b47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e2593a57e9556b490690b6e3a6d28b4" id="r_a0e2593a57e9556b490690b6e3a6d28b4"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classNeal3ZDNAM.html">Neal3ZDNAM</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e2593a57e9556b490690b6e3a6d28b4">create_Neal3ZDNAM</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classLikelihood.html">Likelihood</a> &gt; likelihood, Rcpp::XPtr&lt; <a class="el" href="classProcess.html">Process</a> &gt; process)</td></tr>
+<tr class="separator:a0e2593a57e9556b490690b6e3a6d28b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addd30f1fd1b8af77ee71bed5793b8e43" id="r_addd30f1fd1b8af77ee71bed5793b8e43"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classSplitMerge.html">SplitMerge</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#addd30f1fd1b8af77ee71bed5793b8e43">create_SplitMerge</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classLikelihood.html">Likelihood</a> &gt; likelihood, Rcpp::XPtr&lt; <a class="el" href="classProcess.html">Process</a> &gt; process, bool shuffle)</td></tr>
+<tr class="separator:addd30f1fd1b8af77ee71bed5793b8e43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf3974d567051510831113a192259058" id="r_adf3974d567051510831113a192259058"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classSplitMerge__SAMS.html">SplitMerge_SAMS</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf3974d567051510831113a192259058">create_SplitMerge_SAMS</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classLikelihood.html">Likelihood</a> &gt; likelihood, Rcpp::XPtr&lt; <a class="el" href="classProcess.html">Process</a> &gt; process, bool shuffle)</td></tr>
+<tr class="separator:adf3974d567051510831113a192259058"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9be9c22ea7c04d2dd875a1987d6314aa" id="r_a9be9c22ea7c04d2dd875a1987d6314aa"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classSplitMerge__LSS.html">SplitMerge_LSS</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9be9c22ea7c04d2dd875a1987d6314aa">create_SplitMerge_LSS</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classLikelihood.html">Likelihood</a> &gt; likelihood, Rcpp::XPtr&lt; <a class="el" href="classProcess.html">Process</a> &gt; process, bool shuffle)</td></tr>
+<tr class="separator:a9be9c22ea7c04d2dd875a1987d6314aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acac92a632a87ad8ff9cf56ad2d7bcf87" id="r_acac92a632a87ad8ff9cf56ad2d7bcf87"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classSplitMerge__LSS__SDDS.html">SplitMerge_LSS_SDDS</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acac92a632a87ad8ff9cf56ad2d7bcf87">create_SplitMerge_LSS_SDDS</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classLikelihood.html">Likelihood</a> &gt; likelihood, Rcpp::XPtr&lt; <a class="el" href="classProcess.html">Process</a> &gt; process, bool shuffle)</td></tr>
+<tr class="separator:acac92a632a87ad8ff9cf56ad2d7bcf87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa87d47c86bd5d0130b38c27f61d60adc" id="r_aa87d47c86bd5d0130b38c27f61d60adc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa87d47c86bd5d0130b38c27f61d60adc">process_update_params</a> (Rcpp::XPtr&lt; <a class="el" href="classProcess.html">Process</a> &gt; process)</td></tr>
 <tr class="separator:aa87d47c86bd5d0130b38c27f61d60adc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad75224489af86dcc7dd2b51c30458f1a" id="r_ad75224489af86dcc7dd2b51c30458f1a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad75224489af86dcc7dd2b51c30458f1a">sampler_step</a> (Rcpp::XPtr&lt; <a class="el" href="classSampler.html">Sampler</a> &gt; sampler)</td></tr>
 <tr class="separator:ad75224489af86dcc7dd2b51c30458f1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa04e4934388d300787c0085f53310e97" id="r_aa04e4934388d300787c0085f53310e97"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa04e4934388d300787c0085f53310e97">data_get_allocations</a> (Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt; data)</td></tr>
-<tr class="separator:aa04e4934388d300787c0085f53310e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03913b6c7d1710fcb4d38728e9dd781c" id="r_a03913b6c7d1710fcb4d38728e9dd781c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a03913b6c7d1710fcb4d38728e9dd781c">data_get_K</a> (Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt; data)</td></tr>
-<tr class="separator:a03913b6c7d1710fcb4d38728e9dd781c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae052afbdb7819af9e753b01fb86e5193" id="r_ae052afbdb7819af9e753b01fb86e5193"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae052afbdb7819af9e753b01fb86e5193">data_get_allocations</a> (SEXP data_sexp)</td></tr>
+<tr class="separator:ae052afbdb7819af9e753b01fb86e5193"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa55cd22c36a3a5214ca5474ee277cfe" id="r_aaa55cd22c36a3a5214ca5474ee277cfe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa55cd22c36a3a5214ca5474ee277cfe">data_get_K</a> (SEXP data_sexp)</td></tr>
+<tr class="separator:aaa55cd22c36a3a5214ca5474ee277cfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae91c08b1506321eeb549a517f49b8349" id="r_ae91c08b1506321eeb549a517f49b8349"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae91c08b1506321eeb549a517f49b8349">u_sampler_get_U</a> (Rcpp::XPtr&lt; <a class="el" href="classU__sampler.html">U_sampler</a> &gt; u_sampler)</td></tr>
 <tr class="separator:ae91c08b1506321eeb549a517f49b8349"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab01bf30ad7167309e4627aa43e9b4d5c" id="r_ab01bf30ad7167309e4627aa43e9b4d5c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab01bf30ad7167309e4627aa43e9b4d5c">u_sampler_get_acceptance_rate</a> (Rcpp::XPtr&lt; <a class="el" href="classU__sampler.html">U_sampler</a> &gt; u_sampler)</td></tr>
@@ -187,8 +201,94 @@ Functions</h2></td></tr>
 <tr class="separator:ab20a182586addd0df8bde314315e84d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d8722dc72f83da2753b2c1fead16732" id="r_a8d8722dc72f83da2753b2c1fead16732"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d8722dc72f83da2753b2c1fead16732">params_get_tau</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params)</td></tr>
 <tr class="separator:a8d8722dc72f83da2753b2c1fead16732"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5178ad012d50d318175888b238dfef07" id="r_a5178ad012d50d318175888b238dfef07"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5178ad012d50d318175888b238dfef07">cluster_info_set_allocation</a> (Rcpp::XPtr&lt; <a class="el" href="classClusterInfo.html">ClusterInfo</a> &gt; cluster_info, int index, int cluster, int old_cluster)</td></tr>
+<tr class="separator:a5178ad012d50d318175888b238dfef07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a307ada36a4d6c51f3f09138486dc59" id="r_a1a307ada36a4d6c51f3f09138486dc59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a307ada36a4d6c51f3f09138486dc59">cluster_info_recompute</a> (Rcpp::XPtr&lt; <a class="el" href="classClusterInfo.html">ClusterInfo</a> &gt; cluster_info, int K, Eigen::VectorXi allocations)</td></tr>
+<tr class="separator:a1a307ada36a4d6c51f3f09138486dc59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0688f01786b76980efda9b356da1e0e9" id="r_a0688f01786b76980efda9b356da1e0e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0688f01786b76980efda9b356da1e0e9">data_wclusterinfo_set_allocation</a> (Rcpp::XPtr&lt; <a class="el" href="classData__wClusterInfo.html">Data_wClusterInfo</a> &gt; data, int index, int cluster)</td></tr>
+<tr class="separator:a0688f01786b76980efda9b356da1e0e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a178f8cf2a5746b25f5ff7919d21b788a" id="r_a178f8cf2a5746b25f5ff7919d21b788a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a178f8cf2a5746b25f5ff7919d21b788a">data_wclusterinfo_set_allocations</a> (Rcpp::XPtr&lt; <a class="el" href="classData__wClusterInfo.html">Data_wClusterInfo</a> &gt; data, Eigen::VectorXi new_allocations)</td></tr>
+<tr class="separator:a178f8cf2a5746b25f5ff7919d21b788a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a1a307ada36a4d6c51f3f09138486dc59" name="a1a307ada36a4d6c51f3f09138486dc59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a307ada36a4d6c51f3f09138486dc59">&#9670;&#160;</a></span>cluster_info_recompute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cluster_info_recompute </td>
+          <td>(</td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classClusterInfo.html">ClusterInfo</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>cluster_info</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>K</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::VectorXi</td>          <td class="paramname"><span class="paramname"><em>allocations</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5178ad012d50d318175888b238dfef07" name="a5178ad012d50d318175888b238dfef07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5178ad012d50d318175888b238dfef07">&#9670;&#160;</a></span>cluster_info_set_allocation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cluster_info_set_allocation </td>
+          <td>(</td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classClusterInfo.html">ClusterInfo</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>cluster_info</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cluster</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>old_cluster</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3522e6505de0a778b35af888e0a01cb0" name="a3522e6505de0a778b35af888e0a01cb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3522e6505de0a778b35af888e0a01cb0">&#9670;&#160;</a></span>create_Covariate_cache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Rcpp::XPtr&lt; Covariate_cache &gt; create_Covariate_cache </td>
+          <td>(</td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>covariates</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::VectorXi &amp;</td>          <td class="paramname"><span class="paramname"><em>initial_allocations</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a8f0368d6a864aea5aa409af5fa33f573" name="a8f0368d6a864aea5aa409af5fa33f573"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8f0368d6a864aea5aa409af5fa33f573">&#9670;&#160;</a></span>create_Covariates()</h2>
 
@@ -266,8 +366,34 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a2458b52201373797ca56c3923b4405aa" name="a2458b52201373797ca56c3923b4405aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2458b52201373797ca56c3923b4405aa">&#9670;&#160;</a></span>create_DP()</h2>
+<a id="a2956832fd6a2e4a6903fcd1100c63c81" name="a2956832fd6a2e4a6903fcd1100c63c81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2956832fd6a2e4a6903fcd1100c63c81">&#9670;&#160;</a></span>create_Data_wClusterInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Rcpp::XPtr&lt; <a class="el" href="classData__wClusterInfo.html">Data_wClusterInfo</a> &gt; create_Data_wClusterInfo </td>
+          <td>(</td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>params</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>cluster_info_sexp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::VectorXi</td>          <td class="paramname"><span class="paramname"><em>initial_allocations</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a596ab200c34dff954c7d202a8e41544b" name="a596ab200c34dff954c7d202a8e41544b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a596ab200c34dff954c7d202a8e41544b">&#9670;&#160;</a></span>create_DP()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -275,7 +401,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">Rcpp::XPtr&lt; <a class="el" href="classDP.html">DP</a> &gt; create_DP </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -287,8 +413,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab854bbb781e685667b167387f7312a7a" name="ab854bbb781e685667b167387f7312a7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab854bbb781e685667b167387f7312a7a">&#9670;&#160;</a></span>create_DPW()</h2>
+<a id="aa95e4a8144b80275d442832452899c2e" name="aa95e4a8144b80275d442832452899c2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa95e4a8144b80275d442832452899c2e">&#9670;&#160;</a></span>create_DPW()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -296,7 +422,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">Rcpp::XPtr&lt; <a class="el" href="classDPW.html">DPW</a> &gt; create_DPW </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -313,8 +439,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad96a18bca8e940c4b98c244ff6a572b7" name="ad96a18bca8e940c4b98c244ff6a572b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad96a18bca8e940c4b98c244ff6a572b7">&#9670;&#160;</a></span>create_MALA()</h2>
+<a id="ab7757a3fc43dd161fbbe4fc332f4d862" name="ab7757a3fc43dd161fbbe4fc332f4d862"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7757a3fc43dd161fbbe4fc332f4d862">&#9670;&#160;</a></span>create_MALA()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -327,7 +453,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -349,8 +475,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a200a43003253af134065f6eb6cc54f97" name="a200a43003253af134065f6eb6cc54f97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a200a43003253af134065f6eb6cc54f97">&#9670;&#160;</a></span>create_Natarajan_likelihood()</h2>
+<a id="a9213031e65c5de4995d4c81fdc39b8ee" name="a9213031e65c5de4995d4c81fdc39b8ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9213031e65c5de4995d4c81fdc39b8ee">&#9670;&#160;</a></span>create_Natarajan_likelihood()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -358,7 +484,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">Rcpp::XPtr&lt; Natarajan_likelihood &gt; create_Natarajan_likelihood </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -370,8 +496,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac49e59d01757e9dd089aacc2160658b3" name="ac49e59d01757e9dd089aacc2160658b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac49e59d01757e9dd089aacc2160658b3">&#9670;&#160;</a></span>create_Neal3()</h2>
+<a id="a68330117dc20c6a6d2391a21f3a84b47" name="a68330117dc20c6a6d2391a21f3a84b47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68330117dc20c6a6d2391a21f3a84b47">&#9670;&#160;</a></span>create_Neal3()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -379,7 +505,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">Rcpp::XPtr&lt; <a class="el" href="classNeal3.html">Neal3</a> &gt; create_Neal3 </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -401,8 +527,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae9a712e526c17b78e29944b699c53bb0" name="ae9a712e526c17b78e29944b699c53bb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9a712e526c17b78e29944b699c53bb0">&#9670;&#160;</a></span>create_Neal3ZDNAM()</h2>
+<a id="a0e2593a57e9556b490690b6e3a6d28b4" name="a0e2593a57e9556b490690b6e3a6d28b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e2593a57e9556b490690b6e3a6d28b4">&#9670;&#160;</a></span>create_Neal3ZDNAM()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -410,7 +536,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">Rcpp::XPtr&lt; <a class="el" href="classNeal3ZDNAM.html">Neal3ZDNAM</a> &gt; create_Neal3ZDNAM </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -432,8 +558,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a096411f1b4bc398eeebaf478d1475c01" name="a096411f1b4bc398eeebaf478d1475c01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a096411f1b4bc398eeebaf478d1475c01">&#9670;&#160;</a></span>create_NGGP()</h2>
+<a id="a6be22cfc427559d5e610ac93b8f5e403" name="a6be22cfc427559d5e610ac93b8f5e403"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6be22cfc427559d5e610ac93b8f5e403">&#9670;&#160;</a></span>create_NGGP()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -441,7 +567,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">Rcpp::XPtr&lt; <a class="el" href="classNGGP.html">NGGP</a> &gt; create_NGGP </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -458,8 +584,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac00c076af503fdab829e7c9a345b7756" name="ac00c076af503fdab829e7c9a345b7756"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac00c076af503fdab829e7c9a345b7756">&#9670;&#160;</a></span>create_NGGPW()</h2>
+<a id="a714670a644128856f226594c1d6a5be4" name="a714670a644128856f226594c1d6a5be4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a714670a644128856f226594c1d6a5be4">&#9670;&#160;</a></span>create_NGGPW()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -467,7 +593,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">Rcpp::XPtr&lt; <a class="el" href="classNGGPW.html">NGGPW</a> &gt; create_NGGPW </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -489,8 +615,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad39945deb6a8a1296a7cf5def0edf10e" name="ad39945deb6a8a1296a7cf5def0edf10e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad39945deb6a8a1296a7cf5def0edf10e">&#9670;&#160;</a></span>create_NGGPWx()</h2>
+<a id="a3415e8f53296221693ab0a6381258767" name="a3415e8f53296221693ab0a6381258767"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3415e8f53296221693ab0a6381258767">&#9670;&#160;</a></span>create_NGGPWx()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -498,7 +624,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">Rcpp::XPtr&lt; <a class="el" href="classNGGPWx.html">NGGPWx</a> &gt; create_NGGPWx </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -514,6 +640,42 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classU__sampler.html">U_sampler</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>u_sampler</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5e88dc58e41596574e8bbe2523031ef0" name="a5e88dc58e41596574e8bbe2523031ef0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e88dc58e41596574e8bbe2523031ef0">&#9670;&#160;</a></span>create_NGGPWxCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Rcpp::XPtr&lt; <a class="el" href="classNGGPWxCache.html">NGGPWxCache</a> &gt; create_NGGPWxCache </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>params</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>covariates</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classU__sampler.html">U_sampler</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>u_sampler</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>cov_cache_sexp</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -591,8 +753,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="adc67b4b29aafcdc526ce843390a3e4e4" name="adc67b4b29aafcdc526ce843390a3e4e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc67b4b29aafcdc526ce843390a3e4e4">&#9670;&#160;</a></span>create_RWMH()</h2>
+<a id="a111ab9a191c1e9e025ebbddeec1eec38" name="a111ab9a191c1e9e025ebbddeec1eec38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a111ab9a191c1e9e025ebbddeec1eec38">&#9670;&#160;</a></span>create_RWMH()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -605,7 +767,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -627,8 +789,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac968f3300ad0717e22a77ee9664e52b5" name="ac968f3300ad0717e22a77ee9664e52b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac968f3300ad0717e22a77ee9664e52b5">&#9670;&#160;</a></span>create_SplitMerge()</h2>
+<a id="addd30f1fd1b8af77ee71bed5793b8e43" name="addd30f1fd1b8af77ee71bed5793b8e43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addd30f1fd1b8af77ee71bed5793b8e43">&#9670;&#160;</a></span>create_SplitMerge()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -636,7 +798,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">Rcpp::XPtr&lt; <a class="el" href="classSplitMerge.html">SplitMerge</a> &gt; create_SplitMerge </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -663,8 +825,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac6c194d1eb95cb46b2f870c790bce8d9" name="ac6c194d1eb95cb46b2f870c790bce8d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6c194d1eb95cb46b2f870c790bce8d9">&#9670;&#160;</a></span>create_SplitMerge_LSS()</h2>
+<a id="a9be9c22ea7c04d2dd875a1987d6314aa" name="a9be9c22ea7c04d2dd875a1987d6314aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9be9c22ea7c04d2dd875a1987d6314aa">&#9670;&#160;</a></span>create_SplitMerge_LSS()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -672,7 +834,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">Rcpp::XPtr&lt; <a class="el" href="classSplitMerge__LSS.html">SplitMerge_LSS</a> &gt; create_SplitMerge_LSS </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -699,8 +861,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aa38d7f1fe80224be302eac998cafbf32" name="aa38d7f1fe80224be302eac998cafbf32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa38d7f1fe80224be302eac998cafbf32">&#9670;&#160;</a></span>create_SplitMerge_LSS_SDDS()</h2>
+<a id="acac92a632a87ad8ff9cf56ad2d7bcf87" name="acac92a632a87ad8ff9cf56ad2d7bcf87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acac92a632a87ad8ff9cf56ad2d7bcf87">&#9670;&#160;</a></span>create_SplitMerge_LSS_SDDS()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -708,7 +870,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">Rcpp::XPtr&lt; <a class="el" href="classSplitMerge__LSS__SDDS.html">SplitMerge_LSS_SDDS</a> &gt; create_SplitMerge_LSS_SDDS </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -735,8 +897,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="af5905560e89e29a4d3ab43392a955dd4" name="af5905560e89e29a4d3ab43392a955dd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5905560e89e29a4d3ab43392a955dd4">&#9670;&#160;</a></span>create_SplitMerge_SAMS()</h2>
+<a id="adf3974d567051510831113a192259058" name="adf3974d567051510831113a192259058"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf3974d567051510831113a192259058">&#9670;&#160;</a></span>create_SplitMerge_SAMS()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -744,7 +906,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">Rcpp::XPtr&lt; <a class="el" href="classSplitMerge__SAMS.html">SplitMerge_SAMS</a> &gt; create_SplitMerge_SAMS </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -771,8 +933,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aa04e4934388d300787c0085f53310e97" name="aa04e4934388d300787c0085f53310e97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa04e4934388d300787c0085f53310e97">&#9670;&#160;</a></span>data_get_allocations()</h2>
+<a id="ae052afbdb7819af9e753b01fb86e5193" name="ae052afbdb7819af9e753b01fb86e5193"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae052afbdb7819af9e753b01fb86e5193">&#9670;&#160;</a></span>data_get_allocations()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -780,7 +942,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">Eigen::VectorXi data_get_allocations </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span></td><td>)</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -788,8 +950,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a03913b6c7d1710fcb4d38728e9dd781c" name="a03913b6c7d1710fcb4d38728e9dd781c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03913b6c7d1710fcb4d38728e9dd781c">&#9670;&#160;</a></span>data_get_K()</h2>
+<a id="aaa55cd22c36a3a5214ca5474ee277cfe" name="aaa55cd22c36a3a5214ca5474ee277cfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa55cd22c36a3a5214ca5474ee277cfe">&#9670;&#160;</a></span>data_get_K()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -797,7 +959,88 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">int data_get_K </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span></td><td>)</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0688f01786b76980efda9b356da1e0e9" name="a0688f01786b76980efda9b356da1e0e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0688f01786b76980efda9b356da1e0e9">&#9670;&#160;</a></span>data_wclusterinfo_set_allocation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void data_wclusterinfo_set_allocation </td>
+          <td>(</td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData__wClusterInfo.html">Data_wClusterInfo</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cluster</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a178f8cf2a5746b25f5ff7919d21b788a" name="a178f8cf2a5746b25f5ff7919d21b788a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a178f8cf2a5746b25f5ff7919d21b788a">&#9670;&#160;</a></span>data_wclusterinfo_set_allocations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void data_wclusterinfo_set_allocations </td>
+          <td>(</td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData__wClusterInfo.html">Data_wClusterInfo</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::VectorXi</td>          <td class="paramname"><span class="paramname"><em>new_allocations</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af6420f6878380ebad2290d874c42b0a3" name="af6420f6878380ebad2290d874c42b0a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6420f6878380ebad2290d874c42b0a3">&#9670;&#160;</a></span>get_cluster_info_ptr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classClusterInfo.html">ClusterInfo</a> * get_cluster_info_ptr </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>sexp</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0b90b94c00df80e382f7e4ef384457d9" name="a0b90b94c00df80e382f7e4ef384457d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b90b94c00df80e382f7e4ef384457d9">&#9670;&#160;</a></span>get_data_ptr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classData.html">Data</a> * get_data_ptr </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>sexp</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

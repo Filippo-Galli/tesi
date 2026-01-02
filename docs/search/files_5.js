@@ -9,5 +9,7 @@ var searchData=
   ['nggpw_2ecpp_6',['NGGPW.cpp',['../NGGPW_8cpp.html',1,'']]],
   ['nggpw_2ehpp_7',['NGGPW.hpp',['../NGGPW_8hpp.html',1,'']]],
   ['nggpwx_2ecpp_8',['NGGPWx.cpp',['../NGGPWx_8cpp.html',1,'']]],
-  ['nggpwx_2ehpp_9',['NGGPWx.hpp',['../NGGPWx_8hpp.html',1,'']]]
+  ['nggpwx_2ehpp_9',['NGGPWx.hpp',['../NGGPWx_8hpp.html',1,'']]],
+  ['nggpwxcache_2ecpp_10',['NGGPWxCache.cpp',['../NGGPWxCache_8cpp.html',1,'']]],
+  ['nggpwxcache_2ehpp_11',['NGGPWxCache.hpp',['../NGGPWxCache_8hpp.html',1,'']]]
 ];
