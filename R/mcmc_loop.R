@@ -32,7 +32,7 @@ run_mcmc <- function(params, covariates, initial_allocations = integer(0)) {
     BI <- params_get_BI(params)
     NI <- params_get_NI(params)
     total_iters <- BI + NI
-    
+
     # Results storage
     allocations_out <- vector("list", total_iters)
     K_out <- integer(total_iters)
@@ -50,7 +50,7 @@ run_mcmc <- function(params, covariates, initial_allocations = integer(0)) {
         sampler_step(sampler)
 
         # Neal3 Step
-        if ( i %% 25 == 0 ) {
+        if (i %% 25 == 0) {
             sampler_step(neal3)
         }
         # Store results
@@ -77,7 +77,7 @@ run_mcmc <- function(params, covariates, initial_allocations = integer(0)) {
         K = K_out,
         U = U_out,
         BI = BI,
-        NI = NI, 
+        NI = NI,
         elapsed_time = elapsed_time
     ))
 }

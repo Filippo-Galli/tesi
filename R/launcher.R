@@ -103,8 +103,12 @@ covariates <- create_Covariates(
     W, # Spatial adjacency matrix (must be integer)
     1, # spatial_coefficient
     as.integer(puma_age$Mean_AGEP_std), # ages vector (must be integer)
-    B, m, v, # covariate prior parameters
-    TRUE, 1, 1 # fixed_v, nu, S0
+    B,
+    m,
+    v, # covariate prior parameters
+    TRUE, # fixed_v
+    1, # nu
+    1 # S0
 )
 
 ##############################################################################
@@ -120,11 +124,6 @@ print(table(hyperparams$initial_clusters))
 ##############################################################################
 # MCMC Execution ====
 ##############################################################################
-
-log_file <- "mcmc_log.txt"
-if (file.exists(log_file)) {
-    file.remove(log_file) # Remove previous log file
-}
 
 mcmc_result <- run_mcmc(param, covariates, hyperparams$initial_clusters)
 elapsed_time <- mcmc_result$elapsed_time
