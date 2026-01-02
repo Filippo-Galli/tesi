@@ -15,7 +15,7 @@
  */
 
 struct Covariates {
-
+    
     /**
      * @name Spatial Adjacency Matrix and Coefficient
      * @{
@@ -41,12 +41,12 @@ struct Covariates {
     double S0;    ///< scale parameter for the variance prior
 
     /** @brief Ages list  */
-    Eigen::VectorXi ages;
+    Eigen::VectorXd ages;
 
     /** @} */
 
     Covariates(Eigen::MatrixXi W = Eigen::MatrixXi(), double spatial_coefficient = 1,
-               Eigen::VectorXi ages = Eigen::VectorXi(), double B = 1.0, double m = 0.0, double v = 1.0,
+               Eigen::VectorXd ages = Eigen::VectorXd(), double B = 1.0, double m = 0.0, double v = 1.0,
                bool fixed_v = false, double nu = 1.0, double S0 = 1.0)
         : W(W), spatial_coefficient(spatial_coefficient), ages(ages), B(B), m(m), v(v), fixed_v(fixed_v), nu(nu),
           S0(S0) {}

@@ -34,7 +34,7 @@ Rcpp::XPtr<Params> create_Params(double delta1, double alpha, double beta, doubl
 
 // [[Rcpp::export]]
 Rcpp::XPtr<Covariates> create_Covariates(Eigen::MatrixXi W, double spatial_coefficient, 
-                                          Eigen::VectorXi ages, double B, double m, double v,
+                                          Eigen::VectorXd ages, double B, double m, double v,
                                           bool fixed_v, double nu, double S0) {
     return Rcpp::XPtr<Covariates>(new Covariates(W, spatial_coefficient, ages, B, m, v, 
                                                  fixed_v, nu, S0), true);
