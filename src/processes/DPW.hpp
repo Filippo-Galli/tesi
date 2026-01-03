@@ -32,7 +32,7 @@ public:
    */
   DPW(Data &d, Params &p, Covariates &c) 
     : Process(d, p), 
-      SpatialModule(c, d, [this]() -> const Eigen::VectorXi& { return this->old_allocations; }) {};
+      SpatialModule(c, d, &this->old_allocations_view()) {};
 
   /**
    * @name Gibbs Sampling Methods

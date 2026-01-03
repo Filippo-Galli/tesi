@@ -65,9 +65,7 @@ public:
    */
   NGGPW(Data &d, Params &p, Covariates &c, U_sampler &mh)
       : NGGP(d, p, mh), SpatialModule(c, d,
-                                     [this]() -> const Eigen::VectorXi & {
-                                       return this->old_allocations_view();
-                                     }),
+                                     &this->old_allocations_view()),
         U_sampler_method(mh), gen(rd()) {};
 
   /**

@@ -55,7 +55,7 @@ protected:
      * Used when computing neighbor counts based on previous cluster assignments
      * (e.g., in split-merge algorithms).
      */
-    std::function<const Eigen::VectorXi &()> old_allocations_provider;
+    const Eigen::VectorXi * old_allocations_provider;
 
     /**
      * @brief Counts neighbors of an observation within a specific cluster.
@@ -110,8 +110,8 @@ public:
      * split-merge.
      */
     SpatialModule(const Covariates &covariates_, const Data &data_,
-                  std::function<const Eigen::VectorXi &()> old_alloc_provider = {})
-        : covariates_module(covariates_), data_module(data_), old_allocations_provider(std::move(old_alloc_provider)) {
+                  const Eigen::VectorXi * old_alloc_provider = nullptr)
+        : covariates_module(covariates_), data_module(data_), old_allocations_provider(old_alloc_provider) {
 
         neighbor_cache_compute();
     }

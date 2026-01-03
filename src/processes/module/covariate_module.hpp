@@ -44,10 +44,10 @@ protected:
      * Used when computing similarity based on previous cluster assignments
      * (e.g., in split-merge algorithms).
      */
-    std::function<const Eigen::VectorXi &()> old_allocations_provider;
+    const Eigen::VectorXi * old_allocations_provider;
 
     /** @brief Provider function for accessing old cluster members map */
-    std::function<const std::unordered_map<int, std::vector<int>> &()> old_cluster_members_provider;
+    const std::unordered_map<int, std::vector<int>> * old_cluster_members_provider;
 
     /** @} */
 
@@ -174,10 +174,10 @@ public:
      */
     CovariatesModule(
         const Covariates &covariates_, const Data &data_,
-        std::function<const Eigen::VectorXi &()> old_alloc_provider = {},
-        std::function<const std::unordered_map<int, std::vector<int>> &()> old_cluster_members_provider_ = {})
-        : covariates_data(covariates_), data(data_), old_allocations_provider(std::move(old_alloc_provider)),
-          old_cluster_members_provider(std::move(old_cluster_members_provider_)),
+        const Eigen::VectorXi * old_alloc_provider = nullptr,
+        const std::unordered_map<int, std::vector<int>> * old_cluster_members_provider_ = nullptr)
+        : covariates_data(covariates_), data(data_), old_allocations_provider(old_alloc_provider),
+          old_cluster_members_provider(old_cluster_members_provider_),
           // Initialize constants here in the list
           Bv(covariates_.B * covariates_.v), log_B(std::log(covariates_.B)), log_v(std::log(covariates_.v)),
           const_term(-0.5 * std::log(2.0 * M_PI)), lgamma_nu(std::lgamma(covariates_.nu)),

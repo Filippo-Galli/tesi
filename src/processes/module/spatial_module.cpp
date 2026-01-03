@@ -39,7 +39,7 @@ void SpatialModule::neighbor_cache_compute() {
 
 int SpatialModule::get_neighbors_cls(int cls_idx, bool old_allo) const {
     const Eigen::VectorXi &allocations =
-        (old_allo && old_allocations_provider) ? old_allocations_provider() : data_module.get_allocations();
+        (old_allo && old_allocations_provider) ? *old_allocations_provider : data_module.get_allocations();
 
     int total_neighbors = 0;
     const int N = data_module.get_n();

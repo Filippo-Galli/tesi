@@ -32,7 +32,7 @@ public:
      */
     NGGPWx(Data &d, Params &p, Covariates &cov, U_sampler &U_sam)
         : NGGPW(d, p, cov, U_sam),
-          CovariatesModule(cov, d, [this]() -> const Eigen::VectorXi & { return this->old_allocations_view(); }, [this]() -> const std::unordered_map<int, std::vector<int>> & { return this->old_cluster_members_view(); }) {}
+          CovariatesModule(cov, d, &this->old_allocations_view(), &this->old_cluster_members_view()) {}
 
     /**
      * @name Gibbs Sampling Methods
