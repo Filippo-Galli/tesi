@@ -13,8 +13,6 @@
 #include "caches/Covariate_cache.hpp"
 #include "module/covariate_module_cache.hpp"
 
-
-
 /**
  * @class NGGPWx
  * @brief NGGP clustering process with spatial weights and covariates.
@@ -35,7 +33,7 @@ public:
      */
     NGGPWxCache(Data &d, Params &p, Covariates &cov, U_sampler &U_sam, Covariate_cache &cov_cache)
         : NGGPW(d, p, cov, U_sam),
-          CovariatesModuleCache(cov, d, cov_cache, [this]() -> const Eigen::VectorXi & { return this->old_allocations_view(); }, [this]() -> const std::unordered_map<int, std::vector<int>> & { return this->old_cluster_members_view(); }) {}
+          CovariatesModuleCache(cov, d, cov_cache, &this->old_allocations_view(), &this->old_cluster_members_view()) {}
 
     /**
      * @name Gibbs Sampling Methods

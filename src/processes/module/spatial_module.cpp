@@ -5,7 +5,7 @@
 
 #include "spatial_module.hpp"
 
-int SpatialModule::get_neighbors_obs(int obs_idx, int cls_idx) const {
+double SpatialModule::compute_similarity_obs(int obs_idx, int cls_idx) const {
     int neighbors = 0;
     const std::vector<int> &row = neighbor_cache[obs_idx];
 
@@ -37,7 +37,7 @@ void SpatialModule::neighbor_cache_compute() {
     }
 }
 
-int SpatialModule::get_neighbors_cls(int cls_idx, bool old_allo) const {
+double SpatialModule::compute_similarity_cls(int cls_idx, bool old_allo) const {
     const Eigen::VectorXi &allocations =
         (old_allo && old_allocations_provider) ? *old_allocations_provider : data_module.get_allocations();
 
@@ -61,8 +61,8 @@ int SpatialModule::get_neighbors_cls(int cls_idx, bool old_allo) const {
     return total_neighbors;
 }
 
-Eigen::VectorXi SpatialModule::get_neighbors_obs(int obs_idx) const {
-    Eigen::VectorXi cluster_adjacency = Eigen::VectorXi::Zero(data_module.get_K());
+Eigen::VectorXd SpatialModule::compute_similarity_obs(int obs_idx) const {
+    Eigen::VectorXd cluster_adjacency = Eigen::VectorXd::Zero(data_module.get_K());
 
     // Use cached neighbor indices instead of iterating over full adjacency matrix
     const std::vector<int> &row = neighbor_cache[obs_idx];

@@ -8,8 +8,10 @@ run_mcmc <- function(params, covariates, initial_allocations = integer(0)) {
     # Ensure types are correct for C++
     initial_allocations <- as.integer(initial_allocations)
 
+    cache <- create_Covariate_cache(covariates, initial_allocations)
+
     # Instantiate Data using factory function
-    data <- create_Data(params, initial_allocations)
+    data <- create_Data_wClusterInfo(params, cache, initial_allocations)
 
     # Instantiate Likelihood using factory function
     likelihood <- create_Natarajan_likelihood(data, params)
@@ -20,7 +22,7 @@ run_mcmc <- function(params, covariates, initial_allocations = integer(0)) {
 
     # Instantiate Process (NGGPWx) using factory function
     # Constructor: Data&, Params&, Covariates&, U_sampler&
-    process <- create_NGGPWx(data, params, covariates, u_sampler)
+    process <- create_NGGPWxCache(data, params, covariates, u_sampler, cache)
 
     # Instantiate Sampler (SplitMerge_LSS_SDDS) using factory function
     # Constructor: Data&, Params&, Likelihood&, Process&, bool shuffle

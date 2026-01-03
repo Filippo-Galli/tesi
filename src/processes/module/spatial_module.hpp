@@ -7,9 +7,8 @@
 
 #include "../../utils/Data.hpp"
 #include "../../utils/Covariates.hpp"
-#include "Eigen/Dense"
-#include <functional>
-#include <utility>
+#include "../../utils/Module.hpp"
+#include "Eigen/src/Core/Matrix.h"
 
 /**
  * @class SpatialModule
@@ -21,7 +20,7 @@
  * in clustering algorithms. The neighbor relationships are cached at
  * construction time for efficient repeated access.
  */
-class SpatialModule {
+class SpatialModule : public Module {
 protected:
     /**
      * @brief Cache storing neighbor indices for each observation.
@@ -41,34 +40,31 @@ protected:
      */
     void neighbor_cache_compute();
 
+    const Covariates &covariates_module; ///< Reference to parameter object containing adjacency matrix W
+    const Data &data_module;             ///< Reference to data object with cluster assignments
+
+public:
+    /**
+     * @brief Constructs a SpatialModule with parameter and data references.
+     *
+     * Initializes the neighbor cache by calling neighbor_cache_compute().
+     *
+     * @param covariates_ Reference to the Params object containing W adjacency
+     * matrix.
+     * @param data_ Reference to the Data object with cluster assignments.
+     * @param old_alloc_provider Optional function to access old allocations for
+     * split-merge.
+     */
+    SpatialModule(const Covariates &covariates_, const Data &data_, const Eigen::VectorXi *old_alloc_provider = nullptr)
+        : covariates_module(covariates_), data_module(data_), Module(old_alloc_provider) {
+
+        neighbor_cache_compute();
+    }
+
     /**
      * @name Spatial Methods
      * @{
      */
-
-    const Covariates &covariates_module; ///< Reference to parameter object containing adjacency matrix W
-    const Data &data_module;             ///< Reference to data object with cluster assignments
-
-    /**
-     * @brief Provider function for accessing old allocation state.
-     *
-     * Used when computing neighbor counts based on previous cluster assignments
-     * (e.g., in split-merge algorithms).
-     */
-    const Eigen::VectorXi * old_allocations_provider;
-
-    /**
-     * @brief Counts neighbors of an observation within a specific cluster.
-     *
-     * Uses the cached neighbor list to efficiently count how many neighbors
-     * of observation obs_idx belong to cluster cls_idx.
-     *
-     * @param obs_idx The index of the observation (0 to N-1).
-     * @param cls_idx The index of the cluster to consider for neighbor counting.
-     * @return The number of neighbors for the observation in the specified
-     * cluster.
-     */
-    int get_neighbors_obs(int obs_idx, int cls_idx) const;
 
     /**
      * @brief Counts neighbors of an observation grouped by cluster membership.
@@ -79,7 +75,7 @@ protected:
      * @param obs_idx The index of the observation (0 to N-1).
      * @return A K-dimensional vector of neighbor counts per cluster.
      */
-    Eigen::VectorXi get_neighbors_obs(int obs_idx) const;
+    Eigen::VectorXd compute_similarity_obs(int obs_idx) const override;
 
     /**
      * @brief Counts internal edges within a cluster.
@@ -94,25 +90,19 @@ protected:
      * data_module (default: false).
      * @return The total number of internal edges in the cluster.
      */
-    int get_neighbors_cls(int cls_idx, bool old_allo = false) const;
-    /** @} */
+    double compute_similarity_cls(int cls_idx, bool old_allo = false) const override;
 
-public:
     /**
-     * @brief Constructs a SpatialModule with parameter and data references.
+     * @brief Counts neighbors of an observation within a specific cluster.
      *
-     * Initializes the neighbor cache by calling neighbor_cache_compute().
+     * Uses the cached neighbor list to efficiently count how many neighbors
+     * of observation obs_idx belong to cluster cls_idx.
      *
-     * @param covariates_ Reference to the Params object containing W adjacency
-     * matrix.
-     * @param data_ Reference to the Data object with cluster assignments.
-     * @param old_alloc_provider Optional function to access old allocations for
-     * split-merge.
+     * @param obs_idx The index of the observation (0 to N-1).
+     * @param cls_idx The index of the cluster to consider for neighbor counting.
+     * @return The number of neighbors for the observation in the specified
+     * cluster.
      */
-    SpatialModule(const Covariates &covariates_, const Data &data_,
-                  const Eigen::VectorXi * old_alloc_provider = nullptr)
-        : covariates_module(covariates_), data_module(data_), old_allocations_provider(old_alloc_provider) {
-
-        neighbor_cache_compute();
-    }
+    double compute_similarity_obs(int obs_idx, int cls_idx) const override;
+    /** @} */
 };

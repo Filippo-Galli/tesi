@@ -27,7 +27,7 @@ Eigen::VectorXd NGGPW::gibbs_prior_existing_clusters(int obs_idx) const {
    */
 
   Eigen::VectorXd priors = NGGP::gibbs_prior_existing_clusters(obs_idx);
-  Eigen::VectorXi neighbors = get_neighbors_obs(obs_idx);
+  Eigen::VectorXd neighbors = compute_similarity_obs(obs_idx);
 
   // Compute prior for each existing cluster
   for (int k = 0; k < data.get_K(); ++k) {
@@ -51,7 +51,7 @@ double NGGPW::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) const {
    * existing cluster.
    */
 
-  double prior = covariates_module.spatial_coefficient * get_neighbors_obs(obs_idx, cls_idx);
+  double prior = covariates_module.spatial_coefficient * compute_similarity_obs(obs_idx, cls_idx);
   prior += NGGP::gibbs_prior_existing_cluster(cls_idx, obs_idx);
 
   return prior;
@@ -91,9 +91,9 @@ double NGGPW::prior_ratio_split(int ci, int cj) const {
   double log_acceptance_ratio = NGGP::prior_ratio_split(ci, cj);
 
   // Spatial part: add new clusters, subtract old merged cluster
-  log_acceptance_ratio += covariates_module.spatial_coefficient * get_neighbors_cls(ci);
-  log_acceptance_ratio += covariates_module.spatial_coefficient * get_neighbors_cls(cj);
-  log_acceptance_ratio -= covariates_module.spatial_coefficient * get_neighbors_cls(ci, true);
+  log_acceptance_ratio += covariates_module.spatial_coefficient * compute_similarity_cls(ci);
+  log_acceptance_ratio += covariates_module.spatial_coefficient * compute_similarity_cls(cj);
+  log_acceptance_ratio -= covariates_module.spatial_coefficient * compute_similarity_cls(ci, true);
 
   return log_acceptance_ratio;
 }
@@ -119,12 +119,11 @@ double NGGPW::prior_ratio_merge(int size_old_ci, int size_old_cj) const {
   // Spatial part
   const int old_ci = old_allocations[idx_i];
   const int old_cj = old_allocations[idx_j];
-  log_acceptance_ratio -= covariates_module.spatial_coefficient * get_neighbors_cls(old_ci, true);
-  log_acceptance_ratio -= covariates_module.spatial_coefficient * get_neighbors_cls(old_cj, true);
+  log_acceptance_ratio -= covariates_module.spatial_coefficient * compute_similarity_cls(old_ci, true);
+  log_acceptance_ratio -= covariates_module.spatial_coefficient * compute_similarity_cls(old_cj, true);
 
   const int new_ci = data.get_allocations()[idx_i];
-  log_acceptance_ratio += covariates_module.spatial_coefficient * get_neighbors_cls(new_ci);
-
+  log_acceptance_ratio += covariates_module.spatial_coefficient * compute_similarity_cls(new_ci);
   return log_acceptance_ratio;
 }
 
@@ -150,10 +149,10 @@ double NGGPW::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci,
   double log_acceptance_ratio = NGGP::prior_ratio_shuffle(size_old_ci, size_old_cj, ci, cj);
 
   // Spatial part
-  log_acceptance_ratio += covariates_module.spatial_coefficient * get_neighbors_cls(ci);
-  log_acceptance_ratio += covariates_module.spatial_coefficient * get_neighbors_cls(cj);
-  log_acceptance_ratio -= covariates_module.spatial_coefficient * get_neighbors_cls(ci, true);
-  log_acceptance_ratio -= covariates_module.spatial_coefficient * get_neighbors_cls(cj, true);
+  log_acceptance_ratio += covariates_module.spatial_coefficient * compute_similarity_cls(ci);
+  log_acceptance_ratio += covariates_module.spatial_coefficient * compute_similarity_cls(cj);
+  log_acceptance_ratio -= covariates_module.spatial_coefficient * compute_similarity_cls(ci, true);
+  log_acceptance_ratio -= covariates_module.spatial_coefficient * compute_similarity_cls(cj, true);
 
   return log_acceptance_ratio;
 }

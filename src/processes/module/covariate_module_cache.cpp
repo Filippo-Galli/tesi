@@ -23,7 +23,7 @@ double CovariatesModuleCache::compute_similarity_cls(int cls_idx, bool old_allo)
 
     if (old_allo) {
         ClusterStats stats;
-        const auto &old_cls_allo = old_cluster_members_provider().at(cls_idx);
+        const auto &old_cls_allo = old_cluster_members_provider->at(cls_idx);
         stats = compute_cluster_statistics(Eigen::Map<const Eigen::VectorXi>(old_cls_allo.data(), old_cls_allo.size()));
         return compute_log_marginal_likelihood(stats);
 

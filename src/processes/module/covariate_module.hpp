@@ -7,9 +7,8 @@
 
 #include "../../utils/Data.hpp"
 #include "../../utils/Covariates.hpp"
+#include "../../utils/Module.hpp"
 #include "Eigen/Dense"
-#include <functional>
-#include <utility>
 #include <cmath>
 #include <vector>
 
@@ -25,7 +24,7 @@
  * Reference: Müller, P., Quintana, F. (2011)
  * "A Product Partition Model With Regression on Covariates"
  */
-class CovariatesModule {
+class CovariatesModule : public Module {
 protected:
     /**
      * @name Module References
@@ -38,16 +37,8 @@ protected:
     /** @brief Reference to data object with cluster assignments */
     const Data &data;
 
-    /**
-     * @brief Provider function for accessing old allocation state.
-     *
-     * Used when computing similarity based on previous cluster assignments
-     * (e.g., in split-merge algorithms).
-     */
-    const Eigen::VectorXi * old_allocations_provider;
-
     /** @brief Provider function for accessing old cluster members map */
-    const std::unordered_map<int, std::vector<int>> * old_cluster_members_provider;
+    const std::unordered_map<int, std::vector<int>> *old_cluster_members_provider;
 
     /** @} */
 
@@ -172,17 +163,16 @@ public:
      * @param data_ Reference to Data object with cluster assignments
      * @param old_alloc_provider Optional function to access old allocations
      */
-    CovariatesModule(
-        const Covariates &covariates_, const Data &data_,
-        const Eigen::VectorXi * old_alloc_provider = nullptr,
-        const std::unordered_map<int, std::vector<int>> * old_cluster_members_provider_ = nullptr)
-        : covariates_data(covariates_), data(data_), old_allocations_provider(old_alloc_provider),
+    CovariatesModule(const Covariates &covariates_, const Data &data_,
+                     const Eigen::VectorXi *old_alloc_provider = nullptr,
+                     const std::unordered_map<int, std::vector<int>> *old_cluster_members_provider_ = nullptr)
+        : covariates_data(covariates_), data(data_), Module(old_alloc_provider),
           old_cluster_members_provider(old_cluster_members_provider_),
           // Initialize constants here in the list
           Bv(covariates_.B * covariates_.v), log_B(std::log(covariates_.B)), log_v(std::log(covariates_.v)),
           const_term(-0.5 * std::log(2.0 * M_PI)), lgamma_nu(std::lgamma(covariates_.nu)),
-          nu_logS0(covariates_.nu * std::log(covariates_.S0)){
-            
+          nu_logS0(covariates_.nu * std::log(covariates_.S0)) {
+
         // Precompute caches for efficiency if needed
         if (covariates_data.fixed_v) {
             log_v_plus_nB.reserve(data_.get_n() + 1);
@@ -222,7 +212,7 @@ public:
      * This value is added to the clustering prior in split-merge moves
      * to encourage clusters with homogeneous covariate values.
      */
-    double compute_similarity_cls(int cls_idx, bool old_allo = false) const;
+    double compute_similarity_cls(int cls_idx, bool old_allo = false) const override __attribute__((hot));
 
     /**
      * @brief Compute covariate similarity for a single observation in a cluster
@@ -238,7 +228,7 @@ public:
      * @details Used in Gibbs sampling to compute the probability of assigning
      * an observation to a cluster based on covariate similarity.
      */
-    double compute_similarity_obs(int obs_idx, int cls_idx) const __attribute__((hot));
+    double compute_similarity_obs(int obs_idx, int cls_idx) const override __attribute__((hot));
 
     /**
      * @brief Compute covariate similarity contributions for all existing clusters
@@ -249,7 +239,7 @@ public:
      * @param obs_idx Index of the observation
      * @return Vector of log predictive density contributions for each cluster
      */
-    Eigen::VectorXd compute_similarity_obs(int obs_idx) const;
+    Eigen::VectorXd compute_similarity_obs(int obs_idx) const override __attribute__((hot));
 
     /** @} */
 };
