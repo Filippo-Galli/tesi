@@ -79,8 +79,8 @@ param <- create_Params(
     hyperparams$delta2,
     hyperparams$gamma,
     hyperparams$zeta,
-    10000, # BI
-    10000, # NI
+    5000, # BI
+    15000, # NI
     1, # a
     0.1, # sigma
     1, # tau
@@ -91,9 +91,11 @@ param <- create_Params(
 # Covariates Object Initialization ====
 ##############################################################################
 
+#B <- 1
 B <- 10 * var(puma_age$Mean_AGEP_std) # prior variance
 m <- 0 # prior mean
 v <- 0.5 * var(puma_age$Mean_AGEP_std) # known variance
+#v <- 1.0 # prior variance
 
 # Ensure W is integer matrix
 W <- matrix(as.integer(W), nrow = nrow(W), ncol = ncol(W))
@@ -102,7 +104,8 @@ W <- matrix(as.integer(W), nrow = nrow(W), ncol = ncol(W))
 covariates <- create_Covariates(
     W, # Spatial adjacency matrix (must be integer)
     1, # spatial_coefficient
-    as.integer(puma_age$Mean_AGEP_std), # ages vector (must be integer)
+    as.numeric(puma_age$Mean_AGEP_std), # ages vector (must be numeric)
+    #rep(0, nrow(W)), # placeholder zero covariate
     B,
     m,
     v, # covariate prior parameters
@@ -134,7 +137,7 @@ elapsed_time <- mcmc_result$elapsed_time
 file_chosen <- sub("\\.rds$", "", file_chosen)
 files_folder_clean <- gsub("/", "_", files_folder)
 data_type <- paste0(files_folder_clean, "_", sub("^distance_", "", file_chosen))
-process <- "TEST-FIXEDV-NGGPWx" # Process type: "DP", "DPW", "NGGP", "NGGPW", NGGPWx
+process <- "NGGPWxCached-FixedV" # Process type: "DP", "DPW", "NGGP", "NGGPW", NGGPWx
 method <- "LSS_SDDS25+Gibbs1" # MCMC method used
 initialization <- "kmeans" # Initialization strategy
 filename <- paste0(data_type, "_", process, "_", method, "_", initialization, "_")
