@@ -55,8 +55,9 @@ public:
      * @param old_alloc_provider Optional function to access old allocations for
      * split-merge.
      */
-    SpatialModule(const Covariates &covariates_, const Data &data_, const Eigen::VectorXi *old_alloc_provider = nullptr)
-        : covariates_module(covariates_), data_module(data_), Module(old_alloc_provider) {
+    SpatialModule(const Covariates &covariates_, const Data &data_, const Eigen::VectorXi *old_alloc_provider = nullptr, 
+                  const std::unordered_map<int, std::vector<int>> *old_cluster_members_provider_ = nullptr)
+        : covariates_module(covariates_), data_module(data_), Module(old_alloc_provider, old_cluster_members_provider_) {
 
         neighbor_cache_compute();
     }

@@ -17,13 +17,18 @@ protected:
      */
     const Eigen::VectorXi *old_allocations_provider;
 
+    /** @brief Provider function for accessing old cluster members map */
+    const std::unordered_map<int, std::vector<int>> *old_cluster_members_provider;
+
 public:
+    Module(const Eigen::VectorXi *old_allocations_provider_ = nullptr, 
+           const std::unordered_map<int, std::vector<int>> *old_cluster_members_provider_ = nullptr)
+        : old_allocations_provider(old_allocations_provider_), old_cluster_members_provider(old_cluster_members_provider_) {}
 
-    Module(const Eigen::VectorXi *old_allocations_provider_ = nullptr)
-        : old_allocations_provider(old_allocations_provider_) {}
+    void set_old_allocations_provider(const Eigen::VectorXi *provider) { old_allocations_provider = provider; }
 
-    void set_old_allocations_provider(const Eigen::VectorXi *provider) {
-        old_allocations_provider = provider;
+    void set_old_cluster_members_provider(const std::unordered_map<int, std::vector<int>> *provider) {
+        old_cluster_members_provider = provider;
     }
 
     /**

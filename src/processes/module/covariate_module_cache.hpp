@@ -40,9 +40,6 @@ protected:
 
     const Covariate_cache &covariate_cache;
 
-    /** @brief Provider function for accessing old cluster members map */
-    const std::unordered_map<int, std::vector<int>> *old_cluster_members_provider;
-
     /** @} */
 
     /**
@@ -160,8 +157,8 @@ public:
     CovariatesModuleCache(const Covariates &covariates_, const Data &data_, const Covariate_cache &covariate_cache_,
                           const Eigen::VectorXi *old_alloc_provider = {},
                           const std::unordered_map<int, std::vector<int>> *old_cluster_members_provider_ = {})
-        : covariates_data(covariates_), data(data_), covariate_cache(covariate_cache_), Module(old_alloc_provider),
-          old_cluster_members_provider(old_cluster_members_provider_),
+        : covariates_data(covariates_), data(data_), covariate_cache(covariate_cache_),
+          Module(old_alloc_provider, old_cluster_members_provider_),
           // Initialize constants here in the list
           Bv(covariates_.B * covariates_.v), log_B(std::log(covariates_.B)), log_v(std::log(covariates_.v)),
           const_term(-0.5 * std::log(2.0 * M_PI)), lgamma_nu(std::lgamma(covariates_.nu)),

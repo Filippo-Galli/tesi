@@ -38,27 +38,27 @@ void SpatialModule::neighbor_cache_compute() {
 }
 
 double SpatialModule::compute_similarity_cls(int cls_idx, bool old_allo) const {
-    const Eigen::VectorXi &allocations =
-        (old_allo && old_allocations_provider) ? *old_allocations_provider : data_module.get_allocations();
 
-    int total_neighbors = 0;
-    const int N = data_module.get_n();
+    const Eigen::VectorXi & cls_idx_allocations =
+        (old_allo && old_cluster_members_provider) ? Eigen::Map<const Eigen::VectorXi>(old_cluster_members_provider->at(cls_idx).data(), old_cluster_members_provider->at(cls_idx).size()) : data_module.get_cluster_assignments(cls_idx);
 
-    // Only iterate over points in this cluster
-    for (int i = 0; i < N; ++i) {
-        if (allocations(i) != cls_idx)
-            continue;
+    double total_neighbors = 0;
+    for(auto && i : cls_idx_allocations){
+        // Use cached neighbor indices instead of iterating over full adjacency matrix
+        const std::vector<int> &row = neighbor_cache[i];
 
-        // Count neighbors also in this cluster
-        const std::vector<int> &neighbors = neighbor_cache[i];
-        for (int j : neighbors) {
-            if (allocations(j) == cls_idx && j > i) { // j > i avoids double counting
+        // Count neighbors in each cluster
+        for (size_t j = 0; j < row.size(); ++j) {
+            int neighbor_idx = row[j];
+            int cluster_i = data_module.get_cluster_assignment(neighbor_idx);
+
+            if (cluster_i != -1 && cluster_i == cls_idx) {
                 ++total_neighbors;
             }
         }
     }
 
-    return total_neighbors;
+    return total_neighbors / 2; // Each edge counted twice
 }
 
 Eigen::VectorXd SpatialModule::compute_similarity_obs(int obs_idx) const {

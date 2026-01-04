@@ -65,7 +65,7 @@ public:
    */
   NGGPW(Data &d, Params &p, Covariates &c, U_sampler &mh)
       : NGGP(d, p, mh), SpatialModule(c, d,
-                                     &this->old_allocations_view()),
+                                     &this->old_allocations_view(), &this->old_cluster_members_view()),
         U_sampler_method(mh), gen(rd()) {};
 
   /**

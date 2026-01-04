@@ -32,7 +32,7 @@ public:
    */
   DPW(Data &d, Params &p, Covariates &c) 
     : Process(d, p), 
-      SpatialModule(c, d, &this->old_allocations_view()) {};
+      SpatialModule(c, d, &this->old_allocations_view(), &this->old_cluster_members_view()) {};
 
   /**
    * @name Gibbs Sampling Methods
