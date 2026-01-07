@@ -30,7 +30,7 @@ double ContinuosCovariatesModuleCache::compute_similarity_cls(int cls_idx, bool 
 
     } else {
         const Eigen::VectorXi &obs = data.get_cluster_assignments_ref(cls_idx);
-        auto stats = covariate_cache.get_cluster_stats_ref(cls_idx);
+        const auto &stats = covariate_cache.get_cluster_stats_ref(cls_idx);
         return compute_log_marginal_likelihood(stats);
     }
 }
@@ -39,11 +39,14 @@ double ContinuosCovariatesModuleCache::compute_similarity_obs(int obs_idx, int c
 
     ClusterStats base_stats;
 
+    const double covariate_val = covariates_data.ages(obs_idx);
+    
     // Handle new cluster case
     if (cls_idx > -1 && cls_idx < data.get_K())
-        base_stats = covariate_cache.get_cluster_stats(cls_idx);
+        base_stats = covariate_cache.get_cluster_stats_ref(cls_idx);
 
-    return compute_log_predictive_likelihood(base_stats, obs_idx);
+
+    return compute_log_predictive_likelihood(base_stats, covariate_val);
 }
 
 Eigen::VectorXd ContinuosCovariatesModuleCache::compute_similarity_obs(int obs_idx) const {
@@ -51,11 +54,11 @@ Eigen::VectorXd ContinuosCovariatesModuleCache::compute_similarity_obs(int obs_i
     const int num_clusters = data.get_K();
     // Compute log similarities for each cluster
     Eigen::VectorXd log_similarities(num_clusters);
-    // const double obs_age = covariates_data.ages(obs_idx);
+    const double covariate_val = covariates_data.ages(obs_idx);
 
     for (int k = 0; k < num_clusters; ++k) {
         const ClusterStats &stats_ref = covariate_cache.get_cluster_stats_ref(k);
-        log_similarities(k) = compute_log_predictive_likelihood(stats_ref, obs_idx);
+        log_similarities(k) = compute_log_predictive_likelihood(stats_ref, covariate_val);
     }
 
     return log_similarities;
@@ -134,10 +137,9 @@ double ContinuosCovariatesModuleCache::compute_log_marginal_likelihood_NN(const 
            0.5 * (ss / covariates_data.v + n_dbl * dev * dev / v_plus_nB);
 }
 
-double ContinuosCovariatesModuleCache::compute_predictive_NN(const ClusterStats &stats, int obs_idx) const {
+double ContinuosCovariatesModuleCache::compute_predictive_NN(const ClusterStats &stats, double covariate_val) const {
     double n_dbl = static_cast<double>(stats.n);
     double one_plus_nB = 1.0 + n_dbl * covariates_data.B;
-    double obs_val = covariates_data.ages(obs_idx);
 
     // Posterior mean (mu_n)
     // Formula: (m + B * sum_x) / (1 + n*B)
@@ -148,14 +150,13 @@ double ContinuosCovariatesModuleCache::compute_predictive_NN(const ClusterStats 
     double sigma2_pred = covariates_data.v * (1.0 + (n_dbl + 1.0) * covariates_data.B) / one_plus_nB;
 
     // Log Normal PDF: -0.5 * log(2*pi*sigma2) - (x - mu)^2 / (2*sigma2)
-    double diff = obs_val - mu_n;
+    double diff = covariate_val - mu_n;
     return -0.5 * std::log(2.0 * M_PI * sigma2_pred) - 0.5 * diff * diff / sigma2_pred;
 }
 
-double ContinuosCovariatesModuleCache::compute_predictive_NNIG(const ClusterStats &stats, int obs_idx) const {
+double ContinuosCovariatesModuleCache::compute_predictive_NNIG(const ClusterStats &stats, double covariate_val) const {
     double n_dbl = static_cast<double>(stats.n);
     double one_plus_nB = 1.0 + n_dbl * covariates_data.B;
-    double obs_val = covariates_data.ages(obs_idx);
 
     // 1. Compute Posterior Mean mu_n
     double mu_n = (covariates_data.m + covariates_data.B * stats.sum) / one_plus_nB;
@@ -177,7 +178,7 @@ double ContinuosCovariatesModuleCache::compute_predictive_NNIG(const ClusterStat
     // This is the term added to S_n when x_new is observed, without recomputing the whole sum of squares.
     // Delta S = 0.5 * (x_new - mu_n)^2 * (1+nB) / (1+(n+1)B)
     double one_plus_next_nB = 1.0 + (n_dbl + 1.0) * covariates_data.B;
-    double diff = obs_val - mu_n;
+    double diff = covariate_val - mu_n;
     double delta_S = 0.5 * diff * diff * one_plus_nB / one_plus_next_nB;
 
     // 4. Compute Log Probability (Student-t)

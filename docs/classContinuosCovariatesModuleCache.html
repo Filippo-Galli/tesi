@@ -160,12 +160,12 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a377dab3e6d293beb24b9281425da86e9" id="r_a377dab3e6d293beb24b9281425da86e9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a377dab3e6d293beb24b9281425da86e9">compute_log_marginal_likelihood_NNIG</a> (const ClusterStats &amp;stats) const __attribute__((hot))</td></tr>
 <tr class="memdesc:a377dab3e6d293beb24b9281425da86e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log marginal likelihood for cluster given covariates.  <br /></td></tr>
 <tr class="separator:a377dab3e6d293beb24b9281425da86e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa8fa1ca8337072e4b8e6bc8973fc5a5" id="r_aaa8fa1ca8337072e4b8e6bc8973fc5a5"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaa8fa1ca8337072e4b8e6bc8973fc5a5">compute_predictive_NN</a> (const ClusterStats &amp;stats, int obs_idx) const</td></tr>
-<tr class="memdesc:aaa8fa1ca8337072e4b8e6bc8973fc5a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log predictive density for a new observation (Normal-Normal model)  <br /></td></tr>
-<tr class="separator:aaa8fa1ca8337072e4b8e6bc8973fc5a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac909d3861138ab587ccea62d0d5cacf3" id="r_ac909d3861138ab587ccea62d0d5cacf3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac909d3861138ab587ccea62d0d5cacf3">compute_predictive_NNIG</a> (const ClusterStats &amp;stats, int obs_idx) const</td></tr>
-<tr class="memdesc:ac909d3861138ab587ccea62d0d5cacf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log predictive density for a new observation (NNIG model)  <br /></td></tr>
-<tr class="separator:ac909d3861138ab587ccea62d0d5cacf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8c67e46627f621b37f09a1b84fb66d3" id="r_ac8c67e46627f621b37f09a1b84fb66d3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8c67e46627f621b37f09a1b84fb66d3">compute_predictive_NN</a> (const ClusterStats &amp;stats, double covariate_val) const</td></tr>
+<tr class="memdesc:ac8c67e46627f621b37f09a1b84fb66d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log predictive density for a new observation (Normal-Normal model)  <br /></td></tr>
+<tr class="separator:ac8c67e46627f621b37f09a1b84fb66d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad777bcf4916f461c734d0274be2aaa2" id="r_aad777bcf4916f461c734d0274be2aaa2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad777bcf4916f461c734d0274be2aaa2">compute_predictive_NNIG</a> (const ClusterStats &amp;stats, double covariate_val) const</td></tr>
+<tr class="memdesc:aad777bcf4916f461c734d0274be2aaa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log predictive density for a new observation (NNIG model)  <br /></td></tr>
+<tr class="separator:aad777bcf4916f461c734d0274be2aaa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9261f64691b841fa63b97e3393b9b79" id="r_ae9261f64691b841fa63b97e3393b9b79"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9261f64691b841fa63b97e3393b9b79">compute_log_marginal_likelihood</a> (const ClusterStats &amp;stats) const __attribute__((hot</td></tr>
 <tr class="memdesc:ae9261f64691b841fa63b97e3393b9b79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log marginal likelihood based on model type.  <br /></td></tr>
 <tr class="separator:ae9261f64691b841fa63b97e3393b9b79"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -204,6 +204,7 @@ Protected Attributes</h2></td></tr>
 <tr class="memdesc:a1a79b8e294d4611130a1bc60e0cd7e91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to data object with cluster assignments.  <br /></td></tr>
 <tr class="separator:a1a79b8e294d4611130a1bc60e0cd7e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a787af95d45db1b167606818fa5ab40bf" id="r_a787af95d45db1b167606818fa5ab40bf"><td class="memItemLeft" align="right" valign="top">const Covariate_cache &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a787af95d45db1b167606818fa5ab40bf">covariate_cache</a></td></tr>
+<tr class="memdesc:a787af95d45db1b167606818fa5ab40bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to covariate cache for precomputed stats.  <br /></td></tr>
 <tr class="separator:a787af95d45db1b167606818fa5ab40bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classModule"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classModule')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classModule.html">Module</a></td></tr>
 <tr class="memitem:a13d00f3268f377c1d7cc5bf23cf2ce3a inherit pro_attribs_classModule" id="r_a13d00f3268f377c1d7cc5bf23cf2ce3a"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXi *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModule.html#a13d00f3268f377c1d7cc5bf23cf2ce3a">old_allocations_provider</a></td></tr>
@@ -440,8 +441,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aaa8fa1ca8337072e4b8e6bc8973fc5a5" name="aaa8fa1ca8337072e4b8e6bc8973fc5a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa8fa1ca8337072e4b8e6bc8973fc5a5">&#9670;&#160;</a></span>compute_predictive_NN()</h2>
+<a id="ac8c67e46627f621b37f09a1b84fb66d3" name="ac8c67e46627f621b37f09a1b84fb66d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8c67e46627f621b37f09a1b84fb66d3">&#9670;&#160;</a></span>compute_predictive_NN()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -457,7 +458,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>obs_idx</em></span>&#160;) const</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>covariate_val</em></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -472,7 +473,7 @@ Protected Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">stats</td><td>Sufficient statistics of the cluster (n, sum, sum of squares) </td></tr>
-    <tr><td class="paramname">obs_idx</td><td>Index of the observation to predict </td></tr>
+    <tr><td class="paramname">covariate_val</td><td>Value of the covariate to predict </td></tr>
   </table>
   </dd>
 </dl>
@@ -485,8 +486,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ac909d3861138ab587ccea62d0d5cacf3" name="ac909d3861138ab587ccea62d0d5cacf3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac909d3861138ab587ccea62d0d5cacf3">&#9670;&#160;</a></span>compute_predictive_NNIG()</h2>
+<a id="aad777bcf4916f461c734d0274be2aaa2" name="aad777bcf4916f461c734d0274be2aaa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad777bcf4916f461c734d0274be2aaa2">&#9670;&#160;</a></span>compute_predictive_NNIG()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -502,7 +503,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>obs_idx</em></span>&#160;) const</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>covariate_val</em></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -517,7 +518,7 @@ Protected Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">stats</td><td>Sufficient statistics of the cluster (n, sum, sum of squares) </td></tr>
-    <tr><td class="paramname">obs_idx</td><td>Index of the observation to predict </td></tr>
+    <tr><td class="paramname">covariate_val</td><td>Value of the covariate to predict </td></tr>
   </table>
   </dd>
 </dl>
@@ -688,12 +689,12 @@ Protected Attributes</h2></td></tr>
 <div class="line">    }</div>
 <div class="line"> </div>
 <div class="line">    </div>
-<div class="line">    <span class="keyword">inline</span> <span class="keywordtype">double</span> compute_log_predictive_likelihood(<span class="keyword">const</span> ClusterStats &amp;stats, <span class="keywordtype">int</span> obs_idx) <span class="keyword">const</span></div>
+<div class="line">    <span class="keyword">inline</span> <span class="keywordtype">double</span> compute_log_predictive_likelihood(<span class="keyword">const</span> ClusterStats &amp;stats, <span class="keywordtype">double</span> covariate_val) <span class="keyword">const</span></div>
 <div class="line">        __attribute__((hot, <a class="code hl_variable" href="#ac5dd95a95b6796f0936166fc53c2843a">always_inline</a>)) {</div>
 <div class="line">        <span class="keywordflow">if</span> (<a class="code hl_variable" href="#a826763c2540e7ad597b3a71272035267">covariates_data</a>.fixed_v) {</div>
-<div class="line">            <span class="keywordflow">return</span> <a class="code hl_function" href="#aaa8fa1ca8337072e4b8e6bc8973fc5a5">compute_predictive_NN</a>(stats, obs_idx);</div>
+<div class="line">            <span class="keywordflow">return</span> <a class="code hl_function" href="#ac8c67e46627f621b37f09a1b84fb66d3">compute_predictive_NN</a>(stats, covariate_val);</div>
 <div class="line">        } <span class="keywordflow">else</span> {</div>
-<div class="line">            <span class="keywordflow">return</span> <a class="code hl_function" href="#ac909d3861138ab587ccea62d0d5cacf3">compute_predictive_NNIG</a>(stats, obs_idx);</div>
+<div class="line">            <span class="keywordflow">return</span> <a class="code hl_function" href="#aad777bcf4916f461c734d0274be2aaa2">compute_predictive_NNIG</a>(stats, covariate_val);</div>
 <div class="line">        }</div>
 <div class="line">    }</div>
 <div class="line"> </div>
@@ -702,12 +703,12 @@ Protected Attributes</h2></td></tr>
 <div class="line">    </div>
 <div class="line"> </div>
 <div class="line">    <span class="keyword">const</span> <span class="keywordtype">double</span> Bv</div>
-<div class="ttc" id="aclassContinuosCovariatesModuleCache_html_a377dab3e6d293beb24b9281425da86e9"><div class="ttname"><a href="#a377dab3e6d293beb24b9281425da86e9">ContinuosCovariatesModuleCache::compute_log_marginal_likelihood_NNIG</a></div><div class="ttdeci">double compute_log_marginal_likelihood_NNIG(const ClusterStats &amp;stats) const __attribute__((hot))</div><div class="ttdoc">Compute log marginal likelihood for cluster given covariates.</div><div class="ttdef"><b>Definition</b> continuos_covariate_module_cache.cpp:64</div></div>
+<div class="ttc" id="aclassContinuosCovariatesModuleCache_html_a377dab3e6d293beb24b9281425da86e9"><div class="ttname"><a href="#a377dab3e6d293beb24b9281425da86e9">ContinuosCovariatesModuleCache::compute_log_marginal_likelihood_NNIG</a></div><div class="ttdeci">double compute_log_marginal_likelihood_NNIG(const ClusterStats &amp;stats) const __attribute__((hot))</div><div class="ttdoc">Compute log marginal likelihood for cluster given covariates.</div><div class="ttdef"><b>Definition</b> continuos_covariate_module_cache.cpp:67</div></div>
 <div class="ttc" id="aclassContinuosCovariatesModuleCache_html_a826763c2540e7ad597b3a71272035267"><div class="ttname"><a href="#a826763c2540e7ad597b3a71272035267">ContinuosCovariatesModuleCache::covariates_data</a></div><div class="ttdeci">const Covariates &amp; covariates_data</div><div class="ttdoc">Reference to covariates data containing ages and prior parameters.</div><div class="ttdef"><b>Definition</b> continuos_covariate_module_cache.hpp:35</div></div>
-<div class="ttc" id="aclassContinuosCovariatesModuleCache_html_a904772981c02133a1918353ebf3c7ca9"><div class="ttname"><a href="#a904772981c02133a1918353ebf3c7ca9">ContinuosCovariatesModuleCache::compute_log_marginal_likelihood_NN</a></div><div class="ttdeci">double compute_log_marginal_likelihood_NN(const ClusterStats &amp;stats) const __attribute__((hot))</div><div class="ttdoc">Compute log marginal likelihood for cluster given covariates.</div><div class="ttdef"><b>Definition</b> continuos_covariate_module_cache.cpp:101</div></div>
-<div class="ttc" id="aclassContinuosCovariatesModuleCache_html_aaa8fa1ca8337072e4b8e6bc8973fc5a5"><div class="ttname"><a href="#aaa8fa1ca8337072e4b8e6bc8973fc5a5">ContinuosCovariatesModuleCache::compute_predictive_NN</a></div><div class="ttdeci">double compute_predictive_NN(const ClusterStats &amp;stats, int obs_idx) const</div><div class="ttdoc">Compute log predictive density for a new observation (Normal-Normal model)</div><div class="ttdef"><b>Definition</b> continuos_covariate_module_cache.cpp:137</div></div>
+<div class="ttc" id="aclassContinuosCovariatesModuleCache_html_a904772981c02133a1918353ebf3c7ca9"><div class="ttname"><a href="#a904772981c02133a1918353ebf3c7ca9">ContinuosCovariatesModuleCache::compute_log_marginal_likelihood_NN</a></div><div class="ttdeci">double compute_log_marginal_likelihood_NN(const ClusterStats &amp;stats) const __attribute__((hot))</div><div class="ttdoc">Compute log marginal likelihood for cluster given covariates.</div><div class="ttdef"><b>Definition</b> continuos_covariate_module_cache.cpp:104</div></div>
+<div class="ttc" id="aclassContinuosCovariatesModuleCache_html_aad777bcf4916f461c734d0274be2aaa2"><div class="ttname"><a href="#aad777bcf4916f461c734d0274be2aaa2">ContinuosCovariatesModuleCache::compute_predictive_NNIG</a></div><div class="ttdeci">double compute_predictive_NNIG(const ClusterStats &amp;stats, double covariate_val) const</div><div class="ttdoc">Compute log predictive density for a new observation (NNIG model)</div><div class="ttdef"><b>Definition</b> continuos_covariate_module_cache.cpp:157</div></div>
 <div class="ttc" id="aclassContinuosCovariatesModuleCache_html_ac5dd95a95b6796f0936166fc53c2843a"><div class="ttname"><a href="#ac5dd95a95b6796f0936166fc53c2843a">ContinuosCovariatesModuleCache::always_inline</a></div><div class="ttdeci">double always_inline</div><div class="ttdoc">Product of prior variance and observation variance.</div><div class="ttdef"><b>Definition</b> continuos_covariate_module_cache.hpp:156</div></div>
-<div class="ttc" id="aclassContinuosCovariatesModuleCache_html_ac909d3861138ab587ccea62d0d5cacf3"><div class="ttname"><a href="#ac909d3861138ab587ccea62d0d5cacf3">ContinuosCovariatesModuleCache::compute_predictive_NNIG</a></div><div class="ttdeci">double compute_predictive_NNIG(const ClusterStats &amp;stats, int obs_idx) const</div><div class="ttdoc">Compute log predictive density for a new observation (NNIG model)</div><div class="ttdef"><b>Definition</b> continuos_covariate_module_cache.cpp:155</div></div>
+<div class="ttc" id="aclassContinuosCovariatesModuleCache_html_ac8c67e46627f621b37f09a1b84fb66d3"><div class="ttname"><a href="#ac8c67e46627f621b37f09a1b84fb66d3">ContinuosCovariatesModuleCache::compute_predictive_NN</a></div><div class="ttdeci">double compute_predictive_NN(const ClusterStats &amp;stats, double covariate_val) const</div><div class="ttdoc">Compute log predictive density for a new observation (Normal-Normal model)</div><div class="ttdef"><b>Definition</b> continuos_covariate_module_cache.cpp:140</div></div>
 <div class="ttc" id="aclassContinuosCovariatesModule_html_a6e8ab83a4a539a14c7e692942166fbb4"><div class="ttname"><a href="classContinuosCovariatesModule.html#a6e8ab83a4a539a14c7e692942166fbb4">ContinuosCovariatesModule::covariates_data</a></div><div class="ttdeci">const Covariates &amp; covariates_data</div><div class="ttdoc">Reference to covariates data containing ages and prior parameters.</div><div class="ttdef"><b>Definition</b> continuos_covariate_module.hpp:35</div></div>
 </div><!-- fragment -->
 <p>Product of prior variance and observation variance. </p>
@@ -757,6 +758,8 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Reference to covariate cache for precomputed stats. </p>
 
 </div>
 </div>

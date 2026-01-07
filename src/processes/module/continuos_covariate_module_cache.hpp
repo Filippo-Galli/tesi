@@ -37,7 +37,7 @@ protected:
     /** @brief Reference to data object with cluster assignments */
     const Data &data;
 
-    const Covariate_cache &covariate_cache;
+    const Covariate_cache &covariate_cache; ///< Reference to covariate cache for precomputed stats
 
     /** @} */
 
@@ -112,7 +112,7 @@ protected:
      * current cluster statistics, assuming the Normal-Normal conjugate prior (fixed variance).
      *
      * @param stats Sufficient statistics of the cluster (n, sum, sum of squares)
-     * @param obs_idx Index of the observation to predict
+     * @param covariate_val Value of the covariate to predict
      * @return Log predictive density log p(x_new | x_cluster)
      *
      * @details The predictive distribution for the NN model is a Normal distribution:
@@ -122,7 +122,7 @@ protected:
      * - Posterior mean: μ_n = (m + nB x̄) / (1 + nB)
      * - Predictive variance: σ²_pred = v * (1 + (n+1)B) / (1 + nB)
      */
-    double compute_predictive_NN(const ClusterStats &stats, int obs_idx) const;
+    double compute_predictive_NN(const ClusterStats &stats, double covariate_val) const;
 
     /**
      * @brief Compute log predictive density for a new observation (NNIG model)
@@ -131,7 +131,7 @@ protected:
      * current cluster statistics, assuming the Normal-Normal-Inverse-Gamma conjugate prior.
      *
      * @param stats Sufficient statistics of the cluster (n, sum, sum of squares)
-     * @param obs_idx Index of the observation to predict
+     * @param covariate_val Value of the covariate to predict
      * @return Log predictive density log p(x_new | x_cluster)
      *
      * @details The predictive distribution for the NNIG model is a non-standardized
@@ -143,7 +143,7 @@ protected:
      * - Location: μ_n = (m + nB x̄) / (1 + nB)
      * - Scale is derived from the posterior scale S_n and the variance inflation factor.
      */
-    double compute_predictive_NNIG(const ClusterStats &stats, int obs_idx) const;
+    double compute_predictive_NNIG(const ClusterStats &stats, double covariate_val) const;
 
     /**
      * @brief Compute log marginal likelihood based on model type
@@ -169,12 +169,12 @@ protected:
      * @param stats Sufficient statistics for the cluster
      * @return Log marginal likelihood value
      */
-    inline double compute_log_predictive_likelihood(const ClusterStats &stats, int obs_idx) const
+    inline double compute_log_predictive_likelihood(const ClusterStats &stats, double covariate_val) const
         __attribute__((hot, always_inline)) {
         if (covariates_data.fixed_v) {
-            return compute_predictive_NN(stats, obs_idx);
+            return compute_predictive_NN(stats, covariate_val);
         } else {
-            return compute_predictive_NNIG(stats, obs_idx);
+            return compute_predictive_NNIG(stats, covariate_val);
         }
     }
 
