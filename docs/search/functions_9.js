@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['sample_5ffrom_5flog_5fprobs_0',['sample_from_log_probs',['../classNeal3.html#a1ca49f482ffc919067a11842ee88e3f1',1,'Neal3::sample_from_log_probs()'],['../classNeal3ZDNAM.html#aa8c30654dbd75413dc6a41fc9a2d2ef6',1,'Neal3ZDNAM::sample_from_log_probs(const std::vector&lt; double &gt; &amp;log_probs)']]],
+  ['sample_5ffrom_5flog_5fprobs_0',['sample_from_log_probs',['../classNeal3.html#a4aa77b742d26bc8a5f22100b015eeb8d',1,'Neal3::sample_from_log_probs()'],['../classNeal3ZDNAM.html#aa8c30654dbd75413dc6a41fc9a2d2ef6',1,'Neal3ZDNAM::sample_from_log_probs(const std::vector&lt; double &gt; &amp;log_probs)']]],
   ['sample_5ffrom_5flog_5fprobs_5fzdnam_1',['sample_from_log_probs_zdnam',['../classNeal3ZDNAM.html#ae9d4a02085162f18a969d13d134e0474',1,'Neal3ZDNAM']]],
   ['sampler_2',['Sampler',['../classSampler.html#a4800cc1f9d2718968f5957ca99eee5b1',1,'Sampler']]],
   ['sampler_5fstep_3',['sampler_step',['../bindings_8cpp.html#ad75224489af86dcc7dd2b51c30458f1a',1,'bindings.cpp']]],

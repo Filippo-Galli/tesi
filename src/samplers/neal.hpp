@@ -14,6 +14,7 @@
 #pragma once
 
 #include "../utils/Sampler.hpp"
+#include <vector>
 
 /**
  * @brief Implementation of Neal's Algorithm 3 for collapsed Gibbs sampling
@@ -64,7 +65,22 @@ private:
      */
     void step_1_observation(int index);
 
-    int sample_from_log_probs(const std::vector<double> &log_probs);
+    /**
+     * @brief Sample an index from log-probabilities using the log-sum-exp trick
+     *
+     * @param num_clusters Number of clusters (including new cluster)
+     * @return Index sampled according to the probabilities
+     *
+     * @details This method performs sampling from a discrete distribution
+     * defined by log-probabilities. It uses the log-sum-exp trick for numerical
+     * stability and implements roulette wheel selection.
+     */
+    int sample_from_log_probs(int num_clusters);
+
+    // Pre-allocated buffers to avoid repeated allocations
+    std::vector<double> log_likelihoods;
+    std::vector<double> weights;
+    int n_data;
 
 public:
     // ========== Constructor ==========
@@ -79,8 +95,13 @@ public:
      *
      * @details Initializes the Gibbs sampler with all required components.
      * The random number generator is seeded from the inherited random device.
+     * Pre-allocates vectors to maximum possible size to avoid resizing during sampling.
      */
-    Neal3(Data &d, Params &p, Likelihood &l, Process &pr) : Sampler(d, p, l, pr), gen(rd()) {};
+    Neal3(Data &d, Params &p, Likelihood &l, Process &pr) : Sampler(d, p, l, pr), gen(rd()), n_data(d.get_n()) {
+        // Pre-allocate to max size (all points in separate clusters + 1 new cluster)
+        log_likelihoods.reserve(n_data + 1);
+        weights.reserve(n_data + 1);
+    }
 
     // ========== MCMC Interface ==========
 

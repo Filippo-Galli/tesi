@@ -2,7 +2,7 @@ var searchData=
 [
   ['s_0',['S',['../classSplitMerge.html#a5bfc16aa4e6d36eb42f8a0d6a5f4a493',1,'SplitMerge::S'],['../classSplitMerge__LSS.html#a339dbb5c0d5dcce9cf351c0dc34a29db',1,'SplitMerge_LSS::S'],['../classSplitMerge__LSS__SDDS.html#ab89d3b1669dc604e8eacb2ee938a93a0',1,'SplitMerge_LSS_SDDS::S'],['../classSplitMerge__SAMS.html#a9cea74d3d45844942423e71aa034eccb',1,'SplitMerge_SAMS::S']]],
   ['s0_1',['S0',['../structCovariates.html#ac311420bda67d5aaec1be671f52874a7',1,'Covariates']]],
-  ['sample_5ffrom_5flog_5fprobs_2',['sample_from_log_probs',['../classNeal3.html#a1ca49f482ffc919067a11842ee88e3f1',1,'Neal3::sample_from_log_probs()'],['../classNeal3ZDNAM.html#aa8c30654dbd75413dc6a41fc9a2d2ef6',1,'Neal3ZDNAM::sample_from_log_probs(const std::vector&lt; double &gt; &amp;log_probs)']]],
+  ['sample_5ffrom_5flog_5fprobs_2',['sample_from_log_probs',['../classNeal3.html#a4aa77b742d26bc8a5f22100b015eeb8d',1,'Neal3::sample_from_log_probs()'],['../classNeal3ZDNAM.html#aa8c30654dbd75413dc6a41fc9a2d2ef6',1,'Neal3ZDNAM::sample_from_log_probs(const std::vector&lt; double &gt; &amp;log_probs)']]],
   ['sample_5ffrom_5flog_5fprobs_5fzdnam_3',['sample_from_log_probs_zdnam',['../classNeal3ZDNAM.html#ae9d4a02085162f18a969d13d134e0474',1,'Neal3ZDNAM']]],
   ['sampler_4',['Sampler',['../classSampler.html',1,'Sampler'],['../classSampler.html#a4800cc1f9d2718968f5957ca99eee5b1',1,'Sampler::Sampler()']]],
   ['sampler_20tt_5',['MCMC Samplers (&lt;tt&gt;Sampler&lt;/tt&gt;)',['../index.html#autotoc_md11',1,'']]],

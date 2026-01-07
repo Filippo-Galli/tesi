@@ -145,14 +145,21 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:ac20cf03f5de473bdc3cf1c7e59137f53" id="r_ac20cf03f5de473bdc3cf1c7e59137f53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac20cf03f5de473bdc3cf1c7e59137f53">step_1_observation</a> (int index)</td></tr>
 <tr class="memdesc:ac20cf03f5de473bdc3cf1c7e59137f53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sample cluster assignment for a single observation.  <br /></td></tr>
 <tr class="separator:ac20cf03f5de473bdc3cf1c7e59137f53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ca49f482ffc919067a11842ee88e3f1" id="r_a1ca49f482ffc919067a11842ee88e3f1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ca49f482ffc919067a11842ee88e3f1">sample_from_log_probs</a> (const std::vector&lt; double &gt; &amp;log_probs)</td></tr>
-<tr class="separator:a1ca49f482ffc919067a11842ee88e3f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4aa77b742d26bc8a5f22100b015eeb8d" id="r_a4aa77b742d26bc8a5f22100b015eeb8d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4aa77b742d26bc8a5f22100b015eeb8d">sample_from_log_probs</a> (int num_clusters)</td></tr>
+<tr class="memdesc:a4aa77b742d26bc8a5f22100b015eeb8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sample an index from log-probabilities using the log-sum-exp trick.  <br /></td></tr>
+<tr class="separator:a4aa77b742d26bc8a5f22100b015eeb8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a6c1fb83b507ed24597b7dc0fa6529bad" id="r_a6c1fb83b507ed24597b7dc0fa6529bad"><td class="memItemLeft" align="right" valign="top">std::mt19937&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c1fb83b507ed24597b7dc0fa6529bad">gen</a></td></tr>
 <tr class="memdesc:a6c1fb83b507ed24597b7dc0fa6529bad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mersenne Twister random number generator for sampling operations.  <br /></td></tr>
 <tr class="separator:a6c1fb83b507ed24597b7dc0fa6529bad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afed3cbdb02a68d204aff9286beb1f1a1" id="r_afed3cbdb02a68d204aff9286beb1f1a1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afed3cbdb02a68d204aff9286beb1f1a1">log_likelihoods</a></td></tr>
+<tr class="separator:afed3cbdb02a68d204aff9286beb1f1a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a173c6450b8be31420bbcb86f97a3bbb6" id="r_a173c6450b8be31420bbcb86f97a3bbb6"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a173c6450b8be31420bbcb86f97a3bbb6">weights</a></td></tr>
+<tr class="separator:a173c6450b8be31420bbcb86f97a3bbb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77a18af846cd7cc39cadef6f7db92e2e" id="r_a77a18af846cd7cc39cadef6f7db92e2e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a77a18af846cd7cc39cadef6f7db92e2e">n_data</a></td></tr>
+<tr class="separator:a77a18af846cd7cc39cadef6f7db92e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -234,13 +241,13 @@ Process Mixture Models"</dd></dl>
   </table>
   </dd>
 </dl>
-<p>Initializes the Gibbs sampler with all required components. The random number generator is seeded from the inherited random device. </p>
+<p>Initializes the Gibbs sampler with all required components. The random number generator is seeded from the inherited random device. Pre-allocates vectors to maximum possible size to avoid resizing during sampling. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1ca49f482ffc919067a11842ee88e3f1" name="a1ca49f482ffc919067a11842ee88e3f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ca49f482ffc919067a11842ee88e3f1">&#9670;&#160;</a></span>sample_from_log_probs()</h2>
+<a id="a4aa77b742d26bc8a5f22100b015eeb8d" name="a4aa77b742d26bc8a5f22100b015eeb8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aa77b742d26bc8a5f22100b015eeb8d">&#9670;&#160;</a></span>sample_from_log_probs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -251,7 +258,7 @@ Process Mixture Models"</dd></dl>
         <tr>
           <td class="memname">int Neal3::sample_from_log_probs </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; double &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>log_probs</em></span></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>num_clusters</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -261,6 +268,16 @@ Process Mixture Models"</dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Sample an index from log-probabilities using the log-sum-exp trick. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">num_clusters</td><td>Number of clusters (including new cluster) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Index sampled according to the probabilities</dd></dl>
+<p>This method performs sampling from a discrete distribution defined by log-probabilities. It uses the log-sum-exp trick for numerical stability and implements roulette wheel selection. </p>
 
 </div>
 </div>
@@ -370,6 +387,72 @@ Process Mixture Models"</dd></dl>
 </div><div class="memdoc">
 
 <p>Mersenne Twister random number generator for sampling operations. </p>
+
+</div>
+</div>
+<a id="afed3cbdb02a68d204aff9286beb1f1a1" name="afed3cbdb02a68d204aff9286beb1f1a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afed3cbdb02a68d204aff9286beb1f1a1">&#9670;&#160;</a></span>log_likelihoods</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;double&gt; Neal3::log_likelihoods</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a77a18af846cd7cc39cadef6f7db92e2e" name="a77a18af846cd7cc39cadef6f7db92e2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77a18af846cd7cc39cadef6f7db92e2e">&#9670;&#160;</a></span>n_data</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Neal3::n_data</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a173c6450b8be31420bbcb86f97a3bbb6" name="a173c6450b8be31420bbcb86f97a3bbb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a173c6450b8be31420bbcb86f97a3bbb6">&#9670;&#160;</a></span>weights</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;double&gt; Neal3::weights</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

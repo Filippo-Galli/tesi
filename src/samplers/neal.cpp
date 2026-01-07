@@ -16,14 +16,15 @@
 using namespace Rcpp;
 
 // In neal.cpp, could be a private helper in Neal3 or a free function
-int Neal3::sample_from_log_probs(const std::vector<double> &log_probs) {
+int Neal3::sample_from_log_probs(int num_clusters) {
     // 1. Log-Sum-Exp trick for numerical stability
-    double max_loglik = *std::max_element(log_probs.begin(), log_probs.end());
+    double max_loglik = *std::max_element(log_likelihoods.begin(), log_likelihoods.begin() + num_clusters);
 
-    std::vector<double> weights(log_probs.size());
+    // Reuse pre-allocated weights vector
+    weights.resize(num_clusters);
     double sum_weights = 0.0;
-    for (size_t i = 0; i < log_probs.size(); ++i) {
-        weights[i] = exp(log_probs[i] - max_loglik);
+    for (int i = 0; i < num_clusters; ++i) {
+        weights[i] = exp(log_likelihoods[i] - max_loglik);
         sum_weights += weights[i];
     }
 
@@ -31,16 +32,14 @@ int Neal3::sample_from_log_probs(const std::vector<double> &log_probs) {
     std::uniform_real_distribution<double> unif(0.0, sum_weights);
     double u = unif(gen);
 
-    int sampled_idx = -1;
-    for (size_t i = 0; i < weights.size(); ++i) {
+    for (int i = 0; i < num_clusters; ++i) {
         u -= weights[i];
         if (u < 0.0) {
-            sampled_idx = i;
-            break;
+            return i;
         }
     }
     // Fallback for floating point inaccuracies
-    return (sampled_idx != -1) ? sampled_idx : weights.size() - 1;
+    return num_clusters - 1;
 }
 
 void Neal3::step_1_observation(int index) {
@@ -54,26 +53,24 @@ void Neal3::step_1_observation(int index) {
     // Set unallocated the index
     data.set_allocation(index, -1);
 
-    // for each cluster, compute the log likelihood of the point being in that
-    // cluster
-    std::vector<double> log_likelihoods(data.get_K() + 1, 0.0);
+    const int K = data.get_K();
+    const int num_clusters = K + 1;
 
-    // #pragma omp parallel for
-    for (int k = 0; k < data.get_K(); ++k)
-        log_likelihoods[k] = likelihood.point_loglikelihood_cond(index, k);
+    // Resize vector only if needed (capacity already reserved in constructor)
+    log_likelihoods.resize(num_clusters);
 
-    // Compute the log likelihood of the point being in a new cluster
-    log_likelihoods[data.get_K()] = likelihood.point_loglikelihood_cond(index, data.get_K());
-
-    // multiply by the prior probability of the cluster
-    auto priors = process.gibbs_prior_existing_clusters(index);
-    for (int k = 0; k < data.get_K(); ++k) {
-        log_likelihoods[k] += priors(k);
+    // Compute combined log(likelihood * prior) for existing clusters
+    // This combines likelihood computation with prior multiplication in one pass
+    for (int k = 0; k < K; ++k) {
+        const double log_prior = process.gibbs_prior_existing_cluster(k, index);
+        log_likelihoods[k] = likelihood.point_loglikelihood_cond(index, k) + log_prior;
     }
-    log_likelihoods[data.get_K()] += process.gibbs_prior_new_cluster_obs(index);
+
+    // Compute for new cluster
+    log_likelihoods[K] = likelihood.point_loglikelihood_cond(index, K) + process.gibbs_prior_new_cluster_obs(index);
 
     // Sample a cluster based on the probabilities
-    int sampled_cluster = sample_from_log_probs(log_likelihoods);
+    int sampled_cluster = sample_from_log_probs(num_clusters);
 
     // Set the allocation for the data point
     data.set_allocation(index, sampled_cluster);

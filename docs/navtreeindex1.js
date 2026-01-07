@@ -1,5 +1,8 @@
 var NAVTREEINDEX1 =
 {
+"classNeal3ZDNAM.html#a7863bf31cb68525f13239506b23b34d4":[1,0,12,5],
+"classNeal3ZDNAM.html#aa8c30654dbd75413dc6a41fc9a2d2ef6":[1,0,12,2],
+"classNeal3ZDNAM.html#ad93280ed4c7c0922f16f620dcd2076e2":[1,0,12,1],
 "classNeal3ZDNAM.html#ae9d4a02085162f18a969d13d134e0474":[1,0,12,3],
 "classNeal3ZDNAM.html#aeff436f6a597dacfea0b31e098481b76":[1,0,12,0],
 "classProcess.html":[1,0,16],
@@ -246,8 +249,5 @@ var NAVTREEINDEX1 =
 "functions_t.html":[1,3,0,16],
 "functions_u.html":[1,3,0,17],
 "functions_v.html":[1,3,0,18],
-"functions_vars.html":[1,3,2],
-"functions_w.html":[1,3,0,19],
-"functions_z.html":[1,3,0,20],
-"functions_~.html":[1,3,0,21]
+"functions_vars.html":[1,3,2]
 };
