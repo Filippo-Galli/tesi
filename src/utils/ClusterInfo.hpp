@@ -1,12 +1,26 @@
-#pragma once
-
 /**
  * @file ClusterInfo.hpp
- * @brief Abstract base class for managing cluster information or caches. Already integrated with Data class.
+ * @brief Abstract base class for managing cluster information and caches
+ *
+ * This file defines the ClusterInfo abstract interface for managing cluster-related
+ * information and caches that work in conjunction with the Data class.
+ *
+ * @author Filippo Galli
+ * @date 2025
  */
+
+#pragma once
 
 #include <Eigen/Dense>
 
+/**
+ * @class ClusterInfo
+ * @brief Abstract interface for cluster information management
+ *
+ * This class provides an abstract interface for managing cluster-related information,
+ * including caching mechanisms that integrate with the Data class. Derived classes
+ * implement specific caching strategies for efficient cluster computations.
+ */
 class ClusterInfo {
 
 public:

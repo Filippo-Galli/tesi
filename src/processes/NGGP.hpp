@@ -21,7 +21,7 @@
  */
 class NGGP : public Process {
 
-private:
+protected:
   /**
    * @name Private Member Variables
    * @{

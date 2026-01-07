@@ -1,27 +1,34 @@
 /**
- * @file NGGPWx.hpp
- * @brief Normalized Generalized Gamma Process with spatial weights and covariate module.
+ * @file NGGPx.hpp
+ * @brief Normalized Generalized Gamma Process with module-based covariates
  *
- * This process extends `NGGPW` by incorporating a covariate-driven similarity term
- * (via `CovariatesModule`) to obtain spatially- and covariate-aware Bayesian
- * nonparametric clustering.
+ * This file defines the NGGPx class that extends the NGGP process to incorporate
+ * module-based computations for covariates and other similarity terms.
+ *
+ * @author Filippo Galli
+ * @date 2025
  */
 
 #pragma once
 
-#include "NGGPW.hpp"
-#include "caches/Covariate_cache.hpp"
-#include "module/covariate_module_cache.hpp"
+#include "NGGP.hpp"
+#include "../utils/Module.hpp"
+#include <vector>
+#include <memory>
 
 /**
- * @class NGGPWx
- * @brief NGGP clustering process with spatial weights and covariates.
+ * @class NGGPx
+ * @brief NGGP clustering process with module-based covariates
  *
- * `NGGPWx` inherits the spatially-weighted NGGP prior from `NGGPW` and augments
- * Gibbs and split-merge moves with covariate contributions computed by
- * `CovariatesModule`.
+ * This class extends the Normalized Generalized Gamma Process (NGGP) to incorporate
+ * module-based computations for covariates and other similarity terms. It augments
+ * Gibbs and split-merge moves with module contributions computed through the Module interface.
  */
-class NGGPWxCache : public NGGPW, protected CovariatesModuleCache {
+
+class NGGPx : public NGGP {
+
+protected:
+    std::vector<std::shared_ptr<Module>> modules;
 
 public:
     /**
@@ -31,9 +38,12 @@ public:
      * @param cov Covariates container (e.g., adjacency matrix and covariate vector).
      * @param U_sam Sampler for the latent NGGP auxiliary variable $U$.
      */
-    NGGPWxCache(Data &d, Params &p, Covariates &cov, U_sampler &U_sam, Covariate_cache &cov_cache)
-        : NGGPW(d, p, cov, U_sam),
-          CovariatesModuleCache(cov, d, cov_cache, &this->old_allocations_view(), &this->old_cluster_members_view()) {}
+    NGGPx(Data &d, Params &p, U_sampler &U_sam, const std::vector<std::shared_ptr<Module>> &mods) : NGGP(d, p, U_sam), modules(mods) {
+        for (auto &mod : modules) {
+            mod->set_old_allocations_provider(&this->old_allocations_view());
+            mod->set_old_cluster_members_provider(&this->old_cluster_members_view());
+        }
+    }
 
     /**
      * @name Gibbs Sampling Methods
@@ -149,7 +159,7 @@ public:
      *
      * @see U_sampler::update_U()
      */
-    void update_params() override { NGGPW::U_sampler_method.update_U(); };
+    void update_params() override { NGGP::U_sampler_method.update_U(); };
 
     /** @} */
 };

@@ -12,6 +12,7 @@ run_mcmc <- function(params, covariates, initial_allocations = integer(0)) {
 
     # Instantiate Data using factory function
     data <- create_Data_wClusterInfo(params, cache, initial_allocations)
+    # data <- create_Data(params, initial_allocations)
 
     # Instantiate Likelihood using factory function
     likelihood <- create_Natarajan_likelihood(data, params)
@@ -20,9 +21,13 @@ run_mcmc <- function(params, covariates, initial_allocations = integer(0)) {
     # Constructor: Params&, Data&, bool use_V, double proposal_sd, bool tuning_enabled
     u_sampler <- create_RWMH(params, data, TRUE, 2.0, TRUE)
 
-    # Instantiate Process (NGGPWx) using factory function
-    # Constructor: Data&, Params&, Covariates&, U_sampler&
-    process <- create_NGGPWxCache(data, params, covariates, u_sampler, cache)
+    # Instantiate Process (NGGPx) using modules
+    # 1. Spatial module
+    mod_spatial <- create_SpatialModule(covariates, data)
+    # 2. Covariate module (cached)
+    mod_cov <- create_CovariatesModuleCache(covariates, data, cache)
+    # Combine modules into NGGPx process
+    process <- create_NGGPx(data, params, u_sampler, list(mod_spatial, mod_cov))
 
     # Instantiate Sampler (SplitMerge_LSS_SDDS) using factory function
     # Constructor: Data&, Params&, Likelihood&, Process&, bool shuffle

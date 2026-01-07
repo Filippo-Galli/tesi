@@ -1,8 +1,29 @@
+/**
+ * @file Data_wClusterInfo.hpp
+ * @brief Extended data structure integrating cluster information caching
+ *
+ * This file defines the Data_wClusterInfo class that extends the base Data class
+ * with cluster information management through a ClusterInfo object. It provides
+ * a unified interface for managing cluster allocations with optional caching
+ * mechanisms.
+ *
+ * @author Filippo Galli
+ * @date 2025
+ */
+
 #pragma once
 
 #include "Data.hpp"
 #include "ClusterInfo.hpp"
 
+/**
+ * @class Data_wClusterInfo
+ * @brief Data container with integrated cluster information management
+ *
+ * This class extends the base Data class to include a ClusterInfo object
+ * that can provide additional cluster-related computations or caching.
+ * It maintains synchronization between data allocations and cluster information.
+ */
 class Data_wClusterInfo : public Data {
 
 protected:

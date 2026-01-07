@@ -1,4 +1,17 @@
+/**
+ * @file bindings.cpp
+ * @brief R language bindings for Bayesian nonparametric clustering models
+ *
+ * This file contains the R/C++ interface code that exposes the clustering algorithms
+ * (DP, NGGP, and their variants) to R through Rcpp. It handles object construction,
+ * method calls, and data conversion between R and C++ representations.
+ *
+ * @author Filippo Galli
+ * @date 2025
+ */
+
 #include <RcppEigen.h>
+#include "Rcpp/XPtr.h"
 #include "utils/Params.hpp"
 #include "utils/Covariates.hpp"
 #include "utils/Data.hpp"
@@ -8,11 +21,12 @@
 #include "likelihoods/Natarajan_likelihood.hpp"
 #include "utils/Process.hpp"
 #include "processes/DP.hpp"
-#include "processes/DPW.hpp"
+#include "processes/DPx.hpp"
 #include "processes/NGGP.hpp"
-#include "processes/NGGPW.hpp"
-#include "processes/NGGPWx.hpp"
-#include "processes/NGGPWxCache.hpp"
+#include "processes/NGGPx.hpp"
+#include "processes/module/spatial_module.hpp"
+#include "processes/module/covariate_module.hpp"
+#include "processes/module/covariate_module_cache.hpp"
 #include "processes/caches/Covariate_cache.hpp"
 #include "samplers/U_sampler/U_sampler.hpp"
 #include "samplers/U_sampler/RWMH.hpp"
@@ -127,57 +141,65 @@ Rcpp::XPtr<DP> create_DP(SEXP data_sexp, Rcpp::XPtr<Params> params) {
 }
 
 // [[Rcpp::export]]
-Rcpp::XPtr<DPW> create_DPW(SEXP data_sexp, Rcpp::XPtr<Params> params, Rcpp::XPtr<Covariates> covariates) {
-    Data *data = get_data_ptr(data_sexp);
-    return Rcpp::XPtr<DPW>(new DPW(*data, *params, *covariates), true);
-}
-
-// [[Rcpp::export]]
 Rcpp::XPtr<NGGP> create_NGGP(SEXP data_sexp, Rcpp::XPtr<Params> params, Rcpp::XPtr<U_sampler> u_sampler) {
     Data *data = get_data_ptr(data_sexp);
     return Rcpp::XPtr<NGGP>(new NGGP(*data, *params, *u_sampler), true);
 }
 
 // [[Rcpp::export]]
-Rcpp::XPtr<NGGPW> create_NGGPW(SEXP data_sexp, Rcpp::XPtr<Params> params, Rcpp::XPtr<Covariates> covariates,
-                               Rcpp::XPtr<U_sampler> u_sampler) {
+Rcpp::XPtr<std::shared_ptr<Module>> create_SpatialModule(Rcpp::XPtr<Covariates> covariates, SEXP data_sexp) {
     Data *data = get_data_ptr(data_sexp);
-    return Rcpp::XPtr<NGGPW>(new NGGPW(*data, *params, *covariates, *u_sampler), true);
+    auto ptr = std::make_shared<SpatialModule>(*covariates, *data);
+    return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);
 }
 
 // [[Rcpp::export]]
-Rcpp::XPtr<NGGPWx> create_NGGPWx(SEXP data_sexp, Rcpp::XPtr<Params> params, Rcpp::XPtr<Covariates> covariates,
-                                 Rcpp::XPtr<U_sampler> u_sampler) {
+Rcpp::XPtr<std::shared_ptr<Module>> create_CovariatesModule(Rcpp::XPtr<Covariates> covariates, SEXP data_sexp) {
     Data *data = get_data_ptr(data_sexp);
-    return Rcpp::XPtr<NGGPWx>(new NGGPWx(*data, *params, *covariates, *u_sampler), true);
+    auto ptr = std::make_shared<CovariatesModule>(*covariates, *data);
+    return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);
 }
 
 // [[Rcpp::export]]
-Rcpp::XPtr<NGGPWxCache> create_NGGPWxCache(SEXP data_sexp, Rcpp::XPtr<Params> params, Rcpp::XPtr<Covariates> covariates,
-                                           Rcpp::XPtr<U_sampler> u_sampler, SEXP cov_cache_sexp) {
+Rcpp::XPtr<std::shared_ptr<Module>> create_CovariatesModuleCache(Rcpp::XPtr<Covariates> covariates, SEXP data_sexp,
+                                                                 Rcpp::XPtr<Covariate_cache> cache) {
     Data *data = get_data_ptr(data_sexp);
-    // We know it's a Covariate_cache, but let's use the helper or just cast if we are sure.
-    // The helper returns ClusterInfo*, we need Covariate_cache*.
-    // So we should probably just use XPtr<Covariate_cache> here if we are sure.
-    // But wait, if the user passed a generic ClusterInfo (if possible), this would fail.
-    // But NGGPWxCache REQUIRES Covariate_cache.
-    // So we should keep XPtr<Covariate_cache> in the signature?
-    // YES. Because NGGPWxCache constructor takes Covariate_cache&.
-    // But wait, create_Covariate_cache returns XPtr<Covariate_cache>.
-    // So passing it here works fine.
-    // The only issue is if we changed create_Covariate_cache to return ClusterInfo.
-    // We didn't.
-    // So we only need to change data argument.
+    auto ptr = std::make_shared<CovariatesModuleCache>(*covariates, *data, *cache);
+    return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);
+}
 
-    // Wait, I changed create_Data_wClusterInfo to take SEXP.
-    // But create_NGGPWxCache takes Covariate_cache.
-    // So I only need to change data argument here.
+// [[Rcpp::export]]
+Rcpp::XPtr<DPx> create_DPx(SEXP data_sexp, Rcpp::XPtr<Params> params, Rcpp::List modules_list) {
 
-    // BUT, I should check if I need to change cov_cache argument too?
-    // No, create_Covariate_cache returns Covariate_cache.
+    Data *data = get_data_ptr(data_sexp);
 
-    return Rcpp::XPtr<NGGPWxCache>(
-        new NGGPWxCache(*data, *params, *covariates, *u_sampler, *Rcpp::XPtr<Covariate_cache>(cov_cache_sexp)), true);
+    std::vector<std::shared_ptr<Module>> modules;
+    modules.reserve(modules_list.size());
+
+    for (int i = 0; i < modules_list.size(); ++i) {
+        // Cast the SEXP to an XPtr<shared_ptr<Module>>
+        Rcpp::XPtr<std::shared_ptr<Module>> mod_ptr_wrapper(modules_list[i]);
+        modules.push_back(*mod_ptr_wrapper); // Copy the shared_ptr, incrementing ref count
+    }
+
+    return Rcpp::XPtr<DPx>(new DPx(*data, *params, modules), true);
+}
+
+// [[Rcpp::export]]
+Rcpp::XPtr<NGGPx> create_NGGPx(SEXP data_sexp, Rcpp::XPtr<Params> params, Rcpp::XPtr<U_sampler> u_sampler,
+                               Rcpp::List modules_list) {
+    Data *data = get_data_ptr(data_sexp);
+
+    std::vector<std::shared_ptr<Module>> modules;
+    modules.reserve(modules_list.size());
+
+    for (int i = 0; i < modules_list.size(); ++i) {
+        // Cast the SEXP to an XPtr<shared_ptr<Module>>
+        Rcpp::XPtr<std::shared_ptr<Module>> mod_ptr_wrapper(modules_list[i]);
+        modules.push_back(*mod_ptr_wrapper); // Copy the shared_ptr, incrementing ref count
+    }
+
+    return Rcpp::XPtr<NGGPx>(new NGGPx(*data, *params, *u_sampler, modules), true);
 }
 
 // Factory functions for samplers
