@@ -41,14 +41,14 @@ public:
      * @param cluster Target cluster index (K for new cluster, -1 for unallocated)
      * @throws std::out_of_range if index or cluster is invalid
      */
-    void set_allocation(int index, int cluster);
+    void set_allocation(int index, int cluster) override;
 
     /**
      * @brief Sets all cluster allocations at once
      * @param new_allocations Vector of cluster assignments for all points
      * @throws std::invalid_argument if vector size doesn't match number of points
      */
-    void set_allocations(const Eigen::VectorXi &new_allocations);
+    void set_allocations(const Eigen::VectorXi &new_allocations) override;
 
     /**
      * @brief Restores allocations, cluster memberships, and cluster count from a saved state

@@ -10,5 +10,6 @@ var searchData=
   ['ages_7',['ages',['../structCovariates.html#aaeca07dc2802fb2d864649cf3aee39ed',1,'Covariates']]],
   ['allocations_8',['allocations',['../classData.html#aa3216ace6edfe6d6a3f522db636d4d49',1,'Data']]],
   ['alpha_9',['alpha',['../structParams.html#a881058e4167b8bbb7715e23975b0d893',1,'Params']]],
-  ['architecture_10',['🏗️ Architecture',['../index.html#autotoc_md6',1,'']]]
+  ['always_5finline_10',['always_inline',['../classContinuosCovariatesModule.html#a5c491682596492f00aa7d4883674659b',1,'ContinuosCovariatesModule::always_inline'],['../classContinuosCovariatesModuleCache.html#ac5dd95a95b6796f0936166fc53c2843a',1,'ContinuosCovariatesModuleCache::always_inline']]],
+  ['architecture_11',['🏗️ Architecture',['../index.html#autotoc_md6',1,'']]]
 ];

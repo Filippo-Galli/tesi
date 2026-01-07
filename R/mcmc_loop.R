@@ -25,7 +25,7 @@ run_mcmc <- function(params, covariates, initial_allocations = integer(0)) {
     # 1. Spatial module
     mod_spatial <- create_SpatialModule(covariates, data)
     # 2. Covariate module (cached)
-    mod_cov <- create_CovariatesModuleCache(covariates, data, cache)
+    mod_cov <- create_ContinuosCovariatesModuleCache(covariates, data, cache)
     # Combine modules into NGGPx process
     process <- create_NGGPx(data, params, u_sampler, list(mod_spatial, mod_cov))
 

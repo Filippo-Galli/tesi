@@ -1,9 +1,9 @@
 var annotated_dup =
 [
     [ "ClusterInfo", "classClusterInfo.html", "classClusterInfo" ],
+    [ "ContinuosCovariatesModule", "classContinuosCovariatesModule.html", "classContinuosCovariatesModule" ],
+    [ "ContinuosCovariatesModuleCache", "classContinuosCovariatesModuleCache.html", "classContinuosCovariatesModuleCache" ],
     [ "Covariates", "structCovariates.html", "structCovariates" ],
-    [ "CovariatesModule", "classCovariatesModule.html", "classCovariatesModule" ],
-    [ "CovariatesModuleCache", "classCovariatesModuleCache.html", "classCovariatesModuleCache" ],
     [ "Data", "classData.html", "classData" ],
     [ "Data_wClusterInfo", "classData__wClusterInfo.html", "classData__wClusterInfo" ],
     [ "DP", "classDP.html", "classDP" ],

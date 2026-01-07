@@ -12,9 +12,9 @@ var searchData=
   ['sampling_5fu_9',['sampling_U',['../classMALA.html#a1455a59881092cacc41465bec09cc1c6',1,'MALA::sampling_U()'],['../classRWMH.html#af350f5e44ac4f74c84d41f87f52b1aa5',1,'RWMH::sampling_U()']]],
   ['sampling_5fv_10',['sampling_V',['../classMALA.html#a010edce40e77a91e229e3a138d0dce10',1,'MALA::sampling_V()'],['../classRWMH.html#a0067c5b24f41c79920c43b7f3ae66c76',1,'RWMH::sampling_V()']]],
   ['sequential_5fallocation_11',['sequential_allocation',['../classSplitMerge__LSS.html#ac5252791b0a9a1a9b174421205a33c7d',1,'SplitMerge_LSS::sequential_allocation()'],['../classSplitMerge__LSS__SDDS.html#a62485d23e3d3c5266fa70b7c055e673c',1,'SplitMerge_LSS_SDDS::sequential_allocation()'],['../classSplitMerge__SAMS.html#a1cf7698ea219623995597a45932db97c',1,'SplitMerge_SAMS::sequential_allocation()']]],
-  ['set_5fallocation_12',['set_allocation',['../classClusterInfo.html#ad5b92c89e4bd6f7444b659733e9f2737',1,'ClusterInfo::set_allocation()'],['../classData.html#a010f0f017f255c52592cf2794abb53ab',1,'Data::set_allocation()'],['../classData__wClusterInfo.html#a604d68ae1c027cb34b6abdb929d1de4b',1,'Data_wClusterInfo::set_allocation()']]],
+  ['set_5fallocation_12',['set_allocation',['../classClusterInfo.html#ad5b92c89e4bd6f7444b659733e9f2737',1,'ClusterInfo::set_allocation()'],['../classData.html#a010f0f017f255c52592cf2794abb53ab',1,'Data::set_allocation()'],['../classData__wClusterInfo.html#a60da6c129abfe6f99170847c1e79e12b',1,'Data_wClusterInfo::set_allocation()']]],
   ['set_5fallocation_5fwo_5fcompaction_13',['set_allocation_wo_compaction',['../classData.html#a515215b9e507e7d4aa8bd155759fb247',1,'Data']]],
-  ['set_5fallocations_14',['set_allocations',['../classData.html#ad766a335e9d89cd7b6de8c2ab9a8d165',1,'Data::set_allocations()'],['../classData__wClusterInfo.html#af2bf0fd396b34aa457aff8a743d5aa6c',1,'Data_wClusterInfo::set_allocations()']]],
+  ['set_5fallocations_14',['set_allocations',['../classData.html#ad766a335e9d89cd7b6de8c2ab9a8d165',1,'Data::set_allocations()'],['../classData__wClusterInfo.html#afb1a85bf93f231d77f456170b4c0dbfc',1,'Data_wClusterInfo::set_allocations()']]],
   ['set_5fidx_5fi_15',['set_idx_i',['../classProcess.html#a7ea0be22abcf92f98620c8b81690a76f',1,'Process']]],
   ['set_5fidx_5fj_16',['set_idx_j',['../classProcess.html#a9c638d305db4abae7c8fedca34e71794',1,'Process']]],
   ['set_5fold_5fallocations_17',['set_old_allocations',['../classProcess.html#a6174151176ec3d063ac441e5a80d0c44',1,'Process']]],
@@ -50,6 +50,6 @@ var searchData=
   ['step_5f1_5fobservation_47',['step_1_observation',['../classNeal3.html#ac20cf03f5de473bdc3cf1c7e59137f53',1,'Neal3::step_1_observation()'],['../classNeal3ZDNAM.html#a7863bf31cb68525f13239506b23b34d4',1,'Neal3ZDNAM::step_1_observation()']]],
   ['stochastic_20processes_20tt_20process_20tt_48',['Stochastic Processes (&lt;tt&gt;Process&lt;/tt&gt;)',['../index.html#autotoc_md9',1,'']]],
   ['structure_49',['Directory Structure',['../index.html#autotoc_md1',1,'']]],
-  ['sum_50',['sum',['../structCovariatesModule_1_1ClusterStats.html#a1f84dbf123e825e4c3e11812a4b66ef2',1,'CovariatesModule::ClusterStats']]],
-  ['sumsq_51',['sumsq',['../structCovariatesModule_1_1ClusterStats.html#aaa31a701142dce245b7a8edb8e6ad184',1,'CovariatesModule::ClusterStats']]]
+  ['sum_50',['sum',['../structContinuosCovariatesModule_1_1ClusterStats.html#a83daac9009866c81f41cad3cb09c4740',1,'ContinuosCovariatesModule::ClusterStats']]],
+  ['sumsq_51',['sumsq',['../structContinuosCovariatesModule_1_1ClusterStats.html#a021173fc446075ae4d207ace626b3d34',1,'ContinuosCovariatesModule::ClusterStats']]]
 ];

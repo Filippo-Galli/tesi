@@ -128,12 +128,12 @@ Inheritance diagram for Data_wClusterInfo:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a44bff3ceb1b9100334be406c258200f8" id="r_a44bff3ceb1b9100334be406c258200f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44bff3ceb1b9100334be406c258200f8">Data_wClusterInfo</a> (const <a class="el" href="structParams.html">Params</a> &amp;p, <a class="el" href="classClusterInfo.html">ClusterInfo</a> &amp;ci, const Eigen::VectorXi &amp;initial_allocations=Eigen::VectorXi())</td></tr>
 <tr class="separator:a44bff3ceb1b9100334be406c258200f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a604d68ae1c027cb34b6abdb929d1de4b" id="r_a604d68ae1c027cb34b6abdb929d1de4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a604d68ae1c027cb34b6abdb929d1de4b">set_allocation</a> (int index, int cluster)</td></tr>
-<tr class="memdesc:a604d68ae1c027cb34b6abdb929d1de4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns a point to a cluster.  <br /></td></tr>
-<tr class="separator:a604d68ae1c027cb34b6abdb929d1de4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2bf0fd396b34aa457aff8a743d5aa6c" id="r_af2bf0fd396b34aa457aff8a743d5aa6c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af2bf0fd396b34aa457aff8a743d5aa6c">set_allocations</a> (const Eigen::VectorXi &amp;new_allocations)</td></tr>
-<tr class="memdesc:af2bf0fd396b34aa457aff8a743d5aa6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets all cluster allocations at once.  <br /></td></tr>
-<tr class="separator:af2bf0fd396b34aa457aff8a743d5aa6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60da6c129abfe6f99170847c1e79e12b" id="r_a60da6c129abfe6f99170847c1e79e12b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60da6c129abfe6f99170847c1e79e12b">set_allocation</a> (int index, int cluster) override</td></tr>
+<tr class="memdesc:a60da6c129abfe6f99170847c1e79e12b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns a point to a cluster.  <br /></td></tr>
+<tr class="separator:a60da6c129abfe6f99170847c1e79e12b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb1a85bf93f231d77f456170b4c0dbfc" id="r_afb1a85bf93f231d77f456170b4c0dbfc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb1a85bf93f231d77f456170b4c0dbfc">set_allocations</a> (const Eigen::VectorXi &amp;new_allocations) override</td></tr>
+<tr class="memdesc:afb1a85bf93f231d77f456170b4c0dbfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets all cluster allocations at once.  <br /></td></tr>
+<tr class="separator:afb1a85bf93f231d77f456170b4c0dbfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6cd1b029bfa3e03b749ddeff95cb547" id="r_ac6cd1b029bfa3e03b749ddeff95cb547"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6cd1b029bfa3e03b749ddeff95cb547">restore_state</a> (Eigen::VectorXi &amp;old_allocations, std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; &amp;old_cluster_members, int old_K) override</td></tr>
 <tr class="memdesc:ac6cd1b029bfa3e03b749ddeff95cb547"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores allocations, cluster memberships, and cluster count from a saved state.  <br /></td></tr>
 <tr class="separator:ac6cd1b029bfa3e03b749ddeff95cb547"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -341,8 +341,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a604d68ae1c027cb34b6abdb929d1de4b" name="a604d68ae1c027cb34b6abdb929d1de4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a604d68ae1c027cb34b6abdb929d1de4b">&#9670;&#160;</a></span>set_allocation()</h2>
+<a id="a60da6c129abfe6f99170847c1e79e12b" name="a60da6c129abfe6f99170847c1e79e12b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60da6c129abfe6f99170847c1e79e12b">&#9670;&#160;</a></span>set_allocation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -363,7 +363,7 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel virtual">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -387,8 +387,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="af2bf0fd396b34aa457aff8a743d5aa6c" name="af2bf0fd396b34aa457aff8a743d5aa6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2bf0fd396b34aa457aff8a743d5aa6c">&#9670;&#160;</a></span>set_allocations()</h2>
+<a id="afb1a85bf93f231d77f456170b4c0dbfc" name="afb1a85bf93f231d77f456170b4c0dbfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb1a85bf93f231d77f456170b4c0dbfc">&#9670;&#160;</a></span>set_allocations()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -405,7 +405,7 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel virtual">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

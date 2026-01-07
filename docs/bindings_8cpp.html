@@ -124,8 +124,8 @@ $(function(){initNavTree('bindings_8cpp.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="NGGP_8hpp_source.html">processes/NGGP.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="NGGPx_8hpp_source.html">processes/NGGPx.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="spatial__module_8hpp_source.html">processes/module/spatial_module.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="covariate__module_8hpp_source.html">processes/module/covariate_module.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="covariate__module__cache_8hpp_source.html">processes/module/covariate_module_cache.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="continuos__covariate__module_8hpp_source.html">processes/module/continuos_covariate_module.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="continuos__covariate__module__cache_8hpp_source.html">processes/module/continuos_covariate_module_cache.hpp</a>&quot;</code><br />
 <code>#include &quot;processes/caches/Covariate_cache.hpp&quot;</code><br />
 <code>#include &quot;<a class="el" href="U__sampler_8hpp_source.html">samplers/U_sampler/U_sampler.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RWMH_8hpp_source.html">samplers/U_sampler/RWMH.hpp</a>&quot;</code><br />
@@ -166,10 +166,10 @@ Functions</h2></td></tr>
 <tr class="separator:a6be22cfc427559d5e610ac93b8f5e403"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a159769633adec01ed69fd9662e9059aa" id="r_a159769633adec01ed69fd9662e9059aa"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a159769633adec01ed69fd9662e9059aa">create_SpatialModule</a> (Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt; covariates, SEXP data_sexp)</td></tr>
 <tr class="separator:a159769633adec01ed69fd9662e9059aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d9af7551d0dc991cb0bca9382cf5160" id="r_a0d9af7551d0dc991cb0bca9382cf5160"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d9af7551d0dc991cb0bca9382cf5160">create_CovariatesModule</a> (Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt; covariates, SEXP data_sexp)</td></tr>
-<tr class="separator:a0d9af7551d0dc991cb0bca9382cf5160"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab91d7b4d066efa869069dff63988f775" id="r_ab91d7b4d066efa869069dff63988f775"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab91d7b4d066efa869069dff63988f775">create_CovariatesModuleCache</a> (Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt; covariates, SEXP data_sexp, Rcpp::XPtr&lt; Covariate_cache &gt; cache)</td></tr>
-<tr class="separator:ab91d7b4d066efa869069dff63988f775"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af79c7ba42043a5e5e99ef25add4125e1" id="r_af79c7ba42043a5e5e99ef25add4125e1"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af79c7ba42043a5e5e99ef25add4125e1">create_ContinuosCovariatesModule</a> (Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt; covariates, SEXP data_sexp)</td></tr>
+<tr class="separator:af79c7ba42043a5e5e99ef25add4125e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad738244fb84f310533110bb184830679" id="r_ad738244fb84f310533110bb184830679"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad738244fb84f310533110bb184830679">create_ContinuosCovariatesModuleCache</a> (Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt; covariates, SEXP data_sexp, Rcpp::XPtr&lt; Covariate_cache &gt; cache)</td></tr>
+<tr class="separator:ad738244fb84f310533110bb184830679"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd3247c4e5ec187258bbefe7201e9930" id="r_abd3247c4e5ec187258bbefe7201e9930"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classDPx.html">DPx</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd3247c4e5ec187258bbefe7201e9930">create_DPx</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::List modules_list)</td></tr>
 <tr class="separator:abd3247c4e5ec187258bbefe7201e9930"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a425f351f1519dc2e471ce6127c8bc4e9" id="r_a425f351f1519dc2e471ce6127c8bc4e9"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classNGGPx.html">NGGPx</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a425f351f1519dc2e471ce6127c8bc4e9">create_NGGPx</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classU__sampler.html">U_sampler</a> &gt; u_sampler, Rcpp::List modules_list)</td></tr>
@@ -280,6 +280,53 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="af79c7ba42043a5e5e99ef25add4125e1" name="af79c7ba42043a5e5e99ef25add4125e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af79c7ba42043a5e5e99ef25add4125e1">&#9670;&#160;</a></span>create_ContinuosCovariatesModule()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt; create_ContinuosCovariatesModule </td>
+          <td>(</td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>covariates</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad738244fb84f310533110bb184830679" name="ad738244fb84f310533110bb184830679"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad738244fb84f310533110bb184830679">&#9670;&#160;</a></span>create_ContinuosCovariatesModuleCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt; create_ContinuosCovariatesModuleCache </td>
+          <td>(</td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>covariates</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Rcpp::XPtr&lt; Covariate_cache &gt;</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3522e6505de0a778b35af888e0a01cb0" name="a3522e6505de0a778b35af888e0a01cb0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3522e6505de0a778b35af888e0a01cb0">&#9670;&#160;</a></span>create_Covariate_cache()</h2>
 
@@ -351,53 +398,6 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>S0</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0d9af7551d0dc991cb0bca9382cf5160" name="a0d9af7551d0dc991cb0bca9382cf5160"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d9af7551d0dc991cb0bca9382cf5160">&#9670;&#160;</a></span>create_CovariatesModule()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt; create_CovariatesModule </td>
-          <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>covariates</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab91d7b4d066efa869069dff63988f775" name="ab91d7b4d066efa869069dff63988f775"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab91d7b4d066efa869069dff63988f775">&#9670;&#160;</a></span>create_CovariatesModuleCache()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt; create_CovariatesModuleCache </td>
-          <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="structCovariates.html">Covariates</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>covariates</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Rcpp::XPtr&lt; Covariate_cache &gt;</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

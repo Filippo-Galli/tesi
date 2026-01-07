@@ -1,5 +1,5 @@
 /**
- * @file covariate_module.hpp
+ * @file continuos_covariate_module_cache.hpp
  * @brief Covariate-related computations for clustering processes.
  */
 
@@ -7,13 +7,13 @@
 
 #include "../../utils/Data.hpp"
 #include "../../utils/Covariates.hpp"
+#include "../caches/Covariate_cache.hpp"
 #include "../../utils/Module.hpp"
-#include "Eigen/Dense"
 #include <cmath>
 #include <vector>
 
 /**
- * @class CovariatesModule
+ * @class ContinuosCovariatesModuleCache
  * @brief Module for covariate-related computations within clustering processes.
  *
  * This class implements the product partition model with regression on covariates
@@ -24,7 +24,7 @@
  * Reference: Müller, P., Quintana, F. (2011)
  * "A Product Partition Model With Regression on Covariates"
  */
-class CovariatesModule : public Module {
+class ContinuosCovariatesModuleCache : public Module {
 protected:
     /**
      * @name Module References
@@ -37,6 +37,8 @@ protected:
     /** @brief Reference to data object with cluster assignments */
     const Data &data;
 
+    const Covariate_cache &covariate_cache;
+
     /** @} */
 
     /**
@@ -45,17 +47,9 @@ protected:
      */
 
     /**
-     * @brief Sufficient statistics for covariate likelihood computations.
-     */
-    struct ClusterStats {
-        int n = 0;
-        double sum = 0.0;
-        double sumsq = 0.0;
-    };
-
-    /**
      * @brief Compute cluster statistics for covariate similarity
      * @param obs Vector of observation indices in the cluster
+     * @return Sufficient statistics (n, sum, sum of squares)
      */
     ClusterStats compute_cluster_statistics(const Eigen::Ref<const Eigen::VectorXi> obs) const;
 
@@ -112,6 +106,46 @@ protected:
     double compute_log_marginal_likelihood_NNIG(const ClusterStats &stats) const __attribute__((hot));
 
     /**
+     * @brief Compute log predictive density for a new observation (Normal-Normal model)
+     *
+     * Computes the probability of observing the value at `obs_idx` given the
+     * current cluster statistics, assuming the Normal-Normal conjugate prior (fixed variance).
+     *
+     * @param stats Sufficient statistics of the cluster (n, sum, sum of squares)
+     * @param obs_idx Index of the observation to predict
+     * @return Log predictive density log p(x_new | x_cluster)
+     *
+     * @details The predictive distribution for the NN model is a Normal distribution:
+     * x_new | x_cluster ~ N(μ_n, σ²_pred)
+     *
+     * Where:
+     * - Posterior mean: μ_n = (m + nB x̄) / (1 + nB)
+     * - Predictive variance: σ²_pred = v * (1 + (n+1)B) / (1 + nB)
+     */
+    double compute_predictive_NN(const ClusterStats &stats, int obs_idx) const;
+
+    /**
+     * @brief Compute log predictive density for a new observation (NNIG model)
+     *
+     * Computes the probability of observing the value at `obs_idx` given the
+     * current cluster statistics, assuming the Normal-Normal-Inverse-Gamma conjugate prior.
+     *
+     * @param stats Sufficient statistics of the cluster (n, sum, sum of squares)
+     * @param obs_idx Index of the observation to predict
+     * @return Log predictive density log p(x_new | x_cluster)
+     *
+     * @details The predictive distribution for the NNIG model is a non-standardized
+     * Student-t distribution:
+     * x_new | x_cluster ~ t(df=2ν_n, loc=μ_n, scale=S_n * ratio)
+     *
+     * Where:
+     * - Degrees of freedom: 2ν_n = 2ν + n
+     * - Location: μ_n = (m + nB x̄) / (1 + nB)
+     * - Scale is derived from the posterior scale S_n and the variance inflation factor.
+     */
+    double compute_predictive_NNIG(const ClusterStats &stats, int obs_idx) const;
+
+    /**
      * @brief Compute log marginal likelihood based on model type
      *
      * Chooses between NN and NNIG models based on covariates_data.fixed_v.
@@ -119,11 +153,28 @@ protected:
      * @param stats Sufficient statistics for the cluster
      * @return Log marginal likelihood value
      */
-    inline double compute_log_marginal_likelihood(const ClusterStats &stats) const __attribute__((hot)) {
+    inline double compute_log_marginal_likelihood(const ClusterStats &stats) const __attribute__((hot, always_inline)) {
         if (covariates_data.fixed_v) {
             return compute_log_marginal_likelihood_NN(stats);
         } else {
             return compute_log_marginal_likelihood_NNIG(stats);
+        }
+    }
+
+    /**
+     * @brief Compute log marginal likelihood based on model type
+     *
+     * Chooses between NN and NNIG models based on covariates_data.fixed_v.
+     *
+     * @param stats Sufficient statistics for the cluster
+     * @return Log marginal likelihood value
+     */
+    inline double compute_log_predictive_likelihood(const ClusterStats &stats, int obs_idx) const
+        __attribute__((hot, always_inline)) {
+        if (covariates_data.fixed_v) {
+            return compute_predictive_NN(stats, obs_idx);
+        } else {
+            return compute_predictive_NNIG(stats, obs_idx);
         }
     }
 
@@ -155,13 +206,17 @@ public:
      *
      * @param covariates_ Reference to Covariates object with age data and priors
      * @param data_ Reference to Data object with cluster assignments
+     * @param covariate_cache_ Reference to Covariate_cache for precomputed stats
      * @param old_alloc_provider function to access old allocations
      * @param old_cluster_members_provider_ function to access old cluster members
      */
-    CovariatesModule(const Covariates &covariates_, const Data &data_,
-                     const Eigen::VectorXi *old_alloc_provider = nullptr,
-                     const std::unordered_map<int, std::vector<int>> *old_cluster_members_provider_ = nullptr)
-        : covariates_data(covariates_), data(data_), Module(old_alloc_provider, old_cluster_members_provider_),
+    ContinuosCovariatesModuleCache(const Covariates &covariates_, const Data &data_,
+                                   const Covariate_cache &covariate_cache_,
+                                   const Eigen::VectorXi *old_alloc_provider = {},
+                                   const std::unordered_map<int, std::vector<int>> *old_cluster_members_provider_ = {})
+        : covariates_data(covariates_), data(data_), covariate_cache(covariate_cache_),
+          Module(old_alloc_provider, old_cluster_members_provider_),
+          // Initialize constants here in the list
           Bv(covariates_.B * covariates_.v), log_B(std::log(covariates_.B)), log_v(std::log(covariates_.v)),
           const_term(-0.5 * std::log(2.0 * M_PI)), lgamma_nu(std::lgamma(covariates_.nu)),
           nu_logS0(covariates_.nu * std::log(covariates_.S0)) {
@@ -205,7 +260,7 @@ public:
      * This value is added to the clustering prior in split-merge moves
      * to encourage clusters with homogeneous covariate values.
      */
-    double compute_similarity_cls(int cls_idx, bool old_allo = false) const override __attribute__((hot));
+    double compute_similarity_cls(int cls_idx, bool old_allo = false) const;
 
     /**
      * @brief Compute covariate similarity for a single observation in a cluster
@@ -220,7 +275,7 @@ public:
      * @details Used in Gibbs sampling to compute the probability of assigning
      * an observation to a cluster based on covariate similarity.
      */
-    double compute_similarity_obs(int obs_idx, int cls_idx) const override __attribute__((hot));
+    double compute_similarity_obs(int obs_idx, int cls_idx) const __attribute__((hot));
 
     /**
      * @brief Compute covariate similarity contributions for all existing clusters
@@ -231,7 +286,7 @@ public:
      * @param obs_idx Index of the observation
      * @return Vector of log predictive density contributions for each cluster
      */
-    Eigen::VectorXd compute_similarity_obs(int obs_idx) const override __attribute__((hot));
+    Eigen::VectorXd compute_similarity_obs(int obs_idx) const;
 
     /** @} */
 };

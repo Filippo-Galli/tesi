@@ -2,10 +2,10 @@ var bindings_8cpp =
 [
     [ "cluster_info_recompute", "bindings_8cpp.html#a1a307ada36a4d6c51f3f09138486dc59", null ],
     [ "cluster_info_set_allocation", "bindings_8cpp.html#a5178ad012d50d318175888b238dfef07", null ],
+    [ "create_ContinuosCovariatesModule", "bindings_8cpp.html#af79c7ba42043a5e5e99ef25add4125e1", null ],
+    [ "create_ContinuosCovariatesModuleCache", "bindings_8cpp.html#ad738244fb84f310533110bb184830679", null ],
     [ "create_Covariate_cache", "bindings_8cpp.html#a3522e6505de0a778b35af888e0a01cb0", null ],
     [ "create_Covariates", "bindings_8cpp.html#a8f0368d6a864aea5aa409af5fa33f573", null ],
-    [ "create_CovariatesModule", "bindings_8cpp.html#a0d9af7551d0dc991cb0bca9382cf5160", null ],
-    [ "create_CovariatesModuleCache", "bindings_8cpp.html#ab91d7b4d066efa869069dff63988f775", null ],
     [ "create_Data", "bindings_8cpp.html#ac0ddd038caef50f4affae93c691afb3b", null ],
     [ "create_Data_wClusterInfo", "bindings_8cpp.html#a2956832fd6a2e4a6903fcd1100c63c81", null ],
     [ "create_DP", "bindings_8cpp.html#a596ab200c34dff954c7d202a8e41544b", null ],

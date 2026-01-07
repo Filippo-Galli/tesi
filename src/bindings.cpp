@@ -25,8 +25,8 @@
 #include "processes/NGGP.hpp"
 #include "processes/NGGPx.hpp"
 #include "processes/module/spatial_module.hpp"
-#include "processes/module/covariate_module.hpp"
-#include "processes/module/covariate_module_cache.hpp"
+#include "processes/module/continuos_covariate_module.hpp"
+#include "processes/module/continuos_covariate_module_cache.hpp"
 #include "processes/caches/Covariate_cache.hpp"
 #include "samplers/U_sampler/U_sampler.hpp"
 #include "samplers/U_sampler/RWMH.hpp"
@@ -154,17 +154,17 @@ Rcpp::XPtr<std::shared_ptr<Module>> create_SpatialModule(Rcpp::XPtr<Covariates> 
 }
 
 // [[Rcpp::export]]
-Rcpp::XPtr<std::shared_ptr<Module>> create_CovariatesModule(Rcpp::XPtr<Covariates> covariates, SEXP data_sexp) {
+Rcpp::XPtr<std::shared_ptr<Module>> create_ContinuosCovariatesModule(Rcpp::XPtr<Covariates> covariates, SEXP data_sexp) {
     Data *data = get_data_ptr(data_sexp);
-    auto ptr = std::make_shared<CovariatesModule>(*covariates, *data);
+    auto ptr = std::make_shared<ContinuosCovariatesModule>(*covariates, *data);
     return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);
 }
 
 // [[Rcpp::export]]
-Rcpp::XPtr<std::shared_ptr<Module>> create_CovariatesModuleCache(Rcpp::XPtr<Covariates> covariates, SEXP data_sexp,
+Rcpp::XPtr<std::shared_ptr<Module>> create_ContinuosCovariatesModuleCache(Rcpp::XPtr<Covariates> covariates, SEXP data_sexp,
                                                                  Rcpp::XPtr<Covariate_cache> cache) {
     Data *data = get_data_ptr(data_sexp);
-    auto ptr = std::make_shared<CovariatesModuleCache>(*covariates, *data, *cache);
+    auto ptr = std::make_shared<ContinuosCovariatesModuleCache>(*covariates, *data, *cache);
     return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);
 }
 

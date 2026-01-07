@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Docs: Class Members</title>
+<title>Docs: ContinuosCovariatesModule::ClusterStats Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -75,7 +75,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('functions.html',''); initResizable(true); });
+$(function(){initNavTree('structContinuosCovariatesModule_1_1ClusterStats.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -100,21 +100,75 @@ $(function(){initNavTree('functions.html',''); initResizable(true); });
 </div>
 </div>
 
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="structContinuosCovariatesModule_1_1ClusterStats-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">ContinuosCovariatesModule::ClusterStats Struct Reference</div></div>
+</div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
-<h3><a id="index_a" name="index_a"></a>- a -</h3><ul>
-<li>a&#160;:&#160;<a class="el" href="structParams.html#a0e5a7d9968d5b4886b7ee5654d92b3cb">Params</a></li>
-<li>a_over_sigma&#160;:&#160;<a class="el" href="classU__sampler.html#ab3d8d5e44617d8a3e14ad8b74db39163">U_sampler</a></li>
-<li>accept&#160;:&#160;<a class="el" href="classMALA.html#af8214abceb906c0b08cccb054fe2ede3">MALA</a>, <a class="el" href="classRWMH.html#ae3d5418ffa4992d72e951473a5fc9021">RWMH</a></li>
-<li>accepted_merge&#160;:&#160;<a class="el" href="classSplitMerge.html#a46013383a90e71068caa7e869e2b273c">SplitMerge</a>, <a class="el" href="classSplitMerge__LSS.html#a686d52f723a414c87007d64e647df358">SplitMerge_LSS</a>, <a class="el" href="classSplitMerge__LSS__SDDS.html#a39e947266ef985a35f4ef446def9e42e">SplitMerge_LSS_SDDS</a>, <a class="el" href="classSplitMerge__SAMS.html#a28b3d26014b638f3db3996601458a57f">SplitMerge_SAMS</a></li>
-<li>accepted_shuffle&#160;:&#160;<a class="el" href="classSplitMerge.html#a460c78dd0d4ea04ae3c469938411d6e2">SplitMerge</a>, <a class="el" href="classSplitMerge__LSS.html#a8697a2a479ff23e3ea6ac59758a26396">SplitMerge_LSS</a>, <a class="el" href="classSplitMerge__LSS__SDDS.html#ac50b9b7fcb943ede91cf41db39a17ed1">SplitMerge_LSS_SDDS</a>, <a class="el" href="classSplitMerge__SAMS.html#a6dc7efc5585029e7a37411cf4f17a608">SplitMerge_SAMS</a></li>
-<li>accepted_split&#160;:&#160;<a class="el" href="classSplitMerge.html#a35e44c78542697fe09f69b95a1e74e38">SplitMerge</a>, <a class="el" href="classSplitMerge__LSS.html#a334e39e5d45c07d7ab1206ea42400af5">SplitMerge_LSS</a>, <a class="el" href="classSplitMerge__LSS__SDDS.html#a5592ec0b6838aa6c33c70a9943df5af7">SplitMerge_LSS_SDDS</a>, <a class="el" href="classSplitMerge__SAMS.html#af44a46bc10d47c3b9fc341a68cd9968b">SplitMerge_SAMS</a></li>
-<li>accepted_U&#160;:&#160;<a class="el" href="classU__sampler.html#acca05886c1b4138a4f42fa1800a4d31a">U_sampler</a></li>
-<li>ages&#160;:&#160;<a class="el" href="structCovariates.html#aaeca07dc2802fb2d864649cf3aee39ed">Covariates</a></li>
-<li>allocations&#160;:&#160;<a class="el" href="classData.html#aa3216ace6edfe6d6a3f522db636d4d49">Data</a></li>
-<li>alpha&#160;:&#160;<a class="el" href="structParams.html#a881058e4167b8bbb7715e23975b0d893">Params</a></li>
-<li>always_inline&#160;:&#160;<a class="el" href="classContinuosCovariatesModule.html#a5c491682596492f00aa7d4883674659b">ContinuosCovariatesModule</a>, <a class="el" href="classContinuosCovariatesModuleCache.html#ac5dd95a95b6796f0936166fc53c2843a">ContinuosCovariatesModuleCache</a></li>
+<p>Sufficient statistics for covariate likelihood computations.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="continuos__covariate__module_8hpp_source.html">continuos_covariate_module.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a0bd08fca37336add6c1a5f444313139d" id="r_a0bd08fca37336add6c1a5f444313139d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0bd08fca37336add6c1a5f444313139d">n</a> = 0</td></tr>
+<tr class="separator:a0bd08fca37336add6c1a5f444313139d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83daac9009866c81f41cad3cb09c4740" id="r_a83daac9009866c81f41cad3cb09c4740"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83daac9009866c81f41cad3cb09c4740">sum</a> = 0.0</td></tr>
+<tr class="separator:a83daac9009866c81f41cad3cb09c4740"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a021173fc446075ae4d207ace626b3d34" id="r_a021173fc446075ae4d207ace626b3d34"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a021173fc446075ae4d207ace626b3d34">sumsq</a> = 0.0</td></tr>
+<tr class="separator:a021173fc446075ae4d207ace626b3d34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Sufficient statistics for covariate likelihood computations. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a0bd08fca37336add6c1a5f444313139d" name="a0bd08fca37336add6c1a5f444313139d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bd08fca37336add6c1a5f444313139d">&#9670;&#160;</a></span>n</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ContinuosCovariatesModule::ClusterStats::n = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a83daac9009866c81f41cad3cb09c4740" name="a83daac9009866c81f41cad3cb09c4740"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83daac9009866c81f41cad3cb09c4740">&#9670;&#160;</a></span>sum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double ContinuosCovariatesModule::ClusterStats::sum = 0.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a021173fc446075ae4d207ace626b3d34" name="a021173fc446075ae4d207ace626b3d34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a021173fc446075ae4d207ace626b3d34">&#9670;&#160;</a></span>sumsq</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double ContinuosCovariatesModule::ClusterStats::sumsq = 0.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>src/processes/module/<a class="el" href="continuos__covariate__module_8hpp_source.html">continuos_covariate_module.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -122,6 +176,7 @@ $(function(){initNavTree('functions.html',''); initResizable(true); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="classContinuosCovariatesModule.html">ContinuosCovariatesModule</a></li><li class="navelem"><a class="el" href="structContinuosCovariatesModule_1_1ClusterStats.html">ClusterStats</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>

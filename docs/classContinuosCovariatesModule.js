@@ -1,0 +1,25 @@
+var classContinuosCovariatesModule =
+[
+    [ "ClusterStats", "structContinuosCovariatesModule_1_1ClusterStats.html", "structContinuosCovariatesModule_1_1ClusterStats" ],
+    [ "ContinuosCovariatesModule", "classContinuosCovariatesModule.html#a22843d555bd6de491385756a665b2497", null ],
+    [ "compute_cluster_statistics", "classContinuosCovariatesModule.html#abe2755887dd1e01a56a897afc44fc540", null ],
+    [ "compute_log_marginal_likelihood", "classContinuosCovariatesModule.html#a60d3dd60e7e42dea6b9cb3267ee3a42f", null ],
+    [ "compute_log_marginal_likelihood_NN", "classContinuosCovariatesModule.html#ae5736d9c666126a0758cdadf0858da9b", null ],
+    [ "compute_log_marginal_likelihood_NNIG", "classContinuosCovariatesModule.html#a9a276ab7b0824f679d58cc55f466de48", null ],
+    [ "compute_log_predictive_likelihood", "classContinuosCovariatesModule.html#a8b0186a7969997b9e141b63f8a50eea0", null ],
+    [ "compute_predictive_NN", "classContinuosCovariatesModule.html#ad103eb24f5ba33613f46719042b429c3", null ],
+    [ "compute_predictive_NNIG", "classContinuosCovariatesModule.html#a7354580b6fcd61c2b296b56e05edee1c", null ],
+    [ "compute_similarity_cls", "classContinuosCovariatesModule.html#a9409654836cb8c5510bdc5a9754b9177", null ],
+    [ "compute_similarity_obs", "classContinuosCovariatesModule.html#a4f77e83ba669916d31601bacac2bf757", null ],
+    [ "compute_similarity_obs", "classContinuosCovariatesModule.html#a988bd1ca2b57e1e4329ff7609601c2bc", null ],
+    [ "always_inline", "classContinuosCovariatesModule.html#a5c491682596492f00aa7d4883674659b", null ],
+    [ "const_term", "classContinuosCovariatesModule.html#a1d4751f87afc547b27c5cb70f9165e0e", null ],
+    [ "covariates_data", "classContinuosCovariatesModule.html#a6e8ab83a4a539a14c7e692942166fbb4", null ],
+    [ "data", "classContinuosCovariatesModule.html#a50ee6eb777d7d90b69960573598f252e", null ],
+    [ "lgamma_nu", "classContinuosCovariatesModule.html#a3990ca9d5e09d93f797a7d9c1de7249a", null ],
+    [ "lgamma_nu_n", "classContinuosCovariatesModule.html#ae00fb56ba32f5e3a52036391bff110cd", null ],
+    [ "log_B", "classContinuosCovariatesModule.html#a8b2f2cd364843d375a5cbcbcd54768ed", null ],
+    [ "log_v", "classContinuosCovariatesModule.html#adcc85d41e38ef7946c47cf3ed18504ea", null ],
+    [ "log_v_plus_nB", "classContinuosCovariatesModule.html#a4df8c5409a61c52ef1d7a738dbae9f2c", null ],
+    [ "nu_logS0", "classContinuosCovariatesModule.html#a6acae20438fbd3183060fde08713371b", null ]
+];
