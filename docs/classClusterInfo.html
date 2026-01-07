@@ -108,6 +108,9 @@ $(function(){initNavTree('classClusterInfo.html',''); initResizable(true); });
 </div><!--header-->
 <div class="contents">
 
+<p>Abstract interface for cluster information management.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="ClusterInfo_8hpp_source.html">ClusterInfo.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -129,7 +132,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aca8dd19052b05e2f54fb18e75e7a1823" id="r_aca8dd19052b05e2f54fb18e75e7a1823"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca8dd19052b05e2f54fb18e75e7a1823">~ClusterInfo</a> ()=default</td></tr>
 <tr class="separator:aca8dd19052b05e2f54fb18e75e7a1823"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Abstract interface for cluster information management. </p>
+<p>This class provides an abstract interface for managing cluster-related information, including caching mechanisms that integrate with the <a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a> class. Derived classes implement specific caching strategies for efficient cluster computations. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2bece3e7553d74f81f3a8c9d8c89a32a" name="a2bece3e7553d74f81f3a8c9d8c89a32a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2bece3e7553d74f81f3a8c9d8c89a32a">&#9670;&#160;</a></span>ClusterInfo()</h2>
 
@@ -250,6 +256,7 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">K</td><td>Current number of clusters </td></tr>
+    <tr><td class="paramname">allocations</td><td>Vector of current cluster assignments for all points </td></tr>
   </table>
   </dd>
 </dl>

@@ -1,5 +1,5 @@
 /**
- * @file covariate_module.cpp
+ * @file covariate_module_cache.cpp
  * @brief Implementation of `CovariatesModuleCache`.
  */
 

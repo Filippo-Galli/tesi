@@ -52,12 +52,15 @@ public:
      * @param covariates_ Reference to the Params object containing W adjacency
      * matrix.
      * @param data_ Reference to the Data object with cluster assignments.
-     * @param old_alloc_provider Optional function to access old allocations for
+     * @param old_alloc_provider function to access old allocations for
+     * split-merge.
+     * @param old_cluster_members_provider_ function to access old cluster members for
      * split-merge.
      */
-    SpatialModule(const Covariates &covariates_, const Data &data_, const Eigen::VectorXi *old_alloc_provider = nullptr, 
+    SpatialModule(const Covariates &covariates_, const Data &data_, const Eigen::VectorXi *old_alloc_provider = nullptr,
                   const std::unordered_map<int, std::vector<int>> *old_cluster_members_provider_ = nullptr)
-        : covariates_module(covariates_), data_module(data_), Module(old_alloc_provider, old_cluster_members_provider_) {
+        : covariates_module(covariates_), data_module(data_),
+          Module(old_alloc_provider, old_cluster_members_provider_) {
 
         neighbor_cache_compute();
     }

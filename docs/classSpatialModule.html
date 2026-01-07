@@ -110,7 +110,7 @@ $(function(){initNavTree('classSpatialModule.html',''); initResizable(true); });
 </div><!--header-->
 <div class="contents">
 
-<p>Module providing spatial methods for processes utilizing spatial information.  
+<p><a class="el" href="classModule.html" title="Abstract base class for modules used in clustering processes. This class defines the interface for mo...">Module</a> providing spatial methods for processes utilizing spatial information.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="spatial__module_8hpp_source.html">spatial_module.hpp</a>&gt;</code></p>
@@ -120,18 +120,34 @@ Inheritance diagram for SpatialModule:</div>
  <div class="center">
   <img src="classSpatialModule.png" usemap="#SpatialModule_map" alt=""/>
   <map id="SpatialModule_map" name="SpatialModule_map">
-<area href="classDPW.html" title="Dirichlet Process with spatial Weights class for spatially-aware Bayesian nonparametric clustering." alt="DPW" shape="rect" coords="0,56,101,80"/>
-<area href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam..." alt="NGGPW" shape="rect" coords="111,56,212,80"/>
-<area href="classNGGPWx.html" title="NGGP clustering process with spatial weights and covariates." alt="NGGPWx" shape="rect" coords="55,112,156,136"/>
-<area href="classNGGPWxCache.html" alt="NGGPWxCache" shape="rect" coords="166,112,267,136"/>
+<area href="classModule.html" title="Abstract base class for modules used in clustering processes. This class defines the interface for mo..." alt="Module" shape="rect" coords="0,0,92,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6de7d3edab70bebb909acb9283480fc5" id="r_a6de7d3edab70bebb909acb9283480fc5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6de7d3edab70bebb909acb9283480fc5">SpatialModule</a> (const <a class="el" href="structCovariates.html">Covariates</a> &amp;covariates_, const <a class="el" href="classData.html">Data</a> &amp;data_, std::function&lt; const Eigen::VectorXi &amp;()&gt; old_alloc_provider={})</td></tr>
-<tr class="memdesc:a6de7d3edab70bebb909acb9283480fc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classSpatialModule.html" title="Module providing spatial methods for processes utilizing spatial information.">SpatialModule</a> with parameter and data references.  <br /></td></tr>
-<tr class="separator:a6de7d3edab70bebb909acb9283480fc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24c23d50c2d8c69f0b5a571173eddb82" id="r_a24c23d50c2d8c69f0b5a571173eddb82"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24c23d50c2d8c69f0b5a571173eddb82">SpatialModule</a> (const <a class="el" href="structCovariates.html">Covariates</a> &amp;covariates_, const <a class="el" href="classData.html">Data</a> &amp;data_, const Eigen::VectorXi *old_alloc_provider=nullptr, const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; *old_cluster_members_provider_=nullptr)</td></tr>
+<tr class="memdesc:a24c23d50c2d8c69f0b5a571173eddb82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classSpatialModule.html" title="Module providing spatial methods for processes utilizing spatial information.">SpatialModule</a> with parameter and data references.  <br /></td></tr>
+<tr class="separator:a24c23d50c2d8c69f0b5a571173eddb82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Spatial Methods</div></td></tr>
+<tr class="memitem:ab9c8b32bdc9a37057e6d6babe971ed79" id="r_ab9c8b32bdc9a37057e6d6babe971ed79"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab9c8b32bdc9a37057e6d6babe971ed79">compute_similarity_obs</a> (int obs_idx) const override</td></tr>
+<tr class="memdesc:ab9c8b32bdc9a37057e6d6babe971ed79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts neighbors of an observation grouped by cluster membership.  <br /></td></tr>
+<tr class="separator:ab9c8b32bdc9a37057e6d6babe971ed79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abec7f01e47f43f09758a872bd4ae316c" id="r_abec7f01e47f43f09758a872bd4ae316c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abec7f01e47f43f09758a872bd4ae316c">compute_similarity_cls</a> (int cls_idx, bool old_allo=false) const override</td></tr>
+<tr class="memdesc:abec7f01e47f43f09758a872bd4ae316c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts internal edges within a cluster.  <br /></td></tr>
+<tr class="separator:abec7f01e47f43f09758a872bd4ae316c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79fa7cb352dd2f54f5d31eabe6f0f4a1" id="r_a79fa7cb352dd2f54f5d31eabe6f0f4a1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79fa7cb352dd2f54f5d31eabe6f0f4a1">compute_similarity_obs</a> (int obs_idx, int cls_idx) const override</td></tr>
+<tr class="memdesc:a79fa7cb352dd2f54f5d31eabe6f0f4a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts neighbors of an observation within a specific cluster.  <br /></td></tr>
+<tr class="separator:a79fa7cb352dd2f54f5d31eabe6f0f4a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classModule"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classModule')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classModule.html">Module</a></td></tr>
+<tr class="memitem:a4b1fffbc65ffbf0ca18f7d59394bd46d inherit pub_methods_classModule" id="r_a4b1fffbc65ffbf0ca18f7d59394bd46d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModule.html#a4b1fffbc65ffbf0ca18f7d59394bd46d">Module</a> (const Eigen::VectorXi *old_allocations_provider_=nullptr, const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; *old_cluster_members_provider_=nullptr)</td></tr>
+<tr class="separator:a4b1fffbc65ffbf0ca18f7d59394bd46d inherit pub_methods_classModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2d6ab39a4ca2a2dc888cf0cc46de467 inherit pub_methods_classModule" id="r_ae2d6ab39a4ca2a2dc888cf0cc46de467"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModule.html#ae2d6ab39a4ca2a2dc888cf0cc46de467">set_old_allocations_provider</a> (const Eigen::VectorXi *provider)</td></tr>
+<tr class="separator:ae2d6ab39a4ca2a2dc888cf0cc46de467 inherit pub_methods_classModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c8d7f09eee2f06c8c8134888b584402 inherit pub_methods_classModule" id="r_a9c8d7f09eee2f06c8c8134888b584402"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModule.html#a9c8d7f09eee2f06c8c8134888b584402">set_old_cluster_members_provider</a> (const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; *provider)</td></tr>
+<tr class="separator:a9c8d7f09eee2f06c8c8134888b584402 inherit pub_methods_classModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a48538d35a2da7fcc32d9f509034723 inherit pub_methods_classModule" id="r_a4a48538d35a2da7fcc32d9f509034723"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModule.html#a4a48538d35a2da7fcc32d9f509034723">~Module</a> ()=default</td></tr>
+<tr class="separator:a4a48538d35a2da7fcc32d9f509034723 inherit pub_methods_classModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -144,33 +160,26 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a50166acdc6f0c6678279b677903d21e5" id="r_a50166acdc6f0c6678279b677903d21e5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50166acdc6f0c6678279b677903d21e5">neighbor_cache</a></td></tr>
 <tr class="memdesc:a50166acdc6f0c6678279b677903d21e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cache storing neighbor indices for each observation.  <br /></td></tr>
 <tr class="separator:a50166acdc6f0c6678279b677903d21e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader">Spatial Methods</h2></td></tr>
 <tr class="memitem:a843ccd6b83d919cffe1d56dcc3f229da" id="r_a843ccd6b83d919cffe1d56dcc3f229da"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structCovariates.html">Covariates</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a843ccd6b83d919cffe1d56dcc3f229da">covariates_module</a></td></tr>
 <tr class="memdesc:a843ccd6b83d919cffe1d56dcc3f229da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to parameter object containing adjacency matrix W.  <br /></td></tr>
 <tr class="separator:a843ccd6b83d919cffe1d56dcc3f229da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad607b2c05c585c576b7410dd3bef9f1f" id="r_ad607b2c05c585c576b7410dd3bef9f1f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad607b2c05c585c576b7410dd3bef9f1f">data_module</a></td></tr>
 <tr class="memdesc:ad607b2c05c585c576b7410dd3bef9f1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to data object with cluster assignments.  <br /></td></tr>
 <tr class="separator:ad607b2c05c585c576b7410dd3bef9f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad356ea6f80c8553cd8500aeee26d4419" id="r_ad356ea6f80c8553cd8500aeee26d4419"><td class="memItemLeft" align="right" valign="top">std::function&lt; const Eigen::VectorXi &amp;()&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad356ea6f80c8553cd8500aeee26d4419">old_allocations_provider</a></td></tr>
-<tr class="memdesc:ad356ea6f80c8553cd8500aeee26d4419"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provider function for accessing old allocation state.  <br /></td></tr>
-<tr class="separator:ad356ea6f80c8553cd8500aeee26d4419"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa669ec13448726a559ad0e3137e3702e" id="r_aa669ec13448726a559ad0e3137e3702e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa669ec13448726a559ad0e3137e3702e">get_neighbors_obs</a> (int obs_idx, int cls_idx) const</td></tr>
-<tr class="memdesc:aa669ec13448726a559ad0e3137e3702e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts neighbors of an observation within a specific cluster.  <br /></td></tr>
-<tr class="separator:aa669ec13448726a559ad0e3137e3702e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c93a18ef8a9ecf480a68c3438998f38" id="r_a9c93a18ef8a9ecf480a68c3438998f38"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXi&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c93a18ef8a9ecf480a68c3438998f38">get_neighbors_obs</a> (int obs_idx) const</td></tr>
-<tr class="memdesc:a9c93a18ef8a9ecf480a68c3438998f38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts neighbors of an observation grouped by cluster membership.  <br /></td></tr>
-<tr class="separator:a9c93a18ef8a9ecf480a68c3438998f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57f63d2983418353d324d49e01d712ed" id="r_a57f63d2983418353d324d49e01d712ed"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57f63d2983418353d324d49e01d712ed">get_neighbors_cls</a> (int cls_idx, bool old_allo=false) const</td></tr>
-<tr class="memdesc:a57f63d2983418353d324d49e01d712ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts internal edges within a cluster.  <br /></td></tr>
-<tr class="separator:a57f63d2983418353d324d49e01d712ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classModule"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classModule')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classModule.html">Module</a></td></tr>
+<tr class="memitem:a13d00f3268f377c1d7cc5bf23cf2ce3a inherit pro_attribs_classModule" id="r_a13d00f3268f377c1d7cc5bf23cf2ce3a"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXi *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModule.html#a13d00f3268f377c1d7cc5bf23cf2ce3a">old_allocations_provider</a></td></tr>
+<tr class="memdesc:a13d00f3268f377c1d7cc5bf23cf2ce3a inherit pro_attribs_classModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provider function for accessing old allocation state.  <br /></td></tr>
+<tr class="separator:a13d00f3268f377c1d7cc5bf23cf2ce3a inherit pro_attribs_classModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98c96fd42dbc1df8484b0de586fd2bd6 inherit pro_attribs_classModule" id="r_a98c96fd42dbc1df8484b0de586fd2bd6"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModule.html#a98c96fd42dbc1df8484b0de586fd2bd6">old_cluster_members_provider</a></td></tr>
+<tr class="memdesc:a98c96fd42dbc1df8484b0de586fd2bd6 inherit pro_attribs_classModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provider function for accessing old cluster members map.  <br /></td></tr>
+<tr class="separator:a98c96fd42dbc1df8484b0de586fd2bd6 inherit pro_attribs_classModule"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Module providing spatial methods for processes utilizing spatial information. </p>
+<div class="textblock"><p><a class="el" href="classModule.html" title="Abstract base class for modules used in clustering processes. This class defines the interface for mo...">Module</a> providing spatial methods for processes utilizing spatial information. </p>
 <p>This class offers utility functions to compute neighbor counts based on an adjacency matrix W, facilitating the incorporation of spatial dependencies in clustering algorithms. The neighbor relationships are cached at construction time for efficient repeated access. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6de7d3edab70bebb909acb9283480fc5" name="a6de7d3edab70bebb909acb9283480fc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6de7d3edab70bebb909acb9283480fc5">&#9670;&#160;</a></span>SpatialModule()</h2>
+<a id="a24c23d50c2d8c69f0b5a571173eddb82" name="a24c23d50c2d8c69f0b5a571173eddb82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24c23d50c2d8c69f0b5a571173eddb82">&#9670;&#160;</a></span>SpatialModule()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,7 +200,12 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::function&lt; const Eigen::VectorXi &amp;()&gt;</td>          <td class="paramname"><span class="paramname"><em>old_alloc_provider</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+          <td class="paramtype">const Eigen::VectorXi *</td>          <td class="paramname"><span class="paramname"><em>old_alloc_provider</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; *</td>          <td class="paramname"><span class="paramname"><em>old_cluster_members_provider_</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -207,7 +221,8 @@ Protected Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">covariates_</td><td>Reference to the <a class="el" href="structParams.html" title="Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...">Params</a> object containing W adjacency matrix. </td></tr>
     <tr><td class="paramname">data_</td><td>Reference to the <a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a> object with cluster assignments. </td></tr>
-    <tr><td class="paramname">old_alloc_provider</td><td>Optional function to access old allocations for split-merge. </td></tr>
+    <tr><td class="paramname">old_alloc_provider</td><td>function to access old allocations for split-merge. </td></tr>
+    <tr><td class="paramname">old_cluster_members_provider_</td><td>function to access old cluster members for split-merge. </td></tr>
   </table>
   </dd>
 </dl>
@@ -215,8 +230,8 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a57f63d2983418353d324d49e01d712ed" name="a57f63d2983418353d324d49e01d712ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57f63d2983418353d324d49e01d712ed">&#9670;&#160;</a></span>get_neighbors_cls()</h2>
+<a id="abec7f01e47f43f09758a872bd4ae316c" name="abec7f01e47f43f09758a872bd4ae316c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abec7f01e47f43f09758a872bd4ae316c">&#9670;&#160;</a></span>compute_similarity_cls()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,7 +240,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int SpatialModule::get_neighbors_cls </td>
+          <td class="memname">double SpatialModule::compute_similarity_cls </td>
           <td>(</td>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>cls_idx</em></span>, </td>
         </tr>
@@ -237,7 +252,7 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -253,10 +268,12 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The total number of internal edges in the cluster. </dd></dl>
 
+<p>Implements <a class="el" href="classModule.html#acbf529bbbc5b980fc4d6e45e733fc56e">Module</a>.</p>
+
 </div>
 </div>
-<a id="a9c93a18ef8a9ecf480a68c3438998f38" name="a9c93a18ef8a9ecf480a68c3438998f38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c93a18ef8a9ecf480a68c3438998f38">&#9670;&#160;</a></span>get_neighbors_obs() <span class="overload">[1/2]</span></h2>
+<a id="ab9c8b32bdc9a37057e6d6babe971ed79" name="ab9c8b32bdc9a37057e6d6babe971ed79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9c8b32bdc9a37057e6d6babe971ed79">&#9670;&#160;</a></span>compute_similarity_obs() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -265,7 +282,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::VectorXi SpatialModule::get_neighbors_obs </td>
+          <td class="memname">Eigen::VectorXd SpatialModule::compute_similarity_obs </td>
           <td>(</td>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>obs_idx</em></span></td><td>)</td>
           <td> const</td>
@@ -273,7 +290,7 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -288,10 +305,12 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A K-dimensional vector of neighbor counts per cluster. </dd></dl>
 
+<p>Implements <a class="el" href="classModule.html#aa3b528c6288ac0293a4883cafe422b9b">Module</a>.</p>
+
 </div>
 </div>
-<a id="aa669ec13448726a559ad0e3137e3702e" name="aa669ec13448726a559ad0e3137e3702e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa669ec13448726a559ad0e3137e3702e">&#9670;&#160;</a></span>get_neighbors_obs() <span class="overload">[2/2]</span></h2>
+<a id="a79fa7cb352dd2f54f5d31eabe6f0f4a1" name="a79fa7cb352dd2f54f5d31eabe6f0f4a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79fa7cb352dd2f54f5d31eabe6f0f4a1">&#9670;&#160;</a></span>compute_similarity_obs() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -300,7 +319,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int SpatialModule::get_neighbors_obs </td>
+          <td class="memname">double SpatialModule::compute_similarity_obs </td>
           <td>(</td>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>obs_idx</em></span>, </td>
         </tr>
@@ -312,7 +331,7 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -327,6 +346,8 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The number of neighbors for the observation in the specified cluster. </dd></dl>
+
+<p>Implements <a class="el" href="classModule.html#aad8d336592403c3b2546883d2b93a1fe">Module</a>.</p>
 
 </div>
 </div>
@@ -429,31 +450,6 @@ Protected Attributes</h2></td></tr>
 
 <p>Cache storing neighbor indices for each observation. </p>
 <p>neighbor_cache[i] contains a vector of indices j where W(i,j) == 1. This avoids repeatedly scanning the full adjacency matrix during MCMC sampling. </p>
-
-</div>
-</div>
-<a id="ad356ea6f80c8553cd8500aeee26d4419" name="ad356ea6f80c8553cd8500aeee26d4419"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad356ea6f80c8553cd8500aeee26d4419">&#9670;&#160;</a></span>old_allocations_provider</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::function&lt;const Eigen::VectorXi &amp;()&gt; SpatialModule::old_allocations_provider</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Provider function for accessing old allocation state. </p>
-<p>Used when computing neighbor counts based on previous cluster assignments (e.g., in split-merge algorithms). </p>
 
 </div>
 </div>

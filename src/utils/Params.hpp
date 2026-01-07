@@ -92,7 +92,6 @@ struct Params {
      * @param a NGGP total mass parameter (default: 1.0)
      * @param sigma NGGP second parameter (default: 1.0)
      * @param tau NGGP third parameter (default: 1.0)
-     * @param spatial_coefficient Spatial dependency spatial_coefficient (default: 1)
      * @param D Distance matrix (default: empty matrix)
      */
     Params(double delta1 = 0.5, double alpha = 2, double beta = 2, double delta2 = 2, double gamma = 2, double zeta = 2,

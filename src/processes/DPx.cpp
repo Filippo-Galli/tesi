@@ -46,9 +46,7 @@ double DPx::gibbs_prior_existing_cluster(int cls_idx, int obs_idx) const {
     return prior;
 }
 
-double DPx::gibbs_prior_new_cluster() const { 
-    return DP::gibbs_prior_new_cluster(); 
-}
+double DPx::gibbs_prior_new_cluster() const { return DP::gibbs_prior_new_cluster(); }
 
 double DPx::gibbs_prior_new_cluster_obs(int obs_idx) const {
     double log_prior = DP::gibbs_prior_new_cluster();
@@ -98,13 +96,13 @@ double DPx::prior_ratio_merge(int size_old_ci, int size_old_cj) const {
     // Spatial part
     const int old_ci = old_allocations[idx_i];
     const int old_cj = old_allocations[idx_j];
-    for(auto &mod : modules) {
+    for (auto &mod : modules) {
         log_acceptance_ratio += mod->compute_similarity_cls(old_ci, false);
         log_acceptance_ratio += mod->compute_similarity_cls(old_cj, false);
     }
 
     const int new_ci = data.get_allocations()[idx_i];
-    for(auto &mod : modules) {
+    for (auto &mod : modules) {
         log_acceptance_ratio -= mod->compute_similarity_cls(new_ci, true);
     }
     return log_acceptance_ratio;
@@ -127,7 +125,7 @@ double DPx::prior_ratio_shuffle(int size_old_ci, int size_old_cj, int ci, int cj
     // DP prior part
     double log_acceptance_ratio = DP::prior_ratio_shuffle(size_old_ci, size_old_cj, ci, cj);
 
-    for(auto &mod : modules) {
+    for (auto &mod : modules) {
         log_acceptance_ratio += mod->compute_similarity_cls(old_allocations[idx_i], false);
         log_acceptance_ratio += mod->compute_similarity_cls(old_allocations[idx_j], false);
         log_acceptance_ratio -= mod->compute_similarity_cls(data.get_allocations()[idx_i], true);

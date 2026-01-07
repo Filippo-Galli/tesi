@@ -1,5 +1,5 @@
 /**
- * @file covariate_module.hpp
+ * @file covariate_module_cache.hpp
  * @brief Covariate-related computations for clustering processes.
  */
 
@@ -13,7 +13,7 @@
 #include <vector>
 
 /**
- * @class CovariatesModule
+ * @class CovariatesModuleCache
  * @brief Module for covariate-related computations within clustering processes.
  *
  * This class implements the product partition model with regression on covariates
@@ -48,9 +48,7 @@ protected:
 
     /**
      * @brief Compute cluster statistics for covariate similarity
-     *
-     * @param cls_idx Index of the cluster
-     * @param allocations Current allocation vector
+     * @param obs Vector of observation indices in the cluster
      * @return Sufficient statistics (n, sum, sum of squares)
      */
     ClusterStats compute_cluster_statistics(const Eigen::Ref<const Eigen::VectorXi> obs) const;
@@ -151,7 +149,9 @@ public:
      *
      * @param covariates_ Reference to Covariates object with age data and priors
      * @param data_ Reference to Data object with cluster assignments
-     * @param old_alloc_provider Optional function to access old allocations
+     * @param covariate_cache_ Reference to Covariate_cache for precomputed stats
+     * @param old_alloc_provider function to access old allocations
+     * @param old_cluster_members_provider_ function to access old cluster members
      */
     CovariatesModuleCache(const Covariates &covariates_, const Data &data_, const Covariate_cache &covariate_cache_,
                           const Eigen::VectorXi *old_alloc_provider = {},
@@ -212,7 +212,6 @@ public:
      *
      * @param obs_idx Index of the observation
      * @param cls_idx Index of the cluster
-     * @param old_allo If true, uses old allocations (default: false)
      * @return Log predictive density contribution
      *
      * @details Used in Gibbs sampling to compute the probability of assigning

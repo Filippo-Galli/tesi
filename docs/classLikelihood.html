@@ -109,7 +109,7 @@ $(function(){initNavTree('classLikelihood.html',''); initResizable(true); });
 </div><!--header-->
 <div class="contents">
 
-<p>Abstract class with likelihood desiderable interfaces.  
+<p>Abstract base class for likelihood computation.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="Likelihood_8hpp_source.html">Likelihood.hpp</a>&gt;</code></p>
@@ -125,7 +125,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a8d8e7d2e0486b0ca07abf06b1a2d83cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the log-likelihood for a cluster with given assignments.  <br /></td></tr>
 <tr class="separator:a8d8e7d2e0486b0ca07abf06b1a2d83cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0937f6a9a4b48def87b6e644810fb99d" id="r_a0937f6a9a4b48def87b6e644810fb99d"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0937f6a9a4b48def87b6e644810fb99d">point_loglikelihood_cond</a> (int point_index, int cluster_index) const =0</td></tr>
-<tr class="memdesc:a0937f6a9a4b48def87b6e644810fb99d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conditional likelihood of a point if set in a particular cluster.  <br /></td></tr>
+<tr class="memdesc:a0937f6a9a4b48def87b6e644810fb99d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conditional log-likelihood of a point in a particular cluster.  <br /></td></tr>
 <tr class="separator:a0937f6a9a4b48def87b6e644810fb99d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb9b7ccfc5fcd5145a196308a8a7b1cb" id="r_abb9b7ccfc5fcd5145a196308a8a7b1cb"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb9b7ccfc5fcd5145a196308a8a7b1cb">~Likelihood</a> ()=default</td></tr>
 <tr class="separator:abb9b7ccfc5fcd5145a196308a8a7b1cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,7 +140,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:afd1795b729f44bd5105979ecb8853642"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract class with likelihood desiderable interfaces. </p>
+<div class="textblock"><p>Abstract base class for likelihood computation. </p>
+<p>This class defines the interface for computing likelihoods in clustering models. Derived classes must implement methods for computing both cluster-level and point-level conditional log-likelihoods, which are essential for Gibbs and split-merge MCMC algorithms. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2072dc2858072ebe158613d36631f5c0" name="a2072dc2858072ebe158613d36631f5c0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2072dc2858072ebe158613d36631f5c0">&#9670;&#160;</a></span>Likelihood()</h2>
@@ -228,7 +229,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Total log-likelihood of the cluster </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>this is useful for split-merge algorithms </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Useful for split-merge algorithms </dd></dl>
 
 </div>
 </div>
@@ -268,7 +269,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Total log-likelihood of the cluster </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>this is useful for split-merge algorithms </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Useful for split-merge algorithms </dd></dl>
 
 </div>
 </div>
@@ -299,16 +300,16 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Conditional likelihood of a point if set in a particular cluster. </p>
+<p>Conditional log-likelihood of a point in a particular cluster. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">point_index</td><td>point of which compute the likelihood </td></tr>
-    <tr><td class="paramname">cluster_index</td><td>cluster of which computes likelihood </td></tr>
+    <tr><td class="paramname">point_index</td><td>Index of the point to evaluate </td></tr>
+    <tr><td class="paramname">cluster_index</td><td>Index of the cluster </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Conditional likelihood </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>useful for gibbs sampling </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Conditional log-likelihood </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Useful for Gibbs sampling </dd></dl>
 
 </div>
 </div>

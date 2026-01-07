@@ -7,6 +7,13 @@
 
 #include <Eigen/Dense>
 
+/**
+ * @class Module
+ * @brief Abstract base class for modules used in clustering processes.
+ * This class defines the interface for modules that compute similarity
+ * contributions based on covariates or other factors.
+ */
+
 class Module {
 protected:
     /**
@@ -56,7 +63,6 @@ public:
      *
      * @param obs_idx Index of the observation
      * @param cls_idx Index of the cluster
-     * @param old_allo If true, uses old allocations (default: false)
      * @return Log predictive density contribution
      *
      * @details Used in Gibbs sampling to compute the probability of assigning

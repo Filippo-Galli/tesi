@@ -2,7 +2,7 @@ var searchData=
 [
   ['r_0',['R',['../index.html#autotoc_md2',1,'']]],
   ['rand_5fsplit_5fprob_1',['rand_split_prob',['../classSplitMerge__LSS__SDDS.html#a703cfdea33d5b09e8ad73128f9153a87',1,'SplitMerge_LSS_SDDS']]],
-  ['rd_2',['rd',['../classNGGP.html#afb1effc5294139fbcfe2c0aeb67d346e',1,'NGGP::rd'],['../classNGGPW.html#a410d13fc348ec3740a2ef63338142a62',1,'NGGPW::rd'],['../classSampler.html#abec9d161c1e486904e6d2869890c4be3',1,'Sampler::rd'],['../classU__sampler.html#a25806348f421eaab938a458b18106c0b',1,'U_sampler::rd']]],
+  ['rd_2',['rd',['../classNGGP.html#afb1effc5294139fbcfe2c0aeb67d346e',1,'NGGP::rd'],['../classSampler.html#abec9d161c1e486904e6d2869890c4be3',1,'Sampler::rd'],['../classU__sampler.html#a25806348f421eaab938a458b18106c0b',1,'U_sampler::rd']]],
   ['readme_2emd_3',['README.MD',['../README_8MD.html',1,'']]],
   ['recompute_4',['recompute',['../classClusterInfo.html#acbe8ec0ed87435ee034a1c6457971178',1,'ClusterInfo']]],
   ['references_5',['📚 References',['../index.html#autotoc_md16',1,'']]],

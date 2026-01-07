@@ -35,10 +35,12 @@ public:
      * @brief Construct an `NGGPWx` process.
      * @param d Data container.
      * @param p Model and sampler parameters.
-     * @param cov Covariates container (e.g., adjacency matrix and covariate vector).
      * @param U_sam Sampler for the latent NGGP auxiliary variable $U$.
+     * @param mods Vector of shared pointers to Module objects providing similarity
+     * computations.
      */
-    NGGPx(Data &d, Params &p, U_sampler &U_sam, const std::vector<std::shared_ptr<Module>> &mods) : NGGP(d, p, U_sam), modules(mods) {
+    NGGPx(Data &d, Params &p, U_sampler &U_sam, const std::vector<std::shared_ptr<Module>> &mods)
+        : NGGP(d, p, U_sam), modules(mods) {
         for (auto &mod : modules) {
             mod->set_old_allocations_provider(&this->old_allocations_view());
             mod->set_old_cluster_members_provider(&this->old_cluster_members_view());

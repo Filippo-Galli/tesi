@@ -51,6 +51,7 @@ protected:
 public:
     /**
      * @brief Constructs a Data object with a distance matrix
+     * @param p Reference to model parameters
      * @param initial_allocations Optional initial cluster assignments (default:
      * all in one cluster)
      * @throws std::invalid_argument if distance matrix is not square

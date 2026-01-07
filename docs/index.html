@@ -138,13 +138,13 @@ src</h2>
 <p>The framework is built around four main logical components:</p>
 <ol type="1">
 <li><b><code><a class="el" href="structParams.html" title="Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...">Params</a></code></b>: Manages model hyperparameters and MCMC settings.</li>
-<li><b><code><a class="el" href="classLikelihood.html" title="Abstract class with likelihood desiderable interfaces.">Likelihood</a></code></b>: Defines the data observation model.</li>
+<li><b><code><a class="el" href="classLikelihood.html" title="Abstract base class for likelihood computation.">Likelihood</a></code></b>: Defines the data observation model.</li>
 <li><b><code><a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a></code></b>: Handles the Bayesian nonparametric prior (e.g., Dirichlet <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a>) and cluster assignments.</li>
 <li><b><code><a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a></code></b>: Implements the MCMC inference engine.</li>
 </ol>
 <h2><a class="anchor" id="autotoc_md7"></a>
 Extensibility</h2>
-<p>The code is structured to facilitate the integration of new components. You can implement custom models by extending the base classes (<code><a class="el" href="classLikelihood.html" title="Abstract class with likelihood desiderable interfaces.">Likelihood</a></code>, <code><a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a></code>, <code><a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a></code>).</p>
+<p>The code is structured to facilitate the integration of new components. You can implement custom models by extending the base classes (<code><a class="el" href="classLikelihood.html" title="Abstract base class for likelihood computation.">Likelihood</a></code>, <code><a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a></code>, <code><a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a></code>).</p>
 <blockquote class="doxtable">
 <p><b>Note</b>: When modifying <code><a class="el" href="structParams.html" title="Structure containing all parameters needed for the NGGP (Normalized Generalized Gamma Process) and DP...">Params</a></code> or adding new classes, ensure you update the R bindings in <code>src/launcher.cpp</code>. </p>
 </blockquote>
@@ -190,7 +190,7 @@ Setup</h2>
 </ol>
 <h2><a class="anchor" id="autotoc_md15"></a>
 Running the Code</h2>
-<p>The entry point for the C++ code is exposed to R. Currently, the specific combination of <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a>, <a class="el" href="classLikelihood.html" title="Abstract class with likelihood desiderable interfaces.">Likelihood</a>, and <a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a> is configured in <code>src/launcher.cpp</code>.</p>
+<p>The entry point for the C++ code is exposed to R. Currently, the specific combination of <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a>, <a class="el" href="classLikelihood.html" title="Abstract base class for likelihood computation.">Likelihood</a>, and <a class="el" href="classSampler.html" title="Abstract base class for MCMC sampler implementations.">Sampler</a> is configured in <code>src/launcher.cpp</code>.</p>
 <ol type="1">
 <li>Modify <code>src/launcher.cpp</code> to select your desired model components.</li>
 <li>Compile and source the code in R (e.g., using <code>Rcpp::sourceCpp</code>).</li>

@@ -9,5 +9,8 @@ var searchData=
   ['merge_5fmove_6',['merge_move',['../classSplitMerge.html#a81747132bb2e0601a4e20c12d26197aa',1,'SplitMerge::merge_move()'],['../classSplitMerge__LSS.html#a592b28bad845e868b2baef627472a8c3',1,'SplitMerge_LSS::merge_move()'],['../classSplitMerge__SAMS.html#a6f774a8523fa9cd09826aecd6a177d11',1,'SplitMerge_SAMS::merge_move()']]],
   ['methods_7',['📦 Implemented Methods',['../index.html#autotoc_md8',1,'']]],
   ['models_20tt_20likelihood_20tt_8',['Likelihood Models (&lt;tt&gt;Likelihood&lt;/tt&gt;)',['../index.html#autotoc_md10',1,'']]],
-  ['move_5fcluster_5finfo_9',['move_cluster_info',['../classClusterInfo.html#a22014a13e7a2323724e7b492b53b9313',1,'ClusterInfo']]]
+  ['module_9',['Module',['../classModule.html',1,'Module'],['../classModule.html#a4b1fffbc65ffbf0ca18f7d59394bd46d',1,'Module::Module()']]],
+  ['module_2ehpp_10',['Module.hpp',['../Module_8hpp.html',1,'']]],
+  ['modules_11',['modules',['../classDPx.html#ab87a17c095f19bbf24c29fa04863d184',1,'DPx::modules'],['../classNGGPx.html#a93849d34e1e2690c77955c488afa7cb6',1,'NGGPx::modules']]],
+  ['move_5fcluster_5finfo_12',['move_cluster_info',['../classClusterInfo.html#a22014a13e7a2323724e7b492b53b9313',1,'ClusterInfo']]]
 ];

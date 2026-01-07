@@ -55,10 +55,7 @@ protected:
 
     /**
      * @brief Compute cluster statistics for covariate similarity
-     *
-     * @param cls_idx Index of the cluster
-     * @param allocations Current allocation vector
-     * @return Sufficient statistics (n, sum, sum of squares)
+     * @param obs Vector of observation indices in the cluster
      */
     ClusterStats compute_cluster_statistics(const Eigen::Ref<const Eigen::VectorXi> obs) const;
 
@@ -158,7 +155,8 @@ public:
      *
      * @param covariates_ Reference to Covariates object with age data and priors
      * @param data_ Reference to Data object with cluster assignments
-     * @param old_alloc_provider Optional function to access old allocations
+     * @param old_alloc_provider function to access old allocations
+     * @param old_cluster_members_provider_ function to access old cluster members
      */
     CovariatesModule(const Covariates &covariates_, const Data &data_,
                      const Eigen::VectorXi *old_alloc_provider = nullptr,
@@ -217,7 +215,6 @@ public:
      *
      * @param obs_idx Index of the observation
      * @param cls_idx Index of the cluster
-     * @param old_allo If true, uses old allocations (default: false)
      * @return Log predictive density contribution
      *
      * @details Used in Gibbs sampling to compute the probability of assigning

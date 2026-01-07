@@ -1,6 +1,6 @@
 var classCovariatesModuleCache =
 [
-    [ "CovariatesModuleCache", "classCovariatesModuleCache.html#a918ffd06adf1abf89f70dcd49ed8afc6", null ],
+    [ "CovariatesModuleCache", "classCovariatesModuleCache.html#a197eeb2d528bd99d39d580578f29bc44", null ],
     [ "compute_cluster_statistics", "classCovariatesModuleCache.html#a0191e77d883531e1c44e475740c12362", null ],
     [ "compute_log_marginal_likelihood", "classCovariatesModuleCache.html#a9607099e38d166815bd4377d82bab868", null ],
     [ "compute_log_marginal_likelihood_NN", "classCovariatesModuleCache.html#a3ed883fc3337e028f5d97f724f03ce7b", null ],
@@ -18,7 +18,5 @@ var classCovariatesModuleCache =
     [ "log_B", "classCovariatesModuleCache.html#ad262225adba6a040883a4345dccd14b2", null ],
     [ "log_v", "classCovariatesModuleCache.html#a48b6a352e427b481b0106c26ea46e42c", null ],
     [ "log_v_plus_nB", "classCovariatesModuleCache.html#a86381dfa2d6f43deaceb1d798c3d51f3", null ],
-    [ "nu_logS0", "classCovariatesModuleCache.html#a49f1976852f0f5942009bde8c75bcd85", null ],
-    [ "old_allocations_provider", "classCovariatesModuleCache.html#a6ea1cf44ebf0191f3c1f4c6b2cc563a6", null ],
-    [ "old_cluster_members_provider", "classCovariatesModuleCache.html#a4e59ef4a7a12991d6247628a52b1055f", null ]
+    [ "nu_logS0", "classCovariatesModuleCache.html#a49f1976852f0f5942009bde8c75bcd85", null ]
 ];

@@ -23,9 +23,9 @@ var searchData=
   ['dp_20',['DP',['../classDP.html',1,'DP'],['../classDP.html#a7000315fab4c43948cbe8b8607f0d196',1,'DP::DP()']]],
   ['dp_2ecpp_21',['DP.cpp',['../DP_8cpp.html',1,'']]],
   ['dp_2ehpp_22',['DP.hpp',['../DP_8hpp.html',1,'']]],
-  ['dpw_23',['DPW',['../classDPW.html',1,'DPW'],['../classDPW.html#aa5543c71b835f7b78dcf5d90c4e8d2db',1,'DPW::DPW()']]],
-  ['dpw_2ecpp_24',['DPW.cpp',['../DPW_8cpp.html',1,'']]],
-  ['dpw_2ehpp_25',['DPW.hpp',['../DPW_8hpp.html',1,'']]],
+  ['dpx_23',['DPx',['../classDPx.html',1,'DPx'],['../classDPx.html#ad6516729de59bbeb5e13fa439ab8b224',1,'DPx::DPx()']]],
+  ['dpx_2ecpp_24',['DPx.cpp',['../DPx_8cpp.html',1,'']]],
+  ['dpx_2ehpp_25',['DPx.hpp',['../DPx_8hpp.html',1,'']]],
   ['dumb_5fmerge_5fmove_26',['dumb_merge_move',['../classSplitMerge__LSS__SDDS.html#a5b905d39d9714364a859dfb8f23d5690',1,'SplitMerge_LSS_SDDS']]],
   ['dumb_5fsplit_5fmove_27',['dumb_split_move',['../classSplitMerge__LSS__SDDS.html#a262468ac51cfdd1e45f82417f91f5864',1,'SplitMerge_LSS_SDDS']]]
 ];

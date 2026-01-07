@@ -26,42 +26,41 @@
  */
 class Likelihood {
 protected:
-  const Data &data; ///< Reference to Data object with distances and allocations
-  const Params &params; ///< Reference to model parameters
+    const Data &data;     ///< Reference to Data object with distances and allocations
+    const Params &params; ///< Reference to model parameters
 
 public:
-  
-  Likelihood(const Data &data, const Params &param) : data(data), params(param) {}
+    Likelihood(const Data &data, const Params &param) : data(data), params(param) {}
 
-  /**
-   * @brief Computes the log-likelihood for a cluster
-   * @param cluster_index Index of the cluster to evaluate
-   * @return Total log-likelihood of the cluster
-   * @note Useful for split-merge algorithms
-   */
+    /**
+     * @brief Computes the log-likelihood for a cluster
+     * @param cluster_index Index of the cluster to evaluate
+     * @return Total log-likelihood of the cluster
+     * @note Useful for split-merge algorithms
+     */
 
-  virtual double cluster_loglikelihood(int cluster_index) const = 0;
+    virtual double cluster_loglikelihood(int cluster_index) const = 0;
 
-  /**
-   * @brief Computes the log-likelihood for a cluster with given assignments
-   * @param cluster_index Index of the cluster to evaluate
-   * @param cls_ass_k Vector of point indices in the cluster
-   * @return Total log-likelihood of the cluster
-   * @note Useful for split-merge algorithms
-   */
+    /**
+     * @brief Computes the log-likelihood for a cluster with given assignments
+     * @param cluster_index Index of the cluster to evaluate
+     * @param cls_ass_k Vector of point indices in the cluster
+     * @return Total log-likelihood of the cluster
+     * @note Useful for split-merge algorithms
+     */
 
-  virtual double cluster_loglikelihood(int cluster_index, const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k) const = 0;
+    virtual double cluster_loglikelihood(int cluster_index,
+                                         const Eigen::Ref<const Eigen::VectorXi> &cls_ass_k) const = 0;
 
+    /**
+     * @brief Conditional log-likelihood of a point in a particular cluster
+     * @param point_index Index of the point to evaluate
+     * @param cluster_index Index of the cluster
+     * @return Conditional log-likelihood
+     * @note Useful for Gibbs sampling
+     */
 
-  /**
-   * @brief Conditional log-likelihood of a point in a particular cluster
-   * @param point_index Index of the point to evaluate
-   * @param cluster_index Index of the cluster
-   * @return Conditional log-likelihood
-   * @note Useful for Gibbs sampling
-   */
+    virtual double point_loglikelihood_cond(int point_index, int cluster_index) const = 0;
 
-  virtual double point_loglikelihood_cond(int point_index, int cluster_index) const = 0;
-
-  virtual ~Likelihood() = default;
+    virtual ~Likelihood() = default;
 };

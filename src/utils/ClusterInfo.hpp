@@ -38,6 +38,7 @@ public:
     /**
      * @brief Recomputes all cluster information from current allocations
      * @param K Current number of clusters
+     * @param allocations Vector of current cluster assignments for all points
      */
     virtual void recompute(const int K, const Eigen::VectorXi &allocations) = 0;
 
@@ -53,7 +54,6 @@ public:
      * @param cluster Index of the cluster to remove
      */
     virtual void remove_info(int cluster) = 0;
-
 
     virtual ~ClusterInfo() = default;
 };

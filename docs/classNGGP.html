@@ -118,10 +118,8 @@ Inheritance diagram for NGGP:</div>
  <div class="center">
   <img src="classNGGP.png" usemap="#NGGP_map" alt=""/>
   <map id="NGGP_map" name="NGGP_map">
-<area href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes." alt="Process" shape="rect" coords="55,0,156,24"/>
-<area href="classNGGPW.html" title="Normalized Generalized Gamma Process with spatial Weights class for spatially-aware Bayesian nonparam..." alt="NGGPW" shape="rect" coords="55,112,156,136"/>
-<area href="classNGGPWx.html" title="NGGP clustering process with spatial weights and covariates." alt="NGGPWx" shape="rect" coords="0,168,101,192"/>
-<area href="classNGGPWxCache.html" alt="NGGPWxCache" shape="rect" coords="111,168,212,192"/>
+<area href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes." alt="Process" shape="rect" coords="0,0,58,24"/>
+<area href="classNGGPx.html" title="NGGP clustering process with module-based covariates." alt="NGGPx" shape="rect" coords="0,112,58,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -186,8 +184,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a7ff358c1d3b155bc09e1271266cdce7d inherit pub_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor for proper cleanup of derived classes.  <br /></td></tr>
 <tr class="separator:a7ff358c1d3b155bc09e1271266cdce7d inherit pub_methods_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Private Member Variables</div></td></tr>
 <tr class="memitem:a54461db9db11e9d4164754427e265f08" id="r_a54461db9db11e9d4164754427e265f08"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classU__sampler.html">U_sampler</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54461db9db11e9d4164754427e265f08">U_sampler_method</a></td></tr>
 <tr class="memdesc:a54461db9db11e9d4164754427e265f08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the <a class="el" href="classU__sampler.html" title="Abstract base class for MCMC sampling of the latent variable U.">U_sampler</a> instance for updating the latent variable U.  <br /></td></tr>
@@ -199,13 +197,6 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a31ccceab465d9cb529de13d20da69b8f" id="r_a31ccceab465d9cb529de13d20da69b8f"><td class="memItemLeft" align="right" valign="top">std::mt19937&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31ccceab465d9cb529de13d20da69b8f">gen</a></td></tr>
 <tr class="memdesc:a31ccceab465d9cb529de13d20da69b8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mersenne Twister random number generator.  <br /></td></tr>
 <tr class="separator:a31ccceab465d9cb529de13d20da69b8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_methods_classProcess"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_classProcess')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classProcess.html">Process</a></td></tr>
-<tr class="memitem:aae1874026daaa8ac3fbd94e269ef6d36 inherit pro_methods_classProcess" id="r_aae1874026daaa8ac3fbd94e269ef6d36"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#aae1874026daaa8ac3fbd94e269ef6d36">old_cluster_members_view</a> () const</td></tr>
-<tr class="memdesc:aae1874026daaa8ac3fbd94e269ef6d36 inherit pro_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides read-only access to the stored previous cluster members.  <br /></td></tr>
-<tr class="separator:aae1874026daaa8ac3fbd94e269ef6d36 inherit pro_methods_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classProcess"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classProcess')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classProcess.html">Process</a></td></tr>
 <tr class="memitem:af8d15d280b7b72defee3438abf1f9c8f inherit pro_attribs_classProcess" id="r_af8d15d280b7b72defee3438abf1f9c8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#af8d15d280b7b72defee3438abf1f9c8f">data</a></td></tr>
 <tr class="memdesc:af8d15d280b7b72defee3438abf1f9c8f inherit pro_attribs_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to the data object containing observations and allocations.  <br /></td></tr>
@@ -231,6 +222,13 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a38b41ae4bad9a3a5f4b474f2f5a18561 inherit pro_attribs_classProcess" id="r_a38b41ae4bad9a3a5f4b474f2f5a18561"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#a38b41ae4bad9a3a5f4b474f2f5a18561">log_a</a> = log(params.a)</td></tr>
 <tr class="memdesc:a38b41ae4bad9a3a5f4b474f2f5a18561 inherit pro_attribs_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precomputed logarithm of total mass parameter for efficiency.  <br /></td></tr>
 <tr class="separator:a38b41ae4bad9a3a5f4b474f2f5a18561 inherit pro_attribs_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_classProcess"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_classProcess')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classProcess.html">Process</a></td></tr>
+<tr class="memitem:aae1874026daaa8ac3fbd94e269ef6d36 inherit pro_methods_classProcess" id="r_aae1874026daaa8ac3fbd94e269ef6d36"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classProcess.html#aae1874026daaa8ac3fbd94e269ef6d36">old_cluster_members_view</a> () const</td></tr>
+<tr class="memdesc:aae1874026daaa8ac3fbd94e269ef6d36 inherit pro_methods_classProcess"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides read-only access to the stored previous cluster members.  <br /></td></tr>
+<tr class="separator:aae1874026daaa8ac3fbd94e269ef6d36 inherit pro_methods_classProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Normalized Generalized Gamma <a class="el" href="classProcess.html" title="Abstract base class for Bayesian nonparametric processes.">Process</a> class for Bayesian nonparametric clustering. </p>
@@ -329,7 +327,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classProcess.html#a17d00dd1cdddc0c2c8b3d4155afcb54c">Process</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classNGGPW.html#ab426d4cd7024170228d9a1894219e6e5">NGGPW</a>, <a class="el" href="classNGGPWx.html#a1711bab909aa48aa2984a0a9de06cedd">NGGPWx</a>, and <a class="el" href="classNGGPWxCache.html#acc70da1273c672ab8accec66a809508f">NGGPWxCache</a>.</p>
+<p>Reimplemented in <a class="el" href="classNGGPx.html#a1530bb67cdc79ef83009016cdb912ead">NGGPx</a>.</p>
 
 </div>
 </div>
@@ -375,7 +373,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classProcess.html#aa217cf47b5d0293b0f7d4875f130cef6">Process</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classNGGPW.html#a4d306324be933acde8d129a71ec4f524">NGGPW</a>, <a class="el" href="classNGGPWx.html#ae3c1bb4d8cd526f42e8672602334ebc9">NGGPWx</a>, and <a class="el" href="classNGGPWxCache.html#ab3d7fe5edfb4c341545302990dcd6ab4">NGGPWxCache</a>.</p>
+<p>Reimplemented in <a class="el" href="classNGGPx.html#af3ceb8c061b7a549e5c739cad1279b1a">NGGPx</a>.</p>
 
 </div>
 </div>
@@ -409,7 +407,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classProcess.html#af0620ca38fdd6c3fb09b6d008cfe728d">Process</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classNGGPW.html#a7ca86eefba6ef5c6b9505589aaff0a8a">NGGPW</a>, <a class="el" href="classNGGPWx.html#afdf9810e60b417780841514003810c84">NGGPWx</a>, and <a class="el" href="classNGGPWxCache.html#a0c5a86ed476c93aab12b7bc73785b97c">NGGPWxCache</a>.</p>
+<p>Reimplemented in <a class="el" href="classNGGPx.html#ae06f714e1810d931edbe88585730bd36">NGGPx</a>.</p>
 
 </div>
 </div>
@@ -461,7 +459,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classProcess.html#a3f839a738e76fc3ab83d3a7bfc228984">Process</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classNGGPW.html#a96acaa9d2dacbac024ffaba9d075249a">NGGPW</a>, <a class="el" href="classNGGPWx.html#a38a880748c66b8153f42209394596adf">NGGPWx</a>, and <a class="el" href="classNGGPWxCache.html#acd2a45fcd7815866ff3426605fbf355f">NGGPWxCache</a>.</p>
+<p>Reimplemented in <a class="el" href="classNGGPx.html#a0cd5953d61c9e582bc9cd366e3fed1ec">NGGPx</a>.</p>
 
 </div>
 </div>
@@ -527,7 +525,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classProcess.html#a3bd733b3232c8cf865bc0d6c1a07aea4">Process</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classNGGPW.html#a9bc80b5731581b00c33479fd3b16d55d">NGGPW</a>, <a class="el" href="classNGGPWx.html#afbd5944c9feddb1b516060857a154b98">NGGPWx</a>, and <a class="el" href="classNGGPWxCache.html#aa0ecfcea62f40bc0e7a1a8fc5b852432">NGGPWxCache</a>.</p>
+<p>Reimplemented in <a class="el" href="classNGGPx.html#a5de2de1f4721b0d65e1ece5bdcf0e133">NGGPx</a>.</p>
 
 </div>
 </div>
@@ -579,7 +577,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classProcess.html#a3077b5bf1703a691927ae3779900a734">Process</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classNGGPW.html#a73053c1ef8025c03e60ef25f42509bf4">NGGPW</a>, <a class="el" href="classNGGPWx.html#a207fa694f990bbb0415702a999aa7ae5">NGGPWx</a>, and <a class="el" href="classNGGPWxCache.html#a5a4ed3cd7272242dbed3636b7febe256">NGGPWxCache</a>.</p>
+<p>Reimplemented in <a class="el" href="classNGGPx.html#af36f6cddc3336082e4947f641c10cd92">NGGPx</a>.</p>
 
 </div>
 </div>
@@ -612,7 +610,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classProcess.html#ac610fb84ed64db2a74fa1447ce5a582e">Process</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classNGGPW.html#a46cc6dfe0fa4e2b3a96745e77622a7e4">NGGPW</a>, <a class="el" href="classNGGPWx.html#a20ded7fbf8678c099577a37f31ad4c0a">NGGPWx</a>, and <a class="el" href="classNGGPWxCache.html#af8688765edd1a3e804f595eff5c02660">NGGPWxCache</a>.</p>
+<p>Reimplemented in <a class="el" href="classNGGPx.html#ab0e8dd55878841cc8ca34f377067b035">NGGPx</a>.</p>
 
 </div>
 </div>
@@ -632,7 +630,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel protected">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -656,7 +654,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -680,7 +678,7 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

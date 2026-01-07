@@ -1,3 +1,9 @@
+/**
+ * @file Data_wClusterInfo.cpp
+ * @brief Implementation of Data_wClusterInfo class
+ */
+
+
 #include "Data_wClusterInfo.hpp"
 
 void Data_wClusterInfo::compact_cluster(int old_cluster) {
