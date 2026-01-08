@@ -1,7 +1,7 @@
 var searchData=
 [
   ['s_0',['S',['../classSplitMerge.html#a5bfc16aa4e6d36eb42f8a0d6a5f4a493',1,'SplitMerge::S'],['../classSplitMerge__LSS.html#a339dbb5c0d5dcce9cf351c0dc34a29db',1,'SplitMerge_LSS::S'],['../classSplitMerge__LSS__SDDS.html#ab89d3b1669dc604e8eacb2ee938a93a0',1,'SplitMerge_LSS_SDDS::S'],['../classSplitMerge__SAMS.html#a9cea74d3d45844942423e71aa034eccb',1,'SplitMerge_SAMS::S']]],
-  ['s0_1',['S0',['../structCovariates.html#ac311420bda67d5aaec1be671f52874a7',1,'Covariates']]],
+  ['s0_1',['S0',['../classContinuosCovariatesModule.html#a976bfc25fdfcaefe9f008a057ac95874',1,'ContinuosCovariatesModule::S0'],['../classContinuosCovariatesModuleCache.html#a03c3a2e615a02a35871f8edf4a778532',1,'ContinuosCovariatesModuleCache::S0']]],
   ['sample_5ffrom_5flog_5fprobs_2',['sample_from_log_probs',['../classNeal3.html#a4aa77b742d26bc8a5f22100b015eeb8d',1,'Neal3::sample_from_log_probs()'],['../classNeal3ZDNAM.html#aa8c30654dbd75413dc6a41fc9a2d2ef6',1,'Neal3ZDNAM::sample_from_log_probs(const std::vector&lt; double &gt; &amp;log_probs)']]],
   ['sample_5ffrom_5flog_5fprobs_5fzdnam_3',['sample_from_log_probs_zdnam',['../classNeal3ZDNAM.html#ae9d4a02085162f18a969d13d134e0474',1,'Neal3ZDNAM']]],
   ['sampler_4',['Sampler',['../classSampler.html',1,'Sampler'],['../classSampler.html#a4800cc1f9d2718968f5957ca99eee5b1',1,'Sampler::Sampler()']]],
@@ -28,10 +28,10 @@ var searchData=
   ['sigma_25',['sigma',['../structParams.html#aae2e11191e0482bdec0fc15482b53e31',1,'Params']]],
   ['smart_5fmerge_5fmove_26',['smart_merge_move',['../classSplitMerge__LSS__SDDS.html#a5f6145f05bccec4fe241ba11c00acf05',1,'SplitMerge_LSS_SDDS']]],
   ['smart_5fsplit_5fmove_27',['smart_split_move',['../classSplitMerge__LSS__SDDS.html#aff849ae709df7ffeff92f39bed994ce1',1,'SplitMerge_LSS_SDDS']]],
-  ['spatial_5fcoefficient_28',['spatial_coefficient',['../structCovariates.html#ae86f3aa821715bba79d6b5cc21ea2012',1,'Covariates']]],
-  ['spatial_5fmodule_2ecpp_29',['spatial_module.cpp',['../spatial__module_8cpp.html',1,'']]],
-  ['spatial_5fmodule_2ehpp_30',['spatial_module.hpp',['../spatial__module_8hpp.html',1,'']]],
-  ['spatialmodule_31',['SpatialModule',['../classSpatialModule.html',1,'SpatialModule'],['../classSpatialModule.html#a24c23d50c2d8c69f0b5a571173eddb82',1,'SpatialModule::SpatialModule()']]],
+  ['spatial_5fmodule_2ecpp_28',['spatial_module.cpp',['../spatial__module_8cpp.html',1,'']]],
+  ['spatial_5fmodule_2ehpp_29',['spatial_module.hpp',['../spatial__module_8hpp.html',1,'']]],
+  ['spatial_5fweight_30',['spatial_weight',['../classSpatialModule.html#ae5e715e3bf1325973de36d322f7645a5',1,'SpatialModule']]],
+  ['spatialmodule_31',['SpatialModule',['../classSpatialModule.html',1,'SpatialModule'],['../classSpatialModule.html#a239a34ffe181cd9434d5087b821d4b4d',1,'SpatialModule::SpatialModule()']]],
   ['split_5fmove_32',['split_move',['../classSplitMerge.html#a974d26fdaa24bc930a60a2cc91ce18b0',1,'SplitMerge::split_move()'],['../classSplitMerge__LSS.html#a6aed8447d79a5834366538cfe55371f4',1,'SplitMerge_LSS::split_move()'],['../classSplitMerge__SAMS.html#a2dd087d9385e3bea847afe311d121b72',1,'SplitMerge_SAMS::split_move()']]],
   ['splitmerge_33',['SplitMerge',['../classSplitMerge.html',1,'SplitMerge'],['../classSplitMerge.html#a6c697d29cdb44012ebe037e19745ed8e',1,'SplitMerge::SplitMerge()']]],
   ['splitmerge_2ecpp_34',['splitmerge.cpp',['../splitmerge_8cpp.html',1,'']]],

@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['bindings_2ecpp_0',['bindings.cpp',['../bindings_8cpp.html',1,'']]]
+  ['binary_5fcovariate_5fmodule_2ecpp_0',['binary_covariate_module.cpp',['../binary__covariate__module_8cpp.html',1,'']]],
+  ['binary_5fcovariate_5fmodule_2ehpp_1',['binary_covariate_module.hpp',['../binary__covariate__module_8hpp.html',1,'']]],
+  ['bindings_2ecpp_2',['bindings.cpp',['../bindings_8cpp.html',1,'']]]
 ];

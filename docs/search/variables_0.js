@@ -7,8 +7,7 @@ var searchData=
   ['accepted_5fshuffle_4',['accepted_shuffle',['../classSplitMerge.html#a460c78dd0d4ea04ae3c469938411d6e2',1,'SplitMerge::accepted_shuffle'],['../classSplitMerge__LSS.html#a8697a2a479ff23e3ea6ac59758a26396',1,'SplitMerge_LSS::accepted_shuffle'],['../classSplitMerge__LSS__SDDS.html#ac50b9b7fcb943ede91cf41db39a17ed1',1,'SplitMerge_LSS_SDDS::accepted_shuffle'],['../classSplitMerge__SAMS.html#a6dc7efc5585029e7a37411cf4f17a608',1,'SplitMerge_SAMS::accepted_shuffle']]],
   ['accepted_5fsplit_5',['accepted_split',['../classSplitMerge.html#a35e44c78542697fe09f69b95a1e74e38',1,'SplitMerge::accepted_split'],['../classSplitMerge__LSS.html#a334e39e5d45c07d7ab1206ea42400af5',1,'SplitMerge_LSS::accepted_split'],['../classSplitMerge__LSS__SDDS.html#a5592ec0b6838aa6c33c70a9943df5af7',1,'SplitMerge_LSS_SDDS::accepted_split'],['../classSplitMerge__SAMS.html#af44a46bc10d47c3b9fc341a68cd9968b',1,'SplitMerge_SAMS::accepted_split']]],
   ['accepted_5fu_6',['accepted_U',['../classU__sampler.html#acca05886c1b4138a4f42fa1800a4d31a',1,'U_sampler']]],
-  ['ages_7',['ages',['../structCovariates.html#aaeca07dc2802fb2d864649cf3aee39ed',1,'Covariates']]],
-  ['allocations_8',['allocations',['../classData.html#aa3216ace6edfe6d6a3f522db636d4d49',1,'Data']]],
-  ['alpha_9',['alpha',['../structParams.html#a881058e4167b8bbb7715e23975b0d893',1,'Params']]],
-  ['always_5finline_10',['always_inline',['../classContinuosCovariatesModule.html#a5c491682596492f00aa7d4883674659b',1,'ContinuosCovariatesModule::always_inline'],['../classContinuosCovariatesModuleCache.html#ac5dd95a95b6796f0936166fc53c2843a',1,'ContinuosCovariatesModuleCache::always_inline']]]
+  ['allocations_7',['allocations',['../classData.html#aa3216ace6edfe6d6a3f522db636d4d49',1,'Data']]],
+  ['alpha_8',['alpha',['../structParams.html#a881058e4167b8bbb7715e23975b0d893',1,'Params']]],
+  ['always_5finline_9',['always_inline',['../classContinuosCovariatesModule.html#a5c491682596492f00aa7d4883674659b',1,'ContinuosCovariatesModule::always_inline'],['../classContinuosCovariatesModuleCache.html#ac5dd95a95b6796f0936166fc53c2843a',1,'ContinuosCovariatesModuleCache::always_inline']]]
 ];

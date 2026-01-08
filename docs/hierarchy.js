@@ -2,7 +2,6 @@ var hierarchy =
 [
     [ "ClusterInfo", "classClusterInfo.html", null ],
     [ "ContinuosCovariatesModule::ClusterStats", "structContinuosCovariatesModule_1_1ClusterStats.html", null ],
-    [ "Covariates", "structCovariates.html", null ],
     [ "Data", "classData.html", [
       [ "Data_wClusterInfo", "classData__wClusterInfo.html", null ]
     ] ],

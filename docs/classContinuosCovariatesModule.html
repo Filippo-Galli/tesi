@@ -132,9 +132,9 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a22843d555bd6de491385756a665b2497" id="r_a22843d555bd6de491385756a665b2497"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a22843d555bd6de491385756a665b2497">ContinuosCovariatesModule</a> (const <a class="el" href="structCovariates.html">Covariates</a> &amp;covariates_, const <a class="el" href="classData.html">Data</a> &amp;data_, const Eigen::VectorXi *old_alloc_provider=nullptr, const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; *old_cluster_members_provider_=nullptr)</td></tr>
-<tr class="memdesc:a22843d555bd6de491385756a665b2497"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="classContinuosCovariatesModule.html" title="Module for covariate-related computations within clustering processes.">ContinuosCovariatesModule</a>.  <br /></td></tr>
-<tr class="separator:a22843d555bd6de491385756a665b2497"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed4eca641b90710dbb60b2ac5d807d03" id="r_aed4eca641b90710dbb60b2ac5d807d03"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed4eca641b90710dbb60b2ac5d807d03">ContinuosCovariatesModule</a> (const <a class="el" href="classData.html">Data</a> &amp;data_, const Eigen::VectorXd covariates_data_, bool fixed_v_, double m_=0, double B_=1.0, double v_=1.0, double nu_=1.0, double S0_=1.0, const Eigen::VectorXi *old_alloc_provider=nullptr, const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; *old_cluster_members_provider_=nullptr)</td></tr>
+<tr class="memdesc:aed4eca641b90710dbb60b2ac5d807d03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="classContinuosCovariatesModule.html" title="Module for covariate-related computations within clustering processes.">ContinuosCovariatesModule</a>.  <br /></td></tr>
+<tr class="separator:aed4eca641b90710dbb60b2ac5d807d03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Similarity Computation Methods</div></td></tr>
 <tr class="memitem:a9409654836cb8c5510bdc5a9754b9177" id="r_a9409654836cb8c5510bdc5a9754b9177"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9409654836cb8c5510bdc5a9754b9177">compute_similarity_cls</a> (int cls_idx, bool old_allo=false) const override __attribute__((hot))</td></tr>
 <tr class="memdesc:a9409654836cb8c5510bdc5a9754b9177"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute covariate similarity contribution for a cluster.  <br /></td></tr>
@@ -167,18 +167,18 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a9a276ab7b0824f679d58cc55f466de48" id="r_a9a276ab7b0824f679d58cc55f466de48"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a276ab7b0824f679d58cc55f466de48">compute_log_marginal_likelihood_NNIG</a> (const <a class="el" href="structContinuosCovariatesModule_1_1ClusterStats.html">ClusterStats</a> &amp;stats) const __attribute__((hot))</td></tr>
 <tr class="memdesc:a9a276ab7b0824f679d58cc55f466de48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log marginal likelihood for cluster given covariates.  <br /></td></tr>
 <tr class="separator:a9a276ab7b0824f679d58cc55f466de48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad103eb24f5ba33613f46719042b429c3" id="r_ad103eb24f5ba33613f46719042b429c3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad103eb24f5ba33613f46719042b429c3">compute_predictive_NN</a> (const <a class="el" href="structContinuosCovariatesModule_1_1ClusterStats.html">ClusterStats</a> &amp;stats, int obs_idx) const</td></tr>
-<tr class="memdesc:ad103eb24f5ba33613f46719042b429c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log predictive density for a new observation (Normal-Normal model)  <br /></td></tr>
-<tr class="separator:ad103eb24f5ba33613f46719042b429c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7354580b6fcd61c2b296b56e05edee1c" id="r_a7354580b6fcd61c2b296b56e05edee1c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7354580b6fcd61c2b296b56e05edee1c">compute_predictive_NNIG</a> (const <a class="el" href="structContinuosCovariatesModule_1_1ClusterStats.html">ClusterStats</a> &amp;stats, int obs_idx) const</td></tr>
-<tr class="memdesc:a7354580b6fcd61c2b296b56e05edee1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log predictive density for a new observation (NNIG model)  <br /></td></tr>
-<tr class="separator:a7354580b6fcd61c2b296b56e05edee1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad34575e0bb5337d12e59b82e6b530bcd" id="r_ad34575e0bb5337d12e59b82e6b530bcd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad34575e0bb5337d12e59b82e6b530bcd">compute_predictive_NN</a> (const <a class="el" href="structContinuosCovariatesModule_1_1ClusterStats.html">ClusterStats</a> &amp;stats, double covariate_val) const</td></tr>
+<tr class="memdesc:ad34575e0bb5337d12e59b82e6b530bcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log predictive density for a new observation (Normal-Normal model)  <br /></td></tr>
+<tr class="separator:ad34575e0bb5337d12e59b82e6b530bcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63c3b5fe26e488fdebe455cf551cae89" id="r_a63c3b5fe26e488fdebe455cf551cae89"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63c3b5fe26e488fdebe455cf551cae89">compute_predictive_NNIG</a> (const <a class="el" href="structContinuosCovariatesModule_1_1ClusterStats.html">ClusterStats</a> &amp;stats, double covariate_val) const</td></tr>
+<tr class="memdesc:a63c3b5fe26e488fdebe455cf551cae89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log predictive density for a new observation (NNIG model)  <br /></td></tr>
+<tr class="separator:a63c3b5fe26e488fdebe455cf551cae89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60d3dd60e7e42dea6b9cb3267ee3a42f" id="r_a60d3dd60e7e42dea6b9cb3267ee3a42f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60d3dd60e7e42dea6b9cb3267ee3a42f">compute_log_marginal_likelihood</a> (const <a class="el" href="structContinuosCovariatesModule_1_1ClusterStats.html">ClusterStats</a> &amp;stats) const __attribute__((hot))</td></tr>
 <tr class="memdesc:a60d3dd60e7e42dea6b9cb3267ee3a42f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log marginal likelihood based on model type.  <br /></td></tr>
 <tr class="separator:a60d3dd60e7e42dea6b9cb3267ee3a42f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b0186a7969997b9e141b63f8a50eea0" id="r_a8b0186a7969997b9e141b63f8a50eea0"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b0186a7969997b9e141b63f8a50eea0">compute_log_predictive_likelihood</a> (const <a class="el" href="structContinuosCovariatesModule_1_1ClusterStats.html">ClusterStats</a> &amp;stats, int obs_idx) const __attribute__((hot</td></tr>
-<tr class="memdesc:a8b0186a7969997b9e141b63f8a50eea0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log marginal likelihood based on model type.  <br /></td></tr>
-<tr class="separator:a8b0186a7969997b9e141b63f8a50eea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8f06c33bab05a0122339857aeefa5b4" id="r_ae8f06c33bab05a0122339857aeefa5b4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8f06c33bab05a0122339857aeefa5b4">compute_log_predictive_likelihood</a> (const <a class="el" href="structContinuosCovariatesModule_1_1ClusterStats.html">ClusterStats</a> &amp;stats, double covariate_val) const __attribute__((hot</td></tr>
+<tr class="memdesc:ae8f06c33bab05a0122339857aeefa5b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute log marginal likelihood based on model type.  <br /></td></tr>
+<tr class="separator:ae8f06c33bab05a0122339857aeefa5b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -207,12 +207,31 @@ Protected Attributes</h2></td></tr>
 <tr class="memdesc:ae00fb56ba32f5e3a52036391bff110cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cache for lgamma(nu_n) for NNIG.  <br /></td></tr>
 <tr class="separator:ae00fb56ba32f5e3a52036391bff110cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Module References</div></td></tr>
-<tr class="memitem:a6e8ab83a4a539a14c7e692942166fbb4" id="r_a6e8ab83a4a539a14c7e692942166fbb4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structCovariates.html">Covariates</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e8ab83a4a539a14c7e692942166fbb4">covariates_data</a></td></tr>
-<tr class="memdesc:a6e8ab83a4a539a14c7e692942166fbb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to covariates data containing ages and prior parameters.  <br /></td></tr>
-<tr class="separator:a6e8ab83a4a539a14c7e692942166fbb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50ee6eb777d7d90b69960573598f252e" id="r_a50ee6eb777d7d90b69960573598f252e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50ee6eb777d7d90b69960573598f252e">data</a></td></tr>
 <tr class="memdesc:a50ee6eb777d7d90b69960573598f252e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to data object with cluster assignments.  <br /></td></tr>
 <tr class="separator:a50ee6eb777d7d90b69960573598f252e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Data used</div></td></tr>
+<tr class="memitem:a7010e3c2ee52d6774ed54dc19d42c853" id="r_a7010e3c2ee52d6774ed54dc19d42c853"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7010e3c2ee52d6774ed54dc19d42c853">continuos_covariate_data</a></td></tr>
+<tr class="memdesc:a7010e3c2ee52d6774ed54dc19d42c853"><td class="mdescLeft">&#160;</td><td class="mdescRight">Covariate values.  <br /></td></tr>
+<tr class="separator:a7010e3c2ee52d6774ed54dc19d42c853"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab651b00c670ca5e473f4ae543e5e43a6" id="r_ab651b00c670ca5e473f4ae543e5e43a6"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab651b00c670ca5e473f4ae543e5e43a6">fixed_v</a></td></tr>
+<tr class="memdesc:ab651b00c670ca5e473f4ae543e5e43a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether observation variance is fixed (NN) or random (NNIG)  <br /></td></tr>
+<tr class="separator:ab651b00c670ca5e473f4ae543e5e43a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1782afd610c9237a67687caa96be579c" id="r_a1782afd610c9237a67687caa96be579c"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1782afd610c9237a67687caa96be579c">m</a></td></tr>
+<tr class="memdesc:a1782afd610c9237a67687caa96be579c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prior mean for covariate.  <br /></td></tr>
+<tr class="separator:a1782afd610c9237a67687caa96be579c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd55caed7c76d06345903bc31c895335" id="r_acd55caed7c76d06345903bc31c895335"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd55caed7c76d06345903bc31c895335">B</a></td></tr>
+<tr class="memdesc:acd55caed7c76d06345903bc31c895335"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prior variance for covariate.  <br /></td></tr>
+<tr class="separator:acd55caed7c76d06345903bc31c895335"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9032317a8eccb247466734ed61effe5" id="r_ab9032317a8eccb247466734ed61effe5"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab9032317a8eccb247466734ed61effe5">v</a></td></tr>
+<tr class="memdesc:ab9032317a8eccb247466734ed61effe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observation variance for covariate.  <br /></td></tr>
+<tr class="separator:ab9032317a8eccb247466734ed61effe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24b1f6329f0a409afef74b7d4daac94b" id="r_a24b1f6329f0a409afef74b7d4daac94b"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24b1f6329f0a409afef74b7d4daac94b">nu</a></td></tr>
+<tr class="memdesc:a24b1f6329f0a409afef74b7d4daac94b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prior shape parameter for variance (NNIG)  <br /></td></tr>
+<tr class="separator:a24b1f6329f0a409afef74b7d4daac94b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a976bfc25fdfcaefe9f008a057ac95874" id="r_a976bfc25fdfcaefe9f008a057ac95874"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a976bfc25fdfcaefe9f008a057ac95874">S0</a></td></tr>
+<tr class="memdesc:a976bfc25fdfcaefe9f008a057ac95874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prior scale parameter for variance (NNIG)  <br /></td></tr>
+<tr class="separator:a976bfc25fdfcaefe9f008a057ac95874"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classModule"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classModule')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classModule.html">Module</a></td></tr>
 <tr class="memitem:a13d00f3268f377c1d7cc5bf23cf2ce3a inherit pro_attribs_classModule" id="r_a13d00f3268f377c1d7cc5bf23cf2ce3a"><td class="memItemLeft" align="right" valign="top">const Eigen::VectorXi *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classModule.html#a13d00f3268f377c1d7cc5bf23cf2ce3a">old_allocations_provider</a></td></tr>
 <tr class="memdesc:a13d00f3268f377c1d7cc5bf23cf2ce3a inherit pro_attribs_classModule"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provider function for accessing old allocation state.  <br /></td></tr>
@@ -226,8 +245,8 @@ Protected Attributes</h2></td></tr>
 <p>This class implements the product partition model with regression on covariates as described in Müller et al. (2011). It computes similarity measures based on how well observations within a cluster can be explained by a common covariate distribution (Normal conjugate prior).</p>
 <p>Reference: Müller, P., Quintana, F. (2011) "A Product Partition Model With Regression on Covariates" </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a22843d555bd6de491385756a665b2497" name="a22843d555bd6de491385756a665b2497"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22843d555bd6de491385756a665b2497">&#9670;&#160;</a></span>ContinuosCovariatesModule()</h2>
+<a id="aed4eca641b90710dbb60b2ac5d807d03" name="aed4eca641b90710dbb60b2ac5d807d03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed4eca641b90710dbb60b2ac5d807d03">&#9670;&#160;</a></span>ContinuosCovariatesModule()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,12 +257,42 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">ContinuosCovariatesModule::ContinuosCovariatesModule </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structCovariates.html">Covariates</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>covariates_</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="classData.html">Data</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>data_</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classData.html">Data</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>data_</em></span>, </td>
+          <td class="paramtype">const Eigen::VectorXd</td>          <td class="paramname"><span class="paramname"><em>covariates_data_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>fixed_v_</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>m_</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>B_</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v_</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>nu_</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>S0_</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -266,8 +315,14 @@ Protected Attributes</h2></td></tr>
 <p>Constructor for <a class="el" href="classContinuosCovariatesModule.html" title="Module for covariate-related computations within clustering processes.">ContinuosCovariatesModule</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">covariates_</td><td>Reference to <a class="el" href="structCovariates.html" title="Data structure to hold covariate information for clustering.">Covariates</a> object with age data and priors </td></tr>
     <tr><td class="paramname">data_</td><td>Reference to <a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a> object with cluster assignments </td></tr>
+    <tr><td class="paramname">covariates_data_</td><td>Vector of covariate values for observations (1D array) </td></tr>
+    <tr><td class="paramname">fixed_v_</td><td>Whether observation variance is fixed (NN) or random (NNIG) </td></tr>
+    <tr><td class="paramname">m_</td><td>Prior mean for covariate </td></tr>
+    <tr><td class="paramname">B_</td><td>Prior variance for covariate </td></tr>
+    <tr><td class="paramname">v_</td><td>Observation variance for covariate </td></tr>
+    <tr><td class="paramname">nu_</td><td>Prior shape parameter for variance (NNIG) </td></tr>
+    <tr><td class="paramname">S0_</td><td>Prior scale parameter for variance (NNIG) </td></tr>
     <tr><td class="paramname">old_alloc_provider</td><td>function to access old allocations </td></tr>
     <tr><td class="paramname">old_cluster_members_provider_</td><td>function to access old cluster members </td></tr>
   </table>
@@ -441,8 +496,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a8b0186a7969997b9e141b63f8a50eea0" name="a8b0186a7969997b9e141b63f8a50eea0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b0186a7969997b9e141b63f8a50eea0">&#9670;&#160;</a></span>compute_log_predictive_likelihood()</h2>
+<a id="ae8f06c33bab05a0122339857aeefa5b4" name="ae8f06c33bab05a0122339857aeefa5b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8f06c33bab05a0122339857aeefa5b4">&#9670;&#160;</a></span>compute_log_predictive_likelihood()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -458,7 +513,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>obs_idx</em></span>&#160;) const</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>covariate_val</em></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -473,6 +528,7 @@ Protected Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">stats</td><td>Sufficient statistics for the cluster </td></tr>
+    <tr><td class="paramname">covariate_val</td><td>Covariate value of the new observation </td></tr>
   </table>
   </dd>
 </dl>
@@ -480,8 +536,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ad103eb24f5ba33613f46719042b429c3" name="ad103eb24f5ba33613f46719042b429c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad103eb24f5ba33613f46719042b429c3">&#9670;&#160;</a></span>compute_predictive_NN()</h2>
+<a id="ad34575e0bb5337d12e59b82e6b530bcd" name="ad34575e0bb5337d12e59b82e6b530bcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad34575e0bb5337d12e59b82e6b530bcd">&#9670;&#160;</a></span>compute_predictive_NN()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -497,7 +553,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>obs_idx</em></span>&#160;) const</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>covariate_val</em></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -512,7 +568,7 @@ Protected Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">stats</td><td>Sufficient statistics of the cluster (n, sum, sum of squares) </td></tr>
-    <tr><td class="paramname">obs_idx</td><td>Index of the observation to predict </td></tr>
+    <tr><td class="paramname">covariate_val</td><td>Covariate value of the new observation </td></tr>
   </table>
   </dd>
 </dl>
@@ -525,8 +581,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a7354580b6fcd61c2b296b56e05edee1c" name="a7354580b6fcd61c2b296b56e05edee1c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7354580b6fcd61c2b296b56e05edee1c">&#9670;&#160;</a></span>compute_predictive_NNIG()</h2>
+<a id="a63c3b5fe26e488fdebe455cf551cae89" name="a63c3b5fe26e488fdebe455cf551cae89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63c3b5fe26e488fdebe455cf551cae89">&#9670;&#160;</a></span>compute_predictive_NNIG()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -542,7 +598,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>obs_idx</em></span>&#160;) const</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>covariate_val</em></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -557,7 +613,7 @@ Protected Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">stats</td><td>Sufficient statistics of the cluster (n, sum, sum of squares) </td></tr>
-    <tr><td class="paramname">obs_idx</td><td>Index of the observation to predict </td></tr>
+    <tr><td class="paramname">covariate_val</td><td>Covariate value of the new observation </td></tr>
   </table>
   </dd>
 </dl>
@@ -720,10 +776,10 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">{</div>
-<div class="line">        <span class="keywordflow">if</span> (<a class="code hl_variable" href="#a6e8ab83a4a539a14c7e692942166fbb4">covariates_data</a>.fixed_v) {</div>
-<div class="line">            <span class="keywordflow">return</span> <a class="code hl_function" href="#ad103eb24f5ba33613f46719042b429c3">compute_predictive_NN</a>(stats, obs_idx);</div>
+<div class="line">        <span class="keywordflow">if</span> (<a class="code hl_variable" href="#ab651b00c670ca5e473f4ae543e5e43a6">fixed_v</a>) {</div>
+<div class="line">            <span class="keywordflow">return</span> <a class="code hl_function" href="#ad34575e0bb5337d12e59b82e6b530bcd">compute_predictive_NN</a>(stats, covariate_val);</div>
 <div class="line">        } <span class="keywordflow">else</span> {</div>
-<div class="line">            <span class="keywordflow">return</span> <a class="code hl_function" href="#a7354580b6fcd61c2b296b56e05edee1c">compute_predictive_NNIG</a>(stats, obs_idx);</div>
+<div class="line">            <span class="keywordflow">return</span> <a class="code hl_function" href="#a63c3b5fe26e488fdebe455cf551cae89">compute_predictive_NNIG</a>(stats, covariate_val);</div>
 <div class="line">        }</div>
 <div class="line">    }</div>
 <div class="line"> </div>
@@ -732,11 +788,35 @@ Protected Attributes</h2></td></tr>
 <div class="line">    </div>
 <div class="line"> </div>
 <div class="line">    <span class="keyword">const</span> <span class="keywordtype">double</span> Bv</div>
-<div class="ttc" id="aclassContinuosCovariatesModule_html_a6e8ab83a4a539a14c7e692942166fbb4"><div class="ttname"><a href="#a6e8ab83a4a539a14c7e692942166fbb4">ContinuosCovariatesModule::covariates_data</a></div><div class="ttdeci">const Covariates &amp; covariates_data</div><div class="ttdoc">Reference to covariates data containing ages and prior parameters.</div><div class="ttdef"><b>Definition</b> continuos_covariate_module.hpp:35</div></div>
-<div class="ttc" id="aclassContinuosCovariatesModule_html_a7354580b6fcd61c2b296b56e05edee1c"><div class="ttname"><a href="#a7354580b6fcd61c2b296b56e05edee1c">ContinuosCovariatesModule::compute_predictive_NNIG</a></div><div class="ttdeci">double compute_predictive_NNIG(const ClusterStats &amp;stats, int obs_idx) const</div><div class="ttdoc">Compute log predictive density for a new observation (NNIG model)</div><div class="ttdef"><b>Definition</b> continuos_covariate_module.cpp:168</div></div>
-<div class="ttc" id="aclassContinuosCovariatesModule_html_ad103eb24f5ba33613f46719042b429c3"><div class="ttname"><a href="#ad103eb24f5ba33613f46719042b429c3">ContinuosCovariatesModule::compute_predictive_NN</a></div><div class="ttdeci">double compute_predictive_NN(const ClusterStats &amp;stats, int obs_idx) const</div><div class="ttdoc">Compute log predictive density for a new observation (Normal-Normal model)</div><div class="ttdef"><b>Definition</b> continuos_covariate_module.cpp:150</div></div>
+<div class="ttc" id="aclassContinuosCovariatesModule_html_a63c3b5fe26e488fdebe455cf551cae89"><div class="ttname"><a href="#a63c3b5fe26e488fdebe455cf551cae89">ContinuosCovariatesModule::compute_predictive_NNIG</a></div><div class="ttdeci">double compute_predictive_NNIG(const ClusterStats &amp;stats, double covariate_val) const</div><div class="ttdoc">Compute log predictive density for a new observation (NNIG model)</div><div class="ttdef"><b>Definition</b> continuos_covariate_module.cpp:169</div></div>
+<div class="ttc" id="aclassContinuosCovariatesModule_html_ab651b00c670ca5e473f4ae543e5e43a6"><div class="ttname"><a href="#ab651b00c670ca5e473f4ae543e5e43a6">ContinuosCovariatesModule::fixed_v</a></div><div class="ttdeci">const bool fixed_v</div><div class="ttdoc">Whether observation variance is fixed (NN) or random (NNIG)</div><div class="ttdef"><b>Definition</b> continuos_covariate_module.hpp:43</div></div>
+<div class="ttc" id="aclassContinuosCovariatesModule_html_ad34575e0bb5337d12e59b82e6b530bcd"><div class="ttname"><a href="#ad34575e0bb5337d12e59b82e6b530bcd">ContinuosCovariatesModule::compute_predictive_NN</a></div><div class="ttdeci">double compute_predictive_NN(const ClusterStats &amp;stats, double covariate_val) const</div><div class="ttdoc">Compute log predictive density for a new observation (Normal-Normal model)</div><div class="ttdef"><b>Definition</b> continuos_covariate_module.cpp:152</div></div>
 </div><!-- fragment -->
 <p>Product of prior variance and observation variance. </p>
+
+</div>
+</div>
+<a id="acd55caed7c76d06345903bc31c895335" name="acd55caed7c76d06345903bc31c895335"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd55caed7c76d06345903bc31c895335">&#9670;&#160;</a></span>B</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double ContinuosCovariatesModule::B</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prior variance for covariate. </p>
 
 </div>
 </div>
@@ -764,8 +844,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a6e8ab83a4a539a14c7e692942166fbb4" name="a6e8ab83a4a539a14c7e692942166fbb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e8ab83a4a539a14c7e692942166fbb4">&#9670;&#160;</a></span>covariates_data</h2>
+<a id="a7010e3c2ee52d6774ed54dc19d42c853" name="a7010e3c2ee52d6774ed54dc19d42c853"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7010e3c2ee52d6774ed54dc19d42c853">&#9670;&#160;</a></span>continuos_covariate_data</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -774,7 +854,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structCovariates.html">Covariates</a>&amp; ContinuosCovariatesModule::covariates_data</td>
+          <td class="memname">const Eigen::VectorXd ContinuosCovariatesModule::continuos_covariate_data</td>
         </tr>
       </table>
   </td>
@@ -784,7 +864,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reference to covariates data containing ages and prior parameters. </p>
+<p>Covariate values. </p>
 
 </div>
 </div>
@@ -809,6 +889,30 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reference to data object with cluster assignments. </p>
+
+</div>
+</div>
+<a id="ab651b00c670ca5e473f4ae543e5e43a6" name="ab651b00c670ca5e473f4ae543e5e43a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab651b00c670ca5e473f4ae543e5e43a6">&#9670;&#160;</a></span>fixed_v</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const bool ContinuosCovariatesModule::fixed_v</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Whether observation variance is fixed (NN) or random (NNIG) </p>
 
 </div>
 </div>
@@ -932,6 +1036,54 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a1782afd610c9237a67687caa96be579c" name="a1782afd610c9237a67687caa96be579c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1782afd610c9237a67687caa96be579c">&#9670;&#160;</a></span>m</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double ContinuosCovariatesModule::m</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prior mean for covariate. </p>
+
+</div>
+</div>
+<a id="a24b1f6329f0a409afef74b7d4daac94b" name="a24b1f6329f0a409afef74b7d4daac94b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24b1f6329f0a409afef74b7d4daac94b">&#9670;&#160;</a></span>nu</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double ContinuosCovariatesModule::nu</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prior shape parameter for variance (NNIG) </p>
+
+</div>
+</div>
 <a id="a6acae20438fbd3183060fde08713371b" name="a6acae20438fbd3183060fde08713371b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6acae20438fbd3183060fde08713371b">&#9670;&#160;</a></span>nu_logS0</h2>
 
@@ -953,6 +1105,54 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>ν log(S₀) for NNIG model (v ~ IG(ν, S₀)) </p>
+
+</div>
+</div>
+<a id="a976bfc25fdfcaefe9f008a057ac95874" name="a976bfc25fdfcaefe9f008a057ac95874"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a976bfc25fdfcaefe9f008a057ac95874">&#9670;&#160;</a></span>S0</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double ContinuosCovariatesModule::S0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prior scale parameter for variance (NNIG) </p>
+
+</div>
+</div>
+<a id="ab9032317a8eccb247466734ed61effe5" name="ab9032317a8eccb247466734ed61effe5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9032317a8eccb247466734ed61effe5">&#9670;&#160;</a></span>v</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double ContinuosCovariatesModule::v</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Observation variance for covariate. </p>
 
 </div>
 </div>

@@ -5,7 +5,6 @@ var searchData=
   ['cluster_5finfo_2',['cluster_info',['../classData__wClusterInfo.html#a4ee0d10bf71f739706ed4465955b7359',1,'Data_wClusterInfo']]],
   ['cluster_5fmembers_3',['cluster_members',['../classData.html#a5cc015bc58a769616d92318242712825',1,'Data']]],
   ['const_5fterm_4',['const_term',['../classContinuosCovariatesModule.html#a1d4751f87afc547b27c5cb70f9165e0e',1,'ContinuosCovariatesModule::const_term'],['../classContinuosCovariatesModuleCache.html#ae7f5366bcc13476efd929360d9f358de',1,'ContinuosCovariatesModuleCache::const_term']]],
-  ['covariate_5fcache_5',['covariate_cache',['../classContinuosCovariatesModuleCache.html#a787af95d45db1b167606818fa5ab40bf',1,'ContinuosCovariatesModuleCache']]],
-  ['covariates_5fdata_6',['covariates_data',['../classContinuosCovariatesModule.html#a6e8ab83a4a539a14c7e692942166fbb4',1,'ContinuosCovariatesModule::covariates_data'],['../classContinuosCovariatesModuleCache.html#a826763c2540e7ad597b3a71272035267',1,'ContinuosCovariatesModuleCache::covariates_data']]],
-  ['covariates_5fmodule_7',['covariates_module',['../classSpatialModule.html#a843ccd6b83d919cffe1d56dcc3f229da',1,'SpatialModule']]]
+  ['continuos_5fcovariate_5fdata_5',['continuos_covariate_data',['../classContinuosCovariatesModule.html#a7010e3c2ee52d6774ed54dc19d42c853',1,'ContinuosCovariatesModule']]],
+  ['covariate_5fcache_6',['covariate_cache',['../classContinuosCovariatesModuleCache.html#a787af95d45db1b167606818fa5ab40bf',1,'ContinuosCovariatesModuleCache']]]
 ];

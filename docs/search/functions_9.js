@@ -20,7 +20,7 @@ var searchData=
   ['shuffle_17',['shuffle',['../classSplitMerge.html#a2272eee0bd1557aab937c2153eb61a70',1,'SplitMerge::shuffle()'],['../classSplitMerge__LSS.html#aec5dd1754aebe6d9898f31b8f51eade3',1,'SplitMerge_LSS::shuffle()'],['../classSplitMerge__LSS__SDDS.html#aa07752d43ab1d5480b76ac2642f838e7',1,'SplitMerge_LSS_SDDS::shuffle()'],['../classSplitMerge__SAMS.html#ae16402a25ef38853ec04e4c7c88216e0',1,'SplitMerge_SAMS::shuffle()']]],
   ['smart_5fmerge_5fmove_18',['smart_merge_move',['../classSplitMerge__LSS__SDDS.html#a5f6145f05bccec4fe241ba11c00acf05',1,'SplitMerge_LSS_SDDS']]],
   ['smart_5fsplit_5fmove_19',['smart_split_move',['../classSplitMerge__LSS__SDDS.html#aff849ae709df7ffeff92f39bed994ce1',1,'SplitMerge_LSS_SDDS']]],
-  ['spatialmodule_20',['SpatialModule',['../classSpatialModule.html#a24c23d50c2d8c69f0b5a571173eddb82',1,'SpatialModule']]],
+  ['spatialmodule_20',['SpatialModule',['../classSpatialModule.html#a239a34ffe181cd9434d5087b821d4b4d',1,'SpatialModule']]],
   ['split_5fmove_21',['split_move',['../classSplitMerge.html#a974d26fdaa24bc930a60a2cc91ce18b0',1,'SplitMerge::split_move()'],['../classSplitMerge__LSS.html#a6aed8447d79a5834366538cfe55371f4',1,'SplitMerge_LSS::split_move()'],['../classSplitMerge__SAMS.html#a2dd087d9385e3bea847afe311d121b72',1,'SplitMerge_SAMS::split_move()']]],
   ['splitmerge_22',['SplitMerge',['../classSplitMerge.html#a6c697d29cdb44012ebe037e19745ed8e',1,'SplitMerge']]],
   ['splitmerge_5flss_23',['SplitMerge_LSS',['../classSplitMerge__LSS.html#a595c757322a9ad77de02a683f1617377',1,'SplitMerge_LSS']]],

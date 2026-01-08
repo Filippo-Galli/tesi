@@ -1,7 +1,6 @@
 var dir_313caf1132e152dd9b58bea13a4052ca =
 [
     [ "ClusterInfo.hpp", "ClusterInfo_8hpp.html", "ClusterInfo_8hpp" ],
-    [ "Covariates.hpp", "Covariates_8hpp.html", "Covariates_8hpp" ],
     [ "Data.cpp", "Data_8cpp.html", null ],
     [ "Data.hpp", "Data_8hpp.html", "Data_8hpp" ],
     [ "Data_wClusterInfo.cpp", "Data__wClusterInfo_8cpp.html", null ],
