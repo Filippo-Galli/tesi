@@ -39,11 +39,13 @@ double ContinuosCovariatesModule::compute_similarity_obs(int obs_idx, int cls_id
 
     ClusterStats base_stats;
 
+    const double covariate_val = continuos_covariate_data(obs_idx);
+
     // Handle new cluster case
     if (cls_idx > -1)
         base_stats = compute_cluster_statistics(data.get_cluster_assignments_ref(cls_idx));
 
-    return compute_log_predictive_likelihood(base_stats, obs_idx);
+    return compute_log_predictive_likelihood(base_stats, covariate_val);
 }
 
 Eigen::VectorXd ContinuosCovariatesModule::compute_similarity_obs(int obs_idx) const {
@@ -68,7 +70,7 @@ Eigen::VectorXd ContinuosCovariatesModule::compute_similarity_obs(int obs_idx) c
     for (int k = 0; k < num_clusters; ++k) {
         ClusterStats &stats = all_stats[k];
 
-        log_similarities(k) = compute_log_predictive_likelihood(stats, obs_idx);
+        log_similarities(k) = compute_log_predictive_likelihood(stats, obs_age);
     }
 
     return log_similarities;
@@ -147,10 +149,9 @@ double ContinuosCovariatesModule::compute_log_marginal_likelihood_NN(const Clust
            0.5 * (ss / v + n_dbl * dev * dev / v_plus_nB);
 }
 
-double ContinuosCovariatesModule::compute_predictive_NN(const ClusterStats &stats, int obs_idx) const {
+double ContinuosCovariatesModule::compute_predictive_NN(const ClusterStats &stats, double covariate_val) const {
     double n_dbl = static_cast<double>(stats.n);
     double one_plus_nB = 1.0 + n_dbl * B;
-    double obs_val = continuos_covariate_data(obs_idx);
 
     // Posterior mean (mu_n)
     // Formula: (m + B * sum_x) / (1 + n*B)
@@ -161,14 +162,13 @@ double ContinuosCovariatesModule::compute_predictive_NN(const ClusterStats &stat
     double sigma2_pred = v * (1.0 + (n_dbl + 1.0) * B) / one_plus_nB;
 
     // Log Normal PDF: -0.5 * log(2*pi*sigma2) - (x - mu)^2 / (2*sigma2)
-    double diff = obs_val - mu_n;
+    double diff = covariate_val - mu_n;
     return -0.5 * std::log(2.0 * M_PI * sigma2_pred) - 0.5 * diff * diff / sigma2_pred;
 }
 
-double ContinuosCovariatesModule::compute_predictive_NNIG(const ClusterStats &stats, int obs_idx) const {
+double ContinuosCovariatesModule::compute_predictive_NNIG(const ClusterStats &stats, double covariate_val) const {
     double n_dbl = static_cast<double>(stats.n);
     double one_plus_nB = 1.0 + n_dbl * B;
-    double obs_val = continuos_covariate_data(obs_idx);
 
     // 1. Compute Posterior Mean mu_n
     double mu_n = (m + B * stats.sum) / one_plus_nB;
@@ -190,7 +190,7 @@ double ContinuosCovariatesModule::compute_predictive_NNIG(const ClusterStats &st
     // This is the term added to S_n when x_new is observed, without recomputing the whole sum of squares.
     // Delta S = 0.5 * (x_new - mu_n)^2 * (1+nB) / (1+(n+1)B)
     double one_plus_next_nB = 1.0 + (n_dbl + 1.0) * B;
-    double diff = obs_val - mu_n;
+    double diff = covariate_val - mu_n;
     double delta_S = 0.5 * diff * diff * one_plus_nB / one_plus_next_nB;
 
     // 4. Compute Log Probability (Student-t)
