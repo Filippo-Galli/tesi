@@ -39,7 +39,7 @@ protected:
     void neighbor_cache_compute();
 
     const Data &data_module;           ///< Reference to data object with cluster assignments
-    const Eigen::MatrixXi &W;          ///< Reference to adjacency matrix W from covariates
+    const Eigen::MatrixXi W;          ///< Reference to adjacency matrix W from covariates
     const double spatial_weight = 1.0; ///< Weighting factor for spatial similarity
 
 public:
@@ -56,7 +56,7 @@ public:
      * @param old_cluster_members_provider_ function to access old cluster members for
      * split-merge.
      */
-    SpatialModule(const Data &data_, const Eigen::MatrixXi &W_, double spatial_coeff,
+    SpatialModule(const Data &data_, const Eigen::MatrixXi W_, double spatial_coeff,
                   const Eigen::VectorXi *old_alloc_provider = nullptr,
                   const std::unordered_map<int, std::vector<int>> *old_cluster_members_provider_ = nullptr)
         : W(W_), data_module(data_), spatial_weight(spatial_coeff),

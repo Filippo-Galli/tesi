@@ -154,9 +154,9 @@ Rcpp::XPtr<std::shared_ptr<Module>> create_SpatialModule(SEXP data_sexp, Eigen::
 }
 
 // [[Rcpp::export]]
-Rcpp::XPtr<std::shared_ptr<Module>> create_ContinuosCovariatesModule(Rcpp::XPtr<Covariates> covariates, SEXP data_sexp) {
+Rcpp::XPtr<std::shared_ptr<Module>> create_ContinuosCovariatesModule(SEXP data_sexp, Eigen::VectorXd covariates, bool fixed_v, double m = 0, double B = 1, double v = 1, double nu = 1, double S0 = 1) {
     Data *data = get_data_ptr(data_sexp);
-    auto ptr = std::make_shared<ContinuosCovariatesModule>(*covariates, *data);
+    auto ptr = std::make_shared<ContinuosCovariatesModule>(*data, covariates, fixed_v, m, B, v, nu, S0);
     return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);
 }
 

@@ -11,7 +11,7 @@ ContinuosCovariatesModule::compute_cluster_statistics(const Eigen::Ref<const Eig
 
     for (int idx = 0; idx < obs.size(); ++idx) {
         const int obs_idx = obs(idx);
-        const double age = covariates_data.ages(obs_idx);
+        const double age = continuos_covariate_data(obs_idx);
         stats.n += 1;
         stats.sum += age;
         stats.sumsq += age * age;
@@ -56,7 +56,7 @@ Eigen::VectorXd ContinuosCovariatesModule::compute_similarity_obs(int obs_idx) c
         int k = allocations(i);
         if (k < 0)
             continue;
-        double val = covariates_data.ages(i);
+        double val = continuos_covariate_data(i);
         all_stats[k].n++;
         all_stats[k].sum += val;
         all_stats[k].sumsq += val * val;
@@ -64,7 +64,7 @@ Eigen::VectorXd ContinuosCovariatesModule::compute_similarity_obs(int obs_idx) c
 
     // Compute log similarities for each cluster
     Eigen::VectorXd log_similarities(num_clusters);
-    const double obs_age = covariates_data.ages(obs_idx);
+    const double obs_age = continuos_covariate_data(obs_idx);
     for (int k = 0; k < num_clusters; ++k) {
         ClusterStats &stats = all_stats[k];
 
@@ -88,21 +88,21 @@ double ContinuosCovariatesModule::compute_log_marginal_likelihood_NNIG(const Clu
 
     // Posterior parameters
     // Prior: v ~ IG(ν, S0) and μ|v ~ N(m, B v) with B interpreted as a variance multiplier.
-    const double nu_n = covariates_data.nu + 0.5 * n_dbl;
+    const double nu_n = nu + 0.5 * n_dbl;
 
     // Deviation from prior mean
-    const double dev = xbar - covariates_data.m;
+    const double dev = xbar - m;
 
     // Posterior scale parameter:
     // S_n = S₀ + SS/2 + n/(2(1+nB)) (x̄-m)²
-    const double one_plus_nB = 1.0 + n_dbl * covariates_data.B;
-    const double S_n = covariates_data.S0 + 0.5 * ss + 0.5 * (n_dbl / one_plus_nB) * dev * dev;
+    const double one_plus_nB = 1.0 + n_dbl * B;
+    const double S_n = S0 + 0.5 * ss + 0.5 * (n_dbl / one_plus_nB) * dev * dev;
 
     double lgamma_nu_n_temp;
     if (stats.n <= lgamma_nu_n.size() - 1) {
         lgamma_nu_n_temp = lgamma_nu_n[stats.n];
     } else {
-        lgamma_nu_n_temp = std::lgamma(covariates_data.nu + 0.5 * n_dbl);
+        lgamma_nu_n_temp = std::lgamma(nu + 0.5 * n_dbl);
     }
 
     // log g(S) = log Γ(ν + n/2) - log Γ(ν) - n/2 log(2π)
@@ -125,17 +125,17 @@ double ContinuosCovariatesModule::compute_log_marginal_likelihood_NN(const Clust
     const double ss = stats.sumsq - n_dbl * xbar * xbar;
 
     // v + n_j B term from integrating μ_j ~ N(m, B)
-    const double v_plus_nB = covariates_data.v + n_dbl * covariates_data.B;
+    const double v_plus_nB = v + n_dbl * B;
 
     // Mean deviation from prior mean
-    const double dev = xbar - covariates_data.m;
+    const double dev = xbar - m;
 
     // Log of posterior variance: log(τ_j) = log(B) + log(v) - log(v + n_j B)
     double log_v_plus_nB_temp;
     if (stats.n <= log_v_plus_nB.size() - 1) {
         log_v_plus_nB_temp = log_v_plus_nB[stats.n];
     } else {
-        log_v_plus_nB_temp = std::log(covariates_data.v + n_dbl * covariates_data.B);
+        log_v_plus_nB_temp = std::log(v + n_dbl * B);
     }
 
     const double log_tau_j = log_B + log_v - log_v_plus_nB_temp;
@@ -144,21 +144,21 @@ double ContinuosCovariatesModule::compute_log_marginal_likelihood_NN(const Clust
     // log q(x_j) = -n_j/2 log(2π) - n_j/2 log(v) - 1/2 log(B) + 1/2 log(τ_j)
     //              - SS/(2v) - n_j(x̄_j - m)² / (2(v + n_j B))
     return n_dbl * const_term - 0.5 * n_dbl * log_v - 0.5 * log_B + 0.5 * log_tau_j -
-           0.5 * (ss / covariates_data.v + n_dbl * dev * dev / v_plus_nB);
+           0.5 * (ss / v + n_dbl * dev * dev / v_plus_nB);
 }
 
 double ContinuosCovariatesModule::compute_predictive_NN(const ClusterStats &stats, int obs_idx) const {
     double n_dbl = static_cast<double>(stats.n);
-    double one_plus_nB = 1.0 + n_dbl * covariates_data.B;
-    double obs_val = covariates_data.ages(obs_idx);
+    double one_plus_nB = 1.0 + n_dbl * B;
+    double obs_val = continuos_covariate_data(obs_idx);
 
     // Posterior mean (mu_n)
     // Formula: (m + B * sum_x) / (1 + n*B)
-    double mu_n = (covariates_data.m + covariates_data.B * stats.sum) / one_plus_nB;
+    double mu_n = (m + B * stats.sum) / one_plus_nB;
 
     // Predictive variance
     // Formula: v * (1 + (n+1)B) / (1 + nB)
-    double sigma2_pred = covariates_data.v * (1.0 + (n_dbl + 1.0) * covariates_data.B) / one_plus_nB;
+    double sigma2_pred = v * (1.0 + (n_dbl + 1.0) * B) / one_plus_nB;
 
     // Log Normal PDF: -0.5 * log(2*pi*sigma2) - (x - mu)^2 / (2*sigma2)
     double diff = obs_val - mu_n;
@@ -167,34 +167,34 @@ double ContinuosCovariatesModule::compute_predictive_NN(const ClusterStats &stat
 
 double ContinuosCovariatesModule::compute_predictive_NNIG(const ClusterStats &stats, int obs_idx) const {
     double n_dbl = static_cast<double>(stats.n);
-    double one_plus_nB = 1.0 + n_dbl * covariates_data.B;
-    double obs_val = covariates_data.ages(obs_idx);
+    double one_plus_nB = 1.0 + n_dbl * B;
+    double obs_val = continuos_covariate_data(obs_idx);
 
     // 1. Compute Posterior Mean mu_n
-    double mu_n = (covariates_data.m + covariates_data.B * stats.sum) / one_plus_nB;
+    double mu_n = (m + B * stats.sum) / one_plus_nB;
 
     // 2. Compute S_n (Posterior Scale)
     // We compute S_n explicitly here. Note: If you cache S_n in ClusterStats, this becomes O(1).
     double S_n;
     if (stats.n == 0) {
-        S_n = covariates_data.S0;
+        S_n = S0;
     } else {
         double inv_n = 1.0 / n_dbl;
         double xbar = stats.sum * inv_n;
         double ss = stats.sumsq - n_dbl * xbar * xbar; // Centered sum of squares
-        double dev = xbar - covariates_data.m;
-        S_n = covariates_data.S0 + 0.5 * ss + 0.5 * (n_dbl / one_plus_nB) * dev * dev;
+        double dev = xbar - m;
+        S_n = S0 + 0.5 * ss + 0.5 * (n_dbl / one_plus_nB) * dev * dev;
     }
 
     // 3. Compute the Update Term (Delta S)
     // This is the term added to S_n when x_new is observed, without recomputing the whole sum of squares.
     // Delta S = 0.5 * (x_new - mu_n)^2 * (1+nB) / (1+(n+1)B)
-    double one_plus_next_nB = 1.0 + (n_dbl + 1.0) * covariates_data.B;
+    double one_plus_next_nB = 1.0 + (n_dbl + 1.0) * B;
     double diff = obs_val - mu_n;
     double delta_S = 0.5 * diff * diff * one_plus_nB / one_plus_next_nB;
 
     // 4. Compute Log Probability (Student-t)
-    double nu_n = covariates_data.nu + 0.5 * n_dbl;
+    double nu_n = nu + 0.5 * n_dbl;
 
     // Log of Gamma ratio: lgamma(nu_n + 0.5) - lgamma(nu_n)
     double lgamma_diff;
