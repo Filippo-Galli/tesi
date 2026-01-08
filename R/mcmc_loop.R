@@ -4,7 +4,7 @@ library(RcppEigen)
 # Load the C++ module
 sourceCpp("src/bindings.cpp")
 
-run_mcmc <- function(params, covariates, initial_allocations = integer(0)) {
+run_mcmc <- function(params, covariates, initial_allocations = integer(0), W) {
     # Ensure types are correct for C++
     initial_allocations <- as.integer(initial_allocations)
 
@@ -23,7 +23,7 @@ run_mcmc <- function(params, covariates, initial_allocations = integer(0)) {
 
     # Instantiate Process (NGGPx) using modules
     # 1. Spatial module
-    mod_spatial <- create_SpatialModule(covariates, data)
+    mod_spatial <- create_SpatialModule(data, W, spatial_coefficient = 1.0)
     # 2. Covariate module (cached)
     mod_cov <- create_ContinuosCovariatesModuleCache(covariates, data, cache)
     # Combine modules into NGGPx process

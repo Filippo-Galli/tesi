@@ -6,9 +6,7 @@
 #pragma once
 
 #include "../../utils/Data.hpp"
-#include "../../utils/Covariates.hpp"
 #include "../../utils/Module.hpp"
-#include "Eigen/src/Core/Matrix.h"
 
 /**
  * @class SpatialModule
@@ -40,8 +38,9 @@ protected:
      */
     void neighbor_cache_compute();
 
-    const Covariates &covariates_module; ///< Reference to parameter object containing adjacency matrix W
-    const Data &data_module;             ///< Reference to data object with cluster assignments
+    const Data &data_module;           ///< Reference to data object with cluster assignments
+    const Eigen::MatrixXi &W;          ///< Reference to adjacency matrix W from covariates
+    const double spatial_weight = 1.0; ///< Weighting factor for spatial similarity
 
 public:
     /**
@@ -49,17 +48,18 @@ public:
      *
      * Initializes the neighbor cache by calling neighbor_cache_compute().
      *
-     * @param covariates_ Reference to the Params object containing W adjacency
-     * matrix.
      * @param data_ Reference to the Data object with cluster assignments.
+     * @param W_ Reference to the adjacency matrix W.
+     * matrix.
      * @param old_alloc_provider function to access old allocations for
      * split-merge.
      * @param old_cluster_members_provider_ function to access old cluster members for
      * split-merge.
      */
-    SpatialModule(const Covariates &covariates_, const Data &data_, const Eigen::VectorXi *old_alloc_provider = nullptr,
+    SpatialModule(const Data &data_, const Eigen::MatrixXi &W_, double spatial_coeff,
+                  const Eigen::VectorXi *old_alloc_provider = nullptr,
                   const std::unordered_map<int, std::vector<int>> *old_cluster_members_provider_ = nullptr)
-        : covariates_module(covariates_), data_module(data_),
+        : W(W_), data_module(data_), spatial_weight(spatial_coeff),
           Module(old_alloc_provider, old_cluster_members_provider_) {
 
         neighbor_cache_compute();

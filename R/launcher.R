@@ -128,7 +128,7 @@ print(table(hyperparams$initial_clusters))
 # MCMC Execution ====
 ##############################################################################
 
-mcmc_result <- run_mcmc(param, covariates, hyperparams$initial_clusters)
+mcmc_result <- run_mcmc(param, covariates, hyperparams$initial_clusters, W)
 elapsed_time <- mcmc_result$elapsed_time
 
 ##############################################################################
@@ -137,7 +137,7 @@ elapsed_time <- mcmc_result$elapsed_time
 file_chosen <- sub("\\.rds$", "", file_chosen)
 files_folder_clean <- gsub("/", "_", files_folder)
 data_type <- paste0(files_folder_clean, "_", sub("^distance_", "", file_chosen))
-process <- "NGGPWxCached-FixedV" # Process type: "DP", "DPW", "NGGP", "NGGPW", NGGPWx
+process <- "TEST-NGGPWxCached-FixedV" # Process type: "DP", "DPW", "NGGP", "NGGPW", NGGPWx
 method <- "LSS_SDDS25+Gibbs1" # MCMC method used
 initialization <- "kmeans" # Initialization strategy
 filename <- paste0(data_type, "_", process, "_", method, "_", initialization, "_")

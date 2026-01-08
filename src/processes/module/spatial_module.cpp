@@ -17,7 +17,7 @@ double SpatialModule::compute_similarity_obs(int obs_idx, int cls_idx) const {
         }
     }
 
-    return neighbors;
+    return spatial_weight * neighbors;
 }
 
 void SpatialModule::neighbor_cache_compute() {
@@ -26,7 +26,7 @@ void SpatialModule::neighbor_cache_compute() {
 
     // For each observation, store indices of its neighbors (where W(i,j) == 1)
     for (int obs_idx = 0; obs_idx < N; ++obs_idx) {
-        Eigen::RowVectorXi row = covariates_module.W.row(obs_idx);
+        Eigen::RowVectorXi row = W.row(obs_idx);
         neighbor_cache[obs_idx].reserve(row.sum());
 
         for (int j = 0; j < row.size(); ++j) {
@@ -58,7 +58,7 @@ double SpatialModule::compute_similarity_cls(int cls_idx, bool old_allo) const {
         }
     }
 
-    return total_neighbors / 2; // Each edge counted twice
+    return spatial_weight * total_neighbors / 2; // Each edge counted twice
 }
 
 Eigen::VectorXd SpatialModule::compute_similarity_obs(int obs_idx) const {
@@ -77,5 +77,5 @@ Eigen::VectorXd SpatialModule::compute_similarity_obs(int obs_idx) const {
         }
     }
 
-    return cluster_adjacency;
+    return spatial_weight * cluster_adjacency;
 }

@@ -147,9 +147,9 @@ Rcpp::XPtr<NGGP> create_NGGP(SEXP data_sexp, Rcpp::XPtr<Params> params, Rcpp::XP
 }
 
 // [[Rcpp::export]]
-Rcpp::XPtr<std::shared_ptr<Module>> create_SpatialModule(Rcpp::XPtr<Covariates> covariates, SEXP data_sexp) {
+Rcpp::XPtr<std::shared_ptr<Module>> create_SpatialModule(SEXP data_sexp, Eigen::MatrixXi W, double spatial_coefficient) {
     Data *data = get_data_ptr(data_sexp);
-    auto ptr = std::make_shared<SpatialModule>(*covariates, *data);
+    auto ptr = std::make_shared<SpatialModule>(*data, W, spatial_coefficient);
     return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);
 }
 
