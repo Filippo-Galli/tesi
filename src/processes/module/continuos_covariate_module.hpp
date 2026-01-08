@@ -128,7 +128,7 @@ protected:
      * current cluster statistics, assuming the Normal-Normal conjugate prior (fixed variance).
      *
      * @param stats Sufficient statistics of the cluster (n, sum, sum of squares)
-     * @param obs_idx Index of the observation to predict
+     * @param covariate_val Covariate value of the new observation
      * @return Log predictive density log p(x_new | x_cluster)
      *
      * @details The predictive distribution for the NN model is a Normal distribution:
@@ -147,7 +147,7 @@ protected:
      * current cluster statistics, assuming the Normal-Normal-Inverse-Gamma conjugate prior.
      *
      * @param stats Sufficient statistics of the cluster (n, sum, sum of squares)
-     * @param obs_idx Index of the observation to predict
+     * @param covariate_val Covariate value of the new observation
      * @return Log predictive density log p(x_new | x_cluster)
      *
      * @details The predictive distribution for the NNIG model is a non-standardized
@@ -183,6 +183,7 @@ protected:
      * Chooses between NN and NNIG models based on covariates_data.fixed_v.
      *
      * @param stats Sufficient statistics for the cluster
+     * @param covariate_val Covariate value of the new observation
      * @return Log marginal likelihood value
      */
     inline double compute_log_predictive_likelihood(const ClusterStats &stats, double covariate_val) const

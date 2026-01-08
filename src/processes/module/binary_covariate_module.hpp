@@ -8,7 +8,6 @@
 #pragma once
 
 #include "../../utils/Data.hpp"
-#include "../../utils/Covariates.hpp"
 #include "../../utils/Module.hpp"
 
 /**

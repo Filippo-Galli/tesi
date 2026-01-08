@@ -26,6 +26,7 @@
 #include "processes/module/spatial_module.hpp"
 #include "processes/module/continuos_covariate_module.hpp"
 #include "processes/module/continuos_covariate_module_cache.hpp"
+#include "processes/module/binary_covariate_module.hpp"
 #include "processes/caches/Covariate_cache.hpp"
 #include "samplers/U_sampler/U_sampler.hpp"
 #include "samplers/U_sampler/RWMH.hpp"
@@ -163,6 +164,14 @@ Rcpp::XPtr<std::shared_ptr<Module>> create_ContinuosCovariatesModuleCache(SEXP d
                                                                           double v = 1, double nu = 1, double S0 = 1) {
     Data *data = get_data_ptr(data_sexp);
     auto ptr = std::make_shared<ContinuosCovariatesModuleCache>(*data, *cache, fixed_v, m, B, v, nu, S0);
+    return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);
+}
+
+// [[Rcpp::export]]
+Rcpp::XPtr<std::shared_ptr<Module>> create_BinaryCovariatesModule(SEXP data_sexp, Eigen::VectorXi covariates,
+                                                                  double prior_a = 1.0, double prior_b = 1.0) {
+    Data *data = get_data_ptr(data_sexp);
+    auto ptr = std::make_shared<BinaryCovariatesModule>(*data, covariates, prior_a, prior_b);
     return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);
 }
 

@@ -40,12 +40,12 @@ protected:
      * @name Data used
      * @{
      */
-    const bool fixed_v;                             ///< Whether observation variance is fixed (NN) or random (NNIG)
-    const double m;                                 ///< Prior mean for covariate
-    const double B;                                 ///< Prior variance for covariate
-    const double v;                                 ///< Observation variance for covariate
-    const double nu;                                ///< Prior shape parameter for variance (NNIG)
-    const double S0;                                ///< Prior scale parameter for variance (NNIG)
+    const bool fixed_v; ///< Whether observation variance is fixed (NN) or random (NNIG)
+    const double m;     ///< Prior mean for covariate
+    const double B;     ///< Prior variance for covariate
+    const double v;     ///< Observation variance for covariate
+    const double nu;    ///< Prior shape parameter for variance (NNIG)
+    const double S0;    ///< Prior scale parameter for variance (NNIG)
 
     /** @} */
 
@@ -212,9 +212,14 @@ public:
     /**
      * @brief Constructor for CovariatesModule
      *
-     * @param covariates_ Reference to Covariates object with age data and priors
      * @param data_ Reference to Data object with cluster assignments
      * @param covariate_cache_ Reference to Covariate_cache for precomputed stats
+     * @param fixed_v_ Whether observation variance is fixed (NN) or random (NNIG)
+     * @param m_ Prior mean for covariate
+     * @param B_ Prior variance for covariate
+     * @param v_ Observation variance for covariate
+     * @param nu_ Prior shape parameter for variance (NNIG)
+     * @param S0_ Prior scale parameter for variance (NNIG)
      * @param old_alloc_provider function to access old allocations
      * @param old_cluster_members_provider_ function to access old cluster members
      */
@@ -223,11 +228,10 @@ public:
                                    const Eigen::VectorXi *old_alloc_provider = {},
                                    const std::unordered_map<int, std::vector<int>> *old_cluster_members_provider_ = {})
         : data(data_), covariate_cache(covariate_cache_), fixed_v(fixed_v_), m(m_), B(B_), v(v_), nu(nu_), S0(S0_),
-         Module(old_alloc_provider, old_cluster_members_provider_),
+          Module(old_alloc_provider, old_cluster_members_provider_),
           // Initialize constants here in the list
-          Bv(B * v), log_B(std::log(B)), log_v(std::log(v)),
-          const_term(-0.5 * std::log(2.0 * M_PI)), lgamma_nu(std::lgamma(nu)),
-          nu_logS0(nu * std::log(S0)) {
+          Bv(B * v), log_B(std::log(B)), log_v(std::log(v)), const_term(-0.5 * std::log(2.0 * M_PI)),
+          lgamma_nu(std::lgamma(nu)), nu_logS0(nu * std::log(S0)) {
 
         // Precompute caches for efficiency if needed
         if (fixed_v) {
