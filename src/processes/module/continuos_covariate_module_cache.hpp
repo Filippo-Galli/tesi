@@ -6,7 +6,6 @@
 #pragma once
 
 #include "../../utils/Data.hpp"
-#include "../../utils/Covariates.hpp"
 #include "../caches/Covariate_cache.hpp"
 #include "../../utils/Module.hpp"
 #include <cmath>
@@ -30,14 +29,23 @@ protected:
      * @name Module References
      * @{
      */
-
-    /** @brief Reference to covariates data containing ages and prior parameters */
-    const Covariates &covariates_data;
-
     /** @brief Reference to data object with cluster assignments */
     const Data &data;
 
     const Covariate_cache &covariate_cache; ///< Reference to covariate cache for precomputed stats
+
+    /** @} */
+
+    /**
+     * @name Data used
+     * @{
+     */
+    const bool fixed_v;                             ///< Whether observation variance is fixed (NN) or random (NNIG)
+    const double m;                                 ///< Prior mean for covariate
+    const double B;                                 ///< Prior variance for covariate
+    const double v;                                 ///< Observation variance for covariate
+    const double nu;                                ///< Prior shape parameter for variance (NNIG)
+    const double S0;                                ///< Prior scale parameter for variance (NNIG)
 
     /** @} */
 
@@ -154,7 +162,7 @@ protected:
      * @return Log marginal likelihood value
      */
     inline double compute_log_marginal_likelihood(const ClusterStats &stats) const __attribute__((hot, always_inline)) {
-        if (covariates_data.fixed_v) {
+        if (fixed_v) {
             return compute_log_marginal_likelihood_NN(stats);
         } else {
             return compute_log_marginal_likelihood_NNIG(stats);
@@ -171,7 +179,7 @@ protected:
      */
     inline double compute_log_predictive_likelihood(const ClusterStats &stats, double covariate_val) const
         __attribute__((hot, always_inline)) {
-        if (covariates_data.fixed_v) {
+        if (fixed_v) {
             return compute_predictive_NN(stats, covariate_val);
         } else {
             return compute_predictive_NNIG(stats, covariate_val);
@@ -210,27 +218,27 @@ public:
      * @param old_alloc_provider function to access old allocations
      * @param old_cluster_members_provider_ function to access old cluster members
      */
-    ContinuosCovariatesModuleCache(const Covariates &covariates_, const Data &data_,
-                                   const Covariate_cache &covariate_cache_,
+    ContinuosCovariatesModuleCache(const Data &data_, const Covariate_cache &covariate_cache_, bool fixed_v_,
+                                   double m_ = 0, double B_ = 1.0, double v_ = 1.0, double nu_ = 1.0, double S0_ = 1.0,
                                    const Eigen::VectorXi *old_alloc_provider = {},
                                    const std::unordered_map<int, std::vector<int>> *old_cluster_members_provider_ = {})
-        : covariates_data(covariates_), data(data_), covariate_cache(covariate_cache_),
-          Module(old_alloc_provider, old_cluster_members_provider_),
+        : data(data_), covariate_cache(covariate_cache_), fixed_v(fixed_v_), m(m_), B(B_), v(v_), nu(nu_), S0(S0_),
+         Module(old_alloc_provider, old_cluster_members_provider_),
           // Initialize constants here in the list
-          Bv(covariates_.B * covariates_.v), log_B(std::log(covariates_.B)), log_v(std::log(covariates_.v)),
-          const_term(-0.5 * std::log(2.0 * M_PI)), lgamma_nu(std::lgamma(covariates_.nu)),
-          nu_logS0(covariates_.nu * std::log(covariates_.S0)) {
+          Bv(B * v), log_B(std::log(B)), log_v(std::log(v)),
+          const_term(-0.5 * std::log(2.0 * M_PI)), lgamma_nu(std::lgamma(nu)),
+          nu_logS0(nu * std::log(S0)) {
 
         // Precompute caches for efficiency if needed
-        if (covariates_data.fixed_v) {
+        if (fixed_v) {
             log_v_plus_nB.reserve(data_.get_n() + 1);
             for (int n = 0; n <= data_.get_n(); ++n) {
-                log_v_plus_nB.push_back(std::log(covariates_data.v + n * covariates_data.B));
+                log_v_plus_nB.push_back(std::log(v + n * B));
             }
         } else {
             lgamma_nu_n.reserve(data_.get_n() + 1);
             for (int n = 0; n <= data_.get_n(); ++n) {
-                lgamma_nu_n.push_back(std::lgamma(covariates_data.nu + 0.5 * static_cast<double>(n)));
+                lgamma_nu_n.push_back(std::lgamma(nu + 0.5 * static_cast<double>(n)));
             }
         }
     }

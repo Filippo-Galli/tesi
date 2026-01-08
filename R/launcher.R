@@ -99,20 +99,7 @@ v <- 0.5 * var(puma_age$Mean_AGEP_std) # known variance
 
 # Ensure W is integer matrix
 W <- matrix(as.integer(W), nrow = nrow(W), ncol = ncol(W))
-
-# Create Covariates using factory function instead of module constructor
-covariates <- create_Covariates(
-    W, # Spatial adjacency matrix (must be integer)
-    1, # spatial_coefficient
-    as.numeric(puma_age$Mean_AGEP_std), # ages vector (must be numeric)
-    #rep(0, nrow(W)), # placeholder zero covariate
-    B,
-    m,
-    v, # covariate prior parameters
-    TRUE, # fixed_v
-    1, # nu
-    1 # S0
-)
+continuos_covariates <- as.numeric(puma_age$Mean_AGEP_std)
 
 ##############################################################################
 # Initial Cluster Allocation ====
@@ -128,7 +115,7 @@ print(table(hyperparams$initial_clusters))
 # MCMC Execution ====
 ##############################################################################
 
-mcmc_result <- run_mcmc(param, covariates, hyperparams$initial_clusters, W)
+mcmc_result <- run_mcmc(param, hyperparams$initial_clusters, W, continuos_covariates)
 elapsed_time <- mcmc_result$elapsed_time
 
 ##############################################################################

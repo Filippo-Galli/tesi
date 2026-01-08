@@ -13,7 +13,6 @@
 #include <RcppEigen.h>
 #include "Rcpp/XPtr.h"
 #include "utils/Params.hpp"
-#include "utils/Covariates.hpp"
 #include "utils/Data.hpp"
 #include "utils/Data_wClusterInfo.hpp"
 #include "utils/ClusterInfo.hpp"
@@ -88,20 +87,14 @@ Rcpp::XPtr<Params> create_Params(double delta1, double alpha, double beta, doubl
 }
 
 // [[Rcpp::export]]
-Rcpp::XPtr<Covariates> create_Covariates(Eigen::MatrixXi W, double spatial_coefficient, Eigen::VectorXd ages, double B,
-                                         double m, double v, bool fixed_v, double nu, double S0) {
-    return Rcpp::XPtr<Covariates>(new Covariates(W, spatial_coefficient, ages, B, m, v, fixed_v, nu, S0), true);
-}
-
-// [[Rcpp::export]]
 Rcpp::XPtr<Data> create_Data(Rcpp::XPtr<Params> params, Eigen::VectorXi initial_allocations) {
     return Rcpp::XPtr<Data>(new Data(*params, initial_allocations), true);
 }
 
 // [[Rcpp::export]]
-Rcpp::XPtr<Covariate_cache> create_Covariate_cache(Rcpp::XPtr<Covariates> covariates,
-                                                   Eigen::VectorXi &initial_allocations) {
-    return Rcpp::XPtr<Covariate_cache>(new Covariate_cache(*covariates, initial_allocations), true);
+Rcpp::XPtr<Covariate_cache> create_Covariate_cache(Eigen::VectorXi &initial_allocations,
+                                                   Eigen::VectorXd continuos_covariates) {
+    return Rcpp::XPtr<Covariate_cache>(new Covariate_cache(initial_allocations, continuos_covariates), true);
 }
 
 // [[Rcpp::export]]
@@ -147,24 +140,29 @@ Rcpp::XPtr<NGGP> create_NGGP(SEXP data_sexp, Rcpp::XPtr<Params> params, Rcpp::XP
 }
 
 // [[Rcpp::export]]
-Rcpp::XPtr<std::shared_ptr<Module>> create_SpatialModule(SEXP data_sexp, Eigen::MatrixXi W, double spatial_coefficient) {
+Rcpp::XPtr<std::shared_ptr<Module>> create_SpatialModule(SEXP data_sexp, Eigen::MatrixXi W,
+                                                         double spatial_coefficient) {
     Data *data = get_data_ptr(data_sexp);
     auto ptr = std::make_shared<SpatialModule>(*data, W, spatial_coefficient);
     return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);
 }
 
 // [[Rcpp::export]]
-Rcpp::XPtr<std::shared_ptr<Module>> create_ContinuosCovariatesModule(SEXP data_sexp, Eigen::VectorXd covariates, bool fixed_v, double m = 0, double B = 1, double v = 1, double nu = 1, double S0 = 1) {
+Rcpp::XPtr<std::shared_ptr<Module>> create_ContinuosCovariatesModule(SEXP data_sexp, Eigen::VectorXd covariates,
+                                                                     bool fixed_v, double m = 0, double B = 1,
+                                                                     double v = 1, double nu = 1, double S0 = 1) {
     Data *data = get_data_ptr(data_sexp);
     auto ptr = std::make_shared<ContinuosCovariatesModule>(*data, covariates, fixed_v, m, B, v, nu, S0);
     return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);
 }
 
 // [[Rcpp::export]]
-Rcpp::XPtr<std::shared_ptr<Module>> create_ContinuosCovariatesModuleCache(Rcpp::XPtr<Covariates> covariates, SEXP data_sexp,
-                                                                 Rcpp::XPtr<Covariate_cache> cache) {
+Rcpp::XPtr<std::shared_ptr<Module>> create_ContinuosCovariatesModuleCache(SEXP data_sexp,
+                                                                          Rcpp::XPtr<Covariate_cache> cache,
+                                                                          bool fixed_v, double m = 0, double B = 1,
+                                                                          double v = 1, double nu = 1, double S0 = 1) {
     Data *data = get_data_ptr(data_sexp);
-    auto ptr = std::make_shared<ContinuosCovariatesModuleCache>(*covariates, *data, *cache);
+    auto ptr = std::make_shared<ContinuosCovariatesModuleCache>(*data, *cache, fixed_v, m, B, v, nu, S0);
     return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);
 }
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../../utils/ClusterInfo.hpp"
-#include "../../utils/Covariates.hpp"
 
 // Important to declare the struct useful.
 // HINT: If the name changed modified the file which uses it accordingly.
@@ -14,23 +13,26 @@ struct ClusterStats {
 class Covariate_cache : public ClusterInfo {
 
 private:
-    const Covariates &covariates;
-
     std::vector<ClusterStats> cluster_stats;
 
 public:
-    Covariate_cache(const Covariates &covariates_ref, Eigen::VectorXi& initial_allocations) : covariates(covariates_ref) {
+    const Eigen::VectorXd continuos_covariates;
+    
+    Covariate_cache(Eigen::VectorXi &initial_allocations,
+                    const Eigen::VectorXd &continuos_covariates)
+        : continuos_covariates(continuos_covariates) {
         cluster_stats.clear();
 
         const int K = initial_allocations.maxCoeff() + 1;
         cluster_stats.resize(K);
 
         // Initialize cluster statistics based on initial allocations
-        for(int i = 0; i < initial_allocations.size(); ++i) {
+        for (int i = 0; i < initial_allocations.size(); ++i) {
             int cluster = initial_allocations(i);
-            if (cluster < 0) continue;
+            if (cluster < 0)
+                continue;
 
-            double value = covariates.ages(i);
+            double value = continuos_covariates(i);
             ClusterStats &stats = cluster_stats[cluster];
             stats.n++;
             stats.sum += value;
@@ -59,7 +61,7 @@ public:
      * @param cluster Index of the cluster
      * @return Const reference to ClusterStats struct
      */
-    const ClusterStats& get_cluster_stats_ref(int cluster) const { return cluster_stats[cluster]; }
+    const ClusterStats &get_cluster_stats_ref(int cluster) const { return cluster_stats[cluster]; }
 
     /**
      * @brief Recomputes all cluster information from current allocations

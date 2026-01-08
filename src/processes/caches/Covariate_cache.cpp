@@ -12,7 +12,7 @@ void Covariate_cache::set_allocation(int index, int cluster, int old_cluster) {
             throw std::out_of_range(ss.str());
         }
         ClusterStats &old_stats = cluster_stats[old_cluster];
-        double value = covariates.ages(index);
+        double value = continuos_covariates(index);
         old_stats.n--;
         old_stats.sum -= value;
         old_stats.sumsq -= value * value;
@@ -29,7 +29,7 @@ void Covariate_cache::set_allocation(int index, int cluster, int old_cluster) {
         }
 
         ClusterStats &new_stats = cluster_stats[cluster];
-        double value = covariates.ages(index);
+        double value = continuos_covariates(index);
         new_stats.n++;
         new_stats.sum += value;
         new_stats.sumsq += value * value;
@@ -49,7 +49,7 @@ void Covariate_cache::recompute(const int K, const Eigen::VectorXi &allocations)
         if (cluster < 0)
             continue; // Skip unallocated points
 
-        double value = covariates.ages(i);
+        double value = continuos_covariates(i);
 
         ClusterStats &stats = cluster_stats[cluster];
         stats.n++;

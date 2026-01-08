@@ -6,7 +6,6 @@
 #pragma once
 
 #include "../../utils/Data.hpp"
-#include "../../utils/Covariates.hpp"
 #include "../../utils/Module.hpp"
 #include "Eigen/Dense"
 #include <cmath>
@@ -36,17 +35,17 @@ protected:
 
     /** @} */
 
-       /**
+    /**
      * @name Data used
      * @{
      */
     const Eigen::VectorXd continuos_covariate_data; ///< Covariate values
-    const bool fixed_v;                              ///< Whether observation variance is fixed (NN) or random (NNIG)
-    const double m;                                  ///< Prior mean for covariate
-    const double B;                                  ///< Prior variance for covariate
-    const double v;                                  ///< Observation variance for covariate
-    const double nu;                                 ///< Prior shape parameter for variance (NNIG)
-    const double S0;                                 ///< Prior scale parameter for variance (NNIG)
+    const bool fixed_v;                             ///< Whether observation variance is fixed (NN) or random (NNIG)
+    const double m;                                 ///< Prior mean for covariate
+    const double B;                                 ///< Prior variance for covariate
+    const double v;                                 ///< Observation variance for covariate
+    const double nu;                                ///< Prior shape parameter for variance (NNIG)
+    const double S0;                                ///< Prior scale parameter for variance (NNIG)
 
     /** @} */
 
@@ -216,8 +215,6 @@ protected:
     std::vector<double> lgamma_nu_n;   ///< Cache for lgamma(nu_n) for NNIG
 
     /** @} */
-
- 
 
 public:
     /**

@@ -4,15 +4,15 @@ library(RcppEigen)
 # Load the C++ module
 sourceCpp("src/bindings.cpp")
 
-run_mcmc <- function(params, covariates, initial_allocations = integer(0), W, continuos_covariates) {
+run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_covariates) {
     # Ensure types are correct for C++
     initial_allocations <- as.integer(initial_allocations)
 
-    cache <- create_Covariate_cache(covariates, initial_allocations)
+    cache <- create_Covariate_cache(initial_allocations, continuos_covariates)
 
     # Instantiate Data using factory function
-    # data <- create_Data_wClusterInfo(params, cache, initial_allocations)
-    data <- create_Data(params, initial_allocations)
+    data <- create_Data_wClusterInfo(params, cache, initial_allocations)
+    # data <- create_Data(params, initial_allocations)
 
     # Instantiate Likelihood using factory function
     likelihood <- create_Natarajan_likelihood(data, params)
@@ -32,8 +32,9 @@ run_mcmc <- function(params, covariates, initial_allocations = integer(0), W, co
     v <- 0.5 * var(continuos_covariates) # known variance
     nu <- 1
     S0 <- 1.0
-    # mod_cov <- create_ContinuosCovariatesModuleCache(covariates, data, cache)
-    mod_cov <- create_ContinuosCovariatesModule(data, continuos_covariates, fixed_v = TRUE, m = m, B = B, v = v)
+
+    mod_cov <- create_ContinuosCovariatesModuleCache(data, cache, fixed_v, m, B, v, nu, S0)
+    #mod_cov <- create_ContinuosCovariatesModule(data, continuos_covariates, fixed_v = TRUE, m = m, B = B, v = v)
 
     # Combine modules into NGGPx process
     process <- create_NGGPx(data, params, u_sampler, list(mod_spatial, mod_cov))
