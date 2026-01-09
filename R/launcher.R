@@ -91,12 +91,6 @@ param <- create_Params(
 # Covariates Object Initialization ====
 ##############################################################################
 
-#B <- 1
-B <- 10 * var(puma_age$Mean_AGEP_std) # prior variance
-m <- 0 # prior mean
-v <- 0.5 * var(puma_age$Mean_AGEP_std) # known variance
-#v <- 1.0 # prior variance
-
 # Ensure W is integer matrix
 W <- matrix(as.integer(W), nrow = nrow(W), ncol = ncol(W))
 continuos_covariates <- as.numeric(puma_age$Mean_AGEP_std)

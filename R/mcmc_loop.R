@@ -11,7 +11,7 @@ run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_cova
     cache <- create_Covariate_cache(initial_allocations, continuos_covariates)
 
     # Instantiate Data using factory function
-    data <- create_Data_wClusterInfo(params, cache, initial_allocations)
+    data <- create_Datax(params, list(cache), initial_allocations)
     # data <- create_Data(params, initial_allocations)
 
     # Instantiate Likelihood using factory function

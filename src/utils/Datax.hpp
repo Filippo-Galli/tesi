@@ -1,9 +1,9 @@
 /**
- * @file Data_wClusterInfo.hpp
- * @brief Extended data structure integrating cluster information caching
+ * @file Datax.hpp
+ * @brief Extended data structure integrating cluster information or caching mechanisms
  *
- * This file defines the Data_wClusterInfo class that extends the base Data class
- * with cluster information management through a ClusterInfo object. It provides
+ * This file defines the Datax class that extends the base Data class
+ * with cluster information management through a vector of ClusterInfo objects. It provides
  * a unified interface for managing cluster allocations with optional caching
  * mechanisms.
  *
@@ -15,25 +15,27 @@
 
 #include "Data.hpp"
 #include "ClusterInfo.hpp"
+#include <memory>
 
 /**
- * @class Data_wClusterInfo
+ * @class Datax
  * @brief Data container with integrated cluster information management
  *
- * This class extends the base Data class to include a ClusterInfo object
+ * This class extends the base Data class to include a vector of ClusterInfo objects
  * that can provide additional cluster-related computations or caching.
  * It maintains synchronization between data allocations and cluster information.
  */
-class Data_wClusterInfo : public Data {
+class Datax : public Data {
 
 protected:
-    ClusterInfo &cluster_info;
+    std::vector<std::shared_ptr<ClusterInfo>> cluster_info;
 
     void compact_cluster(int old_cluster);
 
 public:
-    Data_wClusterInfo(const Params &p, ClusterInfo &ci, const Eigen::VectorXi &initial_allocations = Eigen::VectorXi())
-        : Data(p, initial_allocations), cluster_info(ci) {}
+    Datax(const Params &p, std::vector<std::shared_ptr<ClusterInfo>> ci,
+          const Eigen::VectorXi &initial_allocations = Eigen::VectorXi())
+        : Data(p, initial_allocations), cluster_info(std::move(ci)) {}
 
     /**
      * @brief Assigns a point to a cluster
@@ -60,5 +62,5 @@ public:
     void restore_state(Eigen::VectorXi &old_allocations, std::unordered_map<int, std::vector<int>> &old_cluster_members,
                        int old_K) override;
 
-    virtual ~Data_wClusterInfo() = default;
+    virtual ~Datax() = default;
 };

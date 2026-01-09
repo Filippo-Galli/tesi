@@ -14,7 +14,7 @@
 #include "Rcpp/XPtr.h"
 #include "utils/Params.hpp"
 #include "utils/Data.hpp"
-#include "utils/Data_wClusterInfo.hpp"
+#include "utils/Datax.hpp"
 #include "utils/ClusterInfo.hpp"
 #include "utils/Likelihood.hpp"
 #include "likelihoods/Natarajan_likelihood.hpp"
@@ -50,7 +50,7 @@ Data *get_data_ptr(SEXP sexp) {
 
     // Try Data_wClusterInfo
     try {
-        Rcpp::XPtr<Data_wClusterInfo> ptr(sexp);
+        Rcpp::XPtr<Datax> ptr(sexp);
         return ptr.get();
     } catch (...) {
     }
@@ -99,10 +99,19 @@ Rcpp::XPtr<Covariate_cache> create_Covariate_cache(Eigen::VectorXi &initial_allo
 }
 
 // [[Rcpp::export]]
-Rcpp::XPtr<Data_wClusterInfo> create_Data_wClusterInfo(Rcpp::XPtr<Params> params, SEXP cluster_info_sexp,
-                                                       Eigen::VectorXi initial_allocations) {
-    ClusterInfo *cluster_info = get_cluster_info_ptr(cluster_info_sexp);
-    return Rcpp::XPtr<Data_wClusterInfo>(new Data_wClusterInfo(*params, *cluster_info, initial_allocations), true);
+Rcpp::XPtr<Datax> create_Datax(Rcpp::XPtr<Params> params, Rcpp::List modules_list,
+                               Eigen::VectorXi initial_allocations) {
+
+    std::vector<std::shared_ptr<ClusterInfo>> modules;
+    modules.reserve(modules_list.size());
+
+    for (int i = 0; i < modules_list.size(); ++i) {
+        // Get the raw ClusterInfo pointer from XPtr (could be Covariate_cache, etc.)
+        ClusterInfo *raw_ptr = get_cluster_info_ptr(modules_list[i]);
+        // Wrap in non-owning shared_ptr (R's XPtr manages lifetime)
+        modules.push_back(std::shared_ptr<ClusterInfo>(raw_ptr, [](ClusterInfo *) {}));
+    }
+    return Rcpp::XPtr<Datax>(new Datax(*params, std::move(modules), initial_allocations), true);
 }
 
 // Factory functions for likelihoods
@@ -307,11 +316,9 @@ void cluster_info_recompute(Rcpp::XPtr<ClusterInfo> cluster_info, int K, Eigen::
 }
 
 // [[Rcpp::export]]
-void data_wclusterinfo_set_allocation(Rcpp::XPtr<Data_wClusterInfo> data, int index, int cluster) {
-    data->set_allocation(index, cluster);
-}
+void datax_set_allocation(Rcpp::XPtr<Datax> data, int index, int cluster) { data->set_allocation(index, cluster); }
 
 // [[Rcpp::export]]
-void data_wclusterinfo_set_allocations(Rcpp::XPtr<Data_wClusterInfo> data, Eigen::VectorXi new_allocations) {
+void datax_set_allocations(Rcpp::XPtr<Datax> data, Eigen::VectorXi new_allocations) {
     data->set_allocations(new_allocations);
 }
