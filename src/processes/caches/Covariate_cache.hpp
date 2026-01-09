@@ -54,14 +54,14 @@ public:
      * @param cluster Index of the cluster
      * @return ClusterStats struct
      */
-    ClusterStats get_cluster_stats(int cluster) const { return cluster_stats[cluster]; }
+    inline ClusterStats get_cluster_stats(int cluster) const { return cluster_stats[cluster]; }
 
     /**
      * @brief Get cluster statistics reference for a specific cluster
      * @param cluster Index of the cluster
      * @return Const reference to ClusterStats struct
      */
-    const ClusterStats &get_cluster_stats_ref(int cluster) const { return cluster_stats[cluster]; }
+    inline const ClusterStats &get_cluster_stats_ref(int cluster) const { return cluster_stats[cluster]; }
 
     /**
      * @brief Recomputes all cluster information from current allocations
@@ -74,7 +74,9 @@ public:
      * @param from_cluster Index of the source cluster
      * @param to_cluster Index of the target cluster
      */
-    void move_cluster_info(int from_cluster, int to_cluster) override;
+    inline void move_cluster_info(int from_cluster, int to_cluster) override {
+        cluster_stats[to_cluster] = std::move(cluster_stats[from_cluster]);
+    };
 
     /**
      * @brief Removes information related to a specific cluster
