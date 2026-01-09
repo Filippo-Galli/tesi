@@ -1,6 +1,11 @@
 var searchData=
 [
-  ['u_5fsampler_0',['U_sampler',['../classU__sampler.html#a23ec32a62896472e93d554ca9d74669b',1,'U_sampler']]],
-  ['update_5fparams_1',['update_params',['../classDP.html#a577726382e64c057fcbc889325084ad1',1,'DP::update_params()'],['../classDPW.html#a16a239e120dad65bbe1b55a2771cde60',1,'DPW::update_params()'],['../classNGGP.html#a6c28f93e9b1a28edd8eef383c06447a1',1,'NGGP::update_params()'],['../classNGGPW.html#a46cc6dfe0fa4e2b3a96745e77622a7e4',1,'NGGPW::update_params()'],['../classNGGPWx.html#a20ded7fbf8678c099577a37f31ad4c0a',1,'NGGPWx::update_params()'],['../classProcess.html#ac610fb84ed64db2a74fa1447ce5a582e',1,'Process::update_params()']]],
-  ['update_5fu_2',['update_u',['../classMALA.html#a40d442a7e6e66c3853e4014326ee5934',1,'MALA::update_U()'],['../classRWMH.html#a1349180615746681801b1b6b86fe1c4b',1,'RWMH::update_U()'],['../classU__sampler.html#a68c7b18e6183b1bc9a1645ff36e0c82f',1,'U_sampler::update_U()']]]
+  ['_7eclusterinfo_0',['~ClusterInfo',['../classClusterInfo.html#aca8dd19052b05e2f54fb18e75e7a1823',1,'ClusterInfo']]],
+  ['_7edata_1',['~Data',['../classData.html#a3635432c142836f46f99fbdf6273d135',1,'Data']]],
+  ['_7edatax_2',['~Datax',['../classDatax.html#ac404a7ec2f1494a8a3a03d08654e378e',1,'Datax']]],
+  ['_7elikelihood_3',['~Likelihood',['../classLikelihood.html#abb9b7ccfc5fcd5145a196308a8a7b1cb',1,'Likelihood']]],
+  ['_7emodule_4',['~Module',['../classModule.html#a4a48538d35a2da7fcc32d9f509034723',1,'Module']]],
+  ['_7eprocess_5',['~Process',['../classProcess.html#a7ff358c1d3b155bc09e1271266cdce7d',1,'Process']]],
+  ['_7esampler_6',['~Sampler',['../classSampler.html#a211a2f7cb64b2adf3a8c66f92abf8f7d',1,'Sampler']]],
+  ['_7eu_5fsampler_7',['~U_sampler',['../classU__sampler.html#a1f1b535ec7cad2be0aa24c7535c084d1',1,'U_sampler']]]
 ];

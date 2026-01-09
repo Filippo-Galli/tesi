@@ -3,10 +3,11 @@ var hierarchy =
     [ "ClusterInfo", "classClusterInfo.html", null ],
     [ "ContinuosCovariatesModule::ClusterStats", "structContinuosCovariatesModule_1_1ClusterStats.html", null ],
     [ "Data", "classData.html", [
-      [ "Data_wClusterInfo", "classData__wClusterInfo.html", null ]
+      [ "Datax", "classDatax.html", null ]
     ] ],
     [ "Likelihood", "classLikelihood.html", null ],
     [ "Module", "classModule.html", [
+      [ "BinaryCovariatesModule", "classBinaryCovariatesModule.html", null ],
       [ "ContinuosCovariatesModule", "classContinuosCovariatesModule.html", null ],
       [ "ContinuosCovariatesModuleCache", "classContinuosCovariatesModuleCache.html", null ],
       [ "SpatialModule", "classSpatialModule.html", null ]

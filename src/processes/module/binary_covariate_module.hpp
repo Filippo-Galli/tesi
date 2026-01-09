@@ -5,8 +5,6 @@
  * @brief Covariate-related computations for clustering processes.
  */
 
-#pragma once
-
 #include "../../utils/Data.hpp"
 #include "../../utils/Module.hpp"
 
@@ -55,7 +53,7 @@ public:
      * @param beta_prior_alpha_ Prior alpha parameter for Beta-Binomial model
      * @param beta_prior_beta_ Prior beta parameter for Beta-Binomial model
      * @param old_alloc_provider Optional pointer to old allocations for split-merge moves
-     * @param old_cluster_members_provider Optional pointer to old cluster members for split-merge moves
+     * @param old_cluster_members_provider_ Optional pointer to old cluster members for split-merge moves
      */
     BinaryCovariatesModule(const Data &data_, const Eigen::VectorXi &binary_covariate, double beta_prior_alpha_,
                            double beta_prior_beta_, const Eigen::VectorXi *old_alloc_provider = nullptr,

@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['data_0',['Data',['../classData.html',1,'']]],
-  ['data_5fwclusterinfo_1',['Data_wClusterInfo',['../classData__wClusterInfo.html',1,'']]],
-  ['dp_2',['DP',['../classDP.html',1,'']]],
-  ['dpx_3',['DPx',['../classDPx.html',1,'']]]
+  ['clusterinfo_0',['ClusterInfo',['../classClusterInfo.html',1,'']]],
+  ['clusterstats_1',['ClusterStats',['../structContinuosCovariatesModule_1_1ClusterStats.html',1,'ContinuosCovariatesModule']]],
+  ['continuoscovariatesmodule_2',['ContinuosCovariatesModule',['../classContinuosCovariatesModule.html',1,'']]],
+  ['continuoscovariatesmodulecache_3',['ContinuosCovariatesModuleCache',['../classContinuosCovariatesModuleCache.html',1,'']]]
 ];

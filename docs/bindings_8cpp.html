@@ -113,7 +113,7 @@ $(function(){initNavTree('bindings_8cpp.html',''); initResizable(true); });
 <code>#include &quot;Rcpp/XPtr.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="Params_8hpp_source.html">utils/Params.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Data_8hpp_source.html">utils/Data.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Data__wClusterInfo_8hpp_source.html">utils/Data_wClusterInfo.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Datax_8hpp_source.html">utils/Datax.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ClusterInfo_8hpp_source.html">utils/ClusterInfo.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Likelihood_8hpp_source.html">utils/Likelihood.hpp</a>&quot;</code><br />
 <code>#include &quot;likelihoods/Natarajan_likelihood.hpp&quot;</code><br />
@@ -150,8 +150,8 @@ Functions</h2></td></tr>
 <tr class="separator:ac0ddd038caef50f4affae93c691afb3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3bc0a27aa2106995027b6940f389f22" id="r_ae3bc0a27aa2106995027b6940f389f22"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; Covariate_cache &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3bc0a27aa2106995027b6940f389f22">create_Covariate_cache</a> (Eigen::VectorXi &amp;initial_allocations, Eigen::VectorXd continuos_covariates)</td></tr>
 <tr class="separator:ae3bc0a27aa2106995027b6940f389f22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2956832fd6a2e4a6903fcd1100c63c81" id="r_a2956832fd6a2e4a6903fcd1100c63c81"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classData__wClusterInfo.html">Data_wClusterInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2956832fd6a2e4a6903fcd1100c63c81">create_Data_wClusterInfo</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, SEXP cluster_info_sexp, Eigen::VectorXi initial_allocations)</td></tr>
-<tr class="separator:a2956832fd6a2e4a6903fcd1100c63c81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaedcb424202bddd0b7d1062dd3406435" id="r_aaedcb424202bddd0b7d1062dd3406435"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classDatax.html">Datax</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaedcb424202bddd0b7d1062dd3406435">create_Datax</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::List modules_list, Eigen::VectorXi initial_allocations)</td></tr>
+<tr class="separator:aaedcb424202bddd0b7d1062dd3406435"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9213031e65c5de4995d4c81fdc39b8ee" id="r_a9213031e65c5de4995d4c81fdc39b8ee"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; Natarajan_likelihood &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9213031e65c5de4995d4c81fdc39b8ee">create_Natarajan_likelihood</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params)</td></tr>
 <tr class="separator:a9213031e65c5de4995d4c81fdc39b8ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a111ab9a191c1e9e025ebbddeec1eec38" id="r_a111ab9a191c1e9e025ebbddeec1eec38"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classRWMH.html">RWMH</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a111ab9a191c1e9e025ebbddeec1eec38">create_RWMH</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, SEXP data_sexp, bool use_V, double proposal_sd, bool tuning_enabled)</td></tr>
@@ -212,10 +212,10 @@ Functions</h2></td></tr>
 <tr class="separator:a5178ad012d50d318175888b238dfef07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a307ada36a4d6c51f3f09138486dc59" id="r_a1a307ada36a4d6c51f3f09138486dc59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a307ada36a4d6c51f3f09138486dc59">cluster_info_recompute</a> (Rcpp::XPtr&lt; <a class="el" href="classClusterInfo.html">ClusterInfo</a> &gt; cluster_info, int K, Eigen::VectorXi allocations)</td></tr>
 <tr class="separator:a1a307ada36a4d6c51f3f09138486dc59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0688f01786b76980efda9b356da1e0e9" id="r_a0688f01786b76980efda9b356da1e0e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0688f01786b76980efda9b356da1e0e9">data_wclusterinfo_set_allocation</a> (Rcpp::XPtr&lt; <a class="el" href="classData__wClusterInfo.html">Data_wClusterInfo</a> &gt; data, int index, int cluster)</td></tr>
-<tr class="separator:a0688f01786b76980efda9b356da1e0e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a178f8cf2a5746b25f5ff7919d21b788a" id="r_a178f8cf2a5746b25f5ff7919d21b788a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a178f8cf2a5746b25f5ff7919d21b788a">data_wclusterinfo_set_allocations</a> (Rcpp::XPtr&lt; <a class="el" href="classData__wClusterInfo.html">Data_wClusterInfo</a> &gt; data, Eigen::VectorXi new_allocations)</td></tr>
-<tr class="separator:a178f8cf2a5746b25f5ff7919d21b788a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0dbc9a79a894bdaa7d4cea1edf27d0e" id="r_ad0dbc9a79a894bdaa7d4cea1edf27d0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad0dbc9a79a894bdaa7d4cea1edf27d0e">datax_set_allocation</a> (Rcpp::XPtr&lt; <a class="el" href="classDatax.html">Datax</a> &gt; data, int index, int cluster)</td></tr>
+<tr class="separator:ad0dbc9a79a894bdaa7d4cea1edf27d0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8afcb94c8359f88b70fcbccfb596fd86" id="r_a8afcb94c8359f88b70fcbccfb596fd86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8afcb94c8359f88b70fcbccfb596fd86">datax_set_allocations</a> (Rcpp::XPtr&lt; <a class="el" href="classDatax.html">Datax</a> &gt; data, Eigen::VectorXi new_allocations)</td></tr>
+<tr class="separator:a8afcb94c8359f88b70fcbccfb596fd86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>R language bindings for Bayesian nonparametric clustering models. </p>
@@ -455,21 +455,21 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a2956832fd6a2e4a6903fcd1100c63c81" name="a2956832fd6a2e4a6903fcd1100c63c81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2956832fd6a2e4a6903fcd1100c63c81">&#9670;&#160;</a></span>create_Data_wClusterInfo()</h2>
+<a id="aaedcb424202bddd0b7d1062dd3406435" name="aaedcb424202bddd0b7d1062dd3406435"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaedcb424202bddd0b7d1062dd3406435">&#9670;&#160;</a></span>create_Datax()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Rcpp::XPtr&lt; <a class="el" href="classData__wClusterInfo.html">Data_wClusterInfo</a> &gt; create_Data_wClusterInfo </td>
+          <td class="memname">Rcpp::XPtr&lt; <a class="el" href="classDatax.html">Datax</a> &gt; create_Datax </td>
           <td>(</td>
           <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>params</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>cluster_info_sexp</em></span>, </td>
+          <td class="paramtype">Rcpp::List</td>          <td class="paramname"><span class="paramname"><em>modules_list</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1015,16 +1015,16 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0688f01786b76980efda9b356da1e0e9" name="a0688f01786b76980efda9b356da1e0e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0688f01786b76980efda9b356da1e0e9">&#9670;&#160;</a></span>data_wclusterinfo_set_allocation()</h2>
+<a id="ad0dbc9a79a894bdaa7d4cea1edf27d0e" name="ad0dbc9a79a894bdaa7d4cea1edf27d0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0dbc9a79a894bdaa7d4cea1edf27d0e">&#9670;&#160;</a></span>datax_set_allocation()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void data_wclusterinfo_set_allocation </td>
+          <td class="memname">void datax_set_allocation </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData__wClusterInfo.html">Data_wClusterInfo</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classDatax.html">Datax</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1041,16 +1041,16 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a178f8cf2a5746b25f5ff7919d21b788a" name="a178f8cf2a5746b25f5ff7919d21b788a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a178f8cf2a5746b25f5ff7919d21b788a">&#9670;&#160;</a></span>data_wclusterinfo_set_allocations()</h2>
+<a id="a8afcb94c8359f88b70fcbccfb596fd86" name="a8afcb94c8359f88b70fcbccfb596fd86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8afcb94c8359f88b70fcbccfb596fd86">&#9670;&#160;</a></span>datax_set_allocations()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void data_wclusterinfo_set_allocations </td>
+          <td class="memname">void datax_set_allocations </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classData__wClusterInfo.html">Data_wClusterInfo</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classDatax.html">Datax</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

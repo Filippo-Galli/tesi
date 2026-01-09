@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['neal3_0',['Neal3',['../classNeal3.html#ad50c5edb8fddcf84043fa2aa1249f9ea',1,'Neal3']]],
-  ['neal3zdnam_1',['Neal3ZDNAM',['../classNeal3ZDNAM.html#aeff436f6a597dacfea0b31e098481b76',1,'Neal3ZDNAM']]],
-  ['neighbor_5fcache_5fcompute_2',['neighbor_cache_compute',['../classSpatialModule.html#a838c7393c68a6670ef16a7fd311b88b9',1,'SpatialModule']]],
-  ['nggp_3',['NGGP',['../classNGGP.html#a7239a08c3add6e13307e3b35c376580a',1,'NGGP']]],
-  ['nggpx_4',['NGGPx',['../classNGGPx.html#a42871b9d1544f5a6382b0d0a01256e9f',1,'NGGPx']]]
+  ['mala_0',['MALA',['../classMALA.html#a7721443577ca4639c17e298b2c1d56b2',1,'MALA']]],
+  ['merge_5fmove_1',['merge_move',['../classSplitMerge.html#a81747132bb2e0601a4e20c12d26197aa',1,'SplitMerge::merge_move()'],['../classSplitMerge__LSS.html#a592b28bad845e868b2baef627472a8c3',1,'SplitMerge_LSS::merge_move()'],['../classSplitMerge__SAMS.html#a6f774a8523fa9cd09826aecd6a177d11',1,'SplitMerge_SAMS::merge_move()']]],
+  ['module_2',['Module',['../classModule.html#a4b1fffbc65ffbf0ca18f7d59394bd46d',1,'Module']]],
+  ['move_5fcluster_5finfo_3',['move_cluster_info',['../classClusterInfo.html#a22014a13e7a2323724e7b492b53b9313',1,'ClusterInfo']]]
 ];
