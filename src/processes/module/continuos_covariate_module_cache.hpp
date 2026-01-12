@@ -213,7 +213,7 @@ public:
      * @brief Constructor for CovariatesModule
      *
      * @param data_ Reference to Data object with cluster assignments
-     * @param covariate_cache_ Reference to ContinuosCache for precomputed stats
+     * @param continuos_cache_ Reference to ContinuosCache for precomputed stats
      * @param fixed_v_ Whether observation variance is fixed (NN) or random (NNIG)
      * @param m_ Prior mean for covariate
      * @param B_ Prior variance for covariate

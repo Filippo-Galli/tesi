@@ -18,6 +18,11 @@ class BinaryCache : public ClusterInfo {
 public:
     // Important to declare the struct useful.
     // HINT: If the name changed modified the file which uses it accordingly.
+    /**
+    * @struct ClusterStats
+    * @brief Structure to hold statistics for each cluster.
+    * @details Contains the sum of binary covariates and the count of observations in the cluster.
+    */
     struct ClusterStats {
         int binary_sum = 0;
         int n = 0;
@@ -44,24 +49,7 @@ public:
      * @param old_cluster Previous cluster index of the point
      * @throws std::out_of_range if index or cluster is invalid
      */
-    void set_allocation(int index, int cluster, int old_cluster) override {
-        // Remove from old cluster
-        if (old_cluster >= 0 && old_cluster < cluster_stats.size()) {
-            ClusterStats &stats = cluster_stats[old_cluster];
-            stats.n--;
-            stats.binary_sum -= binary_covariates(index);
-        }
-
-        // Add to new cluster
-        if (cluster >= 0) {
-            if (cluster >= cluster_stats.size()) {
-                cluster_stats.resize(cluster + 1);
-            }
-            ClusterStats &stats = cluster_stats[cluster];
-            stats.n++;
-            stats.binary_sum += binary_covariates(index);
-        }
-    }
+    void set_allocation(int index, int cluster, int old_cluster) override;
 
     /**
      * @brief Get cluster statistics for a specific cluster
@@ -80,25 +68,9 @@ public:
     /**
      * @brief Recomputes all cluster information from current allocations
      * @param K Current number of clusters
+     * @param allocations_in Current allocations vector
      */
-    void recompute(const int K, const Eigen::VectorXi &allocations_in) override {
-        cluster_stats.clear();
-        cluster_stats.resize(K + 1);
-
-        // Compute stats
-        for (int i = 0; i < allocations_in.size(); ++i) {
-            int cluster = allocations_in(i);
-            if (cluster < 0)
-                continue;
-
-            if (cluster >= cluster_stats.size())
-                cluster_stats.resize(cluster + 1);
-
-            ClusterStats &stats = cluster_stats[cluster];
-            stats.n++;
-            stats.binary_sum += binary_covariates(i);
-        }
-    }
+    void recompute(const int K, const Eigen::VectorXi &allocations_in) override;
 
     /**
      * @brief Moves cluster information from one cluster to another

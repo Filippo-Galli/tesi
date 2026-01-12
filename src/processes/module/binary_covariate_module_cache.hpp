@@ -49,7 +49,7 @@ public:
     /**
      * @brief Constructor for BinaryCovariatesModule
      * @param data_ Reference to data object with cluster assignments
-     * @param binary_covariate Covariate values (1D vector of 0s and 1s)
+     * @param cache_ Reference to BinaryCache for precomputed stats
      * @param beta_prior_alpha_ Prior alpha parameter for Beta-Binomial model
      * @param beta_prior_beta_ Prior beta parameter for Beta-Binomial model
      * @param old_alloc_provider Optional pointer to old allocations for split-merge moves

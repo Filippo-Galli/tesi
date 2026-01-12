@@ -17,6 +17,11 @@ class ContinuosCache : public ClusterInfo {
 public:
     // Important to declare the struct useful.
     // HINT: If the name changed modified the file which uses it accordingly.
+    /**
+    * @struct ClusterStats
+    * @brief Structure to hold statistics for each cluster.
+    * @details Contains the count of observations, sum, and sum of squares of continuous covariates in the cluster.
+    */
     struct ClusterStats {
         int n = 0;
         double sum = 0.0;
@@ -76,6 +81,7 @@ public:
     /**
      * @brief Recomputes all cluster information from current allocations
      * @param K Current number of clusters
+     * @param allocations Current allocations vector
      */
     void recompute(const int K, const Eigen::VectorXi &allocations) override;
 

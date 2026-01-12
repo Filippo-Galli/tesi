@@ -124,7 +124,7 @@ Inheritance diagram for BinaryCovariatesModuleCache:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa2b4b8634a0395e2955335c85019ab88" id="r_aa2b4b8634a0395e2955335c85019ab88"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2b4b8634a0395e2955335c85019ab88">BinaryCovariatesModuleCache</a> (const <a class="el" href="classData.html">Data</a> &amp;data_, const BinaryCache &amp;cache_, double beta_prior_alpha_, double beta_prior_beta_, const Eigen::VectorXi *old_alloc_provider=nullptr, const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; *old_cluster_members_provider_=nullptr)</td></tr>
+<tr class="memitem:aa2b4b8634a0395e2955335c85019ab88" id="r_aa2b4b8634a0395e2955335c85019ab88"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2b4b8634a0395e2955335c85019ab88">BinaryCovariatesModuleCache</a> (const <a class="el" href="classData.html">Data</a> &amp;data_, const <a class="el" href="classBinaryCache.html">BinaryCache</a> &amp;cache_, double beta_prior_alpha_, double beta_prior_beta_, const Eigen::VectorXi *old_alloc_provider=nullptr, const std::unordered_map&lt; int, std::vector&lt; int &gt; &gt; *old_cluster_members_provider_=nullptr)</td></tr>
 <tr class="memdesc:aa2b4b8634a0395e2955335c85019ab88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="classBinaryCovariatesModule.html" title="Module for binary covariate-related computations within clustering processes.">BinaryCovariatesModule</a>.  <br /></td></tr>
 <tr class="separator:aa2b4b8634a0395e2955335c85019ab88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Similarity Computation Methods</div></td></tr>
@@ -157,7 +157,7 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:aa01588300ef4c418f197a031eb5f19f4" id="r_aa01588300ef4c418f197a031eb5f19f4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classData.html">Data</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa01588300ef4c418f197a031eb5f19f4">data</a></td></tr>
 <tr class="memdesc:aa01588300ef4c418f197a031eb5f19f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to data object with cluster assignments.  <br /></td></tr>
 <tr class="separator:aa01588300ef4c418f197a031eb5f19f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1046343d6345dbbcf6db21d50fea236" id="r_ad1046343d6345dbbcf6db21d50fea236"><td class="memItemLeft" align="right" valign="top">const BinaryCache &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1046343d6345dbbcf6db21d50fea236">cache</a></td></tr>
+<tr class="memitem:ad1046343d6345dbbcf6db21d50fea236" id="r_ad1046343d6345dbbcf6db21d50fea236"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classBinaryCache.html">BinaryCache</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1046343d6345dbbcf6db21d50fea236">cache</a></td></tr>
 <tr class="separator:ad1046343d6345dbbcf6db21d50fea236"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Precomputed Values</div></td></tr>
 <tr class="memitem:aecbbe69c9e7cf4f109322595bec99a47" id="r_aecbbe69c9e7cf4f109322595bec99a47"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aecbbe69c9e7cf4f109322595bec99a47">log_beta_prior</a></td></tr>
@@ -192,7 +192,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const BinaryCache &amp;</td>          <td class="paramname"><span class="paramname"><em>cache_</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="classBinaryCache.html">BinaryCache</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cache_</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -226,7 +226,7 @@ Protected Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data_</td><td>Reference to data object with cluster assignments </td></tr>
-    <tr><td class="paramname">binary_covariate</td><td>Covariate values (1D vector of 0s and 1s) </td></tr>
+    <tr><td class="paramname">cache_</td><td>Reference to <a class="el" href="classBinaryCache.html" title="Cache for spatial model with binary covariates.">BinaryCache</a> for precomputed stats </td></tr>
     <tr><td class="paramname">beta_prior_alpha_</td><td>Prior alpha parameter for Beta-Binomial model </td></tr>
     <tr><td class="paramname">beta_prior_beta_</td><td>Prior beta parameter for Beta-Binomial model </td></tr>
     <tr><td class="paramname">old_alloc_provider</td><td>Optional pointer to old allocations for split-merge moves </td></tr>
@@ -413,7 +413,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const BinaryCache&amp; BinaryCovariatesModuleCache::cache</td>
+          <td class="memname">const <a class="el" href="classBinaryCache.html">BinaryCache</a>&amp; BinaryCovariatesModuleCache::cache</td>
         </tr>
       </table>
   </td>

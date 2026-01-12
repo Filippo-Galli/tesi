@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['n_0',['n',['../structParams.html#afc3333a9305656968c608c907941d52e',1,'Params::n'],['../classU__sampler.html#a2ff0d1829fb23f7e753654355237c77a',1,'U_sampler::n'],['../structContinuosCovariatesModule_1_1ClusterStats.html#a0bd08fca37336add6c1a5f444313139d',1,'ContinuosCovariatesModule::ClusterStats::n']]],
+  ['n_0',['n',['../structParams.html#afc3333a9305656968c608c907941d52e',1,'Params::n'],['../classU__sampler.html#a2ff0d1829fb23f7e753654355237c77a',1,'U_sampler::n'],['../structContinuosCovariatesModule_1_1ClusterStats.html#a0bd08fca37336add6c1a5f444313139d',1,'ContinuosCovariatesModule::ClusterStats::n'],['../structBinaryCache_1_1ClusterStats.html#a77b7be0c55055d89bb3d34615dd4b27f',1,'BinaryCache::ClusterStats::n'],['../structContinuosCache_1_1ClusterStats.html#ae0ad9e93f814762896ad01d5219bddec',1,'ContinuosCache::ClusterStats::n']]],
   ['n_5fdata_1',['n_data',['../classNeal3.html#a77a18af846cd7cc39cadef6f7db92e2e',1,'Neal3']]],
   ['neighbor_5fcache_2',['neighbor_cache',['../classSpatialModule.html#a50166acdc6f0c6678279b677903d21e5',1,'SpatialModule']]],
   ['ni_3',['NI',['../structParams.html#aad4ced5e851807ada535fae7ec6ebc73',1,'Params']]],

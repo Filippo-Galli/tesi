@@ -129,7 +129,7 @@ $(function(){initNavTree('bindings_8cpp.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="binary__covariate__module_8hpp_source.html">processes/module/binary_covariate_module.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="binary__covariate__module__cache_8hpp_source.html">processes/module/binary_covariate_module_cache.hpp</a>&quot;</code><br />
 <code>#include &quot;processes/caches/Covariate_cache.hpp&quot;</code><br />
-<code>#include &quot;processes/caches/binary_cache.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="binary__cache_8hpp_source.html">processes/caches/binary_cache.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="U__sampler_8hpp_source.html">samplers/U_sampler/U_sampler.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RWMH_8hpp_source.html">samplers/U_sampler/RWMH.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MALA_8hpp_source.html">samplers/U_sampler/MALA.hpp</a>&quot;</code><br />
@@ -153,7 +153,7 @@ Functions</h2></td></tr>
 <tr class="separator:ac0ddd038caef50f4affae93c691afb3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3bc0a27aa2106995027b6940f389f22" id="r_ae3bc0a27aa2106995027b6940f389f22"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; Covariate_cache &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3bc0a27aa2106995027b6940f389f22">create_Covariate_cache</a> (Eigen::VectorXi &amp;initial_allocations, Eigen::VectorXd continuos_covariates)</td></tr>
 <tr class="separator:ae3bc0a27aa2106995027b6940f389f22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7eb13311621e280c382c755533d6b88f" id="r_a7eb13311621e280c382c755533d6b88f"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; BinaryCache &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7eb13311621e280c382c755533d6b88f">create_Binary_cache</a> (Eigen::VectorXi &amp;initial_allocations, Eigen::VectorXi binary_covariates)</td></tr>
+<tr class="memitem:a7eb13311621e280c382c755533d6b88f" id="r_a7eb13311621e280c382c755533d6b88f"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classBinaryCache.html">BinaryCache</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7eb13311621e280c382c755533d6b88f">create_Binary_cache</a> (Eigen::VectorXi &amp;initial_allocations, Eigen::VectorXi binary_covariates)</td></tr>
 <tr class="separator:a7eb13311621e280c382c755533d6b88f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaedcb424202bddd0b7d1062dd3406435" id="r_aaedcb424202bddd0b7d1062dd3406435"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classDatax.html">Datax</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaedcb424202bddd0b7d1062dd3406435">create_Datax</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::List modules_list, Eigen::VectorXi initial_allocations)</td></tr>
 <tr class="separator:aaedcb424202bddd0b7d1062dd3406435"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -177,7 +177,7 @@ Functions</h2></td></tr>
 <tr class="separator:aef607a2879a0681f7df5084a6b978f9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affdb6f813328e2c8e99f01ae535675dd" id="r_affdb6f813328e2c8e99f01ae535675dd"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#affdb6f813328e2c8e99f01ae535675dd">create_BinaryCovariatesModule</a> (SEXP data_sexp, Eigen::VectorXi covariates, double prior_a=1.0, double prior_b=1.0)</td></tr>
 <tr class="separator:affdb6f813328e2c8e99f01ae535675dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2fdb9d0c4033a94cfa6b166ce703025" id="r_ad2fdb9d0c4033a94cfa6b166ce703025"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2fdb9d0c4033a94cfa6b166ce703025">create_BinaryCovariatesModuleCache</a> (SEXP data_sexp, Rcpp::XPtr&lt; BinaryCache &gt; cache, double beta_prior_alpha=1.0, double beta_prior_beta=1.0)</td></tr>
+<tr class="memitem:ad2fdb9d0c4033a94cfa6b166ce703025" id="r_ad2fdb9d0c4033a94cfa6b166ce703025"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2fdb9d0c4033a94cfa6b166ce703025">create_BinaryCovariatesModuleCache</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="classBinaryCache.html">BinaryCache</a> &gt; cache, double beta_prior_alpha=1.0, double beta_prior_beta=1.0)</td></tr>
 <tr class="separator:ad2fdb9d0c4033a94cfa6b166ce703025"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd3247c4e5ec187258bbefe7201e9930" id="r_abd3247c4e5ec187258bbefe7201e9930"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classDPx.html">DPx</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd3247c4e5ec187258bbefe7201e9930">create_DPx</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::List modules_list)</td></tr>
 <tr class="separator:abd3247c4e5ec187258bbefe7201e9930"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -296,7 +296,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Rcpp::XPtr&lt; BinaryCache &gt; create_Binary_cache </td>
+          <td class="memname">Rcpp::XPtr&lt; <a class="el" href="classBinaryCache.html">BinaryCache</a> &gt; create_Binary_cache </td>
           <td>(</td>
           <td class="paramtype">Eigen::VectorXi &amp;</td>          <td class="paramname"><span class="paramname"><em>initial_allocations</em></span>, </td>
         </tr>
@@ -355,7 +355,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Rcpp::XPtr&lt; BinaryCache &gt;</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>, </td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classBinaryCache.html">BinaryCache</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
