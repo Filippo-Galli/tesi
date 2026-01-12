@@ -1,6 +1,11 @@
-#include "Covariate_cache.hpp"
+/**
+* @file continuos_cache.cpp
+* @brief Implementation of `ContinuosCache`.
+*/
 
-void Covariate_cache::set_allocation(int index, int cluster, int old_cluster) {
+#include "continuos_cache.hpp"
+
+void ContinuosCache::set_allocation(int index, int cluster, int old_cluster) {
 
     const double value = continuos_covariates(index);
     // Remove point from old cluster stats
@@ -26,7 +31,7 @@ void Covariate_cache::set_allocation(int index, int cluster, int old_cluster) {
     }
 }
 
-void Covariate_cache::recompute(const int K, const Eigen::VectorXi &allocations) {
+void ContinuosCache::recompute(const int K, const Eigen::VectorXi &allocations) {
     // Clear existing stats
     cluster_stats.clear();
 
@@ -48,7 +53,7 @@ void Covariate_cache::recompute(const int K, const Eigen::VectorXi &allocations)
     }
 }
 
-void Covariate_cache::remove_info(int cluster) {
+void ContinuosCache::remove_info(int cluster) {
     // Remove stats for the specified cluster
     if (cluster == static_cast<int>(cluster_stats.size()) - 1) {
         cluster_stats.pop_back();

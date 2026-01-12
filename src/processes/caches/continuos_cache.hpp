@@ -1,8 +1,19 @@
 #pragma once
 
+/**
+ * @file continuos_cache.hpp
+ * @brief Cache for spatial model with continuous covariates.
+ */
+
 #include "../../utils/ClusterInfo.hpp"
 
-class Covariate_cache : public ClusterInfo {
+/**
+ * @class ContinuosCache
+ * @brief Cache for spatial model with continuous covariates.
+ * @details This class maintains cluster statistics for a spatial model that includes continuous covariates.
+ */
+
+class ContinuosCache : public ClusterInfo {
 public:
     // Important to declare the struct useful.
     // HINT: If the name changed modified the file which uses it accordingly.
@@ -18,7 +29,7 @@ private:
 public:
     const Eigen::VectorXd continuos_covariates;
 
-    Covariate_cache(Eigen::VectorXi &initial_allocations, const Eigen::VectorXd &continuos_covariates)
+    ContinuosCache(Eigen::VectorXi &initial_allocations, const Eigen::VectorXd &continuos_covariates)
         : continuos_covariates(continuos_covariates) {
         cluster_stats.clear();
 
