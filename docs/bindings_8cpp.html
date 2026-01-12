@@ -117,6 +117,7 @@ $(function(){initNavTree('bindings_8cpp.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="ClusterInfo_8hpp_source.html">utils/ClusterInfo.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Likelihood_8hpp_source.html">utils/Likelihood.hpp</a>&quot;</code><br />
 <code>#include &quot;likelihoods/Natarajan_likelihood.hpp&quot;</code><br />
+<code>#include &quot;likelihoods/Null_likelihood.hpp&quot;</code><br />
 <code>#include &quot;<a class="el" href="Process_8hpp_source.html">utils/Process.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="DP_8hpp_source.html">processes/DP.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="DPx_8hpp_source.html">processes/DPx.hpp</a>&quot;</code><br />
@@ -126,7 +127,9 @@ $(function(){initNavTree('bindings_8cpp.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="continuos__covariate__module_8hpp_source.html">processes/module/continuos_covariate_module.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="continuos__covariate__module__cache_8hpp_source.html">processes/module/continuos_covariate_module_cache.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="binary__covariate__module_8hpp_source.html">processes/module/binary_covariate_module.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="binary__covariate__module__cache_8hpp_source.html">processes/module/binary_covariate_module_cache.hpp</a>&quot;</code><br />
 <code>#include &quot;processes/caches/Covariate_cache.hpp&quot;</code><br />
+<code>#include &quot;processes/caches/binary_cache.hpp&quot;</code><br />
 <code>#include &quot;<a class="el" href="U__sampler_8hpp_source.html">samplers/U_sampler/U_sampler.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RWMH_8hpp_source.html">samplers/U_sampler/RWMH.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MALA_8hpp_source.html">samplers/U_sampler/MALA.hpp</a>&quot;</code><br />
@@ -150,10 +153,14 @@ Functions</h2></td></tr>
 <tr class="separator:ac0ddd038caef50f4affae93c691afb3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3bc0a27aa2106995027b6940f389f22" id="r_ae3bc0a27aa2106995027b6940f389f22"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; Covariate_cache &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3bc0a27aa2106995027b6940f389f22">create_Covariate_cache</a> (Eigen::VectorXi &amp;initial_allocations, Eigen::VectorXd continuos_covariates)</td></tr>
 <tr class="separator:ae3bc0a27aa2106995027b6940f389f22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7eb13311621e280c382c755533d6b88f" id="r_a7eb13311621e280c382c755533d6b88f"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; BinaryCache &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7eb13311621e280c382c755533d6b88f">create_Binary_cache</a> (Eigen::VectorXi &amp;initial_allocations, Eigen::VectorXi binary_covariates)</td></tr>
+<tr class="separator:a7eb13311621e280c382c755533d6b88f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaedcb424202bddd0b7d1062dd3406435" id="r_aaedcb424202bddd0b7d1062dd3406435"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classDatax.html">Datax</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaedcb424202bddd0b7d1062dd3406435">create_Datax</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::List modules_list, Eigen::VectorXi initial_allocations)</td></tr>
 <tr class="separator:aaedcb424202bddd0b7d1062dd3406435"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9213031e65c5de4995d4c81fdc39b8ee" id="r_a9213031e65c5de4995d4c81fdc39b8ee"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; Natarajan_likelihood &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9213031e65c5de4995d4c81fdc39b8ee">create_Natarajan_likelihood</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params)</td></tr>
 <tr class="separator:a9213031e65c5de4995d4c81fdc39b8ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdf95bf0318a3242ed8b4eff881ea7ec" id="r_acdf95bf0318a3242ed8b4eff881ea7ec"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; Null_likelihood &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acdf95bf0318a3242ed8b4eff881ea7ec">create_Null_likelihood</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params)</td></tr>
+<tr class="separator:acdf95bf0318a3242ed8b4eff881ea7ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a111ab9a191c1e9e025ebbddeec1eec38" id="r_a111ab9a191c1e9e025ebbddeec1eec38"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classRWMH.html">RWMH</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a111ab9a191c1e9e025ebbddeec1eec38">create_RWMH</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, SEXP data_sexp, bool use_V, double proposal_sd, bool tuning_enabled)</td></tr>
 <tr class="separator:a111ab9a191c1e9e025ebbddeec1eec38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7757a3fc43dd161fbbe4fc332f4d862" id="r_ab7757a3fc43dd161fbbe4fc332f4d862"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classMALA.html">MALA</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7757a3fc43dd161fbbe4fc332f4d862">create_MALA</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, SEXP data_sexp, bool use_V, double proposal_sd, bool tuning_enabled)</td></tr>
@@ -170,6 +177,8 @@ Functions</h2></td></tr>
 <tr class="separator:aef607a2879a0681f7df5084a6b978f9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affdb6f813328e2c8e99f01ae535675dd" id="r_affdb6f813328e2c8e99f01ae535675dd"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#affdb6f813328e2c8e99f01ae535675dd">create_BinaryCovariatesModule</a> (SEXP data_sexp, Eigen::VectorXi covariates, double prior_a=1.0, double prior_b=1.0)</td></tr>
 <tr class="separator:affdb6f813328e2c8e99f01ae535675dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2fdb9d0c4033a94cfa6b166ce703025" id="r_ad2fdb9d0c4033a94cfa6b166ce703025"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2fdb9d0c4033a94cfa6b166ce703025">create_BinaryCovariatesModuleCache</a> (SEXP data_sexp, Rcpp::XPtr&lt; BinaryCache &gt; cache, double beta_prior_alpha=1.0, double beta_prior_beta=1.0)</td></tr>
+<tr class="separator:ad2fdb9d0c4033a94cfa6b166ce703025"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd3247c4e5ec187258bbefe7201e9930" id="r_abd3247c4e5ec187258bbefe7201e9930"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classDPx.html">DPx</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd3247c4e5ec187258bbefe7201e9930">create_DPx</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::List modules_list)</td></tr>
 <tr class="separator:abd3247c4e5ec187258bbefe7201e9930"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a425f351f1519dc2e471ce6127c8bc4e9" id="r_a425f351f1519dc2e471ce6127c8bc4e9"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classNGGPx.html">NGGPx</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a425f351f1519dc2e471ce6127c8bc4e9">create_NGGPx</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classU__sampler.html">U_sampler</a> &gt; u_sampler, Rcpp::List modules_list)</td></tr>
@@ -280,6 +289,27 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a7eb13311621e280c382c755533d6b88f" name="a7eb13311621e280c382c755533d6b88f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7eb13311621e280c382c755533d6b88f">&#9670;&#160;</a></span>create_Binary_cache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Rcpp::XPtr&lt; BinaryCache &gt; create_Binary_cache </td>
+          <td>(</td>
+          <td class="paramtype">Eigen::VectorXi &amp;</td>          <td class="paramname"><span class="paramname"><em>initial_allocations</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::VectorXi</td>          <td class="paramname"><span class="paramname"><em>binary_covariates</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="affdb6f813328e2c8e99f01ae535675dd" name="affdb6f813328e2c8e99f01ae535675dd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#affdb6f813328e2c8e99f01ae535675dd">&#9670;&#160;</a></span>create_BinaryCovariatesModule()</h2>
 
@@ -305,6 +335,37 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>prior_b</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad2fdb9d0c4033a94cfa6b166ce703025" name="ad2fdb9d0c4033a94cfa6b166ce703025"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2fdb9d0c4033a94cfa6b166ce703025">&#9670;&#160;</a></span>create_BinaryCovariatesModuleCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt; create_BinaryCovariatesModuleCache </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Rcpp::XPtr&lt; BinaryCache &gt;</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>beta_prior_alpha</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>beta_prior_beta</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -698,6 +759,27 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Rcpp::List</td>          <td class="paramname"><span class="paramname"><em>modules_list</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acdf95bf0318a3242ed8b4eff881ea7ec" name="acdf95bf0318a3242ed8b4eff881ea7ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdf95bf0318a3242ed8b4eff881ea7ec">&#9670;&#160;</a></span>create_Null_likelihood()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Rcpp::XPtr&lt; Null_likelihood &gt; create_Null_likelihood </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>params</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

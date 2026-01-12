@@ -1,12 +1,12 @@
 var classContinuosCovariatesModuleCache =
 [
     [ "ContinuosCovariatesModuleCache", "classContinuosCovariatesModuleCache.html#a6f16b700d559b0b98df3fdc6cbe9c40b", null ],
-    [ "compute_cluster_statistics", "classContinuosCovariatesModuleCache.html#ae570f04c2b51d37600b2ae4a394be236", null ],
-    [ "compute_log_marginal_likelihood", "classContinuosCovariatesModuleCache.html#ae9261f64691b841fa63b97e3393b9b79", null ],
-    [ "compute_log_marginal_likelihood_NN", "classContinuosCovariatesModuleCache.html#a904772981c02133a1918353ebf3c7ca9", null ],
-    [ "compute_log_marginal_likelihood_NNIG", "classContinuosCovariatesModuleCache.html#a377dab3e6d293beb24b9281425da86e9", null ],
-    [ "compute_predictive_NN", "classContinuosCovariatesModuleCache.html#ac8c67e46627f621b37f09a1b84fb66d3", null ],
-    [ "compute_predictive_NNIG", "classContinuosCovariatesModuleCache.html#aad777bcf4916f461c734d0274be2aaa2", null ],
+    [ "compute_cluster_statistics", "classContinuosCovariatesModuleCache.html#a6960b6d1f711cf37f01fc2c5e7a67d80", null ],
+    [ "compute_log_marginal_likelihood", "classContinuosCovariatesModuleCache.html#a058e31ee81c1ac127c77c673cd3dcee3", null ],
+    [ "compute_log_marginal_likelihood_NN", "classContinuosCovariatesModuleCache.html#a9ea867155250178520299c6df86b53bd", null ],
+    [ "compute_log_marginal_likelihood_NNIG", "classContinuosCovariatesModuleCache.html#ad2a20a67d46e284912bc743ce007caef", null ],
+    [ "compute_predictive_NN", "classContinuosCovariatesModuleCache.html#a4c3615d37704919a8680bb6724e503be", null ],
+    [ "compute_predictive_NNIG", "classContinuosCovariatesModuleCache.html#a64fcaebe78a2dfe16d0e8f80371b01a8", null ],
     [ "compute_similarity_cls", "classContinuosCovariatesModuleCache.html#ac802854a59257e5edbbff4a0ef1dddf0", null ],
     [ "compute_similarity_obs", "classContinuosCovariatesModuleCache.html#a48d80c951959cf4cc62387370a2f3211", null ],
     [ "compute_similarity_obs", "classContinuosCovariatesModuleCache.html#a760ea48c27bfbe38320ee9ab79af0bcf", null ],

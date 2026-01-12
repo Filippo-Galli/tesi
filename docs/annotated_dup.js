@@ -1,6 +1,7 @@
 var annotated_dup =
 [
     [ "BinaryCovariatesModule", "classBinaryCovariatesModule.html", "classBinaryCovariatesModule" ],
+    [ "BinaryCovariatesModuleCache", "classBinaryCovariatesModuleCache.html", "classBinaryCovariatesModuleCache" ],
     [ "ClusterInfo", "classClusterInfo.html", "classClusterInfo" ],
     [ "ContinuosCovariatesModule", "classContinuosCovariatesModule.html", "classContinuosCovariatesModule" ],
     [ "ContinuosCovariatesModuleCache", "classContinuosCovariatesModuleCache.html", "classContinuosCovariatesModuleCache" ],

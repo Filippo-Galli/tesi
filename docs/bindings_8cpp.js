@@ -2,7 +2,9 @@ var bindings_8cpp =
 [
     [ "cluster_info_recompute", "bindings_8cpp.html#a1a307ada36a4d6c51f3f09138486dc59", null ],
     [ "cluster_info_set_allocation", "bindings_8cpp.html#a5178ad012d50d318175888b238dfef07", null ],
+    [ "create_Binary_cache", "bindings_8cpp.html#a7eb13311621e280c382c755533d6b88f", null ],
     [ "create_BinaryCovariatesModule", "bindings_8cpp.html#affdb6f813328e2c8e99f01ae535675dd", null ],
+    [ "create_BinaryCovariatesModuleCache", "bindings_8cpp.html#ad2fdb9d0c4033a94cfa6b166ce703025", null ],
     [ "create_ContinuosCovariatesModule", "bindings_8cpp.html#aaddd7672c48e468cc15f221c1a67f8f7", null ],
     [ "create_ContinuosCovariatesModuleCache", "bindings_8cpp.html#aef607a2879a0681f7df5084a6b978f9b", null ],
     [ "create_Covariate_cache", "bindings_8cpp.html#ae3bc0a27aa2106995027b6940f389f22", null ],
@@ -16,6 +18,7 @@ var bindings_8cpp =
     [ "create_Neal3ZDNAM", "bindings_8cpp.html#a0e2593a57e9556b490690b6e3a6d28b4", null ],
     [ "create_NGGP", "bindings_8cpp.html#a6be22cfc427559d5e610ac93b8f5e403", null ],
     [ "create_NGGPx", "bindings_8cpp.html#a425f351f1519dc2e471ce6127c8bc4e9", null ],
+    [ "create_Null_likelihood", "bindings_8cpp.html#acdf95bf0318a3242ed8b4eff881ea7ec", null ],
     [ "create_Params", "bindings_8cpp.html#acdf60c21ba9cbd9728015f180e4ad332", null ],
     [ "create_RWMH", "bindings_8cpp.html#a111ab9a191c1e9e025ebbddeec1eec38", null ],
     [ "create_SpatialModule", "bindings_8cpp.html#ad11d394b6cf96120da4ca1f7469a3769", null ],

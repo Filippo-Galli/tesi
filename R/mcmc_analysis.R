@@ -3,14 +3,14 @@ source("R/utils_plot.R")
 files <- list.files("results/")
 files
 
-file_chosen <- files[3]
+file_chosen <- files[5]
 
 ##############################################################################
 # Load Results ====
 ##############################################################################
 folder <- paste0("results/", file_chosen, "/")
 filename_results <- "simulation_results.rds"
-# filename_gt <- "simulation_ground_truth.rds"
+filename_gt <- "ground_truth.rds"
 filename_dist <- "simulation_distance_matrix.rds"
 # filename_data <- "simulation_data.rds"
 filename_initial_params <- "simulation_initial_params.rds"
@@ -24,7 +24,7 @@ filename_initial_params <- paste0(folder, filename_initial_params)
 filename_time_elapsed <- paste0(folder, filename_time_elapsed)
 
 results <- readRDS(file = filename_results)
-# ground_truth <- readRDS(file = filename_gt)
+#ground_truth <- readRDS(file = filename_gt)
 dist_matrix <- readRDS(file = filename_dist)
 # all_data <- readRDS(file = filename_data)
 param <- readRDS(file = filename_initial_params)
@@ -75,39 +75,39 @@ plot_post_sim_matrix(results, BI = BI, save = TRUE, folder = folder)
 plot_trace_U(results, BI = BI, save = TRUE, folder = folder)
 plot_acf_U(results, BI = BI, save = TRUE, folder = folder)
 
-# Extract the pattern after "real_data_" and before the next "_"
-states <- parts[3] # state/regions abbreviation
+# # Extract the pattern after "real_data_" and before the next "_"
+# states <- parts[3] # state/regions abbreviation
 
-# Comuni uses COD_MUN, PUMAs use PUMA as the ID column
-id_col <- if (states == "Comuni") "COD_MUN" else "PUMA"
-puma_ids <- sf::st_read(paste0("input/", states, "/counties-pumas/counties-pumas.shp"), quiet = TRUE)[[id_col]]
+# # Comuni uses COD_MUN, PUMAs use PUMA as the ID column
+# id_col <- if (states == "Comuni") "COD_MUN" else "PUMA"
+# puma_ids <- sf::st_read(paste0("input/", states, "/counties-pumas/counties-pumas.shp"), quiet = TRUE)[[id_col]]
 
-plot_map_cls(
-  results = results,
-  BI = BI,
-  point_estimate = point_estimate,
-  unit_ids = puma_ids,
-  puma_dir = paste0("input/", states, "/counties-pumas"),
-  id_col = id_col,
-  save = TRUE, folder = folder
-)
+# plot_map_cls(
+#   results = results,
+#   BI = BI,
+#   point_estimate = point_estimate,
+#   unit_ids = puma_ids,
+#   puma_dir = paste0("input/", states, "/counties-pumas"),
+#   id_col = id_col,
+#   save = TRUE, folder = folder
+# )
 
-if (states == "Comuni") {
-  plot_hist_cls_comuni(
-    results = results,
-    BI = BI,
-    point_estimate = point_estimate,
-    save = TRUE, folder = folder,
-  )
-} else {
-  plot_hist_cls_pumas(
-    results = results,
-    BI = BI,
-    point_estimate = point_estimate,
-    input_dir = paste0("input/", states, "/"),
-    save = TRUE, folder = folder
-  )
-}
+# if (states == "Comuni") {
+#   plot_hist_cls_comuni(
+#     results = results,
+#     BI = BI,
+#     point_estimate = point_estimate,
+#     save = TRUE, folder = folder,
+#   )
+# } else {
+#   plot_hist_cls_pumas(
+#     results = results,
+#     BI = BI,
+#     point_estimate = point_estimate,
+#     input_dir = paste0("input/", states, "/"),
+#     save = TRUE, folder = folder
+#   )
+# }
 
 # plot_map_prior_mean(
 #   unit_ids = puma_ids,
@@ -116,3 +116,5 @@ if (states == "Comuni") {
 #   save = TRUE,
 #   folder = folder
 # )
+
+# plot_stats(results, ground_truth = ground_truth, BI = BI, save = TRUE, folder = folder)

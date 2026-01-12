@@ -10,8 +10,8 @@ set.seed(44)
 ##############################################################################
 
 ## Load simulated data
-# sigma <- .2
-# d <- 50
+# sigma <- .18
+# d <- 10
 # file_chosen <- paste0("Natarajan_", sigma, "sigma_", d, "d")
 # files_folder <- paste0("simulation_data/", file_chosen)
 # all_data <- readRDS(file = paste0(files_folder, "/all_data.rds"))
@@ -24,6 +24,7 @@ files <- list.files(files_folder)
 file_chosen <- files[3]
 dist_matrix <- readRDS(file = paste0(files_folder, "/", file_chosen))
 puma_age <- readRDS(file = paste0(files_folder, "/puma_agep_std_mean.rds"))
+puma_sex <- readRDS(file = paste0(files_folder, "/puma_sex_mode.rds"))
 # plot_distance(dist_matrix)
 
 if (min(dist_matrix) < 0) {
@@ -49,7 +50,7 @@ if (!isSymmetric(W)) {
 ##############################################################################
 
 ## Load C++ implementation of MCMC algorithm
-# sourceCpp("src/launcher.cpp", rebuild = TRUE, cacheDir = "~/my_rcpp_cache") # useful for perf
+# sourceCpp("src/bindings.cpp", rebuild = TRUE, cacheDir = "~/my_rcpp_cache") # useful for perf
 sourceCpp("src/bindings.cpp")
 cat("✅ C++ code compiled successfully!\n\n")
 
@@ -61,11 +62,11 @@ cat("✅ C++ code compiled successfully!\n\n")
 # plot_k_means(dist_matrix, max_k = 10)
 
 # Set hyperparameters based on distance matrix and save it for future use
-# hyperparams <- set_hyperparameters(dist_matrix,
-#   k_elbow = 3, plot_clustering = FALSE, plot_distribution = FALSE
-# )
-# saveRDS(hyperparams, file = paste0(files_folder, "/hyperparameters_", sub("\\.rds$", "", file_chosen), ".rds"))
-hyperparams <- readRDS(file = paste0(files_folder, "/hyperparameters_", sub("\\.rds$", "", file_chosen), ".rds"))
+hyperparams <- set_hyperparameters(dist_matrix,
+  k_elbow = 3, plot_clustering = FALSE, plot_distribution = FALSE
+)
+saveRDS(hyperparams, file = paste0(files_folder, "/hyperparameters_", sub("\\.rds$", "", file_chosen), ".rds"))
+# hyperparams <- readRDS(file = paste0(files_folder, "/hyperparameters_", sub("\\.rds$", "", file_chosen), ".rds"))
 
 ##############################################################################
 # Parameter Object Initialization ====
@@ -94,6 +95,7 @@ param <- create_Params(
 # Ensure W is integer matrix
 W <- matrix(as.integer(W), nrow = nrow(W), ncol = ncol(W))
 continuos_covariates <- as.numeric(puma_age$Mean_AGEP_std)
+binary_covariates <- as.integer(puma_sex$Mode_SEX)
 
 ##############################################################################
 # Initial Cluster Allocation ====
@@ -109,7 +111,7 @@ print(table(hyperparams$initial_clusters))
 # MCMC Execution ====
 ##############################################################################
 
-mcmc_result <- run_mcmc(param, hyperparams$initial_clusters, W, continuos_covariates)
+mcmc_result <- run_mcmc(param, hyperparams$initial_clusters, W, continuos_covariates, binary_covariates)
 elapsed_time <- mcmc_result$elapsed_time
 
 ##############################################################################
@@ -118,7 +120,7 @@ elapsed_time <- mcmc_result$elapsed_time
 file_chosen <- sub("\\.rds$", "", file_chosen)
 files_folder_clean <- gsub("/", "_", files_folder)
 data_type <- paste0(files_folder_clean, "_", sub("^distance_", "", file_chosen))
-process <- "TEST-NGGPWxCached-FixedV" # Process type: "DP", "DPW", "NGGP", "NGGPW", NGGPWx
+process <- "NGGPWx-Cached-FixedV-Cached-Binary" # Process type: "DP", "DPW", "NGGP", "NGGPW", NGGPWx
 method <- "LSS_SDDS25+Gibbs1" # MCMC method used
 initialization <- "kmeans" # Initialization strategy
 filename <- paste0(data_type, "_", process, "_", method, "_", initialization, "_")

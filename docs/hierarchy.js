@@ -8,6 +8,7 @@ var hierarchy =
     [ "Likelihood", "classLikelihood.html", null ],
     [ "Module", "classModule.html", [
       [ "BinaryCovariatesModule", "classBinaryCovariatesModule.html", null ],
+      [ "BinaryCovariatesModuleCache", "classBinaryCovariatesModuleCache.html", null ],
       [ "ContinuosCovariatesModule", "classContinuosCovariatesModule.html", null ],
       [ "ContinuosCovariatesModuleCache", "classContinuosCovariatesModuleCache.html", null ],
       [ "SpatialModule", "classSpatialModule.html", null ]

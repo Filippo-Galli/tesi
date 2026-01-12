@@ -7,7 +7,7 @@ var searchData=
   ['likelihood_4',['likelihood',['../classSampler.html#a1572ed0ff1a7ace0f1c6b60954200d8c',1,'Sampler']]],
   ['log_5fa_5',['log_a',['../classProcess.html#a38b41ae4bad9a3a5f4b474f2f5a18561',1,'Process']]],
   ['log_5fb_6',['log_B',['../classContinuosCovariatesModule.html#a8b2f2cd364843d375a5cbcbcd54768ed',1,'ContinuosCovariatesModule::log_B'],['../classContinuosCovariatesModuleCache.html#ab04aec8326eb891b0ec451a9b7eae4fe',1,'ContinuosCovariatesModuleCache::log_B']]],
-  ['log_5fbeta_5fprior_7',['log_beta_prior',['../classBinaryCovariatesModule.html#a11b8c632950b73912efc3e0619b94b30',1,'BinaryCovariatesModule']]],
+  ['log_5fbeta_5fprior_7',['log_beta_prior',['../classBinaryCovariatesModule.html#a11b8c632950b73912efc3e0619b94b30',1,'BinaryCovariatesModule::log_beta_prior'],['../classBinaryCovariatesModuleCache.html#aecbbe69c9e7cf4f109322595bec99a47',1,'BinaryCovariatesModuleCache::log_beta_prior']]],
   ['log_5flikelihoods_8',['log_likelihoods',['../classNeal3.html#afed3cbdb02a68d204aff9286beb1f1a1',1,'Neal3']]],
   ['log_5fmerge_5fgibbs_5fprob_9',['log_merge_gibbs_prob',['../classSplitMerge.html#a59cc830210e3ca2753a59e39d6ea625c',1,'SplitMerge::log_merge_gibbs_prob'],['../classSplitMerge__LSS.html#a16f2309b47927932ba6ec41a64665bd9',1,'SplitMerge_LSS::log_merge_gibbs_prob'],['../classSplitMerge__LSS__SDDS.html#ada77f2fce6d6778a9829447a663bf3c8',1,'SplitMerge_LSS_SDDS::log_merge_gibbs_prob'],['../classSplitMerge__SAMS.html#a922a5126d03338f8e6f3116b30e3a1e5',1,'SplitMerge_SAMS::log_merge_gibbs_prob']]],
   ['log_5fprobs_10',['log_probs',['../classSplitMerge__LSS__SDDS.html#a2b3286bccb91d69fcd8c42fd549b9172',1,'SplitMerge_LSS_SDDS']]],

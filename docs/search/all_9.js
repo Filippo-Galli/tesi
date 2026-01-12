@@ -11,7 +11,7 @@ var searchData=
   ['likelihood_2ehpp_8',['Likelihood.hpp',['../Likelihood_8hpp.html',1,'']]],
   ['log_5fa_9',['log_a',['../classProcess.html#a38b41ae4bad9a3a5f4b474f2f5a18561',1,'Process']]],
   ['log_5fb_10',['log_B',['../classContinuosCovariatesModule.html#a8b2f2cd364843d375a5cbcbcd54768ed',1,'ContinuosCovariatesModule::log_B'],['../classContinuosCovariatesModuleCache.html#ab04aec8326eb891b0ec451a9b7eae4fe',1,'ContinuosCovariatesModuleCache::log_B']]],
-  ['log_5fbeta_5fprior_11',['log_beta_prior',['../classBinaryCovariatesModule.html#a11b8c632950b73912efc3e0619b94b30',1,'BinaryCovariatesModule']]],
+  ['log_5fbeta_5fprior_11',['log_beta_prior',['../classBinaryCovariatesModule.html#a11b8c632950b73912efc3e0619b94b30',1,'BinaryCovariatesModule::log_beta_prior'],['../classBinaryCovariatesModuleCache.html#aecbbe69c9e7cf4f109322595bec99a47',1,'BinaryCovariatesModuleCache::log_beta_prior']]],
   ['log_5fconditional_5fdensity_5fu_12',['log_conditional_density_U',['../classU__sampler.html#ad523bcd8a600198ba9764291bbc45571',1,'U_sampler']]],
   ['log_5fconditional_5fdensity_5fv_13',['log_conditional_density_V',['../classU__sampler.html#a5dd0a1bd30dff4e6a1efa644f164b85d',1,'U_sampler']]],
   ['log_5flikelihoods_14',['log_likelihoods',['../classNeal3.html#afed3cbdb02a68d204aff9286beb1f1a1',1,'Neal3']]],
