@@ -136,7 +136,7 @@ plot_post_distr <- function(results, BI, save = FALSE, folder = "results/plots/"
   # Adaptive: if few unique clusters, show all; otherwise use pretty breaks
   n_unique_clusters <- length(unique(df$cluster_found))
   
-  p1 <- ggplot(data = df, aes(x = cluster_found, y = rel_freq)) +
+  p1 <- ggplot(data = df, aes(x = factor(cluster_found), y = rel_freq)) +
     geom_col(width = 0.8) +
     labs(
       x = "Cluster Found",
@@ -155,7 +155,7 @@ plot_post_distr <- function(results, BI, save = FALSE, folder = "results/plots/"
   # Adaptive scaling
   if (n_unique_clusters <= 20) {
     # Show all cluster values when there are few
-    p1 <- p1 + scale_x_continuous(breaks = sort(unique(df$cluster_found)))
+    p1 <- p1 + scale_x_discrete(drop = FALSE)
   } else {
     # Use smart breaks when there are many
     p1 <- p1 + scale_x_continuous(breaks = scales::pretty_breaks(n = 15))
@@ -167,7 +167,7 @@ plot_post_distr <- function(results, BI, save = FALSE, folder = "results/plots/"
     ggsave(
       filename = paste0(folder, "posterior_num_clusters.png"),
       plot = p1,
-      width = 10, height = 6
+      width = 8, height = 6
     )
   }
 }
