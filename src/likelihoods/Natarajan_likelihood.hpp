@@ -1,6 +1,6 @@
 /**
  * @file Natarajan_likelihood.hpp
- * @brief Likelihood computation for clustering with cohesion and repulsion
+ * @brief LogLikelihood computation for clustering with cohesion and repulsion
  */
 
 #pragma once
