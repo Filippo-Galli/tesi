@@ -4,7 +4,7 @@ library(RcppEigen)
 # Load the C++ module
 sourceCpp("src/bindings.cpp")
 
-run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_covariates) {
+run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_covariates = NULL, binary_covariates = NULL) {
     # Ensure types are correct for C++
     initial_allocations <- as.integer(initial_allocations)
 
@@ -15,7 +15,8 @@ run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_cova
     # data <- create_Data(params, initial_allocations)
 
     # Instantiate Likelihood using factory function
-    likelihood <- create_Natarajan_likelihood(data, params)
+    # likelihood <- create_Natarajan_likelihood(data, params)
+    likelihood <- create_Null_likelihood(data, params) # Placeholder likelihood
 
     # Instantiate U_sampler (RWMH) using factory function
     # Constructor: Params&, Data&, bool use_V, double proposal_sd, bool tuning_enabled
@@ -36,8 +37,11 @@ run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_cova
     mod_cov <- create_ContinuosCovariatesModuleCache(data, cache, fixed_v, m, B, v, nu, S0)
     #mod_cov <- create_ContinuosCovariatesModule(data, continuos_covariates, fixed_v = TRUE, m = m, B = B, v = v)
 
+    # 3. Binary covariate module
+    mod_binary <- create_BinaryCovariatesModule(data, binary_covariates, 0.1, 0.1)
+
     # Combine modules into NGGPx process
-    process <- create_NGGPx(data, params, u_sampler, list(mod_spatial, mod_cov))
+    process <- create_NGGPx(data, params, u_sampler, list(mod_spatial, mod_cov, mod_binary))
 
     # Instantiate Sampler (SplitMerge_LSS_SDDS) using factory function
     # Constructor: Data&, Params&, Likelihood&, Process&, bool shuffle

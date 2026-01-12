@@ -521,3 +521,39 @@ if (nrow(agep_ties) > 0) {
 
 # Save the PUMA AGEP summary for later use
 saveRDS(puma_agep_std_mean, file = "real_data/LA/puma_agep_std_mean.rds")
+
+##########################################################################
+# SEX Analysis ====
+##########################################################################
+
+# Create a dataset of AGEP and PUMA association
+sex_puma_data <- data.frame(
+  SEX = all_covariates$SEX,
+  STATE_PUMA = all_covariates$STATE_PUMA
+)
+
+sex_puma_data$STATE_PUMA <- as.factor(sex_puma_data$STATE_PUMA)
+
+# Define a mode function
+get_mode <- function(x, na.rm = TRUE) {
+  if (na.rm) {
+    x <- x[!is.na(x)]
+  }
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+
+# Extract median standardized AGEP per PUMA and order by STATE_PUMA to ensure consistency with adjacency matrix
+sex_puma_data <- sex_puma_data %>%
+  group_by(STATE_PUMA) %>%
+  summarise(
+    Mode_SEX = get_mode(SEX, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(STATE_PUMA)
+
+# Reduce by 1 the SEX mode to have 0/1 coding - 0 is Male and 1 is Female 
+sex_puma_data$Mode_SEX <- as.numeric(sex_puma_data$Mode_SEX) - 1
+
+# Save the PUMA AGEP summary for later use
+saveRDS(sex_puma_data, file = "real_data/LA/puma_sex_mode.rds")

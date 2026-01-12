@@ -121,43 +121,53 @@ plot_distance <- function(dist_matrix, cls = NULL,
 
 
 plot_post_distr <- function(results, BI, save = FALSE, folder = "results/plots/") {
-  # Apply burn-in to all data
   k_values <- unlist(results$K)
-
-  # Apply burn-in period
+  
   if (BI > 0 && length(k_values) > BI) {
     k_values <- k_values[(BI + 1):length(k_values)]
   }
-
-  ### First plot - Posterior distribution of the number of clusters (after burn-in)
+  
   post_k <- table(k_values) / length(k_values)
   df <- data.frame(
     cluster_found = as.numeric(names(post_k)),
     rel_freq = as.numeric(post_k)
   )
-
-  p1 <- ggplot(data = df, aes(x = factor(cluster_found), y = rel_freq)) +
-    geom_col() +
+  
+  # Adaptive: if few unique clusters, show all; otherwise use pretty breaks
+  n_unique_clusters <- length(unique(df$cluster_found))
+  
+  p1 <- ggplot(data = df, aes(x = cluster_found, y = rel_freq)) +
+    geom_col(width = 0.8) +
     labs(
       x = "Cluster Found",
       y = "Relative Frequency",
       title = paste("Posterior Distribution of Clusters (After Burn-in:", BI, ")")
     ) +
     theme(
-      axis.text.x = element_text(size = 15),
+      axis.text.x = element_text(size = 12),
       axis.text.y = element_text(size = 15),
       text = element_text(size = 15),
       panel.background = element_blank(),
       panel.grid.major = element_line(color = "grey95"),
       panel.grid.minor = element_line(color = "grey95")
-    ) +
-    scale_x_discrete(drop = FALSE) # Ensures all cluster_found values are shown
+    )
+  
+  # Adaptive scaling
+  if (n_unique_clusters <= 20) {
+    # Show all cluster values when there are few
+    p1 <- p1 + scale_x_continuous(breaks = sort(unique(df$cluster_found)))
+  } else {
+    # Use smart breaks when there are many
+    p1 <- p1 + scale_x_continuous(breaks = scales::pretty_breaks(n = 15))
+  }
+  
   print(p1)
-
+  
   if (save) {
     ggsave(
       filename = paste0(folder, "posterior_num_clusters.png"),
-      plot = p1, width = 8, height = 6
+      plot = p1,
+      width = 10, height = 6
     )
   }
 }
@@ -280,7 +290,7 @@ plot_post_sim_matrix <- function(results, BI, save = FALSE, folder = "results/pl
   }
 }
 
-plot_stats <- function(results, true_labels, BI, save = FALSE, folder = "results/plots/") {
+plot_stats <- function(results, ground_truth, BI, save = FALSE, folder = "results/plots/") {
   #### Apply burn-in to allocations
   allocations_post_burnin <- results$allocations
   if (BI > 0 && length(allocations_post_burnin) > BI) {
@@ -290,7 +300,7 @@ plot_stats <- function(results, true_labels, BI, save = FALSE, folder = "results
   #### Convert allocations to matrix format for SALSO
   C <- matrix(unlist(lapply(allocations_post_burnin, function(x) x + 1)),
     nrow = length(allocations_post_burnin),
-    ncol = length(true_labels),
+    ncol = length(ground_truth),
     byrow = TRUE
   )
 
@@ -311,23 +321,23 @@ plot_stats <- function(results, true_labels, BI, save = FALSE, folder = "results
   #### Adjusted Rand Index (ARI)
   cat(
     "\nAdjusted Rand Index:",
-    arandi(point_estimate, true_labels), "\n"
+    arandi(point_estimate, ground_truth), "\n"
   )
 
   #### NMI
   cat(
     "Normalized Mutual Information:",
-    NMI(point_labels, true_labels), "\n"
+    NMI(point_labels, ground_truth), "\n"
   )
 
   #### VI
-  cat("Variation of Information:", NVI(point_labels, true_labels), "\n")
+  cat("Variation of Information:", NVI(point_labels, ground_truth), "\n")
 
   if (save) {
     stats_file <- paste0(folder, "salso_stats.txt")
-    write(paste("Adjusted Rand Index:", arandi(point_estimate, true_labels)), file = stats_file)
-    write(paste("Normalized Mutual Information:", NMI(point_labels, true_labels)), file = stats_file, append = TRUE)
-    write(paste("Variation of Information:", NVI(point_labels, true_labels)), file = stats_file, append = TRUE)
+    write(paste("Adjusted Rand Index:", arandi(point_estimate, ground_truth)), file = stats_file)
+    write(paste("Normalized Mutual Information:", NMI(point_labels, ground_truth)), file = stats_file, append = TRUE)
+    write(paste("Variation of Information:", NVI(point_labels, ground_truth)), file = stats_file, append = TRUE)
   }
 }
 
