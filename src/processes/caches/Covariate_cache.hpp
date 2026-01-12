@@ -2,24 +2,23 @@
 
 #include "../../utils/ClusterInfo.hpp"
 
-// Important to declare the struct useful.
-// HINT: If the name changed modified the file which uses it accordingly.
-struct ClusterStats {
-    int n = 0;
-    double sum = 0.0;
-    double sumsq = 0.0;
-};
-
 class Covariate_cache : public ClusterInfo {
+public:
+    // Important to declare the struct useful.
+    // HINT: If the name changed modified the file which uses it accordingly.
+    struct ClusterStats {
+        int n = 0;
+        double sum = 0.0;
+        double sumsq = 0.0;
+    };
 
 private:
     std::vector<ClusterStats> cluster_stats;
 
 public:
     const Eigen::VectorXd continuos_covariates;
-    
-    Covariate_cache(Eigen::VectorXi &initial_allocations,
-                    const Eigen::VectorXd &continuos_covariates)
+
+    Covariate_cache(Eigen::VectorXi &initial_allocations, const Eigen::VectorXd &continuos_covariates)
         : continuos_covariates(continuos_covariates) {
         cluster_stats.clear();
 

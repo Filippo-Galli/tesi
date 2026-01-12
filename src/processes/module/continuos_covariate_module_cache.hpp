@@ -59,7 +59,7 @@ protected:
      * @param obs Vector of observation indices in the cluster
      * @return Sufficient statistics (n, sum, sum of squares)
      */
-    ClusterStats compute_cluster_statistics(const Eigen::Ref<const Eigen::VectorXi> obs) const;
+    Covariate_cache::ClusterStats compute_cluster_statistics(const Eigen::Ref<const Eigen::VectorXi> obs) const;
 
     /**
      * @brief Compute log marginal likelihood for cluster given covariates
@@ -93,7 +93,7 @@ protected:
      * @note This is marked as __attribute__((hot)) for performance optimization
      *       as it is called frequently in the MCMC sampling loop.
      */
-    double compute_log_marginal_likelihood_NN(const ClusterStats &stats) const __attribute__((hot));
+    double compute_log_marginal_likelihood_NN(const Covariate_cache::ClusterStats &stats) const __attribute__((hot));
 
     /**
      * @brief Compute log marginal likelihood for cluster given covariates
@@ -111,7 +111,7 @@ protected:
      *            - 1/2 log(1 + nB) + ν log(S₀)
      *            - (ν + n/2) log(S₀ + SS/2 + n/(2(1+nB)) (x̄-m)²)
      */
-    double compute_log_marginal_likelihood_NNIG(const ClusterStats &stats) const __attribute__((hot));
+    double compute_log_marginal_likelihood_NNIG(const Covariate_cache::ClusterStats &stats) const __attribute__((hot));
 
     /**
      * @brief Compute log predictive density for a new observation (Normal-Normal model)
@@ -130,7 +130,7 @@ protected:
      * - Posterior mean: μ_n = (m + nB x̄) / (1 + nB)
      * - Predictive variance: σ²_pred = v * (1 + (n+1)B) / (1 + nB)
      */
-    double compute_predictive_NN(const ClusterStats &stats, double covariate_val) const;
+    double compute_predictive_NN(const Covariate_cache::ClusterStats &stats, double covariate_val) const;
 
     /**
      * @brief Compute log predictive density for a new observation (NNIG model)
@@ -151,7 +151,7 @@ protected:
      * - Location: μ_n = (m + nB x̄) / (1 + nB)
      * - Scale is derived from the posterior scale S_n and the variance inflation factor.
      */
-    double compute_predictive_NNIG(const ClusterStats &stats, double covariate_val) const;
+    double compute_predictive_NNIG(const Covariate_cache::ClusterStats &stats, double covariate_val) const;
 
     /**
      * @brief Compute log marginal likelihood based on model type
@@ -161,7 +161,7 @@ protected:
      * @param stats Sufficient statistics for the cluster
      * @return Log marginal likelihood value
      */
-    inline double compute_log_marginal_likelihood(const ClusterStats &stats) const __attribute__((hot, always_inline)) {
+    inline double compute_log_marginal_likelihood(const Covariate_cache::ClusterStats &stats) const __attribute__((hot, always_inline)) {
         if (fixed_v) {
             return compute_log_marginal_likelihood_NN(stats);
         } else {
@@ -177,7 +177,7 @@ protected:
      * @param stats Sufficient statistics for the cluster
      * @return Log marginal likelihood value
      */
-    inline double compute_log_predictive_likelihood(const ClusterStats &stats, double covariate_val) const
+    inline double compute_log_predictive_likelihood(const Covariate_cache::ClusterStats &stats, double covariate_val) const
         __attribute__((hot, always_inline)) {
         if (fixed_v) {
             return compute_predictive_NN(stats, covariate_val);

@@ -5,9 +5,9 @@
 
 #include "continuos_covariate_module_cache.hpp"
 
-ClusterStats
+Covariate_cache::ClusterStats
 ContinuosCovariatesModuleCache::compute_cluster_statistics(const Eigen::Ref<const Eigen::VectorXi> obs) const {
-    ClusterStats stats;
+    Covariate_cache::ClusterStats stats;
 
     for (int idx = 0; idx < obs.size(); ++idx) {
         const int obs_idx = obs(idx);
@@ -23,7 +23,7 @@ ContinuosCovariatesModuleCache::compute_cluster_statistics(const Eigen::Ref<cons
 double ContinuosCovariatesModuleCache::compute_similarity_cls(int cls_idx, bool old_allo) const {
 
     if (old_allo) {
-        ClusterStats stats;
+        Covariate_cache::ClusterStats stats;
         const auto &old_cls_allo = old_cluster_members_provider->at(cls_idx);
         stats = compute_cluster_statistics(Eigen::Map<const Eigen::VectorXi>(old_cls_allo.data(), old_cls_allo.size()));
         return compute_log_marginal_likelihood(stats);
@@ -37,7 +37,7 @@ double ContinuosCovariatesModuleCache::compute_similarity_cls(int cls_idx, bool 
 
 double ContinuosCovariatesModuleCache::compute_similarity_obs(int obs_idx, int cls_idx) const {
 
-    ClusterStats base_stats;
+    Covariate_cache::ClusterStats base_stats;
 
     const double covariate_val = covariate_cache.continuos_covariates(obs_idx);
     
@@ -57,14 +57,14 @@ Eigen::VectorXd ContinuosCovariatesModuleCache::compute_similarity_obs(int obs_i
     const double covariate_val = covariate_cache.continuos_covariates(obs_idx);
 
     for (int k = 0; k < num_clusters; ++k) {
-        const ClusterStats &stats_ref = covariate_cache.get_cluster_stats_ref(k);
+        const Covariate_cache::ClusterStats &stats_ref = covariate_cache.get_cluster_stats_ref(k);
         log_similarities(k) = compute_log_predictive_likelihood(stats_ref, covariate_val);
     }
 
     return log_similarities;
 }
 
-double ContinuosCovariatesModuleCache::compute_log_marginal_likelihood_NNIG(const ClusterStats &stats) const {
+double ContinuosCovariatesModuleCache::compute_log_marginal_likelihood_NNIG(const Covariate_cache::ClusterStats &stats) const {
     // if (stats.n == 0) {
     //     return 0.0;
     // }
@@ -101,7 +101,7 @@ double ContinuosCovariatesModuleCache::compute_log_marginal_likelihood_NNIG(cons
            nu_n * std::log(S_n);
 }
 
-double ContinuosCovariatesModuleCache::compute_log_marginal_likelihood_NN(const ClusterStats &stats) const {
+double ContinuosCovariatesModuleCache::compute_log_marginal_likelihood_NN(const Covariate_cache::ClusterStats &stats) const {
 
     // if (stats.n == 0) {
     //     return 0.0;
@@ -137,7 +137,7 @@ double ContinuosCovariatesModuleCache::compute_log_marginal_likelihood_NN(const 
            0.5 * (ss / v + n_dbl * dev * dev / v_plus_nB);
 }
 
-double ContinuosCovariatesModuleCache::compute_predictive_NN(const ClusterStats &stats, double covariate_val) const {
+double ContinuosCovariatesModuleCache::compute_predictive_NN(const Covariate_cache::ClusterStats &stats, double covariate_val) const {
     double n_dbl = static_cast<double>(stats.n);
     double one_plus_nB = 1.0 + n_dbl * B;
 
@@ -154,7 +154,7 @@ double ContinuosCovariatesModuleCache::compute_predictive_NN(const ClusterStats 
     return -0.5 * std::log(2.0 * M_PI * sigma2_pred) - 0.5 * diff * diff / sigma2_pred;
 }
 
-double ContinuosCovariatesModuleCache::compute_predictive_NNIG(const ClusterStats &stats, double covariate_val) const {
+double ContinuosCovariatesModuleCache::compute_predictive_NNIG(const Covariate_cache::ClusterStats &stats, double covariate_val) const {
     double n_dbl = static_cast<double>(stats.n);
     double one_plus_nB = 1.0 + n_dbl * B;
 
@@ -162,7 +162,7 @@ double ContinuosCovariatesModuleCache::compute_predictive_NNIG(const ClusterStat
     double mu_n = (m + B * stats.sum) / one_plus_nB;
 
     // 2. Compute S_n (Posterior Scale)
-    // We compute S_n explicitly here. Note: If you cache S_n in ClusterStats, this becomes O(1).
+    // We compute S_n explicitly here. Note: If you cache S_n in Covariate_cache::ClusterStats, this becomes O(1).
     double S_n;
     if (stats.n == 0) {
         S_n = S0;
