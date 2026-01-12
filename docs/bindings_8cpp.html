@@ -128,7 +128,7 @@ $(function(){initNavTree('bindings_8cpp.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="continuos__covariate__module__cache_8hpp_source.html">processes/module/continuos_covariate_module_cache.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="binary__covariate__module_8hpp_source.html">processes/module/binary_covariate_module.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="binary__covariate__module__cache_8hpp_source.html">processes/module/binary_covariate_module_cache.hpp</a>&quot;</code><br />
-<code>#include &quot;processes/caches/Covariate_cache.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="continuos__cache_8hpp_source.html">processes/caches/continuos_cache.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="binary__cache_8hpp_source.html">processes/caches/binary_cache.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="U__sampler_8hpp_source.html">samplers/U_sampler/U_sampler.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RWMH_8hpp_source.html">samplers/U_sampler/RWMH.hpp</a>&quot;</code><br />
@@ -151,8 +151,8 @@ Functions</h2></td></tr>
 <tr class="separator:acdf60c21ba9cbd9728015f180e4ad332"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0ddd038caef50f4affae93c691afb3b" id="r_ac0ddd038caef50f4affae93c691afb3b"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classData.html">Data</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0ddd038caef50f4affae93c691afb3b">create_Data</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Eigen::VectorXi initial_allocations)</td></tr>
 <tr class="separator:ac0ddd038caef50f4affae93c691afb3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3bc0a27aa2106995027b6940f389f22" id="r_ae3bc0a27aa2106995027b6940f389f22"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; Covariate_cache &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae3bc0a27aa2106995027b6940f389f22">create_Covariate_cache</a> (Eigen::VectorXi &amp;initial_allocations, Eigen::VectorXd continuos_covariates)</td></tr>
-<tr class="separator:ae3bc0a27aa2106995027b6940f389f22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5c573ec497ee3e1a6cb4875c5c24b16" id="r_af5c573ec497ee3e1a6cb4875c5c24b16"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classContinuosCache.html">ContinuosCache</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5c573ec497ee3e1a6cb4875c5c24b16">create_Continuos_cache</a> (Eigen::VectorXi &amp;initial_allocations, Eigen::VectorXd continuos_covariates)</td></tr>
+<tr class="separator:af5c573ec497ee3e1a6cb4875c5c24b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7eb13311621e280c382c755533d6b88f" id="r_a7eb13311621e280c382c755533d6b88f"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classBinaryCache.html">BinaryCache</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7eb13311621e280c382c755533d6b88f">create_Binary_cache</a> (Eigen::VectorXi &amp;initial_allocations, Eigen::VectorXi binary_covariates)</td></tr>
 <tr class="separator:a7eb13311621e280c382c755533d6b88f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaedcb424202bddd0b7d1062dd3406435" id="r_aaedcb424202bddd0b7d1062dd3406435"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classDatax.html">Datax</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaedcb424202bddd0b7d1062dd3406435">create_Datax</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::List modules_list, Eigen::VectorXi initial_allocations)</td></tr>
@@ -173,8 +173,8 @@ Functions</h2></td></tr>
 <tr class="separator:ad11d394b6cf96120da4ca1f7469a3769"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaddd7672c48e468cc15f221c1a67f8f7" id="r_aaddd7672c48e468cc15f221c1a67f8f7"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaddd7672c48e468cc15f221c1a67f8f7">create_ContinuosCovariatesModule</a> (SEXP data_sexp, Eigen::VectorXd covariates, bool fixed_v, double m=0, double B=1, double v=1, double nu=1, double S0=1)</td></tr>
 <tr class="separator:aaddd7672c48e468cc15f221c1a67f8f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef607a2879a0681f7df5084a6b978f9b" id="r_aef607a2879a0681f7df5084a6b978f9b"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef607a2879a0681f7df5084a6b978f9b">create_ContinuosCovariatesModuleCache</a> (SEXP data_sexp, Rcpp::XPtr&lt; Covariate_cache &gt; cache, bool fixed_v, double m=0, double B=1, double v=1, double nu=1, double S0=1)</td></tr>
-<tr class="separator:aef607a2879a0681f7df5084a6b978f9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a575e5c1484350bb19d8d3bc8a5c1d3f7" id="r_a575e5c1484350bb19d8d3bc8a5c1d3f7"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a575e5c1484350bb19d8d3bc8a5c1d3f7">create_ContinuosCovariatesModuleCache</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="classContinuosCache.html">ContinuosCache</a> &gt; cache, bool fixed_v, double m=0, double B=1, double v=1, double nu=1, double S0=1)</td></tr>
+<tr class="separator:a575e5c1484350bb19d8d3bc8a5c1d3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affdb6f813328e2c8e99f01ae535675dd" id="r_affdb6f813328e2c8e99f01ae535675dd"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#affdb6f813328e2c8e99f01ae535675dd">create_BinaryCovariatesModule</a> (SEXP data_sexp, Eigen::VectorXi covariates, double prior_a=1.0, double prior_b=1.0)</td></tr>
 <tr class="separator:affdb6f813328e2c8e99f01ae535675dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2fdb9d0c4033a94cfa6b166ce703025" id="r_ad2fdb9d0c4033a94cfa6b166ce703025"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2fdb9d0c4033a94cfa6b166ce703025">create_BinaryCovariatesModuleCache</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="classBinaryCache.html">BinaryCache</a> &gt; cache, double beta_prior_alpha=1.0, double beta_prior_beta=1.0)</td></tr>
@@ -372,6 +372,27 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="af5c573ec497ee3e1a6cb4875c5c24b16" name="af5c573ec497ee3e1a6cb4875c5c24b16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5c573ec497ee3e1a6cb4875c5c24b16">&#9670;&#160;</a></span>create_Continuos_cache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Rcpp::XPtr&lt; <a class="el" href="classContinuosCache.html">ContinuosCache</a> &gt; create_Continuos_cache </td>
+          <td>(</td>
+          <td class="paramtype">Eigen::VectorXi &amp;</td>          <td class="paramname"><span class="paramname"><em>initial_allocations</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::VectorXd</td>          <td class="paramname"><span class="paramname"><em>continuos_covariates</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aaddd7672c48e468cc15f221c1a67f8f7" name="aaddd7672c48e468cc15f221c1a67f8f7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaddd7672c48e468cc15f221c1a67f8f7">&#9670;&#160;</a></span>create_ContinuosCovariatesModule()</h2>
 
@@ -423,8 +444,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aef607a2879a0681f7df5084a6b978f9b" name="aef607a2879a0681f7df5084a6b978f9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef607a2879a0681f7df5084a6b978f9b">&#9670;&#160;</a></span>create_ContinuosCovariatesModuleCache()</h2>
+<a id="a575e5c1484350bb19d8d3bc8a5c1d3f7" name="a575e5c1484350bb19d8d3bc8a5c1d3f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a575e5c1484350bb19d8d3bc8a5c1d3f7">&#9670;&#160;</a></span>create_ContinuosCovariatesModuleCache()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -437,7 +458,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Rcpp::XPtr&lt; Covariate_cache &gt;</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>, </td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classContinuosCache.html">ContinuosCache</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>cache</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -468,27 +489,6 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>S0</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1</span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae3bc0a27aa2106995027b6940f389f22" name="ae3bc0a27aa2106995027b6940f389f22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3bc0a27aa2106995027b6940f389f22">&#9670;&#160;</a></span>create_Covariate_cache()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Rcpp::XPtr&lt; Covariate_cache &gt; create_Covariate_cache </td>
-          <td>(</td>
-          <td class="paramtype">Eigen::VectorXi &amp;</td>          <td class="paramname"><span class="paramname"><em>initial_allocations</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Eigen::VectorXd</td>          <td class="paramname"><span class="paramname"><em>continuos_covariates</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
