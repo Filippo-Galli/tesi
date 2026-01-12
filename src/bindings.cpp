@@ -29,7 +29,7 @@
 #include "processes/module/continuos_covariate_module_cache.hpp"
 #include "processes/module/binary_covariate_module.hpp"
 #include "processes/module/binary_covariate_module_cache.hpp"
-#include "processes/caches/Covariate_cache.hpp"
+#include "processes/caches/continuos_cache.hpp"
 #include "processes/caches/binary_cache.hpp"
 #include "samplers/U_sampler/U_sampler.hpp"
 #include "samplers/U_sampler/RWMH.hpp"
@@ -72,7 +72,7 @@ ClusterInfo *get_cluster_info_ptr(SEXP sexp) {
 
     // Try Covariate_cache
     try {
-        Rcpp::XPtr<Covariate_cache> ptr(sexp);
+        Rcpp::XPtr<ContinuosCache> ptr(sexp);
         return ptr.get();
     } catch (...) {
     }
@@ -103,9 +103,9 @@ Rcpp::XPtr<Data> create_Data(Rcpp::XPtr<Params> params, Eigen::VectorXi initial_
 }
 
 // [[Rcpp::export]]
-Rcpp::XPtr<Covariate_cache> create_Covariate_cache(Eigen::VectorXi &initial_allocations,
+Rcpp::XPtr<ContinuosCache> create_Continuos_cache(Eigen::VectorXi &initial_allocations,
                                                    Eigen::VectorXd continuos_covariates) {
-    return Rcpp::XPtr<Covariate_cache>(new Covariate_cache(initial_allocations, continuos_covariates), true);
+    return Rcpp::XPtr<ContinuosCache>(new ContinuosCache(initial_allocations, continuos_covariates), true);
 }
 
 // [[Rcpp::export]]
@@ -189,7 +189,7 @@ Rcpp::XPtr<std::shared_ptr<Module>> create_ContinuosCovariatesModule(SEXP data_s
 
 // [[Rcpp::export]]
 Rcpp::XPtr<std::shared_ptr<Module>> create_ContinuosCovariatesModuleCache(SEXP data_sexp,
-                                                                          Rcpp::XPtr<Covariate_cache> cache,
+                                                                          Rcpp::XPtr<ContinuosCache> cache,
                                                                           bool fixed_v, double m = 0, double B = 1,
                                                                           double v = 1, double nu = 1, double S0 = 1) {
     Data *data = get_data_ptr(data_sexp);

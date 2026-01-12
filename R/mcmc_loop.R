@@ -8,7 +8,7 @@ run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_cova
     # Ensure types are correct for C++
     initial_allocations <- as.integer(initial_allocations)
 
-    cache <- create_Covariate_cache(initial_allocations, continuos_covariates)
+    cache <- create_Continuos_cache(initial_allocations, continuos_covariates)
     binary_cache <- create_Binary_cache(initial_allocations, binary_covariates)
 
     # Instantiate Data using factory function
