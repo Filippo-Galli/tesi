@@ -31,7 +31,7 @@ protected:
     /** @brief Reference to data object with cluster assignments */
     const Data &data;
 
-    const Eigen::VectorXi &binary_covariate_data; /**< Binary covariate values for observations */
+    const Eigen::VectorXi binary_covariate_data; /**< Binary covariate values for observations */
 
     /** @} */
 
@@ -55,7 +55,7 @@ public:
      * @param old_alloc_provider Optional pointer to old allocations for split-merge moves
      * @param old_cluster_members_provider_ Optional pointer to old cluster members for split-merge moves
      */
-    BinaryCovariatesModule(const Data &data_, const Eigen::VectorXi &binary_covariate, double beta_prior_alpha_,
+    BinaryCovariatesModule(const Data &data_, const Eigen::VectorXi binary_covariate, double beta_prior_alpha_,
                            double beta_prior_beta_, const Eigen::VectorXi *old_alloc_provider = nullptr,
                            const std::unordered_map<int, std::vector<int>> *old_cluster_members_provider_ = nullptr)
         : beta_prior_alpha(beta_prior_alpha_), beta_prior_beta(beta_prior_beta_), data(data_),
@@ -70,21 +70,12 @@ public:
      * @brief Compute covariate similarity contribution for a cluster
      *
      * Computes the log marginal likelihood of the covariates within a cluster
-     * under the Normal conjugate model. Higher values indicate
+     * under the Beta-Binomial conjugate model. Higher values indicate
      * that observations in the cluster have similar covariate values.
-     *
-     * @param cls_idx Index of the cluster (0 to K-1)
-     * @param old_allo If true, uses old allocations from old_allocations_provider;
-     *                 if false, uses current allocations from data (default: false)
-     * @return Log marginal likelihood contribution (similarity score)
-     *
+     * ...
      * @details The computation follows Müller et al. (2011):
-     * 1. Compute sufficient statistics (n, sum, sum of squares)
-     * 2. Update hyperparameters using conjugate update rules
-     * 3. Compute log marginal likelihood using updated parameters
-     *
-     * This value is added to the clustering prior in split-merge moves
-     * to encourage clusters with homogeneous covariate values.
+     * 1. Count successes (1s) and failures (0s)
+     * 2. Compute log marginal likelihood using log-gamma functions
      */
     double compute_similarity_cls(int cls_idx, bool old_allo = false) const override __attribute__((hot));
 
