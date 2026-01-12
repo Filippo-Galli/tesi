@@ -9,14 +9,15 @@ run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_cova
     initial_allocations <- as.integer(initial_allocations)
 
     cache <- create_Covariate_cache(initial_allocations, continuos_covariates)
+    binary_cache <- create_Binary_cache(initial_allocations, binary_covariates)
 
     # Instantiate Data using factory function
-    data <- create_Datax(params, list(cache), initial_allocations)
+    data <- create_Datax(params, list(cache, binary_cache), initial_allocations)
     # data <- create_Data(params, initial_allocations)
 
     # Instantiate Likelihood using factory function
-    # likelihood <- create_Natarajan_likelihood(data, params)
-    likelihood <- create_Null_likelihood(data, params) # Placeholder likelihood
+    likelihood <- create_Natarajan_likelihood(data, params)
+    # likelihood <- create_Null_likelihood(data, params) # Placeholder likelihood
 
     # Instantiate U_sampler (RWMH) using factory function
     # Constructor: Params&, Data&, bool use_V, double proposal_sd, bool tuning_enabled
@@ -38,7 +39,8 @@ run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_cova
     #mod_cov <- create_ContinuosCovariatesModule(data, continuos_covariates, fixed_v = TRUE, m = m, B = B, v = v)
 
     # 3. Binary covariate module
-    mod_binary <- create_BinaryCovariatesModule(data, binary_covariates, 0.1, 0.1)
+    # mod_binary <- create_BinaryCovariatesModule(data, binary_covariates, 0.1, 0.1)
+    mod_binary <- create_BinaryCovariatesModuleCache(data, binary_cache, 0.1, 0.1)
 
     # Combine modules into NGGPx process
     process <- create_NGGPx(data, params, u_sampler, list(mod_spatial, mod_cov, mod_binary))

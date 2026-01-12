@@ -28,7 +28,9 @@
 #include "processes/module/continuos_covariate_module.hpp"
 #include "processes/module/continuos_covariate_module_cache.hpp"
 #include "processes/module/binary_covariate_module.hpp"
+#include "processes/module/binary_covariate_module_cache.hpp"
 #include "processes/caches/Covariate_cache.hpp"
+#include "processes/caches/binary_cache.hpp"
 #include "samplers/U_sampler/U_sampler.hpp"
 #include "samplers/U_sampler/RWMH.hpp"
 #include "samplers/U_sampler/MALA.hpp"
@@ -75,6 +77,13 @@ ClusterInfo *get_cluster_info_ptr(SEXP sexp) {
     } catch (...) {
     }
 
+    // Try BinaryContinuosCache
+    try {
+        Rcpp::XPtr<BinaryCache> ptr(sexp);
+        return ptr.get();
+    } catch (...) {
+    }
+
     Rcpp::stop("Expected external pointer to ClusterInfo or Covariate_cache");
     return nullptr;
 }
@@ -97,6 +106,11 @@ Rcpp::XPtr<Data> create_Data(Rcpp::XPtr<Params> params, Eigen::VectorXi initial_
 Rcpp::XPtr<Covariate_cache> create_Covariate_cache(Eigen::VectorXi &initial_allocations,
                                                    Eigen::VectorXd continuos_covariates) {
     return Rcpp::XPtr<Covariate_cache>(new Covariate_cache(initial_allocations, continuos_covariates), true);
+}
+
+// [[Rcpp::export]]
+Rcpp::XPtr<BinaryCache> create_Binary_cache(Eigen::VectorXi &initial_allocations, Eigen::VectorXi binary_covariates) {
+    return Rcpp::XPtr<BinaryCache>(new BinaryCache(initial_allocations, binary_covariates), true);
 }
 
 // [[Rcpp::export]]
@@ -188,6 +202,16 @@ Rcpp::XPtr<std::shared_ptr<Module>> create_BinaryCovariatesModule(SEXP data_sexp
                                                                   double prior_a = 1.0, double prior_b = 1.0) {
     Data *data = get_data_ptr(data_sexp);
     auto ptr = std::make_shared<BinaryCovariatesModule>(*data, covariates, prior_a, prior_b);
+    return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);
+}
+
+// [[Rcpp::export]]
+Rcpp::XPtr<std::shared_ptr<Module>> create_BinaryCovariatesModuleCache(SEXP data_sexp,
+                                                                       Rcpp::XPtr<BinaryCache> cache,
+                                                                       double beta_prior_alpha = 1.0,
+                                                                       double beta_prior_beta = 1.0) {
+    Data *data = get_data_ptr(data_sexp);
+    auto ptr = std::make_shared<BinaryCovariatesModuleCache>(*data, *cache, beta_prior_alpha, beta_prior_beta);
     return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);
 }
 
