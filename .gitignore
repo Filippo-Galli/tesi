@@ -23,6 +23,7 @@ latex/
 
 # Results folder
 results/
+old_results/
 
 # mcmc log files
 *.txt

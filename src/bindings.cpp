@@ -15,25 +15,33 @@
 #include "utils/Params.hpp"
 #include "utils/Data.hpp"
 #include "utils/Datax.hpp"
-#include "utils/ClusterInfo.hpp"
+
 #include "utils/Likelihood.hpp"
 #include "likelihoods/Natarajan_likelihood.hpp"
 #include "likelihoods/Null_likelihood.hpp"
+#include "likelihoods/Gamma_likelihood.hpp"
+
 #include "utils/Process.hpp"
 #include "processes/DP.hpp"
 #include "processes/DPx.hpp"
 #include "processes/NGGP.hpp"
 #include "processes/NGGPx.hpp"
+
 #include "processes/module/spatial_module.hpp"
 #include "processes/module/continuos_covariate_module.hpp"
 #include "processes/module/continuos_covariate_module_cache.hpp"
 #include "processes/module/binary_covariate_module.hpp"
 #include "processes/module/binary_covariate_module_cache.hpp"
+
+
+#include "utils/ClusterInfo.hpp"
 #include "processes/caches/continuos_cache.hpp"
 #include "processes/caches/binary_cache.hpp"
+
 #include "samplers/U_sampler/U_sampler.hpp"
 #include "samplers/U_sampler/RWMH.hpp"
 #include "samplers/U_sampler/MALA.hpp"
+
 #include "utils/Sampler.hpp"
 #include "samplers/neal.hpp"
 #include "samplers/neal_ZDNAM.hpp"
@@ -140,6 +148,12 @@ Rcpp::XPtr<Natarajan_likelihood> create_Natarajan_likelihood(SEXP data_sexp, Rcp
 Rcpp::XPtr<Null_likelihood> create_Null_likelihood(SEXP data_sexp, Rcpp::XPtr<Params> params) {
     Data *data = get_data_ptr(data_sexp);
     return Rcpp::XPtr<Null_likelihood>(new Null_likelihood(*data, *params), true);
+}
+
+// [[Rcpp::export]]
+Rcpp::XPtr<Gamma_likelihood> create_Gamma_likelihood(SEXP data_sexp, Rcpp::XPtr<Params> params) {
+    Data *data = get_data_ptr(data_sexp);
+    return Rcpp::XPtr<Gamma_likelihood>(new Gamma_likelihood(*data, *params), true);
 }
 
 // Factory functions for U samplers
