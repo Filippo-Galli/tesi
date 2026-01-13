@@ -2,7 +2,7 @@
 
 Inspired by the need for flexible and efficient tools in Bayesian nonparametric clustering, this repository presents a C++ framework that leverages Markov Chain Monte Carlo (MCMC) methods. The framework is designed to be modular and extensible, allowing users to implement various stochastic processes, likelihood models, and sampling strategies.
 
-**Documentation**: [https://filippo-galli.github.io/tesi/](https://filippo-galli.github.io/tesi/)
+**Documentation**: [https://filippo-galli.github.io/tesi/](https://filippo-galli.github.io/BNPClust/)
 
 **License**: GPL-3.0 — See [LICENSE](LICENSE) file for details
 
