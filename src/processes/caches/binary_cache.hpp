@@ -78,8 +78,6 @@ public:
      * @param to_cluster Index of the target cluster
      */
     inline void move_cluster_info(int from_cluster, int to_cluster) override {
-        if (to_cluster >= cluster_stats.size())
-            cluster_stats.resize(to_cluster + 1);
         cluster_stats[to_cluster] = std::move(cluster_stats[from_cluster]);
     };
 
@@ -88,10 +86,7 @@ public:
      * @param cluster Index of the cluster to remove
      */
     void remove_info(int cluster) override {
-        if (cluster >= cluster_stats.size())
-            return;
-
-        if (cluster == cluster_stats.size() - 1) {
+        if (cluster == static_cast<int>(cluster_stats.size()) - 1) {
             cluster_stats.pop_back();
         } else {
             cluster_stats.erase(cluster_stats.begin() + cluster);
