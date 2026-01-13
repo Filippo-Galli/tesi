@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"classLikelihood.html#a8d8e7d2e0486b0ca07abf06b1a2d83cd":[1,0,11,3],
 "classLikelihood.html#abb9b7ccfc5fcd5145a196308a8a7b1cb":[1,0,11,1],
 "classLikelihood.html#ac57ed984dfebe3b0a95777ae089fa705":[1,0,11,2],
 "classLikelihood.html#afd1795b729f44bd5105979ecb8853642":[1,0,11,6],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "classSplitMerge__SAMS.html#af44a46bc10d47c3b9fc341a68cd9968b":[1,0,26,16],
 "classSplitMerge__SAMS.html#af812bf4c32fef71ddae082bfa26d1465":[1,0,26,0],
 "classU__sampler.html":[1,0,27],
-"classU__sampler.html#a16bbf085253b0900a81783694aa20d5f":[1,0,27,3],
-"classU__sampler.html#a1d973e404393789b3799a407bc8d9c03":[1,0,27,15]
+"classU__sampler.html#a16bbf085253b0900a81783694aa20d5f":[1,0,27,3]
 };

@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"classU__sampler.html#a1d973e404393789b3799a407bc8d9c03":[1,0,27,15],
 "classU__sampler.html#a1f1b535ec7cad2be0aa24c7535c084d1":[1,0,27,1],
 "classU__sampler.html#a23ec32a62896472e93d554ca9d74669b":[1,0,27,0],
 "classU__sampler.html#a25806348f421eaab938a458b18106c0b":[1,0,27,13],

@@ -114,10 +114,10 @@ $(function(){initNavTree('bindings_8cpp.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="Params_8hpp_source.html">utils/Params.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Data_8hpp_source.html">utils/Data.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Datax_8hpp_source.html">utils/Datax.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ClusterInfo_8hpp_source.html">utils/ClusterInfo.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Likelihood_8hpp_source.html">utils/Likelihood.hpp</a>&quot;</code><br />
 <code>#include &quot;likelihoods/Natarajan_likelihood.hpp&quot;</code><br />
 <code>#include &quot;likelihoods/Null_likelihood.hpp&quot;</code><br />
+<code>#include &quot;likelihoods/Gamma_likelihood.hpp&quot;</code><br />
 <code>#include &quot;<a class="el" href="Process_8hpp_source.html">utils/Process.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="DP_8hpp_source.html">processes/DP.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="DPx_8hpp_source.html">processes/DPx.hpp</a>&quot;</code><br />
@@ -128,6 +128,7 @@ $(function(){initNavTree('bindings_8cpp.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="continuos__covariate__module__cache_8hpp_source.html">processes/module/continuos_covariate_module_cache.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="binary__covariate__module_8hpp_source.html">processes/module/binary_covariate_module.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="binary__covariate__module__cache_8hpp_source.html">processes/module/binary_covariate_module_cache.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ClusterInfo_8hpp_source.html">utils/ClusterInfo.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="continuos__cache_8hpp_source.html">processes/caches/continuos_cache.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="binary__cache_8hpp_source.html">processes/caches/binary_cache.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="U__sampler_8hpp_source.html">samplers/U_sampler/U_sampler.hpp</a>&quot;</code><br />
@@ -161,6 +162,8 @@ Functions</h2></td></tr>
 <tr class="separator:a9213031e65c5de4995d4c81fdc39b8ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acdf95bf0318a3242ed8b4eff881ea7ec" id="r_acdf95bf0318a3242ed8b4eff881ea7ec"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; Null_likelihood &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acdf95bf0318a3242ed8b4eff881ea7ec">create_Null_likelihood</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params)</td></tr>
 <tr class="separator:acdf95bf0318a3242ed8b4eff881ea7ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19c536390bca638bf973884d782a8d18" id="r_a19c536390bca638bf973884d782a8d18"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; Gamma_likelihood &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19c536390bca638bf973884d782a8d18">create_Gamma_likelihood</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params)</td></tr>
+<tr class="separator:a19c536390bca638bf973884d782a8d18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a111ab9a191c1e9e025ebbddeec1eec38" id="r_a111ab9a191c1e9e025ebbddeec1eec38"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classRWMH.html">RWMH</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a111ab9a191c1e9e025ebbddeec1eec38">create_RWMH</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, SEXP data_sexp, bool use_V, double proposal_sd, bool tuning_enabled)</td></tr>
 <tr class="separator:a111ab9a191c1e9e025ebbddeec1eec38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7757a3fc43dd161fbbe4fc332f4d862" id="r_ab7757a3fc43dd161fbbe4fc332f4d862"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classMALA.html">MALA</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7757a3fc43dd161fbbe4fc332f4d862">create_MALA</a> (Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, SEXP data_sexp, bool use_V, double proposal_sd, bool tuning_enabled)</td></tr>
@@ -583,6 +586,27 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Rcpp::List</td>          <td class="paramname"><span class="paramname"><em>modules_list</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a19c536390bca638bf973884d782a8d18" name="a19c536390bca638bf973884d782a8d18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19c536390bca638bf973884d782a8d18">&#9670;&#160;</a></span>create_Gamma_likelihood()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Rcpp::XPtr&lt; Gamma_likelihood &gt; create_Gamma_likelihood </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>params</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

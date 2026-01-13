@@ -12,6 +12,7 @@ var bindings_8cpp =
     [ "create_Datax", "bindings_8cpp.html#aaedcb424202bddd0b7d1062dd3406435", null ],
     [ "create_DP", "bindings_8cpp.html#a596ab200c34dff954c7d202a8e41544b", null ],
     [ "create_DPx", "bindings_8cpp.html#abd3247c4e5ec187258bbefe7201e9930", null ],
+    [ "create_Gamma_likelihood", "bindings_8cpp.html#a19c536390bca638bf973884d782a8d18", null ],
     [ "create_MALA", "bindings_8cpp.html#ab7757a3fc43dd161fbbe4fc332f4d862", null ],
     [ "create_Natarajan_likelihood", "bindings_8cpp.html#a9213031e65c5de4995d4c81fdc39b8ee", null ],
     [ "create_Neal3", "bindings_8cpp.html#a68330117dc20c6a6d2391a21f3a84b47", null ],
