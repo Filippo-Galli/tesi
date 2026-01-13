@@ -25,7 +25,7 @@
 var NAVTREE =
 [
   [ "Docs", "index.html", [
-    [ "Bayesian Nonparametric Clustering with MCMC", "index.html", "index" ],
+    [ "BNPClust: A C++ Framework for Bayesian Nonparametric Clustering with MCMC", "index.html", "index" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],

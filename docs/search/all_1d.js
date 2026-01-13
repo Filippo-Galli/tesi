@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['✨_20what_20makes_20this_20special_0',['✨ What Makes This Special?',['../index.html#autotoc_md1',1,'']]]
+  ['🛠️_20installation_20usage_0',['🛠️ Installation &amp; Usage',['../index.html#autotoc_md11',1,'']]]
 ];

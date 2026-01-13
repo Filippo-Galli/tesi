@@ -1,14 +1,7 @@
 var searchData=
 [
-  ['u_0',['U',['../classU__sampler.html#a61dcec6f1695e04c541e6ef00022158f',1,'U_sampler']]],
-  ['u_5fsampler_1',['U_sampler',['../classU__sampler.html',1,'U_sampler'],['../classU__sampler.html#a23ec32a62896472e93d554ca9d74669b',1,'U_sampler::U_sampler()']]],
-  ['u_5fsampler_2ecpp_2',['U_sampler.cpp',['../U__sampler_8cpp.html',1,'']]],
-  ['u_5fsampler_2ehpp_3',['U_sampler.hpp',['../U__sampler_8hpp.html',1,'']]],
-  ['u_5fsampler_5fget_5facceptance_5frate_4',['u_sampler_get_acceptance_rate',['../bindings_8cpp.html#ab01bf30ad7167309e4627aa43e9b4d5c',1,'bindings.cpp']]],
-  ['u_5fsampler_5fget_5fu_5',['u_sampler_get_U',['../bindings_8cpp.html#ae91c08b1506321eeb549a517f49b8349',1,'bindings.cpp']]],
-  ['u_5fsampler_5fmethod_6',['U_sampler_method',['../classNGGP.html#a54461db9db11e9d4164754427e265f08',1,'NGGP']]],
-  ['update_5fparams_7',['update_params',['../classDP.html#a577726382e64c057fcbc889325084ad1',1,'DP::update_params()'],['../classDPx.html#ab1c0c87a32004725fba06329f284a0f6',1,'DPx::update_params()'],['../classNGGP.html#a6c28f93e9b1a28edd8eef383c06447a1',1,'NGGP::update_params()'],['../classNGGPx.html#ab0e8dd55878841cc8ca34f377067b035',1,'NGGPx::update_params()'],['../classProcess.html#ac610fb84ed64db2a74fa1447ce5a582e',1,'Process::update_params()']]],
-  ['update_5fu_8',['update_U',['../classMALA.html#a40d442a7e6e66c3853e4014326ee5934',1,'MALA::update_U()'],['../classRWMH.html#a1349180615746681801b1b6b86fe1c4b',1,'RWMH::update_U()'],['../classU__sampler.html#a68c7b18e6183b1bc9a1645ff36e0c82f',1,'U_sampler::update_U()']]],
-  ['usage_9',['🛠️ Installation &amp; Usage',['../index.html#autotoc_md12',1,'']]],
-  ['use_5fv_10',['use_V',['../classMALA.html#aa1bd45a50795023b92ea781a495fa599',1,'MALA::use_V'],['../classRWMH.html#a21b4ed6ad1172dfacec56fb3539141a8',1,'RWMH::use_V']]]
+  ['tau_0',['tau',['../structParams.html#a9e4aad62277a980bfa8beaa0bd4ea529',1,'Params']]],
+  ['tau_5fpower_5fsigma_1',['tau_power_sigma',['../classU__sampler.html#a74ac9522035e4694f3ce209d250a11f9',1,'U_sampler']]],
+  ['total_5fiterations_2',['total_iterations',['../classU__sampler.html#a1d973e404393789b3799a407bc8d9c03',1,'U_sampler']]],
+  ['tuning_5fenabled_3',['tuning_enabled',['../classMALA.html#ab76aa610ccc0ef8c33d11c3f85fb2ebc',1,'MALA::tuning_enabled'],['../classRWMH.html#aa803a348282de6fd0144d22f96b59a4d',1,'RWMH::tuning_enabled']]]
 ];

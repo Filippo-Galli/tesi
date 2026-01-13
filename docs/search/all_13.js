@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['w_0',['W',['../classSpatialModule.html#a4645e8a94596e6bd60b4b04f633247bd',1,'SpatialModule']]],
-  ['weights_1',['weights',['../classNeal3.html#a173c6450b8be31420bbcb86f97a3bbb6',1,'Neal3']]],
-  ['with_20mcmc_2',['Bayesian Nonparametric Clustering with MCMC',['../index.html',1,'']]]
+  ['v_0',['v',['../classContinuosCovariatesModule.html#ab9032317a8eccb247466734ed61effe5',1,'ContinuosCovariatesModule::v'],['../classContinuosCovariatesModuleCache.html#a4afc0d26ac4b6880084bafa3caf09c86',1,'ContinuosCovariatesModuleCache::v']]],
+  ['verbosity_5flevel_1',['VERBOSITY_LEVEL',['../Data_8hpp.html#a7be2f72d88f018001011f9a2b031621a',1,'Data.hpp']]]
 ];
