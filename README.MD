@@ -157,7 +157,7 @@ For details on GPL-3.0 compliance and your obligations, see the [LICENSE](LICENS
 
 ## 💡 Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to BNPClust.
+See [CONTRIBUTING.md](CONTRIBUTING.MD) for guidelines on how to contribute to BNPClust.
 
 
 If you find this project useful, please leave a star! ⭐
