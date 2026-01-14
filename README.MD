@@ -2,7 +2,7 @@
 
 Inspired by the need for flexible and efficient tools in Bayesian nonparametric clustering, this repository presents a C++ framework that leverages Markov Chain Monte Carlo (MCMC) methods. The framework is designed to be modular and extensible, allowing users to implement various stochastic processes, likelihood models, and sampling strategies.
 
-**Documentation**: [https://filippo-galli.github.io/tesi/](https://filippo-galli.github.io/BNPClust/)
+**Documentation**: [https://filippo-galli.github.io/BNPClust/](https://filippo-galli.github.io/BNPClust/)
 
 **License**: GPL-3.0 — See [LICENSE](LICENSE) file for details
 
@@ -11,8 +11,8 @@ Inspired by the need for flexible and efficient tools in Bayesian nonparametric 
 To get started quickly, clone the repository and open it in R/RStudio. Ensure you have the required R packages installed (`Rcpp`, `RcppEigen`).
 
 ```bash
-git clone https://github.com/filippo-galli/tesi.git
-cd tesi
+git clone https://github.com/filippo-galli/BNPClust.git
+cd BNPClust
 ```
 
 Open `R/mcmc_loop.R` to create your own preferred MCMC scheme and see how to create and pass data to each component.
@@ -113,8 +113,8 @@ The framework includes several MCMC sampling strategies suited to different prob
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/filippo-galli/tesi.git
-   cd tesi
+   git clone https://github.com/filippo-galli/BNPClust.git
+   cd BNPClust
    ```
 
 2. Open the project in R/RStudio
