@@ -591,11 +591,180 @@ plot_map_prior_mean <- function(save = FALSE, folder = "results/plots/",
                                 puma_dir = "input/counties-pumas",
                                 input_dir = "input/CA/",
                                 id_col = "PUMA",
-                                unit_ids = NULL) {
+                                unit_ids = NULL,
+                                simplify_tol = 100) {
+
   cat("Computing map of mean income ...\n")
 
+  # --- Check Dependencies ---
+  if (!requireNamespace("sf", quietly = TRUE)) stop("Package 'sf' is required.")
+  if (!requireNamespace("dplyr", quietly = TRUE)) stop("Package 'dplyr' is required.")
+  if (!requireNamespace("ggplot2", quietly = TRUE)) stop("Package 'ggplot2' is required.")
+  # Added scales for nice number formatting in the legend
+  if (!requireNamespace("scales", quietly = TRUE)) warning("Package 'scales' recommended for legend formatting.")
+  
+  use_dt <- requireNamespace("data.table", quietly = TRUE)
+
+  # --- 1. Load Data & Compute Means ---
+  data <- NULL
+  rds_file <- paste0(input_dir, "full_dataset.rds")
+  csv_file <- paste0(input_dir, "full_dataset.csv")
+  dat_file <- paste0(input_dir, "full_dataset.dat")
+
+  cat("Loading dataset...\n")
+  prior_means <- NULL
+  
+  if (file.exists(rds_file)) {
+    data <- readRDS(rds_file)
+  } else if (file.exists(csv_file)) {
+    if (use_dt) {
+      data <- data.table::fread(csv_file)
+    } else {
+      data <- read.csv(csv_file)
+    }
+  } else if (file.exists(dat_file)) {
+     data <- tryCatch(
+        readRDS(dat_file),
+        error = function(e) {
+          env <- new.env()
+          load(dat_file, envir = env)
+          get(ls(env)[1], envir = env)
+        }
+      )
+  } else {
+    stop("Could not find full_dataset (.rds, .csv, or .dat) in ", input_dir)
+  }
+
+  # --- 2. Extract IDs and Calculate Means ---
+  if (is.null(unit_ids)) {
+    if (is.list(data) && !is.data.frame(data)) {
+      unit_ids <- names(data)
+    } else if (is.data.frame(data)) {
+      unit_ids <- rownames(data)
+    }
+  }
+
+  cat("Calculating means...\n")
+  if (is.list(data) && !is.data.frame(data)) {
+    prior_means <- vapply(data, mean, numeric(1), na.rm = TRUE)
+  } else if (is.data.frame(data)) {
+    if (ncol(data) > 100 && nrow(data) > 100) {
+       prior_means <- colMeans(data, na.rm = TRUE)
+    } else {
+       prior_means <- vapply(data, mean, numeric(1), na.rm = TRUE)
+    }
+  }
+  
+  if (length(prior_means) != length(unit_ids)) {
+     if(length(prior_means) == length(unit_ids)) {
+        names(prior_means) <- unit_ids
+     } else {
+        stop("Length mismatch: IDs (", length(unit_ids), ") vs Data Elements (", length(prior_means), ")")
+     }
+  } else {
+     names(prior_means) <- unit_ids
+  }
+
+  # --- 3. Clear Memory ---
+  cat("Cleaning up memory...\n")
+  rm(data) 
+  gc()
+
+  # --- 4. Load and Simplify Map ---
+  cat("Loading and processing map geometry...\n")
+  
+  shp_files <- list.files(puma_dir, pattern = "\\.shp$", full.names = TRUE)
+  if (length(shp_files) == 0) stop("No .shp file found in '", puma_dir, "'.")
+  
+  geom <- sf::st_read(shp_files[1], quiet = TRUE)
+  
+  if (!id_col %in% names(geom)) {
+    stop("Column '", id_col, "' not found in shapefile. Available columns: ", paste(names(geom), collapse=", "))
+  }
+
+  if (sf::st_is_longlat(geom)) simplify_tol <- 0.001 
+  
+  try({
+    geom <- sf::st_simplify(geom, dTolerance = simplify_tol, preserveTopology = TRUE)
+  }, silent = TRUE)
+
+  # --- 5. Merge and Plot (UPDATED STYLE) ---
+  
+  prior_df <- data.frame(
+    id_temp = as.character(unit_ids),
+    prior_mean = as.numeric(prior_means),
+    stringsAsFactors = FALSE
+  )
+  names(prior_df)[1] <- id_col
+  
+  geom[[id_col]] <- as.character(geom[[id_col]])
+  map_data <- dplyr::left_join(geom, prior_df, by = id_col)
+
+  cat("Generating plot...\n")
+  
+  # Define label formatter if scales is available
+  lbl_fun <- if (requireNamespace("scales", quietly = TRUE)) scales::comma else waiver()
+
+  p <- ggplot2::ggplot(map_data) +
+    # STYLE CHANGE 1: Thinner borders, white color.
+    # This matches the Italian map where borders are barely visible, blending the data.
+    ggplot2::geom_sf(ggplot2::aes(fill = prior_mean), color = "white", linewidth = 0.05) +
+    
+    # STYLE CHANGE 2: Viridis scale with nice formatting
+    ggplot2::scale_fill_viridis_c(
+      option = "viridis", 
+      na.value = "lightgrey",
+      labels = lbl_fun,  # Adds commas (e.g., 10,000)
+      name = "Prior Mean"
+    ) +
+    
+    ggplot2::labs(title = "PUMAs by Prior Mean") +
+    
+    # STYLE CHANGE 3: Theme Light (Restores Grid and Axes)
+    ggplot2::theme_light() + 
+    
+    ggplot2::theme(
+      # Keep the faint grid lines (Graticules)
+      panel.grid.major = ggplot2::element_line(color = "grey92", linewidth = 0.3),
+      panel.grid.minor = ggplot2::element_blank(),
+      
+      # Remove the solid box border, keeping it open
+      panel.border = ggplot2::element_blank(),
+      
+      # Ensure axis text (coordinates) is visible and grey
+      axis.text = ggplot2::element_text(color = "grey60", size = 8),
+      
+      # Legend styling
+      legend.title = ggplot2::element_text(size = 10, face = "bold"),
+      legend.text = ggplot2::element_text(size = 9)
+    )
+
+  #print(p)
+
+  if (save) {
+    if (!dir.exists(folder)) dir.create(folder, recursive = TRUE)
+    cat("Saving plot...\n")
+    ggplot2::ggsave(file.path(folder, "puma_prior_means.png"), p, width = 10, height = 8, bg = "white")
+  }
+
+  invisible(p)
+}
+
+plot_map_prior_mean_comuni <- function(save = FALSE, folder = "results/plots/",
+                                puma_dir = "input/counties-pumas",
+                                input_dir = "input/Comuni/",
+                                id_col = "COD_MUN",
+                                unit_ids = NULL) { 
+  cat("Computing map of mean income per comune...\n")
+
   if (!requireNamespace("sf", quietly = TRUE)) {
-    stop("Package 'sf' is required for plot_map_prior_mean().")
+    stop("Package 'sf' is required.")
+  }
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("Package 'dplyr' is required.")
+  }
+  if (!requireNamespace("ggplot2", quietly = TRUE)) {
+    stop("Package 'ggplot2' is required.")
   }
 
   shp <- list.files(puma_dir, pattern = "\\.shp$", full.names = TRUE)
@@ -603,24 +772,18 @@ plot_map_prior_mean <- function(save = FALSE, folder = "results/plots/",
     stop("No .shp file found in '", puma_dir, "'.")
   }
 
-  # Try multiple file formats
+  # Load data (unchanged)
   data <- NULL
-
-  # Try .rds first
   rds_file <- paste0(input_dir, "full_dataset.rds")
   if (file.exists(rds_file)) {
     data <- readRDS(rds_file)
   }
-
-  # Try .csv if .rds not found
   if (is.null(data)) {
     csv_file <- paste0(input_dir, "full_dataset.csv")
     if (file.exists(csv_file)) {
       data <- read.csv(csv_file)
     }
   }
-
-  # Try .dat with readRDS as fallback
   if (is.null(data)) {
     dat_file <- paste0(input_dir, "full_dataset.dat")
     if (file.exists(dat_file)) {
@@ -634,21 +797,40 @@ plot_map_prior_mean <- function(save = FALSE, folder = "results/plots/",
       )
     }
   }
-
   if (is.null(data)) {
-    stop("Could not find or load full_dataset in any supported format (.rds, .csv, .dat) in ", input_dir)
+    stop("Could not load full_dataset from ", input_dir)
   }
 
   if (is.null(unit_ids)) {
-    unit_ids <- names(data)
-  }
-  if (is.null(unit_ids) || length(unit_ids) != length(data)) {
-    stop("Provide unit_ids matching the number of PUMAs in 'data'.")
+    unit_ids <- data[[id_col]]  # Assume first matching column or specify
   }
 
-  prior_means <- vapply(data, mean, numeric(1))
-  names(prior_means) <- unit_ids
+  # Define income bins and midpoints (€) for IRPEF brackets [memory:5]
+  brackets <- c(0, 0, 10000, 15000, 26000, 55000, 75000, 120000, Inf)
+  midpoints <- c(0, 5000, 12500, 20500, 40750, 65250, 97500, 150000)
 
+  # Identify frequency columns (X* pattern from head(data))
+  income_cols <- grep("^X", names(data), value = TRUE)
+  if (length(income_cols) != length(midpoints)) {
+    warning("Number of income columns (", length(income_cols), 
+            ") doesn't match expected bins (", length(midpoints), 
+            "). Check column names.")
+  }
+
+  # Compute per-municipality mean income: sum(count * midpoint) / sum(count)
+  n_bins <- min(length(income_cols), length(midpoints))
+  total_income <- rowSums(sapply(1:n_bins, function(i) {
+    as.numeric(data[[income_cols[i]]]) * midpoints[i]
+  }))
+  total_people <- rowSums(as.matrix(data[income_cols[1:n_bins]]))
+  
+  prior_means <- ifelse(total_people > 0, total_income / total_people, 0)
+  names(prior_means) <- as.character(unit_ids)
+
+  cat("Mean income range:", round(range(prior_means, na.rm = TRUE), 0), "€\n")
+  cat("Global mean:", round(mean(prior_means, na.rm = TRUE), 0), "€\n")
+
+  # Spatial join (unchanged)
   geom <- sf::st_read(shp[1], quiet = TRUE)
   prior_df <- tibble::tibble(
     !!id_col := as.character(unit_ids),
@@ -659,22 +841,26 @@ plot_map_prior_mean <- function(save = FALSE, folder = "results/plots/",
 
   p <- ggplot2::ggplot(geom) +
     ggplot2::geom_sf(aes(fill = prior_mean), color = "grey60", size = 0.2) +
-    ggplot2::scale_fill_viridis_c(option = "viridis", na.value = "lightgrey") +
+    ggplot2::scale_fill_viridis_c(option = "viridis", na.value = "lightgrey",
+                                  labels = scales::comma_format(accuracy = 1e3)) +
     ggplot2::labs(
-      title = "PUMAs by Prior Mean",
-      fill = "Prior Mean"
+      title = "Italian Comuni by Mean Income",
+      fill = "Mean Income (€)"
     ) +
-    ggplot2::theme_minimal()
+    ggplot2::theme_minimal() +
+    ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
 
   print(p)
 
   if (save) {
     if (!dir.exists(folder)) dir.create(folder, recursive = TRUE)
-    ggplot2::ggsave(file.path(folder, "puma_prior_means.png"), p, width = 10, height = 8)
+    ggplot2::ggsave(file.path(folder, "comuni_prior_mean_income.png"), 
+                    p, width = 12, height = 10, dpi = 300)
   }
 
   invisible(p)
 }
+
 
 plot_hist_cls_pumas <- function(results, BI, input_dir = "input/CA/", point_estimate = NULL, save = FALSE, folder = "results/plots/", log = TRUE) {
   cat("Computing histograms of cluster assignments...\n")

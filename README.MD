@@ -97,7 +97,7 @@ The framework includes several MCMC sampling strategies suited to different prob
 - **Split-Merge (Jain & Neal, 2004)**: Standard Split-Merge MCMC procedure
 - **SAMS**: Sequentially-Allocated Merge-Split sampler (Dahl, 2021)
 - **LSS Split-Merge**: Locality Sensitive Sampling for scalable Split-Merge (Luo et al., 2018)
-- **LSS-SDDS Split-Merge**: Split-Merge with Smart-Dumb/Dumb-Smart moves, LSS, and SAMS enhancements — *experimental*
+- **LSS-SDDS Split-Merge**: Split-Merge with Smart-Dumb/Dumb-Smart moves, LSS, and SAMS enhancements
 
 **Status Legend**: Core methods (Neal's Algorithm 3, standard Split-Merge) are production-ready; samplers marked experimental are under development.
 
