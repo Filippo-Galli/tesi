@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['📊_20strong_20rich_20visualization_20diagnostics_20strong_0',['📊 &lt;strong&gt;Rich Visualization &amp; Diagnostics&lt;/strong&gt;',['../index.html#autotoc_md5',1,'']]]
+  ['✨_20feature_20requests_0',['✨ Feature Requests',['../md_CONTRIBUTING.html#autotoc_md40',1,'']]]
 ];

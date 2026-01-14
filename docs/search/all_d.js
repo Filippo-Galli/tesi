@@ -1,23 +1,5 @@
 var searchData=
 [
-  ['params_0',['Params',['../structParams.html',1,'Params'],['../structParams.html#a47b5fb56b2cd7b50dbd6c323c62bbf82',1,'Params::Params()']]],
-  ['params_1',['params',['../classData.html#a49af987ead9e377722a4a95a9b868d2c',1,'Data::params'],['../classLikelihood.html#afd1795b729f44bd5105979ecb8853642',1,'Likelihood::params'],['../classProcess.html#a2793ccf3c3fe37432a7e19ba2de0e885',1,'Process::params'],['../classSampler.html#a82d788501df27a3490c27085e5c6a218',1,'Sampler::params'],['../classU__sampler.html#aae20479c86071657e0fe00d54c9d0d3c',1,'U_sampler::params']]],
-  ['params_2ehpp_2',['Params.hpp',['../Params_8hpp.html',1,'']]],
-  ['params_5fget_5fa_3',['params_get_a',['../bindings_8cpp.html#ab349abdac67938d98badbee4f9e5910b',1,'bindings.cpp']]],
-  ['params_5fget_5fbi_4',['params_get_BI',['../bindings_8cpp.html#a4865bd3a93ca10d27f30731022b66c7b',1,'bindings.cpp']]],
-  ['params_5fget_5fni_5',['params_get_NI',['../bindings_8cpp.html#a0a99f6845de317b64dc14baacd72de1c',1,'bindings.cpp']]],
-  ['params_5fget_5fsigma_6',['params_get_sigma',['../bindings_8cpp.html#ab20a182586addd0df8bde314315e84d3',1,'bindings.cpp']]],
-  ['params_5fget_5ftau_7',['params_get_tau',['../bindings_8cpp.html#a8d8722dc72f83da2753b2c1fead16732',1,'bindings.cpp']]],
-  ['point_5floglikelihood_5fcond_8',['point_loglikelihood_cond',['../classLikelihood.html#a0937f6a9a4b48def87b6e644810fb99d',1,'Likelihood']]],
-  ['prerequisites_9',['Prerequisites',['../index.html#autotoc_md12',1,'']]],
-  ['prior_5fratio_5fmerge_10',['prior_ratio_merge',['../classDP.html#a0e9b5eed61089876ad4fa25440e6fe0a',1,'DP::prior_ratio_merge()'],['../classDPx.html#aebc142195a514ff77e5d2fc1b8b64ad2',1,'DPx::prior_ratio_merge()'],['../classNGGP.html#a79e4070dff59378d106d56545ea66a84',1,'NGGP::prior_ratio_merge()'],['../classNGGPx.html#a0cd5953d61c9e582bc9cd366e3fed1ec',1,'NGGPx::prior_ratio_merge()'],['../classProcess.html#a3f839a738e76fc3ab83d3a7bfc228984',1,'Process::prior_ratio_merge()']]],
-  ['prior_5fratio_5fshuffle_11',['prior_ratio_shuffle',['../classDP.html#a124720c8dca0a4ebb401576f3f829624',1,'DP::prior_ratio_shuffle()'],['../classDPx.html#a5373cb4e0fb3db4394a519c1b1ae1c3d',1,'DPx::prior_ratio_shuffle()'],['../classNGGP.html#acd7a5bc6cbe029ec09d9a083c01277ff',1,'NGGP::prior_ratio_shuffle()'],['../classNGGPx.html#a5de2de1f4721b0d65e1ece5bdcf0e133',1,'NGGPx::prior_ratio_shuffle()'],['../classProcess.html#a3bd733b3232c8cf865bc0d6c1a07aea4',1,'Process::prior_ratio_shuffle()']]],
-  ['prior_5fratio_5fsplit_12',['prior_ratio_split',['../classDP.html#add6430ec2928d6260b9a4f78f6a2867a',1,'DP::prior_ratio_split()'],['../classDPx.html#a76bff8ec1235026b8353024d6d9abdce',1,'DPx::prior_ratio_split()'],['../classNGGP.html#a6488070ea12d0a9c9454d96e8b5cb719',1,'NGGP::prior_ratio_split()'],['../classNGGPx.html#af36f6cddc3336082e4947f641c10cd92',1,'NGGPx::prior_ratio_split()'],['../classProcess.html#a3077b5bf1703a691927ae3779900a734',1,'Process::prior_ratio_split()']]],
-  ['probs_13',['probs',['../classSplitMerge__LSS__SDDS.html#a72368dd573af97e4d3b4ea321805eb1e',1,'SplitMerge_LSS_SDDS']]],
-  ['process_14',['Process',['../classProcess.html',1,'Process'],['../classProcess.html#a8bd31d2434ca052d9a7e2b803e346b8e',1,'Process::Process()']]],
-  ['process_15',['process',['../classSampler.html#a8ec54ff9fe8f22c8514496d6f3b998d0',1,'Sampler']]],
-  ['process_2ehpp_16',['Process.hpp',['../Process_8hpp.html',1,'']]],
-  ['process_5fupdate_5fparams_17',['process_update_params',['../bindings_8cpp.html#aa87d47c86bd5d0130b38c27f61d60adc',1,'bindings.cpp']]],
-  ['processes_18',['Stochastic Processes',['../index.html#autotoc_md8',1,'']]],
-  ['proposal_5fsd_19',['proposal_sd',['../classRWMH.html#ab36d78a51cba6fbd0d0287f03ccf3a09',1,'RWMH']]]
+  ['epsilon_0',['epsilon',['../classMALA.html#a6aff6e66f730d6f3cf097bacd1ac8c69',1,'MALA']]],
+  ['example_1',['Running a Basic Example',['../index.html#autotoc_md14',1,'']]]
 ];

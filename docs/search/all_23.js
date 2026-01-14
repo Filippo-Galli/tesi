@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['📚_20references_20citations_0',['📚 References &amp; Citations',['../index.html#autotoc_md28',1,'']]]
+  ['🐛_20bug_20reports_0',['🐛 Bug Reports',['../md_CONTRIBUTING.html#autotoc_md39',1,'']]]
 ];

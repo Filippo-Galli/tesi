@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['🔄_20strong_20multiple_20analysis_20methods_20strong_0',['🔄 &lt;strong&gt;Multiple Analysis Methods&lt;/strong&gt;',['../index.html#autotoc_md3',1,'']]]
+  ['💡_20contributing_0',['💡 Contributing',['../index.html#autotoc_md18',1,'']]],
+  ['💡_20usage_20licensing_1',['💡 Usage &amp; Licensing',['../index.html#autotoc_md16',1,'']]]
 ];

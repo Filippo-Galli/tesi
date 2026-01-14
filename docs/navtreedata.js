@@ -26,6 +26,33 @@ var NAVTREE =
 [
   [ "Docs", "index.html", [
     [ "BNPClust: A C++ Framework for Bayesian Nonparametric Clustering with MCMC", "index.html", "index" ],
+    [ "Contributing to BNPClust", "md_CONTRIBUTING.html", [
+      [ "Getting Started", "md_CONTRIBUTING.html#autotoc_md20", [
+        [ "Fork the Repository", "md_CONTRIBUTING.html#autotoc_md21", null ],
+        [ "Clone Your Fork", "md_CONTRIBUTING.html#autotoc_md22", null ],
+        [ "Create a New Branch", "md_CONTRIBUTING.html#autotoc_md23", null ],
+        [ "Make Your Changes", "md_CONTRIBUTING.html#autotoc_md24", null ],
+        [ "Test Your Changes", "md_CONTRIBUTING.html#autotoc_md25", null ],
+        [ "Commit Your Changes", "md_CONTRIBUTING.html#autotoc_md26", null ],
+        [ "Push to Your Fork", "md_CONTRIBUTING.html#autotoc_md27", null ],
+        [ "Create a Pull Request", "md_CONTRIBUTING.html#autotoc_md28", null ],
+        [ "Address Feedback", "md_CONTRIBUTING.html#autotoc_md29", null ]
+      ] ],
+      [ "Design Philosophy", "md_CONTRIBUTING.html#autotoc_md31", [
+        [ "KISS Principle", "md_CONTRIBUTING.html#autotoc_md32", null ],
+        [ "Modularity", "md_CONTRIBUTING.html#autotoc_md33", null ],
+        [ "Code Organization", "md_CONTRIBUTING.html#autotoc_md34", null ],
+        [ "Documentation", "md_CONTRIBUTING.html#autotoc_md35", null ],
+        [ "R Bindings", "md_CONTRIBUTING.html#autotoc_md36", null ]
+      ] ],
+      [ "Types of Contributions", "md_CONTRIBUTING.html#autotoc_md38", [
+        [ "🐛 Bug Reports", "md_CONTRIBUTING.html#autotoc_md39", null ],
+        [ "✨ Feature Requests", "md_CONTRIBUTING.html#autotoc_md40", null ],
+        [ "📖 Documentation", "md_CONTRIBUTING.html#autotoc_md41", null ],
+        [ "🔧 Code Improvements", "md_CONTRIBUTING.html#autotoc_md42", null ]
+      ] ],
+      [ "Questions?", "md_CONTRIBUTING.html#autotoc_md44", null ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
