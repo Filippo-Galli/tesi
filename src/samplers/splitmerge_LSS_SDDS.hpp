@@ -135,6 +135,9 @@ private:
     int accepted_split = 0;
     int accepted_merge = 0;
     int accepted_shuffle = 0;
+    int split_moves = 0;
+    int merge_moves = 0;
+    int shuffle_moves = 0;
 
     // ========== Move Selection Methods ==========
 
@@ -357,19 +360,19 @@ public:
     // ========== Accessor Methods ==========
     /**
      * @brief Get number of accepted split moves for diagnostics
-     * @return Count of accepted split moves
+     * @return Ratio of accepted split moves
      */
-    int get_accepted_split() const { return accepted_split; };
+    double get_accepted_split() const { return static_cast<double>(accepted_split)/split_moves; };
 
     /**
      * @brief Get number of accepted merge moves for diagnostics
-     * @return Count of accepted merge moves
+     * @return Ratio of accepted merge moves
      */
-    int get_accepted_merge() const { return accepted_merge; };
+    double get_accepted_merge() const { return static_cast<double>(accepted_merge)/merge_moves; };
 
     /**
      * @brief Get number of accepted shuffle moves for diagnostics
-     * @return Count of accepted shuffle moves
+     * @return Ratio of accepted shuffle moves
      */
-    int get_accepted_shuffle() const { return accepted_shuffle; };
+    double get_accepted_shuffle() const { return static_cast<double>(accepted_shuffle)/shuffle_moves; };
 };

@@ -25,8 +25,9 @@ void SplitMerge_LSS_SDDS::choose_indeces(bool similarity) {
     std::uniform_int_distribution<> dis(0, data.get_n() - 1);
     idx_i = dis(gen);
 
-    auto distances = params.D.row(idx_i);
-    double distance_sum = 0.0;
+    const auto distances = params.D.row(idx_i);
+    const double log_max_distance = log(distances.maxCoeff());
+    double prob_sum = 0.0;
     std::vector<double> probs(data.get_n());
 
     // Compute probabilities for selecting idx_j based on distances from idx_i
@@ -35,9 +36,14 @@ void SplitMerge_LSS_SDDS::choose_indeces(bool similarity) {
         if (idx == idx_i)
             probs[idx] = 0.0;
         else
-            probs[idx] = similarity ? 1 / distances(idx) : distances(idx);
-        distance_sum += probs[idx];
+            probs[idx] = similarity ? log_max_distance - log(distances(idx)) : log(distances(idx));
+        prob_sum += probs[idx];
     }
+
+    // // Normalize probabilities
+    // for (auto &p : probs) {
+    //     p /= distance_sum;
+    // }
 
     // Select second index idx_j based on computed probabilities
     std::discrete_distribution<> dis1(probs.begin(), probs.end());
@@ -406,15 +412,19 @@ void SplitMerge_LSS_SDDS::step() {
     if (similarity_dist) {
         // smart merge - dumb split
         if (ci != cj) {
+            merge_moves++;
             smart_merge_move();
         } else {
+            split_moves++;
             dumb_split_move();
         }
     } else {
         // smart split - dumb merge
         if (ci == cj) {
+            split_moves++;
             smart_split_move();
         } else {
+            merge_moves++;
             dumb_merge_move();
         }
     }
@@ -424,6 +434,7 @@ void SplitMerge_LSS_SDDS::step() {
     log_merge_gibbs_prob = 0;
 
     if (shuffle_bool) {
+        shuffle_moves++;
         process.set_old_allocations(data.get_allocations());     // Update old allocations in the process
         process.set_old_cluster_members(data.get_cluster_map()); // Update old cluster members in the process
         process.set_old_K(data.get_K());                         // Cache number of clusters for rollback

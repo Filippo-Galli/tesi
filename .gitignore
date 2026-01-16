@@ -34,6 +34,8 @@ simulation_data/
 real_data/
 input/
 
+R/data_retrieval/
+
 # Podman 
 .config/
 
