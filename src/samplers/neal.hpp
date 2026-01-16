@@ -78,6 +78,7 @@ private:
     int sample_from_log_probs(int num_clusters);
 
     // Pre-allocated buffers to avoid repeated allocations
+    std::vector<int> indices;
     std::vector<double> log_likelihoods;
     std::vector<double> weights;
     int n_data;
@@ -101,6 +102,9 @@ public:
         // Pre-allocate to max size (all points in separate clusters + 1 new cluster)
         log_likelihoods.reserve(n_data + 1);
         weights.reserve(n_data + 1);
+
+        indices.resize(n_data);
+        std::iota(indices.begin(), indices.end(), 0);
     }
 
     // ========== MCMC Interface ==========

@@ -12,6 +12,7 @@
  */
 
 #include "neal.hpp"
+#include <numeric>
 
 using namespace Rcpp;
 
@@ -78,11 +79,11 @@ void Neal3::step_1_observation(int index) {
 
 void Neal3::step() {
     /**
-     * @brief Performs a single step of the DP Neal 2 algorithm for all the
+     * @brief Performs a single step of the Neal 3 algorithm for all the
      * dataset.
      */
 
-    for (int j = 0; j < data.get_n(); ++j) {
-        step_1_observation(j);
+    for (const int idx : indices) {
+        step_1_observation(idx);
     }
 }
