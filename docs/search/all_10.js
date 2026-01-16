@@ -4,5 +4,6 @@ var searchData=
   ['idx_5fj_1',['idx_j',['../classProcess.html#a6268d4e1236ecc0a2a5a7af400c7868b',1,'Process::idx_j'],['../classSplitMerge.html#a825261c6e1e57297e59fffbeb094dbf6',1,'SplitMerge::idx_j'],['../classSplitMerge__LSS.html#a8c98c80c273d7bb82e5e17207dcbb90d',1,'SplitMerge_LSS::idx_j'],['../classSplitMerge__LSS__SDDS.html#ac78a6b05561a6fd865da7ffc8fc418e6',1,'SplitMerge_LSS_SDDS::idx_j'],['../classSplitMerge__SAMS.html#af0c799c515ff0ffbe501400b5f19ccc6',1,'SplitMerge_SAMS::idx_j']]],
   ['implemented_20methods_2',['📦 Implemented Methods',['../index.html#autotoc_md7',1,'']]],
   ['improvements_3',['🔧 Code Improvements',['../md_CONTRIBUTING.html#autotoc_md42',1,'']]],
-  ['installation_20usage_4',['🛠️ Installation &amp; Usage',['../index.html#autotoc_md11',1,'']]]
+  ['indices_4',['indices',['../classNeal3.html#ad42dae39ff27013f03cc863004177675',1,'Neal3']]],
+  ['installation_20usage_5',['🛠️ Installation &amp; Usage',['../index.html#autotoc_md11',1,'']]]
 ];

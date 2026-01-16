@@ -8,9 +8,9 @@ var classSplitMerge__LSS__SDDS =
     [ "compute_acceptance_ratio_split", "classSplitMerge__LSS__SDDS.html#a2c1a640715782e4cf48f15489e7e4624", null ],
     [ "dumb_merge_move", "classSplitMerge__LSS__SDDS.html#a5b905d39d9714364a859dfb8f23d5690", null ],
     [ "dumb_split_move", "classSplitMerge__LSS__SDDS.html#a262468ac51cfdd1e45f82417f91f5864", null ],
-    [ "get_accepted_merge", "classSplitMerge__LSS__SDDS.html#ab9edf6e0e86e664472b165867db19dc0", null ],
-    [ "get_accepted_shuffle", "classSplitMerge__LSS__SDDS.html#aa082ef1bfe00f1ab1b79dd4f1d5095c0", null ],
-    [ "get_accepted_split", "classSplitMerge__LSS__SDDS.html#a271b4214f6ba3814da718e85bca776d6", null ],
+    [ "get_accepted_merge", "classSplitMerge__LSS__SDDS.html#a6e45dc8626f2be2a0f8f83aec6d59281", null ],
+    [ "get_accepted_shuffle", "classSplitMerge__LSS__SDDS.html#a890279b7dbfd4b286b83308720fb5584", null ],
+    [ "get_accepted_split", "classSplitMerge__LSS__SDDS.html#abca7eb1212a1829c49f0774df60a4a9b", null ],
     [ "sequential_allocation", "classSplitMerge__LSS__SDDS.html#a62485d23e3d3c5266fa70b7c055e673c", null ],
     [ "shuffle", "classSplitMerge__LSS__SDDS.html#aa07752d43ab1d5480b76ac2642f838e7", null ],
     [ "smart_merge_move", "classSplitMerge__LSS__SDDS.html#a5f6145f05bccec4fe241ba11c00acf05", null ],
@@ -31,9 +31,12 @@ var classSplitMerge__LSS__SDDS =
     [ "log_merge_gibbs_prob", "classSplitMerge__LSS__SDDS.html#ada77f2fce6d6778a9829447a663bf3c8", null ],
     [ "log_probs", "classSplitMerge__LSS__SDDS.html#a2b3286bccb91d69fcd8c42fd549b9172", null ],
     [ "log_split_gibbs_prob", "classSplitMerge__LSS__SDDS.html#ae11d1391d015b667789491845f9a95e1", null ],
+    [ "merge_moves", "classSplitMerge__LSS__SDDS.html#a6453c89439e54af96f82a95732e93ba8", null ],
     [ "original_allocations", "classSplitMerge__LSS__SDDS.html#a77fd0be8af2fef90083898469a27599b", null ],
     [ "probs", "classSplitMerge__LSS__SDDS.html#a72368dd573af97e4d3b4ea321805eb1e", null ],
     [ "rand_split_prob", "classSplitMerge__LSS__SDDS.html#a703cfdea33d5b09e8ad73128f9153a87", null ],
     [ "S", "classSplitMerge__LSS__SDDS.html#ab89d3b1669dc604e8eacb2ee938a93a0", null ],
-    [ "shuffle_bool", "classSplitMerge__LSS__SDDS.html#aa067403728ed88f2b18980e4d0bb0379", null ]
+    [ "shuffle_bool", "classSplitMerge__LSS__SDDS.html#aa067403728ed88f2b18980e4d0bb0379", null ],
+    [ "shuffle_moves", "classSplitMerge__LSS__SDDS.html#a2358fba9da34ef5d95de965fbff98962", null ],
+    [ "split_moves", "classSplitMerge__LSS__SDDS.html#a0f163be215c374cff321f1defbe77dea", null ]
 ];

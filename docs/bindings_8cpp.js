@@ -33,6 +33,7 @@ var bindings_8cpp =
     [ "datax_set_allocations", "bindings_8cpp.html#a8afcb94c8359f88b70fcbccfb596fd86", null ],
     [ "get_cluster_info_ptr", "bindings_8cpp.html#af6420f6878380ebad2290d874c42b0a3", null ],
     [ "get_data_ptr", "bindings_8cpp.html#a0b90b94c00df80e382f7e4ef384457d9", null ],
+    [ "lss_sdds_accepted_moves", "bindings_8cpp.html#a5c7a577fc17f3b4bbf9cf2e89b2d5cdd", null ],
     [ "params_get_a", "bindings_8cpp.html#ab349abdac67938d98badbee4f9e5910b", null ],
     [ "params_get_BI", "bindings_8cpp.html#a4865bd3a93ca10d27f30731022b66c7b", null ],
     [ "params_get_NI", "bindings_8cpp.html#a0a99f6845de317b64dc14baacd72de1c", null ],

@@ -154,6 +154,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a6c1fb83b507ed24597b7dc0fa6529bad" id="r_a6c1fb83b507ed24597b7dc0fa6529bad"><td class="memItemLeft" align="right" valign="top">std::mt19937&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c1fb83b507ed24597b7dc0fa6529bad">gen</a></td></tr>
 <tr class="memdesc:a6c1fb83b507ed24597b7dc0fa6529bad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mersenne Twister random number generator for sampling operations.  <br /></td></tr>
 <tr class="separator:a6c1fb83b507ed24597b7dc0fa6529bad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad42dae39ff27013f03cc863004177675" id="r_ad42dae39ff27013f03cc863004177675"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad42dae39ff27013f03cc863004177675">indices</a></td></tr>
+<tr class="separator:ad42dae39ff27013f03cc863004177675"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afed3cbdb02a68d204aff9286beb1f1a1" id="r_afed3cbdb02a68d204aff9286beb1f1a1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afed3cbdb02a68d204aff9286beb1f1a1">log_likelihoods</a></td></tr>
 <tr class="separator:afed3cbdb02a68d204aff9286beb1f1a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a173c6450b8be31420bbcb86f97a3bbb6" id="r_a173c6450b8be31420bbcb86f97a3bbb6"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a173c6450b8be31420bbcb86f97a3bbb6">weights</a></td></tr>
@@ -312,7 +314,7 @@ Process Mixture Models"</dd></dl>
 <li>The Markov chain has advanced by one step</li>
 </ul>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#ac20cf03f5de473bdc3cf1c7e59137f53" title="Sample cluster assignment for a single observation.">step_1_observation()</a> </dd></dl>
-<p>Performs a single step of the <a class="el" href="classDP.html" title="Dirichlet Process class for Bayesian nonparametric clustering.">DP</a> Neal 2 algorithm for all the dataset.</p>
+<p>Performs a single step of the Neal 3 algorithm for all the dataset.</p>
 
 <p>Implements <a class="el" href="classSampler.html#a49153313f42d53d107bfe2b2e9d83fa5">Sampler</a>.</p>
 
@@ -387,6 +389,28 @@ Process Mixture Models"</dd></dl>
 </div><div class="memdoc">
 
 <p>Mersenne Twister random number generator for sampling operations. </p>
+
+</div>
+</div>
+<a id="ad42dae39ff27013f03cc863004177675" name="ad42dae39ff27013f03cc863004177675"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad42dae39ff27013f03cc863004177675">&#9670;&#160;</a></span>indices</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;int&gt; Neal3::indices</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

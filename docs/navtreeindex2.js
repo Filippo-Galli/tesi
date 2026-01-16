@@ -1,5 +1,10 @@
 var NAVTREEINDEX2 =
 {
+"classSplitMerge__SAMS.html#af0c799c515ff0ffbe501400b5f19ccc6":[2,0,26,21],
+"classSplitMerge__SAMS.html#af44a46bc10d47c3b9fc341a68cd9968b":[2,0,26,16],
+"classSplitMerge__SAMS.html#af812bf4c32fef71ddae082bfa26d1465":[2,0,26,0],
+"classU__sampler.html":[2,0,27],
+"classU__sampler.html#a16bbf085253b0900a81783694aa20d5f":[2,0,27,3],
 "classU__sampler.html#a1d973e404393789b3799a407bc8d9c03":[2,0,27,15],
 "classU__sampler.html#a1f1b535ec7cad2be0aa24c7535c084d1":[2,0,27,1],
 "classU__sampler.html#a23ec32a62896472e93d554ca9d74669b":[2,0,27,0],
