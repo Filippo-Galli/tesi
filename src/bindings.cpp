@@ -369,7 +369,7 @@ void datax_set_allocations(Rcpp::XPtr<Datax> data, Eigen::VectorXi new_allocatio
 }
 
 // [[Rcpp::export]]
-void lss_sdds_accepted_moves(Rcpp::XPtr<SplitMerge_LSS_SDDS> sampler, int BI, int NI) {
+void lss_sdds_accepted_moves(Rcpp::XPtr<SplitMerge_LSS_SDDS> sampler) {
 
     // Display the counts
     Rcpp::Rcout << "Ratio accepted splits: " << sampler->get_accepted_split() * 100 << " %" << std::endl;

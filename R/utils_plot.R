@@ -141,7 +141,8 @@ plot_post_distr <- function(results, BI, save = FALSE, folder = "results/plots/"
     labs(
       x = "Cluster Found",
       y = "Relative Frequency",
-      title = paste("Posterior Distribution of Clusters (After Burn-in:", BI, ")")
+      title = paste("Posterior distribution number of clusters")
+      # title = paste("Prior distribution number of clusters ")
     ) +
     theme(
       axis.text.x = element_text(size = 12),
@@ -157,8 +158,10 @@ plot_post_distr <- function(results, BI, save = FALSE, folder = "results/plots/"
     # Show all cluster values when there are few
     p1 <- p1 + scale_x_discrete(drop = FALSE)
   } else {
-    # Use smart breaks when there are many
-    p1 <- p1 + scale_x_continuous(breaks = scales::pretty_breaks(n = 15))
+  # Show fewer labels (every nth) when many clusters to avoid overcrowding
+  step <- max(1, floor(n_unique_clusters / 10))
+  labels_to_show <- seq(1, n_unique_clusters, by = step)
+  p1 <- p1 + scale_x_discrete(labels = function(x) ifelse(as.numeric(x) %in% labels_to_show, x, ""))
   }
   
   print(p1)

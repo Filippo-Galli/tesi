@@ -8,16 +8,17 @@ run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_cova
     # Ensure types are correct for C++
     initial_allocations <- as.integer(initial_allocations)
 
-    cache <- create_Continuos_cache(initial_allocations, continuos_covariates)
+    continuos_cache <- create_Continuos_cache(initial_allocations, continuos_covariates)
     binary_cache <- create_Binary_cache(initial_allocations, binary_covariates)
 
     # Instantiate Data using factory function
-    data <- create_Datax(params, list(cache, binary_cache), initial_allocations)
+    data <- create_Datax(params, list(continuos_cache, binary_cache), initial_allocations)
     # data <- create_Data(params, initial_allocations)
 
     # Instantiate Likelihood using factory function
     likelihood <- create_Natarajan_likelihood(data, params)
     # likelihood <- create_Null_likelihood(data, params) # Placeholder likelihood
+    # likelihood <- create_Gamma_likelihood(data, params)
 
     # Instantiate U_sampler (RWMH) using factory function
     # Constructor: Params&, Data&, bool use_V, double proposal_sd, bool tuning_enabled
@@ -35,7 +36,7 @@ run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_cova
     nu <- 1
     S0 <- 1.0
 
-    mod_cov <- create_ContinuosCovariatesModuleCache(data, cache, fixed_v, m, B, v, nu, S0)
+    mod_cov <- create_ContinuosCovariatesModuleCache(data, continuos_cache, fixed_v, m, B, v, nu, S0)
     #mod_cov <- create_ContinuosCovariatesModule(data, continuos_covariates, fixed_v = TRUE, m = m, B = B, v = v)
 
     # 3. Binary covariate module
@@ -43,7 +44,8 @@ run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_cova
     mod_binary <- create_BinaryCovariatesModuleCache(data, binary_cache, 0.1, 0.1)
 
     # Combine modules into NGGPx process
-    process <- create_NGGPx(data, params, u_sampler, list(mod_spatial, mod_cov, mod_binary))
+    process <- create_NGGPx(data, params, u_sampler, list(mod_spatial))
+    # process <- create_NGGP(data, params, u_sampler)
 
     # Instantiate Sampler (SplitMerge_LSS_SDDS) using factory function
     # Constructor: Data&, Params&, Likelihood&, Process&, bool shuffle
@@ -94,6 +96,7 @@ run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_cova
     cat("MCMC completed.\n")
     cat("Total time (secs):", elapsed_time, "\n")
     cat("U acceptance rate:", u_sampler_get_acceptance_rate(u_sampler) * 100, "%\n")
+    lss_sdds_accepted_moves(sampler)
 
     return(list(
         allocations = allocations_out,

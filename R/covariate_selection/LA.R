@@ -4,8 +4,8 @@ source("R/utils.R")
 ##############################################################################
 # Load .dat files from 'input/' directory ====
 ##############################################################################
-load("input/LA/full_dataset.dat") # it load the variable 'data'
-load("input/LA/adj_matrix.dat")
+# load("input/LA/full_dataset.dat") # it load the variable 'data'
+# load("input/LA/adj_matrix.dat")
 full_dataset_covariates <- readRDS("input/LA/full_dataset_covariates.rds")
 
 ##############################################################################
@@ -489,6 +489,7 @@ puma_agep_std_mean <- agep_puma_data %>%
   group_by(STATE_PUMA) %>%
   summarise(
     Mean_AGEP_std = mean(AGEP_std, na.rm = TRUE),
+    sd_AGEP_std = sd(AGEP_std, na.rm = TRUE),
     .groups = "drop"
   ) %>%
   arrange(STATE_PUMA)
@@ -548,6 +549,7 @@ sex_puma_data <- sex_puma_data %>%
   group_by(STATE_PUMA) %>%
   summarise(
     Mode_SEX = get_mode(SEX, na.rm = TRUE),
+    Perc_Female = mean(SEX == 2, na.rm = TRUE),
     .groups = "drop"
   ) %>%
   arrange(STATE_PUMA)
@@ -557,3 +559,80 @@ sex_puma_data$Mode_SEX <- as.numeric(sex_puma_data$Mode_SEX) - 1
 
 # Save the PUMA AGEP summary for later use
 saveRDS(sex_puma_data, file = "real_data/LA/puma_sex_mode.rds")
+
+##########################################################################
+# Covariates Analysis ====
+##########################################################################
+
+# Load data (your code + validation)
+files <- list.files("results/")
+file_chosen <- files[9]
+point_estimate <- readRDS(paste0("results/", file_chosen, "/VI_plots/point_estimate.rds"))
+results <- readRDS(paste0("results/", file_chosen, "/simulation_results.rds"))
+
+parts <- strsplit(file_chosen, "_")[[1]]
+states <- parts[3]  # e.g., "LA" or "Comuni"
+id_col <- if (states == "Comuni") "COD_MUN" else "PUMA"
+
+# Load unit IDs from shapefile (quiet load, extract column)
+shp <- sf::st_read(paste0("input/", states, "/counties-pumas/counties-pumas.shp"), quiet = TRUE)
+unit_ids <- shp[[id_col]]
+
+# Assign/override names with shapefile IDs
+names(point_estimate) <- unit_ids
+
+unique_clusters <- sort(unique(point_estimate))
+
+# Robust cluster_df
+cluster_df <- data.frame(
+  id = unit_ids,
+  cluster = factor(point_estimate, levels = unique_clusters),
+  stringsAsFactors = FALSE,
+  row.names = NULL
+)
+
+# Modify id columns adding 06_ prefix for LA PUMAs
+if (states == "LA") {
+  cluster_df$id <- paste0("06_", cluster_df$id)
+}
+
+# merge sex_puma_data with cluster_df, the key is STATE_PUMA and id
+sex_df <- merge.data.frame(
+  cluster_df, sex_puma_data, by.x = "id", by.y = "STATE_PUMA", all.x = TRUE)
+
+age_df <- merge.data.frame(
+  cluster_df, puma_agep_std_mean, by.x = "id", by.y = "STATE_PUMA", all.x = TRUE)
+
+# Summarize per cluster
+sex_cluster_summary <- sex_df %>%
+  group_by(cluster) %>%
+  summarise(
+    Mode_SEX = get_mode(Mode_SEX, na.rm = TRUE),
+    Perc_Female = mean(Perc_Female, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(cluster)
+
+print(sex_cluster_summary)
+
+age_cluster_summary <- age_df %>%
+  mutate(
+    # Back-transform to original years
+    Mean_AGEP_orig = Mean_AGEP_std * agep_sd + agep_mean,
+    sd_AGEP_orig = sd_AGEP_std * agep_sd
+  ) %>%
+  group_by(cluster) %>%
+  summarise(
+    n_pumas = n(),
+    age_mean = mean(Mean_AGEP_orig, na.rm = TRUE),
+    age_mean_sd = if(n() > 1) sd(Mean_AGEP_orig, na.rm = TRUE) else NA_real_,
+    age_sd_mean = mean(sd_AGEP_orig, na.rm = TRUE),
+    age_sd_sd = if(n() > 1) sd(sd_AGEP_orig, na.rm = TRUE) else NA_real_,
+    # Keep std for comparisons
+    mean_Mean_AGEP_std = mean(Mean_AGEP_std, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(cluster)
+
+print(age_cluster_summary)
+
