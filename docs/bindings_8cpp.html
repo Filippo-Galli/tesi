@@ -110,6 +110,7 @@ $(function(){initNavTree('bindings_8cpp.html',''); initResizable(true); });
 <p>R language bindings for Bayesian nonparametric clustering models.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;RcppEigen.h&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 <code>#include &quot;Rcpp/XPtr.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="Params_8hpp_source.html">utils/Params.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Data_8hpp_source.html">utils/Data.hpp</a>&quot;</code><br />
@@ -128,6 +129,7 @@ $(function(){initNavTree('bindings_8cpp.html',''); initResizable(true); });
 <code>#include &quot;<a class="el" href="continuos__covariate__module__cache_8hpp_source.html">processes/module/continuos_covariate_module_cache.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="binary__covariate__module_8hpp_source.html">processes/module/binary_covariate_module.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="binary__covariate__module__cache_8hpp_source.html">processes/module/binary_covariate_module_cache.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="categorical__covariate__module_8hpp_source.html">processes/module/categorical_covariate_module.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ClusterInfo_8hpp_source.html">utils/ClusterInfo.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="continuos__cache_8hpp_source.html">processes/caches/continuos_cache.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="binary__cache_8hpp_source.html">processes/caches/binary_cache.hpp</a>&quot;</code><br />
@@ -182,6 +184,8 @@ Functions</h2></td></tr>
 <tr class="separator:affdb6f813328e2c8e99f01ae535675dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2fdb9d0c4033a94cfa6b166ce703025" id="r_ad2fdb9d0c4033a94cfa6b166ce703025"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2fdb9d0c4033a94cfa6b166ce703025">create_BinaryCovariatesModuleCache</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="classBinaryCache.html">BinaryCache</a> &gt; cache, double beta_prior_alpha=1.0, double beta_prior_beta=1.0)</td></tr>
 <tr class="separator:ad2fdb9d0c4033a94cfa6b166ce703025"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a300e2e1feb32b70affd73295e69121bc" id="r_a300e2e1feb32b70affd73295e69121bc"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a300e2e1feb32b70affd73295e69121bc">create_CategoricalCovariatesModule</a> (SEXP data_sexp, Eigen::VectorXi categorical_covariate, std::vector&lt; double &gt; prior_alpha)</td></tr>
+<tr class="separator:a300e2e1feb32b70affd73295e69121bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd3247c4e5ec187258bbefe7201e9930" id="r_abd3247c4e5ec187258bbefe7201e9930"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classDPx.html">DPx</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd3247c4e5ec187258bbefe7201e9930">create_DPx</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::List modules_list)</td></tr>
 <tr class="separator:abd3247c4e5ec187258bbefe7201e9930"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a425f351f1519dc2e471ce6127c8bc4e9" id="r_a425f351f1519dc2e471ce6127c8bc4e9"><td class="memItemLeft" align="right" valign="top">Rcpp::XPtr&lt; <a class="el" href="classNGGPx.html">NGGPx</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a425f351f1519dc2e471ce6127c8bc4e9">create_NGGPx</a> (SEXP data_sexp, Rcpp::XPtr&lt; <a class="el" href="structParams.html">Params</a> &gt; params, Rcpp::XPtr&lt; <a class="el" href="classU__sampler.html">U_sampler</a> &gt; u_sampler, Rcpp::List modules_list)</td></tr>
@@ -228,8 +232,8 @@ Functions</h2></td></tr>
 <tr class="separator:ad0dbc9a79a894bdaa7d4cea1edf27d0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8afcb94c8359f88b70fcbccfb596fd86" id="r_a8afcb94c8359f88b70fcbccfb596fd86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8afcb94c8359f88b70fcbccfb596fd86">datax_set_allocations</a> (Rcpp::XPtr&lt; <a class="el" href="classDatax.html">Datax</a> &gt; data, Eigen::VectorXi new_allocations)</td></tr>
 <tr class="separator:a8afcb94c8359f88b70fcbccfb596fd86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c7a577fc17f3b4bbf9cf2e89b2d5cdd" id="r_a5c7a577fc17f3b4bbf9cf2e89b2d5cdd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c7a577fc17f3b4bbf9cf2e89b2d5cdd">lss_sdds_accepted_moves</a> (Rcpp::XPtr&lt; <a class="el" href="classSplitMerge__LSS__SDDS.html">SplitMerge_LSS_SDDS</a> &gt; sampler, int BI, int NI)</td></tr>
-<tr class="separator:a5c7a577fc17f3b4bbf9cf2e89b2d5cdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5784fe008fd13e302198282c09d496e" id="r_ad5784fe008fd13e302198282c09d496e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad5784fe008fd13e302198282c09d496e">lss_sdds_accepted_moves</a> (Rcpp::XPtr&lt; <a class="el" href="classSplitMerge__LSS__SDDS.html">SplitMerge_LSS_SDDS</a> &gt; sampler)</td></tr>
+<tr class="separator:ad5784fe008fd13e302198282c09d496e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>R language bindings for Bayesian nonparametric clustering models. </p>
@@ -371,6 +375,32 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>beta_prior_beta</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a300e2e1feb32b70affd73295e69121bc" name="a300e2e1feb32b70affd73295e69121bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a300e2e1feb32b70affd73295e69121bc">&#9670;&#160;</a></span>create_CategoricalCovariatesModule()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Rcpp::XPtr&lt; std::shared_ptr&lt; <a class="el" href="classModule.html">Module</a> &gt; &gt; create_CategoricalCovariatesModule </td>
+          <td>(</td>
+          <td class="paramtype">SEXP</td>          <td class="paramname"><span class="paramname"><em>data_sexp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Eigen::VectorXi</td>          <td class="paramname"><span class="paramname"><em>categorical_covariate</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; double &gt;</td>          <td class="paramname"><span class="paramname"><em>prior_alpha</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1204,8 +1234,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5c7a577fc17f3b4bbf9cf2e89b2d5cdd" name="a5c7a577fc17f3b4bbf9cf2e89b2d5cdd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c7a577fc17f3b4bbf9cf2e89b2d5cdd">&#9670;&#160;</a></span>lss_sdds_accepted_moves()</h2>
+<a id="ad5784fe008fd13e302198282c09d496e" name="ad5784fe008fd13e302198282c09d496e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5784fe008fd13e302198282c09d496e">&#9670;&#160;</a></span>lss_sdds_accepted_moves()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1213,17 +1243,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void lss_sdds_accepted_moves </td>
           <td>(</td>
-          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classSplitMerge__LSS__SDDS.html">SplitMerge_LSS_SDDS</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>sampler</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">Rcpp::XPtr&lt; <a class="el" href="classSplitMerge__LSS__SDDS.html">SplitMerge_LSS_SDDS</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>sampler</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>BI</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>NI</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -110,12 +110,12 @@ $(function(){initNavTree('md_CONTRIBUTING.html',''); initResizable(true); });
 Getting Started</h1>
 <h2><a class="anchor" id="autotoc_md21"></a>
 1. Fork the Repository</h2>
-<p>Click the <b>"Fork"</b> button at the top right of the <a href="https://github.com/Filippo-Galli/tesi">BNPClust repository</a> to create your own copy.</p>
+<p>Click the <b>"Fork"</b> button at the top right of the <a href="https://github.com/Filippo-Galli/BNPClust">BNPClust repository</a> to create your own copy.</p>
 <h2><a class="anchor" id="autotoc_md22"></a>
 2. Clone Your Fork</h2>
 <p>Clone your forked repository to your local machine:</p>
-<div class="fragment"><div class="line">git clone https://github.com/yourusername/tesi.git</div>
-<div class="line">cd tesi</div>
+<div class="fragment"><div class="line">git clone https://github.com/yourusername/BNPClust.git</div>
+<div class="line">cd BNPClust</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md23"></a>
 3. Create a New Branch</h2>
 <p>Create a new branch for your feature or bug fix:</p>
@@ -156,7 +156,7 @@ Getting Started</h1>
 <div class="fragment"><div class="line">git push origin feature-or-bugfix-name</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md28"></a>
 8. Create a Pull Request</h2>
-<p>Go to the <a href="https://github.com/Filippo-Galli/tesi">original repository</a> and create a pull request from your forked branch. Provide:</p>
+<p>Go to the <a href="https://github.com/Filippo-Galli/BNPClust">original repository</a> and create a pull request from your forked branch. Provide:</p>
 <ul>
 <li>A clear title summarizing your changes</li>
 <li>A detailed description of what you changed and why</li>
@@ -224,7 +224,7 @@ R Bindings</h2>
 <div class="line">    <a class="code hl_class" href="classData.html">Data</a> *data = <a class="code hl_function" href="bindings_8cpp.html#a0b90b94c00df80e382f7e4ef384457d9">get_data_ptr</a>(data_sexp);  <span class="comment">// Extract C++ pointer from R</span></div>
 <div class="line">    <span class="keywordflow">return</span> Rcpp::XPtr&lt;MyNewClass&gt;(<span class="keyword">new</span> MyNewClass(*data, *params), <span class="keyword">true</span>);</div>
 <div class="line">}</div>
-<div class="ttc" id="abindings_8cpp_html_a0b90b94c00df80e382f7e4ef384457d9"><div class="ttname"><a href="bindings_8cpp.html#a0b90b94c00df80e382f7e4ef384457d9">get_data_ptr</a></div><div class="ttdeci">Data * get_data_ptr(SEXP sexp)</div><div class="ttdef"><b>Definition</b> bindings.cpp:54</div></div>
+<div class="ttc" id="abindings_8cpp_html_a0b90b94c00df80e382f7e4ef384457d9"><div class="ttname"><a href="bindings_8cpp.html#a0b90b94c00df80e382f7e4ef384457d9">get_data_ptr</a></div><div class="ttdeci">Data * get_data_ptr(SEXP sexp)</div><div class="ttdef"><b>Definition</b> bindings.cpp:56</div></div>
 <div class="ttc" id="aclassData_html"><div class="ttname"><a href="classData.html">Data</a></div><div class="ttdoc">Manages distance matrices and cluster allocations for points.</div><div class="ttdef"><b>Definition</b> Data.hpp:27</div></div>
 </div><!-- fragment --><p><b>Wrapper Functions:</b> Expose methods via simple wrapper functions:</p>
 <div class="fragment"><div class="line"><span class="comment">// [[Rcpp::export]]</span></div>
@@ -245,8 +245,8 @@ R Bindings</h2>
 <div class="line"><span class="comment"># Call methods via wrappers</span></div>
 <div class="line">mynewclass_step(sampler)</div>
 <div class="line">result &lt;- mynewclass_get_result(sampler)</div>
-<div class="ttc" id="abindings_8cpp_html_ac0ddd038caef50f4affae93c691afb3b"><div class="ttname"><a href="bindings_8cpp.html#ac0ddd038caef50f4affae93c691afb3b">create_Data</a></div><div class="ttdeci">Rcpp::XPtr&lt; Data &gt; create_Data(Rcpp::XPtr&lt; Params &gt; params, Eigen::VectorXi initial_allocations)</div><div class="ttdef"><b>Definition</b> bindings.cpp:109</div></div>
-<div class="ttc" id="abindings_8cpp_html_acdf60c21ba9cbd9728015f180e4ad332"><div class="ttname"><a href="bindings_8cpp.html#acdf60c21ba9cbd9728015f180e4ad332">create_Params</a></div><div class="ttdeci">Rcpp::XPtr&lt; Params &gt; create_Params(double delta1, double alpha, double beta, double delta2, double gamma, double zeta, int BI, int NI, double a, double sigma, double tau, Eigen::MatrixXd D)</div><div class="ttdef"><b>Definition</b> bindings.cpp:103</div></div>
+<div class="ttc" id="abindings_8cpp_html_ac0ddd038caef50f4affae93c691afb3b"><div class="ttname"><a href="bindings_8cpp.html#ac0ddd038caef50f4affae93c691afb3b">create_Data</a></div><div class="ttdeci">Rcpp::XPtr&lt; Data &gt; create_Data(Rcpp::XPtr&lt; Params &gt; params, Eigen::VectorXi initial_allocations)</div><div class="ttdef"><b>Definition</b> bindings.cpp:111</div></div>
+<div class="ttc" id="abindings_8cpp_html_acdf60c21ba9cbd9728015f180e4ad332"><div class="ttname"><a href="bindings_8cpp.html#acdf60c21ba9cbd9728015f180e4ad332">create_Params</a></div><div class="ttdeci">Rcpp::XPtr&lt; Params &gt; create_Params(double delta1, double alpha, double beta, double delta2, double gamma, double zeta, int BI, int NI, double a, double sigma, double tau, Eigen::MatrixXd D)</div><div class="ttdef"><b>Definition</b> bindings.cpp:105</div></div>
 </div><!-- fragment --><p><b>Key Points:</b></p><ul>
 <li>Use <code><a class="el" href="bindings_8cpp.html#a0b90b94c00df80e382f7e4ef384457d9">get_data_ptr()</a></code> helper to extract <a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a> pointers (handles both <code><a class="el" href="classData.html" title="Manages distance matrices and cluster allocations for points.">Data</a></code> and <code><a class="el" href="classDatax.html" title="Data container with integrated cluster information management.">Datax</a></code> types)</li>
 <li>Add <code>// [[Rcpp::export]]</code> above every function meant to be accessible from R</li>
@@ -291,7 +291,7 @@ Types of Contributions</h1>
 Questions?</h1>
 <p>If you have questions about contributing, feel free to:</p><ul>
 <li>Open a discussion in the GitHub repository</li>
-<li>Check the documentation at <a href="https://filippo-galli.github.io/tesi/">https://filippo-galli.github.io/tesi/</a></li>
+<li>Check the documentation at <a href="https://filippo-galli.github.io/BNPClust/">https://filippo-galli.github.io/BNPClust/</a></li>
 </ul>
 <p>Thank you for contributing to BNPClust! 🙏 </p>
 </div></div><!-- contents -->

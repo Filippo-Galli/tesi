@@ -9,5 +9,6 @@ var searchData=
   ['accepted_5fu_6',['accepted_U',['../classU__sampler.html#acca05886c1b4138a4f42fa1800a4d31a',1,'U_sampler']]],
   ['allocations_7',['allocations',['../classData.html#aa3216ace6edfe6d6a3f522db636d4d49',1,'Data::allocations'],['../classBinaryCache.html#a71f2f8de4837b7f01e0e31ed814cbe58',1,'BinaryCache::allocations']]],
   ['alpha_8',['alpha',['../structParams.html#a881058e4167b8bbb7715e23975b0d893',1,'Params']]],
-  ['always_5finline_9',['always_inline',['../classContinuosCovariatesModule.html#a5c491682596492f00aa7d4883674659b',1,'ContinuosCovariatesModule::always_inline'],['../classContinuosCovariatesModuleCache.html#ac5dd95a95b6796f0936166fc53c2843a',1,'ContinuosCovariatesModuleCache::always_inline']]]
+  ['alpha_5f0_9',['alpha_0',['../classCategoricalCovariatesModule.html#a87f7183a6639723ba0398f46c376a7c2',1,'CategoricalCovariatesModule']]],
+  ['always_5finline_10',['always_inline',['../classContinuosCovariatesModule.html#a5c491682596492f00aa7d4883674659b',1,'ContinuosCovariatesModule::always_inline'],['../classContinuosCovariatesModuleCache.html#ac5dd95a95b6796f0936166fc53c2843a',1,'ContinuosCovariatesModuleCache::always_inline']]]
 ];

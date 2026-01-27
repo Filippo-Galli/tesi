@@ -14,6 +14,7 @@ var hierarchy =
     [ "Module", "classModule.html", [
       [ "BinaryCovariatesModule", "classBinaryCovariatesModule.html", null ],
       [ "BinaryCovariatesModuleCache", "classBinaryCovariatesModuleCache.html", null ],
+      [ "CategoricalCovariatesModule", "classCategoricalCovariatesModule.html", null ],
       [ "ContinuosCovariatesModule", "classContinuosCovariatesModule.html", null ],
       [ "ContinuosCovariatesModuleCache", "classContinuosCovariatesModuleCache.html", null ],
       [ "SpatialModule", "classSpatialModule.html", null ]

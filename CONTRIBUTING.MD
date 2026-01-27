@@ -6,15 +6,15 @@ I welcome contributions to this project! Whether it's bug fixes, new features, o
 
 ### 1. Fork the Repository
 
-Click the **"Fork"** button at the top right of the [BNPClust repository](https://github.com/Filippo-Galli/tesi) to create your own copy.
+Click the **"Fork"** button at the top right of the [BNPClust repository](https://github.com/Filippo-Galli/BNPClust) to create your own copy.
 
 ### 2. Clone Your Fork
 
 Clone your forked repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/tesi.git
-cd tesi
+git clone https://github.com/yourusername/BNPClust.git
+cd BNPClust
 ```
 
 ### 3. Create a New Branch
@@ -75,7 +75,7 @@ git push origin feature-or-bugfix-name
 
 ### 8. Create a Pull Request
 
-Go to the [original repository](https://github.com/Filippo-Galli/tesi) and create a pull request from your forked branch. Provide:
+Go to the [original repository](https://github.com/Filippo-Galli/BNPClust) and create a pull request from your forked branch. Provide:
 
 - A clear title summarizing your changes
 - A detailed description of what you changed and why
@@ -234,6 +234,6 @@ result <- mynewclass_get_result(sampler)
 
 If you have questions about contributing, feel free to:
 - Open a discussion in the GitHub repository
-- Check the documentation at [https://filippo-galli.github.io/tesi/](https://filippo-galli.github.io/tesi/)
+- Check the documentation at [https://filippo-galli.github.io/BNPClust/](https://filippo-galli.github.io/BNPClust/)
 
 Thank you for contributing to BNPClust! 🙏
