@@ -4,7 +4,7 @@ library(RcppEigen)
 # Load the C++ module
 sourceCpp("src/bindings.cpp")
 
-run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_covariates = NULL, binary_covariates = NULL) {
+run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_covariates = NULL, binary_covariates = NULL, categorical_covariates = NULL) {
     # Ensure types are correct for C++
     initial_allocations <- as.integer(initial_allocations)
 
@@ -42,6 +42,10 @@ run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_cova
     # 3. Binary covariate module
     # mod_binary <- create_BinaryCovariatesModule(data, binary_covariates, 0.1, 0.1)
     mod_binary <- create_BinaryCovariatesModuleCache(data, binary_cache, 0.1, 0.1)
+
+    # 4. Categorical covariate module
+    # alphas <- rep(1.0, length(unique(categorical_covariates)))
+    # mod_categorical <- create_CategoricalCovariatesModule(data, categorical_covariates, alphas)
 
     # Combine modules into NGGPx process
     process <- create_NGGPx(data, params, u_sampler, list(mod_spatial))

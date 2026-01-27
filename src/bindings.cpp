@@ -11,6 +11,7 @@
  */
 
 #include <RcppEigen.h>
+#include <memory>
 #include "Rcpp/XPtr.h"
 #include "utils/Params.hpp"
 #include "utils/Data.hpp"
@@ -32,6 +33,7 @@
 #include "processes/module/continuos_covariate_module_cache.hpp"
 #include "processes/module/binary_covariate_module.hpp"
 #include "processes/module/binary_covariate_module_cache.hpp"
+#include "processes/module/categorical_covariate_module.hpp"
 
 
 #include "utils/ClusterInfo.hpp"
@@ -226,6 +228,14 @@ Rcpp::XPtr<std::shared_ptr<Module>> create_BinaryCovariatesModuleCache(SEXP data
                                                                        double beta_prior_beta = 1.0) {
     Data *data = get_data_ptr(data_sexp);
     auto ptr = std::make_shared<BinaryCovariatesModuleCache>(*data, *cache, beta_prior_alpha, beta_prior_beta);
+    return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);
+}
+
+Rcpp::XPtr<std::shared_ptr<Module>> create_CategoricalCovariatesModule(SEXP data_sexp,
+                                                                Eigen::VectorXi categorical_covariate,
+                                                                std::vector<double> prior_alpha) {
+    Data *data = get_data_ptr(data_sexp);
+    auto ptr = std::make_shared<CategoricalCovariatesModule>(*data, categorical_covariate, prior_alpha);
     return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);
 }
 
