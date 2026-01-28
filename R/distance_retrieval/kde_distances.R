@@ -91,19 +91,19 @@ close(pb)
 # Plot Distance ====
 ##############################################################################
 plot_distance(distance_jeff_divergences,
-  title = "Jeffreys Divergence Distance", save = TRUE,
+  title = "Jeffreys Divergence Distance", save = FALSE,
   folder = paste0("old_results/distance_plots/", location, "/")
 )
 plot_distance(distance_cm,
-  title = "Cramer-von Mises Distance", save = TRUE,
+  title = "Cramer-von Mises Distance", save = FALSE,
   folder = paste0("old_results/distance_plots/", location, "/")
 )
 plot_distance(distance_wasserstein,
-  title = "Wasserstein Distance", save = TRUE,
+  title = "Wasserstein Distance", save = FALSE,
   folder = paste0("old_results/distance_plots/", location, "/")
 )
 plot_distance(distance_mean,
-  title = "Mean Difference", save = TRUE,
+  title = "Mean Difference", save = FALSE,
   folder = paste0("old_results/distance_plots/", location, "/")
 )
 
@@ -111,24 +111,24 @@ plot_distance(distance_mean,
 # Save Data ====
 ##############################################################################
 
-# Save distance matrices
-folder <- paste0("real_data/", location)
-if (!dir.exists(folder)) {
-  dir.create(folder, recursive = TRUE)
-}
+# # Save distance matrices
+# folder <- paste0("real_data/", location)
+# if (!dir.exists(folder)) {
+#   dir.create(folder, recursive = TRUE)
+# }
 
-saveRDS(distance_jeff_divergences,
-  file = paste0(folder, "/distance_jeff_divergences.rds")
-)
-saveRDS(distance_cm,
-  file = paste0(folder, "/distance_cm.rds")
-)
-saveRDS(distance_wasserstein,
-  file = paste0(folder, "/distance_wasserstein.rds")
-)
-saveRDS(distance_mean,
-  file = paste0(folder, "/distance_mean.rds")
-)
+# saveRDS(distance_jeff_divergences,
+#   file = paste0(folder, "/distance_jeff_divergences.rds")
+# )
+# saveRDS(distance_cm,
+#   file = paste0(folder, "/distance_cm.rds")
+# )
+# saveRDS(distance_wasserstein,
+#   file = paste0(folder, "/distance_wasserstein.rds")
+# )
+# saveRDS(distance_mean,
+#   file = paste0(folder, "/distance_mean.rds")
+# )
 
-# Save adjacency matrix
-saveRDS(W, file = paste0(folder, "/adj_matrix.rds"))
+# # Save adjacency matrix
+# saveRDS(W, file = paste0(folder, "/adj_matrix.rds"))

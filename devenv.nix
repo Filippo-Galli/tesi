@@ -58,7 +58,8 @@ in
     pkgs.git
     pkgs.podman
     pkgs.podman-compose
-
+    pkgs.aria2
+    
     # R development with C++ support
     RWithOpenBlas
     pkgs.rPackages.Rcpp
