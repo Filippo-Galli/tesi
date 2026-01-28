@@ -48,7 +48,7 @@ run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_cova
     # mod_categorical <- create_CategoricalCovariatesModule(data, categorical_covariates, alphas)
 
     # Combine modules into NGGPx process
-    process <- create_NGGPx(data, params, u_sampler, list(mod_spatial))
+    process <- create_NGGPx(data, params, u_sampler, list(mod_spatial, mod_cov, mod_binary))
     # process <- create_NGGP(data, params, u_sampler)
 
     # Instantiate Sampler (SplitMerge_LSS_SDDS) using factory function

@@ -4,7 +4,7 @@ result_folder <- "results/"
 files <- list.files(result_folder)
 files
 
-file_chosen <- files[4]
+file_chosen <- files[3]
 
 ##############################################################################
 # Load Results ====
@@ -80,7 +80,7 @@ plot_acf_U(results, BI = BI, save = TRUE, folder = folder)
 states <- parts[3] # state/regions abbreviation
 
 # Comuni uses COD_MUN, PUMAs use PUMA as the ID column
-id_col <- if (states == "Comuni") "COD_MUN" else "PUMA"
+id_col <- if (states == "Comuni") "COD_MUN" else "COD_PUMA"
 puma_ids <- sf::st_read(paste0("input/", states, "/counties-pumas/counties-pumas.shp"), quiet = TRUE)[[id_col]]
 
 plot_map_cls(
@@ -115,64 +115,65 @@ if (states == "Comuni") {
   plot_hist_cls_pumas(
     results = results,
     BI = BI,
+    unit_ids = puma_ids,
     point_estimate = point_estimate,
     input_dir = paste0("input/", states, "/"),
     save = TRUE, folder = folder
   )
 
-  plot_map_prior_mean(
-    unit_ids = puma_ids,
-    puma_dir = paste0("input/", states, "/counties-pumas"),
-    input_dir = paste0("input/", states, "/"),
-    save = TRUE,
-    folder = folder
-  )
+#   plot_map_prior_mean(
+#     unit_ids = puma_ids,
+#     puma_dir = paste0("input/", states, "/counties-pumas"),
+#     input_dir = paste0("input/", states, "/"),
+#     save = TRUE,
+#     folder = folder
+#   )
 }
 
 # plot_stats(results, ground_truth = ground_truth, BI = BI, save = TRUE, folder = folder)
 
-##############################################################################
-# Model comparison ====
-##############################################################################
+# ##############################################################################
+# # Model comparison ====
+# ##############################################################################
 
-source("R/utils_plot.R")
+# source("R/utils_plot.R")
 
-result_folder <- "results/"
-files <- list.files(result_folder)
-files
-files_chosen <- files[c(2, 3, 4, 5)]  # Choose multiple result folders for comparison
+# result_folder <- "results/"
+# files <- list.files(result_folder)
+# files
+# files_chosen <- files[c(2, 3, 4, 5)]  # Choose multiple result folders for comparison
 
-# Load point_estimate from different model results
-model_results <- list()
-for (file in files_chosen) {
-  folder <- paste0(result_folder, file, "/VI_plots/")
-  point_estimate <- paste0(folder, "point_estimate.rds")
-  results <- readRDS(file = point_estimate)
-  model_results[[file]] <- results
-}
+# # Load point_estimate from different model results
+# model_results <- list()
+# for (file in files_chosen) {
+#   folder <- paste0(result_folder, file, "/VI_plots/")
+#   point_estimate <- paste0(folder, "point_estimate.rds")
+#   results <- readRDS(file = point_estimate)
+#   model_results[[file]] <- results
+# }
 
-# Compute pairwise ARI and NMI
-gt <- as.vector(model_results[[4]])  # Assuming ground truth is the same across models (NGGPWx bin + cont)
-ari_matrix <- matrix(NA, nrow = length(model_results), ncol = length(model_results))
-nmi_matrix <- matrix(NA, nrow = length(model_results), ncol = length(model_results))
-rownames(ari_matrix) <- colnames(ari_matrix) <- names(model_results)
-rownames(nmi_matrix) <- colnames(nmi_matrix) <- names(model_results)
-for(file in names(model_results)) {
-  for(other_file in names(model_results)) {
-    ari_matrix[file, other_file] <- arandi(model_results[[file]], model_results[[other_file]])
-    nmi_matrix[file, other_file] <- NMI(as.vector(model_results[[file]]), as.vector(model_results[[other_file]]))
-  }
-}
+# # Compute pairwise ARI and NMI
+# gt <- as.vector(model_results[[4]])  # Assuming ground truth is the same across models (NGGPWx bin + cont)
+# ari_matrix <- matrix(NA, nrow = length(model_results), ncol = length(model_results))
+# nmi_matrix <- matrix(NA, nrow = length(model_results), ncol = length(model_results))
+# rownames(ari_matrix) <- colnames(ari_matrix) <- names(model_results)
+# rownames(nmi_matrix) <- colnames(nmi_matrix) <- names(model_results)
+# for(file in names(model_results)) {
+#   for(other_file in names(model_results)) {
+#     ari_matrix[file, other_file] <- arandi(model_results[[file]], model_results[[other_file]])
+#     nmi_matrix[file, other_file] <- NMI(as.vector(model_results[[file]]), as.vector(model_results[[other_file]]))
+#   }
+# }
 
-names_corrected <- c("Gamma", "NGGP", "NGGPWx", "NGGPW")
+# names_corrected <- c("Gamma", "NGGP", "NGGPWx", "NGGPW")
 
-colnames(ari_matrix) <- names_corrected
-rownames(ari_matrix) <- names_corrected
-colnames(nmi_matrix) <- names_corrected
-rownames(nmi_matrix) <- names_corrected
+# colnames(ari_matrix) <- names_corrected
+# rownames(ari_matrix) <- names_corrected
+# colnames(nmi_matrix) <- names_corrected
+# rownames(nmi_matrix) <- names_corrected
 
-print("Pairwise ARI Matrix:")
-print(ari_matrix)
+# print("Pairwise ARI Matrix:")
+# print(ari_matrix)
 
-print("Pairwise NMI Matrix:")
-print(nmi_matrix)
+# print("Pairwise NMI Matrix:")
+# print(nmi_matrix)

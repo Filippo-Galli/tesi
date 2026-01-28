@@ -23,8 +23,8 @@ files_folder <- "real_data/LA"
 files <- list.files(files_folder)
 file_chosen <- files[3]
 dist_matrix <- readRDS(file = paste0(files_folder, "/", file_chosen))
-puma_age <- readRDS(file = paste0(files_folder, "/puma_agep_std_mean.rds"))
-puma_sex <- readRDS(file = paste0(files_folder, "/puma_sex_mode.rds"))
+puma_age_data <- readRDS(file = paste0(files_folder, "/puma_age_stats.rds"))
+puma_sex_data <- readRDS(file = paste0(files_folder, "/puma_sex_stats.rds"))
 # plot_distance(dist_matrix)
 
 if (min(dist_matrix) < 0) {
@@ -62,11 +62,11 @@ cat("✅ C++ code compiled successfully!\n\n")
 # plot_k_means(dist_matrix, max_k = 10)
 
 # Set hyperparameters based on distance matrix and save it for future use
-hyperparams <- set_hyperparameters(dist_matrix,
-  k_elbow = 3, plot_clustering = FALSE, plot_distribution = FALSE
-)
-saveRDS(hyperparams, file = paste0(files_folder, "/hyperparameters_", sub("\\.rds$", "", file_chosen), ".rds"))
-# hyperparams <- readRDS(file = paste0(files_folder, "/hyperparameters_", sub("\\.rds$", "", file_chosen), ".rds"))
+# hyperparams <- set_hyperparameters(dist_matrix,
+#   k_elbow = 3, plot_clustering = FALSE, plot_distribution = FALSE
+# )
+# saveRDS(hyperparams, file = paste0(files_folder, "/hyperparameters_", sub("\\.rds$", "", file_chosen), ".rds"))
+hyperparams <- readRDS(file = paste0(files_folder, "/hyperparameters_", sub("\\.rds$", "", file_chosen), ".rds"))
 
 ##############################################################################
 # Parameter Object Initialization ====
@@ -94,8 +94,8 @@ param <- create_Params(
 
 # Ensure W is integer matrix
 W <- matrix(as.integer(W), nrow = nrow(W), ncol = ncol(W))
-continuos_covariates <- as.numeric(puma_age$Mean_AGEP_std)
-binary_covariates <- as.integer(puma_sex$Mode_SEX)
+continuos_covariates <- as.numeric(puma_age_data$AGEP_std_mean)
+binary_covariates <- as.integer(puma_sex_data$SEX_mode)
 
 ##############################################################################
 # Initial Cluster Allocation ====
@@ -120,7 +120,7 @@ elapsed_time <- mcmc_result$elapsed_time
 file_chosen <- sub("\\.rds$", "", file_chosen)
 files_folder_clean <- gsub("/", "_", files_folder)
 data_type <- paste0(files_folder_clean, "_", sub("^distance_", "", file_chosen))
-process <- "NGGPWx-Cached-FixedV-Cached-Binary" # Process type: "DP", "DPW", "NGGP", "NGGPW", NGGPWx
+process <- "NewData-NGGPWx-bin-cont" # Process type: "DP", "DPW", "NGGP", "NGGPW", NGGPWx
 method <- "LSS_SDDS25+Gibbs1" # MCMC method used
 initialization <- "kmeans" # Initialization strategy
 filename <- paste0(data_type, "_", process, "_", method, "_", initialization, "_")

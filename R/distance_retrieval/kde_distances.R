@@ -2,10 +2,15 @@ source("R/utils.R")
 source("R/utils_plot.R")
 
 ##############################################################################
-# Load .dat files from 'input/' directory ====
+# Load .csv files from 'input/' directory ====
 ##############################################################################
-load("input/West_Midwest/full_dataset.dat")
-load("input/West_Midwest/adj_matrix.dat")
+location <- "LA"
+input_folder <- paste0("input/", location, "/")
+data <- read.csv(paste0(input_folder, "full_dataset.csv"))
+W <- as.matrix(readRDS(paste0(input_folder, "adj_matrix.rds")))
+
+# Split data by PUMA
+data <- split(data$log_income, data$COD_PUMA)
 
 ##############################################################################
 # Create histogram for each PUMA ====
@@ -86,28 +91,32 @@ close(pb)
 # Plot Distance ====
 ##############################################################################
 plot_distance(distance_jeff_divergences,
-  title = "Jeffreys Divergence Distanc", save = TRUE,
-  folder = "results/distance_plots/West_Midwest/"
+  title = "Jeffreys Divergence Distance", save = TRUE,
+  folder = paste0("old_results/distance_plots/", location, "/")
 )
 plot_distance(distance_cm,
   title = "Cramer-von Mises Distance", save = TRUE,
-  folder = "results/distance_plots/West_Midwest/"
+  folder = paste0("old_results/distance_plots/", location, "/")
 )
 plot_distance(distance_wasserstein,
   title = "Wasserstein Distance", save = TRUE,
-  folder = "results/distance_plots/West_Midwest/"
+  folder = paste0("old_results/distance_plots/", location, "/")
 )
 plot_distance(distance_mean,
   title = "Mean Difference", save = TRUE,
-  folder = "results/distance_plots/West_Midwest/"
+  folder = paste0("old_results/distance_plots/", location, "/")
 )
 
 ##############################################################################
 # Save Data ====
 ##############################################################################
 
-# # Save distance matrices
-folder <- "real_data/West_Midwest"
+# Save distance matrices
+folder <- paste0("real_data/", location)
+if (!dir.exists(folder)) {
+  dir.create(folder, recursive = TRUE)
+}
+
 saveRDS(distance_jeff_divergences,
   file = paste0(folder, "/distance_jeff_divergences.rds")
 )

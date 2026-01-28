@@ -512,8 +512,8 @@ plot_cls_est <- function(results, BI, save = FALSE, start_time, end_time, folder
 
 plot_map_cls <- function(results, BI, point_estimate = NULL, save = FALSE,
                          folder = "results/plots/",
-                         puma_dir = "input/counties-pumas",
-                         id_col = "PUMA",
+                         puma_dir = "input/LA/counties-pumas",
+                         id_col = "COD_PUMA",
                          unit_ids = NULL,
                          simplify_geom = TRUE,
                          dTolerance = 100) {
@@ -603,96 +603,58 @@ plot_map_prior_mean <- function(save = FALSE, folder = "results/plots/",
   if (!requireNamespace("sf", quietly = TRUE)) stop("Package 'sf' is required.")
   if (!requireNamespace("dplyr", quietly = TRUE)) stop("Package 'dplyr' is required.")
   if (!requireNamespace("ggplot2", quietly = TRUE)) stop("Package 'ggplot2' is required.")
-  # Added scales for nice number formatting in the legend
-  if (!requireNamespace("scales", quietly = TRUE)) warning("Package 'scales' recommended for legend formatting.")
   
-  use_dt <- requireNamespace("data.table", quietly = TRUE)
-
-  # --- 1. Load Data & Compute Means ---
+  # --- 1. Load Data ---
   data <- NULL
-  rds_file <- paste0(input_dir, "full_dataset.rds")
-  csv_file <- paste0(input_dir, "full_dataset.csv")
-  dat_file <- paste0(input_dir, "full_dataset.dat")
+  csv_file <- file.path(input_dir, "full_dataset.csv")
+  rds_file <- file.path(input_dir, "full_dataset.rds")
 
-  cat("Loading dataset...\n")
-  prior_means <- NULL
-  
   if (file.exists(rds_file)) {
     data <- readRDS(rds_file)
   } else if (file.exists(csv_file)) {
-    if (use_dt) {
-      data <- data.table::fread(csv_file)
-    } else {
-      data <- read.csv(csv_file)
-    }
-  } else if (file.exists(dat_file)) {
-     data <- tryCatch(
-        readRDS(dat_file),
-        error = function(e) {
-          env <- new.env()
-          load(dat_file, envir = env)
-          get(ls(env)[1], envir = env)
-        }
-      )
+    data <- read.csv(csv_file)
   } else {
-    stop("Could not find full_dataset (.rds, .csv, or .dat) in ", input_dir)
+    stop("Could not find full_dataset in ", input_dir)
   }
 
-  # --- 2. Extract IDs and Calculate Means ---
-  if (is.null(unit_ids)) {
-    if (is.list(data) && !is.data.frame(data)) {
-      unit_ids <- names(data)
-    } else if (is.data.frame(data)) {
-      unit_ids <- rownames(data)
-    }
+  # --- 2. Extract Numeric Data and Compute Means ---
+  # CRITICAL FIX: Only keep numeric columns (PUMAs). 
+  # This prevents the "non-numeric" warning and ensures we only have PUMA data.
+  if (is.data.frame(data)) {
+    numeric_cols <- sapply(data, is.numeric)
+    data <- data[, numeric_cols, drop = FALSE]
   }
 
   cat("Calculating means...\n")
-  if (is.list(data) && !is.data.frame(data)) {
-    prior_means <- vapply(data, mean, numeric(1), na.rm = TRUE)
-  } else if (is.data.frame(data)) {
-    if (ncol(data) > 100 && nrow(data) > 100) {
-       prior_means <- colMeans(data, na.rm = TRUE)
-    } else {
-       prior_means <- vapply(data, mean, numeric(1), na.rm = TRUE)
-    }
+  # Use exp() because your data is in log scale
+  # na.rm = TRUE handles any missing values safely
+  prior_means <- vapply(data, function(x) mean(exp(x), na.rm = TRUE), numeric(1))
+
+  # --- 3. Synchronize IDs ---
+  # If unit_ids weren't provided, they MUST be the names of the numeric columns
+  if (is.null(unit_ids)) {
+    unit_ids <- names(prior_means)
   }
-  
+
+  # Double check length match
   if (length(prior_means) != length(unit_ids)) {
-     if(length(prior_means) == length(unit_ids)) {
-        names(prior_means) <- unit_ids
-     } else {
-        stop("Length mismatch: IDs (", length(unit_ids), ") vs Data Elements (", length(prior_means), ")")
-     }
-  } else {
-     names(prior_means) <- unit_ids
+    stop(sprintf("Length mismatch: IDs (%d) vs Data Elements (%d).", 
+                 length(unit_ids), length(prior_means)))
   }
+  names(prior_means) <- unit_ids
 
-  # --- 3. Clear Memory ---
-  cat("Cleaning up memory...\n")
-  rm(data) 
-  gc()
-
-  # --- 4. Load and Simplify Map ---
-  cat("Loading and processing map geometry...\n")
-  
+  # --- 4. Load Map Geometry ---
+  cat("Loading map geometry...\n")
   shp_files <- list.files(puma_dir, pattern = "\\.shp$", full.names = TRUE)
-  if (length(shp_files) == 0) stop("No .shp file found in '", puma_dir, "'.")
+  if (length(shp_files) == 0) stop("No .shp file found.")
   
   geom <- sf::st_read(shp_files[1], quiet = TRUE)
   
   if (!id_col %in% names(geom)) {
-    stop("Column '", id_col, "' not found in shapefile. Available columns: ", paste(names(geom), collapse=", "))
+    stop("Column '", id_col, "' not found in shapefile.")
   }
 
-  if (sf::st_is_longlat(geom)) simplify_tol <- 0.001 
-  
-  try({
-    geom <- sf::st_simplify(geom, dTolerance = simplify_tol, preserveTopology = TRUE)
-  }, silent = TRUE)
-
-  # --- 5. Merge and Plot (UPDATED STYLE) ---
-  
+  # --- 5. Merge and Plot ---
   prior_df <- data.frame(
     id_temp = as.character(unit_ids),
     prior_mean = as.numeric(prior_means),
@@ -704,50 +666,28 @@ plot_map_prior_mean <- function(save = FALSE, folder = "results/plots/",
   map_data <- dplyr::left_join(geom, prior_df, by = id_col)
 
   cat("Generating plot...\n")
-  
-  # Define label formatter if scales is available
   lbl_fun <- if (requireNamespace("scales", quietly = TRUE)) scales::comma else waiver()
 
   p <- ggplot2::ggplot(map_data) +
-    # STYLE CHANGE 1: Thinner borders, white color.
-    # This matches the Italian map where borders are barely visible, blending the data.
     ggplot2::geom_sf(ggplot2::aes(fill = prior_mean), color = "white", linewidth = 0.05) +
-    
-    # STYLE CHANGE 2: Viridis scale with nice formatting
     ggplot2::scale_fill_viridis_c(
       option = "viridis", 
       na.value = "lightgrey",
-      labels = lbl_fun,  # Adds commas (e.g., 10,000)
-      name = "Prior Mean"
+      labels = lbl_fun,
+      name = "Mean Income"
     ) +
-    
-    ggplot2::labs(title = "PUMAs by Prior Mean") +
-    
-    # STYLE CHANGE 3: Theme Light (Restores Grid and Axes)
+    ggplot2::labs(title = "PUMAs by Mean Income (Original Scale)") +
     ggplot2::theme_light() + 
-    
     ggplot2::theme(
-      # Keep the faint grid lines (Graticules)
       panel.grid.major = ggplot2::element_line(color = "grey92", linewidth = 0.3),
-      panel.grid.minor = ggplot2::element_blank(),
-      
-      # Remove the solid box border, keeping it open
       panel.border = ggplot2::element_blank(),
-      
-      # Ensure axis text (coordinates) is visible and grey
-      axis.text = ggplot2::element_text(color = "grey60", size = 8),
-      
-      # Legend styling
-      legend.title = ggplot2::element_text(size = 10, face = "bold"),
-      legend.text = ggplot2::element_text(size = 9)
+      axis.text = ggplot2::element_text(color = "grey60", size = 8)
     )
-
-  #print(p)
 
   if (save) {
     if (!dir.exists(folder)) dir.create(folder, recursive = TRUE)
-    cat("Saving plot...\n")
     ggplot2::ggsave(file.path(folder, "puma_prior_means.png"), p, width = 10, height = 8, bg = "white")
+    cat("Saved to:", file.path(folder, "puma_prior_means.png"), "\n")
   }
 
   invisible(p)
@@ -864,273 +804,103 @@ plot_map_prior_mean_comuni <- function(save = FALSE, folder = "results/plots/",
   invisible(p)
 }
 
+plot_hist_cls_pumas <- function(results, BI, input_dir = "input/LA/", point_estimate = NULL, 
+                                save_bool = FALSE, folder = "results/plots/", log_bool = TRUE, unit_ids = NULL) {
+  
+  cat("Computing histograms of cluster assignments (Long Format)...\n")
+  
+  # 1. Load the CSV
+  csv_file <- file.path(input_dir, "full_dataset.csv")
+  raw_data <- read.csv(csv_file)
 
-plot_hist_cls_pumas <- function(results, BI, input_dir = "input/CA/", point_estimate = NULL, save = FALSE, folder = "results/plots/", log = TRUE) {
-  cat("Computing histograms of cluster assignments...\n")
-
-  # Try multiple file formats
-  data <- NULL
-
-  # Try .rds first
-  rds_file <- paste0(input_dir, "full_dataset.rds")
-  if (file.exists(rds_file)) {
-    data <- readRDS(rds_file)
+  # 2. TRANSFORM & SPLIT (The critical change)
+  # Convert log-income to original scale first
+  if (log_bool) {
+    raw_data$income_val <- exp(raw_data$log_income)
+  } else {
+    raw_data$income_val <- raw_data$log_income
   }
 
-  # Try .csv if .rds not found
-  if (is.null(data)) {
-    csv_file <- paste0(input_dir, "full_dataset.csv")
-    if (file.exists(csv_file)) {
-      data <- read.csv(csv_file)
-    }
-  }
+  # This creates a list where each element is named after a PUMA ID (COD_PUMA)
+  # and contains a vector of all income values for that PUMA.
+  data_list <- split(raw_data$income_val, raw_data$COD_PUMA)
+  
+  cat("Successfully split data into", length(data_list), "PUMAs.\n")
 
-  # Try .dat with readRDS as fallback
-  if (is.null(data)) {
-    dat_file <- paste0(input_dir, "full_dataset.dat")
-    if (file.exists(dat_file)) {
-      data <- tryCatch(
-        readRDS(dat_file),
-        error = function(e) {
-          env <- new.env()
-          load(dat_file, envir = env)
-          get(ls(env)[1], envir = env)
-        }
-      )
-    }
-  }
-
-  if (is.null(data)) {
-    stop("Could not find or load full_dataset in any supported format (.rds, .csv, .dat) in ", input_dir)
-  }
-
-  # Transform data from log scale if needed
-  if (log) {
-    cat("Data is in log scale, transforming to original scale (exp)...\n")
-    data <- lapply(data, exp)
-  }
-
+  # 3. Handle Cluster Estimates
   if (is.null(point_estimate)) {
     point_estimate <- plot_cls_est(results, BI, save = FALSE)
   }
 
   unique_clusters <- sort(unique(point_estimate))
   n_clusters <- length(unique_clusters)
+  cluster_colors <- get_cluster_colors(n_clusters)
+  names(point_estimate) <- unit_ids
 
-  cat("\n=== Cluster Diagnostics ===\n")
-  cat("Number of clusters found:", n_clusters, "\n")
-  cat("Cluster sizes:\n")
-  print(table(point_estimate))
+  # 4. Group by Cluster using Names
+  data_split <- lapply(unique_clusters, function(cl) {
+    # Get the PUMA IDs belonging to this cluster
+    pumas_in_cl <- names(point_estimate)[point_estimate == cl]
+    
+    # Grab those PUMAs from our split list
+    subset_data <- data_list[pumas_in_cl]
+    
+    # Remove any that didn't have data in the CSV
+    subset_data <- subset_data[!sapply(subset_data, is.null)]
+    return(subset_data)
+  })
+  names(data_split) <- as.character(unique_clusters)
 
-  draw_histograms <- function() {
-    if (n_clusters == 1) {
-      cat("\n⚠️  WARNING: Only 1 cluster found. Showing overall distribution.\n")
-      combined_data <- unlist(data)
-      hist(combined_data,
-        breaks = "FD",
-        main = paste("Single Cluster Distribution\n(n_pumas =", length(data), ")"),
-        xlab = "Income Value",
-        ylab = "Density",
-        col = "steelblue",
-        border = "white",
-        probability = TRUE
-      )
-      if (length(unique(combined_data)) > 1) {
-        lines(density(combined_data), col = "red", lwd = 2)
-      }
-      legend("topleft",
-        legend = c(
-          paste("Mean:", round(mean(combined_data), 2)),
-          paste("SD:", round(sd(combined_data), 2)),
-          paste("N obs:", length(combined_data))
-        ),
-        bty = "n",
-        cex = 0.9
-      )
+  # 5. Plotting (Same as before, but now data_split is full!)
+  render_plots <- function() {
+    n_rows <- ceiling(sqrt(n_clusters))
+    n_cols <- ceiling(n_clusters / n_rows)
+    graphics::par(mfrow = c(n_rows, n_cols), mar = c(4, 4, 3, 1))
 
-      cat("\nOverall statistics:\n")
-      cat("Mean:", mean(combined_data), "\n")
-      cat("SD:", sd(combined_data), "\n")
-      cat("Min:", min(combined_data), "\n")
-      cat("Max:", max(combined_data), "\n")
-
-      puma_means <- sapply(data, mean)
-      cat("\nPUMA-level variation:\n")
-      cat("Mean of means:", mean(puma_means), "\n")
-      cat("SD of means:", sd(puma_means), "\n")
-      cat("Range of means:", range(puma_means), "\n")
-    } else {
-      clusters <- point_estimate
-      # Group data by cluster using indices (split() doesn't work well with lists)
-      data_split <- lapply(unique_clusters, function(cl) {
-        idx <- which(clusters == cl)
-        data[idx]
-      })
-      names(data_split) <- as.character(unique_clusters)
-
-      op <- graphics::par(no.readonly = TRUE)
-      on.exit(graphics::par(op), add = TRUE)
-
-      # Get consistent colors for clusters
-      cluster_colors <- get_cluster_colors(n_clusters)
-
-      # Split into batches of max 9 clusters per plot
-      max_plots_per_page <- 9
-      cluster_names <- names(data_split)
-      n_batches <- ceiling(n_clusters / max_plots_per_page)
-
-      for (batch_idx in seq_len(n_batches)) {
-        # Determine which clusters go in this batch
-        start_idx <- (batch_idx - 1) * max_plots_per_page + 1
-        end_idx <- min(batch_idx * max_plots_per_page, n_clusters)
-        batch_clusters <- cluster_names[start_idx:end_idx]
-        n_plots_in_batch <- length(batch_clusters)
-
-        # Calculate layout for this batch
-        n_rows <- ceiling(sqrt(n_plots_in_batch))
-        n_cols <- ceiling(n_plots_in_batch / n_rows)
-        graphics::par(mfrow = c(n_rows, n_cols))
-
-        for (cl in batch_clusters) {
-          cluster_data <- data_split[[cl]]
-          n_pumas <- length(cluster_data)
-          combined_data <- unlist(cluster_data, use.names = FALSE)
-
-          # Ensure data is numeric
-          if (!is.numeric(combined_data)) {
-            combined_data <- as.numeric(combined_data)
-          }
-          # Remove NA values
-          combined_data <- combined_data[!is.na(combined_data)]
-
-          # Skip if no valid data
-          if (length(combined_data) == 0) {
-            cat("\nCluster", cl, ": No valid numeric data, skipping...\n")
-            plot.new()
-            title(main = paste("Cluster", cl, "\n(No valid data)"))
+        for (cl in names(data_split)) {
+            combined_vals <- unlist(data_split[[cl]], use.names = FALSE)
+            
+            if (length(combined_vals) == 0) {
+            plot.new(); title(main = paste("Cluster", cl, "(Empty)"))
             next
-          }
+            }
 
-          # Use consistent cluster colors with transparency
-          cl_color <- adjustcolor(cluster_colors[cl], alpha.f = 0.7)
-          hist(combined_data,
-            breaks = 30,
-            main = paste("Cluster", cl, "\n(n =", n_pumas, "PUMAs)"),
-            xlab = "Income Value",
-            ylab = "Density",
-            col = cl_color,
-            border = "white",
-            probability = TRUE
-          )
-          if (length(unique(combined_data)) > 1) {
-            lines(density(combined_data), col = "black", lwd = 2)
-          }
-          cat("\nCluster", cl, "statistics:\n")
-          cat("  N PUMAs:", n_pumas, "\n")
-          cat("  N observations:", length(combined_data), "\n")
-          cat("  Mean:", mean(combined_data), "\n")
-          cat("  SD:", sd(combined_data), "\n")
+            # Calculate stats for the legend
+            cl_mean <- mean(combined_vals, na.rm = TRUE)
+            cl_sd   <- sd(combined_vals, na.rm = TRUE)
+            cl_n    <- length(combined_vals)
 
-          legend("topright",
-            legend = c(
-              paste("Mean:", round(mean(combined_data), 2)),
-              paste("SD:", round(sd(combined_data), 2)),
-              paste("N obs:", length(combined_data))
-            ),
-            bty = "n",
-            cex = 0.9
-          )
+            cl_color <- adjustcolor(cluster_colors[cl], alpha.f = 0.6)
+            
+            # Draw Histogram
+            hist(combined_vals, breaks = 50, probability = TRUE, col = cl_color, border = "white",
+                main = paste("Cluster", cl, "\n(", length(data_split[[cl]]), "PUMAs)"),
+                xlab = "Income")
+            
+            # Add Density Line
+            if (length(unique(combined_vals)) > 1) lines(density(combined_vals, na.rm = TRUE), lwd = 2)
+
+            # Add Statistics Legend on the right
+            legend("topright", 
+                    legend = c(
+                    paste0("Mean: ", formatC(cl_mean, format = "f", big.mark = ",", digits = 0)),
+                    paste0("SD:   ", formatC(cl_sd,   format = "f", big.mark = ",", digits = 0)),
+                    paste0("N:    ", formatC(cl_n,    format = "d", big.mark = ","))
+                    ),
+                    bty = "n",      # No box around legend
+                    cex = 0.8,      # Slightly smaller text
+                    text.font = 2,  # Bold text
+                    adj = c(0, 0.5)) 
         }
-
-        # If saving and multiple batches, save each batch separately
-        if (save && n_batches > 1) {
-          if (!dir.exists(folder)) dir.create(folder, recursive = TRUE)
-          out_file <- file.path(folder, paste0("cluster_histograms_batch_", batch_idx, ".png"))
-          if (requireNamespace("ragg", quietly = TRUE)) {
-            ragg::agg_png(filename = out_file, width = 2400, height = 1800, res = 300)
-          } else {
-            png_type <- if (capabilities("cairo")) "cairo" else if (capabilities("X11")) "Xlib" else "cairo"
-            grDevices::png(filename = out_file, width = 2400, height = 1800, res = 300, type = png_type)
-          }
-
-          # Redraw the plots for this batch
-          graphics::par(mfrow = c(n_rows, n_cols))
-          for (cl in batch_clusters) {
-            cluster_data <- data_split[[cl]]
-            n_pumas <- length(cluster_data)
-            combined_data <- unlist(cluster_data, use.names = FALSE)
-
-            # Ensure data is numeric
-            if (!is.numeric(combined_data)) {
-              combined_data <- as.numeric(combined_data)
-            }
-            # Remove NA values
-            combined_data <- combined_data[!is.na(combined_data)]
-
-            # Skip if no valid data
-            if (length(combined_data) == 0) {
-              plot.new()
-              title(main = paste("Cluster", cl, "\n(No valid data)"))
-              next
-            }
-
-            cl_color <- adjustcolor(cluster_colors[cl], alpha.f = 0.7)
-            hist(combined_data,
-              breaks = 30,
-              main = paste("Cluster", cl, "\n(n =", n_pumas, "PUMAs)"),
-              xlab = "Income Value",
-              ylab = "Density",
-              col = cl_color,
-              border = "white",
-              probability = TRUE
-            )
-            if (length(unique(combined_data)) > 1) {
-              lines(density(combined_data), col = "black", lwd = 2)
-            }
-            legend("topright",
-              legend = c(
-                paste("Mean:", round(mean(combined_data), 2)),
-                paste("SD:", round(sd(combined_data), 2)),
-                paste("N obs:", length(combined_data))
-              ),
-              bty = "n",
-              cex = 0.9
-            )
-          }
-
-          grDevices::dev.off()
-          cat("\nSaved batch", batch_idx, "of", n_batches, "to", out_file, "\n")
-        }
-      }
     }
-  }
 
-  draw_histograms()
+  render_plots()
 
-  # Only save here if we have <= 9 clusters (single file case)
-  # Multiple batch saving is handled within draw_histograms()
-  device_opened <- FALSE
-  if (save && n_clusters <= 9) {
+  if (save_bool) {
     if (!dir.exists(folder)) dir.create(folder, recursive = TRUE)
-    out_file <- file.path(folder, "cluster_histograms.png")
-    if (requireNamespace("ragg", quietly = TRUE)) {
-      ragg::agg_png(filename = out_file, width = 2400, height = 1800, res = 300)
-    } else {
-      png_type <- if (capabilities("cairo")) "cairo" else if (capabilities("X11")) "Xlib" else "cairo"
-      grDevices::png(filename = out_file, width = 2400, height = 1800, res = 300, type = png_type)
-    }
-    device_opened <- TRUE
-    on.exit(
-      {
-        if (device_opened) grDevices::dev.off()
-      },
-      add = TRUE
-    )
-
-    draw_histograms()
-
-    grDevices::dev.off()
-    device_opened <- FALSE
+    png(file.path(folder, "cluster_histograms.png"), width = 2400, height = 1800, res = 300)
+    render_plots()
+    dev.off()
   }
 
   invisible(point_estimate)

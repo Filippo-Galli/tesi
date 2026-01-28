@@ -45,8 +45,10 @@ in
   env.R_LIBS_USER = "${config.env.DEVENV_STATE}/R";
   env.R_LIBS_SITE = "${pkgs.R}/library";
   env.PKG_CONFIG_PATH = "${pkgs.pkg-config}/lib/pkgconfig:${pkgs.openssl.dev}/lib/pkgconfig:${pkgs.udunits}/lib/pkgconfig";
-  env.LD_LIBRARY_PATH = "${openblas}/lib:${pkgs.openssl}/lib:${pkgs.udunits}/lib:${pkgs.geos}/lib:${pkgs.gdal}/lib:${pkgs.proj}/lib";
-  env.LIBRARY_PATH = "${openblas}/lib:${pkgs.openssl.dev}/lib:${pkgs.udunits}/lib:${pkgs.geos}/lib:${pkgs.gdal}/lib:${pkgs.proj}/lib";
+  env.LD_LIBRARY_PATH = "${openblas}/lib:${pkgs.openssl}/lib:${pkgs.udunits}/lib:${pkgs.geos}/lib:${pkgs.gdal}/lib:${pkgs.proj}/lib:${pkgs.cairo}/lib:${pkgs.pango}/lib:${pkgs.fontconfig}/lib:${pkgs.libpng}/lib:${pkgs.xorg.libX11}/lib";
+
+  env.LIBRARY_PATH = "${openblas}/lib:${pkgs.openssl.dev}/lib:${pkgs.udunits}/lib:${pkgs.geos}/lib:${pkgs.gdal}/lib:${pkgs.proj}/lib:${pkgs.cairo}/lib:${pkgs.pango}/lib:${pkgs.fontconfig}/lib:${pkgs.libpng}/lib:${pkgs.xorg.libX11}/lib";
+
   env.OPENBLAS_NUM_THREADS = "1";
 
   # Podman
@@ -62,8 +64,15 @@ in
     pkgs.rPackages.Rcpp
     pkgs.rPackages.RcppEigen
 
+    # Graphics rendering packages for R PNG output
+    pkgs.cairo
+    pkgs.pango
+    pkgs.fontconfig
+    pkgs.xorg.libX11
+    pkgs.libpng
+
     # VS Code R integration packages
-    pkgs.rPackages.httpgd
+    # pkgs.rPackages.httpgd # download it manually due to broken nixpkgs version
     pkgs.rPackages.languageserver
     pkgs.rPackages.jsonlite
     pkgs.rPackages.renv
@@ -106,8 +115,8 @@ in
     pkgs.gfortran
     pkgs.pkg-config
     pkgs.cmake
-    pkgs.clang-tools_18
-    pkgs.linuxPackages.perf
+    pkgs.llvmPackages_18.clang-tools
+    pkgs.perf
 
     # OpenMP support
     pkgs.llvmPackages_18.openmp
