@@ -7,16 +7,18 @@ source("R/utils_plot.R")
 cat("Loading data files...\n")
 
 # Load income distribution data
-full_dataset <- read.csv("input/Comuni/full_dataset.csv", stringsAsFactors = FALSE)
+input_name <- "municipalities"
+full_dataset <- read.csv(paste0("input/", input_name, "/full_dataset.csv"), stringsAsFactors = FALSE)
 cat("  - Loaded full_dataset.csv:", nrow(full_dataset), "comuni\n")
 
 # Load geometry (if needed for spatial operations)
-geometry <- readRDS("input/Comuni/geometry.rds")
+geometry <- readRDS(paste0("input/", input_name, "/geometry.rds"))
 cat("  - Loaded geometry.rds\n")
 
 # Load adjacency matrix
-W <- as.matrix(read.csv("input/Comuni/adj_matrix.csv", row.names = 1))
-cat("  - Loaded adj_matrix.csv:", nrow(W), "x", ncol(W), "\n")
+# W <- as.matrix(read.csv("input/Comuni/adj_matrix.csv", row.names = 1))
+W <- as.matrix(readRDS(paste0("input/", input_name, "/adj_matrix.rds")))
+cat("  - Loaded adj_matrix.rds:", nrow(W), "x", ncol(W), "\n")
 
 if (!isSymmetric(W)) {
   warning("Adjacency matrix W is not symmetric!")
@@ -111,7 +113,7 @@ for (i in 1:n_comuni) {
   hist_list[[i]] <- hist_obj
 
   if (i %% 500 == 0) {
-    cat("  Processed", i, "of", n_comuni, "comuni\n")
+    cat("  Processed", i, "of", n_comuni, "municipalities\n")
   }
 }
 
@@ -149,11 +151,13 @@ distance_mean <- matrix(0,
   ncol = length(hist_list)
 )
 
+n <- length(hist_list)
+total_iterations <- n * (n + 1) / 2
+pb <- txtProgressBar(min = 0, max = total_iterations, style = 3)
+iteration <- 0
+
 for (i in seq_along(hist_list)) {
-  if (i %% 10 == 0) {
-    cat("  Processing histogram", i, "of", length(hist_list), "\n")
-  }
-  for (j in seq_along(hist_list)) {
+  for (j in i:length(hist_list)) {
     distance_jeff_divergences[i, j] <-
       compute_hist_distances(hist_list[[i]],
         hist_list[[j]],
@@ -176,6 +180,17 @@ for (i in seq_along(hist_list)) {
     mean_j <- sum(hist_list[[j]]$mids * hist_list[[j]]$counts, na.rm = TRUE) /
       sum(hist_list[[j]]$counts, na.rm = TRUE)
     distance_mean[i, j] <- abs(mean_i - mean_j)
+
+    if (i != j) {
+      distance_jeff_divergences[j, i] <- distance_jeff_divergences[i, j]
+      distance_cm[j, i] <- distance_cm[i, j]
+      distance_wasserstein[j, i] <- distance_wasserstein[i, j]
+      distance_mean[j, i] <- distance_mean[i, j]
+    }
+
+    # Update progress bar
+    iteration <- iteration + 1
+    setTxtProgressBar(pb, iteration)
   }
 }
 
@@ -184,25 +199,29 @@ cat("Distance computation completed\n")
 ##############################################################################
 # Plot Distance (optional) ====
 ##############################################################################
-if (exists("plot_distance")) {
-  cat("\nCreating distance plots...\n")
-  plot_distance(distance_jeff_divergences,
-    title = "Jeffreys Divergence Distance", save = TRUE,
-    folder = "results/distance_plots/Comuni/"
-  )
-  plot_distance(distance_cm,
-    title = "Cramer-von Mises Distance", save = TRUE,
-    folder = "results/distance_plots/Comuni/"
-  )
-  plot_distance(distance_wasserstein,
-    title = "Wasserstein Distance", save = TRUE,
-    folder = "results/distance_plots/Comuni/"
-  )
-  plot_distance(distance_mean,
-    title = "Mean Difference", save = TRUE,
-    folder = "results/distance_plots/Comuni/"
-  )
+plot_folder <- paste0("old_results/distance_plots/", input_name, "/")
+if(!dir.exists(plot_folder)) {
+  dir.create(plot_folder, recursive = TRUE)
 }
+
+cat("\nCreating distance plots...\n")
+plot_distance(distance_jeff_divergences,
+title = "Jeffreys Divergence Distance", save = TRUE,
+folder = plot_folder
+)
+plot_distance(distance_cm,
+title = "Cramer-von Mises Distance", save = TRUE,
+folder = plot_folder
+)
+plot_distance(distance_wasserstein,
+title = "Wasserstein Distance", save = TRUE,
+folder = plot_folder
+)
+plot_distance(distance_mean,
+title = "Mean Difference", save = TRUE,
+folder = plot_folder
+)
+
 
 ##############################################################################
 # Save Data ====
@@ -210,7 +229,7 @@ if (exists("plot_distance")) {
 cat("\nSaving results...\n")
 
 # Create output folder if it doesn't exist
-folder <- "real_data/Comuni"
+folder <- paste0("real_data/", input_name)
 if (!dir.exists(folder)) {
   dir.create(folder, recursive = TRUE)
 }
