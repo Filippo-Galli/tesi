@@ -1,7 +1,6 @@
 # Script to download and process Italian municipality data
 # Simplified version of the original mechanism in spatialCMC by TeoGiane
 # Author: Filippo Galli
-# Modified to match naming conventions with ACF.R
 
 # Load required libraries ====
 library(dplyr)
