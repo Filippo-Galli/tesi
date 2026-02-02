@@ -73,9 +73,9 @@ Eigen::VectorXd SpatialModule::compute_similarity_obs(int obs_idx) const {
         int cluster_i = data_module.get_cluster_assignment(neighbor_idx);
 
         if (cluster_i != -1) {
-            cluster_adjacency(cluster_i) += 1;
+            cluster_adjacency(cluster_i) += spatial_weight;
         }
     }
 
-    return spatial_weight * cluster_adjacency;
+    return cluster_adjacency;
 }
