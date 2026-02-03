@@ -142,10 +142,6 @@ in
     pkgs.doxygen
   ];
 
-  scripts.hello.exec = ''
-    echo hello from $GREET
-  '';
-
   scripts.r-setup.exec = ''
     echo "Setting up R environment..."
     mkdir -p $R_LIBS_USER
@@ -154,22 +150,6 @@ in
     echo "PKG_CONFIG_PATH: $PKG_CONFIG_PATH"
     echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
     echo "You can now use R with Rcpp, RcppEigen, spatial packages, and SALSO support!"
-  '';
-
-  scripts.test-rcpp.exec = ''
-    echo "Testing R package installations..."
-    R --slave -e "library(Rcpp); cat('Rcpp version:', as.character(packageVersion('Rcpp')), '\n')"
-    R --slave -e "library(RcppEigen); cat('RcppEigen version:', as.character(packageVersion('RcppEigen')), '\n')"
-    R --slave -e "library(salso); cat('SALSO version:', as.character(packageVersion('salso')), '\n')"
-    R --slave -e "library(languageserver); cat('languageserver version:', as.character(packageVersion('languageserver')), '\n')"
-  '';
-
-  scripts.test-spatial.exec = ''
-    echo "Testing spatial package installations..."
-    R --slave -e "library(sf); cat('sf version:', as.character(packageVersion('sf')), '\n')"
-    R --slave -e "library(s2); cat('s2 version:', as.character(packageVersion('s2')), '\n')"
-    R --slave -e "library(units); cat('units version:', as.character(packageVersion('units')), '\n')"
-    R --slave -e "library(spdep); cat('spdep version:', as.character(packageVersion('spdep')), '\n')"
   '';
 
   scripts.install-mcclust-ext.exec = ''
@@ -196,52 +176,25 @@ in
         RCPP_INCLUDE=$(R --slave -e "cat(system.file('include', package='Rcpp'))")
         RCPPEIGEN_INCLUDE=$(R --slave -e "cat(system.file('include', package='RcppEigen'))")
         
+        # Get GCC paths for C++ standard library
+        LIBCXX_INCLUDE=${pkgs.gcc13.cc}/include/c++/${pkgs.gcc13.cc.version}
+        
         cat > .clangd <<EOF
     CompileFlags:
       Add: [
+        "-std=c++17",
         "-I./include",
         "-I${pkgs.eigen}/include/eigen3",
         "-I$R_INCLUDE",
         "-I$RCPP_INCLUDE", 
-        "-I$RCPPEIGEN_INCLUDE"
+        "-I$RCPPEIGEN_INCLUDE",
+        "-I$LIBCXX_INCLUDE",
+        "-I$LIBCXX_INCLUDE/x86_64-unknown-linux-gnu"
       ]
     EOF
 
         echo "✅ Generated .clangd with dynamic include paths:"
         cat .clangd
-  '';
-
-  scripts.check-r-packages.exec = ''
-    echo "Checking all required R packages..."
-    R --slave -e "
-      required_packages <- c('salso', 'pheatmap', 'mclust', 'mcclust', 'languageserver', 'httpgd', 'sf', 's2', 'units', 'spdep')
-      for (pkg in required_packages) {
-        if (requireNamespace(pkg, quietly = TRUE)) {
-          cat('✅', pkg, 'version:', as.character(packageVersion(pkg)), '\n')
-        } else {
-          cat('❌', pkg, 'not found\n')
-        }
-      }
-    "
-  '';
-
-  scripts.test-openmp.exec = ''
-        echo "Testing OpenMP support..."
-        cat > /tmp/test_openmp.cpp <<'EOF'
-    #include <omp.h>
-    #include <iostream>
-    int main() {
-        #pragma omp parallel
-        {
-            #pragma omp single
-            std::cout << "Number of OpenMP threads: " << omp_get_num_threads() << std::endl;
-        }
-        return 0;
-    }
-    EOF
-        g++ -fopenmp /tmp/test_openmp.cpp -o /tmp/test_openmp && /tmp/test_openmp
-        rm -f /tmp/test_openmp /tmp/test_openmp.cpp
-        echo "✅ OpenMP is working!"
   '';
 
   scripts.clean_o_files.exec = ''
