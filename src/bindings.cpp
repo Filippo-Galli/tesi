@@ -29,16 +29,17 @@
 #include "processes/NGGPx.hpp"
 
 #include "processes/module/spatial_module.hpp"
+#include "processes/module/spatial_module_cache.hpp"
 #include "processes/module/continuos_covariate_module.hpp"
 #include "processes/module/continuos_covariate_module_cache.hpp"
 #include "processes/module/binary_covariate_module.hpp"
 #include "processes/module/binary_covariate_module_cache.hpp"
 #include "processes/module/categorical_covariate_module.hpp"
 
-
 #include "utils/ClusterInfo.hpp"
 #include "processes/caches/continuos_cache.hpp"
 #include "processes/caches/binary_cache.hpp"
+#include "processes/caches/spatial_cache.hpp"
 
 #include "samplers/U_sampler/U_sampler.hpp"
 #include "samplers/U_sampler/RWMH.hpp"
@@ -114,13 +115,18 @@ Rcpp::XPtr<Data> create_Data(Rcpp::XPtr<Params> params, Eigen::VectorXi initial_
 
 // [[Rcpp::export]]
 Rcpp::XPtr<ContinuosCache> create_Continuos_cache(Eigen::VectorXi &initial_allocations,
-                                                   Eigen::VectorXd continuos_covariates) {
+                                                  Eigen::VectorXd continuos_covariates) {
     return Rcpp::XPtr<ContinuosCache>(new ContinuosCache(initial_allocations, continuos_covariates), true);
 }
 
 // [[Rcpp::export]]
 Rcpp::XPtr<BinaryCache> create_Binary_cache(Eigen::VectorXi &initial_allocations, Eigen::VectorXi binary_covariates) {
     return Rcpp::XPtr<BinaryCache>(new BinaryCache(initial_allocations, binary_covariates), true);
+}
+
+// [[Rcpp::export]]
+Rcpp::XPtr<SpatialCache> create_Spatial_cache(Eigen::VectorXi &initial_allocations, Eigen::MatrixXi W) {
+    return Rcpp::XPtr<SpatialCache>(new SpatialCache(initial_allocations, W), true);
 }
 
 // [[Rcpp::export]]
@@ -195,6 +201,14 @@ Rcpp::XPtr<std::shared_ptr<Module>> create_SpatialModule(SEXP data_sexp, Eigen::
 }
 
 // [[Rcpp::export]]
+Rcpp::XPtr<std::shared_ptr<Module>> create_SpatialModuleCache(SEXP data_sexp, Rcpp::XPtr<SpatialCache> cache,
+                                                              double spatial_coefficient) {
+    Data *data = get_data_ptr(data_sexp);
+    auto ptr = std::make_shared<SpatialModuleCache>(*data, *cache, spatial_coefficient, nullptr);
+    return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);
+}
+
+// [[Rcpp::export]]
 Rcpp::XPtr<std::shared_ptr<Module>> create_ContinuosCovariatesModule(SEXP data_sexp, Eigen::VectorXd covariates,
                                                                      bool fixed_v, double m = 0, double B = 1,
                                                                      double v = 1, double nu = 1, double S0 = 1) {
@@ -222,8 +236,7 @@ Rcpp::XPtr<std::shared_ptr<Module>> create_BinaryCovariatesModule(SEXP data_sexp
 }
 
 // [[Rcpp::export]]
-Rcpp::XPtr<std::shared_ptr<Module>> create_BinaryCovariatesModuleCache(SEXP data_sexp,
-                                                                       Rcpp::XPtr<BinaryCache> cache,
+Rcpp::XPtr<std::shared_ptr<Module>> create_BinaryCovariatesModuleCache(SEXP data_sexp, Rcpp::XPtr<BinaryCache> cache,
                                                                        double beta_prior_alpha = 1.0,
                                                                        double beta_prior_beta = 1.0) {
     Data *data = get_data_ptr(data_sexp);
@@ -232,8 +245,8 @@ Rcpp::XPtr<std::shared_ptr<Module>> create_BinaryCovariatesModuleCache(SEXP data
 }
 
 Rcpp::XPtr<std::shared_ptr<Module>> create_CategoricalCovariatesModule(SEXP data_sexp,
-                                                                Eigen::VectorXi categorical_covariate,
-                                                                std::vector<double> prior_alpha) {
+                                                                       Eigen::VectorXi categorical_covariate,
+                                                                       std::vector<double> prior_alpha) {
     Data *data = get_data_ptr(data_sexp);
     auto ptr = std::make_shared<CategoricalCovariatesModule>(*data, categorical_covariate, prior_alpha);
     return Rcpp::XPtr<std::shared_ptr<Module>>(new std::shared_ptr<Module>(ptr), true);

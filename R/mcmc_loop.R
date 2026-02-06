@@ -8,16 +8,17 @@ run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_cova
     # Ensure types are correct for C++
     initial_allocations <- as.integer(initial_allocations)
 
-    continuos_cache <- create_Continuos_cache(initial_allocations, continuos_covariates)
-    binary_cache <- create_Binary_cache(initial_allocations, binary_covariates)
+    # continuos_cache <- create_Continuos_cache(initial_allocations, continuos_covariates)
+    # binary_cache <- create_Binary_cache(initial_allocations, binary_covariates)
+    spatial_cache <- create_Spatial_cache(initial_allocations, W)
 
-    # Instantiate Data using factory function
-    data <- create_Datax(params, list(continuos_cache, binary_cache), initial_allocations)
+    # # Instantiate Data using factory function
+    data <- create_Datax(params, list(spatial_cache), initial_allocations)
     # data <- create_Data(params, initial_allocations)
 
     # Instantiate Likelihood using factory function
-    likelihood <- create_Natarajan_likelihood(data, params)
-    # likelihood <- create_Null_likelihood(data, params) # Placeholder likelihood
+    # likelihood <- create_Natarajan_likelihood(data, params)
+    likelihood <- create_Null_likelihood(data, params) # Placeholder likelihood
     # likelihood <- create_Gamma_likelihood(data, params)
 
     # Instantiate U_sampler (RWMH) using factory function
@@ -26,29 +27,30 @@ run_mcmc <- function(params, initial_allocations = integer(0), W, continuos_cova
 
     # Instantiate Process (NGGPx) using modules
     # 1. Spatial module
-    mod_spatial <- create_SpatialModule(data, W, spatial_coefficient = 1.0)
+    # mod_spatial <- create_SpatialModule(data, W, spatial_coefficient = 1.0)
+    mod_spatial <- create_SpatialModuleCache(data, cache = spatial_cache, spatial_coefficient = 1.0)
 
-    # 2. Covariate module (cached)
-    fixed_v <- TRUE
-    B <- 10 * var(continuos_covariates) # prior variance
-    m <- 0 # prior mean
-    v <- 0.5 * var(continuos_covariates) # known variance
-    nu <- 1
-    S0 <- 1.0
+    # # 2. Covariate module (cached)
+    # fixed_v <- TRUE
+    # B <- 10 * var(continuos_covariates) # prior variance
+    # m <- 0 # prior mean
+    # v <- 0.5 * var(continuos_covariates) # known variance
+    # nu <- 1
+    # S0 <- 1.0
 
-    mod_cov <- create_ContinuosCovariatesModuleCache(data, continuos_cache, fixed_v, m, B, v, nu, S0)
-    #mod_cov <- create_ContinuosCovariatesModule(data, continuos_covariates, fixed_v = TRUE, m = m, B = B, v = v)
+    # mod_cont <- create_ContinuosCovariatesModuleCache(data, continuos_cache, fixed_v, m, B, v, nu, S0)
+    #mod_cont <- create_ContinuosCovariatesModule(data, continuos_covariates, fixed_v = TRUE, m = m, B = B, v = v)
 
     # 3. Binary covariate module
     # mod_binary <- create_BinaryCovariatesModule(data, binary_covariates, 0.1, 0.1)
-    mod_binary <- create_BinaryCovariatesModuleCache(data, binary_cache, 0.1, 0.1)
+    # mod_binary <- create_BinaryCovariatesModuleCache(data, binary_cache, 0.1, 0.1)
 
     # 4. Categorical covariate module
     # alphas <- rep(1.0, length(unique(categorical_covariates)))
     # mod_categorical <- create_CategoricalCovariatesModule(data, categorical_covariates, alphas)
 
     # Combine modules into NGGPx process
-    process <- create_NGGPx(data, params, u_sampler, list(mod_spatial, mod_cov, mod_binary))
+    process <- create_NGGPx(data, params, u_sampler, list(mod_spatial))
     # process <- create_NGGP(data, params, u_sampler)
 
     # Instantiate Sampler (SplitMerge_LSS_SDDS) using factory function
