@@ -5,7 +5,7 @@ var searchData=
   ['lgamma_5falpha_5f0_2',['lgamma_alpha_0',['../classCategoricalCovariatesModule.html#a8af2e2387def7dcb9204b4911cd51614',1,'CategoricalCovariatesModule']]],
   ['lgamma_5fnu_3',['lgamma_nu',['../classContinuosCovariatesModule.html#a3990ca9d5e09d93f797a7d9c1de7249a',1,'ContinuosCovariatesModule::lgamma_nu'],['../classContinuosCovariatesModuleCache.html#ac81596f61aec7c3377704c6077dce2be',1,'ContinuosCovariatesModuleCache::lgamma_nu']]],
   ['lgamma_5fnu_5fn_4',['lgamma_nu_n',['../classContinuosCovariatesModule.html#ae00fb56ba32f5e3a52036391bff110cd',1,'ContinuosCovariatesModule::lgamma_nu_n'],['../classContinuosCovariatesModuleCache.html#aa3730d92d4635f6dde572672e5814e3d',1,'ContinuosCovariatesModuleCache::lgamma_nu_n']]],
-  ['licensing_5',['💡 Usage &amp; Licensing',['../index.html#autotoc_md16',1,'']]],
+  ['licensing_5',['💡 Usage &amp;amp; Licensing',['../index.html#autotoc_md16',1,'']]],
   ['likelihood_6',['Likelihood',['../classLikelihood.html',1,'Likelihood'],['../classLikelihood.html#a2072dc2858072ebe158613d36631f5c0',1,'Likelihood::Likelihood()']]],
   ['likelihood_7',['likelihood',['../classSampler.html#a1572ed0ff1a7ace0f1c6b60954200d8c',1,'Sampler']]],
   ['likelihood_20models_8',['Likelihood Models',['../index.html#autotoc_md9',1,'']]],

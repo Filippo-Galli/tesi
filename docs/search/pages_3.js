@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['for_20bayesian_20nonparametric_20clustering_20with_20mcmc_0',['BNPClust: A C++ Framework for Bayesian Nonparametric Clustering with MCMC',['../index.html',1,'']]],
-  ['framework_20for_20bayesian_20nonparametric_20clustering_20with_20mcmc_1',['BNPClust: A C++ Framework for Bayesian Nonparametric Clustering with MCMC',['../index.html',1,'']]]
+  ['4_20make_20your_20changes_0',['4. Make Your Changes',['../md_CONTRIBUTING.html#autotoc_md24',1,'']]]
 ];

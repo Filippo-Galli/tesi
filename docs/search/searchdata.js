@@ -6,7 +6,7 @@ var indexSectionsWithContent =
   3: "bcdglmnoprsu~",
   4: "abcdefgiklmnoprstuvwz",
   5: "v",
-  6: "abcfmntw"
+  6: "123456789abcdefgiklmnopqrstuwy✨🏗🐛💡📁📖📚📦🔧🚀🛠"
 };
 
 var indexSectionNames =

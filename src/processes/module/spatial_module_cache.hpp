@@ -1,6 +1,6 @@
 /**
- * @file spatial_module_cache.hpp
- * @brief Spatial helper methods for clustering processes.
+ * @file spatial_module_cache.hpp 
+ * @brief Spatial helper methods for clustering processes (WIP).
  */
 
 #pragma once
@@ -10,9 +10,10 @@
 #include "../caches/spatial_cache.hpp"
 
 /**
- * @class SpatialModuleCache
+ * @class SpatialModuleCache (WIP)
  * @brief Module providing spatial methods for processes utilizing spatial
  * information.
+ * @note This is a work-in-progress class, intended to replace SpatialModule but at the moment it does not work properly.
  *
  * This class offers utility functions to compute neighbor counts based on an
  * adjacency matrix W, facilitating the incorporation of spatial dependencies

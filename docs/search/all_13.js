@@ -15,5 +15,5 @@ var searchData=
   ['module_12',['Module',['../classModule.html',1,'Module'],['../classModule.html#a4b1fffbc65ffbf0ca18f7d59394bd46d',1,'Module::Module()']]],
   ['module_2ehpp_13',['Module.hpp',['../Module_8hpp.html',1,'']]],
   ['modules_14',['modules',['../classDPx.html#ab87a17c095f19bbf24c29fa04863d184',1,'DPx::modules'],['../classNGGPx.html#a93849d34e1e2690c77955c488afa7cb6',1,'NGGPx::modules']]],
-  ['move_5fcluster_5finfo_15',['move_cluster_info',['../classClusterInfo.html#a22014a13e7a2323724e7b492b53b9313',1,'ClusterInfo::move_cluster_info()'],['../classBinaryCache.html#aa43d71b5aa9f06c44de37646afbf2279',1,'BinaryCache::move_cluster_info()'],['../classContinuosCache.html#a2db1521deac927377241efe6514ebf7c',1,'ContinuosCache::move_cluster_info()']]]
+  ['move_5fcluster_5finfo_15',['move_cluster_info',['../classClusterInfo.html#a22014a13e7a2323724e7b492b53b9313',1,'ClusterInfo::move_cluster_info()'],['../classBinaryCache.html#aa43d71b5aa9f06c44de37646afbf2279',1,'BinaryCache::move_cluster_info()'],['../classContinuosCache.html#a2db1521deac927377241efe6514ebf7c',1,'ContinuosCache::move_cluster_info()'],['../classSpatialCache.html#a7ee1017c4760707056a65e12b421c1ea',1,'SpatialCache::move_cluster_info()']]]
 ];

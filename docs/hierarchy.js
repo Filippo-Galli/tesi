@@ -2,11 +2,13 @@ var hierarchy =
 [
     [ "ClusterInfo", "classClusterInfo.html", [
       [ "BinaryCache", "classBinaryCache.html", null ],
-      [ "ContinuosCache", "classContinuosCache.html", null ]
+      [ "ContinuosCache", "classContinuosCache.html", null ],
+      [ "SpatialCache", "classSpatialCache.html", null ]
     ] ],
     [ "BinaryCache::ClusterStats", "structBinaryCache_1_1ClusterStats.html", null ],
     [ "ContinuosCache::ClusterStats", "structContinuosCache_1_1ClusterStats.html", null ],
     [ "ContinuosCovariatesModule::ClusterStats", "structContinuosCovariatesModule_1_1ClusterStats.html", null ],
+    [ "SpatialCache::ClusterStats", "structSpatialCache_1_1ClusterStats.html", null ],
     [ "Data", "classData.html", [
       [ "Datax", "classDatax.html", null ]
     ] ],
@@ -17,7 +19,8 @@ var hierarchy =
       [ "CategoricalCovariatesModule", "classCategoricalCovariatesModule.html", null ],
       [ "ContinuosCovariatesModule", "classContinuosCovariatesModule.html", null ],
       [ "ContinuosCovariatesModuleCache", "classContinuosCovariatesModuleCache.html", null ],
-      [ "SpatialModule", "classSpatialModule.html", null ]
+      [ "SpatialModule", "classSpatialModule.html", null ],
+      [ "SpatialModuleCache", "classSpatialModuleCache.html", null ]
     ] ],
     [ "Params", "structParams.html", null ],
     [ "Process", "classProcess.html", [

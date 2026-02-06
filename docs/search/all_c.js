@@ -7,7 +7,7 @@ var searchData=
   ['data_2ehpp_4',['Data.hpp',['../Data_8hpp.html',1,'']]],
   ['data_5fget_5fallocations_5',['data_get_allocations',['../bindings_8cpp.html#ae052afbdb7819af9e753b01fb86e5193',1,'bindings.cpp']]],
   ['data_5fget_5fk_6',['data_get_K',['../bindings_8cpp.html#aaa55cd22c36a3a5214ca5474ee277cfe',1,'bindings.cpp']]],
-  ['data_5fmodule_7',['data_module',['../classSpatialModule.html#ad607b2c05c585c576b7410dd3bef9f1f',1,'SpatialModule']]],
+  ['data_5fmodule_7',['data_module',['../classSpatialModule.html#ad607b2c05c585c576b7410dd3bef9f1f',1,'SpatialModule::data_module'],['../classSpatialModuleCache.html#a693a6f557ee6148dda4a0bf9462dbbfb',1,'SpatialModuleCache::data_module']]],
   ['datax_8',['Datax',['../classDatax.html',1,'Datax'],['../classDatax.html#ac1a24ac730ac20058f1104ebb3968cee',1,'Datax::Datax()']]],
   ['datax_2ecpp_9',['Datax.cpp',['../Datax_8cpp.html',1,'']]],
   ['datax_2ehpp_10',['Datax.hpp',['../Datax_8hpp.html',1,'']]],

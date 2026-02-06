@@ -28,15 +28,15 @@ var NAVTREE =
     [ "BNPClust: A C++ Framework for Bayesian Nonparametric Clustering with MCMC", "index.html", "index" ],
     [ "Contributing to BNPClust", "md_CONTRIBUTING.html", [
       [ "Getting Started", "md_CONTRIBUTING.html#autotoc_md20", [
-        [ "Fork the Repository", "md_CONTRIBUTING.html#autotoc_md21", null ],
-        [ "Clone Your Fork", "md_CONTRIBUTING.html#autotoc_md22", null ],
-        [ "Create a New Branch", "md_CONTRIBUTING.html#autotoc_md23", null ],
-        [ "Make Your Changes", "md_CONTRIBUTING.html#autotoc_md24", null ],
-        [ "Test Your Changes", "md_CONTRIBUTING.html#autotoc_md25", null ],
-        [ "Commit Your Changes", "md_CONTRIBUTING.html#autotoc_md26", null ],
-        [ "Push to Your Fork", "md_CONTRIBUTING.html#autotoc_md27", null ],
-        [ "Create a Pull Request", "md_CONTRIBUTING.html#autotoc_md28", null ],
-        [ "Address Feedback", "md_CONTRIBUTING.html#autotoc_md29", null ]
+        [ "1. Fork the Repository", "md_CONTRIBUTING.html#autotoc_md21", null ],
+        [ "2. Clone Your Fork", "md_CONTRIBUTING.html#autotoc_md22", null ],
+        [ "3. Create a New Branch", "md_CONTRIBUTING.html#autotoc_md23", null ],
+        [ "4. Make Your Changes", "md_CONTRIBUTING.html#autotoc_md24", null ],
+        [ "5. Test Your Changes", "md_CONTRIBUTING.html#autotoc_md25", null ],
+        [ "6. Commit Your Changes", "md_CONTRIBUTING.html#autotoc_md26", null ],
+        [ "7. Push to Your Fork", "md_CONTRIBUTING.html#autotoc_md27", null ],
+        [ "8. Create a Pull Request", "md_CONTRIBUTING.html#autotoc_md28", null ],
+        [ "9. Address Feedback", "md_CONTRIBUTING.html#autotoc_md29", null ]
       ] ],
       [ "Design Philosophy", "md_CONTRIBUTING.html#autotoc_md31", [
         [ "KISS Principle", "md_CONTRIBUTING.html#autotoc_md32", null ],
@@ -60,7 +60,7 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "Variables", "functions_vars.html", "functions_vars" ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -77,9 +77,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "ClusterInfo_8hpp.html",
-"classData.html#ad7e997f17eb2f794c0dfc9b6b73260b0",
-"classSplitMerge__SAMS.html#a6f774a8523fa9cd09826aecd6a177d11"
+"classData.html#ac7f783945481fdf95a9f0d56b7de116f",
+"classSplitMerge__LSS__SDDS.html#a9f4244224661c3cca30e8c2d4f6f035a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';
 var SYNCOFFMSG = 'click to enable panel synchronization';
+var LISTOFALLMEMBERS = 'List of all members';

@@ -5,5 +5,5 @@ var searchData=
   ['implemented_20methods_2',['📦 Implemented Methods',['../index.html#autotoc_md7',1,'']]],
   ['improvements_3',['🔧 Code Improvements',['../md_CONTRIBUTING.html#autotoc_md42',1,'']]],
   ['indices_4',['indices',['../classNeal3.html#ad42dae39ff27013f03cc863004177675',1,'Neal3']]],
-  ['installation_20usage_5',['🛠️ Installation &amp; Usage',['../index.html#autotoc_md11',1,'']]]
+  ['installation_20usage_5',['🛠️ Installation &amp;amp; Usage',['../index.html#autotoc_md11',1,'']]]
 ];

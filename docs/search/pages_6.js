@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['to_20bnpclust_0',['Contributing to BNPClust',['../md_CONTRIBUTING.html',1,'']]]
+  ['7_20push_20to_20your_20fork_0',['7. Push to Your Fork',['../md_CONTRIBUTING.html#autotoc_md27',1,'']]]
 ];

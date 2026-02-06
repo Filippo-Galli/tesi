@@ -12,12 +12,12 @@ var index =
       [ "Likelihood Models", "index.html#autotoc_md9", null ],
       [ "MCMC Samplers", "index.html#autotoc_md10", null ]
     ] ],
-    [ "🛠️ Installation & Usage", "index.html#autotoc_md11", [
+    [ "🛠️ Installation &amp; Usage", "index.html#autotoc_md11", [
       [ "Prerequisites", "index.html#autotoc_md12", null ],
       [ "Setup", "index.html#autotoc_md13", null ],
       [ "Running a Basic Example", "index.html#autotoc_md14", null ]
     ] ],
     [ "📚 References", "index.html#autotoc_md15", null ],
-    [ "💡 Usage & Licensing", "index.html#autotoc_md16", null ],
+    [ "💡 Usage &amp; Licensing", "index.html#autotoc_md16", null ],
     [ "💡 Contributing", "index.html#autotoc_md18", null ]
 ];

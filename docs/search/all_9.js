@@ -13,9 +13,10 @@ var searchData=
   ['accepted_5fu_10',['accepted_U',['../classU__sampler.html#acca05886c1b4138a4f42fa1800a4d31a',1,'U_sampler']]],
   ['address_20feedback_11',['9. Address Feedback',['../md_CONTRIBUTING.html#autotoc_md29',1,'']]],
   ['allocations_12',['allocations',['../classData.html#aa3216ace6edfe6d6a3f522db636d4d49',1,'Data::allocations'],['../classBinaryCache.html#a71f2f8de4837b7f01e0e31ed814cbe58',1,'BinaryCache::allocations']]],
-  ['alpha_13',['alpha',['../structParams.html#a881058e4167b8bbb7715e23975b0d893',1,'Params']]],
-  ['alpha_5f0_14',['alpha_0',['../classCategoricalCovariatesModule.html#a87f7183a6639723ba0398f46c376a7c2',1,'CategoricalCovariatesModule']]],
-  ['always_5finline_15',['always_inline',['../classContinuosCovariatesModule.html#a5c491682596492f00aa7d4883674659b',1,'ContinuosCovariatesModule::always_inline'],['../classContinuosCovariatesModuleCache.html#ac5dd95a95b6796f0936166fc53c2843a',1,'ContinuosCovariatesModuleCache::always_inline']]],
-  ['and_20documentation_16',['docs and Documentation',['../index.html#autotoc_md5',1,'']]],
-  ['architecture_17',['🏗️ Architecture',['../index.html#autotoc_md6',1,'']]]
+  ['allocations_5fptr_13',['allocations_ptr',['../classSpatialCache.html#aef64707c4d94d6f283f0aa1d1d05f380',1,'SpatialCache']]],
+  ['alpha_14',['alpha',['../structParams.html#a881058e4167b8bbb7715e23975b0d893',1,'Params']]],
+  ['alpha_5f0_15',['alpha_0',['../classCategoricalCovariatesModule.html#a87f7183a6639723ba0398f46c376a7c2',1,'CategoricalCovariatesModule']]],
+  ['always_5finline_16',['always_inline',['../classContinuosCovariatesModule.html#a5c491682596492f00aa7d4883674659b',1,'ContinuosCovariatesModule::always_inline'],['../classContinuosCovariatesModuleCache.html#ac5dd95a95b6796f0936166fc53c2843a',1,'ContinuosCovariatesModuleCache::always_inline']]],
+  ['and_20documentation_17',['docs and Documentation',['../index.html#autotoc_md5',1,'']]],
+  ['architecture_18',['🏗️ Architecture',['../index.html#autotoc_md6',1,'']]]
 ];
